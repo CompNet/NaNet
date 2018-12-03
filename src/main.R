@@ -74,7 +74,7 @@ for(line in lines)
 
 
 ###############################################################################
-# extract the static graph
+# extract the segment-based static graph
 static.df <- data.frame(From=character(), To=character(), Occurrences=integer(), Duration=integer(), stringsAsFactors=FALSE)
 Encoding(static.df$From) <- "UTF-8"
 Encoding(static.df$To) <- "UTF-8"
@@ -95,3 +95,10 @@ graph.file <- file.path(data.folder,"static.graphml")
 write_graph(graph=g, file=graph.file, format="graphml")
 #plot(g, layout=layout_with_fr(g))
 
+# TODO
+# - define function for graph extraction
+#   - distinguish segment- and page based
+#   - also window-based ?
+# - extract one graph for each volume? cycle?
+# - extract dynamic nets
+# - define a specfic function for the conversion process
