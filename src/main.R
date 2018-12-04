@@ -5,14 +5,18 @@
 ###############################################################################
 library("igraph")
 
+source("src/graph_extraction.R")
+
+
+
 
 
 ###############################################################################
 # init file paths
-data.folder <- file.path("data","Ralph_Azham")
-pages.file <- file.path(data.folder,"pages.csv")
-volumes.file <- file.path(data.folder,"volumes.csv")
-inter.file <- file.path(data.folder,"interactions.txt")
+FATA_FOLDER <- file.path("data","Ralph_Azham")
+pages.file <- file.path(FATA_FOLDER,"pages.csv")
+volumes.file <- file.path(FATA_FOLDER,"volumes.csv")
+inter.file <- file.path(FATA_FOLDER,"interactions.txt")
 
 
 ###############################################################################
@@ -75,29 +79,13 @@ for(line in lines)
 
 ###############################################################################
 # extract the segment-based static graph
-static.df <- data.frame(From=character(), To=character(), Occurrences=integer(), Duration=integer(), stringsAsFactors=FALSE)
-Encoding(static.df$From) <- "UTF-8"
-Encoding(static.df$To) <- "UTF-8"
-for(i in 1:nrow(inter.df))
-{	from.char <- inter.df[i,"From"]
-	to.char <- inter.df[i,"To"]
-	index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
-	length <- inter.df[i,"End"] - inter.df[i,"Start"] + 1
-	if(length(index)==0)
-		static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length))
-	else
-	{	static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
-		static.df[index, "Duration"] <- static.df[index, "Duration"] + length
-	}
-}
-g <- graph.data.frame(d=static.df, directed=FALSE, vertices=NULL)
-graph.file <- file.path(data.folder,"static.graphml")
-write_graph(graph=g, file=graph.file, format="graphml")
+g <- extract.static.graph(inter.df)
 #plot(g, layout=layout_with_fr(g))
 
 # TODO
 # - define function for graph extraction
-#   - distinguish segment- and page based
+#   - distinguish segment- and page-based
+#     >> must add pages to inter.df 
 #   - also window-based ?
 # - extract one graph for each volume? cycle?
 # - extract dynamic nets
