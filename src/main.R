@@ -49,7 +49,11 @@ lines <- strsplit(temp, split='\t', fixed=TRUE)
 
 
 # extract the edge list
-inter.df <- data.frame(From=character(), To=character(), Start=integer(), End=integer(), stringsAsFactors=FALSE)
+inter.df <- data.frame(
+		From=character(), To=character(), 
+		StartPanel=integer(), EndPanel=integer(), 
+		StartPage=integer(), EndPage=integer(), 
+		stringsAsFactors=FALSE)
 Encoding(inter.df$From) <- "UTF-8"
 Encoding(inter.df$To) <- "UTF-8"
 for(line in lines)
@@ -62,8 +66,8 @@ for(line in lines)
 	end.page <- as.integer(end[1])
 	end.panel <- as.integer(end[2])
 	end.abs <- pages.info[end.page,"Start"] + end.panel - 1
-#	# compute segment length (in panels)
-#	length <- end.abs - start.abs + 1
+	# compute segment length (in pages)
+	page.length <- end.page - start.page + 1
 	# get all combinations of characters
 	chars <- line[3:length(line)]
 	chars <- gsub("[()]", "", chars)	# remove parenthesis (representing ghost characters)
@@ -71,7 +75,8 @@ for(line in lines)
 	chars <- t(combn(x=chars,m=2))
 	# add segment to data frame
 	df <- data.frame(From=(chars[,1]), To=chars[,2], 
-			Start=as.integer(rep(start.abs,nrow(chars))), End=as.integer(rep(end.abs,nrow(chars))), 
+			StartPanel=as.integer(rep(start.abs,nrow(chars))), EndPanel=as.integer(rep(end.abs,nrow(chars))),
+			StartPage=as.integer(rep(start.page,nrow(chars))), EndPage=as.integer(rep(end.page,nrow(chars))),
 			stringsAsFactors=FALSE)
 	inter.df <- rbind(inter.df, df)
 }
@@ -79,8 +84,9 @@ for(line in lines)
 
 ###############################################################################
 # extract the segment-based static graph
-g <- extract.static.graph(inter.df)
+g <- extract.static.graph.from.segments(inter.df)
 #plot(g, layout=layout_with_fr(g))
+g <- extract.static.graph(inter.df)
 
 # TODO
 # - define function for graph extraction
