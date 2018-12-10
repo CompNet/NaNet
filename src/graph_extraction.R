@@ -12,7 +12,7 @@
 # segment as the time unit, without overlap.
 #
 # inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns StartPanel, EndPanel).
+#			and their time of occurrence (columns Start, End).
 #
 # returns: the corresponding static graph. It contains several edge weigths:
 #		   - Occurrences: number of interactions between the concerned nodes.
@@ -53,7 +53,7 @@ extract.static.graph.from.segments <- function(inter.df)
 # specified window size and overlap, both expressed in number of panels.
 #
 # inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns StartPanel, EndPanel).
+#			and their time of occurrence (columns Start, End).
 # window.size: size of the time window (expressed in panels).
 # overlap: how much consecutive windows overlap (expressed in panels)
 #
@@ -71,12 +71,12 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	Encoding(static.df$To) <- "UTF-8"
 	
 	# compute the co-occurrences
-	last.panel <- max(inter.df[,"EndPanel"])
+	last.panel <- max(inter.df[,"End"])
 	window.start <- 1
 	window.end <- window.size
 	while(window.end<=last.panel)
 	{	# segments concerned intersecting the window
-		idx <- which(!(inter.df[,"EndPanel"]<window.start | inter.df[,"StartPanel"]>window.end))
+		idx <- which(!(inter.df[,"End"]<window.start | inter.df[,"Start"]>window.end))
 		# get all concerned chars
 		chars <- sort(unique(c(inter.fr[idx,c("From","To")])))
 		pairs <- t(combn(x=chars,m=2))
@@ -110,15 +110,15 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 # specified window size and overlap, both expressed in number of pages.
 #
 # inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns StartPanel, EndPanel, StartPage,
-#			and EndPage).
+#			and their time of occurrence (columns Start, End).
+# pages.info: dataframe containing the number of panels in the pages.
 # window.size: size of the time window (expressed in pages).
 # overlap: how much consecutive windows overlap (expressed in pages)
 #
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.from.page.window <- function(inter.df, window.size=2, overlap=1)
+extract.static.graph.from.page.window <- function(inter.df, pages.info, window.size=2, overlap=1)
 {	# check the overlap parameter
 	if(overlap>=window.size)
 		stop("ERROR: overlap must be smaller than window.size")
@@ -128,16 +128,16 @@ extract.static.graph.from.page.window <- function(inter.df, window.size=2, overl
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
 	
-# TODO
-# remove pages in the inter.df table, pass the page-table as a parameter and use it here
-# (just need to be able to convert start/end of page in terms of panels)
 	# compute the co-occurrences
-	last.panel <- max(inter.df[,"EndPanel"])
+	last.page <- nrow(inter.df)
 	window.start <- 1
 	window.end <- window.size
-	while(window.end<=last.panel)
-	{	# segments concerned intersecting the window
-		idx <- which(!(inter.df[,"EndPanel"]<window.start | inter.df[,"StartPanel"]>window.end))
+	while(window.end<=last.page)
+	{	# compute start/end in terms of panels
+		start.panel <- pages.info[window.start,"Start"]
+		end.panel <- pages.info[window.start,"Start"] + pages.info[window.start,"Panels"] - 1
+		# segments concerned intersecting the window
+		idx <- which(!(inter.df[,"End"]<start.panel | inter.df[,"Start"]>end.panel))
 		# get all concerned chars
 		chars <- sort(unique(c(inter.fr[idx,c("From","To")])))
 		pairs <- t(combn(x=chars,m=2))
@@ -164,5 +164,6 @@ extract.static.graph.from.page.window <- function(inter.df, window.size=2, overl
 	
 	return(g)
 }
+
 
 
