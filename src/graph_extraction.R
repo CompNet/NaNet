@@ -41,7 +41,8 @@ extract.static.graph.from.segments <- function(inter.df)
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(DATA_FOLDER,"static_segments.graphml")
+	dir.create(OUT_FOLDER, showWarnings=FALSE)
+	graph.file <- file.path(OUT_FOLDER,"static_segments.graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	return(g)
@@ -75,20 +76,22 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	window.start <- 1
 	window.end <- window.size
 	while(window.end<=last.panel)
-	{	# segments concerned intersecting the window
+	{	# segments intersecting the window
 		idx <- which(!(inter.df[,"End"]<window.start | inter.df[,"Start"]>window.end))
 		# get all concerned chars
-		chars <- sort(unique(c(inter.fr[idx,c("From","To")])))
-		pairs <- t(combn(x=chars,m=2))
-		# update dataframe
-		for(i in 1:nrow(pairs))
-		{	from.char <- pairs[i,1]
-			to.char <- pairs[i,2]
-			index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
-			if(length(index)==0)
-				static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
-			else
-				static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
+		if(length(chars)>1)
+		{	pairs <- t(combn(x=chars,m=2))
+			# update dataframe
+			for(i in 1:nrow(pairs))
+			{	from.char <- pairs[i,1]
+				to.char <- pairs[i,2]
+				index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
+				if(length(index)==0)
+					static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
+				else
+					static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+			}
 		}
 		# update window
 		window.start <- window.start + window.size - overlap
@@ -98,7 +101,8 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(DATA_FOLDER,paste0("static_panels_ws=",window.size,"_ol=",overlap,".graphml"))
+	dir.create(OUT_FOLDER, showWarnings=FALSE)
+	graph.file <- file.path(OUT_FOLDER,paste0("static_panels_ws=",window.size,"_ol=",overlap,".graphml"))
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	return(g)
@@ -136,20 +140,22 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 	{	# compute start/end in terms of panels
 		start.panel <- pages.info[window.start,"Start"]
 		end.panel <- pages.info[window.start,"Start"] + pages.info[window.start,"Panels"] - 1
-		# segments concerned intersecting the window
+		# segments intersecting the window
 		idx <- which(!(inter.df[,"End"]<start.panel | inter.df[,"Start"]>end.panel))
 		# get all concerned chars
-		chars <- sort(unique(c(inter.fr[idx,c("From","To")])))
-		pairs <- t(combn(x=chars,m=2))
-		# update dataframe
-		for(i in 1:nrow(pairs))
-		{	from.char <- pairs[i,1]
-			to.char <- pairs[i,2]
-			index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
-			if(length(index)==0)
-				static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
-			else
-				static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
+		if(length(chars)>1)
+		{	pairs <- t(combn(x=chars,m=2))
+			# update dataframe
+			for(i in 1:nrow(pairs))
+			{	from.char <- pairs[i,1]
+				to.char <- pairs[i,2]
+				index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
+				if(length(index)==0)
+					static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
+				else
+					static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+			}
 		}
 		# update window
 		window.start <- window.start + window.size - overlap
@@ -159,7 +165,8 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(DATA_FOLDER,paste0("static_pages_ws=",window.size,"_ol=",overlap,".graphml"))
+	dir.create(OUT_FOLDER, showWarnings=FALSE)
+	graph.file <- file.path(OUT_FOLDER,paste0("static_pages_ws=",window.size,"_ol=",overlap,".graphml"))
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	return(g)

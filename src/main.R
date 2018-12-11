@@ -13,10 +13,12 @@ source("src/graph_extraction.R")
 
 ###############################################################################
 # init file paths
-FATA_FOLDER <- file.path("data","Ralph_Azham")
-pages.file <- file.path(FATA_FOLDER,"pages.csv")
-volumes.file <- file.path(FATA_FOLDER,"volumes.csv")
-inter.file <- file.path(FATA_FOLDER,"interactions.txt")
+DATA_FOLDER <- file.path("data","Test")
+#DATA_FOLDER <- file.path("data","Ralph_Azham")
+OUT_FOLDER <- file.path(DATA_FOLDER,"networks")
+pages.file <- file.path(DATA_FOLDER,"pages.csv")
+volumes.file <- file.path(DATA_FOLDER,"volumes.csv")
+inter.file <- file.path(DATA_FOLDER,"interactions.txt")
 
 
 ###############################################################################
@@ -89,9 +91,7 @@ g <- extract.static.graph.from.page.window(inter.df, pages.info, window.size=2, 
 
 # TODO
 # - define function for graph extraction
-#   - distinguish segment- and page-based
-#     >> must add pages to inter.df 
-#   - also window-based ?
+#   >> Test that on a small toy dataset
 # - extract one graph for each volume? cycle?
 # - extract dynamic nets
 # - define a specfic function for the conversion process
