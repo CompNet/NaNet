@@ -29,37 +29,46 @@
       <data key="e_Occurrences">1</data>
     </edge>
     <edge source="n0" target="n2">
-      <data key="e_Occurrences">2</data>
+      <data key="e_Occurrences">3</data>
+    </edge>
+    <edge source="n0" target="n3">
+      <data key="e_Occurrences">5</data>
     </edge>
     <edge source="n0" target="n4">
-      <data key="e_Occurrences">4</data>
+      <data key="e_Occurrences">5</data>
+    </edge>
+    <edge source="n0" target="n5">
+      <data key="e_Occurrences">5</data>
     </edge>
     <edge source="n1" target="n2">
+      <data key="e_Occurrences">1</data>
+    </edge>
+    <edge source="n1" target="n3">
       <data key="e_Occurrences">1</data>
     </edge>
     <edge source="n1" target="n4">
       <data key="e_Occurrences">1</data>
     </edge>
-    <edge source="n2" target="n4">
-      <data key="e_Occurrences">2</data>
-    </edge>
-    <edge source="n0" target="n3">
-      <data key="e_Occurrences">3</data>
-    </edge>
-    <edge source="n0" target="n5">
-      <data key="e_Occurrences">2</data>
-    </edge>
-    <edge source="n3" target="n4">
-      <data key="e_Occurrences">4</data>
-    </edge>
-    <edge source="n3" target="n5">
-      <data key="e_Occurrences">3</data>
-    </edge>
-    <edge source="n4" target="n5">
-      <data key="e_Occurrences">4</data>
+    <edge source="n1" target="n5">
+      <data key="e_Occurrences">1</data>
     </edge>
     <edge source="n2" target="n3">
-      <data key="e_Occurrences">1</data>
+      <data key="e_Occurrences">3</data>
+    </edge>
+    <edge source="n2" target="n4">
+      <data key="e_Occurrences">3</data>
+    </edge>
+    <edge source="n2" target="n5">
+      <data key="e_Occurrences">3</data>
+    </edge>
+    <edge source="n3" target="n4">
+      <data key="e_Occurrences">5</data>
+    </edge>
+    <edge source="n3" target="n5">
+      <data key="e_Occurrences">5</data>
+    </edge>
+    <edge source="n4" target="n5">
+      <data key="e_Occurrences">5</data>
     </edge>
   </graph>
 </graphml>

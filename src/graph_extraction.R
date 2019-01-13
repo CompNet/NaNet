@@ -37,6 +37,7 @@ extract.static.graph.from.segments <- function(inter.df)
 			static.df[index, "Duration"] <- static.df[index, "Duration"] + length
 		}
 	}
+	print(static.df)
 	
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
@@ -75,8 +76,12 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	last.panel <- max(inter.df[,"End"])
 	window.start <- 1
 	window.end <- window.size
-	while(window.end<=last.panel)
-	{	# segments intersecting the window
+	covered <- FALSE
+	while(!covered)
+	{	window.end <- min(window.end,last.panel)
+		covered <- window.end==last.panel
+		cat("Current window: [",window.start,",",window.end,"]\n")
+		# segments intersecting the window
 		idx <- which(!(inter.df[,"End"]<window.start | inter.df[,"Start"]>window.end))
 		# get all concerned chars
 		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
@@ -93,10 +98,12 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 					static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
 			}
 		}
+		print(chars)
 		# update window
 		window.start <- window.start + window.size - overlap
-		window.end <- window.start + window.size
+		window.end <- window.start + window.size - 1
 	}
+	print(static.df)
 	
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
@@ -133,17 +140,23 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 	Encoding(static.df$To) <- "UTF-8"
 	
 	# compute the co-occurrences
-	last.page <- nrow(inter.df)
+	last.page <- nrow(pages.info)	
 	window.start <- 1
 	window.end <- window.size
-	while(window.end<=last.page)
-	{	# compute start/end in terms of panels
+	covered <- FALSE
+	while(!covered)
+	{	window.end <- min(window.end,last.page)
+		covered <- window.end==last.page
+		cat("Current window: [",window.start,",",window.end,"]")
+		# compute start/end in terms of panels
 		start.panel <- pages.info[window.start,"Start"]
-		end.panel <- pages.info[window.start,"Start"] + pages.info[window.start,"Panels"] - 1
+		end.panel <- pages.info[window.end,"Start"] + pages.info[window.end,"Panels"] - 1
+		cat(" ie [",start.panel,",",end.panel,"]\n")
 		# segments intersecting the window
 		idx <- which(!(inter.df[,"End"]<start.panel | inter.df[,"Start"]>end.panel))
 		# get all concerned chars
 		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
+		print(chars)
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
 			# update dataframe
@@ -159,8 +172,9 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 		}
 		# update window
 		window.start <- window.start + window.size - overlap
-		window.end <- window.start + window.size
+		window.end <- window.start + window.size - 1
 	}
+	print(static.df)
 	
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)

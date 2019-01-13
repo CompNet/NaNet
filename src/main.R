@@ -13,8 +13,8 @@ source("src/graph_extraction.R")
 
 ###############################################################################
 # init file paths
-DATA_FOLDER <- file.path("data","Test")
-#DATA_FOLDER <- file.path("data","Ralph_Azham")
+#DATA_FOLDER <- file.path("data","Test")
+DATA_FOLDER <- file.path("data","Ralph_Azham")
 OUT_FOLDER <- file.path(DATA_FOLDER,"networks")
 pages.file <- file.path(DATA_FOLDER,"pages.csv")
 volumes.file <- file.path(DATA_FOLDER,"volumes.csv")
@@ -63,10 +63,14 @@ for(line in lines)
 	start.page <- as.integer(start[1])
 	start.panel <- as.integer(start[2])
 	start.abs <- pages.info[start.page,"Start"] + start.panel - 1
+	if(is.na(start.abs))
+		stop(paste0("Problem with line:\"",paste(line,collapse=","),"\""))
 	end <- strsplit(line[2], split='.', fixed=TRUE)[[1]]
 	end.page <- as.integer(end[1])
 	end.panel <- as.integer(end[2])
 	end.abs <- pages.info[end.page,"Start"] + end.panel - 1
+	if(is.na(end.abs))
+		stop(paste0("Problem with line:\"",paste(line,collapse=","),"\""))
 	# compute segment length (in pages)
 	page.length <- end.page - start.page + 1
 	# get all combinations of characters
@@ -86,12 +90,14 @@ for(line in lines)
 # extract the segment-based static graph
 g <- extract.static.graph.from.segments(inter.df)
 #plot(g, layout=layout_with_fr(g))
+
+# extract the window-based static graphs
 g <- extract.static.graph.from.panel.window(inter.df, window.size=10, overlap=2)
 g <- extract.static.graph.from.page.window(inter.df, pages.info, window.size=2, overlap=1)
 
 # TODO
-# - define function for graph extraction
-#   >> Test that on a small toy dataset
 # - extract one graph for each volume? cycle?
 # - extract dynamic nets
-# - define a specfic function for the conversion process
+#   - include narrative smoothing
+#	- also test that on the toy example
+# - define a specfic function for the conversion process when dealing with other file formats
