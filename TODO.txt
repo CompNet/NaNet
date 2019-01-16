@@ -1,0 +1,22 @@
+Static graph extraction
+	- Extract one graph for each volume? 
+	- Cycle?
+
+Dynamic network extraction
+   - Implement window-based approach 
+   - Implement narrative smoothing
+	- (test on the toy example)
+
+Define a specific function for the conversion process when dealing with other file formats
+
+Topological properties:
+	- Compute them automatically
+	- Compare them
+
+Nodal attributes:
+    - We could easily define tables describing characters
+      - Gender
+      - Ralph Azham >> bleui or not
+      - Others?
+    >> interest: compute measures such as homophily
+    - Store that in a specific table.
