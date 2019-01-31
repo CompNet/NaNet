@@ -32,7 +32,22 @@ extract.graphs(data)
 
 
 ###############################################################################
+# stats part
+# Goal: study the effect of the extraction parameters
+#	- window size
+#	- overlap
+#	- extraction method
+# Methods:
+#	- standard topological measures:
+#		- how they evolve with the parameters
+#		- for nodal measure, we could study how they are rank-correlated (for 2 different parameter values)
+#		  (in addition to studyig changes in absolute value)
+#	- also consider global similarity measures between graphs
+
 
 # TODO
 # - check whether non-contiguous page numbering affects graph extraction functions
 # - test everything
+
+
+
