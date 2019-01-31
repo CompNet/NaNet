@@ -15,7 +15,8 @@ DATA_FOLDER <- file.path("data","Ralph_Azham")
 ###############################################################################
 # load auxiliary functions
 source("src/file_constants.R")
-source("src/access_raw.R")
+source("src/table_constants.R")
+source("src/read_raw.R")
 source("src/extract_graphs.R")
 source("src/logging.R")
 
@@ -33,10 +34,9 @@ extract.graphs(data)
 ###############################################################################
 
 # TODO
-# - a volume does not necessarily starts at page 1
+# - a volume does not necessarily start at page 1 >> must re-number pages
 # - add volume to interactions.txt & pages.csv
-#   >> volume file not needed anymore (can be built from pages.csv 
-#   >> automatically generate volumes.csv
+#   >> volume file not needed anymore (can be built from pages.csv?)
+#   >> automatically generate volumes.csv >> in the end, NO (better to cross check)
 # - check:
 #   - That a panel is not out of a page
-#   - That a page is not out of a volume
