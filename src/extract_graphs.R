@@ -23,21 +23,29 @@ extract.static.graph.from.segments <- function(inter.df)
 {	tlog(2,"Extracting the segment-based static graph")
 	
 	# init the dataframe
-	static.df <- data.frame(From=character(), To=character(), Occurrences=integer(), Duration=integer(), stringsAsFactors=FALSE)
+	static.df <- data.frame(
+			From=character(), To=character(), 
+			Occurrences=integer(), Duration=integer(), 
+			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
+	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES, COL_INTER_DURATION)
+	colnames(static.df) <- cn
 	
 	# build the edgelist
 	for(i in 1:nrow(inter.df))
-	{	from.char <- inter.df[i,"From"]
-		to.char <- inter.df[i,"To"]
-		index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
-		length <- inter.df[i,"End"] - inter.df[i,"Start"] + 1
+	{	from.char <- inter.df[i,COL_INTER_FROM_CHAR]
+		to.char <- inter.df[i,COL_INTER_TO_CHAR]
+		index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+		length <- inter.df[i,COL_INTER_END_PANEL_ID] - inter.df[i,COL_INTER_START_PANEL_ID] + 1
 		if(length(index)==0)
-			static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length))
+		{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length)
+			colnames(tmp.df) <- cn
+			static.df <- rbind(static.df, tmp.df)
+		}
 		else
-		{	static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
-			static.df[index, "Duration"] <- static.df[index, "Duration"] + length
+		{	static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
+			static.df[index, COL_INTER_DURATION] <- static.df[index, COL_INTER_DURATION] + length
 		}
 	}
 #	print(static.df)
@@ -73,12 +81,17 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 		stop("ERROR: overlap must be smaller than window.size")
 	
 	# init the dataframe
-	static.df <- data.frame(From=character(), To=character(), Occurrences=integer(), stringsAsFactors=FALSE)
+	static.df <- data.frame(
+			From=character(), To=character(), 
+			Occurrences=integer(), 
+			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
+	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES)
+	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
-	last.panel <- max(inter.df[,"End"])
+	last.panel <- max(inter.df[,COL_INTER_END_PANEL_ID])
 	window.start <- 1
 	window.end <- window.size
 	covered <- FALSE
@@ -87,20 +100,23 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 		covered <- window.end==last.panel
 		tlog(3,"Current window: [",window.start,",",window.end,"]")
 		# segments intersecting the window
-		idx <- which(!(inter.df[,"End"]<window.start | inter.df[,"Start"]>window.end))
+		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<window.start | inter.df[,COL_INTER_START_PANEL_ID]>window.end))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
 			# update dataframe
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
+				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
 				if(length(index)==0)
-					static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
+				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1)
+					colnames(tmp.df) <- cn
+					static.df <- rbind(static.df, tmp.df)
+				}
 				else
-					static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+					static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
 			}
 		}
 #		print(chars)
@@ -142,9 +158,14 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 		stop("ERROR: overlap must be smaller than window.size")
 	
 	# init the dataframe
-	static.df <- data.frame(From=character(), To=character(), Occurrences=integer(), stringsAsFactors=FALSE)
+	static.df <- data.frame(
+			From=character(), To=character(), 
+			Occurrences=integer(), 
+			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
+	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES)
+	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
 	last.page <- nrow(pages.info)	
@@ -156,13 +177,13 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 		covered <- window.end==last.page
 		msg <- paste0("Current window: [",window.start,",",window.end,"]")
 		# compute start/end in terms of panels
-		start.panel <- pages.info[window.start,"Start"]
-		end.panel <- pages.info[window.end,"Start"] + pages.info[window.end,"Panels"] - 1
+		start.panel <- pages.info[window.start,COL_INTER_START_PANEL_ID]
+		end.panel <- pages.info[window.end,COL_INTER_START_PANEL_ID] + pages.info[window.end,COL_PAGES_PANELS] - 1
 		tlog(3,paste0(msg, " ie [",start.panel,",",end.panel,"]"))
 		# segments intersecting the window
-		idx <- which(!(inter.df[,"End"]<start.panel | inter.df[,"Start"]>end.panel))
+		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<start.panel | inter.df[,COL_INTER_START_PANEL_ID]>end.panel))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c("From","To")]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
 #		print(chars)
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
@@ -170,11 +191,14 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,"From"]==from.char & static.df[,"To"]==to.char)
+				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
 				if(length(index)==0)
-					static.df <- rbind(static.df, data.frame(From=from.char, To=to.char, Occurrences=1))
+				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1)
+					colnames(tmp.df) <- cn
+					static.df <- rbind(static.df, tmp.df)
+				}
 				else
-					static.df[index, "Occurrences"] <- static.df[index, "Occurrences"] + 1
+					static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
 			}
 		}
 		# update window

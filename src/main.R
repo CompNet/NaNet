@@ -34,9 +34,5 @@ extract.graphs(data)
 ###############################################################################
 
 # TODO
-# - a volume does not necessarily start at page 1 >> must re-number pages
-# - add volume to interactions.txt & pages.csv
-#   >> volume file not needed anymore (can be built from pages.csv?)
-#   >> automatically generate volumes.csv >> in the end, NO (better to cross check)
-# - check:
-#   - That a panel is not out of a page
+# - check whether non-contiguous page numbering affects graph extraction functions
+# - test everything
