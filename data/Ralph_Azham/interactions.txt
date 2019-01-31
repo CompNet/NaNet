@@ -615,7 +615,7 @@
 7	330	6	330	7	Clothilde	Yassou	Philibert
 8	331	1	332	3	Ralph Azham	Bastien Azham	Ministre bouledogue 331	Ministre Lézard 331	Ministre chat 331	Ministre caché 331	Ministre moustache 331
 8	332	10	332	10	Ralph Azham	Foule 332
-8	333	1	333	5	Yassou	Zania	Mélissa	Clothilde	Will	Markel	Pr Treska	Philibert
+8	333	1	333	5	Yassou	Zania	Mélissa	Clothilde	Will	Markel	Professeur Treska	Philibert
 8	334	4	334	7	Pochard 334	2 voleurs 334
 8	334	8	334	12	Pochard 334	2 voleurs 334	Ralph Azham
 8	335	2	335	5	Ralph Azham	3 gardes 335

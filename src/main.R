@@ -32,7 +32,7 @@ extract.graphs(data)
 
 
 ###############################################################################
-# stats part
+####### Stats part
 # Goal: study the effect of the extraction parameters
 #	- window size
 #	- overlap
@@ -48,6 +48,6 @@ extract.graphs(data)
 # TODO
 # - check whether non-contiguous page numbering affects graph extraction functions
 # - test everything
-
-
-
+# - characters:
+#	- script to compare the file with the interactions, show the missing/superfluous characters
+#	- complete the file accordingly (with the missing characters)
