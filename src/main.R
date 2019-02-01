@@ -51,3 +51,5 @@ extract.graphs(data)
 # - characters:
 #	- script to compare the file with the interactions, show the missing/superfluous characters
 #	- complete the file accordingly (with the missing characters)
+# - identify which measures are used in apps of char nets
+#   >> study how these are affected by extraction parameters
