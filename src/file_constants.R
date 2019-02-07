@@ -13,8 +13,10 @@ dir.create(NET_FOLDER, showWarnings=FALSE)
 
 ###############################################################################
 # file containig the page information (number of panels, etc.)
-PAGES_FILE <- file.path(DATA_FOLDER,"pages.csv")
+PAGE_FILE <- file.path(DATA_FOLDER,"pages.csv")
 # file containing the volume information (number of pages, etc.) 
-VOLUMES_FILE <- file.path(DATA_FOLDER,"volumes.csv")
+VOLUME_FILE <- file.path(DATA_FOLDER,"volumes.csv")
 # file containing character (co-)occurrences
 INTER_FILE <- file.path(DATA_FOLDER,"interactions.txt")
+# file containing character description
+CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")

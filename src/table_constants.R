@@ -38,3 +38,9 @@ COL_INTER_END_PANEL_ID <- "EndPanelId"
 COL_INTER_OCCURRENCES <- "Occurrences"
 COL_INTER_DURATION <- "Duration"
 
+
+###############################################################################
+# column names for the character table
+COL_CHAR_NAME <- "Name"
+
+

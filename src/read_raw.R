@@ -19,10 +19,10 @@
 #			- COL_VOLS_TITLE: title of the volume.
 ###############################################################################
 read.volume.table <- function(pages.info)
-{	tlog(2,"Trying to read the volume file (",VOLUMES_FILE,")")
+{	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
 	
 	# read the proper table
-	volumes.info <- read.csv(VOLUMES_FILE, header=TRUE, check.names=FALSE)
+	volumes.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE)
 	
 	# nothing to do here, for now
 	
@@ -48,10 +48,10 @@ read.volume.table <- function(pages.info)
 #			- COL_PAGES_START_PANEL_ID: absolute number of the page's first panel in the whole series.
 ###############################################################################
 read.page.table <- function(volumes.info)
-{	tlog(2,"Trying to read the page file (",PAGES_FILE,")")
+{	tlog(2,"Trying to read the page file (",PAGE_FILE,")")
 	
 	# read the proper table
-	pages.info <- read.csv(PAGES_FILE, header=TRUE, check.names=FALSE)
+	pages.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE)
 	
 	# check that each relative page number matches the interval defined in the volume table 
 	vol.ids <- match(pages.info[,COL_PAGES_VOLUME],volumes.info[,COL_VOLS_VOLUME])
@@ -62,7 +62,7 @@ read.page.table <- function(volumes.info)
 		msg <- apply(cbind(err.pg.idx,msg),1, function(r) paste(r,collapse=": "))
 		msg <- c(paste(colnames(pages.info),collapse=","),msg)
 		msg <- paste(msg,collapse="\n")
-		stop(paste0("ERROR while reading file \"",PAGES_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",msg))
+		stop(paste0("ERROR while reading file \"",PAGE_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",msg))
 	}
 	
 	# get the number of the panel starting each page since the beginning
@@ -90,10 +90,10 @@ read.page.table <- function(volumes.info)
 # pages.info: table describing all the pages constituting the BD series.
 # 
 # returns: a dataframe listing the interactions, with the following columns:
-#			- COL_INTER_FROM: first character concerned by the interaction.
-#			- COL_INTER_TO: second character concerned by the interaction.
-#			- COL_INTER_START: absolute id of the panel where the interaction starts.
-#			- COL_INTER_END: absolute id of the panel where the interaction ends.
+#			- COL_INTER_FROM_CHAR: first character concerned by the interaction.
+#			- COL_INTER_TO_CHAR: second character concerned by the interaction.
+#			- COL_INTER_START_PANEL_ID: absolute id of the panel where the interaction starts.
+#			- COL_INTER_END_PANEL_ID: absolute id of the panel where the interaction ends.
 ###############################################################################
 read.inter.table <- function(volume.info, pages.info)
 {	# read the proper table
@@ -167,6 +167,70 @@ read.inter.table <- function(volume.info, pages.info)
 
 
 ###############################################################################
+# Reads the table describing the characters of the BD series: the name is compulsory,
+# then the other columns depend on the series itself. The function also checks
+# whether some character misses from the table based on the previously loaded
+# interactions, and vice-versa.
+#
+# inter.df: dataframe containing all the character interactions.
+#
+# returns: a dataframe listing the character information, with the following columns:
+#			- COL_VOLS_VOLUME: volume in the BD series.
+#			- COL_VOLS_START_PAGE: starting page relatively to the volume.
+#			- COL_VOLS_END_PAGE: ending page relatively to the volume.
+#			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
+#			- COL_VOLS_TITLE: title of the volume.
+###############################################################################
+read.char.table <- function(inter.df)
+{	if(file.exists(CHAR_FILE))
+	{	tlog(2,"Trying to read the character file (",CHAR_FILE,")")
+	
+		# read the proper table
+		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE)
+		table.chars <- char.info[,COL_CHAR_NAME]
+		table.chars <- sort(table.chars)
+		
+		# check multiple name use
+		x <- table(table.chars)
+		pb.chars <- names(x)[x!=1]
+		if(length(pb.chars)>0)
+			stop("The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+		
+		# get the list of characters from the interactions
+		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
+		inter.chars <- sort(unique(inter.chars))
+		
+		# check whether some characters miss from the table
+		pb.chars <- setdiff(table.chars,inter.chars)
+		if(length(pb.chars)>0)
+			stop("The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+		
+		# check whether some characters miss from the interactions
+		pb.chars <- setdiff(inter.chars,table.chars)
+		if(length(pb.chars)>0)
+			warning("The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
+		
+		tlog(2,"Reading of the character file completed")
+	}
+	else
+	{	tlog(2,"No character file found")
+		
+		# just get the character names from the interactions
+		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
+		inter.chars <- sort(unique(inter.chars))
+		
+		char.info <- data.frame(name=c("lkj","lkj","oiu","uyt"))
+		cn <- c(COL_CHAR_NAME)
+		colnames(char.info) <- cn
+	}
+	
+	return(char.info)
+}
+
+
+
+
+###############################################################################
 # Reads the raw data contained in several tables, and returns them under the
 # form of data frames.
 #
@@ -184,13 +248,8 @@ read.raw.data <- function()
 	# read the file describing the interactions
 	inter.df <- read.inter.table(volume.info, pages.info)
 	
-	## get the list of all characters
-	#all.chars <- c()
-	#for(line in lines)
-	#{	chars <- line[3:length(line)]
-	#	all.chars <- union(all.chars,chars)
-	#}
-	#all.chars <- sort(all.chars)
+	# read the file describing the characters
+	char.info <- read.char.table(inter.df)
 	
 	# build result and return
 	result <- list (pages.info=pages.info, volumes.info=volumes.info, inter.df=inter.df)
