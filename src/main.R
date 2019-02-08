@@ -28,7 +28,7 @@ data <- read.raw.data()
 
 ###############################################################################
 # extract all networks
-extract.graphs(data)
+#extract.graphs(data)
 
 
 ###############################################################################
@@ -53,3 +53,4 @@ extract.graphs(data)
 #	- complete the file accordingly (with the missing characters)
 # - identify which measures are used in apps of char nets
 #   >> study how these are affected by extraction parameters
+

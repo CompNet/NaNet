@@ -18,16 +18,16 @@
 #			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
 #			- COL_VOLS_TITLE: title of the volume.
 ###############################################################################
-read.volume.table <- function(pages.info)
+read.volume.table <- function(page.info)
 {	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
 	
 	# read the proper table
-	volumes.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE)
+	volume.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE)
 	
 	# nothing to do here, for now
 	
 	tlog(2,"Reading of the volume file completed")
-	return(volumes.info)
+	return(volume.info)
 }
 
 
@@ -38,7 +38,7 @@ read.volume.table <- function(pages.info)
 # performs some verifications and add some columns required for subsequent
 # processing.
 #
-# volumes.info: table describing the series volumes.
+# volume.info: table describing the series volumes.
 # 
 # returns: a dataframe listing the pages information, with the following columns:
 #			- COL_PAGES_VOLUME: volume in the BD series.
@@ -47,37 +47,37 @@ read.volume.table <- function(pages.info)
 #			- COL_PAGES_PANELS: number of panels in this page.
 #			- COL_PAGES_START_PANEL_ID: absolute number of the page's first panel in the whole series.
 ###############################################################################
-read.page.table <- function(volumes.info)
+read.page.table <- function(volume.info)
 {	tlog(2,"Trying to read the page file (",PAGE_FILE,")")
 	
 	# read the proper table
-	pages.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE)
+	page.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE)
 	
 	# check that each relative page number matches the interval defined in the volume table 
-	vol.ids <- match(pages.info[,COL_PAGES_VOLUME],volumes.info[,COL_VOLS_VOLUME])
-	err.pg.idx <- which(pages.info[,COL_PAGES_PAGE]<volumes.info[vol.ids,COL_VOLS_START_PAGE]
-		| pages.info[,COL_PAGES_PAGE]>volumes.info[vol.ids,COL_VOLS_END_PAGE])
+	vol.ids <- match(page.info[,COL_PAGES_VOLUME],volume.info[,COL_VOLS_VOLUME])
+	err.pg.idx <- which(page.info[,COL_PAGES_PAGE]<volume.info[vol.ids,COL_VOLS_START_PAGE]
+		| page.info[,COL_PAGES_PAGE]>volume.info[vol.ids,COL_VOLS_END_PAGE])
 	if(length(err.pg.idx)>0)
-	{	msg <- apply(as.matrix(pages.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
+	{	msg <- apply(as.matrix(page.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
 		msg <- apply(cbind(err.pg.idx,msg),1, function(r) paste(r,collapse=": "))
-		msg <- c(paste(colnames(pages.info),collapse=","),msg)
+		msg <- c(paste(colnames(page.info),collapse=","),msg)
 		msg <- paste(msg,collapse="\n")
 		stop(paste0("ERROR while reading file \"",PAGE_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",msg))
 	}
 	
 	# get the number of the panel starting each page since the beginning
-	start.panel.ids <- cumsum(c(1,pages.info[,COL_PAGES_PANELS]))
+	start.panel.ids <- cumsum(c(1,page.info[,COL_PAGES_PANELS]))
 	start.panel.ids <- start.panel.ids[1:(length(start.panel.ids)-1)]
 	# add this as a new column
-	pages.info <- cbind(pages.info,start.panel.ids)
-	colnames(pages.info)[ncol(pages.info)] <- COL_PAGES_START_PANEL_ID
+	page.info <- cbind(page.info,start.panel.ids)
+	colnames(page.info)[ncol(page.info)] <- COL_PAGES_START_PANEL_ID
 	
 	# also add the volume id (ie absolute number over the whole series)
-	pages.info <- cbind(pages.info,vol.ids)
-	colnames(pages.info)[ncol(pages.info)] <- COL_PAGES_VOLUME_ID
+	page.info <- cbind(page.info,vol.ids)
+	colnames(page.info)[ncol(page.info)] <- COL_PAGES_VOLUME_ID
 	
 	tlog(2,"Reading of the page file completed")
-	return(pages.info)	
+	return(page.info)	
 }	
 
 
@@ -86,8 +86,8 @@ read.page.table <- function(volumes.info)
 # Reads the table describing the interactions between characters, and coverts
 # them into an edge list while performing some verifications.
 #
-# volumes.info: table describing the series volumes.
-# pages.info: table describing all the pages constituting the BD series.
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
 # 
 # returns: a dataframe listing the interactions, with the following columns:
 #			- COL_INTER_FROM_CHAR: first character concerned by the interaction.
@@ -95,7 +95,7 @@ read.page.table <- function(volumes.info)
 #			- COL_INTER_START_PANEL_ID: absolute id of the panel where the interaction starts.
 #			- COL_INTER_END_PANEL_ID: absolute id of the panel where the interaction ends.
 ###############################################################################
-read.inter.table <- function(volume.info, pages.info)
+read.inter.table <- function(volume.info, page.info)
 {	# read the proper table
 	tlog(2,"Trying to read the interaction file (",INTER_FILE,")")
 	con <- file(INTER_FILE, open="r")
@@ -117,27 +117,27 @@ read.inter.table <- function(volume.info, pages.info)
 	for(line in lines)
 	{	# get volume
 		volume <- line[1]
-		volume.id <- which(volumes.info[,COL_VOLS_VOLUME]==volume)
+		volume.id <- which(volume.info[,COL_VOLS_VOLUME]==volume)
 		
 		# get start page and panel
 		start.page <- line[2]
-		start.page.id <- which(pages.info[,COL_PAGES_PAGE]==start.page & pages.info[,COL_PAGES_VOLUME_ID]==volume.id)
+		start.page.id <- which(page.info[,COL_PAGES_PAGE]==start.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
 		if(length(start.page.id)==0)
 			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line:\"",paste(line,collapse=","),"\""))
 		start.panel <-  as.integer(line[3])
-		if(start.panel>pages.info[start.page.id,COL_PAGES_PANELS])
+		if(start.panel>page.info[start.page.id,COL_PAGES_PANELS])
 			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line:\"",paste(line,collapse=","),"\""))
-		start.panel.id <- pages.info[start.page.id,COL_PAGES_START_PANEL_ID] + start.panel - 1
+		start.panel.id <- page.info[start.page.id,COL_PAGES_START_PANEL_ID] + start.panel - 1
 		
 		# get end page and panel
 		end.page <- line[4]
-		end.page.id <- which(pages.info[,COL_PAGES_PAGE]==end.page & pages.info[,COL_PAGES_VOLUME_ID]==volume.id)
+		end.page.id <- which(page.info[,COL_PAGES_PAGE]==end.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
 		if(length(end.page.id)==0)
 			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line:\"",paste(line,collapse=","),"\""))
 		end.panel <- as.integer(line[5])
-		if(end.panel>pages.info[end.page.id,COL_PAGES_PANELS])
+		if(end.panel>page.info[end.page.id,COL_PAGES_PANELS])
 			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line:\"",paste(line,collapse=","),"\""))
-		end.panel.id <- pages.info[end.page.id,COL_PAGES_START_PANEL_ID] + end.panel - 1
+		end.panel.id <- page.info[end.page.id,COL_PAGES_START_PANEL_ID] + end.panel - 1
 		
 		# check that the end is after the start
 		if(start.panel.id>end.panel.id)
@@ -149,6 +149,14 @@ read.inter.table <- function(volume.info, pages.info)
 		# get all combinations of characters
 		chars <- line[6:length(line)]
 		chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
+		chars <- sapply(strsplit(chars,"/"), function(v)	# remove / corresponding to disguises
+				{	if(length(v)==1)
+						return(trimws(v))
+					else if(length(v)==2)
+						return(trimws(v[2]))
+					else
+						stop(paste("Error when splitting the names:",v))
+				})
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
 		chars <- t(combn(x=chars,m=2))
 		
@@ -197,18 +205,22 @@ read.char.table <- function(inter.df)
 			stop("The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
 		
 		# get the list of characters from the interactions
-		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
+		inter.chars <- c(inter.df[,COL_INTER_FROM_CHAR],inter.df[,COL_INTER_TO_CHAR])
 		inter.chars <- sort(unique(inter.chars))
 		
 		# check whether some characters miss from the table
-		pb.chars <- setdiff(table.chars,inter.chars)
-		if(length(pb.chars)>0)
-			stop("The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
-		
-		# check whether some characters miss from the interactions
 		pb.chars <- setdiff(inter.chars,table.chars)
 		if(length(pb.chars)>0)
+		{	cat(paste(pb.chars,collapse="\n"))
+			stop("The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+		}
+		
+		# check whether some characters miss from the interactions
+		pb.chars <- setdiff(table.chars,inter.chars)
+		if(length(pb.chars)>0)
+		{	cat(paste(pb.chars,collapse="\n"))
 			warning("The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
+		}
 		
 		tlog(2,"Reading of the character file completed")
 	}
@@ -234,24 +246,25 @@ read.char.table <- function(inter.df)
 # Reads the raw data contained in several tables, and returns them under the
 # form of data frames.
 #
-# returns: a list of 3 dataframes, volumes.info (information related to the
-#          volumes), pages.info (information related to the pages), inter.df
-#          (interactions between the characters).
+# returns: a list of 3 dataframes, volume.info (information related to the
+#          volumes), page.info (information related to the pages), inter.df
+#          (interactions between the characters), and char.info (character
+#		   information).
 ###############################################################################
 read.raw.data <- function()
 {	tlog(1,"Reading data files")
 	
 	# read the file describing the volumes
-	volumes.info <- read.volume.table()
+	volume.info <- read.volume.table()
 	# read the file describing the pages
-	pages.info <- read.page.table(volumes.info)
+	page.info <- read.page.table(volume.info)
 	# read the file describing the interactions
-	inter.df <- read.inter.table(volume.info, pages.info)
+	inter.df <- read.inter.table(volume.info, page.info)
 	
 	# read the file describing the characters
 	char.info <- read.char.table(inter.df)
 	
 	# build result and return
-	result <- list (pages.info=pages.info, volumes.info=volumes.info, inter.df=inter.df)
+	result <- list (page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
 	return(result)
 }

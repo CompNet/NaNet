@@ -143,14 +143,14 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 #
 # inter.df: dataframe containing the pairwise interactions (columns From, To)
 #			and their time of occurrence (columns Start, End).
-# pages.info: dataframe containing the number of panels in the pages.
+# page.info: dataframe containing the number of panels in the pages.
 # window.size: size of the time window (expressed in pages).
 # overlap: how much consecutive windows overlap (expressed in pages)
 #
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.from.page.window <- function(inter.df, pages.info, window.size=2, overlap=1)
+extract.static.graph.from.page.window <- function(inter.df, page.info, window.size=2, overlap=1)
 {	tlog(2,"Extracting the page window-based static graph")
 	
 	# check the overlap parameter
@@ -168,7 +168,7 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
-	last.page <- nrow(pages.info)	
+	last.page <- nrow(page.info)	
 	window.start <- 1
 	window.end <- window.size
 	covered <- FALSE
@@ -177,8 +177,8 @@ extract.static.graph.from.page.window <- function(inter.df, pages.info, window.s
 		covered <- window.end==last.page
 		msg <- paste0("Current window: [",window.start,",",window.end,"]")
 		# compute start/end in terms of panels
-		start.panel <- pages.info[window.start,COL_INTER_START_PANEL_ID]
-		end.panel <- pages.info[window.end,COL_INTER_START_PANEL_ID] + pages.info[window.end,COL_PAGES_PANELS] - 1
+		start.panel <- page.info[window.start,COL_INTER_START_PANEL_ID]
+		end.panel <- page.info[window.end,COL_INTER_START_PANEL_ID] + page.info[window.end,COL_PAGES_PANELS] - 1
 		tlog(3,paste0(msg, " ie [",start.panel,",",end.panel,"]"))
 		# segments intersecting the window
 		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<start.panel | inter.df[,COL_INTER_START_PANEL_ID]>end.panel))
@@ -232,7 +232,7 @@ extract.graphs <- function(data)
 	#plot(g, layout=layout_with_fr(g))
 	# extract the window-based static graphs
 	g <- extract.static.graph.from.panel.window(data$inter.df, window.size=10, overlap=2)
-	g <- extract.static.graph.from.page.window(data$inter.df, data$pages.info, window.size=2, overlap=1)
+	g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=2, overlap=1)
 	
 	tlog(1,"Extracting dynamic graphs")
 	
