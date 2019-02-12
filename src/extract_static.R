@@ -268,6 +268,8 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		for(overlap in page.overlaps[[i]])
 			g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=window.size, overlap=overlap)
 	}
+
+	tlog(1,"Extraction of the static graphs complete")
 }
 
 

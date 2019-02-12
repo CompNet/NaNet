@@ -32,6 +32,7 @@ source("src/file_constants.R")
 source("src/table_constants.R")
 source("src/read_raw.R")
 source("src/extract_static.R")
+source("src/stat_static.R")
 source("src/logging.R")
 
 
@@ -47,4 +48,4 @@ extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.size
 
 ###############################################################################
 # compute stats
-
+compute.static.stats(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
