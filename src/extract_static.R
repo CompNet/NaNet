@@ -240,20 +240,28 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 # Main function for the extraction of graphs based on interaction tables.
 #
 # data: raw data, read from the original files.
+# panel.window.sizes: values for this parameter
+# panel.overlaps: values for this parameter, specified for of the above parameter values.
+# page.window.sizes: same for page-based windows instead of panel-based.
+# page.overlaps: same.
 ###############################################################################
-extract.graphs <- function(data)
+extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
 	# extract the segment-based static graph
 	g <- extract.static.graph.from.segments(data$inter.df)
 	#plot(g, layout=layout_with_fr(g))
-	# extract the window-based static graphs
-	g <- extract.static.graph.from.panel.window(data$inter.df, window.size=10, overlap=2)
-	g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=2, overlap=1)
 	
-	tlog(1,"Extracting dynamic graphs")
+	# extract the panel window-based static graphs
+	for(window.size in panel.window.sizes)
+	{	for(overlap in panel.overlaps)
+			g <- extract.static.graph.from.panel.window(data$inter.df, window.size=window.size, overlap=overlap)
+	}
 	
-	
-	tlog(1,"Extraction of the graphs completed")
+	# extract the page window-based static graphs
+	for(window.size in page.window.sizes)
+	{	for(overlap in page.overlaps)
+			g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=2, overlap=1)
+	}
 }
 
 
