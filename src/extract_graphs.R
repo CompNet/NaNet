@@ -46,7 +46,7 @@ extract.static.graph.from.segments <- function(inter.df)
 		# update the integrated dataframe
 		if(length(index)==0)
 		{	# insert the couple of characters (never met before)
-			tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length)
+			tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length, stringsAsFactors=FALSE)
 			colnames(tmp.df) <- cn
 			static.df <- rbind(static.df, tmp.df)
 		}
@@ -56,6 +56,8 @@ extract.static.graph.from.segments <- function(inter.df)
 			static.df[index, COL_INTER_DURATION] <- static.df[index, COL_INTER_DURATION] + length
 		}
 	}
+	
+	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
 #	print(static.df)
 	
 	# init the graph
@@ -120,7 +122,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 				to.char <- pairs[i,2]
 				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
 				if(length(index)==0)
-				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1)
+				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
 					static.df <- rbind(static.df, tmp.df)
 				}
@@ -133,6 +135,8 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 		window.start <- window.start + window.size - overlap
 		window.end <- window.start + window.size - 1
 	}
+	
+	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
 #	print(static.df)
 	
 	# init the graph
@@ -203,7 +207,7 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 				to.char <- pairs[i,2]
 				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
 				if(length(index)==0)
-				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1)
+				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
 					static.df <- rbind(static.df, tmp.df)
 				}
@@ -215,6 +219,8 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 		window.start <- window.start + window.size - overlap
 		window.end <- window.start + window.size - 1
 	}
+	
+	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
 #	print(static.df)
 	
 	# init the graph
