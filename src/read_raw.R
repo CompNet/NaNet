@@ -155,7 +155,7 @@ read.inter.table <- function(volume.info, page.info)
 					else if(length(v)==2)
 						return(trimws(v[2]))
 					else
-						stop(paste("Error when splitting the names:",v))
+						stop(paste("ERROR when splitting the names:",v))
 				})
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
 		chars <- t(combn(x=chars,m=2))
@@ -202,7 +202,7 @@ read.char.table <- function(inter.df)
 		x <- table(table.chars)
 		pb.chars <- names(x)[x!=1]
 		if(length(pb.chars)>0)
-			stop("The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+			stop("ERROR: The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
 		
 		# get the list of characters from the interactions
 		inter.chars <- c(inter.df[,COL_INTER_FROM_CHAR],inter.df[,COL_INTER_TO_CHAR])
@@ -212,14 +212,14 @@ read.char.table <- function(inter.df)
 		pb.chars <- setdiff(inter.chars,table.chars)
 		if(length(pb.chars)>0)
 		{	cat(paste(pb.chars,collapse="\n"))
-			stop("The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+			stop("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
 		}
 		
 		# check whether some characters miss from the interactions
 		pb.chars <- setdiff(table.chars,inter.chars)
 		if(length(pb.chars)>0)
 		{	cat(paste(pb.chars,collapse="\n"))
-			warning("The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
+			warning("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
 		}
 		
 		tlog(2,"Reading of the character file completed")

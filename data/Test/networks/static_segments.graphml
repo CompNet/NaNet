@@ -47,12 +47,12 @@
       <data key="e_Duration">12</data>
     </edge>
     <edge source="n2" target="n3">
-      <data key="e_Occurrences">4</data>
-      <data key="e_Duration">28</data>
+      <data key="e_Occurrences">5</data>
+      <data key="e_Duration">39</data>
     </edge>
     <edge source="n3" target="n5">
-      <data key="e_Occurrences">3</data>
-      <data key="e_Duration">33</data>
+      <data key="e_Occurrences">5</data>
+      <data key="e_Duration">50</data>
     </edge>
     <edge source="n2" target="n4">
       <data key="e_Occurrences">1</data>
@@ -63,8 +63,8 @@
       <data key="e_Duration">4</data>
     </edge>
     <edge source="n2" target="n5">
-      <data key="e_Occurrences">2</data>
-      <data key="e_Duration">20</data>
+      <data key="e_Occurrences">3</data>
+      <data key="e_Duration">31</data>
     </edge>
     <edge source="n0" target="n5">
       <data key="e_Occurrences">1</data>

@@ -9,11 +9,13 @@
 
 
 ###############################################################################
-# Extract a static graph based on a list of pairwise interactions, using the
-# segment as the time unit, without overlap.
+# Extracts a static graph based on a list of pairwise interactions, using the
+# segment as the time unit, without overlap. Nodes are characters, and links
+# represents them (inter-)acting during the same segment.
 #
-# inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns Start, End).
+# inter.df: dataframe containing the pairwise interactions (columns 
+#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
+#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
 #
 # returns: the corresponding static graph. It contains several edge weigths:
 #		   - Occurrences: number of interactions between the concerned nodes.
@@ -32,19 +34,25 @@ extract.static.graph.from.segments <- function(inter.df)
 	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES, COL_INTER_DURATION)
 	colnames(static.df) <- cn
 	
-	# build the edgelist
+	# build the edgelist by considering each line (ie interaction) in the dataframe
 	for(i in 1:nrow(inter.df))
-	{	from.char <- inter.df[i,COL_INTER_FROM_CHAR]
+	{	# get the characters
+		from.char <- inter.df[i,COL_INTER_FROM_CHAR]
 		to.char <- inter.df[i,COL_INTER_TO_CHAR]
+		# get the corresponding row in the new (integrated) dataframe
 		index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+		# compute the number of panels in the sequence
 		length <- inter.df[i,COL_INTER_END_PANEL_ID] - inter.df[i,COL_INTER_START_PANEL_ID] + 1
+		# update the integrated dataframe
 		if(length(index)==0)
-		{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length)
+		{	# insert the couple of characters (never met before)
+			tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, Duration=length)
 			colnames(tmp.df) <- cn
 			static.df <- rbind(static.df, tmp.df)
 		}
 		else
-		{	static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
+		{	# update the couple of characters (already inserted vefore)
+			static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
 			static.df[index, COL_INTER_DURATION] <- static.df[index, COL_INTER_DURATION] + length
 		}
 	}
@@ -62,11 +70,12 @@ extract.static.graph.from.segments <- function(inter.df)
 
 
 ###############################################################################
-# Extract a static graph based on a list of pairwise interactions, using the
+# Extracts a static graph based on a list of pairwise interactions, using the
 # specified window size and overlap, both expressed in number of panels.
 #
-# inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns Start, End).
+# inter.df: dataframe containing the pairwise interactions (columns 
+#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
+#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
 # window.size: size of the time window (expressed in panels).
 # overlap: how much consecutive windows overlap (expressed in panels)
 #
@@ -78,7 +87,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
-		stop("ERROR: overlap must be smaller than window.size")
+		stop("ERROR: overlap parameter must be smaller than or equal to window.size")
 	
 	# init the dataframe
 	static.df <- data.frame(
@@ -138,11 +147,12 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 
 
 ###############################################################################
-# Extract a static graph based on a list of pairwise interactions, using the
+# Extracts a static graph based on a list of pairwise interactions, using the
 # specified window size and overlap, both expressed in number of pages.
 #
-# inter.df: dataframe containing the pairwise interactions (columns From, To)
-#			and their time of occurrence (columns Start, End).
+# inter.df: dataframe containing the pairwise interactions (columns 
+#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
+#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
 # page.info: dataframe containing the number of panels in the pages.
 # window.size: size of the time window (expressed in pages).
 # overlap: how much consecutive windows overlap (expressed in pages)
@@ -223,7 +233,7 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 ###############################################################################
 # Main function for the extraction of graphs based on interaction tables.
 #
-# data: raw data read from the original files.
+# data: raw data, read from the original files.
 ###############################################################################
 extract.graphs <- function(data)
 {	tlog(1,"Extracting static graphs")

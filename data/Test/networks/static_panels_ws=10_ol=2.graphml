@@ -50,13 +50,13 @@
       <data key="e_Occurrences">6</data>
     </edge>
     <edge source="n3" target="n4">
-      <data key="e_Occurrences">6</data>
+      <data key="e_Occurrences">8</data>
     </edge>
     <edge source="n3" target="n5">
-      <data key="e_Occurrences">6</data>
+      <data key="e_Occurrences">8</data>
     </edge>
     <edge source="n4" target="n5">
-      <data key="e_Occurrences">7</data>
+      <data key="e_Occurrences">9</data>
     </edge>
     <edge source="n2" target="n5">
       <data key="e_Occurrences">2</data>
