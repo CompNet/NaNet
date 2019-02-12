@@ -79,13 +79,15 @@ extract.static.graph.from.segments <- function(inter.df)
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
 # window.size: size of the time window (expressed in panels).
-# overlap: how much consecutive windows overlap (expressed in panels)
+# overlap: how much consecutive windows overlap (expressed in panels). Must be strictly
+#          smaller than window.size.
 #
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
 extract.static.graph.from.panel.window <- function(inter.df, window.size=10, overlap=2)
 {	tlog(2,"Extracting the panel window-based static graph")
+	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
@@ -159,13 +161,15 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
 # page.info: dataframe containing the number of panels in the pages.
 # window.size: size of the time window (expressed in pages).
-# overlap: how much consecutive windows overlap (expressed in pages)
+# overlap: how much consecutive windows overlap (expressed in pages). Must be strictly
+#          smaller than window.size.
 #
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
 extract.static.graph.from.page.window <- function(inter.df, page.info, window.size=2, overlap=1)
 {	tlog(2,"Extracting the page window-based static graph")
+	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
@@ -252,14 +256,16 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	#plot(g, layout=layout_with_fr(g))
 	
 	# extract the panel window-based static graphs
-	for(window.size in panel.window.sizes)
-	{	for(overlap in panel.overlaps)
+	for(i in 1:length(panel.window.sizes))
+	{	window.size <- panel.window.sizes[i]
+		for(overlap in panel.overlaps[[i]])
 			g <- extract.static.graph.from.panel.window(data$inter.df, window.size=window.size, overlap=overlap)
 	}
 	
 	# extract the page window-based static graphs
-	for(window.size in page.window.sizes)
-	{	for(overlap in page.overlaps)
+	for(i in 1:length(page.window.sizes))
+	{	window.size <- page.window.sizes[i]
+		for(overlap in page.overlaps[[i]])
 			g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=2, overlap=1)
 	}
 }

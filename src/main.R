@@ -21,7 +21,7 @@ panel.overlaps <- list(
 )
 page.window.sizes <- c(1,2,5)#,10,15,20)
 page.overlaps <- list(
-	0, 0:1, 0:4,
+	0, 0:1, 0:4
 #	seq(0,9,2), seq(0,14,2), seq(0,19,2)
 )
 
