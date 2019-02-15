@@ -63,7 +63,7 @@ extract.static.graph.from.segments <- function(inter.df)
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(NET_FOLDER,"static_segments.graphml")
+	graph.file <- paste0(get.basename.static.segments(),".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the segment-based static graph completed")
@@ -144,7 +144,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(NET_FOLDER,paste0("static_panels_ws=",window.size,"_ol=",overlap,".graphml"))
+	graph.file <- paste0(get.basename.static.panel.window(window.size, overlap),".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed")
@@ -230,7 +230,7 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- file.path(NET_FOLDER,paste0("static_pages_ws=",window.size,"_ol=",overlap,".graphml"))
+	graph.file <- paste0(get.basename.static.page.window(window.size, overlap),".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed")
@@ -271,5 +271,3 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 
 	tlog(1,"Extraction of the static graphs complete")
 }
-
-
