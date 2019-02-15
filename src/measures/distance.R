@@ -20,13 +20,29 @@ GRAPH_MEASURES[["distance-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["girth"]] <- list(		# cycle of minimal length
-	type=integer(),
+GRAPH_MEASURES[["distance-min"]] <- list(
+	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	girth(graph=graph, circle=FALSE)$girth
+	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+		min(values,na.rm=TRUE)
 	}
 )
+GRAPH_MEASURES[["distance-max"]] <- list(
+	type=numeric(),
+	bounds=c(1,NA),
+	foo=function(graph) 
+	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+		max(values,na.rm=TRUE)
+	}
+)
+#GRAPH_MEASURES[["girth"]] <- list(		# cycle of minimal length
+#	type=integer(),
+#	bounds=c(1,NA),
+#	foo=function(graph) 
+#	{	girth(graph=graph, circle=FALSE)$girth
+#	}
+#)
 
 
 
@@ -45,5 +61,21 @@ GRAPH_MEASURES[["distance-weighted-stdev"]] <- list(
 	foo=function(graph) 
 	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
 		sd(values,na.rm=TRUE)
+	}
+)
+GRAPH_MEASURES[["distance-weighted-min"]] <- list(
+	type=numeric(),
+	bounds=c(1,NA),
+	foo=function(graph) 
+	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+		min(values,na.rm=TRUE)
+	}
+)
+GRAPH_MEASURES[["distance-weighted-max"]] <- list(
+	type=numeric(),
+	bounds=c(1,NA),
+	foo=function(graph) 
+	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+		max(values,na.rm=TRUE)
 	}
 )

@@ -61,7 +61,7 @@ GRAPH_MEASURES[["community-size-max"]] <- list(
 
 
 # weighted variants
-GRAPH_MEASURES[["modularity"]] <- list(
+GRAPH_MEASURES[["modularity-weighted"]] <- list(
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -69,7 +69,7 @@ GRAPH_MEASURES[["modularity"]] <- list(
 		modularity(com)
 	}
 )
-GRAPH_MEASURES[["community-number"]] <- list(
+GRAPH_MEASURES[["community-weighted-number"]] <- list(
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -77,7 +77,7 @@ GRAPH_MEASURES[["community-number"]] <- list(
 		length(communities(com))
 	}
 )
-GRAPH_MEASURES[["community-size-average"]] <- list(
+GRAPH_MEASURES[["community-weighted-size-average"]] <- list(
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -86,7 +86,7 @@ GRAPH_MEASURES[["community-size-average"]] <- list(
 		mean(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-stdev"]] <- list(
+GRAPH_MEASURES[["community-weighted-size-stdev"]] <- list(
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -95,7 +95,7 @@ GRAPH_MEASURES[["community-size-stdev"]] <- list(
 		sd(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-min"]] <- list(
+GRAPH_MEASURES[["community-weighted-size-min"]] <- list(
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -104,7 +104,7 @@ GRAPH_MEASURES[["community-size-min"]] <- list(
 		min(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-max"]] <- list(
+GRAPH_MEASURES[["community-weighted-size-max"]] <- list(
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)

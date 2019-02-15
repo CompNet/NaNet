@@ -27,7 +27,7 @@ GRAPH_MEASURES[["eccentricity-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["radius"]] <- list(		# aka minimal eccentricity
+GRAPH_MEASURES[["eccentricity-min"]] <- list(		# aka radius
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -35,7 +35,7 @@ GRAPH_MEASURES[["radius"]] <- list(		# aka minimal eccentricity
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["diameter"]] <- list(	# aka maximal eccentricity, or maximal distance
+GRAPH_MEASURES[["eccentricity-max"]] <- list(	# aka diameter, or maximal distance
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 

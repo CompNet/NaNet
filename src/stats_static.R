@@ -4,6 +4,9 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+
+
+# define/load the topological measures
 NODE_MEASURES <- list()
 LINK_MEASURES <- list()
 GRAPH_MEASURES <- list()
@@ -203,7 +206,6 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 	# statistics for the panel window-based static graphs
 	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
-print(window.size)		
 		for(overlap in panel.overlaps[[i]])
 			compute.all.static.statistics(get.basename.static.panel.window(window.size, overlap))
 	}
