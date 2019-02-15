@@ -25,4 +25,7 @@ Stats part:
 	- Identify which measures are used in apps of char nets (in the literature)
 	  >> study how these are affected by extraction parameters
 
-TOPOLOGICAL MEASURES
+- Segments: weights=occurrences vs. durations
+  - compare them, correlated ?
+  - weighted nets (for now) only correspond to occurrences. should we also study durations?
+  

@@ -32,20 +32,20 @@ source("src/file_constants.R")
 source("src/table_constants.R")
 source("src/read_raw.R")
 source("src/extract_static.R")
-source("src/stat_static.R")
+source("src/stats_static.R")
 source("src/logging.R")
 
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # compute stats
-compute.static.stats(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)

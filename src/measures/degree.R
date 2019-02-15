@@ -55,7 +55,7 @@ GRAPH_MEASURES[["degree-centralization"]] <- list(
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	centr_degree(graph=graph, mode="all", normalized=FALSE)
+	{	centr_degree(graph=graph, mode="all", normalized=FALSE)$centralization
 	}
 )
 
@@ -112,7 +112,7 @@ GRAPH_MEASURES[["degree-norm-centralization"]] <- list(
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	centr_degree(graph=graph, mode="all", normalized=TRUE)
+	{	centr_degree(graph=graph, mode="all", normalized=TRUE)$centralization
 	}
 )
 

@@ -7,7 +7,7 @@
 NODE_MEASURES <- list()
 LINK_MEASURES <- list()
 GRAPH_MEASURES <- list()
-source("src/measures/betweenneess.R")
+source("src/measures/betweenness.R")
 source("src/measures/closeness.R")
 source("src/measures/community.R")
 source("src/measures/component.R")
@@ -38,7 +38,7 @@ compute.static.node.statistics <- function(g, basename)
 	table.file <- paste0(basename,"_meas_node.csv")
 	tlog(5,"Getting/creating file \"",table.file,"\"")
 	if(file.exists(table.file))
-		res.tab <- as.table(read.csv(table.file, header=TRUE, check.names=FALSE))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
 	{	res.tab <- matrix(NA,nrow=gorder(g),ncol=length(NODE_MEASURES))
 		colnames(res.tab) <- names(NODE_MEASURES)
@@ -52,6 +52,8 @@ compute.static.node.statistics <- function(g, basename)
 		# compute values
 		measure <- NODE_MEASURES[[m]]
 		values <- measure$foo(graph=g)
+		if(length(values)==0)
+			vamues <- rep(NA,gorder(g))
 		# update table
 		res.tab[,meas.name] <- values
 		# update file
@@ -80,7 +82,7 @@ compute.static.link.statistics <- function(g, basename)
 	table.file <- paste0(basename,"_meas_link.csv")
 	tlog(5,"Getting/creating file \"",table.file,"\"")
 	if(file.exists(table.file))
-		res.tab <- as.table(read.csv(table.file, header=TRUE, check.names=FALSE))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
 	{	res.tab <- matrix(NA,nrow=gsize(g),ncol=length(LINK_MEASURES))
 		colnames(res.tab) <- names(LINK_MEASURES)
@@ -94,7 +96,12 @@ compute.static.link.statistics <- function(g, basename)
 		# compute values
 		measure <- LINK_MEASURES[[m]]
 		values <- measure$foo(graph=g)
+		if(length(values)==0)
+			vamues <- rep(NA,gsize(g))
 		# update table
+#		print(head(res.tab))
+#		print(dim(res.tab))
+#		print(length(values))
 		res.tab[,meas.name] <- values
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=FALSE, col.names=TRUE)
@@ -121,7 +128,7 @@ compute.static.graph.statistics <- function(g, basename)
 	table.file <- paste0(basename,"_meas_graph.csv")
 	tlog(5,"Getting/creating file \"",table.file,"\"")
 	if(file.exists(table.file))
-		res.tab <- as.table(read.csv(table.file, header=TRUE, check.names=FALSE))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
 	{	res.tab <- matrix(NA,nrow=length(GRAPH_MEASURES),ncol=1)
 		rownames(res.tab) <- names(GRAPH_MEASURES)
@@ -136,6 +143,9 @@ compute.static.graph.statistics <- function(g, basename)
 		measure <- GRAPH_MEASURES[[m]]
 		value <- measure$foo(graph=g)
 		# update table
+#		print(head(res.tab))
+#		print(dim(res.tab))
+#		print(length(value))
 		res.tab[meas.name,1] <- value
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=TRUE, col.names=FALSE)
@@ -154,13 +164,14 @@ compute.static.graph.statistics <- function(g, basename)
 #
 # returns: a list of 3 tables containing all computed values (nodes, links, graphs).
 ###############################################################################
-compute.static.statistics <- function(basename)
+compute.all.static.statistics <- function(basename)
 {	tlog(3,"Computing graph topological measures for \"",basename,"\"")
 	
 	# read the graph file
 	tlog(4,"Loading graph")
-	g <- graph.file <- paste0(basename,".graphml")
-	read.graph(file=graph.file, format="graphml")
+	graph.file <- paste0(basename,".graphml")
+	g <- read.graph(file=graph.file, format="graphml")
+	E(g)$weight <- E(g)$Occurrences
 	
 	# compute its stats
 	node.stats <- compute.static.node.statistics(g,basename)
@@ -178,30 +189,30 @@ compute.static.statistics <- function(basename)
 # Main function for the computation of statistics describing static graphs.
 # The graphs must have been previously extracted.
 #
-# data: raw data, read from the original files.
 # panel.window.sizes: values for this parameter
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
 # page.window.sizes: same for page-based windows instead of panel-based.
 # page.overlaps: same.
 ###############################################################################
-compute.all.static.statistics <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Computing statistics for static graphs")
 	
 	# statistics for the segment-based graph
-	compute.static.statistics(get.basename.static.segments())
+	compute.all.static.statistics(get.basename.static.segments())
 	
 	# statistics for the panel window-based static graphs
 	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
+print(window.size)		
 		for(overlap in panel.overlaps[[i]])
-			compute.static.statistics(get.basename.static.panel.window(window.size, overlap))
+			compute.all.static.statistics(get.basename.static.panel.window(window.size, overlap))
 	}
 	
 	# statistics for the page window-based static graphs
 	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-			compute.static.statistics(get.basename.static.page.window(window.size, overlap))
+			compute.all.static.statistics(get.basename.static.page.window(window.size, overlap))
 	}
 	tlog(1,"Computation of statistics for static graphs complete")	
 }
