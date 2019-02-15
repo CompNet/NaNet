@@ -24,3 +24,5 @@ Stats part:
 	- also consider global similarity measures between graphs
 	- Identify which measures are used in apps of char nets (in the literature)
 	  >> study how these are affected by extraction parameters
+
+TOPOLOGICAL MEASURES

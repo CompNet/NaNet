@@ -9,6 +9,21 @@
 
 
 ###############################################################################
+# Computes all preselected statistics for the specified static graph.
+#
+# g: graph whose statistics must be computed.
+#
+# returns: a named list containing all the computed statistics.
+###############################################################################
+compute.static.nodal.statistics <- function(g)
+{	MEASURES <- list(
+		)
+	
+}
+
+
+
+###############################################################################
 # Main function for the computation of statistics describing static graphs.
 # The graphs must have been previously extracted.
 #
@@ -20,17 +35,17 @@
 ###############################################################################
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Computing statistics for static graphs")
-	# extract the segment-based static graph
+	# statistics for the segment-based graph
 	#TODO
 	
-	# extract the panel window-based static graphs
+	# statistics for the panel window-based static graphs
 	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
 			#TODO
 	}
 	
-	# extract the page window-based static graphs
+	# statistics for the page window-based static graphs
 	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
