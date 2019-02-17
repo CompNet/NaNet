@@ -33,6 +33,7 @@ source("src/table_constants.R")
 source("src/read_raw.R")
 source("src/extract_static.R")
 source("src/stats_static.R")
+source("src/plot_static.R")
 source("src/logging.R")
 
 
@@ -49,3 +50,9 @@ source("src/logging.R")
 ###############################################################################
 # compute stats
 compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+
+###############################################################################
+# generate plots
+generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+

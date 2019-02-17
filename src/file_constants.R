@@ -23,31 +23,49 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 
 
 ###############################################################################
-# Returns the basename of the static graph based on segments.
+# Returns the basename of the static graph based on the specified parameters.
 # 
-# Returns: basename of the graph extracted from narrative segments.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter.
+# overlap: value for this parameter, specified for of the above parameter value.
+# 
+# Returns: basename of the graph and related files.
 ###############################################################################
-get.basename.static.segments <- function()
-{	res <- 	file.path(NET_FOLDER, "static_segments")
+get.basename.static <- function(mode, window.size=NA, overlap=NA)
+{	res <- "static"
+	
+	if(mode=="segments")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_segments"))
+	else if(mode=="panel.window")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+	else if(mode=="page.window")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+	
 	return(res)
 }
 
+
 ###############################################################################
-# Returns the basename of the static graph based on panel sliding window.
+# Returns the stat name of the static graph based on the specified parameters.
 # 
-# Returns: basename of the graph extracted from the panel-based sliding window.
+# object: either "nodes", "links" or "graph".
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter.
+# overlap: value for this parameter, specified for of the above parameter value.
+# 
+# Returns: basename of the graph and related files.
 ###############################################################################
-get.basename.static.panel.window <- function(window.size, overlap)
-{	res <- 	file.path(NET_FOLDER, paste0("static_panels_ws=",window.size,"_ol=",overlap))
+get.statname.static <- function(object, mode, window.size=NA, overlap=NA)
+{	res <- paste0(get.basename.static(mode,window.size,overlap), "_meas")
+	
+	if(object=="graph")
+		res <- 	paste0(res, "_graph.csv")
+	else if(object=="nodes")
+		res <- 	paste0(res, "_nodes.csv")
+	else if(object=="links")
+		res <- 	paste0(res, "_links.csv")
+	
 	return(res)
 }
 
-###############################################################################
-# Returns the basename of the static graph based on page sliding window.
-# 
-# Returns: basename of the graph extracted from the page-based sliding window.
-###############################################################################
-get.basename.static.page.window <- function(window.size, overlap)
-{	res <- 	file.path(NET_FOLDER, paste0("static_pages_ws=",window.size,"_ol=",overlap))
-	return(res)
-}
+
