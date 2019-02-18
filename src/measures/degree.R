@@ -5,14 +5,14 @@
 # 02/2019
 ###############################################################################
 # degree variants
-NODE_MEASURES[["degree"]] <- list(
+NODE_MEASURES[[paste0(MEAS_DEGREE)]] <- list( #degree
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	degree(graph=graph, mode="all", normalized=FALSE)
 	}
 )
-GRAPH_MEASURES[["degree-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_AVG)]] <- list( #degree-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -20,7 +20,7 @@ GRAPH_MEASURES[["degree-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_STDEV)]] <- list( #degree-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -28,7 +28,7 @@ GRAPH_MEASURES[["degree-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_MIN)]] <- list( #degree-min
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -36,7 +36,7 @@ GRAPH_MEASURES[["degree-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_MAX)]] <- list( #degree-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -44,14 +44,14 @@ GRAPH_MEASURES[["degree-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_ASSORT)]] <- list( #degree-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
 	{	assortativity_degree(graph=graph, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["degree-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_CENTRZ)]] <- list( #degree-centralization
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -62,14 +62,14 @@ GRAPH_MEASURES[["degree-centralization"]] <- list(
 
 
 # normalized variants
-NODE_MEASURES[["degree-norm"]] <- list(
+NODE_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM)]] <- list( #degree-norm
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
 	{	degree(graph=graph, mode="all", normalized=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_AVG)]] <- list( #degree-norm-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -77,7 +77,7 @@ GRAPH_MEASURES[["degree-norm-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_STDEV)]] <- list( #degree-norm-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -85,7 +85,7 @@ GRAPH_MEASURES[["degree-norm-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_MIN)]] <- list( #degree-norm-min
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -93,7 +93,7 @@ GRAPH_MEASURES[["degree-norm-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_MAX)]] <- list( #degree-norm-max
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -101,14 +101,14 @@ GRAPH_MEASURES[["degree-norm-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_ASSORT)]] <- list( #degree-norm-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
 	{	assortativity_degree(graph=graph, directed=TRUE)
 	}
 )
-GRAPH_MEASURES[["degree-norm-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_CENTRZ)]] <- list( #degree-norm-centralization
 	type=integer(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -119,14 +119,14 @@ GRAPH_MEASURES[["degree-norm-centralization"]] <- list(
 
 
 # strength variants
-NODE_MEASURES[["strength"]] <- list(
+NODE_MEASURES[[paste0(MEAS_STRENGTH)]] <- list( #strength
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	strength(graph=graph, mode="all", weights=E(graph)$weight)
 	}
 )
-GRAPH_MEASURES[["strength-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_AVG)]] <- list( #strength-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -134,7 +134,7 @@ GRAPH_MEASURES[["strength-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["strength-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_STDEV)]] <- list( #strength-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -142,7 +142,7 @@ GRAPH_MEASURES[["strength-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["strength-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_MIN)]] <- list( #strength-min
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -150,7 +150,7 @@ GRAPH_MEASURES[["strength-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["strength-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_MAX)]] <- list( #strength-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -158,7 +158,7 @@ GRAPH_MEASURES[["strength-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["strength-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_ASSORT)]] <- list( #strength-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 

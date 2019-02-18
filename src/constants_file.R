@@ -46,7 +46,7 @@ get.basename.static <- function(mode, window.size=NA, overlap=NA)
 
 
 ###############################################################################
-# Returns the stat name of the static graph based on the specified parameters.
+# Returns the name of a statistics file based on the specified parameters.
 # 
 # object: either "nodes", "links" or "graph".
 # mode: either "segments", "panel.window", or "page.window".
@@ -69,3 +69,32 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA)
 }
 
 
+
+
+###############################################################################
+# Returns the name of the plot file based on the specified parameters.
+# 
+# object: either "nodes", "links" or "graph".
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter.
+# overlap: value for this parameter, specified for of the above parameter value.
+# 
+# Returns: basename of the graph and related files.
+###############################################################################
+get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
+{	res <- "static"
+	
+	if(mode=="panel.window")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size))
+	else if(mode=="page.window")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_pages_ws=",window.size))
+	
+	if(object=="graph")
+		res <- 	paste0(res, "_graph.pdf")
+	else if(object=="nodes")
+		res <- 	paste0(res, "_nodes.pdf")
+	else if(object=="links")
+		res <- 	paste0(res, "_links.pdf")
+	
+	return(res)
+}

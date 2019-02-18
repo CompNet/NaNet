@@ -5,14 +5,14 @@
 # 02/2019
 ###############################################################################
 # unweighted variants
-GRAPH_MEASURES[["distance-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	mean_distance(graph=graph, directed=FALSE, unconnected=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -20,7 +20,7 @@ GRAPH_MEASURES[["distance-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -28,7 +28,7 @@ GRAPH_MEASURES[["distance-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -47,7 +47,7 @@ GRAPH_MEASURES[["distance-max"]] <- list(
 
 
 # weighted variants
-GRAPH_MEASURES[["distance-weighted-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-weighted-average
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -55,7 +55,7 @@ GRAPH_MEASURES[["distance-weighted-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-weighted-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-weighted-stdev
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -63,7 +63,7 @@ GRAPH_MEASURES[["distance-weighted-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-weighted-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-weighted-min
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
@@ -71,7 +71,7 @@ GRAPH_MEASURES[["distance-weighted-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["distance-weighted-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MAX)]] <- list( #distance-weighted-max
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 

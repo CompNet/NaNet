@@ -4,14 +4,14 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
-NODE_MEASURES[["transitivity-local"]] <- list(
+NODE_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL)]] <- list( #transitivity-local
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
 	{	transitivity(graph=graph, type="localundirected", weights=NULL, isolates="zero")
 	}
 )
-GRAPH_MEASURES[["transitivity-local-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_AVG)]] <- list( #transitivity-local-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -19,7 +19,7 @@ GRAPH_MEASURES[["transitivity-local-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-local-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_STDEV)]] <- list( #transitivity-local-stdev
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -27,7 +27,7 @@ GRAPH_MEASURES[["transitivity-local-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-local-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_MIN)]] <- list( #transitivity-local-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -35,7 +35,7 @@ GRAPH_MEASURES[["transitivity-local-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-local-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_MAX)]] <- list( #transitivity-local-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -43,7 +43,7 @@ GRAPH_MEASURES[["transitivity-local-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_ASSORT)]] <- list( #transitivity-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
@@ -51,7 +51,7 @@ GRAPH_MEASURES[["transitivity-assortativity"]] <- list(
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["transitivity-global"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_GLOBAL)]] <- list( #transitivity-global
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -62,14 +62,14 @@ GRAPH_MEASURES[["transitivity-global"]] <- list(
 
 
 # weighted variants
-NODE_MEASURES[["transitivity-weighted-local"]] <- list(
+NODE_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL)]] <- list( #transitivity-weighted-local
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
 	{	transitivity(graph=graph, type="weighted", weights=E(graph)$weight, isolates="zero")
 	}
 )
-GRAPH_MEASURES[["transitivity-weighted-local-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_AVG)]] <- list( #transitivity-weighted-local-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -77,7 +77,7 @@ GRAPH_MEASURES[["transitivity-weighted-local-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-weighted-local-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_STDEV)]] <- list( #transitivity-weighted-local-stdev
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -85,7 +85,7 @@ GRAPH_MEASURES[["transitivity-weighted-local-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-weighted-local-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_MIN)]] <- list( #transitivity-weighted-local-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -93,7 +93,7 @@ GRAPH_MEASURES[["transitivity-weighted-local-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-weighted-local-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_MAX)]] <- list( #transitivity-weighted-local-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -101,7 +101,7 @@ GRAPH_MEASURES[["transitivity-weighted-local-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["transitivity-weighted-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_ASSORT)]] <- list( #transitivity-weighted-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 

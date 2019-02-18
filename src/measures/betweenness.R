@@ -5,14 +5,14 @@
 # 02/2019
 ###############################################################################
 # basic variants
-NODE_MEASURES[["betweenness"]] <- list(
+NODE_MEASURES[[MEAS_BETWEENNESS]] <- list( #betweenness
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	betweenness(graph=graph, directed=FALSE, weights=NULL, normalized=FALSE)
 	}
 )
-GRAPH_MEASURES[["betweenness-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_AVG)]] <- list( #betweenness-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -20,7 +20,7 @@ GRAPH_MEASURES[["betweenness-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_STDEV)]] <- list( #betweenness-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -28,7 +28,7 @@ GRAPH_MEASURES[["betweenness-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_MIN)]] <- list( #betweenness-min
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -36,7 +36,7 @@ GRAPH_MEASURES[["betweenness-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_MAX)]] <- list( #betweenness-max
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -44,7 +44,7 @@ GRAPH_MEASURES[["betweenness-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_ASSORT)]] <- list( #betweenness-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph)
@@ -52,7 +52,7 @@ GRAPH_MEASURES[["betweenness-assortativity"]] <- list(
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["betweenness-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_CENTRZ)]] <- list( #betweenness-centralization
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -63,7 +63,7 @@ GRAPH_MEASURES[["betweenness-centralization"]] <- list(
 
 
 # normalized variants
-NODE_MEASURES[["betweenness-norm"]] <- list(
+NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM)]] <- list( #betweenness-norm
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -71,7 +71,7 @@ NODE_MEASURES[["betweenness-norm"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_AVG)]] <- list( #betweenness-norm-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -79,7 +79,7 @@ GRAPH_MEASURES[["betweenness-norm-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_STDEV)]] <- list( #betweenness-norm-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -87,7 +87,7 @@ GRAPH_MEASURES[["betweenness-norm-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_MIN)]] <- list( #betweenness-norm-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -95,7 +95,7 @@ GRAPH_MEASURES[["betweenness-norm-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_MAX)]] <- list( #betweenness-norm-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -103,7 +103,7 @@ GRAPH_MEASURES[["betweenness-norm-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_ASSORT)]] <- list( #betweenness-norm-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph)
@@ -111,7 +111,7 @@ GRAPH_MEASURES[["betweenness-norm-assortativity"]] <- list(
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["betweenness-norm-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_CENTRZ)]] <- list( #betweenness-norm-centralization
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -122,7 +122,7 @@ GRAPH_MEASURES[["betweenness-norm-centralization"]] <- list(
 
 
 # weighted variants
-NODE_MEASURES[["betweenness-weighted"]] <- list(
+NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT)]] <- list( #betweenness-weighted
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -130,7 +130,7 @@ NODE_MEASURES[["betweenness-weighted"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_AVG)]] <- list( #betweenness-weighted-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -138,7 +138,7 @@ GRAPH_MEASURES[["betweenness-weighted-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_STDEV)]] <- list( #betweenness-weighted-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -146,7 +146,7 @@ GRAPH_MEASURES[["betweenness-weighted-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_MIN)]] <- list( #betweenness-weighted-min
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -154,7 +154,7 @@ GRAPH_MEASURES[["betweenness-weighted-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_MAX)]] <- list( #betweenness-weighted-max
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -162,7 +162,7 @@ GRAPH_MEASURES[["betweenness-weighted-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #betweenness-weighted-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph)
@@ -174,7 +174,7 @@ GRAPH_MEASURES[["betweenness-weighted-assortativity"]] <- list(
 
 
 # normalized weighted variants
-NODE_MEASURES[["betweenness-weighted-norm"]] <- list(
+NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM)]] <- list( #betweenness-weighted-norm
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -182,7 +182,7 @@ NODE_MEASURES[["betweenness-weighted-norm"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-norm-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- list( #betweenness-weighted-norm-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -190,7 +190,7 @@ GRAPH_MEASURES[["betweenness-weighted-norm-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-norm-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- list( #betweenness-weighted-norm-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -198,7 +198,7 @@ GRAPH_MEASURES[["betweenness-weighted-norm-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-norm-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- list( #betweenness-weighted-norm-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -206,7 +206,7 @@ GRAPH_MEASURES[["betweenness-weighted-norm-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-norm-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_MAX)]] <- list( #betweenness-weighted-norm-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -214,7 +214,7 @@ GRAPH_MEASURES[["betweenness-weighted-norm-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["betweenness-weighted-norm-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- list( #betweenness-weighted-norm-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph)

@@ -6,20 +6,6 @@
 ###############################################################################
 
 
-# graph measures with average/stdev/min/max variants
-asmm.group <- c(
-		"betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm",
-		"closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm",
-		"community-size", "community-weighted-size", "component-size",
-		"link-connectivity", "node-connectivity",
-		"degree", "degree-norm", "strength",
-		"distance", "distance-weighted",
-		"eccentricity", "link-weight",
-		"edgebetweenness", "edgebetweenness-weighted",
-		"eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm",
-		"transitivity-local", "transitivity-weighted-local"
-)
-asmm.suffixes <- c("-average","-stdev","-min","-max")
 # graph measures based on assortativity
 assort.groups <- list(
 		c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
@@ -50,7 +36,7 @@ single.group <- c("modularity", "community-number", "modularity-weighted", "comm
 # mode: either "segments", "panel.window" or "page.window".
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
-# measure: concerned topological measure.
+# measure: name of the concerned topological measure.
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
@@ -58,7 +44,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 {	res <- rep(NA, length(overlaps))
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.statname.static(object="graph", mode, window.size, overlap)
+		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,1]
 	}
@@ -73,7 +59,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 # mode: either "segments", "panel.window" or "page.window".
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
-# measure: concerned topological measure.
+# measure: name of the concerned topological measure.
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
@@ -81,7 +67,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 {	res <- rep(NA, length(window.sizes))
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.statname.static(object="graph", mode, window.size, overlap)
+		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,1]
 	}
@@ -99,7 +85,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-generate.static.node.plots <- function(g, basename)
+generate.static.node.plots <- function(mode, window.sizes, overlap)
 {	
 }
 
@@ -114,8 +100,43 @@ generate.static.node.plots <- function(g, basename)
 # returns: an mxk table containing all computed values, where m is the number of
 #          links and k the number of measures.
 ###############################################################################
-generate.static.link.plots <- function(g, basename)
+generate.static.link.plots <- function(mode, window.sizes, overlap)
 {	
+}
+
+
+
+###############################################################################
+###############################################################################
+generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
+{	# process each appropriate measure
+	for(meas.name in ASMM_MEASURES)
+	{	# generate a plot for each window size value
+		for(window.size in window.sizes)
+		{	# the series corresponds to the values of the overlap
+			avg.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_AVG))
+			std.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_STDEV))
+			min.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_MIN))
+			max.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_MAX))
+			
+			# generate the stdev plot
+			plot.file <- get.plotname.static(object="graph", mode=mode, window.size=window.size)
+			pdf(file=plot.file,bg="white")
+				plot(x=overlaps, y=avg.vals,
+						ylim=c(min(avg.vals-std.vals),max(avg.vals+std.vals)),
+						xlab="Overlap",
+						ylab=""
+				)
+				segments(overlaps, avg.vals-std.vals, overlaps, avg.vals+std.vals)
+				epsilon <- 0.02
+				segments(overlaps-epsilon, avg.vals-std.vals, overlaps+epsilon, avg.vals-std.vals)
+				segments(overlaps-epsilon, avg.vals+std.vals, overlaps+epsilon, avg.vals+std.vals)
+			dev.off()
+			
+			# generate the min/max plot
+			
+		}
+	}
 }
 
 
@@ -128,8 +149,11 @@ generate.static.link.plots <- function(g, basename)
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-generate.static.graph.plots <- function(g, basename)
+generate.static.graph.plots <- function(mode, window.sizes, overlaps)
 {	
+	generate.static.graph.plots.single(mode, window.sizes, overlaps)
+	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
+	
 }
 
 

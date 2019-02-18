@@ -5,7 +5,7 @@
 # 02/2019
 ###############################################################################
 # link connectivity
-GRAPH_MEASURES[["link-connectivity-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_AVG)]] <- list( #link-connectivity-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -13,7 +13,7 @@ GRAPH_MEASURES[["link-connectivity-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["link-connectivity-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_STDEV)]] <- list( #link-connectivity-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -21,7 +21,8 @@ GRAPH_MEASURES[["link-connectivity-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["link-connectivity-min"]] <- list(		# aka adhesion
+GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_MIN)]] <- list( #link-connectivity-min
+	# aka adhesion
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -29,7 +30,7 @@ GRAPH_MEASURES[["link-connectivity-min"]] <- list(		# aka adhesion
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["link-connectivity-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_MAX)]] <- list( #link-connectivity-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -41,7 +42,7 @@ GRAPH_MEASURES[["link-connectivity-max"]] <- list(
 
 
 # node connectivity
-GRAPH_MEASURES[["node-connectivity-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_AVG)]] <- list( #node-connectivity-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -49,7 +50,7 @@ GRAPH_MEASURES[["node-connectivity-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["node-connectivity-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_STDEV)]] <- list( #node-connectivity-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -57,7 +58,8 @@ GRAPH_MEASURES[["node-connectivity-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["node-connectivity-min"]] <- list(		# aka cohesion
+GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_MIN)]] <- list( #node-connectivity-min
+	# aka cohesion
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -65,7 +67,7 @@ GRAPH_MEASURES[["node-connectivity-min"]] <- list(		# aka cohesion
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["node-connectivity-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_MAX)]] <- list( #node-connectivity-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 

@@ -6,24 +6,6 @@
 ###############################################################################
 
 
-# define/load the topological measures
-NODE_MEASURES <- list()
-LINK_MEASURES <- list()
-GRAPH_MEASURES <- list()
-source("src/measures/betweenness.R")
-source("src/measures/closeness.R")
-source("src/measures/community.R")
-source("src/measures/component.R")
-source("src/measures/connectivity.R")
-source("src/measures/degree.R")
-source("src/measures/distance.R")
-source("src/measures/eccentricity.R")
-source("src/measures/edgebetweenness.R")
-source("src/measures/element.R")
-source("src/measures/spectral.R")
-source("src/measures/transitivity.R")
-
-
 
 ###############################################################################
 # Computes all preselected nodal topological measures for the specified static graph.
@@ -37,7 +19,7 @@ source("src/measures/transitivity.R")
 #          nodes and k the number of measures.
 ###############################################################################
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="nodes", mode, window.size=, overlap=)
+{	table.file <- get.statname.static(object="nodes", mode=mode, window.size=window.size, overlap=overlap)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -83,7 +65,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
 #          links and k the number of measures.
 ###############################################################################
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="links", mode, window.size=, overlap=)
+{	table.file <- get.statname.static(object="links", mode=mode, window.size=window.size, overlap=overlap)
 	tlog(4,"Computing link topological measures for \"",basename,"\"")
 	
 	# read or create the table containing the computed values
@@ -131,7 +113,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="graph", mode, window.size=, overlap=)
+{	table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
 	tlog(4,"Computing topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values

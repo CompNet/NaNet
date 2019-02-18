@@ -4,14 +4,14 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
-NODE_MEASURES[["eccentricity"]] <- list(
+NODE_MEASURES[[paste0(MEAS_ECCENTRICITY)]] <- list( #eccentricity
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	eccentricity(graph=graph, mode="all")
 	}
 )
-GRAPH_MEASURES[["eccentricity-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_AVG)]] <- list( #eccentricity-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -19,7 +19,7 @@ GRAPH_MEASURES[["eccentricity-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["eccentricity-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_STDEV)]] <- list( #eccentricity-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -27,7 +27,8 @@ GRAPH_MEASURES[["eccentricity-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["eccentricity-min"]] <- list(		# aka radius
+GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MIN)]] <- list( #eccentricity-min
+	# aka radius
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -35,7 +36,8 @@ GRAPH_MEASURES[["eccentricity-min"]] <- list(		# aka radius
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["eccentricity-max"]] <- list(	# aka diameter, or maximal distance
+GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MAX)]] <- list( #eccentricity-max
+	# aka diameter, or maximal distance
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -43,7 +45,7 @@ GRAPH_MEASURES[["eccentricity-max"]] <- list(	# aka diameter, or maximal distanc
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["eccentricity-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_ASSORT)]] <- list( #eccentricity-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 

@@ -28,8 +28,9 @@ page.overlaps <- list(
 
 ###############################################################################
 # load auxiliary functions
-source("src/file_constants.R")
-source("src/table_constants.R")
+source("src/constants_file.R")
+source("src/constants_table.R")
+source("src/constants_meas.R")
 source("src/read_raw.R")
 source("src/extract_static.R")
 source("src/stats_static.R")

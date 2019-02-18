@@ -5,7 +5,7 @@
 # 02/2019
 ###############################################################################
 # basic variants
-GRAPH_MEASURES[["modularity"]] <- list(
+GRAPH_MEASURES[[MEAS_MODULARITY]] <- list( #modularity
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -13,7 +13,7 @@ GRAPH_MEASURES[["modularity"]] <- list(
 		modularity(com)
 	}
 )
-GRAPH_MEASURES[["community-number"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_NBR)]] <- list( #community-number
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -21,7 +21,7 @@ GRAPH_MEASURES[["community-number"]] <- list(
 		length(communities(com))
 	}
 )
-GRAPH_MEASURES[["community-size-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_AVG)]] <- list( #community-size-average
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -30,7 +30,7 @@ GRAPH_MEASURES[["community-size-average"]] <- list(
 		mean(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_STDEV)]] <- list( #community-size-stdev
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -39,7 +39,7 @@ GRAPH_MEASURES[["community-size-stdev"]] <- list(
 		sd(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MIN)]] <- list( #community-size-min
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -48,7 +48,7 @@ GRAPH_MEASURES[["community-size-min"]] <- list(
 		min(sizes)
 	}
 )
-GRAPH_MEASURES[["community-size-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MAX)]] <- list( #community-size-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -61,7 +61,7 @@ GRAPH_MEASURES[["community-size-max"]] <- list(
 
 
 # weighted variants
-GRAPH_MEASURES[["modularity-weighted"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_MODULARITY,SFX_WEIGHT)]] <- list( #modularity-weighted
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -69,7 +69,7 @@ GRAPH_MEASURES[["modularity-weighted"]] <- list(
 		modularity(com)
 	}
 )
-GRAPH_MEASURES[["community-weighted-number"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_NBR)]] <- list( #community-weighted-number
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -77,7 +77,7 @@ GRAPH_MEASURES[["community-weighted-number"]] <- list(
 		length(communities(com))
 	}
 )
-GRAPH_MEASURES[["community-weighted-size-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_AVG)]] <- list( #community-weighted-size-average
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -86,7 +86,7 @@ GRAPH_MEASURES[["community-weighted-size-average"]] <- list(
 		mean(sizes)
 	}
 )
-GRAPH_MEASURES[["community-weighted-size-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_STDEV)]] <- list( #community-weighted-size-stdev
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -95,7 +95,7 @@ GRAPH_MEASURES[["community-weighted-size-stdev"]] <- list(
 		sd(sizes)
 	}
 )
-GRAPH_MEASURES[["community-weighted-size-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MIN)]] <- list( #community-weighted-size-min
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
@@ -104,7 +104,7 @@ GRAPH_MEASURES[["community-weighted-size-min"]] <- list(
 		min(sizes)
 	}
 )
-GRAPH_MEASURES[["community-weighted-size-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MAX)]] <- list( #community-weighted-size-max
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)

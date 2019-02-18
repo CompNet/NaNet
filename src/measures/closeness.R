@@ -5,14 +5,14 @@
 # 02/2019
 ###############################################################################
 # basic variants
-NODE_MEASURES[["closeness"]] <- list(
+NODE_MEASURES[[MEAS_CLOSENESS]] <- list( #closeness
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	closeness(graph=graph, mode="all", weights=NULL, normalized=FALSE)
 	}
 )
-GRAPH_MEASURES[["closeness-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_AVG)]] <- list( #closeness-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -20,7 +20,7 @@ GRAPH_MEASURES[["closeness-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_STDEV)]] <- list( #closeness-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -28,7 +28,7 @@ GRAPH_MEASURES[["closeness-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_MIN)]] <- list( #closeness-min
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -36,7 +36,7 @@ GRAPH_MEASURES[["closeness-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_MAX)]] <- list( #closeness-max
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -44,7 +44,7 @@ GRAPH_MEASURES[["closeness-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_ASSORT)]] <- list( #closeness-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
@@ -52,7 +52,7 @@ GRAPH_MEASURES[["closeness-assortativity"]] <- list(
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["closeness-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_CENTRZ)]] <- list( #closeness-centralization
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -63,14 +63,14 @@ GRAPH_MEASURES[["closeness-centralization"]] <- list(
 
 
 # normalized variants
-NODE_MEASURES[["closeness-norm"]] <- list(
+NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM)]] <- list( #closeness-norm
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
 	{	closeness(graph=graph, mode="all", weights=NULL, normalized=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_AVG)]] <- list( #closeness-norm-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -78,7 +78,7 @@ GRAPH_MEASURES[["closeness-norm-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_STDEV)]] <- list( #closeness-norm-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -86,7 +86,7 @@ GRAPH_MEASURES[["closeness-norm-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_MIN)]] <- list( #closeness-norm-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -94,7 +94,7 @@ GRAPH_MEASURES[["closeness-norm-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_MAX)]] <- list( #closeness-norm-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -102,7 +102,7 @@ GRAPH_MEASURES[["closeness-norm-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_ASSORT)]] <- list( #closeness-norm-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
@@ -110,7 +110,7 @@ GRAPH_MEASURES[["closeness-norm-assortativity"]] <- list(
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
-GRAPH_MEASURES[["closeness-norm-centralization"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_CENTRZ)]] <- list( #closeness-norm-centralization
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
@@ -121,14 +121,14 @@ GRAPH_MEASURES[["closeness-norm-centralization"]] <- list(
 
 
 # weighted variants
-NODE_MEASURES[["closeness-weighted"]] <- list(
+NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT)]] <- list( #closeness-weighted
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
 	{	closeness(graph=graph, mode="all", weights=E(graph)$weight, normalized=FALSE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_AVG)]] <- list( #closeness-weighted-average
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -136,7 +136,7 @@ GRAPH_MEASURES[["closeness-weighted-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_STDEV)]] <- list( #closeness-weighted-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -144,7 +144,7 @@ GRAPH_MEASURES[["closeness-weighted-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_MIN)]] <- list( #closeness-weighted-min
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -152,7 +152,7 @@ GRAPH_MEASURES[["closeness-weighted-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_MAX)]] <- list( #closeness-weighted-max
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -160,7 +160,7 @@ GRAPH_MEASURES[["closeness-weighted-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #closeness-weighted-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
@@ -172,14 +172,14 @@ GRAPH_MEASURES[["closeness-weighted-assortativity"]] <- list(
 
 
 # normalized weighted variants
-NODE_MEASURES[["closeness-weighted-norm"]] <- list(
+NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM)]] <- list( #closeness-weighted-norm
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
 	{	closeness(graph=graph, mode="all", weights=E(graph)$weight, normalized=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-norm-average"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- list( #closeness-weighted-norm-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -187,7 +187,7 @@ GRAPH_MEASURES[["closeness-weighted-norm-average"]] <- list(
 		mean(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-norm-stdev"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- list( #closeness-weighted-norm-stdev
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
@@ -195,7 +195,7 @@ GRAPH_MEASURES[["closeness-weighted-norm-stdev"]] <- list(
 		sd(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-norm-min"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- list( #closeness-weighted-norm-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -203,7 +203,7 @@ GRAPH_MEASURES[["closeness-weighted-norm-min"]] <- list(
 		min(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-norm-max"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MAX)]] <- list( #closeness-weighted-norm-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
@@ -211,7 +211,7 @@ GRAPH_MEASURES[["closeness-weighted-norm-max"]] <- list(
 		max(values,na.rm=TRUE)
 	}
 )
-GRAPH_MEASURES[["closeness-weighted-norm-assortativity"]] <- list(
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- list( #closeness-weighted-norm-assortativity
 	type=numeric(),
 	bounds=c(-1,1),
 	foo=function(graph) 
