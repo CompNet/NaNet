@@ -58,11 +58,11 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
 		measure <- NODE_MEASURES[[m]]
 		values <- measure$foo(graph=g)
 		if(length(values)==0)
-			vamues <- rep(NA,gorder(g))
+			values <- rep(NA,gorder(g))
 		# update table
 		res.tab[,meas.name] <- values
 		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE, col.names=TRUE)
+		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 	}
 	
 	tlog(4,"Computation of nodal topological measures complete")
@@ -104,14 +104,14 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
 		measure <- LINK_MEASURES[[m]]
 		values <- measure$foo(graph=g)
 		if(length(values)==0)
-			vamues <- rep(NA,gsize(g))
+			values <- rep(NA,gsize(g))
 		# update table
 #		print(head(res.tab))
 #		print(dim(res.tab))
 #		print(length(values))
 		res.tab[,meas.name] <- values
 		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE, col.names=TRUE)
+		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 	}
 	
 	tlog(4,"Computation of link topological measures complete")
@@ -157,7 +157,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA)
 #		print(length(value))
 		res.tab[meas.name,1] <- value
 		# update file
-		write.csv(x=res.tab, file=table.file, row.names=TRUE, col.names=FALSE)
+		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
 	}
 	
 	tlog(4,"Computation of topological measures complete")
