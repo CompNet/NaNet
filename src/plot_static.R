@@ -6,23 +6,89 @@
 ###############################################################################
 
 
+# graph measures with average/stdev/min/max variants
+asmm.group <- c(
+		"betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm",
+		"closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm",
+		"community-size", "community-weighted-size", "component-size",
+		"link-connectivity", "node-connectivity",
+		"degree", "degree-norm", "strength",
+		"distance", "distance-weighted",
+		"eccentricity", "link-weight",
+		"edgebetweenness", "edgebetweenness-weighted",
+		"eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm",
+		"transitivity-local", "transitivity-weighted-local"
+)
+asmm.suffixes <- c("-average","-stdev","-min","-max")
+# graph measures based on assortativity
+assort.groups <- list(
+		c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
+		c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
+		c("degree", "degree-norm", "strength"),
+		c("eccentricity"),
+		c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
+		c("transitivity-local", "transitivity-weighted-local")
+)
+assort.suffix <- "-assortativity"
+# graph measures based on centralization
+ctrlztn.group <- list(
+		c("betweenness", "betweenness-norm"),
+		c("closeness", "closeness-norm"),
+		c("degree", "degree-norm"),
+		c("eigenvector", "eigenvector-norm")
+)
+ctrlztn.suffix <- "-centralization"
+# single graph measures
+single.group <- c("modularity", "community-number", "modularity-weighted", "community-weighted-number", "component-number",
+		"node-count", "link-count", "density", "transitivity-global"
+)
+
+
 ###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# mode: either "segments", "panel.window" or "page.window".
+# window.size: fixed value for this parameter.
+# overlaps: vector of values for this parameter.
+# measure: concerned topological measure.
+#
+# returns: a vector of values representing the desired series.
 ###############################################################################
-load.graph.stats <- function(window.sizes, overlaps)
-{	
-	for(i in 1:length(window.sizes))
-	{	window.size <- window.sizes[i]
-		for(overlap in overlaps[[i]])
-		{	table.file <- get.statname.static(object="graph", mode, window.size, overlap)
-			tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
-		}
+load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measure)
+{	res <- rep(NA, length(overlaps))
+	for(j in 1:length(overlaps))
+	{	overlap <- overlaps[j]
+		table.file <- get.statname.static(object="graph", mode, window.size, overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[j] <- tmp.tab[measure,1]
 	}
 	
-	
-	
-
-	
+	return(res)
 }
+
+
+###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# mode: either "segments", "panel.window" or "page.window".
+# window.sizes: vector of values for this parameter.
+# overlap: fixed value for this parameter.
+# measure: concerned topological measure.
+#
+# returns: a vector of values representing the desired series.
+###############################################################################
+load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
+{	res <- rep(NA, length(window.sizes))
+	for(i in 1:length(window.sizes))
+	{	window.size <- window.sizes[i]
+		table.file <- get.statname.static(object="graph", mode, window.size, overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[i] <- tmp.tab[measure,1]
+	}
+	
+	return(res)
+}
+
 
 ###############################################################################
 # Computes all preselected nodal topological measures for the specified static graph.
@@ -34,36 +100,7 @@ load.graph.stats <- function(window.sizes, overlaps)
 #          nodes and k the number of measures.
 ###############################################################################
 generate.static.node.plots <- function(g, basename)
-{	tlog(4,"Computing nodal topological measures for \"",basename,"\"")
-	
-	# read or create the table containing the computed values
-	table.file <- paste0(basename,"_meas_node.csv")
-	tlog(5,"Getting/creating file \"",table.file,"\"")
-	if(file.exists(table.file))
-		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
-	else
-	{	res.tab <- matrix(NA,nrow=gorder(g),ncol=length(NODE_MEASURES))
-		colnames(res.tab) <- names(NODE_MEASURES)
-	}
-	
-	# compute each measure
-	tlog(5,"Computing each nodal measure")
-	for(m in 1:length(NODE_MEASURES))
-	{	meas.name <- names(NODE_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- NODE_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			vamues <- rep(NA,gorder(g))
-		# update table
-		res.tab[,meas.name] <- values
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE, col.names=TRUE)
-	}
-	
-	tlog(4,"Computation of nodal topological measures complete")
-	return(res.tab)
+{	
 }
 
 
@@ -78,39 +115,7 @@ generate.static.node.plots <- function(g, basename)
 #          links and k the number of measures.
 ###############################################################################
 generate.static.link.plots <- function(g, basename)
-{	tlog(4,"Computing link topological measures for \"",basename,"\"")
-	
-	# read or create the table containing the computed values
-	table.file <- paste0(basename,"_meas_link.csv")
-	tlog(5,"Getting/creating file \"",table.file,"\"")
-	if(file.exists(table.file))
-		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
-	else
-	{	res.tab <- matrix(NA,nrow=gsize(g),ncol=length(LINK_MEASURES))
-		colnames(res.tab) <- names(LINK_MEASURES)
-	}
-	
-	# compute each measure
-	tlog(5,"Computing each link measure")
-	for(m in 1:length(LINK_MEASURES))
-	{	meas.name <- names(LINK_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- LINK_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			vamues <- rep(NA,gsize(g))
-		# update table
-#		print(head(res.tab))
-#		print(dim(res.tab))
-#		print(length(values))
-		res.tab[,meas.name] <- values
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE, col.names=TRUE)
-	}
-	
-	tlog(4,"Computation of link topological measures complete")
-	return(res.tab)
+{	
 }
 
 
@@ -124,37 +129,7 @@ generate.static.link.plots <- function(g, basename)
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
 generate.static.graph.plots <- function(g, basename)
-{	tlog(4,"Computing topological measures for \"",basename,"\"")
-	
-	# read or create the table containing the computed values
-	table.file <- paste0(basename,"_meas_graph.csv")
-	tlog(5,"Getting/creating file \"",table.file,"\"")
-	if(file.exists(table.file))
-		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
-	else
-	{	res.tab <- matrix(NA,nrow=length(GRAPH_MEASURES),ncol=1)
-		rownames(res.tab) <- names(GRAPH_MEASURES)
-	}
-	
-	# compute each measure
-	tlog(5,"Computing each graph measure")
-	for(m in 1:length(GRAPH_MEASURES))
-	{	meas.name <- names(GRAPH_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- GRAPH_MEASURES[[m]]
-		value <- measure$foo(graph=g)
-		# update table
-#		print(head(res.tab))
-#		print(dim(res.tab))
-#		print(length(value))
-		res.tab[meas.name,1] <- value
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=TRUE, col.names=FALSE)
-	}
-	
-	tlog(4,"Computation of topological measures complete")
-	return(res.tab)
+{	
 }
 
 
