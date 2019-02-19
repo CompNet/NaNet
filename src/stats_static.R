@@ -66,7 +66,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
 ###############################################################################
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
 {	table.file <- get.statname.static(object="links", mode=mode, window.size=window.size, overlap=overlap)
-	tlog(4,"Computing link topological measures for \"",basename,"\"")
+	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -158,12 +158,11 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA)
 # returns: a list of 3 tables containing all computed values (nodes, links, graphs).
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA)
-{	basename <- get.basename.static(mode, window.size, overlap)
-	tlog(3,"Computing graph topological measures for \"",basename,"\"")
+{	graph.file <- get.graphname.static(mode, window.size, overlap)
+	tlog(3,"Computing graph topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
 	tlog(4,"Loading graph")
-	graph.file <- paste0(basename,".graphml")
 	g <- read.graph(file=graph.file, format="graphml")
 	E(g)$weight <- E(g)$Occurrences
 	

@@ -24,6 +24,8 @@ page.overlaps <- list(
 	0, 0:1, 0:4,
 	seq(0,9,2), seq(0,14,2), seq(0,19,2)
 )
+# TODO adjust to have more values in common for the overlaps of different window sizes
+
 
 
 ###############################################################################
@@ -50,7 +52,7 @@ source("src/logging.R")
 
 ###############################################################################
 # compute stats
-compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################

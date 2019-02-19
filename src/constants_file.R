@@ -9,6 +9,12 @@
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
 dir.create(NET_FOLDER, showWarnings=FALSE)
+# folder containing the produced stat files
+STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
+dir.create(STAT_FOLDER, showWarnings=FALSE)
+# folder containing the produced plot files
+PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
+dir.create(PLOT_FOLDER, showWarnings=FALSE)
 
 
 ###############################################################################
@@ -31,7 +37,7 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # 
 # Returns: basename of the graph and related files.
 ###############################################################################
-get.basename.static <- function(mode, window.size=NA, overlap=NA)
+get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 {	res <- "static"
 	
 	if(mode=="segments")
@@ -40,6 +46,8 @@ get.basename.static <- function(mode, window.size=NA, overlap=NA)
 		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
 		res <- 	file.path(NET_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+	
+	res <- paste0(res, ".graphml")
 	
 	return(res)
 }
@@ -56,7 +64,16 @@ get.basename.static <- function(mode, window.size=NA, overlap=NA)
 # Returns: basename of the graph and related files.
 ###############################################################################
 get.statname.static <- function(object, mode, window.size=NA, overlap=NA)
-{	res <- paste0(get.basename.static(mode,window.size,overlap), "_meas")
+{	res <- "static"
+	
+	if(mode=="segments")
+		res <- 	file.path(STAT_FOLDER, paste0(res, "_segments"))
+	else if(mode=="panel.window")
+		res <- 	file.path(STAT_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+	else if(mode=="page.window")
+		res <- 	file.path(STAT_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+	
+	res <- paste0(res, "_meas")
 	
 	if(object=="graph")
 		res <- 	paste0(res, "_graph.csv")
@@ -85,16 +102,26 @@ get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
 {	res <- "static"
 	
 	if(mode=="panel.window")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size))
+	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_panels"))
+		if(!is.na(window.size))
+			res <- paste0(res, "_ws=",window.size)
+		else if(!is.na(overlap))
+			res <- paste0(res, "_ol=",overlap)
+	}
 	else if(mode=="page.window")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_pages_ws=",window.size))
+	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_pages"))
+		if(!is.na(window.size))
+			res <- paste0(res, "_ws=",window.size)
+		else if(!is.na(overlap))
+			res <- paste0(res, "_ol=",overlap)
+	}
 	
 	if(object=="graph")
-		res <- 	paste0(res, "_graph.pdf")
+		res <- 	paste0(res, "_graph")
 	else if(object=="nodes")
-		res <- 	paste0(res, "_nodes.pdf")
+		res <- 	paste0(res, "_nodes")
 	else if(object=="links")
-		res <- 	paste0(res, "_links.pdf")
+		res <- 	paste0(res, "_links")
 	
 	return(res)
 }
