@@ -4,6 +4,7 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+# basic variants
 GRAPH_MEASURES[[paste0(MEAS_NODE,SFX_NBR)]] <- list( #node-number
 	type=integer(),
 	bounds=c(0,NA),

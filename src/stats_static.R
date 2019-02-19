@@ -7,6 +7,9 @@
 
 
 
+# cache
+cache <- list()
+
 ###############################################################################
 # Computes all preselected nodal topological measures for the specified static graph.
 #
@@ -180,6 +183,9 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	}
 	else
 		E(g)$weight <- E(g)$Occurrences
+	
+	# init cache
+	cache <<- list()
 	
 	# compute its stats
 	node.stats <- compute.static.node.statistics(g, mode, window.size, overlap, weights)

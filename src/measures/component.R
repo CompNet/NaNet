@@ -4,11 +4,24 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+# cache function
+compute.components <- function(name, graph)
+{	if(length(cache[[name]])>0)
+		res <- cache[[name]]
+	else
+	{	if(name==MEAS_COMPONENT)
+			res <- components(graph=graph, mode="weak")$csize
+		cache[[name]] <<- res
+	}
+}
+
+
+# basic variants
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_NBR)]] <- list( #component-number
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
-	{	sizes <- components(graph=graph, mode="weak")$csize
+	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		length(sizes)
 	}
 )
@@ -16,7 +29,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_AVG)]] <- list( #component-si
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
-	{	sizes <- components(graph=graph, mode="weak")$csize
+	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		mean(sizes,na.rm=TRUE)
 	}
 )
@@ -24,7 +37,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_STDEV)]] <- list( #component-
 	type=numeric(),
 	bounds=c(0,NA),
 	foo=function(graph) 
-	{	sizes <- components(graph=graph, mode="weak")$csize
+	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		sd(sizes)
 	}
 )
@@ -32,7 +45,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_MIN)]] <- list( #component-si
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
-	{	sizes <- components(graph=graph, mode="weak")$csize
+	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		min(sizes)
 	}
 )
@@ -40,7 +53,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_MAX)]] <- list( #component-si
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph) 
-	{	sizes <- components(graph=graph, mode="weak")$csize
+	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		max(sizes)
 	}
 )

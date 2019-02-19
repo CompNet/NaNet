@@ -4,19 +4,35 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+# cache function
+compute.distance <- function(name, graph)
+{	if(length(cache[[name]])>0)
+		res <- cache[[name]]
+	else
+	{	if(name==MEAS_DISTANCE)
+			res <- distances(graph=graph, mode="all", weights=NA)
+		else if(name==paste0(MEAS_DISTANCE,SFX_WEIGHT))
+			res <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+		cache[[name]] <<- res
+	}
+}
+
+
+
 # unweighted variants
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	mean_distance(graph=graph, directed=FALSE, unconnected=TRUE)
+	{	values <- compute.distance(MEAS_DISTANCE, graph)
+		mean(values,na.rm=TRUE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -24,7 +40,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		min(values,na.rm=TRUE)
 	}
 )
@@ -32,7 +48,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		max(values,na.rm=TRUE)
 	}
 )
@@ -51,7 +67,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-we
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
 	}
 )
@@ -59,7 +75,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -67,7 +83,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-we
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
 	}
 )
@@ -75,7 +91,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MAX)]] <- list( #distance-we
 	type=numeric(),
 	bounds=c(1,NA),
 	foo=function(graph) 
-	{	values <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
 	}
 )

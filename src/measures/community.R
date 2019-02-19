@@ -4,12 +4,27 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+# cache function
+compute.communities <- function(name, graph)
+{	if(length(cache[[name]])>0)
+		res <- cache[[name]]
+	else
+	{	if(name==MEAS_MODULARITY)
+			res <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=TRUE)
+		else if(name==paste0(MEAS_MODULARITY,SFX_WEIGHT))
+			res <- cluster_infomap(graph=graph, e.weights=E(graph)$weight, v.weights=NULL, modularity=TRUE)
+		cache[[name]] <<- res
+	}
+}
+
+
+
 # basic variants
 GRAPH_MEASURES[[MEAS_MODULARITY]] <- list( #modularity
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=TRUE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		modularity(com)
 	}
 )
@@ -17,7 +32,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_NBR)]] <- list( #community-number
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=FALSE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		length(communities(com))
 	}
 )
@@ -25,7 +40,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_AVG)]] <- list( #community-si
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=FALSE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
 		mean(sizes)
 	}
@@ -34,7 +49,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_STDEV)]] <- list( #community-
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=FALSE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
 		sd(sizes)
 	}
@@ -43,7 +58,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MIN)]] <- list( #community-si
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=FALSE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
 		min(sizes)
 	}
@@ -52,7 +67,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MAX)]] <- list( #community-si
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=NULL, modularity=FALSE)
+	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
 		max(sizes)
 	}
@@ -65,7 +80,7 @@ GRAPH_MEASURES[[paste0(MEAS_MODULARITY,SFX_WEIGHT)]] <- list( #modularity-weight
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=TRUE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		modularity(com)
 	}
 )
@@ -73,7 +88,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_NBR)]] <- list( #community-
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=FALSE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		length(communities(com))
 	}
 )
@@ -81,7 +96,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_AVG)]] <- list( #c
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=FALSE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
 		mean(sizes)
 	}
@@ -90,7 +105,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_STDEV)]] <- list( 
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=FALSE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
 		sd(sizes)
 	}
@@ -99,7 +114,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MIN)]] <- list( #c
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=FALSE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
 		min(sizes)
 	}
@@ -108,7 +123,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MAX)]] <- list( #c
 	type=integer(),
 	bounds=c(0,NA),
 	foo=function(graph)
-	{	com <- cluster_infomap(graph=graph, e.weights=NULL, v.weights=E(graph)$weight, modularity=FALSE)
+	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
 		max(sizes)
 	}

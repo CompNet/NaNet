@@ -4,19 +4,32 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
+# cache function
+compute.edgebetweenness <- function(name, graph)
+{	if(length(cache[[name]])>0)
+		res <- cache[[name]]
+	else
+	{	if(name==MEAS_EDGEBETWNS)
+			res <- edge_betweenness(graph=graph, directed=FALSE, weights=NA)
+		else if(name==paste0(MEAS_EDGEBETWNS,SFX_WEIGHT))
+			res <- edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+		cache[[name]] <<- res
+	}
+}
+
 # basic variants
 LINK_MEASURES[[MEAS_EDGEBETWNS]] <- list( #edgebetweenness
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	edge_betweenness(graph=graph, directed=FALSE, weights=NULL)
+	{	compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_AVG)]] <- list( #edgebetweenness-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=NULL)
+	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		mean(values,na.rm=TRUE)
 	}
 )
@@ -24,7 +37,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_STDEV)]] <- list( #edgebetweenness-st
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=NULL)
+	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -32,7 +45,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MIN)]] <- list( #edgebetweenness-min
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=NULL)
+	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		min(values,na.rm=TRUE)
 	}
 )
@@ -40,7 +53,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MAX)]] <- list( #edgebetweenness-max
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=NULL)
+	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		max(values,na.rm=TRUE)
 	}
 )
@@ -52,14 +65,14 @@ LINK_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT)]] <- list( #edgebetweenness-we
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+	{	compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_AVG)]] <- list( #edgebetweenness-weighted-average
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
 	}
 )
@@ -67,7 +80,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_STDEV)]] <- list( #edgebet
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -75,7 +88,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_MIN)]] <- list( #edgebetwe
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
 	}
 )
@@ -83,7 +96,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_MAX)]] <- list( #edgebetwe
 	type=numeric(),
 	bounds=c(0,1),
 	foo=function(graph) 
-	{	values <- edge_betweenness(graph=graph, directed=FALSE, weights=E(graph)$weight)
+	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
 	}
 )
