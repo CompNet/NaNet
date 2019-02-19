@@ -158,6 +158,8 @@ read.inter.table <- function(volume.info, page.info)
 						stop(paste("ERROR when splitting the names:",v))
 				})
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
+		if(length(chars)>length(unique(chars)))
+			stop(paste("ERROR the same character(s) appear(s) several times in line:\"",paste(line,collapse=","),"\""))
 		chars <- t(combn(x=chars,m=2))
 		
 		# add segment to data frame

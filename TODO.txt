@@ -28,4 +28,7 @@ Stats part:
 - Segments: weights=occurrences vs. durations
   - compare them, correlated ?
   - weighted nets (for now) only correspond to occurrences. should we also study durations?
+
+- Plots:
+  - show we use segments as the reference value in plots?
   

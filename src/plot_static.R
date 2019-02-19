@@ -77,10 +77,11 @@ single.group <- c("modularity", "community-number", "modularity-weighted", "comm
 
 
 ###############################################################################
-# Loads a series corresponding to the specified parameters.
+# Loads a series corresponding to the specified parameters: fixed window size,
+# varying overlap.
 #
-# object: either "nodes" or "links".
-# mode: either "segments", "panel.window" or "page.window".
+# object: either "nodes" or "links" (not "graph").
+# mode: either "panel.window" or "page.window" (not "segments").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -103,10 +104,11 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 
 
 ###############################################################################
-# Loads a series corresponding to the specified parameters.
+# Loads a series corresponding to the specified parameters: varying window size,
+# fixed overlap.
 #
-# object: either "nodes" or "links".
-# mode: either "segments", "panel.window" or "page.window".
+# object: either "nodes" or "links" (not "graph").
+# mode: either "panel.window" or "page.window" (not "segments").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -124,6 +126,23 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 		res[[i]] <- values
 	}
 	
+	return(res)
+}
+
+
+###############################################################################
+# Loads a series corresponding to the segment-based graph.
+#
+# object: either "nodes" or "links" (not "graph").
+# measure: name of the concerned topological measure.
+# weights: either "occurrences" or "duration".
+#
+# returns: a vector representing the link/node values for the specified measure.
+###############################################################################
+load.static.nodelink.stats.segments <- function(object, measure, weights)
+{	table.file <- get.statname.static(object=object, mode="segments", weights=weights)
+	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+	res <- tmp.tab[,measure]
 	return(res)
 }
 
@@ -208,8 +227,9 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 	nmn <- names(NODE_MEASURES)
 	lmn <- names(LINK_MEASURES)
 	# identify common overlap values (over window sizes)
-	tmp <- table(unlist(overlaps))
-	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
+#	tmp <- table(unlist(overlaps))
+#	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
+	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	# process each appropriate measure
 	for(meas.name in c(nmn,lmn))
 	{	if(meas.name %in% nmn)
@@ -217,11 +237,22 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 		else
 			object <- "links"
 		
+		# load the reference values (segment-based graph)
+		seg.occ.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
+		seg.vals <- list()
+		seg.vals[[1]] <- seg.occ.vals
+		seg.vals[[2]] <- seg.dur.vals
+	
 		# generate a plot for each window size value
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
 			values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			values <- c(seg.vals, values)
+			
+			nms <- overlaps[[i]]
+			nms <- c("SO","SD",nms)
 			
 			# generate the stdev plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
@@ -229,7 +260,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
-					names=overlaps[[i]],
+					names=nms,
 					plot=FALSE
 				)
 				bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
@@ -238,7 +269,8 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 					outline=FALSE,
 					xlab="Overlap",
 					ylab=meas.name,
-					main=paste0("mode=",mode," window.size=",window.size)
+					main=paste0("mode=",mode," window.size=",window.size),
+					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
 			dev.off()
 		}
@@ -248,14 +280,18 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 		{	# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
 			values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
-				
+			values <- c(seg.vals, values)
+			
+			nms <- window.sizes[idx]
+			nms <- c("SO","SD",nms)
+			
 			# generate the stdev plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
 #			pdf(file=plot.file,bg="white")
 			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
-					names=window.sizes[idx],
+					names=nms,
 					plot=FALSE
 				)
 				bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
@@ -264,7 +300,8 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 					outline=FALSE,
 					xlab="Window size",
 					ylab=meas.name,
-					main=paste0("mode=",mode," overlap=",overlap)
+					main=paste0("mode=",mode," overlap=",overlap),
+					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
 			dev.off()
 		}

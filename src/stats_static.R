@@ -11,15 +11,17 @@
 # Computes all preselected nodal topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window" or "page.window".
-# window.size: value for this parameter.
-# overlap: value for this parameter, specified for of the above parameter values.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="nodes", mode=mode, window.size=window.size, overlap=overlap)
+compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	table.file <- get.statname.static(object="nodes", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -57,15 +59,17 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA)
 # Computes all preselected link topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window" or "page.window".
-# window.size: value for this parameter.
-# overlap: value for this parameter, specified for of the above parameter values.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: an mxk table containing all computed values, where m is the number of
 #          links and k the number of measures.
 ###############################################################################
-compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="links", mode=mode, window.size=window.size, overlap=overlap)
+compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	table.file <- get.statname.static(object="links", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -106,14 +110,16 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA)
 # Computes all preselected graph topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window" or "page.window".
-# window.size: value for this parameter.
-# overlap: value for this parameter, specified for of the above parameter values.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA)
-{	table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
+compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -151,25 +157,34 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA)
 ###############################################################################
 # Computes all preselected topological measures for the specified static graph.
 #
-# mode: either "segments", "panel.window" or "page.window".
-# window.size: value for this parameter.
-# overlap: value for this parameter, specified for of the above parameter values.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: a list of 3 tables containing all computed values (nodes, links, graphs).
 ###############################################################################
-compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA)
+compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA)
 {	graph.file <- get.graphname.static(mode, window.size, overlap)
 	tlog(3,"Computing graph topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
 	tlog(4,"Loading graph")
 	g <- read.graph(file=graph.file, format="graphml")
-	E(g)$weight <- E(g)$Occurrences
+	if(!is.na(weights))
+	{	if(weights=="occurrences")
+			E(g)$weight <- E(g)$Occurrences
+		else if(weights=="duration")
+			E(g)$weight <- E(g)$Duration
+	}
+	else
+		E(g)$weight <- E(g)$Occurrences
 	
 	# compute its stats
-	node.stats <- compute.static.node.statistics(g, mode, window.size, overlap)
-	link.stats <- compute.static.link.statistics(g, mode, window.size, overlap)
-	graph.stats <- compute.static.graph.statistics(g, mode, window.size, overlap)
+	node.stats <- compute.static.node.statistics(g, mode, window.size, overlap, weights)
+	link.stats <- compute.static.link.statistics(g, mode, window.size, overlap, weights)
+	graph.stats <- compute.static.graph.statistics(g, mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of graph topological measures complete")
 	res <- list(nodes=node.stats, links=link.stats, graph=graph.stats)
@@ -191,7 +206,8 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 {	tlog(1,"Computing statistics for static graphs")
 	
 	# statistics for the segment-based graph
-	compute.all.static.statistics(mode="segments")
+	for(weights in c("occurrences","duration"))
+		compute.all.static.statistics(mode="segments", weights=weights)
 	
 	# statistics for the panel window-based static graphs
 	for(i in 1:length(panel.window.sizes))

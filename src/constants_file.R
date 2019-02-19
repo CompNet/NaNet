@@ -58,16 +58,18 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 # 
 # object: either "nodes", "links" or "graph".
 # mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter.
+# window.size: value for this parameter (ignored for mode="segments").
 # overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # 
 # Returns: basename of the graph and related files.
 ###############################################################################
-get.statname.static <- function(object, mode, window.size=NA, overlap=NA)
+get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
 {	res <- "static"
 	
 	if(mode=="segments")
-		res <- 	file.path(STAT_FOLDER, paste0(res, "_segments"))
+		res <- 	file.path(STAT_FOLDER, paste0(res, "_segments_wt=",weights))
 	else if(mode=="panel.window")
 		res <- 	file.path(STAT_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
