@@ -65,15 +65,15 @@ ALL_MEASURES <- c(NODE_MEASURES, LINK_MEASURES, GRAPH_MEASURES)
 
 ###############################################################################
 # graph measures with average, standard-deviation, min and max variants
-ASMM_MEASURES <- c()
-for(meas.name in c(names(NODE_MEASURES),names(LINK_MEASURES)))
-{	#print(meas.name)
-	if(paste0(meas.name,SFX_AVG) %in% names(GRAPH_MEASURES) && 
-			paste0(meas.name,SFX_STDEV) %in% names(GRAPH_MEASURES) && 
-			paste0(meas.name,SFX_MIN) %in% names(GRAPH_MEASURES) && 
-			paste0(meas.name,SFX_MAX) %in% names(GRAPH_MEASURES))
-	{	#print(meas.name)
-		ASMM_MEASURES <- c(ASMM_MEASURES, meas.name)
-	}
-}
+#ASMM_MEASURES <- c()
+#for(meas.name in c(names(NODE_MEASURES),names(LINK_MEASURES)))
+#{	#print(meas.name)
+#	if(paste0(meas.name,SFX_AVG) %in% names(GRAPH_MEASURES) && 
+#			paste0(meas.name,SFX_STDEV) %in% names(GRAPH_MEASURES) && 
+#			paste0(meas.name,SFX_MIN) %in% names(GRAPH_MEASURES) && 
+#			paste0(meas.name,SFX_MAX) %in% names(GRAPH_MEASURES))
+#	{	#print(meas.name)
+#		ASMM_MEASURES <- c(ASMM_MEASURES, meas.name)
+#	}
+#}
 

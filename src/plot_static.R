@@ -30,6 +30,27 @@ single.group <- c("modularity", "community-number", "modularity-weighted", "comm
 )
 
 
+
+###############################################################################
+# Colors used in the plots.
+# Taken from http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=9
+###############################################################################
+COLORS <- c(
+		rgb(228,26,28,maxColorValue=255),
+		rgb(55,126,184,maxColorValue=255),
+		rgb(77,175,74,maxColorValue=255),
+		rgb(152,78,163,maxColorValue=255),
+		rgb(255,127,0,maxColorValue=255),
+		rgb(255,255,51,maxColorValue=255),
+		rgb(166,86,40,maxColorValue=255),
+		rgb(247,129,191,maxColorValue=255),
+		rgb(153,153,153,maxColorValue=255),
+		rgb(0,0,0,maxColorValue=255),
+		rgb(50,50,50,maxColorValue=255)
+)
+
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -40,17 +61,17 @@ single.group <- c("modularity", "community-number", "modularity-weighted", "comm
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-#load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measure)
-#{	res <- rep(NA, length(overlaps))
-#	for(j in 1:length(overlaps))
-#	{	overlap <- overlaps[j]
-#		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
-#		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
-#		res[j] <- tmp.tab[measure,1]
-#	}
-#	
-#	return(res)
-#}
+load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measure)
+{	res <- rep(NA, length(overlaps))
+	for(j in 1:length(overlaps))
+	{	overlap <- overlaps[j]
+		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[j] <- tmp.tab[measure,1]
+	}
+	
+	return(res)
+}
 
 
 ###############################################################################
@@ -63,17 +84,17 @@ single.group <- c("modularity", "community-number", "modularity-weighted", "comm
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-#load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
-#{	res <- rep(NA, length(window.sizes))
-#	for(i in 1:length(window.sizes))
-#	{	window.size <- window.sizes[i]
-#		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
-#		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
-#		res[i] <- tmp.tab[measure,1]
-#	}
-#	
-#	return(res)
-#}
+load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
+{	res <- rep(NA, length(window.sizes))
+	for(i in 1:length(window.sizes))
+	{	window.size <- window.sizes[i]
+		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[i] <- tmp.tab[measure,1]
+	}
+	
+	return(res)
+}
 
 
 ###############################################################################
@@ -311,6 +332,99 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 
 
 ###############################################################################
+###############################################################################
+generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
+{	# setup measure name lists
+	gmn <- names(GRAPH_MEASURES)
+	# identify common overlap values (over window sizes)
+	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
+	# process each appropriate measure
+	for(meas.name in gmn)
+	{	# load the reference values (segment-based graph)
+		seg.occ.vals <- load.static.nodelink.stats.segments(object="graph", measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.nodelink.stats.segments(object="graph", measure=meas.name, weights="duration")
+		
+		# retrieve the window.size data series
+		data <- list()
+		for(i in 1:length(window.sizes))
+		{	# the series corresponds to the values of the overlap
+			window.size <- window.sizes[i]
+			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+		}
+		# generate a plot containing each window size value as a series
+		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_series.png")
+#		pdf(file=plot.file,bg="white")
+		png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+			# init plot
+			plot(NULL, 
+				xlim=c(min(common.overlaps),max(common.overlaps)),
+				ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+							min(unlist(data))
+						else
+							GRAPH_MEASURES[[meas.name]]$bounds[1],
+						if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+							max(unlist(data))
+						else
+							GRAPH_MEASURES[[meas.name]]$bounds[2]),
+				xlab="Overlap",
+				ylab=meas.name,
+				main=paste0("mode=",mode)
+			)
+			# draw series
+			for(d in 1:length(data))
+			{	lines(x=overlaps[[d]],y=data[[d]],
+					col=COLORS[d]
+				)
+			}
+			# add legend
+			legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+		dev.off()
+#TODO insérer les réfs segments	 (=lignes horizontales en pointillés ?)	
+		
+		# retrieve the overlap data series
+		data <- list()
+		axis <- list()
+		for(i in 1:length(common.overlaps))
+		{	# the series corresponds to the values of the window sizes
+			overlap <- common.overlaps[i]
+			idx <- sapply(overlaps, function(vect) overlap %in% vect)
+			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			axis[[i]] <- window.sizes[idx]
+		}
+		# generate a plot representing each overlap value as a series
+		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_series.png")
+#		pdf(file=plot.file,bg="white")
+		png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+			# init plot
+			plot(NULL, 
+				xlim=c(min(window.sizes),max(window.sizes)),
+				ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+							min(unlist(data))
+						else
+							GRAPH_MEASURES[[meas.name]]$bounds[1],
+						if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+							max(unlist(data))
+						else
+							GRAPH_MEASURES[[meas.name]]$bounds[2]),
+				xlab="Window Size",
+				ylab=meas.name,
+				main=paste0("mode=",mode)
+			)
+			# draw series
+			for(d in 1:length(data))
+			{	lines(x=axis[[d]],y=data[[d]],
+					col=COLORS[d]
+				)
+			}
+			# add legend
+			legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+			dev.off()
+	}
+}
+
+
+
+###############################################################################
 # Generates the plots related to the graph-related statistics of static graphs.
 #
 # g: graph whose statistics must be computed.
@@ -321,7 +435,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 generate.static.graph.plots <- function(mode, window.sizes, overlaps)
 {	
 	generate.static.graph.plots.single(mode, window.sizes, overlaps)
-#	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
+	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
 	
 }
 
