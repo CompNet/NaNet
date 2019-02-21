@@ -339,7 +339,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
-	gmn <- names(GRAPH_MEASURES)
+	gmn <- c(names(GRAPH_MEASURES),names(COMP_MEASURES))
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
 		gmn <- gmn[!grepl(sfx, gmn, fixed=TRUE)]
@@ -430,7 +430,7 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 							else
 								GRAPH_MEASURES[[meas.name]]$bounds[2]),
 					xlab="Window Size",
-					ylab=ALL_MEASURES[[meas.name]]$cnamee,
+					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode)
 				)
 				# draw reference lines

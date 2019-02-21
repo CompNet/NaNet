@@ -6,7 +6,7 @@
 
 
 ###############################################################################
-# define measure names
+# topological measure names
 MEAS_BETWEENNESS <- "betweenness"
 MEAS_CLOSENESS <- "closeness"
 MEAS_MODULARITY <- "modularity"
@@ -25,6 +25,9 @@ MEAS_DENSITY <- "density"
 MEAS_LINKWEIGHT <- "linkweight"
 MEAS_EIGENCNTR <- "eigenvector"
 MEAS_TRANSITIVITY <- "transitivity"
+# comparison measure names
+MEAS_EUCLIDEAN <- "euclidean"
+
 
 
 ###############################################################################
@@ -41,6 +44,9 @@ SFX_ASSORT <- "-assortativity"
 SFX_CENTRZ <- "-centralization"
 SFX_LOCAL <- "-local"
 SFX_GLOBAL <- "-global"
+# for comparison measures
+SFX_DUR <- "-duration"
+SFX_OCC <- "-occurrences"
 
 
 ###############################################################################
@@ -61,7 +67,10 @@ source("src/measures/edgebetweenness.R")
 source("src/measures/element.R")
 source("src/measures/spectral.R")
 source("src/measures/transitivity.R")
-ALL_MEASURES <- c(NODE_MEASURES, LINK_MEASURES, GRAPH_MEASURES)
+# comparison measures
+COMP_MEASURES <- list()
+source("src/measures/transitivity.R")
+ALL_MEASURES <- c(NODE_MEASURES, LINK_MEASURES, GRAPH_MEASURES, COMP_MEASURES)
 
 
 ###############################################################################

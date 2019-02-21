@@ -183,13 +183,14 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		rownames(res.tab) <- names(GRAPH_MEASURES)
 	}
 	
-	# compute each measure
+	# compute each topological and comparison measure
 	tlog(5,"Computing each graph measure")
-	for(m in 1:length(GRAPH_MEASURES))
-	{	meas.name <- names(GRAPH_MEASURES)[m]
+	measures <- c(GRAPH_MEASURES, COMP_MEASURES)
+	for(m in 1:length(measures))
+	{	meas.name <- names(measures)[m]
 		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- GRAPH_MEASURES[[m]]
+		# compute value
+		measure <- measures[[m]]
 		value <- measure$foo(graph=g)
 		# update table
 #		print(head(res.tab))
