@@ -1,7 +1,10 @@
-# TODO: Add comment
+# Main script to extract network, compute their topological measures, and generate
+# the corresponding plots.
 # 
 # Vincent Labatut
 # 11/2018
+#
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 ###############################################################################
 library("igraph")
 
@@ -15,16 +18,24 @@ DATA_FOLDER <- file.path("data","Ralph_Azham")
 ###############################################################################
 panel.window.sizes <- c(1,2,5,10,15,20,25,30)
 panel.overlaps <- list(
-	0, 0:1, 0:4,
-	seq(0,9,2), seq(0,14,2), seq(0,19,2),
-	seq(0,24,5), seq(0,29,5)
+	c(0), 										#1
+	c(0,1), 									#2
+	c(0,1,2,3,4), 								#5
+	c(0,1,2,3,4,5,7,9), 						#10
+	c(0,1,2,3,4,5,7,9,11,14), 					#15
+	c(0,1,2,3,4,5,7,9,11,14,16,19), 			#20
+	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24), 		#25
+	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24,26,29)	#30
 )
 page.window.sizes <- c(1,2,5,10,15,20)
 page.overlaps <- list(
-	0, 0:1, 0:4,
-	seq(0,9,2), seq(0,14,2), seq(0,19,2)
+	c(0), 										#1
+	c(0,1), 									#2
+	c(0,1,2,3,4), 								#5
+	c(0,1,2,3,4,5,7,9), 						#10
+	c(0,1,2,3,4,5,7,9,11,14), 					#15
+	c(0,1,2,3,4,5,7,9,11,14,16,19) 				#20
 )
-# TODO adjust to have more values in common for the overlaps of different window sizes
 
 
 

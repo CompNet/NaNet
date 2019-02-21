@@ -25,6 +25,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
+		values <- values[!is.infinite(values)]
 		mean(values,na.rm=TRUE)
 	}
 )
@@ -33,6 +34,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
+		values <- values[!is.infinite(values)]
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -41,6 +43,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
+		values <- values[!is.infinite(values)]
 		min(values,na.rm=TRUE)
 	}
 )
@@ -49,6 +52,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
+		values <- values[!is.infinite(values)]
 		max(values,na.rm=TRUE)
 	}
 )
@@ -68,6 +72,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-we
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
+		values <- values[!is.infinite(values)]
 		mean(values,na.rm=TRUE)
 	}
 )
@@ -76,6 +81,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
+		values <- values[!is.infinite(values)]
 		sd(values,na.rm=TRUE)
 	}
 )
@@ -84,6 +90,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-we
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
+		values <- values[!is.infinite(values)]
 		min(values,na.rm=TRUE)
 	}
 )
@@ -92,6 +99,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MAX)]] <- list( #distance-we
 	bounds=c(1,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
+		values <- values[!is.infinite(values)]
 		max(values,na.rm=TRUE)
 	}
 )

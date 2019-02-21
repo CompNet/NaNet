@@ -41,12 +41,11 @@ COLORS <- c(
 		rgb(77,175,74,maxColorValue=255),
 		rgb(152,78,163,maxColorValue=255),
 		rgb(255,127,0,maxColorValue=255),
-		rgb(255,255,51,maxColorValue=255),
+#		rgb(255,255,51,maxColorValue=255),	# yellow
 		rgb(166,86,40,maxColorValue=255),
 		rgb(247,129,191,maxColorValue=255),
 		rgb(153,153,153,maxColorValue=255),
-		rgb(0,0,0,maxColorValue=255),
-		rgb(50,50,50,maxColorValue=255)
+		rgb(0,0,0,maxColorValue=255)
 )
 
 
@@ -93,6 +92,22 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 		res[i] <- tmp.tab[measure,1]
 	}
 	
+	return(res)
+}
+
+
+###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# measure: name of the concerned topological measure.
+#
+# returns: a vector of values representing the desired series.
+###############################################################################
+load.static.graph.stats.segments <- function(weights, measure)
+{	table.file <- get.statname.static(object="graph", mode="segments", weights=weights)
+	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+	res <- tmp.tab[measure,1]
 	return(res)
 }
 
@@ -169,36 +184,12 @@ load.static.nodelink.stats.segments <- function(object, measure, weights)
 
 
 ###############################################################################
-# Computes all preselected nodal topological measures for the specified static graph.
+# Generates the plots containing a single series as boxplots.
 #
-# g: graph whose statistics must be computed.
-# basename: name and path of the filename containing the graph.
-#
-# returns: an nxk table containing all computed values, where n is the number of
-#          nodes and k the number of measures.
-###############################################################################
-generate.static.node.plots <- function(mode, window.sizes, overlap)
-{	
-}
-
-
-
-###############################################################################
-# Computes all preselected link topological measures for the specified static graph.
-#
-# g: graph whose statistics must be computed.
-# basename: name and path of the filename containing the graph.
-#
-# returns: an mxk table containing all computed values, where m is the number of
-#          links and k the number of measures.
-###############################################################################
-generate.static.link.plots <- function(mode, window.sizes, overlap)
-{	
-}
-
-
-
-###############################################################################
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
 ###############################################################################
 generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 {	
@@ -253,7 +244,9 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	# process each appropriate measure
 	for(meas.name in c(nmn,lmn))
-	{	if(meas.name %in% nmn)
+	{	tlog(4,"Generating single plots for measure ",meas.name," (mode=",mode,")")
+		
+		if(meas.name %in% nmn)
 			object <- "nodes"
 		else
 			object <- "links"
@@ -269,6 +262,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
+			tlog(5,"Dealing with window.size=",window.size)
 			values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 			values <- c(seg.vals, values)
 			
@@ -277,6 +271,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the stdev plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
 			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
@@ -298,7 +293,9 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 		
 		# generate a plot for each overlap value appearing at least twice
 		for(overlap in common.overlaps)
-		{	# the series corresponds to the values of the window sizes
+		{	tlog(5,"Dealing with overlap=",overlap)
+			
+			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
 			values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
 			values <- c(seg.vals, values)
@@ -308,6 +305,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the stdev plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
 			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
@@ -332,19 +330,32 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 
 
 ###############################################################################
+# Generates the plots containing several series at once, as lines.
+# 
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
 ###############################################################################
 generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
 	gmn <- names(GRAPH_MEASURES)
+	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
+	for(sfx in black.sfx)
+		gmn <- gmn[!grepl(sfx, gmn, fixed=TRUE)]
+	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	# process each appropriate measure
 	for(meas.name in gmn)
-	{	# load the reference values (segment-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.segments(object="graph", measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.nodelink.stats.segments(object="graph", measure=meas.name, weights="duration")
+	{	tlog(4,"Generating multiple plots for measure ",meas.name," (mode=",mode,")")
+		
+		# load the reference values (segment-based graph)
+		seg.occ.vals <- load.static.graph.stats.segments(measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.graph.stats.segments(measure=meas.name, weights="duration")
 		
 		# retrieve the window.size data series
+		tlog(5,"Gathering and plotting data by window.size")
 		data <- list()
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
@@ -353,35 +364,41 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 		}
 		# generate a plot containing each window size value as a series
 		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_series.png")
-#		pdf(file=plot.file,bg="white")
-		png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-			# init plot
-			plot(NULL, 
-				xlim=c(min(common.overlaps),max(common.overlaps)),
-				ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
-							min(unlist(data))
-						else
-							GRAPH_MEASURES[[meas.name]]$bounds[1],
-						if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
-							max(unlist(data))
-						else
-							GRAPH_MEASURES[[meas.name]]$bounds[2]),
-				xlab="Overlap",
-				ylab=meas.name,
-				main=paste0("mode=",mode)
-			)
-			# draw series
-			for(d in 1:length(data))
-			{	lines(x=overlaps[[d]],y=data[[d]],
-					col=COLORS[d]
+		tlog(5,"Plotting file \"",plot.file,"\"")
+		if(all(is.na(unlist(data))))
+			warning(paste0("All values are NA for ", plot.file))
+		else{
+#			pdf(file=plot.file,bg="white")
+			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				# init plot
+				plot(NULL, 
+					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
+					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+								min(unlist(data),na.rm=TRUE)
+							else
+								GRAPH_MEASURES[[meas.name]]$bounds[1],
+							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+								max(unlist(data),na.rm=TRUE)
+							else
+								GRAPH_MEASURES[[meas.name]]$bounds[2]),
+					xlab="Overlap",
+					ylab=meas.name,
+					main=paste0("mode=",mode)
 				)
-			}
-			# add legend
-			legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
-		dev.off()
+				# draw series
+				for(d in 1:length(data))
+				{	lines(x=overlaps[[d]],y=data[[d]],
+						col=COLORS[d]
+					)
+				}
+				# add legend
+				legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+			dev.off()
+		}
 #TODO insérer les réfs segments	 (=lignes horizontales en pointillés ?)	
 		
 		# retrieve the overlap data series
+		tlog(5,"Gathering and plotting data by overlap")
 		data <- list()
 		axis <- list()
 		for(i in 1:length(common.overlaps))
@@ -393,50 +410,59 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 		}
 		# generate a plot representing each overlap value as a series
 		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_series.png")
-#		pdf(file=plot.file,bg="white")
-		png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-			# init plot
-			plot(NULL, 
-				xlim=c(min(window.sizes),max(window.sizes)),
-				ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
-							min(unlist(data))
-						else
-							GRAPH_MEASURES[[meas.name]]$bounds[1],
-						if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
-							max(unlist(data))
-						else
-							GRAPH_MEASURES[[meas.name]]$bounds[2]),
-				xlab="Window Size",
-				ylab=meas.name,
-				main=paste0("mode=",mode)
-			)
-			# draw series
-			for(d in 1:length(data))
-			{	lines(x=axis[[d]],y=data[[d]],
-					col=COLORS[d]
+		tlog(5,"Plotting file \"",plot.file,"\"")
+		if(all(is.na(unlist(data))))
+			warning(paste0("All values are NA for ", plot.file))
+		else{	
+#			pdf(file=plot.file,bg="white")
+			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				# init plot
+				plot(NULL, 
+					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
+					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+								min(unlist(data),na.rm=TRUE)
+							else
+								GRAPH_MEASURES[[meas.name]]$bounds[1],
+							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+								max(unlist(data),na.rm=TRUE)
+							else
+								GRAPH_MEASURES[[meas.name]]$bounds[2]),
+					xlab="Window Size",
+					ylab=meas.name,
+					main=paste0("mode=",mode)
 				)
-			}
-			# add legend
-			legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+				# draw series
+				for(d in 1:length(data))
+				{	lines(x=axis[[d]],y=data[[d]],
+						col=COLORS[d]
+					)
+				}
+				# add legend
+				legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
 			dev.off()
+		}
 	}
 }
 
 
 
 ###############################################################################
-# Generates the plots related to the graph-related statistics of static graphs.
+# Generates the plots related to the statistics of static graphs.
 #
-# g: graph whose statistics must be computed.
-# basename: name and path of the filename containing the graph.
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-generate.static.graph.plots <- function(mode, window.sizes, overlaps)
+generate.all.static.plots <- function(mode, window.sizes, overlaps)
 {	
+	tlog(3,"Generating single plots for mode=",mode)
 	generate.static.graph.plots.single(mode, window.sizes, overlaps)
-	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
 	
+	tlog(3,"Generating multiple plots for mode=",mode)
+	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
 }
 
 
@@ -453,8 +479,11 @@ generate.static.graph.plots <- function(mode, window.sizes, overlaps)
 generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Generating plots for static graphs")
 	
-	generate.static.graph.plots(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
-	generate.static.graph.plots(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	tlog(2,"Generating plots for static graphs with panel-based windows")
+	generate.all.static.plots(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+	
+	tlog(2,"Generating plots for static graphs with page-based windows")
+	generate.all.static.plots(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
 	
 	tlog(1,"Generation of plots for static graphs complete")	
 }
