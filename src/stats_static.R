@@ -179,8 +179,8 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
-	{	res.tab <- matrix(NA,nrow=length(GRAPH_MEASURES),ncol=1)
-		rownames(res.tab) <- names(GRAPH_MEASURES)
+	{	res.tab <- matrix(NA,nrow=length(c(names(GRAPH_MEASURES),names(COMP_MEASURES))),ncol=1)
+		rownames(res.tab) <- c(names(GRAPH_MEASURES),names(COMP_MEASURES))
 	}
 	
 	# compute each topological and comparison measure
@@ -197,6 +197,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 #		print(dim(res.tab))
 #		print(length(value))
 		res.tab[meas.name,1] <- value
+		tlog(7,"Value: ",value)
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
 	}
