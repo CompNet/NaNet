@@ -22,7 +22,7 @@ compute.distance <- function(name, graph)
 # unweighted variants
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -31,7 +31,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -40,7 +40,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -49,7 +49,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -69,7 +69,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 # weighted variants
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-weighted-average
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -78,7 +78,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-we
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-weighted-stdev
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -87,7 +87,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-weighted-min
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -96,7 +96,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-we
 )
 GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MAX)]] <- list( #distance-weighted-max
 	type=numeric(),
-	bounds=c(1,NA),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
