@@ -59,6 +59,55 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 
 
 ###############################################################################
+# Computes all preselected node-pair topological measures for the specified static graph.
+#
+# g: graph whose statistics must be computed.
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+#
+# returns: an n(n-1)/2 x k table containing all computed values, where n(n-1)/2 is the 
+# 	       number of pairs of nodes and k the number of measures.
+###############################################################################
+compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	table.file <- get.statname.static(object="nodepairs", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
+	
+	# read or create the table containing the computed values
+	tlog(5,"Getting/creating file \"",table.file,"\"")
+	n <- gorder(g)
+	if(file.exists(table.file))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+	else
+	{	res.tab <- matrix(NA,nrow=n*(n-1)/2,ncol=length(NODEPAIR_MEASURES))
+		colnames(res.tab) <- names(NODEPAIR_MEASURES)
+	}
+	
+	# compute each measure
+	tlog(5,"Computing each node-pair measure")
+	for(m in 1:length(NODEPAIR_MEASURES))
+	{	meas.name <- names(NODEPAIR_MEASURES)[m]
+		tlog(6,"Computing measure ",meas.name)
+		# compute values
+		measure <- NODEPAIR_MEASURES[[m]]
+		values <- measure$foo(graph=g)
+		if(length(values)==0)
+			values <- rep(NA,n*(n-1)/2)
+		# update table
+		res.tab[,meas.name] <- values
+		# update file
+		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+	}
+	
+	tlog(4,"Computation of node-pair topological measures complete")
+	return(res.tab)
+}
+
+
+
+###############################################################################
 # Computes all preselected link topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
@@ -123,7 +172,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 ###############################################################################
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
 {	table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-	tlog(4,"Computing topological measures for \"",table.file,"\"")
+	tlog(4,"Computing graph topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -151,7 +200,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
 	}
 	
-	tlog(4,"Computation of topological measures complete")
+	tlog(4,"Computation of graph topological measures complete")
 	return(res.tab)
 }
 
@@ -170,7 +219,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA)
 {	graph.file <- get.graphname.static(mode, window.size, overlap)
-	tlog(3,"Computing graph topological measures for \"",graph.file,"\"")
+	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
 	tlog(4,"Loading graph")
@@ -189,10 +238,11 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	
 	# compute its stats
 	node.stats <- compute.static.node.statistics(g, mode, window.size, overlap, weights)
+	nodepair.stats <- compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
 	link.stats <- compute.static.link.statistics(g, mode, window.size, overlap, weights)
 	graph.stats <- compute.static.graph.statistics(g, mode, window.size, overlap, weights)
 	
-	tlog(3,"Computation of graph topological measures complete")
+	tlog(3,"Computation of all topological measures complete")
 	res <- list(nodes=node.stats, links=link.stats, graph=graph.stats)
 	return(res)
 }

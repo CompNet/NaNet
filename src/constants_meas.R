@@ -46,6 +46,7 @@ SFX_GLOBAL <- "-global"
 ###############################################################################
 # define/load the topological measures
 NODE_MEASURES <- list()
+NODEPAIR_MEASURES <- list()
 LINK_MEASURES <- list()
 GRAPH_MEASURES <- list()
 source("src/measures/betweenness.R")

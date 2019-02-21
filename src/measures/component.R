@@ -20,6 +20,7 @@ compute.components <- function(name, graph)
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_NBR)]] <- list( #component-number
 	type=integer(),
 	bounds=c(0,NA),
+	cname="Component Number",
 	foo=function(graph) 
 	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		length(sizes)
@@ -28,6 +29,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_NBR)]] <- list( #component-number
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_AVG)]] <- list( #component-size-average
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Average Component Size",
 	foo=function(graph) 
 	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		mean(sizes,na.rm=TRUE)
@@ -36,6 +38,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_AVG)]] <- list( #component-si
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_STDEV)]] <- list( #component-size-stdev
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Standard Deviation of the Component Sizes",
 	foo=function(graph) 
 	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		sd(sizes)
@@ -44,6 +47,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_STDEV)]] <- list( #component-
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_MIN)]] <- list( #component-size-min
 	type=integer(),
 	bounds=c(0,NA),
+	cname="Minimal Component Size",
 	foo=function(graph) 
 	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		min(sizes)
@@ -52,6 +56,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_MIN)]] <- list( #component-si
 GRAPH_MEASURES[[paste0(MEAS_COMPONENT,SFX_SIZE,SFX_MAX)]] <- list( #component-size-max
 	type=integer(),
 	bounds=c(0,NA),
+	cname="Maximal Component Size",
 	foo=function(graph) 
 	{	sizes <- compute.components(MEAS_COMPONENT, graph)
 		max(sizes)

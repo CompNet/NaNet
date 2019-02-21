@@ -56,7 +56,7 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 ###############################################################################
 # Returns the name of a statistics file based on the specified parameters.
 # 
-# object: either "nodes", "links" or "graph".
+# object: either "nodes", "nodepairs", "links" or "graph".
 # mode: either "segments", "panel.window", or "page.window".
 # window.size: value for this parameter (ignored for mode="segments").
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -81,6 +81,8 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 		res <- 	paste0(res, "_graph.csv")
 	else if(object=="nodes")
 		res <- 	paste0(res, "_nodes.csv")
+	else if(object=="nodepairs")
+		res <- 	paste0(res, "_nodepairs.csv")
 	else if(object=="links")
 		res <- 	paste0(res, "_links.csv")
 	
@@ -93,7 +95,7 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 ###############################################################################
 # Returns the name of the plot file based on the specified parameters.
 # 
-# object: either "nodes", "links" or "graph".
+# object: either "nodes", "nodepairs", "links" or "graph".
 # mode: either "segments", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -122,6 +124,8 @@ get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
 		res <- 	paste0(res, "_graph")
 	else if(object=="nodes")
 		res <- 	paste0(res, "_nodes")
+	else if(object=="nodepairs")
+		res <- 	paste0(res, "_nodepairs")
 	else if(object=="links")
 		res <- 	paste0(res, "_links")
 	

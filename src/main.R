@@ -63,10 +63,10 @@ source("src/logging.R")
 
 ###############################################################################
 # compute stats
-#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # generate plots
-generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 

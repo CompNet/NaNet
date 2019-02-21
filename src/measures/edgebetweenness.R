@@ -21,6 +21,7 @@ compute.edgebetweenness <- function(name, graph)
 LINK_MEASURES[[MEAS_EDGEBETWNS]] <- list( #edgebetweenness
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Edge-Betweenness",
 	foo=function(graph) 
 	{	compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 	}
@@ -28,6 +29,7 @@ LINK_MEASURES[[MEAS_EDGEBETWNS]] <- list( #edgebetweenness
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_AVG)]] <- list( #edgebetweenness-average
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Average Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		mean(values,na.rm=TRUE)
@@ -36,6 +38,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_AVG)]] <- list( #edgebetweenness-aver
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_STDEV)]] <- list( #edgebetweenness-stdev
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Standard Deviation of the Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		sd(values,na.rm=TRUE)
@@ -44,6 +47,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_STDEV)]] <- list( #edgebetweenness-st
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MIN)]] <- list( #edgebetweenness-min
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Standard Deviation of the Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		min(values,na.rm=TRUE)
@@ -52,6 +56,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MIN)]] <- list( #edgebetweenness-min
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MAX)]] <- list( #edgebetweenness-max
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Maximal Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(MEAS_EDGEBETWNS, graph)
 		max(values,na.rm=TRUE)
@@ -64,6 +69,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_MAX)]] <- list( #edgebetweenness-max
 LINK_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT)]] <- list( #edgebetweenness-weighted
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Weighted Edge-Betweenness",
 	foo=function(graph) 
 	{	compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 	}
@@ -71,6 +77,7 @@ LINK_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT)]] <- list( #edgebetweenness-we
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_AVG)]] <- list( #edgebetweenness-weighted-average
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Average Weighted Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
@@ -79,6 +86,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_AVG)]] <- list( #edgebetwe
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_STDEV)]] <- list( #edgebetweenness-weighted-stdev
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Standard Deviation of the Weighted Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
@@ -87,6 +95,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_STDEV)]] <- list( #edgebet
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_MIN)]] <- list( #edgebetweenness-weighted-min
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Minimal Weighted Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
@@ -95,6 +104,7 @@ GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_MIN)]] <- list( #edgebetwe
 GRAPH_MEASURES[[paste0(MEAS_EDGEBETWNS,SFX_WEIGHT,SFX_MAX)]] <- list( #edgebetweenness-weighted-max
 	type=numeric(),
 	bounds=c(0,NA),
+	cname="Maximal Weighted Edge-Betweenness",
 	foo=function(graph) 
 	{	values <- compute.edgebetweenness(paste0(MEAS_EDGEBETWNS,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)

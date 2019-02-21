@@ -8,25 +8,25 @@
 
 # graph measures based on assortativity
 assort.groups <- list(
-		c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
-		c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
-		c("degree", "degree-norm", "strength"),
-		c("eccentricity"),
-		c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
-		c("transitivity-local", "transitivity-weighted-local")
+	c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
+	c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
+	c("degree", "degree-norm", "strength"),
+	c("eccentricity"),
+	c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
+	c("transitivity-local", "transitivity-weighted-local")
 )
 assort.suffix <- "-assortativity"
 # graph measures based on centralization
 ctrlztn.group <- list(
-		c("betweenness", "betweenness-norm"),
-		c("closeness", "closeness-norm"),
-		c("degree", "degree-norm"),
-		c("eigenvector", "eigenvector-norm")
+	c("betweenness", "betweenness-norm"),
+	c("closeness", "closeness-norm"),
+	c("degree", "degree-norm"),
+	c("eigenvector", "eigenvector-norm")
 )
 ctrlztn.suffix <- "-centralization"
 # single graph measures
 single.group <- c("modularity", "community-number", "modularity-weighted", "community-weighted-number", "component-number",
-		"node-count", "link-count", "density", "transitivity-global"
+	"node-count", "link-count", "density", "transitivity-global"
 )
 
 
@@ -284,7 +284,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 				bxp(bp, 
 					outline=FALSE,
 					xlab="Overlap",
-					ylab=meas.name,
+					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode," window.size=",window.size),
 					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
@@ -318,7 +318,7 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 				bxp(bp, 
 					outline=FALSE,
 					xlab="Window size",
-					ylab=meas.name,
+					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode," overlap=",overlap),
 					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
@@ -374,28 +374,30 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 				plot(NULL, 
 					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
 					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
-								min(unlist(data),na.rm=TRUE)
+								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
 								GRAPH_MEASURES[[meas.name]]$bounds[1],
 							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
-								max(unlist(data),na.rm=TRUE)
+								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
 								GRAPH_MEASURES[[meas.name]]$bounds[2]),
 					xlab="Overlap",
-					ylab=meas.name,
+					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode)
 				)
+				# draw reference lines
+				abline(h=seg.occ.vals, lty=2) # dashed
+				abline(h=seg.dur.vals, lty=3) # dotted
 				# draw series
 				for(d in 1:length(data))
 				{	lines(x=overlaps[[d]],y=data[[d]],
-						col=COLORS[d]
+						col=COLORS[d], lwd=2
 					)
 				}
 				# add legend
 				legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
 			dev.off()
 		}
-#TODO insérer les réfs segments	 (=lignes horizontales en pointillés ?)	
 		
 		# retrieve the overlap data series
 		tlog(5,"Gathering and plotting data by overlap")
@@ -420,21 +422,24 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 				plot(NULL, 
 					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
 					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
-								min(unlist(data),na.rm=TRUE)
+								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
 								GRAPH_MEASURES[[meas.name]]$bounds[1],
 							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
-								max(unlist(data),na.rm=TRUE)
+								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
 								GRAPH_MEASURES[[meas.name]]$bounds[2]),
 					xlab="Window Size",
-					ylab=meas.name,
+					ylab=ALL_MEASURES[[meas.name]]$cnamee,
 					main=paste0("mode=",mode)
 				)
+				# draw reference lines
+				abline(h=seg.occ.vals, lty=2) # dashed
+				abline(h=seg.dur.vals, lty=3) # dotted
 				# draw series
 				for(d in 1:length(data))
 				{	lines(x=axis[[d]],y=data[[d]],
-						col=COLORS[d]
+						col=COLORS[d], lwd=2
 					)
 				}
 				# add legend
