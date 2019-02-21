@@ -73,7 +73,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_ASSORT)]] <- list( #betweenness-asso
 )
 GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_CENTRZ)]] <- list( #betweenness-centralization
 	type=numeric(),
-	bounds=c(0,1),
+	bounds=c(0,NA),
 	foo=function(graph)
 	{	centr_betw(graph=graph, directed=FALSE, normalized=FALSE)$centralization
 	}

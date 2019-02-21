@@ -70,7 +70,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_ASSORT)]] <- list( #degree-assortativity
 )
 GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_CENTRZ)]] <- list( #degree-centralization
 	type=integer(),
-	bounds=c(0,1),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	centr_degree(graph=graph, mode="all", normalized=FALSE)$centralization
 	}

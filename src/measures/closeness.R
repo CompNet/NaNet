@@ -73,7 +73,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_ASSORT)]] <- list( #closeness-assortat
 )
 GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_CENTRZ)]] <- list( #closeness-centralization
 	type=numeric(),
-	bounds=c(0,1),
+	bounds=c(0,NA),
 	foo=function(graph)
 	{	centr_clo(graph=graph, mode="all", normalized=FALSE)$centralization
 	}

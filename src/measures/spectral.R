@@ -73,7 +73,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_ASSORT)]] <- list( #eigenvector-assort
 )
 GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_CENTRZ)]] <- list( #eigenvector-centralization
 	type=numeric(),
-	bounds=c(0,1),
+	bounds=c(0,NA),
 	foo=function(graph) 
 	{	centr_eigen(graph=graph, directed=FALSE, scale=FALSE, normalized=TRUE)$centralization
 	}
