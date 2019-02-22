@@ -27,4 +27,4 @@ Stats part:
 
 - Plots:
   - Node ranking plot (similar to multiplex centrality paper)
-  - Plots combining the different assortativities / centralizations ?
+  - Plots combining the different assortativities / centralizations ? (for comparison purposes)

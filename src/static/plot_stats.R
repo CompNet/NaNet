@@ -337,7 +337,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- overlaps[[i]]
 			nms <- c("SO","SD",nms)
 			
-			# generate the stdev plot
+			# generate the plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
@@ -371,7 +371,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- window.sizes[idx]
 			nms <- c("SO","SD",nms)
 			
-			# generate the stdev plot
+			# generate the plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
@@ -631,6 +631,112 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 
 
 
+#############################################################################################
+# Generates a bar plot comparing two node or node-pair measures. The reference measure is used as
+# a baseline, and to order the nodes on the x axis. The comparison measure is used to process
+# the ranking difference with the reference measure, and the result appears as the bar heights.
+# 
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
+#############################################################################################
+generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
+{	# identify common overlap values (over window sizes)
+#TODO pb: faut charger chaque vecteur par ovelrap/windowsize, et non pas des séries entières comme ici	
+	common.overlaps <- sort(unique(unlist(overlaps)))
+	# process each appropriate measure
+	mn <- c(NODE_MEASURES, LINK_MEASURES)
+	for(meas.name in mn)
+	{	tlog(4,"Generating rank comparison for measure ",meas.name," (mode=",mode,")")
+		
+		if(meas.name %in% names(NODE_MEASURES))
+			object <- "nodes"
+		else if(meas.name %in% names(LINK_MEASURES))
+			object <- "links"
+		
+		# load the reference values (segment-based graph)
+		seg.occ.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
+		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
+		seg.dur.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
+		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
+		
+		for(weights in c("duration","occurrences"))
+		{	if(weights=="duration")
+				ylab <- "Rank Comparison with Segment-Based Duration Graph"
+			else
+				ylab <- "Rank Comparison with Segment-Based Occurrences Graph"
+			
+			# generate a plot for each window size value
+			for(i in 1:length(window.sizes))
+			{	# the series corresponds to the values of the overlap
+				window.size <- window.sizes[i]
+				tlog(5,"Dealing with window.size=",window.size)
+				values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+				ranks <- rank(values, ties.method="min")
+				
+				# compute the ranks
+				if(weights=="duration")
+				{	diff <- ranks - seg.dur.ranks
+					idx <- order(seg.dur.vals, decreasing=TRUE)
+				}
+				else
+				{	diff <- ranks - seg.occ.ranks
+					idx <- order(seg.occ.vals, decreasing=TRUE)
+				}
+				
+				# generate the plot
+				plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
+				tlog(5,"Plotting file \"",plot.file,"\"")
+#				pdf(file=plot.file,bg="white")
+				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+					barplot(diff[idx], 
+						ylim=c(-length(diff),length(diff)),
+						xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
+						ylab=ylab,
+						main=paste0("mode=",mode," window.size=",window.size)
+					)
+				dev.off()
+			}
+			
+			# generate a plot for each overlap value appearing at least twice
+			for(overlap in common.overlaps)
+			{	tlog(5,"Dealing with overlap=",overlap)
+				
+				# the series corresponds to the values of the window sizes
+				idx <- sapply(overlaps, function(vect) overlap %in% vect)
+				values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+				ranks <- rank(values, ties.method="min")
+				
+				# compute the ranks
+				if(weights=="duration")
+				{	diff <- ranks - seg.dur.ranks
+					idx <- order(seg.dur.vals, decreasing=TRUE)
+				}
+				else
+				{	diff <- ranks - seg.occ.ranks
+					idx <- order(seg.occ.vals, decreasing=TRUE)
+				}
+				
+				# generate the plot
+				plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
+				tlog(5,"Plotting file \"",plot.file,"\"")
+#				pdf(file=plot.file,bg="white")
+				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+					barplot(diff[idx], 
+						ylim=c(-length(diff),length(diff)),
+						xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
+						ylab=ylab,
+						main=paste0("mode=",mode," overlap=",overlap)
+					)
+				dev.off()
+			}
+		}
+	}
+}
+
+
+
 ###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
@@ -643,14 +749,17 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.all.static.plots <- function(mode, window.sizes, overlaps)
 {	
-#	tlog(3,"Generating single plots for mode=",mode)
-#	generate.static.plots.single(mode, window.sizes, overlaps)
-#	
-#	tlog(3,"Generating multiple plots for mode=",mode)
-#	generate.static.plots.multiple(mode, window.sizes, overlaps)
+	tlog(3,"Generating single plots for mode=",mode)
+	generate.static.plots.single(mode, window.sizes, overlaps)
+	
+	tlog(3,"Generating multiple plots for mode=",mode)
+	generate.static.plots.multiple(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank correlation plots for mode=",mode)
 	generate.static.plots.corr(mode, window.sizes, overlaps)
+	
+	tlog(3,"Generating rank comparison plots for mode=",mode)
+	generate.static.plots.ranks(mode, window.sizes, overlaps)
 }
 
 
