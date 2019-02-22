@@ -7,10 +7,6 @@ Dynamic network extraction
    - Implement narrative smoothing
 	- (test on the toy example)
 
-Topological properties:
-	- Compute them automatically
-	- Compare them
-
 Stats part:
 - Goal: study the effect of the extraction parameters
 	- window size
@@ -24,11 +20,12 @@ Stats part:
 	- also consider global similarity measures between graphs
 	- Identify which measures are used in apps of char nets (in the literature)
 	  >> study how these are affected by extraction parameters
+	- assess the difference between parameters on a simple task such as story segmentation (ref=segments or volumes?)
 
 - Segments: weights=occurrences vs. durations
   - compare them, correlated ?
-  - weighted nets (for now) only correspond to occurrences. should we also study durations?
 
 - Plots:
-  - show we use segments as the reference value in plots?
+  - Spearman correlation plots (handled as any graph measure)
+  - Node ranking plot (similar to multiplex centrality paper)
   
