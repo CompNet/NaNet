@@ -26,6 +26,5 @@ Stats part:
   - compare them, correlated ?
 
 - Plots:
-  - Spearman correlation plots (handled as any graph measure)
   - Node ranking plot (similar to multiplex centrality paper)
-  
+  - Plots combining the different assortativities / centralizations ?

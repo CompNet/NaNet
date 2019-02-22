@@ -24,10 +24,6 @@ ctrlztn.group <- list(
 	c("eigenvector", "eigenvector-norm")
 )
 ctrlztn.suffix <- "-centralization"
-# single graph measures
-single.group <- c("modularity", "community-number", "modularity-weighted", "community-weighted-number", "component-number",
-	"node-count", "link-count", "density", "transitivity-global"
-)
 
 
 
@@ -567,25 +563,25 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			else{
 #				pdf(file=plot.file,bg="white")
 				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-				# init plot
-				plot(NULL, 
-					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
-					ylim=c(-1,1),
-					xlab="Overlap",
-					ylab=ylab,
-					main=paste0("mode=",mode)
-				)
-				# draw reference lines
-				abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
-				abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
-				# draw series
-				for(d in 1:length(data))
-				{	lines(x=overlaps[[d]],y=data[[d]],
-							col=COLORS[d], lwd=2
+					# init plot
+					plot(NULL, 
+						xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
+						ylim=c(-1,1),
+						xlab="Overlap",
+						ylab=ylab,
+						main=paste0("mode=",mode)
 					)
-				}
-				# add legend
-				legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+					# draw reference lines
+					abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+					abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+					# draw series
+					for(d in 1:length(data))
+					{	lines(x=overlaps[[d]],y=data[[d]],
+								col=COLORS[d], lwd=2
+						)
+					}
+					# add legend
+					legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
 				dev.off()
 			}
 			
@@ -597,7 +593,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			{	# the series corresponds to the values of the window sizes
 				overlap <- common.overlaps[i]
 				idx <- sapply(overlaps, function(vect) overlap %in% vect)
-				data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+				data[[i]] <- load.static.corr.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights)
 				axis[[i]] <- window.sizes[idx]
 			}
 			# generate a plot representing each overlap value as a series
@@ -608,25 +604,25 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			else{	
 #				pdf(file=plot.file,bg="white")
 				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-				# init plot
-				plot(NULL, 
-					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
-					ylim=c(-1,1),
-					xlab="Window Size",
-					ylab=ylab,
-					main=paste0("mode=",mode)
-				)
-				# draw reference lines
-				abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
-				abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
-				# draw series
-				for(d in 1:length(data))
-				{	lines(x=axis[[d]],y=data[[d]],
-							col=COLORS[d], lwd=2
+					# init plot
+					plot(NULL, 
+						xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
+						ylim=c(-1,1),
+						xlab="Window Size",
+						ylab=ylab,
+						main=paste0("mode=",mode)
 					)
-				}
-				# add legend
-				legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+					# draw reference lines
+					abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+					abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+					# draw series
+					for(d in 1:length(data))
+					{	lines(x=axis[[d]],y=data[[d]],
+								col=COLORS[d], lwd=2
+						)
+					}
+					# add legend
+					legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
 				dev.off()
 			}
 		}
