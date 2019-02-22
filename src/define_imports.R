@@ -17,11 +17,13 @@ DATA_FOLDER <- file.path("data","Ralph_Azham")
 
 ###############################################################################
 # load auxiliary functions
-source("src/constants_file.R")
-source("src/constants_table.R")
-source("src/constants_meas.R")
-source("src/read_raw.R")
-source("src/extract_static.R")
-source("src/stats_static.R")
-source("src/plot_static.R")
 source("src/logging.R")
+source("src/read_raw.R")
+
+source("src/constants/file_system.R")
+source("src/constants/table_cols.R")
+source("src/constants/topo_measures.R")
+
+source("src/static/extract_nets.R")
+source("src/static/compute_stats.R")
+source("src/static/plot_stats.R")
