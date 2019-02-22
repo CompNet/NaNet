@@ -169,7 +169,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 ###############################################################################
 # Loads a series corresponding to the segment-based graph.
 #
-# object: either "nodes" or "links" (not "graph").
+# object: either "nodes", "nodepairs" or "links" (not "graph").
 # measure: name of the concerned topological measure.
 # weights: either "occurrences" or "duration".
 #

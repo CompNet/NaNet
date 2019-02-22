@@ -5,10 +5,10 @@
 # 02/2019
 ###############################################################################
 
-
-
-# cache
+# list used to cache certain (costly to compute) intermediary results
 cache <- list()
+
+
 
 ###############################################################################
 # Computes all preselected nodal topological measures for the specified static graph.
@@ -209,7 +209,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 
 
 ###############################################################################
-# Computes all preselected topological measures for the specified static graph.
+# Computes all preselected nodal topological measures for the specified static graph.
 #
 # mode: either "segments", "panel.window", or "page.window".
 # window.size: value for this parameter (ignored for mode="segments").
@@ -217,7 +217,71 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 #          (also ignored for mode="segments").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
-# returns: a list of 3 tables containing all computed values (nodes, links, graphs).
+# returns: a kx4 table containing all computed values, where k is the number of measures,
+#		   and the columns correspond to Spearman's correlation and the associated p-value,
+#          relatively to the duration and occurrences segment-based networks.
+###############################################################################
+compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA)
+{	table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
+	
+	mn <- c(names(NODE_MEASURES),names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
+	cn <- c("spearman-duration","p-duration","spearman-occurrences","p-occurrences") 
+	
+	# read or create the table containing the computed values
+	tlog(5,"Getting/creating file \"",table.file,"\"")
+	if(file.exists(table.file))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+	else
+	{	res.tab <- matrix(NA,nrow=length(mn),ncol=length(cn))
+		rownames(res.tab) <- mn
+		colnames(res.tab) <- cn
+	}
+	
+	# compute each measure
+	tlog(5,"Computing each nodal/node-pair measure")
+	for(m in 1:length(mn))
+	{	meas.name <- mn[m]
+		tlog(6,"Computing rank correlation for measure ",meas.name)
+		# get object
+		if(meas.name %in% names(NODE_MEASURES))
+			object <- "nodes"
+		else if(meas.name %in% names(NODEPAIR_MEASURES))
+			object <- "nodepairs"
+		else if(meas.name %in% names(LINK_MEASURES))
+			object <- "links"
+		# retrieve reference values
+		vals.dur <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
+		vals.occ <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
+		# retrieve tested values
+		tab.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+		tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
+		vals.cur <- tmp.tab[,meas.name]
+		# compute correlations
+		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+		res.tab[meas.name,"spearman-duration"] <- corr$estimate
+		res.tab[meas.name,"p-duration"] <- corr$p.value
+		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+		res.tab[meas.name,"spearman-occurrences"] <- corr$estimate
+		res.tab[meas.name,"p-occurrences"] <- corr$p.value
+		# update file
+		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+	}
+	
+	tlog(4,"Computation of rank correlation measures complete")
+	return(res.tab)
+}
+
+
+
+###############################################################################
+# Computes all preselected topological measures for the specified static graph.
+#
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA)
 {	graph.file <- get.graphname.static(mode, window.size, overlap)
@@ -239,14 +303,13 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	cache <<- list()
 	
 	# compute its stats
-	node.stats <- compute.static.node.statistics(g, mode, window.size, overlap, weights)
-	nodepair.stats <- compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
-	link.stats <- compute.static.link.statistics(g, mode, window.size, overlap, weights)
-	graph.stats <- compute.static.graph.statistics(g, mode, window.size, overlap, weights)
+	compute.static.node.statistics(g, mode, window.size, overlap, weights)
+	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
+	compute.static.link.statistics(g, mode, window.size, overlap, weights)
+	compute.static.graph.statistics(g, mode, window.size, overlap, weights)
+	compute.static.correlations(mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of all topological measures complete")
-	res <- list(nodes=node.stats, links=link.stats, graph=graph.stats)
-	return(res)
 }
 
 

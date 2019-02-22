@@ -85,6 +85,8 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 		res <- 	paste0(res, "_nodepairs.csv")
 	else if(object=="links")
 		res <- 	paste0(res, "_links.csv")
+	else if(object=="corr")
+		res <- 	paste0(res, "_corr.csv")
 	
 	return(res)
 }
