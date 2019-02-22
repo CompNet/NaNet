@@ -44,3 +44,9 @@ COL_INTER_DURATION <- "Duration"
 COL_CHAR_NAME <- "Name"
 
 
+###############################################################################
+# column names for the correlation table
+COL_SPEAR_DUR <- "spearman-duration"
+COL_PVAL_DUR <- "p-duration"
+COL_SPEAR_OCC <- "spearman-occurrences"
+COL_PVAL_OCC <- "p-occurrences"

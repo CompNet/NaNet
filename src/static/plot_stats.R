@@ -53,7 +53,7 @@ COLORS <- c(
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "segments", "panel.window" or "page.window".
+# mode: either "panel.window" or "page.window" (not "segments").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -76,7 +76,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "segments", "panel.window" or "page.window".
+# mode: either "panel.window" or "page.window" (not "segments").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -99,7 +99,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
 #
 # returns: a vector of values representing the desired series.
@@ -108,6 +108,78 @@ load.static.graph.stats.segments <- function(weights, measure)
 {	table.file <- get.statname.static(object="graph", mode="segments", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
+	return(res)
+}
+
+
+###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.size: fixed value for this parameter.
+# overlaps: vector of values for this parameter.
+# measure: name of the concerned topological measure.
+# weights: either "occurrences" or "duration".
+#
+# returns: a vector of values representing the desired series.
+###############################################################################
+load.static.corr.by.window <- function(mode, window.size, overlaps, measure, weights)
+{	res <- rep(NA, length(overlaps))
+	if(weights=="duration")
+		col <- COL_SPEAR_DUR
+	else if(weights=="occurrences")
+		col <- COL_SPEAR_OCC
+	for(j in 1:length(overlaps))
+	{	overlap <- overlaps[j]
+		table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[j] <- tmp.tab[measure,col]
+	}
+	
+	return(res)
+}
+
+
+###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlap: fixed value for this parameter.
+# measure: name of the concerned topological measure.
+# weights: either "occurrences" or "duration".
+#
+# returns: a vector of values representing the desired series.
+###############################################################################
+load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, weights)
+{	res <- rep(NA, length(window.sizes))
+	if(weights=="duration")
+		col <- COL_SPEAR_DUR
+	else if(weights=="occurrences")
+		col <- COL_SPEAR_OCC
+	for(i in 1:length(window.sizes))
+	{	window.size <- window.sizes[i]
+		table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+		res[i] <- tmp.tab[measure,col]
+	}
+	
+	return(res)
+}
+
+
+###############################################################################
+# Loads a series corresponding to the specified parameters.
+#
+# weights: either "occurrences" or "duration".
+# measure: name of the concerned topological measure.
+#
+# returns: a vector of values representing the desired series.
+###############################################################################
+load.static.corr.segments <- function(weights, measure)
+{	table.file <- get.statname.static(object="corr", mode="segments", weights=weights)
+	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+	res <- tmp.tab[measure,]
 	return(res)
 }
 
@@ -191,7 +263,7 @@ load.static.nodelink.stats.segments <- function(object, measure, weights)
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
 ###############################################################################
-generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
+generate.static.plots.single <- function(mode, window.sizes, overlaps)
 {	
 ## Old version : just error bars	
 #	# process each appropriate measure
@@ -337,9 +409,9 @@ generate.static.graph.plots.single <- function(mode, window.sizes, overlaps)
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
 ###############################################################################
-generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
+generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
-	gmn <- c(names(GRAPH_MEASURES),names(COMP_MEASURES))
+	gmn <- c(names(GRAPH_MEASURES), names(COMP_MEASURES))
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
 		gmn <- gmn[!grepl(sfx, gmn, fixed=TRUE)]
@@ -452,6 +524,118 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 
 
 ###############################################################################
+# Generates the plots containing several series at once, as lines, for rank
+# correlation values.
+# 
+# mode: either "panel.window" or "page.window" (not "segments").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
+###############################################################################
+generate.static.plots.corr <- function(mode, window.sizes, overlaps)
+{	# setup measure name lists
+	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES))
+	
+	# identify common overlap values (over window sizes)
+	common.overlaps <- sort(unique(unlist(overlaps)))
+	# process each appropriate measure
+	for(meas.name in gmn)
+	{	tlog(4,"Generating rank correlation plots for measure ",meas.name," (mode=",mode,")")
+		
+		# load the reference values (segment-based graph)
+		seg.vals <- load.static.corr.segments(weights="occurrences", measure=meas.name)
+		
+		for(weights in c("duration","occurrences"))
+		{	if(weights=="duration")
+				ylab <- "Spearman Correlation with Segment-Based Duration Graph"
+			else
+				ylab <- "Spearman Correlation with Segment-Based Occurrences Graph"
+			
+			# retrieve the window.size data series
+			tlog(5,"Gathering and plotting data by window.size")
+			data <- list()
+			for(i in 1:length(window.sizes))
+			{	# the series corresponds to the values of the overlap
+				window.size <- window.sizes[i]
+				data[[i]] <- load.static.corr.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights)
+			}
+			# generate a plot containing each window size value as a series
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_corr.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+			if(all(is.na(unlist(data))))
+				warning(paste0("All values are NA for ", plot.file))
+			else{
+#				pdf(file=plot.file,bg="white")
+				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				# init plot
+				plot(NULL, 
+					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
+					ylim=c(-1,1),
+					xlab="Overlap",
+					ylab=ylab,
+					main=paste0("mode=",mode)
+				)
+				# draw reference lines
+				abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+				abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+				# draw series
+				for(d in 1:length(data))
+				{	lines(x=overlaps[[d]],y=data[[d]],
+							col=COLORS[d], lwd=2
+					)
+				}
+				# add legend
+				legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+				dev.off()
+			}
+			
+			# retrieve the overlap data series
+			tlog(5,"Gathering and plotting data by overlap")
+			data <- list()
+			axis <- list()
+			for(i in 1:length(common.overlaps))
+			{	# the series corresponds to the values of the window sizes
+				overlap <- common.overlaps[i]
+				idx <- sapply(overlaps, function(vect) overlap %in% vect)
+				data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+				axis[[i]] <- window.sizes[idx]
+			}
+			# generate a plot representing each overlap value as a series
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_corr.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+			if(all(is.na(unlist(data))))
+				warning(paste0("All values are NA for ", plot.file))
+			else{	
+#				pdf(file=plot.file,bg="white")
+				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				# init plot
+				plot(NULL, 
+					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
+					ylim=c(-1,1),
+					xlab="Window Size",
+					ylab=ylab,
+					main=paste0("mode=",mode)
+				)
+				# draw reference lines
+				abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+				abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+				# draw series
+				for(d in 1:length(data))
+				{	lines(x=axis[[d]],y=data[[d]],
+							col=COLORS[d], lwd=2
+					)
+				}
+				# add legend
+				legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+				dev.off()
+			}
+		}
+	}
+}
+
+
+
+###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
 # mode: either "panel.window" or "page.window" (not "segments").
@@ -463,11 +647,14 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.all.static.plots <- function(mode, window.sizes, overlaps)
 {	
-	tlog(3,"Generating single plots for mode=",mode)
-	generate.static.graph.plots.single(mode, window.sizes, overlaps)
+#	tlog(3,"Generating single plots for mode=",mode)
+#	generate.static.plots.single(mode, window.sizes, overlaps)
+#	
+#	tlog(3,"Generating multiple plots for mode=",mode)
+#	generate.static.plots.multiple(mode, window.sizes, overlaps)
 	
-	tlog(3,"Generating multiple plots for mode=",mode)
-	generate.static.graph.plots.multiple(mode, window.sizes, overlaps)
+	tlog(3,"Generating rank correlation plots for mode=",mode)
+	generate.static.plots.corr(mode, window.sizes, overlaps)
 }
 
 

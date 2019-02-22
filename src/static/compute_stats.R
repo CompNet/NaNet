@@ -226,7 +226,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	mn <- c(names(NODE_MEASURES),names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
-	cn <- c("spearman-duration","p-duration","spearman-occurrences","p-occurrences") 
+	cn <- c(COL_SPEAR_DUR, COL_PVAL_DUR, COL_SPEAR_OCC, COL_PVAL_OCC) 
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -259,11 +259,11 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		vals.cur <- tmp.tab[,meas.name]
 		# compute correlations
 		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
-		res.tab[meas.name,"spearman-duration"] <- corr$estimate
-		res.tab[meas.name,"p-duration"] <- corr$p.value
+		res.tab[meas.name,COL_SPEAR_DUR] <- corr$estimate
+		res.tab[meas.name,COL_PVAL_DUR] <- corr$p.value
 		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
-		res.tab[meas.name,"spearman-occurrences"] <- corr$estimate
-		res.tab[meas.name,"p-occurrences"] <- corr$p.value
+		res.tab[meas.name,COL_SPEAR_OCC] <- corr$estimate
+		res.tab[meas.name,COL_PVAL_OCC] <- corr$p.value
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
 	}
