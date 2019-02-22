@@ -5,17 +5,13 @@
 # 11/2018
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("D:/Users/Vincent/eclipse/workspaces/Networks/NaNet")
 ###############################################################################
-library("igraph")
-
-
-###############################################################################
-# init folder path
-#DATA_FOLDER <- file.path("data","Test")
-DATA_FOLDER <- file.path("data","Ralph_Azham")
+source("src/define_imports.R")
 
 
 ###############################################################################
+# setup parameters
 panel.window.sizes <- c(1,2,5,10,15,20,25,30)
 panel.overlaps <- list(
 	c(0), 										#1
@@ -38,17 +34,13 @@ page.overlaps <- list(
 )
 
 
-
-###############################################################################
-# load auxiliary functions
-source("src/constants_file.R")
-source("src/constants_table.R")
-source("src/constants_meas.R")
-source("src/read_raw.R")
-source("src/extract_static.R")
-source("src/stats_static.R")
-source("src/plot_static.R")
-source("src/logging.R")
+##################### configure parallel processing
+#cn <- detectCores(all.tests=TRUE)
+#if(!is.na(cn))
+#	cl <- makeCluster(cn)		# automatically use all the available processors
+#else
+cl <- makeCluster(4)		# manually set the number of processors to use
+registerDoParallel(cl)
 
 
 ###############################################################################
@@ -63,10 +55,14 @@ source("src/logging.R")
 
 ###############################################################################
 # compute stats
-compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # generate plots
-#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
+
+###############################################################################
+# stop parallel processing
+stopCluster(cl)

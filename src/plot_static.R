@@ -373,14 +373,14 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 				# init plot
 				plot(NULL, 
 					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
-					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+					ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
 								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
-								GRAPH_MEASURES[[meas.name]]$bounds[1],
-							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+								ALL_MEASURES[[meas.name]]$bounds[1],
+							if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
 								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
-								GRAPH_MEASURES[[meas.name]]$bounds[2]),
+								ALL_MEASURES[[meas.name]]$bounds[2]),
 					xlab="Overlap",
 					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode)
@@ -421,14 +421,14 @@ generate.static.graph.plots.multiple <- function(mode, window.sizes, overlaps)
 				# init plot
 				plot(NULL, 
 					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
-					ylim=c(if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[1]))
+					ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
 								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
-								GRAPH_MEASURES[[meas.name]]$bounds[1],
-							if(is.na(GRAPH_MEASURES[[meas.name]]$bounds[2]))
+								ALL_MEASURES[[meas.name]]$bounds[1],
+							if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
 								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
 							else
-								GRAPH_MEASURES[[meas.name]]$bounds[2]),
+								ALL_MEASURES[[meas.name]]$bounds[2]),
 					xlab="Window Size",
 					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode)
