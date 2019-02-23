@@ -111,14 +111,14 @@ get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
 	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_panels"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
-		else if(!is.na(overlap))
+		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
 	}
 	else if(mode=="page.window")
 	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_pages"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
-		else if(!is.na(overlap))
+		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
 	}
 	

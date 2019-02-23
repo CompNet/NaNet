@@ -689,7 +689,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					}
 					
 					# generate the plot
-					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",weights,".png")
+					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",substr(weights,1,3),".png")
 					tlog(5,"Plotting file \"",plot.file,"\"")
 #					pdf(file=plot.file,bg="white")
 					png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
@@ -697,7 +697,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 							ylim=c(-length(diff),length(diff)),
 							xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
 							ylab=ylab,
-							main=paste0("mode=",mode," window.size=",window.size)
+							main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
 						)
 					dev.off()
 				}
