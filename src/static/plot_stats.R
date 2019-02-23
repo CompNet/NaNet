@@ -643,10 +643,9 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 #############################################################################################
 generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 {	# identify common overlap values (over window sizes)
-#TODO pb: faut charger chaque vecteur par ovelrap/windowsize, et non pas des séries entières comme ici	
 	common.overlaps <- sort(unique(unlist(overlaps)))
 	# process each appropriate measure
-	mn <- c(NODE_MEASURES, LINK_MEASURES)
+	mn <- c(names(NODE_MEASURES), names(LINK_MEASURES))
 	for(meas.name in mn)
 	{	tlog(4,"Generating rank comparison for measure ",meas.name," (mode=",mode,")")
 		
@@ -669,67 +668,39 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 			
 			# generate a plot for each window size value
 			for(i in 1:length(window.sizes))
-			{	# the series corresponds to the values of the overlap
-				window.size <- window.sizes[i]
-				tlog(5,"Dealing with window.size=",window.size)
-				values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
-				ranks <- rank(values, ties.method="min")
+			{	window.size <- window.sizes[i]
+				lst.values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 				
-				# compute the ranks
-				if(weights=="duration")
-				{	diff <- ranks - seg.dur.ranks
-					idx <- order(seg.dur.vals, decreasing=TRUE)
+				# and for each corresponding overlap value
+				for(j in 1:length(overlaps[[i]]))
+				{	overlap <- overlaps[[i]][j]
+					tlog(5,"Dealing with window.size=",window.size," and overlap=",overlap)
+					values <- lst.values[[j]]
+					ranks <- rank(values, ties.method="min")
+					
+					# compute the ranks
+					if(weights=="duration")
+					{	diff <- ranks - seg.dur.ranks
+						idx <- order(seg.dur.vals, decreasing=TRUE)
+					}
+					else
+					{	diff <- ranks - seg.occ.ranks
+						idx <- order(seg.occ.vals, decreasing=TRUE)
+					}
+					
+					# generate the plot
+					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",weights,".png")
+					tlog(5,"Plotting file \"",plot.file,"\"")
+#					pdf(file=plot.file,bg="white")
+					png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+						barplot(diff[idx], 
+							ylim=c(-length(diff),length(diff)),
+							xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
+							ylab=ylab,
+							main=paste0("mode=",mode," window.size=",window.size)
+						)
+					dev.off()
 				}
-				else
-				{	diff <- ranks - seg.occ.ranks
-					idx <- order(seg.occ.vals, decreasing=TRUE)
-				}
-				
-				# generate the plot
-				plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
-				tlog(5,"Plotting file \"",plot.file,"\"")
-#				pdf(file=plot.file,bg="white")
-				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-					barplot(diff[idx], 
-						ylim=c(-length(diff),length(diff)),
-						xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
-						ylab=ylab,
-						main=paste0("mode=",mode," window.size=",window.size)
-					)
-				dev.off()
-			}
-			
-			# generate a plot for each overlap value appearing at least twice
-			for(overlap in common.overlaps)
-			{	tlog(5,"Dealing with overlap=",overlap)
-				
-				# the series corresponds to the values of the window sizes
-				idx <- sapply(overlaps, function(vect) overlap %in% vect)
-				values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
-				ranks <- rank(values, ties.method="min")
-				
-				# compute the ranks
-				if(weights=="duration")
-				{	diff <- ranks - seg.dur.ranks
-					idx <- order(seg.dur.vals, decreasing=TRUE)
-				}
-				else
-				{	diff <- ranks - seg.occ.ranks
-					idx <- order(seg.occ.vals, decreasing=TRUE)
-				}
-				
-				# generate the plot
-				plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
-				tlog(5,"Plotting file \"",plot.file,"\"")
-#				pdf(file=plot.file,bg="white")
-				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-					barplot(diff[idx], 
-						ylim=c(-length(diff),length(diff)),
-						xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
-						ylab=ylab,
-						main=paste0("mode=",mode," overlap=",overlap)
-					)
-				dev.off()
 			}
 		}
 	}
