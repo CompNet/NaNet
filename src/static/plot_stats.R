@@ -647,7 +647,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 	# process each appropriate measure
 	mn <- c(names(NODE_MEASURES), names(LINK_MEASURES))
 	for(meas.name in mn)
-	{	tlog(4,"Generating rank comparison for measure ",meas.name," (mode=",mode,")")
+	{	tlog(4,"Generating rank difference for measure ",meas.name," (mode=",mode,")")
 		
 		if(meas.name %in% names(NODE_MEASURES))
 			object <- "nodes"
@@ -662,9 +662,9 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 		
 		for(weights in c("duration","occurrences"))
 		{	if(weights=="duration")
-				ylab <- "Rank Comparison with Segment-Based Duration Graph"
+				ylab <- "Rank difference with Segment-Based Duration Graph"
 			else
-				ylab <- "Rank Comparison with Segment-Based Occurrences Graph"
+				ylab <- "Rank difference with Segment-Based Occurrences Graph"
 			
 			# generate a plot for each window size value
 			for(i in 1:length(window.sizes))
