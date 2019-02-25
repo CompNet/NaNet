@@ -28,11 +28,17 @@ Stats part:
 - Plots:
   - Plots combining the different assortativities / centralizations ? (for comparison purposes. not sure of the interest)
   
-- segmentation task: 
+- Segmentation task: 
   - requires dynamic nets
   - maybe do that in a separate paper
-- this first work:
+- This first work:
   - descriptive study of the segment-based networks
   - compare with other fictional character networks properties
   - assess window-based approaches as approximations
     - compare how good the window corresponding to the typical segment length is
+
+Method to compare between bédés
+  - just compare segment-based graphs (through their topological measures)
+    >> can be done through tables (?)
+  - also compare to other types of character networks
+  - compare the best window-based parameters
