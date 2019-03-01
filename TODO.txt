@@ -36,3 +36,9 @@ Stats part:
   - compare with other fictional character networks properties
   - assess window-based approaches as approximations
     - compare how good the window corresponding to the typical segment length is
+
+DATA
+- annotate segments with single characters
+- annotate unconscious characters (not dead ones) 
+  (as they can undergo an action from another character)
+  
