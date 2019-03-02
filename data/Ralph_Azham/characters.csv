@@ -101,7 +101,11 @@ Citadin cochon 153,Male,N
 Citadin lapin 154,Male,N
 Citadin pélican 154,Male,N
 Citadin rat 154,Male,N
+Citadins 153,Mixed,N
+Citadins 154,Mixed,N
 Claire Lacolline,Female,Y
+Clients 126.1,Male,N
+Clients 126.2,Male,N
 Clients 212,Male,N
 Clients 241,Male,N
 Clients 483,Male,N
@@ -153,7 +157,9 @@ Garde 105,Male,N
 Garde 111,Male,N
 Garde 131,Male,N
 Garde 140,Male,N
+Garde 194,Male,N
 Garde 195,Male,N
+Garde 263,Male,N
 Garde 288,Male,N
 Garde 302,Male,N
 Garde 307,Male,N
@@ -168,9 +174,11 @@ Garde 443,Male,N
 Garde 48,Male,N
 Garde 503,Male,N
 Garde 51,Male,N
+Garde 55,Male,N
 Garde 63,Male,N
 Garde 64,Male,N
-Garde 81,Male,N
+Garde 81.1,Male,N
+Garde 81.2,Male,N
 Garde 82,Male,N
 Garde 99,Male,N
 Garde barbu 161,Male,N
@@ -213,6 +221,7 @@ Gardes 296.2,Male,N
 Gardes 343,Male,N
 Gardes 471,Male,N
 Gardes 61,Male,N
+Gardes 65,Male,N
 Gardes 83,Male,N
 Gardes 95,Male,N
 Gardes du roi 460,Male,N
@@ -269,6 +278,7 @@ Krig,Female,Y
 Laboureur 443,Male,N
 Lapin 20,Male,N
 Lapinot bleui 400,Male,Y
+Lézard 1,Unknown,N
 Madame Bérou,Female,N
 Madame Lacolline,Female,N
 Madame Mermelle,Female,N
@@ -296,6 +306,7 @@ Marchande 101.1,Female,N
 Marchande 102,Female,N
 Marins 238,Male,N
 Markel,Male,Y
+Matelot 202,Male,N
 Matelot chat 193.1,Male,N
 Matelot chien 191,Male,N
 Matelot cochon 193.2,Male,N
@@ -403,6 +414,8 @@ Tekbir,Male,Y
 Tilda Pönns,Female,Y
 Truands 423,Male,N
 Valbek,Male,N
+Vendeur 126.1,Male,N
+Vendeur 126.2,Male,N
 Vendeur chien 100.4,Male,N
 Vendeur cochon 100.3,Male,N
 Vendeur lapin 100.2,Male,N
@@ -411,6 +424,8 @@ Vick,Male,Y
 Vieux bleui barbu 402,Male,Y
 Vigie 203,Male,N
 Vigile 361,Male,N
+Villageois 101,Mixed,N
+Villageois 256,Mixed,N
 Villageois 257,Male,N
 Villageois 420,Male,N
 Villageois 456,Male,N

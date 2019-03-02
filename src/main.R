@@ -39,13 +39,13 @@ page.overlaps <- list(
 #if(!is.na(cn))
 #	cl <- makeCluster(cn)		# automatically use all the available processors
 #else
-cl <- makeCluster(4)		# manually set the number of processors to use
-registerDoParallel(cl)
+#cl <- makeCluster(4)		# manually set the number of processors to use
+#registerDoParallel(cl)
 
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data()
+data <- read.raw.data()
 
 
 ###############################################################################
@@ -60,9 +60,11 @@ registerDoParallel(cl)
 
 ###############################################################################
 # generate plots
-generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # stop parallel processing
-stopCluster(cl)
+#stopCluster(cl)
+
+#TODO la ligne perso peut être vide
