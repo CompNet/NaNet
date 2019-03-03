@@ -225,14 +225,14 @@ read.char.table <- function(inter.df)
 		# check whether some characters miss from the table
 		pb.chars <- setdiff(inter.chars,table.chars)
 		if(length(pb.chars)>0)
-		{	cat(paste(pb.chars,collapse="\n"))
+		{	#cat(paste(pb.chars,collapse="\n"))
 			stop(paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=",")))
 		}
 		
 		# check whether some characters miss from the interactions
 		pb.chars <- setdiff(table.chars,inter.chars)
 		if(length(pb.chars)>0)
-		{	cat(paste(pb.chars,collapse="\n"))
+		{	#cat(paste(pb.chars,collapse="\n"))
 			warning(paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=",")))
 		}
 		

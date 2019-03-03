@@ -275,6 +275,42 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 
 
 ###############################################################################
+# Computes all rank correlation measures for the specified static graph.
+#
+# mode: either "segments", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="segments").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="segments").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+###############################################################################
+compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA)
+{	graph.file <- get.graphname.static(mode, window.size, overlap)
+	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
+	
+	# read the graph file
+	tlog(4,"Loading graph")
+	g <- read.graph(file=graph.file, format="graphml")
+	if(!is.na(weights))
+	{	if(weights=="occurrences")
+			E(g)$weight <- E(g)$Occurrences
+		else if(weights=="duration")
+			E(g)$weight <- E(g)$Duration
+	}
+	else
+		E(g)$weight <- E(g)$Occurrences
+	
+	# init cache
+	cache <<- list()
+	
+	# compute its stats
+	compute.static.correlations(mode, window.size, overlap, weights)
+	
+	tlog(3,"Computation of all rank correlation measures complete")
+}
+
+
+
+###############################################################################
 # Computes all preselected topological measures for the specified static graph.
 #
 # mode: either "segments", "panel.window", or "page.window".
@@ -307,7 +343,7 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
 	compute.static.link.statistics(g, mode, window.size, overlap, weights)
 	compute.static.graph.statistics(g, mode, window.size, overlap, weights)
-	compute.static.correlations(mode, window.size, overlap, weights)
+#	compute.static.correlations(mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of all topological measures complete")
 }
@@ -329,25 +365,31 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 	# statistics for the segment-based graph
 	for(weights in c("occurrences","duration"))
 		compute.all.static.statistics(mode="segments", weights=weights)
+	for(weights in c("occurrences","duration"))
+		compute.all.static.corrs(mode="segments", weights=weights)
 	
 	# statistics for the panel window-based static graphs
-#	for(i in 1:length(panel.window.sizes))
-	foreach(i=1:length(panel.window.sizes)) %dopar% 
+	for(i in 1:length(panel.window.sizes))
+#	foreach(i=1:length(panel.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
-			compute.all.static.statistics(mode="panel.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="panel.window", window.size, overlap)
+			compute.all.static.corrs(mode="panel.window", window.size, overlap)
+		}
 	}
 	
 	# statistics for the page window-based static graphs
-#	for(i in 1:length(page.window.sizes))
-	foreach(i=1:length(page.window.sizes)) %dopar% 
+	for(i in 1:length(page.window.sizes))
+#	foreach(i=1:length(page.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-			compute.all.static.statistics(mode="page.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="page.window", window.size, overlap)
+			compute.all.static.corrs(mode="page.window", window.size, overlap)
+		}
 	}
 	tlog(1,"Computation of statistics for static graphs complete")	
 }

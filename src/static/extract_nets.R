@@ -256,8 +256,8 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	#plot(g, layout=layout_with_fr(g))
 	
 	# extract the panel window-based static graphs
-#	for(i in 1:length(panel.window.sizes))
-	foreach(i=1:length(panel.window.sizes)) %dopar% 
+	for(i in 1:length(panel.window.sizes))
+#	foreach(i=1:length(panel.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- panel.window.sizes[i]
@@ -266,8 +266,8 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	}
 	
 	# extract the page window-based static graphs
-#	for(i in 1:length(page.window.sizes))
-	foreach(i=1:length(page.window.sizes)) %dopar% 
+	for(i in 1:length(page.window.sizes))
+#	foreach(i=1:length(page.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- page.window.sizes[i]

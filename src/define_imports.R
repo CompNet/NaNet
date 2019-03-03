@@ -13,6 +13,7 @@ library("doParallel")
 # init folder path
 #DATA_FOLDER <- file.path("data","Test")
 DATA_FOLDER <- file.path("data","Ralph_Azham")
+#DATA_FOLDER <- file.path("data","Thorgal")
 
 
 ###############################################################################

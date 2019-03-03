@@ -50,17 +50,17 @@ data <- read.raw.data()
 
 ###############################################################################
 # extract static networks
-#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # compute stats
-#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # generate plots
-#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
