@@ -58,11 +58,13 @@ read.page.table <- function(volume.info)
 	err.pg.idx <- which(page.info[,COL_PAGES_PAGE]<volume.info[vol.ids,COL_VOLS_START_PAGE]
 		| page.info[,COL_PAGES_PAGE]>volume.info[vol.ids,COL_VOLS_END_PAGE])
 	if(length(err.pg.idx)>0)
-	{	msg <- apply(as.matrix(page.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
-		msg <- apply(cbind(err.pg.idx,msg),1, function(r) paste(r,collapse=": "))
-		msg <- c(paste(colnames(page.info),collapse=","),msg)
-		msg <- paste(msg,collapse="\n")
-		stop(paste0("ERROR while reading file \"",PAGE_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",msg))
+	{	tmp.msg <- apply(as.matrix(page.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
+		tmp.msg <- apply(cbind(err.pg.idx,tmp.msg),1, function(r) paste(r,collapse=": "))
+		tmp.msg <- c(paste(colnames(page.info),collapse=","),tmp.msg)
+		tmp.msg <- paste(tmp.msg,collapse="\n")
+		msg <- paste0("ERROR while reading file \"",PAGE_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",tmp.msg)
+		tlog(3,msg)
+		stop(msg)
 	}
 	
 	# get the number of the panel starting each page since the beginning
@@ -125,28 +127,46 @@ read.inter.table <- function(volume.info, page.info)
 		start.page <- line[2]
 		start.page.id <- which(page.info[,COL_PAGES_PAGE]==start.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
 		if(length(start.page.id)==0)
-			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			stop(msg)
+		}
 		start.panel <-  as.integer(line[3])
 		if(start.panel>page.info[start.page.id,COL_PAGES_PANELS])
-			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			stop(msg)
+		}
 		start.panel.id <- page.info[start.page.id,COL_PAGES_START_PANEL_ID] + start.panel - 1
 		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
-			warning(paste0("ERROR while reading file \"",INTER_FILE,"\". Missing panel(s) between this segment and the previous one, at line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this segment and the previous one, at line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			warning(msg)
+		}
 		
 		# get end page and panel
 		end.page <- line[4]
 		end.page.id <- which(page.info[,COL_PAGES_PAGE]==end.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
 		if(length(end.page.id)==0)
-			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line: \"",paste(line,collapse=","),"\"") 
+			tlog(3,msg)
+			stop(msg)
+		}
 		end.panel <- as.integer(line[5])
 		if(end.panel>page.info[end.page.id,COL_PAGES_PANELS])
-			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			stop(msg)
+		}
 		end.panel.id <- page.info[end.page.id,COL_PAGES_START_PANEL_ID] + end.panel - 1
 		prev.end.panel.id <- end.panel.id
 		
 		# check that the end is after the start
 		if(start.panel.id>end.panel.id)
-			stop(paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			stop(msg)
+		}
 		
 		# compute segment length (in pages)
 		page.length <- end.page.id - start.page.id + 1
@@ -162,15 +182,23 @@ read.inter.table <- function(volume.info, page.info)
 					else if(length(v)==2)
 						return(trimws(v[2]))
 					else
-						stop(paste0("ERROR when splitting the names: ",v))
+					{	msg <- paste0("ERROR when splitting the names: ",v)
+						tlog(4,msg)
+						stop(msg)
+					}
 				})
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
 		if(length(chars)<=1)
-		{	#warning(paste0("WARNING there is one or no character in the segment described in line: \"",paste(line,collapse=","),"\""))
+		{	msg <- paste0("WARNING there is one or no character in the segment described in line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+			#warning(msg)
 		}
 		else
 		{	if(length(chars)>length(unique(chars)))
-				stop(paste0("ERROR the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\""))
+			{	tlog(3,msg)
+				msg <- paste0("ERROR the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
+				stop(msg)
+			}
 			chars <- t(combn(x=chars,m=2))
 			
 			# add segment to data frame
@@ -216,7 +244,10 @@ read.char.table <- function(inter.df)
 		x <- table(table.chars)
 		pb.chars <- names(x)[x!=1]
 		if(length(pb.chars)>0)
-			stop(paste0("ERROR: The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=",")))
+		{	msg <- paste0("ERROR: The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+			tlog(3,msg)
+			stop(msg)
+		}
 		
 		# get the list of characters from the interactions
 		inter.chars <- c(inter.df[,COL_INTER_FROM_CHAR],inter.df[,COL_INTER_TO_CHAR])
@@ -226,14 +257,18 @@ read.char.table <- function(inter.df)
 		pb.chars <- setdiff(inter.chars,table.chars)
 		if(length(pb.chars)>0)
 		{	#cat(paste(pb.chars,collapse="\n"))
-			stop(paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=",")))
+			msg <- paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+			tlog(3,msg)
+			stop(msg)
 		}
 		
 		# check whether some characters miss from the interactions
 		pb.chars <- setdiff(table.chars,inter.chars)
 		if(length(pb.chars)>0)
 		{	#cat(paste(pb.chars,collapse="\n"))
-			warning(paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=",")))
+			msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
+			tlog(3,msg)
+			#warning(msg)
 		}
 		
 		tlog(2,"Reading of the character file completed")

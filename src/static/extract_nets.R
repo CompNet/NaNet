@@ -91,7 +91,10 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
-		stop("ERROR: overlap parameter must be smaller than or equal to window.size")
+	{	msg <- paste0("ERROR: overlap parameter must be smaller than or equal to window.size: window.size=",window.size,", overlap=",overlap)
+		tlog(4,msg)
+		stop(msg)
+	}
 	
 	# init the dataframe
 	static.df <- data.frame(
@@ -173,7 +176,10 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
-		stop("ERROR: overlap must be smaller than window.size")
+	{	msg <- paste0("ERROR: overlap must be smaller than window.size: window.size=",window.size,", overlap=",overlap)
+		tlog(4,msg)
+		stop(msg)
+	}
 	
 	# init the dataframe
 	static.df <- data.frame(

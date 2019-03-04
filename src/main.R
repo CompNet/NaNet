@@ -8,6 +8,7 @@
 # setwd("D:/Users/Vincent/eclipse/workspaces/Networks/NaNet")
 ###############################################################################
 source("src/define_imports.R")
+start.rec.log(text=SERIES)
 
 
 ###############################################################################
@@ -45,12 +46,12 @@ page.overlaps <- list(
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
@@ -60,15 +61,13 @@ compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes,
 
 ###############################################################################
 # generate plots
-generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # stop parallel processing
 #stopCluster(cl)
 
-#TODO à la création des noeuds virer les persos isolés pr éviter graphes non-connexes
 # TODO bug lors du calcul de corrélation pr les 2 jeux de données
 #Error in cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") : 
 #		'x' and 'y' must have the same length
-

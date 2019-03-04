@@ -6,6 +6,11 @@
 
 
 ###############################################################################
+# folder containing the log files
+LOG_FOLDER <- "log"
+
+
+###############################################################################
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
 dir.create(NET_FOLDER, showWarnings=FALSE)

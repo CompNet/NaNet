@@ -43,8 +43,3 @@ Method to compare between bédés
     >> can be done through tables (?)
   - also compare to other types of character networks
   - compare the best window-based parameters
-
-DATA
-- annotate segments with single characters
-- annotate unconscious characters (not dead ones) 
-  (as they can undergo an action from another character)

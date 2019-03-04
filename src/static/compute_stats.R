@@ -255,13 +255,42 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		vals.occ <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
 		# retrieve tested values
 		tab.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+print(tab.file)		
 		tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
 		vals.cur <- tmp.tab[,meas.name]
 		# compute correlations
-		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+#print(vals.dur)
+#print(vals.cur)
+print(length(vals.dur))
+print(length(vals.cur))
+#		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+		corr <- tryCatch(
+			cor.test(x=vals.dur, y=vals.cur, method="spearman"),
+			error=function(e)
+			{	msg <- paste0("WARNING: problem when computing Spearman for measure ",meas.name)
+				tlog(7,msg)
+				warning(msg)
+				corr <- list(estimate=NA,p.value=NA)
+				return(corr)
+			}
+		)		
 		res.tab[meas.name,COL_SPEAR_DUR] <- corr$estimate
 		res.tab[meas.name,COL_PVAL_DUR] <- corr$p.value
-		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+#print(vals.occ)
+#print(vals.cur)
+print(length(vals.occ))
+print(length(vals.cur))
+#		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+		corr <- tryCatch(
+			cor.test(x=vals.occ, y=vals.cur, method="spearman"),
+			error=function(e) 
+			{	msg <- paste0("WARNING: problem when computing Spearman for measure ",meas.name)
+				tlog(7,msg)
+				warning(msg)
+				corr <- list(estimate=NA,p.value=NA)
+				return(corr)
+			}
+		)		
 		res.tab[meas.name,COL_SPEAR_OCC] <- corr$estimate
 		res.tab[meas.name,COL_PVAL_OCC] <- corr$p.value
 		# update file
@@ -362,11 +391,11 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Computing statistics for static graphs")
 	
-	# statistics for the segment-based graph
-	for(weights in c("occurrences","duration"))
-		compute.all.static.statistics(mode="segments", weights=weights)
-	for(weights in c("occurrences","duration"))
-		compute.all.static.corrs(mode="segments", weights=weights)
+#	# statistics for the segment-based graph
+#	for(weights in c("occurrences","duration"))
+#		compute.all.static.statistics(mode="segments", weights=weights)
+#	for(weights in c("occurrences","duration"))
+#		compute.all.static.corrs(mode="segments", weights=weights)
 	
 	# statistics for the panel window-based static graphs
 	for(i in 1:length(panel.window.sizes))
@@ -376,20 +405,20 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 		window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
 		{	compute.all.static.statistics(mode="panel.window", window.size, overlap)
-			compute.all.static.corrs(mode="panel.window", window.size, overlap)
+			#compute.all.static.corrs(mode="panel.window", window.size, overlap)
 		}
 	}
 	
-	# statistics for the page window-based static graphs
-	for(i in 1:length(page.window.sizes))
-#	foreach(i=1:length(page.window.sizes)) %dopar% 
-	{	source("src/define_imports.R")
-		
-		window.size <- page.window.sizes[i]
-		for(overlap in page.overlaps[[i]])
-		{	compute.all.static.statistics(mode="page.window", window.size, overlap)
-			compute.all.static.corrs(mode="page.window", window.size, overlap)
-		}
-	}
+#	# statistics for the page window-based static graphs
+#	for(i in 1:length(page.window.sizes))
+##	foreach(i=1:length(page.window.sizes)) %dopar% 
+#	{	source("src/define_imports.R")
+#		
+#		window.size <- page.window.sizes[i]
+#		for(overlap in page.overlaps[[i]])
+#		{	compute.all.static.statistics(mode="page.window", window.size, overlap)
+#			compute.all.static.corrs(mode="page.window", window.size, overlap)
+#		}
+#	}
 	tlog(1,"Computation of statistics for static graphs complete")	
 }

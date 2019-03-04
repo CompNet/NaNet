@@ -3,7 +3,7 @@ Extraction and analysis of character networks from bandes dessinées, comics, ma
 
 
 
-This is software is currently in development...
+This software is currently in development...
 
 Must find a better name: 
 * Ninth Art Networks: NANet, Nianet, Ninanet

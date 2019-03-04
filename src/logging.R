@@ -8,6 +8,29 @@
 
 
 #############################################################################################
+# Start recording the logs in a text file.
+#############################################################################################
+start.rec.log <- function(text=NA)
+{	prefix <- format(Sys.time(),"%Y%m%d_%H%M%S")
+	log.file <- file.path(LOG_FOLDER,prefix)
+	if(!is.na(text))
+		log.file <- paste0(log.file,"_",text)
+	log.file <- paste0(log.file,".txt")
+	sink(log.file, append=TRUE, split=TRUE)
+}
+
+
+
+#############################################################################################
+# Stops recording the logs in a text file.
+#############################################################################################
+end.rec.log <- function()
+{	sink()
+}
+
+
+
+#############################################################################################
 # Logs the specified message on screen, adding current date and time, and possibly some
 # offset (to represent the hierarchy of function calls).
 #
