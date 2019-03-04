@@ -67,4 +67,8 @@ generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, pag
 # stop parallel processing
 #stopCluster(cl)
 
-#TODO la ligne perso peut être vide
+#TODO à la création des noeuds virer les persos isolés pr éviter graphes non-connexes
+# TODO bug lors du calcul de corrélation pr les 2 jeux de données
+#Error in cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") : 
+#		'x' and 'y' must have the same length
+
