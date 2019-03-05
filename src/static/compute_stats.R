@@ -392,31 +392,31 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 {	tlog(1,"Computing statistics for static graphs")
 	
 	# statistics for the segment-based graph
-#	for(weights in c("occurrences","duration"))
-#		compute.all.static.statistics(mode="segments", weights=weights)
+	for(weights in c("occurrences","duration"))
+		compute.all.static.statistics(mode="segments", weights=weights)
 	for(weights in c("occurrences","duration"))
 		compute.all.static.corrs(mode="segments", weights=weights)
 	
 	# statistics for the panel window-based static graphs
-	for(i in 1:length(panel.window.sizes))
-#	foreach(i=1:length(panel.window.sizes)) %dopar% 
+#	for(i in 1:length(panel.window.sizes))
+	foreach(i=1:length(panel.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
-		{	#compute.all.static.statistics(mode="panel.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="panel.window", window.size, overlap)
 			compute.all.static.corrs(mode="panel.window", window.size, overlap)
 		}
 	}
 	
 	# statistics for the page window-based static graphs
-	for(i in 1:length(page.window.sizes))
-#	foreach(i=1:length(page.window.sizes)) %dopar% 
+#	for(i in 1:length(page.window.sizes))
+	foreach(i=1:length(page.window.sizes)) %dopar% 
 	{	source("src/define_imports.R")
 		
 		window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-		{	#compute.all.static.statistics(mode="page.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="page.window", window.size, overlap)
 			compute.all.static.corrs(mode="page.window", window.size, overlap)
 		}
 	}

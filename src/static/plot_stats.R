@@ -657,14 +657,14 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 {	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
 	# process each appropriate measure
-	mn <- c(names(NODE_MEASURES), names(LINK_MEASURES))
+	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES))
 	for(meas.name in mn)
 	{	tlog(4,"Generating rank difference for measure ",meas.name," (mode=",mode,")")
 		
 		if(meas.name %in% names(NODE_MEASURES))
 			object <- "nodes"
-		else if(meas.name %in% names(LINK_MEASURES))
-			object <- "links"
+		else if(meas.name %in% names(NODEPAIR_MEASURES))
+			object <- "nodepairs"
 		
 		# load the reference values (segment-based graph)
 		seg.occ.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
@@ -733,13 +733,13 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 generate.all.static.plots <- function(mode, window.sizes, overlaps)
 {	
 	tlog(3,"Generating single plots for mode=",mode)
-	generate.static.plots.single(mode, window.sizes, overlaps)
+#	generate.static.plots.single(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating multiple plots for mode=",mode)
-	generate.static.plots.multiple(mode, window.sizes, overlaps)
+#	generate.static.plots.multiple(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank correlation plots for mode=",mode)
-	generate.static.plots.corr(mode, window.sizes, overlaps)
+#	generate.static.plots.corr(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
 	generate.static.plots.ranks(mode, window.sizes, overlaps)

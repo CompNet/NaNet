@@ -40,8 +40,8 @@ page.overlaps <- list(
 #if(!is.na(cn))
 #	cl <- makeCluster(cn)		# automatically use all the available processors
 #else
-cl <- makeCluster(4)		# manually set the number of processors to use
-registerDoParallel(cl)
+#cl <- makeCluster(4)		# manually set the number of processors to use
+#registerDoParallel(cl)
 
 
 ###############################################################################
@@ -56,23 +56,17 @@ registerDoParallel(cl)
 
 ###############################################################################
 # compute stats
-compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # generate plots
-#generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # stop parallel processing
-stopCluster(cl)
-
-# TODO bug lors du calcul de corrélation pr les 2 jeux de données
-#Error in cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") : 
-#		'x' and 'y' must have the same length
-#1: In ranks - seg.dur.ranks :
-#  longer object length is not a multiple of shorter object length
+#stopCluster(cl)
 
 # maybe different number of nodes between parameter sets?
 # >> systematically put all nodes?
