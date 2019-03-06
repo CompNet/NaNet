@@ -43,3 +43,110 @@ Method to compare between bédés
     >> can be done through tables (?)
   - also compare to other types of character networks
   - compare the best window-based parameters
+
+  
+  
+  
+  
+  
+  
+  
+------------
+Warning messages:
+1: In closeness(graph = graph, mode = "all", weights = NA,  ... :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+2: In closeness(graph = graph, mode = "all", weights = NA,  ... :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+3: In closeness(graph = graph, mode = "all", weights = E(graph)$weight,  ... :
+  At centrality.c:2617 :closeness centrality is not well-defined for disconnected graphs
+4: In closeness(graph = graph, mode = "all", weights = E(graph)$weight,  ... :
+  At centrality.c:2617 :closeness centrality is not well-defined for disconnected graphs
+5: closing unused connection 10 (<-acdid.acdsystems.com:11566)
+6: closing unused connection 9 (<-acdid.acdsystems.com:11566)
+7: closing unused connection 8 (<-acdid.acdsystems.com:11566)
+8: closing unused connection 7 (<-acdid.acdsystems.com:11566)
+9: In centr_clo(graph = graph, mode = "all", normalized = FALSE) :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+10: In centr_clo(graph = graph, mode = "all", normalized = TRUE) :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+11: In closeness(graph = graph, mode = "all", weights = NA,  ... :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+12: In closeness(graph = graph, mode = "all", weights = NA,  ... :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+13: In closeness(graph = graph, mode = "all", weights = E(graph)$weight,  ... :
+  At centrality.c:2617 :closeness centrality is not well-defined for disconnected graphs
+14: In closeness(graph = graph, mode = "all", weights = E(graph)$weight,  ... :
+  At centrality.c:2617 :closeness centrality is not well-defined for disconnected graphs
+15: In centr_clo(graph = graph, mode = "all", normalized = FALSE) :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+16: In centr_clo(graph = graph, mode = "all", normalized = TRUE) :
+  At centrality.c:2784 :closeness centrality is not well-defined for disconnected graphs
+17: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+18: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+19: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+20: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+21: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+22: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+23: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+24: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+25: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+26: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+27: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+28: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+29: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+30: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+31: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+32: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+33: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+34: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+35: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+36: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+37: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+38: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+39: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+40: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+41: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+42: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+43: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+44: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+45: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+46: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+47: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+48: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+49: In cor.test.default(x = vals.dur, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+50: In cor.test.default(x = vals.occ, y = vals.cur, method = "spearman") :
+  Cannot compute exact p-value with ties
+>

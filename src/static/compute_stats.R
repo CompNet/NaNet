@@ -255,14 +255,14 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		vals.occ <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
 		# retrieve tested values
 		tab.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-print(tab.file)		
+#print(tab.file)		
 		tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
 		vals.cur <- tmp.tab[,meas.name]
 		# compute correlations
 #print(vals.dur)
 #print(vals.cur)
-print(length(vals.dur))
-print(length(vals.cur))
+#print(length(vals.dur))
+#print(length(vals.cur))
 #		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
 		corr <- tryCatch(
 			cor.test(x=vals.dur, y=vals.cur, method="spearman"),
@@ -278,8 +278,8 @@ print(length(vals.cur))
 		res.tab[meas.name,COL_PVAL_DUR] <- corr$p.value
 #print(vals.occ)
 #print(vals.cur)
-print(length(vals.occ))
-print(length(vals.cur))
+#print(length(vals.occ))
+#print(length(vals.cur))
 #		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
 		corr <- tryCatch(
 			cor.test(x=vals.occ, y=vals.cur, method="spearman"),

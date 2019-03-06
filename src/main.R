@@ -40,23 +40,23 @@ page.overlaps <- list(
 #if(!is.na(cn))
 #	cl <- makeCluster(cn)		# automatically use all the available processors
 #else
-#cl <- makeCluster(4)		# manually set the number of processors to use
-#registerDoParallel(cl)
+cl <- makeCluster(4)		# manually set the number of processors to use
+registerDoParallel(cl)
 
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data()
+data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
 # compute stats
-#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
@@ -66,7 +66,7 @@ generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, pag
 
 ###############################################################################
 # stop parallel processing
-#stopCluster(cl)
+stopCluster(cl)
 
 # maybe different number of nodes between parameter sets?
 # >> systematically put all nodes?
