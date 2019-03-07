@@ -733,13 +733,13 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 generate.all.static.plots <- function(mode, window.sizes, overlaps)
 {	
 	tlog(3,"Generating single plots for mode=",mode)
-#	generate.static.plots.single(mode, window.sizes, overlaps)
+	generate.static.plots.single(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating multiple plots for mode=",mode)
-#	generate.static.plots.multiple(mode, window.sizes, overlaps)
+	generate.static.plots.multiple(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank correlation plots for mode=",mode)
-#	generate.static.plots.corr(mode, window.sizes, overlaps)
+	generate.static.plots.corr(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
 	generate.static.plots.ranks(mode, window.sizes, overlaps)

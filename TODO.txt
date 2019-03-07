@@ -44,12 +44,16 @@ Method to compare between bédés
   - also compare to other types of character networks
   - compare the best window-based parameters
 
-  
-  
-  
-  
-  
-  
+Plot comparison  
+  - Compare nets extracted from one-shot albums (e.g. astérix): 
+    can we find archetypical roles coming back in each album?
+    >> need a way to find narratively equivalent characters (nodes) from album to album
+
+Changes:
+  - remove links whose weight is under some threshold (e.g. determined from some stat computed over the whole node/link set)
+    >> OK for the segments, but how to do that for the window-based nets?
+  - plot centrality changes over only the top k most central nodes
+
   
 ------------
 Warning messages:
