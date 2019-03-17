@@ -141,7 +141,7 @@ read.inter.table <- function(volume.info, page.info)
 		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
 		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this segment and the previous one, at line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
-			warning(msg)
+			#warning(msg)
 		}
 		
 		# get end page and panel
@@ -195,9 +195,10 @@ read.inter.table <- function(volume.info, page.info)
 		}
 		else
 		{	if(length(chars)>length(unique(chars)))
-			{	tlog(3,msg)
-				msg <- paste0("ERROR the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
-				stop(msg)
+			{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
+				tlog(3,msg)
+				#stop(msg)
+				chars <- unique(chars)
 			}
 			chars <- t(combn(x=chars,m=2))
 			
