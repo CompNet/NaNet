@@ -1,20 +1,59 @@
-Volume,StartPage,EndPage,Length,Title
-1,3,48,46,"La magicienne trahie"
-2,3,48,46,"L'île des mers gelées"
-3,3,48,46,"Les trois vieillards du pays d'Aran"
-4,3,48,46,"La galère noire"
-5,3,48,46,"Au-delà des ombres"
-6,3,48,46,"La chute de Brek Zarith"
-7,3,48,46,"L'enfant des étoiles"
-8,3,48,46,"Alinoë"
-9,3,48,46,"Les archers"
-10,3,48,46",Le pays Qâ"
-11,3,48,46,"Les yeux de Tanatloc"
-12,3,48,46,"La cité du dieu perdu"
-13,3,48,46,"Entre terre et lumière"
-14,3,48,46,"Aaricia"
-15,3,48,46,"Le maître des montagnes"
-16,3,48,46,"Louve"
-17,3,48,46,"La gardienne des clés"
-18,3,48,46,"L'épée soleil"
-19,3,48,46,"La forteresse invisible"
+Series,Volume,Start,End,Length,Title,Month,Year,Arc
+Thorgal,1,3,48,46,La magicienne trahie,02,1980,La reine des mers gelées
+Thorgal,2,3,48,46,L'île des mers gelées,10,1980,La reine des mers gelées
+Thorgal,3,3,48,46,Les trois vieillards du pays d'Aran,10,1981,Le village maudit
+Thorgal,4,3,48,46,La galère noire,05,1982,Les maîtres de Brek Zarith
+Thorgal,5,3,48,46,Au-delà des ombres,08,1983,Les maîtres de Brek Zarith
+Thorgal,6,3,48,46,La chute de Brek Zarith,06,1984,Les maîtres de Brek Zarith
+Thorgal,7,3,48,46,L'enfant des étoiles,09,1984,Les origines
+Thorgal,8,3,48,46,Alinoë,02,1985,L'enfant-rêve
+Thorgal,9,3,48,46,Les archers,09,1985,Le grand pays
+Thorgal,10,3,48,46,Le pays Qâ,04,1986,Le grand pays
+Thorgal,11,3,48,46,Les yeux de Tanatloc,10,1986,Le grand pays
+Thorgal,12,3,48,46,La cité du dieu perdu,10,1987,Le grand pays
+Thorgal,13,3,48,46,Entre terre et lumière,11,1988,Le grand pays
+Thorgal,14,3,48,46,Aaricia,05,1989,Les origines
+Thorgal,15,3,48,46,Le maître des montagnes,10,1989,Vers le nord
+Thorgal,16,3,48,46,Louve,11,1990,Vers le nord
+Thorgal,17,3,48,46,La gardienne des clés,06,1991,Vers le nord
+Thorgal,18,3,48,46,L'épée soleil,04,1992,Shaïgan-sans-merci
+Thorgal,19,3,48,46,La forteresse invisible,11,1993,Shaïgan-sans-merci
+Thorgal,20,3,48,46,La marque des bannis,01,1995,Shaïgan-sans-merci
+Thorgal,21,3,48,46,La couronne d'Ogotaï,11,1995,Shaïgan-sans-merci
+Thorgal,22,3,48,46,Géants,11,1996,Shaïgan-sans-merci
+Thorgal,23,3,48,46,La cage,11,1997,Shaïgan-sans-merci
+Thorgal,24,3,48,46,Arachnéa,04,1999,Le viking errant
+Thorgal,25,3,48,46,Le mal bleu,11,1999,Le viking errant
+Thorgal,26,3,48,46,Le royaume sous le sable,11,2001,Le viking errant
+Thorgal,27,3,48,46,Le barbare,11,2002,Le dernier voyage
+Thorgal,28,3,48,46,Kriss de Valnor,10,2004,Le dernier voyage
+Thorgal,29,3,48,46,Le sacrifice,11,2006,Le dernier voyage
+Thorgal,30,3,48,46,Moi, Jolan,10,2007,Le successeur
+Thorgal,31,3,48,46,Le bouclier de Thor,11,2008,Le successeur
+Thorgal,32,3,48,46,La bataille d'Asgard,11,2010,Le successeur
+Kriss de Valnor,K1,3,56,54,Je n'oublie rien,11,2010,
+Thorgal,33,3,48,46,Le bateau-sabre,11,2011,Les mages rouges
+Louve,L1,3,48,46,Raïssa,11,2011,
+Kriss de Valnor,K2,3,48,46,La sentence des Walkyries,03,2012,
+Kriss de Valnor,K3,3,48,46,Digne d'une reine,11,2012,
+Louve,L2,3,48,46,La main coupée du dieu Tyr,11,2012,
+La jeunesse de Thorgal,J1,3,48,46,Les trois sœurs Minkelsönn,02,2013,
+Louve,L3,3,48,46,Le royaume du chaos,04,2013,
+Kriss de Valnor,K4,3,48,46,Alliances,10,2013,
+Thorgal,34,3,48,46,Kah-Aniel,11,2013,Les mages rouges
+La jeunesse de Thorgal,J2,3,48,46,L'œil d'Odin,02,2014,
+Louve,L4,3,48,46,Crow,04,2014,
+Kriss de Valnor,K5,3,48,46,Rouge comme le Raheborg,11,2014,
+Louve,L5,3,48,46,Skald,01,2015,
+La jeunesse de Thorgal,J3,3,48,46,Runa,04,2015,
+Kriss de Valnor,K6,2,57,56,L'île des enfants perdus,11,2015,
+La jeunesse de Thorgal,J4,3,48,46,Berserkers,04,2016,
+Louve,L6,3,48,46,La reine des Alfes noirs,09,2016,
+Thorgal,35,5,55,51,Le feu écarlate,11,2016,Les mages rouges
+Louve,L7,3,48,46,Nidhogg,04,2017,
+La jeunesse de Thorgal,J5,3,48,46,Slive,10,2017,
+Kriss de Valnor,K7,3,50,48,La montagne du temps,11,2017,
+La jeunesse de Thorgal,J6,3,48,46,Le drakkar des glaces,04,2018,
+Kriss de Valnor,K8,3,48,46,Le maître de justice,10,2018,
+Thorgal,36,3,48,46,Aniel,11,2018,Les mages rouges
+La jeunesse de Thorgal,J7,3,48,46,La dent bleue,04,2019,

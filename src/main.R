@@ -46,12 +46,12 @@ registerDoParallel(cl)
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
@@ -71,5 +71,3 @@ stopCluster(cl)
 # maybe different number of nodes between parameter sets?
 # >> systematically put all nodes?
 # >> but then, how to deal with disconnected nets?
-
-#TODO check house log

@@ -200,14 +200,21 @@ read.inter.table <- function(volume.info, page.info)
 				#stop(msg)
 				chars <- unique(chars)
 			}
-			chars <- t(combn(x=chars,m=2))
+			if(length(chars)<=1)
+			{	msg <- paste0("WARNING after having remove the multiple character, only this character remains in the segment described in line: \"",paste(line,collapse=","),"\"")
+				tlog(3,msg)
+				#warning(msg)
+			}
+			else
+			{	chars <- t(combn(x=chars,m=2))
 			
-			# add segment to data frame
-			tmp.df <- data.frame(From=(chars[,1]), To=chars[,2], 
-					Start=as.integer(rep(start.panel.id,nrow(chars))), End=as.integer(rep(end.panel.id,nrow(chars))),
-					stringsAsFactors=FALSE)
-			colnames(tmp.df) <- cn
-			inter.df <- rbind(inter.df, tmp.df)
+				# add segment to data frame
+				tmp.df <- data.frame(From=(chars[,1]), To=chars[,2], 
+						Start=as.integer(rep(start.panel.id,nrow(chars))), End=as.integer(rep(end.panel.id,nrow(chars))),
+						stringsAsFactors=FALSE)
+				colnames(tmp.df) <- cn
+				inter.df <- rbind(inter.df, tmp.df)
+			}
 		}
 	}
 	

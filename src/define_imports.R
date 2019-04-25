@@ -12,8 +12,8 @@ library("doParallel")
 ###############################################################################
 # init folder path
 #SERIES <- "Test"
-SERIES <- "Ralph_Azham"
-#SERIES <- "Thorgal"
+#SERIES <- "Ralph_Azham"
+SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
 
 
