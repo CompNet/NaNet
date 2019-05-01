@@ -337,7 +337,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- overlaps[[i]]
 			nms <- c("SO","SD",nms)
 			
-			# generate the plot
+			# generate the boxplot plot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
@@ -357,6 +357,21 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
 			dev.off()
+			
+			# generate the violin plot
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_violin.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+#			pdf(file=plot.file,bg="white")
+				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				vioplot(x=values, 
+						names=nms,
+#						outline=FALSE,
+						xlab="Overlap",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," window.size=",window.size),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2))
+				)
+			dev.off()
 		}
 		
 		# generate a plot for each overlap value appearing at least twice
@@ -371,7 +386,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- window.sizes[idx]
 			nms <- c("SO","SD",nms)
 			
-			# generate the plot
+			# generate the boxplot
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
@@ -389,6 +404,21 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					ylab=ALL_MEASURES[[meas.name]]$cname,
 					main=paste0("mode=",mode," overlap=",overlap),
 					border=c(rep("RED",2),rep("BLUE",length(values)-2))
+				)
+			dev.off()
+			
+			# generate the violin plot
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_violin.png")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+#			pdf(file=plot.file,bg="white")
+			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+				vioplot(x=values, 
+						names=nms,
+#						outline=FALSE,
+						xlab="Window size",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," overlap=",overlap),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
 			dev.off()
 		}

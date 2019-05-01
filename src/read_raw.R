@@ -1,4 +1,5 @@
-# This script contains functions used to read the raw data.
+# This script contains functions used to read the raw data and build a matrix
+# representing character interactions.
 # 
 # Vincent Labatut
 # 01/2019
@@ -189,7 +190,10 @@ read.inter.table <- function(volume.info, page.info)
 				})
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
 		if(length(chars)<=1)
-		{	msg <- paste0("WARNING there is one or no character in the segment described in line: \"",paste(line,collapse=","),"\"")
+		{	if(length(chars)==0)
+				msg <- paste0("WARNING there is no character in the segment described in line: \"",paste(line,collapse=","),"\"")
+			else #if(length(chars)==1)
+				msg <- paste0("WARNING there is only one character in the segment described in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			#warning(msg)
 		}
@@ -201,7 +205,7 @@ read.inter.table <- function(volume.info, page.info)
 				chars <- unique(chars)
 			}
 			if(length(chars)<=1)
-			{	msg <- paste0("WARNING after having remove the multiple character, only this character remains in the segment described in line: \"",paste(line,collapse=","),"\"")
+			{	msg <- paste0("WARNING after having remove the multi-occurring character, only this character remains in the segment described in line: \"",paste(line,collapse=","),"\"")
 				tlog(3,msg)
 				#warning(msg)
 			}

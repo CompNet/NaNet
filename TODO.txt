@@ -53,6 +53,7 @@ Changes:
   - remove links whose weight is under some threshold (e.g. determined from some stat computed over the whole node/link set)
     >> OK for the segments, but how to do that for the window-based nets?
   - plot centrality changes over only the top k most central nodes
+  - in plots: use violins rather than boxplots
 
   
 ------------
