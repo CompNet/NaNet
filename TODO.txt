@@ -1,6 +1,6 @@
 Static graph extraction
 	- Extract one graph for each volume? 
-	- Each arc?
+	- Each narrative arc?
 
 Dynamic network extraction
    - Implement window-based approach 
@@ -18,15 +18,17 @@ Stats part:
 		- for nodal measures, we could study how they are rank-correlated (for 2 different parameter values)
 		  (in addition to studying changes in absolute value)
 	- also consider global similarity measures between graphs
-	- Identify which measures are used in apps of char nets (in the literature)
+	- Identify which nodal measures are used in apps of char nets (in the literature)
 	  >> study how these are affected by extraction parameters
 	- assess the difference between parameters on a simple task such as story segmentation (ref=segments or volumes?)
+	  >> maybe in a different paper
 
 - Segments: weights=occurrences vs. durations
-  - compare them, correlated ?
+  - compare them, are they correlated?
 
 - Plots:
-  - Plots combining the different assortativities / centralizations ? (for comparison purposes. not sure of the interest)
+  - Plots combining the different assortativities / centralizations ? (for comparison purposes. not sure of the interest)*
+  - Check the violin plots
   
 - Segmentation task: 
   - requires dynamic nets
@@ -36,7 +38,8 @@ Stats part:
   - compare with other fictional character networks properties
   - assess window-based approaches as approximations
     - compare how good the window corresponding to the typical segment length is
-  - study the effect on some simple tools from the litterature (eg main character detection through combination of centrality measures)
+  - study the effect on some simple tools from the literature 
+    (eg main character detection through combination of centrality measures)
 
 Method to compare between bédés
   - just compare segment-based graphs (through their topological measures)
@@ -45,14 +48,16 @@ Method to compare between bédés
   - compare the best window-based parameters
 
 Plot comparison  
-  - Compare nets extracted from one-shot albums (e.g. astérix): 
+  - Compare nets extracted from one-shot albums (e.g. Astérix): 
     can we find archetypical roles coming back in each album?
     >> need a way to find narratively equivalent characters (nodes) from album to album
+  - We'll probably need to perform some kind of alignment task at some point
 
 Changes:
   - remove links whose weight is under some threshold (e.g. determined from some stat computed over the whole node/link set)
     >> OK for the segments, but how to do that for the window-based nets?
   - plot centrality changes over only the top k most central nodes
+    (don't we care about the other characters?)
   - in plots: use violins rather than boxplots
 
   
