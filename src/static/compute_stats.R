@@ -372,7 +372,6 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
 	compute.static.link.statistics(g, mode, window.size, overlap, weights)
 	compute.static.graph.statistics(g, mode, window.size, overlap, weights)
-#	compute.static.correlations(mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of all topological measures complete")
 }

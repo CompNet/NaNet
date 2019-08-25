@@ -6,6 +6,7 @@
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # setwd("D:/Users/Vincent/eclipse/workspaces/Networks/NaNet")
+# source("src/main.R")
 ###############################################################################
 source("src/define_imports.R")
 start.rec.log(text=SERIES)
@@ -46,12 +47,12 @@ registerDoParallel(cl)
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
