@@ -51,7 +51,7 @@ data <- read.raw.data()
 
 ###############################################################################
 # extract static networks
-#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################
@@ -68,6 +68,7 @@ generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, pag
 # stop parallel processing
 stopCluster(cl)
 
-# maybe different number of nodes between parameter sets?
+
+# maybe we get different numbers of nodes between parameter sets?
 # >> systematically put all nodes?
 # >> but then, how to deal with disconnected nets?

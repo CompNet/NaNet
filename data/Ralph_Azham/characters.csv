@@ -55,6 +55,7 @@ Name,Sex,Blue
 3 personnes 459,Male,N
 3 Prêtres 299.3,Male,N
 3 voleurs 387,Male,N
+4 voleurs 535,Male,N
 6 bleuis 439,Mixed,Y
 Albe,Female,N
 Albériane Sama,Female,Y
@@ -82,10 +83,14 @@ Belz,Male,N
 Berger 443,Male,N
 Bernard,Male,N
 Bleui 404,Male,Y
+Bleui 541,Male,Y
 Bleui lapin 409,Male,Y
 Bleui vérité,Male,Y
 Bleuis 401,Mixed,Y
 Bleuis 442,Mixed,Y
+Bleuis 515,Mixed,Y
+Bleuis 519,Mixed,Y
+Bleuis 543,Mixed,Y
 Bleuis 59,Mixed,Y
 Boris,Male,N
 Bourgmestre 285,Male,N
@@ -154,6 +159,9 @@ Foule 378,Mixed,N
 Foule 475,Mixed,N
 Foule 494,Mixed,N
 Foule 505,Mixed,N
+Foule 534,Mixed,N
+Foule 556,Mixed,N
+Foule 557,Mixed,N
 Fuyards 307,Male,N
 Gaétan,Male,Y
 Garde 105,Male,N
@@ -177,6 +185,8 @@ Garde 443,Male,N
 Garde 48,Male,N
 Garde 503,Male,N
 Garde 51,Male,N
+Garde 519,Male,N
+Garde 528,Male,N
 Garde 55,Male,N
 Garde 63,Male,N
 Garde 64,Male,N
@@ -223,6 +233,9 @@ Gardes 296.1,Male,N
 Gardes 296.2,Male,N
 Gardes 343,Male,N
 Gardes 471,Male,N
+Gardes 517,Male,N
+Gardes 526,Male,N
+Gardes 534,Male,N
 Gardes 61,Male,N
 Gardes 65,Male,N
 Gardes 83,Male,N
@@ -272,7 +285,6 @@ Gunthrö,Male,N
 Héritier 347,Male,N
 Hyllie,Female,Y
 Imprimeur 479,Male,N
-Inconnu 483,Male,N
 Journaliste 479,Male,N
 Jumeaux bleuis 63,Mixed,Y
 Karl,Male,N
@@ -325,6 +337,7 @@ Militaires 37,Male,N
 Milla,Female,N
 Ministre bouledogue 331,Male,N
 Ministre caché 331,Male,N
+Ministre canard 519,Male,N
 Ministre chat 331,Male,N
 Ministre Lézard 331,Male,N
 Ministre moustache 331,Male,N
@@ -350,8 +363,11 @@ Passants 501,Male,N
 Passants 503,Male,N
 Passants 508,Male,N
 Passeur 266,Male,N
+Patrouille 529,Male,N
+Paysans 555,Male,N
 Pêcheur 201,Male,N
 Pêcheur 206.3,Male,N
+Pêcheur 528,Male,N
 Philibert,Male,Y
 Phinéas Red,Male,N
 Piatch Lacolline,Male,N
@@ -408,6 +424,9 @@ Soldats 313,Male,N
 Soldats 315,Male,N
 Soldats 412,Male,N
 Soldats 460,Male,N
+Soldats 515,Male,N
+Soldats 542,Male,N
+Soldats 543,Male,N
 Sorciers 72,Male,N
 Souris bleuie 337.2,Female,N
 Souris rousse 337.1,Female,N
@@ -448,6 +467,7 @@ Voyante 106,Female,N
 Wicham,Male,N
 Will,Male,Y
 Xavi,Male,Y
+Xénophon,Male,N
 Yani,Male,N
 Yassou,Male,Y
 Zach,Male,N
