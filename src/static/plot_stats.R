@@ -41,7 +41,7 @@ COLORS <- c(
 		rgb(166,86,40,maxColorValue=255),
 		rgb(247,129,191,maxColorValue=255),
 		rgb(153,153,153,maxColorValue=255),
-		rgb(0,0,0,maxColorValue=255)
+		rgb(30,30,30,maxColorValue=255)
 )
 
 
