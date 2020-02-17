@@ -13,13 +13,13 @@ LOG_FOLDER <- "log"
 ###############################################################################
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
-dir.create(NET_FOLDER, showWarnings=FALSE)
+dir.create(path=NET_FOLDER, showWarnings=FALSE, recursive=TRUE)
 # folder containing the produced stat files
 STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
-dir.create(STAT_FOLDER, showWarnings=FALSE)
+dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 # folder containing the produced plot files
 PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
-dir.create(PLOT_FOLDER, showWarnings=FALSE)
+dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 
 
 ###############################################################################
@@ -29,7 +29,7 @@ PAGE_FILE <- file.path(DATA_FOLDER,"pages.csv")
 VOLUME_FILE <- file.path(DATA_FOLDER,"volumes.csv")
 # file containing character (co-)occurrences
 INTER_FILE <- file.path(DATA_FOLDER,"interactions.txt")
-# file containing character description
+# file containing character descriptions
 CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 
 

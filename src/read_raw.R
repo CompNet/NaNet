@@ -326,6 +326,6 @@ read.raw.data <- function()
 	char.info <- read.char.table(inter.df)
 	
 	# build result and return
-	result <- list (page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
+	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
 	return(result)
 }
