@@ -1,6 +1,7 @@
 Static graph extraction
-	- Extract one graph for each volume? 
-	- Each narrative arc?
+	- Extract one graph for each volume
+       Plot a pannel of these volumes (for a given series)
+	- For each narrative arc?
 
 Dynamic network extraction
    - Implement window-based approach 
