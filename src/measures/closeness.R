@@ -9,14 +9,22 @@ compute.closeness <- function(name, graph)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
-	{	if(name==MEAS_CLOSENESS)
-			res <- closeness(graph=graph, mode="all", weights=NA, normalized=FALSE)
+	{	# retrieve giant component, do not compute measure for the rest of the graph
+		components <- clusters(graph)
+		giant.comp.id <- which.max(components$csize)
+		giant.comp.nodes <- which(components$membership==giant.comp.id)
+		g.comp <- induced_subgraph(graph, giant.comp.nodes)
+		res <- rep(NA, vcount(graph))
+
+		# compute the measure
+		if(name==MEAS_CLOSENESS)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=NA, normalized=FALSE)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_NORM))
-			res <- closeness(graph=graph, mode="all", weights=NA, normalized=TRUE)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=NA, normalized=TRUE)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_WEIGHT))
-			res <- closeness(graph=graph, mode="all", weights=E(graph)$weight, normalized=FALSE)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=E(g.comp)$weight, normalized=FALSE)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM))
-			res <- closeness(graph=graph, mode="all", weights=E(graph)$weight, normalized=TRUE)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=E(g.comp)$weight, normalized=TRUE)
 		cache[[name]] <<- res
 	}
 }

@@ -198,6 +198,7 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
 		table.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		tlog(6,"Loading file \"",table.file,"\" (",j,"/",length(overlaps),")")
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 		values <- tmp.tab[,measure]
 		res[[j]] <- values

@@ -1,5 +1,5 @@
-# Main script to extract network, compute their topological measures, and generate
-# the corresponding plots.
+# Main script to extract the networks, compute their topological measures, and 
+# generate the corresponding plots.
 # 
 # Vincent Labatut
 # 11/2018
@@ -47,12 +47,12 @@ registerDoParallel(cl)
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data()
+data <- read.raw.data()
 
 
 ###############################################################################
 # extract static networks
-#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 ###############################################################################

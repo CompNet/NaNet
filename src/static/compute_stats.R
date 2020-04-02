@@ -264,10 +264,14 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 #print(length(vals.dur))
 #print(length(vals.cur))
 #		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+	
 		corr <- tryCatch(
-			cor.test(x=vals.dur, y=vals.cur, method="spearman"),
+			cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
+#			warning=function(w) 
+#			{	tlog(7,"WARNING: ",w)
+#			},
 			error=function(e)
-			{	msg <- paste0("WARNING: problem when computing Spearman for measure ",meas.name)
+			{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
 				tlog(7,msg)
 				warning(msg)
 				corr <- list(estimate=NA,p.value=NA)
@@ -282,9 +286,9 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 #print(length(vals.cur))
 #		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
 		corr <- tryCatch(
-			cor.test(x=vals.occ, y=vals.cur, method="spearman"),
+			cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
 			error=function(e) 
-			{	msg <- paste0("WARNING: problem when computing Spearman for measure ",meas.name)
+			{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
 				tlog(7,msg)
 				warning(msg)
 				corr <- list(estimate=NA,p.value=NA)
