@@ -82,7 +82,8 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_ASSORT)]] <- list( #closeness-assortat
 	cname="Closeness Assortativity",
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
-		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
+		idx <- which(!is.na(values))
+		assortativity(graph=induced_subgraph(graph,idx), types1=values[idx], types2=NULL, directed=FALSE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_CENTRZ)]] <- list( #closeness-centralization
@@ -90,7 +91,13 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_CENTRZ)]] <- list( #closeness-centrali
 	bounds=c(0,NA),
 	cname="Closeness Centralization",
 	foo=function(graph)
-	{	centr_clo(graph=graph, mode="all", normalized=FALSE)$centralization
+	{	# retrieve giant component, do not compute measure for the rest of the graph
+		components <- clusters(graph)
+		giant.comp.id <- which.max(components$csize)
+		giant.comp.nodes <- which(components$membership==giant.comp.id)
+		g.comp <- induced_subgraph(graph, giant.comp.nodes)
+		# compute the measure
+		centr_clo(graph=g.comp, mode="all", normalized=FALSE)$centralization
 	}
 )
 
@@ -147,7 +154,8 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_ASSORT)]] <- list( #closeness
 	cname="Normalized Closeness Assortativity",
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
-		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
+		idx <- which(!is.na(values))
+		assortativity(graph=induced_subgraph(graph,idx), types1=values[idx], types2=NULL, directed=FALSE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_CENTRZ)]] <- list( #closeness-norm-centralization
@@ -155,7 +163,13 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_CENTRZ)]] <- list( #closeness
 	bounds=c(0,1),
 	cname="Normalized Closeness Centralization",
 	foo=function(graph)
-	{	centr_clo(graph=graph, mode="all", normalized=TRUE)$centralization
+	{	# retrieve giant component, do not compute measure for the rest of the graph
+		components <- clusters(graph)
+		giant.comp.id <- which.max(components$csize)
+		giant.comp.nodes <- which(components$membership==giant.comp.id)
+		g.comp <- induced_subgraph(graph, giant.comp.nodes)
+		# compute the measure
+		centr_clo(graph=g.comp, mode="all", normalized=TRUE)$centralization
 	}
 )
 
@@ -212,7 +226,8 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #closene
 	cname="Weighted Closeness Assortativity",
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
-		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
+		idx <- which(!is.na(values))
+		assortativity(graph=induced_subgraph(graph,idx), types1=values[idx], types2=NULL, directed=FALSE)
 	}
 )
 
@@ -269,6 +284,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- list(
 	cname="Weighted Normalized Closeness Assortativity",
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
-		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
+		idx <- which(!is.na(values))
+		assortativity(graph=induced_subgraph(graph,idx), types1=values[idx], types2=NULL, directed=FALSE)
 	}
 )
