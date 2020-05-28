@@ -4,22 +4,40 @@
 # 
 # 02/2019 Vincent Labatut
 #############################################################################################
+# load libraries
+
 library("igraph")
 library("foreach")
 library("doParallel")
 library("vioplot")
 
 
+
+
+#############################################################################################
+# handle warnings
+
+#options(warn=1)			# as they happen
+options(warn=2)				# as errors
+#options(error=recover)		# debug
+
+
+
+
 ###############################################################################
 # init folder path
+
 #SERIES <- "Test"
-SERIES <- "Ralph_Azham"
-#SERIES <- "Thorgal"
+#SERIES <- "Ralph_Azham"
+SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
+
+
 
 
 ###############################################################################
 # load auxiliary functions
+
 source("src/logging.R")
 source("src/read_raw.R")
 

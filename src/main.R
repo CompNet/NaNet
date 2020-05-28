@@ -5,7 +5,6 @@
 # 11/2018
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# setwd("D:/Users/Vincent/eclipse/workspaces/Networks/NaNet")
 # source("src/main.R")
 ###############################################################################
 source("src/define_imports.R")
@@ -69,6 +68,8 @@ generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, pag
 # stop parallel processing
 stopCluster(cl)
 
+# stop logging
+end.rec.log()
 
 # maybe we get different numbers of nodes between parameter sets?
 # >> systematically put all nodes?
