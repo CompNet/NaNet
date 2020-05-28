@@ -68,6 +68,7 @@ Name,Sex
 3 soldats 18.8,Male
 3 vikings J3.29.1,Male
 3 vikings J3.29.2,Male
+3 vikings J8.6,Male
 3 villageois K2.27,Mixed
 3 Voleurs 32.30,Male
 4 bandits 10.3,Male
@@ -107,6 +108,7 @@ Amos,Male
 Amoureux de Yasmina,Male
 Ange 4.34,Male
 Ange 4.35,Male
+Angrboda,Female
 Aniel,Male
 Anina,Female
 Araignée 24.20,Unknown
@@ -310,6 +312,7 @@ Croisés K6.6,Male
 Croisés K8.36,Male
 Crucifié K8.36,Male
 Crucifiés 35.17,Unknown
+Cuisinier J8.35,Male
 Cuisiniers J7.40,Mixed
 Cul-de-jatte 23.16,Male
 Cybèle,Female
@@ -326,6 +329,7 @@ Dieux L2.26,Mixed
 Dignitaires 11.37,Mixed
 Disciples 34.7,Unknown
 Dji Hins,Male
+Domestiques J8.10,Mixed
 Domestiques L6.27.1,Male
 Domestiques L6.27.2,Female
 Domestiques L6.48,Female
@@ -468,6 +472,7 @@ Fillette 22.3,Female
 Fillettes J2.39,Female
 Floriane,Female
 Fmur,Male
+Fossoyeur J8.4,Male
 Fouad Wholaï,Male
 Foule 34.29,Mixed
 Foule 34.4,Mixed
@@ -530,8 +535,11 @@ Garde alfe noir L6.10,Male
 Garde chasse 29.3,Male
 Garde J4.43,Male
 Garde J7.46,Male
+Garde J8.24,Male
 Garde K1.47,Male
 Garde K4.29,Male
+Garde viking J8.3.1,Male
+Garde viking J8.3.2,Male
 Gardes 12.17,Male
 Gardes 12.23,Male
 Gardes 13.13,Male
@@ -574,6 +582,16 @@ Gardes J7.34,Male
 Gardes J7.38,Male
 Gardes J7.42,Male
 Gardes J7.45,Male
+Gardes J8.10,Male
+Gardes J8.18.1,Male
+Gardes J8.18.2,Male
+Gardes J8.21,Male
+Gardes J8.26,Male
+Gardes J8.27,Male
+Gardes J8.28,Male
+Gardes J8.29,Male
+Gardes J8.35,Male
+Gardes J8.42,Male
 Gardes K1.34,Male
 Gardes K1.36,Male
 Gardes K1.37,Male
@@ -717,6 +735,7 @@ Kahaniel de Valnor,Male
 Kaléos,Male
 Karsh,Male
 Karshan d'Urizen,Male
+Kayla,Female
 Kazar,Female
 Kheela,Female
 Kilda,Female
@@ -735,6 +754,7 @@ Légionnaire K8.27,Male
 Lehla,Female
 Leif,Male
 Leif Haraldson,Male
+Leif J8.29,Male
 Lieks,Male
 Loki,Male
 Loup 16.31,Male
@@ -822,6 +842,7 @@ Marins J5.35,Male
 Marins J6.3,Male
 Marins J6.41,Male
 Marins J7.9,Male
+Marins J8.45,Male
 Marins K7.15,Male
 Marins L5.8,Male
 Marins L6.28,Male
@@ -889,6 +910,7 @@ Nobles 27.7,Mixed
 Nobles K5.13,Male
 Nobles K5.18,Male
 Nouvelle gardienne des clés,Female
+Oddmar J8.4,Male
 Odin,Male
 Officier 27.48,Male
 Officier 28.11,Male
@@ -899,6 +921,7 @@ Oldarik,Male
 Olenk,Male
 Olev,Male
 Olgave,Female
+Olgir J8.4,Male
 Oncle d'Isoline J7.26,Male
 Opale d'Alhard,Female
 Orchias,Male
@@ -909,7 +932,9 @@ Orques 33.44,Unknown
 Orwald,Male
 Osian,Male
 Ottar,Male
+Ottar J8.4,Male
 Ours 18.3,Unknown
+Ours J8.30,Female
 Ours L5.29,Unknown
 Panthères 27.22,Unknown
 Participants 27.34,Male
@@ -961,6 +986,8 @@ Prisonniers 36.14,Male
 Prisonniers 36.19,Mixed
 Prisonniers J7.33,Male
 Prisonniers J7.48,Male
+Prisonniers J8.36,Male
+Prisonniers J8.42,Male
 Prisonniers K8.25,Mixed
 Prostituées 23.16,Female
 Quarl,Male
@@ -979,6 +1006,7 @@ Religieux K4.32,Male
 Remik,Male
 Roi d'Umbria,Male
 Runa,Female
+Rylynn,Male
 Sacrifiés 10.25,Mixed
 Salouma,Female
 Samios,Male
@@ -1003,6 +1031,7 @@ Servante 10.45,Female
 Servante 34.39,Female
 Servante 37.15,Female
 Servante J7.46,Female
+Servante J8.16,Female
 Servante K4.27,Female
 Servante K5.13,Female
 Servantes 10.29,Female
@@ -1021,6 +1050,11 @@ Serviteur K4.29,Male
 Serviteurs 25.44,Male
 Serviteurs 30.47,Unknown
 Serviteurs 31.5,Male
+Serviteurs J8.22,Mixed
+Serviteurs J8.27,Mixed
+Serviteurs J8.28,Mixed
+Serviteurs J8.29,Mixed
+Serviteurs J8.7,Mixed
 Serviteurs K4.37,Mixed
 Sevantes 37.20,Female
 Shaniah,Female
@@ -1036,6 +1070,7 @@ Sigurd (J7),Male
 Sigurd Danysön,Male
 Sigurd J1,Male
 Sigurd J7,Male
+Sigvalda,Female
 Sigwald-le-Brûlé,Male
 Siloé,Female
 Skadia,Female
@@ -1140,6 +1175,7 @@ Suivantes 34.11,Female
 Sven,Male
 Sveynn,Male
 Swanée,Female
+Sydönia,Female
 Syrane,Female
 Tabib Abd El Bouheddi,Male
 Taïmyr,Female
@@ -1162,6 +1198,7 @@ Tjall le Fougueux,Male
 Tlalac,Male
 Torric,Male
 Triesse,Male
+Troy,Male
 Trygve Karhamasönn,Male
 Turban 3.19,Male
 Tyr,Male
@@ -1245,6 +1282,8 @@ Vikings J7.25,Male
 Vikings J7.3,Mixed
 Vikings J7.35,Male
 Vikings J7.8,Male
+Vikings J8.29,Mixed
+Vikings J8.42,Male
 Vikings K6.56,Male
 Vikings L1.7.3,Male
 Vikings L2.42,Male
@@ -1373,7 +1412,7 @@ Xinjins 10.26.2,Mixed
 Xinjins 11.45,Mixed
 Xinjins 21.14,Mixed
 Yarilo,Male
-Yasmina,Unknown
+Yasmina,Female
 Yénhäa 36.33,Female
 Yénhäas 36.10,Female
 Yénhäas 36.14,Female
