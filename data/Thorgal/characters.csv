@@ -185,7 +185,7 @@ Berserkers J3.35,Male
 Berserkers J4.32,Male
 Bhunik,Male
 Biarn,Male
-Biarn (26),Male
+Biarn 29.26,Male
 Biche 30.7,Female
 Binôme 27.11.1,Male
 Binôme 27.11.2,Male
@@ -320,6 +320,7 @@ Darek le Svéar,Male
 Déesse 30.42,Female
 Démon de lave L6.9,Unknown
 Devin 24.25,Male
+Dhrys,Male
 Dieux 19.14,Mixed
 Dieux 22.22,Mixed
 Dieux 32.43,Mixed
@@ -620,8 +621,8 @@ Garn,Male
 Géant L6.9,Male
 Géants 22.22,Mixed
 Géants 22.29,Mixed
-Geirroed,Male
-Geirroed (22),Male
+Geirroed 15.45,Male
+Geirroed 22.29,Male
 Gladiateurs 27.35,Male
 Gorgane,Female
 Gourveneur 27.6,Male
@@ -676,8 +677,7 @@ Guide 34.18,Male
 Gunhilda Görmsson,Female
 Gunn,Female
 Gunnar,Male
-Gunnar (1),Male
-Gunnar 1,Male
+Gunnar 20.37,Male
 Gürt,Male
 Guustavson,Male
 Gwenda d'Auxaterra,Female
@@ -893,7 +893,6 @@ Nalin,Male
 Naufrageurs 33.12,Male
 Nazca,Male
 Nidhogg,Male
-Nigürd Holgersön (Ratatösk),Male
 Nigürd Holgersön Ratatösk,Male
 Nils,Male
 Nixe 14.10,Unknown
@@ -960,6 +959,7 @@ Pélerins 37.16,Mixed
 Pélerins 37.3,Male
 Pélerins 37.47,Mixed
 Pélerins 37.9,Mixed
+Père J8.4,Male
 Petrov,Male
 Peuple du nord 33.8,Mixed
 Pier,Male
@@ -1004,6 +1004,7 @@ Reine d'Umbria,Female
 Reine Guustavson K3.19,Female
 Religieux K4.32,Male
 Remik,Male
+Reynöld,Male
 Roi d'Umbria,Male
 Runa,Female
 Rylynn,Male
@@ -1064,12 +1065,10 @@ Shazade,Female
 Shenko,Male
 Shirine,Female
 Sif,Female
-Sigurd,Female
-Sigurd (J1),Male
-Sigurd (J7),Male
+Sigurd 3.19,Female
+Sigurd J1.36,Male
+Sigurd J7.15,Male
 Sigurd Danysön,Male
-Sigurd J1,Male
-Sigurd J7,Male
 Sigvalda,Female
 Sigwald-le-Brûlé,Male
 Siloé,Female
@@ -1230,10 +1229,8 @@ Vieillard 2.28,Male
 Vieillard 31.36,Male
 Vieillard K3.30,Male
 Vieillarde 28.36,Female
-Vieillarde 31.36,Female
 Vigrid,Male
-Vigrid (F),Female
-Vigrid F,Female
+Vigrid 20.3,Female
 Viking 14.19,Male
 Viking J2.44,Male
 Viking K5.27,Male

@@ -96,12 +96,12 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 3	17	5	17	6	Thorgal Aegirsson	Jadawin	2 gardes 3.8.2
 3	18	1	18	6	Thorgal Aegirsson
 3	18	7	18	8	Jadawin	2 gardes 3.8.2	3 bienveillants
-3	19	1	20	2	Jadawin	6 gardes 3.19	3 bienveillants	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd	Japonais 3.19	Chinois 3.19	Aaricia Ganfalfsdottir
-3	20	3	20	6	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd	Japonais 3.19	Chinois 3.19
-3	21	1	21	6	Masque / Thorgal Aegirsson	Sigurd
-3	21	7	23	2	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd	Japonais 3.19	Chinois 3.19
-3	23	3	24	2	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd	Japonais 3.19	Chinois 3.19
-3	24	3	24	6	Masque / Thorgal Aegirsson	Sigurd
+3	19	1	20	2	Jadawin	6 gardes 3.19	3 bienveillants	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd 3.19	Japonais 3.19	Chinois 3.19	Aaricia Ganfalfsdottir
+3	20	3	20	6	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd 3.19	Japonais 3.19	Chinois 3.19
+3	21	1	21	6	Masque / Thorgal Aegirsson	Sigurd 3.19
+3	21	7	23	2	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd 3.19	Japonais 3.19	Chinois 3.19
+3	23	3	24	2	Masque / Thorgal Aegirsson	Franc 3.19	Karshan d'Urizen	Turban 3.19	Volsung de Nichor	Sarasin 3.19	Africain 3.19	Sigurd 3.19	Japonais 3.19	Chinois 3.19
+3	24	3	24	6	Masque / Thorgal Aegirsson	Sigurd 3.19
 3	25	1	25	3	Masque / Thorgal Aegirsson
 3	25	4	25	6	Masque / Thorgal Aegirsson	Volsung de Nichor
 3	26	1	26	4	Masque / Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	Aaricia Ganfalfsdottir	3 bienveillants
@@ -838,9 +838,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 15	44	3	44	3
 15	44	4	44	7	Torric	Saxegaard / Vlana
 15	45	1	45	5	Thorgal Aegirsson
-15	45	6	47	3	Thorgal Aegirsson	Geirroed	Soldats 15.45
+15	45	6	47	3	Thorgal Aegirsson	Geirroed 15.45	Soldats 15.45
 15	47	4	47	5	Thorgal Aegirsson
-15	47	6	48	2	Saxegaard / Vlana	Geirroed	Soldats 15.45
+15	47	6	48	2	Saxegaard / Vlana	Geirroed 15.45	Soldats 15.45
 15	48	3	48	4	Saxegaard / Vlana	Thorgal Aegirsson
 15	48	5	48	6	Thorgal Aegirsson
 16	3	1	3	4	Orwald	Votiak	Wor-le-magnifique	Villageois 16.3	Soldats 16.3
@@ -860,18 +860,18 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 16	14	1	14	9	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Bossu 16.3
 16	15	1	15	4	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
 16	15	5	15	5	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
-16	15	6	16	3	Thorgal Aegirsson	Gunnar (1)	Lars	Votiak
-16	16	4	17	2	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar (1)	Lars	Votiak
-16	17	3	17	6	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar (1)	Votiak
-16	17	7	17	8	Gunnar (1)	Votiak
-16	18	1	18	7	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar (1)	Votiak
-16	19	1	19	6	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Gunnar (1)
-16	19	7	19	8	Votiak	Gunnar (1)
+16	15	6	16	3	Thorgal Aegirsson	Gunnar	Lars	Votiak
+16	16	4	17	2	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Lars	Votiak
+16	17	3	17	6	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Votiak
+16	17	7	17	8	Gunnar	Votiak
+16	18	1	18	7	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Votiak
+16	19	1	19	6	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Gunnar
+16	19	7	19	8	Votiak	Gunnar
 16	20	1	20	2	Thorgal Aegirsson
 16	20	3	20	4	Thorgal Aegirsson	Vikings 16.6
-16	20	5	20	5	Votiak	Gunnar (1)
-16	21	1	21	4	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Votiak	Gunnar (1)
-16	21	5	22	4	Aaricia Ganfalfsdottir	Votiak	Gunnar (1)
+16	20	5	20	5	Votiak	Gunnar
+16	21	1	21	4	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Votiak	Gunnar
+16	21	5	22	4	Aaricia Ganfalfsdottir	Votiak	Gunnar
 16	22	5	22	5	Votiak
 16	22	6	22	7	Votiak	Jolan Thorgalsson
 16	23	1	23	9	Votiak	Bossu 16.3
@@ -1123,31 +1123,31 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 19	44	8	45	8	Thorgal Aegirsson	Thorgal Aegirsson
 19	45	9	46	7	Thorgal Aegirsson	Alayin / Taïmyr
 19	47	1	48	8	Shaïgan / Thorgal Aegirsson	Kriss de Valnor
-20	3	1	3	2	Villageoises 20.3	Vigrid (F)	Ernhild
+20	3	1	3	2	Villageoises 20.3	Vigrid 20.3	Ernhild
 20	3	3	3	3	Erik
-20	3	4	4	5	Villgeoises 20.3	Villageois 20.3	Vigrid (F)	Ernhild	Solveig	Aaricia Ganfalfsdottir
+20	3	4	4	5	Villgeoises 20.3	Villageois 20.3	Vigrid 20.3	Ernhild	Solveig	Aaricia Ganfalfsdottir
 20	4	6	4	7	Erik	Loups 20.4
-20	4	8	5	4	Villgeoises 20.3	Villageois 20.3	Vigrid (F)	Ernhild	Solveig	Aaricia Ganfalfsdottir
+20	4	8	5	4	Villgeoises 20.3	Villageois 20.3	Vigrid 20.3	Ernhild	Solveig	Aaricia Ganfalfsdottir
 20	5	5	5	8	Erik	Loups 20.4
 20	6	1	7	5	Jolan Thorgalsson	Louve	Muff
 20	7	6	7	9	Jolan Thorgalsson	Muff
 20	7	10	8	1	Jolan Thorgalsson	Louve	Muff	Loups 20.4
 20	8	2	8	3	Jolan Thorgalsson	Louve	Muff
 20	8	4	8	4	Erik
-20	8	5	9	1	Villageois 20.8	Vigrid (F)	Erik
+20	8	5	9	1	Villageois 20.8	Vigrid 20.3	Erik
 20	9	2	9	2	Aaricia Ganfalfsdottir	Louve	Villageois 20.8
 20	9	3	9	3	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
-20	9	4	9	4	Erik	Vigrid (F)	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
+20	9	4	9	4	Erik	Vigrid 20.3	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
 20	9	5	9	5	Vikings 20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers 20.9
-20	9	6	9	7	Erik	Vigrid (F)	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
+20	9	6	9	7	Erik	Vigrid 20.3	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
 20	9	8	9	8	Vikings 20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers 20.9
-20	10	1	10	1	Erik	Vigrid (F)	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
+20	10	1	10	1	Erik	Vigrid 20.3	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
 20	10	2	10	4	Vikings 20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers 20.9
-20	10	5	11	7	Erik	Vigrid (F)	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
-20	12	1	12	6	Villgeoises 20.3	Villageois 20.3	Vigrid (F)	Ernhild	Solveig	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Thing 20.10	Muff
+20	10	5	11	7	Erik	Vigrid 20.3	Villageois 20.8	Aaricia Ganfalfsdottir	Louve
+20	12	1	12	6	Villgeoises 20.3	Villageois 20.3	Vigrid 20.3	Ernhild	Solveig	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Thing 20.10	Muff
 20	13	1	13	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff
-20	13	7	14	7	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Vigrid (F)	Villageoises 20.13	Muff
-20	15	1	15	8	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff	Vigrid (F)	Villageois 20.8	Thing 20.10	Solveig
+20	13	7	14	7	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Vigrid 20.3	Villageoises 20.13	Muff
+20	15	1	15	8	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff	Vigrid 20.3	Villageois 20.8	Thing 20.10	Solveig
 20	16	1	16	2	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff
 20	16	3	16	8	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff	Solveig
 20	17	1	17	2	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve	Muff
@@ -1208,13 +1208,13 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 20	36	11	37	4	Darek le Svéar	Jolan Thorgalsson	Garde 20.36.1	Garde 20.36.2
 20	37	5	37	6	Darek le Svéar	Jolan Thorgalsson	Garde 20.36.1
 20	37	7	37	8	Darek le Svéar	Jolan Thorgalsson
-20	37	9	38	5	Darek le Svéar	Jolan Thorgalsson	Esclaves 20.37	Gunnar
+20	37	9	38	5	Darek le Svéar	Jolan Thorgalsson	Esclaves 20.37	Gunnar 20.37
 20	38	6	38	7	Esclaves 20.37	Garde 20.36.1	Garde 20.36.2
 20	39	1	39	1	Darek le Svéar	Jolan Thorgalsson	Esclaves 20.39.1
 20	39	2	39	5	Darek le Svéar	Jolan Thorgalsson	Lehla	Esclaves 20.39.2
 20	39	6	39	7	Darek le Svéar	Lehla	Esclaves 20.39.2
 20	39	8	39	8	Jolan Thorgalsson
-20	40	1	40	4	Jolan Thorgalsson	Vikings 20.40	Gardes 20.40	Gunnar
+20	40	1	40	4	Jolan Thorgalsson	Vikings 20.40	Gardes 20.40	Gunnar 20.37
 20	40	5	40	6	Jolan Thorgalsson	Garde 20.40
 20	40	7	41	1	Jolan Thorgalsson
 20	41	2	41	3	Louve	Aaricia Ganfalfsdottir	Kriss de Valnor	Jolan Thorgalsson	Garde 20.41.1	Garde 20.41.2
@@ -1222,11 +1222,11 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 20	41	6	42	2	Kriss de Valnor	Jolan Thorgalsson	Garde 20.41.1	Garde 20.41.2
 20	42	3	42	4	Kriss de Valnor	Jolan Thorgalsson	Garde 20.41.1
 20	42	5	42	6	Kriss de Valnor	Jolan Thorgalsson
-20	42	7	42	9	Kriss de Valnor	Jolan Thorgalsson	Vikings 20.40	Equipage 20.41	Gunnar
-20	43	1	43	6	Jolan Thorgalsson	Vikings 20.40	Gunnar	Esclavagiste byzantin 20.32
-20	44	1	44	4	Jolan Thorgalsson	Vikings 20.40	Gunnar	Esclavagiste byzantin 20.32	Darek le Svéar	Lehla
+20	42	7	42	9	Kriss de Valnor	Jolan Thorgalsson	Vikings 20.40	Equipage 20.41	Gunnar 20.37
+20	43	1	43	6	Jolan Thorgalsson	Vikings 20.40	Gunnar 20.37	Esclavagiste byzantin 20.32
+20	44	1	44	4	Jolan Thorgalsson	Vikings 20.40	Gunnar 20.37	Esclavagiste byzantin 20.32	Darek le Svéar	Lehla
 20	44	5	44	6	Jolan Thorgalsson	Darek le Svéar	Lehla
-20	44	7	44	7	Jolan Thorgalsson	Vikings 20.40	Gunnar	Esclavagiste byzantin 20.32	Darek le Svéar	Lehla
+20	44	7	44	7	Jolan Thorgalsson	Vikings 20.40	Gunnar 20.37	Esclavagiste byzantin 20.32	Darek le Svéar	Lehla
 20	45	1	45	2	Jolan Thorgalsson	Muff
 20	45	3	46	6	Jolan Thorgalsson	Muff	Arkadès
 20	46	7	46	8	Jolan Thorgalsson	Muff
@@ -1343,9 +1343,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 22	28	1	28	1	Shaïgan / Thorgal Aegirsson
 22	28	2	28	6	Shaïgan / Thorgal Aegirsson	Enfant géant 22.28.1	Enfant géant 22.28.2
 22	28	7	28	7
-22	29	1	30	1	Géants 22.29	Heidrun	Geirroed (22)	Bergelmir	Hrun	Hjalmgunnar
-22	30	2	32	8	Shaïgan / Thorgal Aegirsson	Géants 22.29	Heidrun	Geirroed (22)	Bergelmir	Hrun	Hjalmgunnar
-22	33	1	34	7	Shaïgan / Thorgal Aegirsson	Géants 22.29	Heidrun	Geirroed (22)	Bergelmir	Hrun	Hjalmgunnar
+22	29	1	30	1	Géants 22.29	Heidrun	Geirroed 22.29	Bergelmir	Hrun	Hjalmgunnar
+22	30	2	32	8	Shaïgan / Thorgal Aegirsson	Géants 22.29	Heidrun	Geirroed 22.29	Bergelmir	Hrun	Hjalmgunnar
+22	33	1	34	7	Shaïgan / Thorgal Aegirsson	Géants 22.29	Heidrun	Geirroed 22.29	Bergelmir	Hrun	Hjalmgunnar
 22	35	1	35	2	Shaïgan / Thorgal Aegirsson	Heidrun
 22	35	3	35	4	Shaïgan / Thorgal Aegirsson	Heidrun	Furfur
 22	35	5	35	8	Shaïgan / Thorgal Aegirsson	Heidrun
@@ -1354,9 +1354,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 22	37	4	37	7	Shaïgan / Thorgal Aegirsson	Furfur
 22	37	8	38	5	Shaïgan / Thorgal Aegirsson	Furfur	Heidrun
 22	38	6	38	7	Shaïgan / Thorgal Aegirsson
-22	38	8	39	10	Shaïgan / Thorgal Aegirsson	Géants 22.29	Geirroed (22)
+22	38	8	39	10	Shaïgan / Thorgal Aegirsson	Géants 22.29	Geirroed 22.29
 22	39	11	39	11	Shaïgan / Thorgal Aegirsson
-22	40	1	40	2	Géants 22.29	Heidrun	Geirroed (22)	Bergelmir	Hrun	Hjalmgunnar
+22	40	1	40	2	Géants 22.29	Heidrun	Geirroed 22.29	Bergelmir	Hrun	Hjalmgunnar
 22	40	3	40	3	Géants 22.40
 22	40	4	40	4	Heidrun	Furfur
 22	40	5	40	6	Enfant géant 22.28.1	Enfant géant 22.28.2
@@ -1892,8 +1892,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 29	20	1	20	7	Thorgal Aegirsson	Jolan Thorgalsson
 29	20	8	24	6	Thorgal Aegirsson	Jolan Thorgalsson
 29	24	7	25	7	Thorgal Aegirsson	Jolan Thorgalsson
-29	26	1	26	3	Helgi	Biarn (26)
-29	26	4	26	7	Helgi	Biarn (26)	Aaricia Ganfalfsdottir	Louve	Aniel	Vigrid
+29	26	1	26	3	Helgi	Biarn 29.26
+29	26	4	26	7	Helgi	Biarn 29.26	Aaricia Ganfalfsdottir	Louve	Aniel	Vigrid
 29	27	1	30	6	Thorgal Aegirsson	Jolan Thorgalsson
 29	30	7	31	8	Thorgal Aegirsson
 29	31	9	33	1	Thorgal Aegirsson	Crabes 29.31
@@ -2027,7 +2027,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 31	10	3	11	6	Arlac d'Auxaterra	Draye	Jolan Thorgalsson	Ingvild	Xia	Karsh	Hsrak	Manthor de Valnor	Burbi	Birbu	2 serviteurs Arlac 31.10	2 serviteurs Draye 31.10	2 serviteurs Ingvild 31.10	2 serviteurs Xia 31.10
 31	12	1	16	7	Arlac d'Auxaterra	Draye	Jolan Thorgalsson	Ingvild	Xia	Karsh	Hsrak	Burbi	Birbu	2 serviteurs Arlac 31.10	2 serviteurs Draye 31.10	2 serviteurs Ingvild 31.10	2 serviteurs Xia 31.10
 31	17	1	17	3	Gunnar	Vikings 31.11	Mégères 29.42	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Louve	Aniel
-31	17	4	17	5	Mégères 29.42	Thorgal Aegirsson
+31	17	4	17	5	Mégères 29.42	Thorgal Aegirsson	Vigrid 20.3
 31	17	6	17	6	Thorgal Aegirsson	Vikings 31.11	Marziel	Mahara
 31	17	7	17	7	Mahara
 31	17	8	17	8	Marziel
@@ -2065,13 +2065,13 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 31	33	9	35	9	Jolan Thorgalsson	Burbi	Birbu	Arlac d'Auxaterra	2 serviteurs Arlac 31.10
 31	36	1	36	3	Magon	4 mages rouges 31.26
 31	36	4	36	6	Magon	4 mages rouges 31.26	Vieillard 31.36
-31	36	7	36	7	Magon	4 mages rouges 31.26	Vieillard 31.36	Vieillarde 31.36
+31	36	7	36	7	Magon	4 mages rouges 31.26	Vieillard 31.36	Vigrid 20.3
 31	37	1	37	1	Aaricia Ganfalfsdottir	Louve	Aniel
-31	37	2	37	5	Aaricia Ganfalfsdottir	Louve	Aniel	Magon	4 mages rouges 31.26	Vieillarde 31.36
-31	37	6	37	8	Aniel	Magon	4 mages rouges 31.26	Vieillarde 31.36
+31	37	2	37	5	Aaricia Ganfalfsdottir	Louve	Aniel	Magon	4 mages rouges 31.26	Vigrid 20.3
+31	37	6	37	8	Aniel	Magon	4 mages rouges 31.26	Vigrid 20.3
 31	38	1	38	1	Magon	4 mages rouges 31.26	Aniel	Villageois 31.38
-31	38	2	38	2	Aaricia Ganfalfsdottir	Louve	Vieillarde 31.36
-31	38	3	38	3	Aaricia Ganfalfsdottir	Louve	Vieillarde 31.36	Villageois 31.38
+31	38	2	38	2	Aaricia Ganfalfsdottir	Louve	Vigrid 20.3
+31	38	3	38	3	Aaricia Ganfalfsdottir	Louve	Vigrid 20.3	Villageois 31.38
 31	38	4	38	4	Aniel	Magon	4 mages rouges 31.26	Villageois 31.38
 31	38	5	38	7	Gunnar	Vikings 31.11	Thorgal Aegirsson
 31	39	1	39	8	Jolan Thorgalsson	Burbi	Birbu	Arlac d'Auxaterra	2 serviteurs Arlac 31.10
@@ -2747,10 +2747,10 @@ J1	33	1	34	2	Thorgal Aegirsson
 J1	34	3	34	5	Slive
 J1	35	1	35	9	Thorgal Aegirsson
 J1	36	1	36	3	Solveig
-J1	36	4	36	7	Solveig	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd (J1)
+J1	36	4	36	7	Solveig	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd J1.36
 J1	37	1	37	4	Thorgal Aegirsson	Anina
 J1	37	5	38	7	Thorgal Aegirsson	Anina	Olaf	Frère d'Anina
-J1	39	1	39	6	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd (J1)
+J1	39	1	39	6	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd J1.36
 J1	40	1	40	8	Thorgal Aegirsson	Anina	Olaf	Frère d'Anina
 J1	40	9	40	9	Thorgal Aegirsson
 J1	41	1	41	4	Thorgal Aegirsson
@@ -3392,30 +3392,30 @@ J3	18	1	18	1	Aaricia Ganfalfsdottir
 J3	18	2	19	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson
 J3	20	1	20	5	Vikings J3.20	Sigurd Danysön	Spectateurs J3.20
 J3	20	6	21	7	Vikings J3.20	Sigurd Danysön	Spectateurs J3.20	Runa	Guerriers J3.9
-J3	22	1	22	1	Nigürd Holgersön (Ratatösk)	Holger	Escorte J3.22
+J3	22	1	22	1	Nigürd Holgersön Ratatösk	Holger	Escorte J3.22
 J3	22	2	22	4	Gandalf-le-fou	Hiérulf-le-penseur
 J3	22	5	22	7	Gandalf-le-fou	Hiérulf-le-penseur	Holger
 J3	22	8	22	8	Vikings J3.20	Sigurd Danysön	Spectateurs J3.20	Runa	Guerriers J3.9
-J3	23	1	23	8	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger
-J3	24	1	25	7	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger
+J3	23	1	23	8	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger
+J3	24	1	25	7	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger
 J3	25	1	25	1	Thorgal Aegirsson	Soldat J3.25
 J3	25	2	25	8	Thorgal Aegirsson	Fural
-J3	26	1	26	5	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger
-J3	26	6	28	7	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger	Runa	Guerriers J3.9
+J3	26	1	26	5	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger
+J3	26	6	28	7	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger	Runa	Guerriers J3.9
 J3	29	1	29	1	Thorgal Aegirsson	Vikings J3.29
 J3	29	2	29	2	3 vikings J3.29.1
 J3	29	3	29	4	3 vikings J3.29.1	3 vikings J3.29.2
 J3	29	5	29	6	3 vikings J3.29.2
-J3	30	1	30	9	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger	Runa	Guerriers J3.9
+J3	30	1	30	9	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger	Runa	Guerriers J3.9
 J3	31	1	31	3	Thorgal Aegirsson
 J3	31	4	31	4	Thorgal Aegirsson	Guerriers J3.31
 J3	31	5	31	5	Thorgal Aegirsson
-J3	32	1	34	8	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger	Runa	Guerriers J3.9
+J3	32	1	34	8	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger	Runa	Guerriers J3.9
 J3	35	1	35	1	Soldats J3.35
 J3	35	2	35	3	Soldats J3.35	Thorgal Aegirsson
 J3	35	4	37	7	Soldats J3.35	Thorgal Aegirsson	Berserkers J3.35
-J3	38	1	38	9	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger	Runa	Guerriers J3.9
-J3	39	1	40	7	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Prétendants J3.23	Holger	Runa	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux
+J3	38	1	38	9	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger	Runa	Guerriers J3.9
+J3	39	1	40	7	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Spectateurs J3.23	Sigurd Danysön	Nigürd Holgersön Ratatösk	Prétendants J3.23	Holger	Runa	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux
 J3	41	1	41	6	Sigurd Danysön	Prétendants J3.23	Holger
 J3	42	1	42	1	Thorgal Aegirsson
 J3	42	2	42	9	Thorgal Aegirsson	Thorfil	Aaricia Ganfalfsdottir
@@ -3427,7 +3427,7 @@ J3	44	6	44	8	Thorgal Aegirsson	Fural
 J3	45	1	45	1	Aaricia Ganfalfsdottir	Thorfil	Runa	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux	Fural
 J3	45	2	45	6	Gandalf-le-fou	Hiérulf-le-penseur	Prétendants J3.23	Holger
 J3	46	1	46	5	Thorgal Aegirsson
-J3	45	6	48	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J3	45	6	48	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 K6	2	1	2	4	Kriss de Valnor
 K6	3	1	4	2	Kriss de Valnor
 K6	4	3	4	8	Kriss de Valnor	Aniel
@@ -3515,57 +3515,57 @@ J4	3	1	3	7	Holger	Escorte de Holger J4.3
 J4	4	1	4	1	Escorte de Holger J4.3	Gandalf-le-fou	Hommes de Gandalf J4.4	Björn Gandalfson
 J4	4	2	4	5	Gandalf-le-fou	Hommes de Gandalf J4.4	Björn Gandalfson
 J4	5	1	5	5	Gandalf-le-fou	Hommes de Gandalf J4.4	Björn Gandalfson	Cavaliers de Gandalf J4.5
-J4	6	1	8	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	6	1	8	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	9	1	9	3	Hiérulf-le-penseur
 J4	9	4	9	8	Hiérulf-le-penseur	Cavaliers de Gandalf J4.5
 J4	10	1	14	6	Aaricia Ganfalfsdottir	Thorfil	Runa	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux
-J4	15	1	16	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	15	1	16	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	17	1	17	1	Thorgal Aegirsson
-J4	17	2	17	3	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	17	4	17	4	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	17	5	17	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	18	1	18	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	18	6	18	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	19	1	19	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	17	2	17	3	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	17	4	17	4	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	17	5	17	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	18	1	18	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	18	6	18	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	19	1	19	9	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	20	1	20	6	Aaricia Ganfalfsdottir	Thorfil	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux
 J4	21	1	21	2	Hiérulf-le-penseur	Aubergiste J4.21	Clients J4.21
 J4	21	3	21	3	Hiérulf-le-penseur
 J4	21	4	21	4	Guerriers J4.21
 J4	21	5	21	6	Hiérulf-le-penseur	Guerriers J4.21
-J4	22	1	22	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	22	6	23	8	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	22	1	22	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	22	6	23	8	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	24	1	24	1	Thorfil	Runa	Guerriers J3.9	Berserkers J3.35	Moldi-le-furieux
-J4	24	2	24	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	24	2	24	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	25	1	25	7	Hiérulf-le-penseur	Gandalf-le-fou	Cavaliers de Gandalf J4.5
-J4	26	1	26	6	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	26	1	26	6	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	27	1	27	1	2 berserkers J4.27
 J4	27	1	27	8	Aaricia Ganfalfsdottir	Isoline	Enyd
-J4	28	1	29	2	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Vikings J4.28	Moldi-le-furieux
-J4	29	3	29	3	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa
-J4	29	4	29	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
-J4	30	1	30	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	2 berserkers J4.30
+J4	28	1	29	2	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Vikings J4.28	Moldi-le-furieux
+J4	29	3	29	3	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa
+J4	29	4	29	5	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	30	1	30	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	2 berserkers J4.30
 J4	31	1	31	6	Aaricia Ganfalfsdottir	Isoline	Enyd
-J4	32	1	32	1	Nigürd Holgersön (Ratatösk)	Villageoise J4.32
-J4	32	2	32	2	Nigürd Holgersön (Ratatösk)	Enfants J4.32
-J4	32	3	32	3	Nigürd Holgersön (Ratatösk)	Villageois J4.32
-J4	32	4	32	4	Nigürd Holgersön (Ratatösk)
-J4	32	5	32	5	Nigürd Holgersön (Ratatösk)
-J4	32	6	32	6	Nigürd Holgersön (Ratatösk)	Berserkers J4.32
-J4	32	7	32	7	Nigürd Holgersön (Ratatösk)
-J4	33	1	33	8	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
+J4	32	1	32	1	Nigürd Holgersön Ratatösk	Villageoise J4.32
+J4	32	2	32	2	Nigürd Holgersön Ratatösk	Enfants J4.32
+J4	32	3	32	3	Nigürd Holgersön Ratatösk	Villageois J4.32
+J4	32	4	32	4	Nigürd Holgersön Ratatösk
+J4	32	5	32	5	Nigürd Holgersön Ratatösk
+J4	32	6	32	6	Nigürd Holgersön Ratatösk	Berserkers J4.32
+J4	32	7	32	7	Nigürd Holgersön Ratatösk
+J4	33	1	33	8	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Wulf	Guerriers J3.45.1	Guerriers J3.45.2
 J4	34	1	34	8	3 guerriers J4.34	Aaricia Ganfalfsdottir	Isoline	Enyd
-J4	35	1	37	4	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Vikings J4.28	Moldi-le-furieux	Guerriers J3.45.2	Wulf
-J4	37	5	37	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Vikings J4.28	Guerriers J3.45.2	Wulf
-J4	37	8	37	10	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön (Ratatösk)	Runa	Guerriers J3.45.2	Wulf
+J4	35	1	37	4	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Vikings J4.28	Moldi-le-furieux	Guerriers J3.45.2	Wulf
+J4	37	5	37	7	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Vikings J4.28	Guerriers J3.45.2	Wulf
+J4	37	8	37	10	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Runa	Guerriers J3.45.2	Wulf
 J4	38	1	38	2	Guerriers J3.45.2	Wulf
-J4	38	3	38	6	Thorgal Aegirsson	Nigürd Holgersön (Ratatösk)
+J4	38	3	38	6	Thorgal Aegirsson	Nigürd Holgersön Ratatösk
 J4	38	7	38	9	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd
 J4	39	1	39	2	Sigurd Danysön	Runa
 J4	39	3	39	3	Sigurd Danysön	Runa	Guerriers J3.45.2	Wulf
 J4	39	4	39	5	Sigurd Danysön	Runa	Guerriers J3.45.2	Wulf	Vikings J4.28
-J4	39	6	39	8	Sigurd Danysön	Runa	Guerriers J3.45.2	Wulf	Vikings J4.28	Nigürd Holgersön (Ratatösk)
+J4	39	6	39	8	Sigurd Danysön	Runa	Guerriers J3.45.2	Wulf	Vikings J4.28	Nigürd Holgersön Ratatösk
 J4	40	1	40	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd	2 guerriers J4.40
-J4	40	3	40	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd	2 guerriers J4.40	Nigürd Holgersön (Ratatösk)
+J4	40	3	40	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd	2 guerriers J4.40	Nigürd Holgersön Ratatösk
 J4	41	1	41	2	Sigurd Danysön	Runa	Guerriers J3.45.1	Guerriers J3.45.2	Wulf
 J4	41	3	41	5	Sigurd Danysön	Runa	Guerriers J3.45.1	Guerriers J3.45.2	Wulf	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd
 J4	41	4	41	4	Sigurd Danysön	Runa	Guerriers J3.45.1	Guerriers J3.45.2	Wulf	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Enyd	2 guerriers J4.41
@@ -4193,16 +4193,16 @@ J7	12	1	12	3	Björn Gandalfson	Nils	Thorgal Aegirsson	Vikings J7.12	Partisans de
 J7	12	4	13	10	Björn Gandalfson	Nils	Thorgal Aegirsson	Vikings J7.12	Enyd	Partisans de Björn J7.12	Mehdi	Arvid	Brilö	Thorfil
 J7	14	1	14	6	Nils	Thorgal Aegirsson	Vikings J7.12	Enyd	Partisans de Björn J7.12	Mehdi	Arvid	Brilö	Thorfil
 J7	14	7	14	7	Partisans de Björn J7.12	Björn Gandalfson
-J7	15	1	16	8	Sigurd (J7)	Thorgal Aegirsson	Vikings J7.12	Enyd	Mehdi	Arvid	Brilö	Thorfil
+J7	15	1	16	8	Sigurd J7.15	Thorgal Aegirsson	Vikings J7.12	Enyd	Mehdi	Arvid	Brilö	Thorfil
 J7	17	1	17	2	Thorgal Aegirsson	Nils	Enyd	Saxons J7.17
 J7	17	3	17	7	Thorgal Aegirsson	Nils	Saxons J7.17
-J7	18	1	18	3	Thorgal Aegirsson	Nils	Sigurd (J7)	Vikings J7.12
-J7	18	4	18	5	Thorgal Aegirsson	Nils	Sigurd (J7)	Vikings J7.12	Arvid	Brilö	Thorfil
+J7	18	1	18	3	Thorgal Aegirsson	Nils	Sigurd J7.15	Vikings J7.12
+J7	18	4	18	5	Thorgal Aegirsson	Nils	Sigurd J7.15	Vikings J7.12	Arvid	Brilö	Thorfil
 J7	18	6	18	7	Thorgal Aegirsson	Nils	Vikings J7.12	Mehdi
-J7	18	8	18	8	Thorgal Aegirsson	Nils	Sigurd (J7)	Vikings J7.12	Mehdi	Enyd
-J7	19	1	19	4	Mehdi	Thorgal Aegirsson	Sigurd (J7)	Enyd
+J7	18	8	18	8	Thorgal Aegirsson	Nils	Sigurd J7.15	Vikings J7.12	Mehdi	Enyd
+J7	19	1	19	4	Mehdi	Thorgal Aegirsson	Sigurd J7.15	Enyd
 J7	19	5	19	7	Mehdi	Thorgal Aegirsson	Enyd
-J7	19	8	19	8	Nils	Sigurd (J7)	Vikings J7.12
+J7	19	8	19	8	Nils	Sigurd J7.15	Vikings J7.12
 J7	20	4	21	3	Gunhilda Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	Escorte J7.20	Soldats J7.20	Oldarik
 J7	21	4	21	4	Fouad Wholaï	Tabib Abd El Bouheddi	Soldats J7.20	Oldarik
 J7	21	5	22	1	Fouad Wholaï	Tabib Abd El Bouheddi	Oldarik
@@ -4409,6 +4409,6 @@ J8	46	2	46	3	Fouad Wholaï	Tabib Abd El Bouheddi
 J8	46	4	46	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn	Vikings J8.42	Thorbiorg	Rylynn	Troy
 J8	47	1	47	7	Mehdi	Enyd
 J8	47	8	47	9	Mehdi	Enyd	Tabib Abd El Bouheddi
-J8	47	10	47	11	Fouad Wholaï	Tabib Abd El Bouheddi	Marins J8.45	Mehdi	Enyd
+J8	47	10	47	10	Fouad Wholaï	Tabib Abd El Bouheddi	Marins J8.45	Mehdi	Enyd
 J8	48	1	48	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn	Vikings J8.42	Thorbiorg	Rylynn	Troy
 J8	48	8	48	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson

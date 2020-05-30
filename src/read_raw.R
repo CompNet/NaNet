@@ -23,7 +23,7 @@ read.volume.table <- function(page.info)
 {	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
 	
 	# read the proper table
-	volume.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE)
+	volume.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	
 	# nothing to do here, for now
 	
@@ -52,7 +52,7 @@ read.page.table <- function(volume.info)
 {	tlog(2,"Trying to read the page file (",PAGE_FILE,")")
 	
 	# read the proper table
-	page.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE)
+	page.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	
 	# check that each relative page number matches the interval defined in the volume table 
 	vol.ids <- match(page.info[,COL_PAGES_VOLUME],volume.info[,COL_VOLS_VOLUME])
@@ -75,7 +75,7 @@ read.page.table <- function(volume.info)
 	page.info <- cbind(page.info,start.panel.ids)
 	colnames(page.info)[ncol(page.info)] <- COL_PAGES_START_PANEL_ID
 	
-	# also add the volume id (ie absolute number over the whole series)
+	# also add the volume id (i.e. absolute number over the whole series)
 	page.info <- cbind(page.info,vol.ids)
 	colnames(page.info)[ncol(page.info)] <- COL_PAGES_VOLUME_ID
 	
@@ -248,7 +248,7 @@ read.char.table <- function(inter.df)
 	{	tlog(2,"Trying to read the character file (",CHAR_FILE,")")
 	
 		# read the proper table
-		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE)
+		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 		table.chars <- char.info[,COL_CHAR_NAME]
 		table.chars <- sort(table.chars)
 		
