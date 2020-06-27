@@ -7,8 +7,16 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/main.R")
 ###############################################################################
-source("src/define_imports.R")
+source("src/include.R")
+
+
+
+
+###############################################################################
+# start logging
 start.rec.log(text=SERIES)
+
+
 
 
 ###############################################################################
@@ -35,13 +43,6 @@ page.overlaps <- list(
 )
 
 
-##################### configure parallel processing
-#cn <- detectCores(all.tests=TRUE)
-#if(!is.na(cn))
-#	cl <- makeCluster(cn)		# automatically use all the available processors
-#else
-cl <- makeCluster(4)		# manually set the number of processors to use
-registerDoParallel(cl)
 
 
 ###############################################################################
@@ -49,9 +50,13 @@ registerDoParallel(cl)
 data <- read.raw.data()
 
 
+
+
 ###############################################################################
 # extract static networks
 extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+
 
 
 ###############################################################################
@@ -59,18 +64,23 @@ extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.size
 compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
+
+
 ###############################################################################
 # generate plots
 generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
-###############################################################################
-# stop parallel processing
-stopCluster(cl)
 
+
+###############################################################################
 # stop logging
 end.rec.log()
 
+
+
+
+###############################################################################
 # maybe we get different numbers of nodes between parameter sets?
 # >> systematically put all nodes?
 # >> but then, how to deal with disconnected nets?

@@ -98,9 +98,9 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	
 	# init the dataframe
 	static.df <- data.frame(
-			From=character(), To=character(), 
-			Occurrences=integer(), 
-			stringsAsFactors=FALSE)
+		From=character(), To=character(), 
+		Occurrences=integer(), 
+		stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
 	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES)
@@ -262,24 +262,18 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	#plot(g, layout=layout_with_fr(g))
 	
 	# extract the panel window-based static graphs
-#	for(i in 1:length(panel.window.sizes))
-	foreach(i=1:length(panel.window.sizes)) %dopar% 
-	{	source("src/define_imports.R")
-		
-		window.size <- panel.window.sizes[i]
+	future_sapply(1:length(panel.window.sizes), function(i)
+	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
 			g <- extract.static.graph.from.panel.window(data$inter.df, window.size=window.size, overlap=overlap)
-	}
+	})
 	
 	# extract the page window-based static graphs
-#	for(i in 1:length(page.window.sizes))
-	foreach(i=1:length(page.window.sizes)) %dopar% 
-	{	source("src/define_imports.R")
-		
-		window.size <- page.window.sizes[i]
+	future_sapply(1:length(page.window.sizes), function(i)
+	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
 			g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=window.size, overlap=overlap)
-	}
-
+	})
+	
 	tlog(1,"Extraction of the static graphs complete")
 }
