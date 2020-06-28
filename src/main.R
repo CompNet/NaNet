@@ -7,7 +7,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/main.R")
 ###############################################################################
-source("src/include.R")
+source("src/common/include.R")
 
 
 
