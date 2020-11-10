@@ -101,6 +101,7 @@ Alf'Lolth,Female
 Alinoë,Male
 Alkant,Male
 Althar,Male
+Althing 38.28,Male
 Amalrik,Male
 Ami d'Argun K1.20.1,Male
 Ami d'Argun K1.20.2,Male
@@ -161,6 +162,7 @@ Aubergiste 5.4,Male
 Aubergiste J4.21,Male
 Aubergiste K1.33,Male
 Aubergiste K3.35,Male
+Ava,Female
 Avrenim,Unknown
 Azkel,Male
 Azzalepstön,Male
@@ -471,6 +473,7 @@ Fille L4.2,Female
 Fille L4.3,Female
 Fillette 22.3,Female
 Fillettes J2.39,Female
+Finnbjorn,Male
 Floriane,Female
 Fmur,Male
 Fossoyeur J8.4,Male
@@ -618,11 +621,13 @@ Gardienne 21.38,Female
 Gardienne des clés,Female
 Gardiens de la montagne K7.3,Male
 Garn,Male
+Gaut,Male
 Géant L6.9,Male
 Géants 22.22,Mixed
 Géants 22.29,Mixed
 Geirroed 15.45,Male
 Geirroed 22.29,Male
+Gilli,Male
 Gladiateurs 27.35,Male
 Gorgane,Female
 Gourveneur 27.6,Male
@@ -630,6 +635,7 @@ Gouverneur K4.9,Unknown
 Grand prêtre 12.26,Male
 Grand veilleur 21.43,Male
 Grim,Male
+Grimur,Male
 Grivine,Male
 Griz,Female
 Groupe 11.16,Mixed
@@ -703,6 +709,7 @@ Holger,Male
 Hommes de Gandalf J4.4,Male
 Hrun,Male
 Hsrak,Male
+Huginn,Unknown
 Hungfold,Male
 Hydalgor,Male
 Ibissan,Male
@@ -743,9 +750,11 @@ Kisha,Female
 Knorr,Male
 Knut,Male
 Konoag,Male
+Kopakonan,Female
 Kratchik,Male
 Kriss de Valnor,Female
 Kritchak,Male
+Kyrstell,Female
 La faucheuse,Unknown
 Lanfeustsön,Male
 Lars,Male
@@ -873,6 +882,7 @@ Mörlok,Male
 Mortel 29.17,Male
 Moulaki,Male
 Muff,Unknown
+Muninn,Unknown
 Mygg,Female
 Myrms 36.16,Female
 Myrms 36.19,Mixed
@@ -953,7 +963,13 @@ Patö,Unknown
 Patrouille 6.17,Male
 Paysan K5.16,Male
 Pêcheur 20.47,Male
+Pêcheur 38.25,Male
+Pêcheur 38.28,Male
 Pêcheurs 20.27,Male
+Pêcheurs 38.11,Male
+Pêcheurs 38.20,Male
+Pêcheurs 38.27,Male
+Pêcheurs 38.28,Male
 Peläzza,Male
 Pélerins 37.16,Mixed
 Pélerins 37.3,Male
@@ -998,6 +1014,7 @@ Ragnhild,Female
 Rahmi,Male
 Raïssa,Female
 Ramaha la Völva,Female
+Ran le homard,Unknown
 Rebelles 18.21,Male
 Rebelles 18.42,Male
 Reine d'Umbria,Female
@@ -1024,6 +1041,9 @@ Scientifiques 6.77,Male
 Second K7.18,Male
 Seigneur 29.3,Male
 Seigneur d'Alhard,Male
+Selkie 38.4,Female
+Selkie 38.26,Female
+Selkies 38.25,Female
 Séréna,Female
 Serpent 5.19,Unknown
 Serväan,Female
@@ -1066,9 +1086,9 @@ Shenko,Male
 Shirine,Female
 Sif,Female
 Sigurd 3.19,Female
+Sigurd Danysön,Male
 Sigurd J1.36,Male
 Sigurd J7.15,Male
-Sigurd Danysön,Male
 Sigvalda,Female
 Sigwald-le-Brûlé,Male
 Siloé,Female
@@ -1170,6 +1190,7 @@ Spectateurs 9.29,Mixed
 Spectateurs J3.20,Mixed
 Spectateurs J3.23,Mixed
 Stieg,Male
+Storböndi 38.11,Male
 Suivantes 34.11,Female
 Sven,Male
 Sveynn,Male
@@ -1194,9 +1215,11 @@ Tiago,Male
 Tibrus,Male
 Tjahzi,Male
 Tjall le Fougueux,Male
+Tjodrik,Male
 Tlalac,Male
 Torric,Male
 Triesse,Male
+Trondur Gotuskegg,Male
 Troy,Male
 Trygve Karhamasönn,Male
 Turban 3.19,Male
@@ -1316,6 +1339,7 @@ Villageois 33.32,Mixed
 Villageois 34.7,Mixed
 Villageois 36.39,Mixed
 Villageois 37.13,Male
+Villageois 38.28,Male
 Villageois 4.3,Mixed
 Villageois 4.5,Mixed
 Villageois J.4,Mixed
