@@ -7,7 +7,8 @@
 # load libraries
 
 library("igraph")
-library("foreach")
+#library("foreach")
+library("future.apply")
 library("doParallel")
 library("vioplot")
 
