@@ -1,12 +1,15 @@
 Static graph extraction
 	- Extract one graph for each volume
-       Plot a pannel of these volumes (for a given series)
+      Plot a pannel of these volumes (for a given series)
 	- For each narrative arc?
 
 Dynamic network extraction
-   - Implement window-based approach 
+   - Implement window-based approach (<< isn't this already done?)
    - Implement narrative smoothing
-	- (test on the toy example)
+	 - (test on the toy example)
+
+Topological measures
+	- include the harmonic closeness (leverage Trajan code)
 
 Stats part:
 - Goal: study the effect of the extraction parameters

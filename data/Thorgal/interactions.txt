@@ -4412,3 +4412,79 @@ J8	47	8	47	9	Mehdi	Enyd	Tabib Abd El Bouheddi
 J8	47	10	47	10	Fouad Wholaï	Tabib Abd El Bouheddi	Marins J8.45	Mehdi	Enyd
 J8	48	1	48	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn	Vikings J8.42	Thorbiorg	Rylynn	Troy
 J8	48	8	48	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson
+38	3	1	3	4	Louve
+38	4	1	4	7	Louve	Selkie 38.4
+38	4	8	5	9	Louve
+38	6	1	6	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Louve
+38	7	1	7	6	Louve	Ran le homard
+38	7	7	8	4	Louve	Ran le homard	Ava
+38	8	5	9	9	Louve	Ran le homard	Ava	Gilli
+38	10	1	10	3	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn
+38	10	4	10	7	Kyrstell	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Guenon / Yasmina
+38	11	1	11	3	Thorgal Aegirsson	Jolan Thorgalsson	Pêcheurs 38.11
+38	11	4	11	6	Thorgal Aegirsson	Jolan Thorgalsson	Storböndi 38.11
+38	11	7	11	9	Thorgal Aegirsson	Jolan Thorgalsson
+38	12	1	12	6	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn
+38	12	7	13	7	Louve	Ava
+38	13	8	14	3	Louve	Ava	Grimur	Gaut
+38	14	4	14	9	Louve	Grimur	Gaut
+38	14	10	14	11	Louve
+38	15	1	17	9	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn
+38	18	1	18	2	Selkie 38.4
+38	18	3	18	8	Selkie 38.4	Ava
+38	19	1	19	9	Louve	Ava	Gilli
+38	20	1	21	4	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn	Pêcheurs 38.20	Tjodrik
+38	21	5	23	7	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
+38	23	6	23	8	Thorgal Aegirsson	Jolan Thorgalsson	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
+38	24	1	24	3	Thorgal Aegirsson	Jolan Thorgalsson
+38	24	4	24	8	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
+38	25	1	25	7	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
+38	26	1	26	2	Louve	Ava	Gilli
+38	26	3	26	4	Louve	Ava	Gilli	Selkies 38.25	Kopakonan	Pêcheur 38.25
+38	26	5	26	5	Louve	Ava	Gilli	Selkies 38.25	Kopakonan	Pêcheur 38.25
+38	26	6	26	6	Louve	Ava	Gilli	Selkie 38.26	Pêcheur 38.25
+38	26	7	26	8	Louve	Ava	Gilli	Kopakonan
+38	26	9	26	9	Louve	Ava	Gilli
+38	27	1	27	2	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
+38	27	3	27	3	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg	Pêcheurs 38.27	Pêcheur 38.25
+38	27	4	27	4	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg	Pêcheurs 38.27	Pêcheur 38.25
+38	27	5	27	7	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg	Pêcheur 38.25	Kopakonan
+38	27	8	27	10	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
+38	28	1	28	1	Louve	Ava	Gilli
+38	28	2	28	3	Louve	Ava	Gilli	Kopakonan	Pêcheurs 38.27
+38	28	4	28	4	Louve	Ava	Gilli	Pêcheur 38.28
+38	28	5	28	5	Louve	Ava	Gilli	Althing 38.28	Villageois 38.28
+38	28	6	28	7	Louve	Ava	Gilli	Villageois 38.28
+38	28	8	28	8	Louve	Ava	Gilli	Pêcheurs 38.28
+38	29	1	29	1	Louve	Ava	Gilli	Villageois 38.28
+38	29	2	29	8	Louve	Ava	Gilli
+38	30	1	30	2	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
+38	30	3	30	8	Pêcheurs 38.20
+38	31	1	31	2	Louve	Gilli
+38	31	3	31	8	Louve	Gilli	Guenon / Yasmina
+38	32	1	33	4	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
+38	33	5	33	5	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut
+38	34	1	34	5	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
+38	35	1	35	2	Pêcheurs 38.20	Trondur Gotuskegg	Grimur	Gaut
+38	35	3	35	7	Pêcheurs 38.20	Trondur Gotuskegg	Grimur
+38	35	8	35	8	Pêcheurs 38.20	Grimur
+38	36	1	36	7	Ava	Ran le homard
+38	36	8	37	9	Grimur	Ava	Ran le homard
+38	38	1	38	3	Thorgal Aegirsson	Jolan Thorgalsson
+38	38	4	38	8	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina
+38	39	1	39	2	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Grimur
+38	39	3	39	9	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Grimur	Louve	Gilli
+38	40	1	40	3	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli
+38	40	4	40	4	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli
+38	40	5	40	7	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Selkie 38.4	Ava
+38	41	1	41	6	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Selkie 38.4	Ava
+38	41	7	41	7	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli
+38	42	1	42	1	Thorgal Aegirsson
+38	42	2	42	2	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli
+38	42	3	42	5	Thorgal Aegirsson
+38	42	6	43	5	Thorgal Aegirsson	Phoque / Huginn	Phoque / Muninn
+38	44	1	44	4	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
+38	44	5	45	11	Thorgal Aegirsson	Phoque / Huginn	Phoque / Muninn	Jolan Thorgalsson
+38	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
+38	47	1	48	4	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
+38	48	5	48	5	Huginn	Muninn
