@@ -70,7 +70,7 @@ source("src/measures/transitivity.R")
 # comparison measures
 COMP_MEASURES <- list()
 source("src/measures/comparison.R")
-ALL_MEASURES <- c(NODE_MEASURES, LINK_MEASURES, GRAPH_MEASURES, COMP_MEASURES)
+ALL_MEASURES <- c(NODE_MEASURES, NODEPAIR_MEASURES, LINK_MEASURES, GRAPH_MEASURES, COMP_MEASURES)
 
 
 ###############################################################################
