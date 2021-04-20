@@ -496,8 +496,20 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 						col=COLORS[d], lwd=2
 					)
 				}
-				# add legend
-				legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+				# add color legend
+				legend(
+					x="topright", 
+					fill=COLORS, 
+					legend=window.sizes, 
+					title="Window Size"
+				)
+				# add line legend
+				legend(
+					x="bottomright",
+					lty=c(2,3),
+					legend=c("Occurrences","Duration"),
+					title="Segment-Based"
+				)
 			dev.off()
 		}
 		
@@ -547,8 +559,20 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 						col=COLORS[d], lwd=2
 					)
 				}
-				# add legend
-				legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+				# add color legend
+				legend(
+					x="topright", 
+					fill=COLORS, 
+					legend=common.overlaps, 
+					title="Overlap"
+				)
+				# add line legend
+				legend(
+					x="bottomright",
+					lty=c(2,3),
+					legend=c("Occurrences","Duration"),
+					title="Segment-Based"
+				)
 			dev.off()
 		}
 	}
@@ -620,8 +644,20 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 								col=COLORS[d], lwd=2
 						)
 					}
-					# add legend
-					legend(x="topright",fill=COLORS,legend=window.sizes, title="Window Size")
+					# add color legend
+					legend(
+						x="topright", 
+						fill=COLORS, 
+						legend=window.sizes, 
+						title="Window Size"
+					)
+					# add line legend
+					legend(
+						x="bottomright",
+						lty=c(2,3),
+						legend=c("Occurrences","Duration"),
+						title="Segment-Based"
+					)
 				dev.off()
 			}
 			
@@ -664,8 +700,20 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 								col=COLORS[d], lwd=2
 						)
 					}
-					# add legend
-					legend(x="topright",fill=COLORS,legend=common.overlaps, title="Overlap")
+					# add color legend
+					legend(
+							x="topright", 
+							fill=COLORS, 
+							legend=common.overlaps, 
+							title="Overlap"
+					)
+					# add line legend
+					legend(
+							x="bottomright",
+							lty=c(2,3),
+							legend=c("Occurrences","Duration"),
+							title="Segment-Based"
+					)
 				dev.off()
 			}
 		}
@@ -731,12 +779,17 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 						idx <- order(seg.occ.vals, decreasing=TRUE)
 					}
 					
+					# compute the colors 
+					colors <- heat.colors(max(ranks))
+					
 					# generate the plot
 					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",substr(weights,1,3),".png")
 					tlog(5,"Plotting file \"",plot.file,"\"")
 #					pdf(file=plot.file,bg="white")
 					png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
-						barplot(diff[idx], 
+						barplot(
+							diff[idx],
+							col=colors,
 							ylim=c(-length(diff),length(diff)),
 							xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
 							ylab=ylab,

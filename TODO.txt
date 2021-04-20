@@ -55,6 +55,7 @@ Plot comparison
   - Compare nets extracted from one-shot albums (e.g. Astérix): 
     can we find archetypical roles coming back in each album?
     >> need a way to find narratively equivalent characters (nodes) from album to album
+    - Can we distinguish between the different writers (uderzo, gosciny, ferri)?
   - We'll probably need to perform some kind of alignment task at some point
 
 Changes:
