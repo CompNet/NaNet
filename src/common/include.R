@@ -22,6 +22,8 @@ library("vioplot")
 options(warn=2)				# as errors
 #options(error=recover)		# debug
 
+plan(multisession)
+
 
 
 

@@ -401,22 +401,24 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 		compute.all.static.corrs(mode="segments", weights=weights)
 	
 	# statistics for the panel window-based static graphs
-	future_sapply(1:length(panel.window.sizes), function(i)
+	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
 		{	compute.all.static.statistics(mode="panel.window", window.size, overlap)
 			compute.all.static.corrs(mode="panel.window", window.size, overlap)
 		}
-	})
+	}#)
 	
 	# statistics for the page window-based static graphs
-	future_sapply(1:length(page.window.sizes), function(i)
+	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
 		{	compute.all.static.statistics(mode="page.window", window.size, overlap)
 			compute.all.static.corrs(mode="page.window", window.size, overlap)
 		}
-	})
+	}#)
 	
 	tlog(1,"Computation of statistics for static graphs complete")	
 }
