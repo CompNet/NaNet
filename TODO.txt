@@ -1,6 +1,6 @@
 Static graph extraction
 	- Extract one graph for each volume
-      Plot a panel of these volumes (for a given series) (>> don't remember what I meant there)
+      Plot a "panel" showing the sequence of these volume graphs (for a given BD series)
 	- For each narrative arc?
 
 Dynamic network extraction
@@ -35,7 +35,7 @@ Stats part:
 - Plots:
   - Plots combining the different assortativities / centralizations? 
     (for comparison purposes. not sure of the interest)
-  - Check the violin plots
+  - Check the violin plots (NdV: what about them? I forgot)
   
 - Segmentation task: 
   - requires dynamic nets
@@ -68,10 +68,3 @@ Changes:
     (don't we care about the other characters?)
     >> or consider classes of centrality? (use some clustering tool to detect them automatically)
   - in plots: use violins rather than boxplots
-
-Paper:
-  - Extraction methods
-    - explain the issues and the manual processing
-    - is it worth detecting scenes?
-      >> compare scene- vs. window-based nets
-  - Descriptive analysis of Thorgal's net
