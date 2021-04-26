@@ -36,7 +36,7 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 ###############################################################################
 # Returns the basename of the static graph based on the specified parameters.
 # 
-# mode: either "segments", "panel.window", or "page.window".
+# mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # 
@@ -45,8 +45,8 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 {	res <- "static"
 	
-	if(mode=="segments")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_segments"))
+	if(mode=="scenes")
+		res <- 	file.path(NET_FOLDER, paste0(res, "_scenes"))
 	else if(mode=="panel.window")
 		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
@@ -62,10 +62,10 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 # Returns the name of a statistics file based on the specified parameters.
 # 
 # object: either "nodes", "nodepairs", "links" or "graph".
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # 
 # Returns: basename of the graph and related files.
@@ -73,8 +73,8 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
 {	res <- "static"
 	
-	if(mode=="segments")
-		res <- 	file.path(STAT_FOLDER, paste0(res, "_segments_wt=",weights))
+	if(mode=="scenes")
+		res <- 	file.path(STAT_FOLDER, paste0(res, "_scenes_wt=",weights))
 	else if(mode=="panel.window")
 		res <- 	file.path(STAT_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
@@ -103,7 +103,7 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 # Returns the name of the plot file based on the specified parameters.
 # 
 # object: either "nodes", "nodepairs", "links" or "graph".
-# mode: either "segments", "panel.window", or "page.window".
+# mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # 

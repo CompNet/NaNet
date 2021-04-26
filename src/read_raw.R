@@ -140,7 +140,7 @@ read.inter.table <- function(volume.info, page.info)
 		}
 		start.panel.id <- page.info[start.page.id,COL_PAGES_START_PANEL_ID] + start.panel - 1
 		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
-		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this segment and the previous one, at line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			#warning(msg)
 		}
@@ -169,7 +169,7 @@ read.inter.table <- function(volume.info, page.info)
 			stop(msg)
 		}
 		
-		# compute segment length (in pages)
+		# compute scene length (in pages)
 		page.length <- end.page.id - start.page.id + 1
 		
 		# get all combinations of characters
@@ -191,9 +191,9 @@ read.inter.table <- function(volume.info, page.info)
 		chars <- sort(chars[which(chars!="" & chars!=" ")])
 		if(length(chars)<=1)
 		{	if(length(chars)==0)
-				msg <- paste0("WARNING there is no character in the segment described in line: \"",paste(line,collapse=","),"\"")
+				msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
 			else #if(length(chars)==1)
-				msg <- paste0("WARNING there is only one character in the segment described in line: \"",paste(line,collapse=","),"\"")
+				msg <- paste0("WARNING there is less than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			#warning(msg)
 		}
@@ -205,14 +205,14 @@ read.inter.table <- function(volume.info, page.info)
 				chars <- unique(chars)
 			}
 			if(length(chars)<=1)
-			{	msg <- paste0("WARNING after having remove the multi-occurring character, only this character remains in the segment described in line: \"",paste(line,collapse=","),"\"")
+			{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
 				tlog(3,msg)
 				#warning(msg)
 			}
 			else
 			{	chars <- t(combn(x=chars,m=2))
 			
-				# add segment to data frame
+				# add scene to data frame
 				tmp.df <- data.frame(From=(chars[,1]), To=chars[,2], 
 						Start=as.integer(rep(start.panel.id,nrow(chars))), End=as.integer(rep(end.panel.id,nrow(chars))),
 						stringsAsFactors=FALSE)

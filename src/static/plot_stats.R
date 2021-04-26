@@ -49,7 +49,7 @@ COLORS <- c(
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -72,7 +72,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -100,8 +100,8 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.segments <- function(weights, measure)
-{	table.file <- get.statname.static(object="graph", mode="segments", weights=weights)
+load.static.graph.stats.scenes <- function(weights, measure)
+{	table.file <- get.statname.static(object="graph", mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -111,7 +111,7 @@ load.static.graph.stats.segments <- function(weights, measure)
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -139,7 +139,7 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -172,8 +172,8 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.corr.segments <- function(weights, measure)
-{	table.file <- get.statname.static(object="corr", mode="segments", weights=weights)
+load.static.corr.scenes <- function(weights, measure)
+{	table.file <- get.statname.static(object="corr", mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -185,7 +185,7 @@ load.static.corr.segments <- function(weights, measure)
 # varying overlap.
 #
 # object: either "nodes" or "links" (not "graph").
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -213,7 +213,7 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 # fixed overlap.
 #
 # object: either "nodes" or "links" (not "graph").
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -236,7 +236,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 
 
 ###############################################################################
-# Loads a series corresponding to the segment-based graph.
+# Loads a series corresponding to the scene-based graph.
 #
 # object: either "nodes", "nodepairs" or "links" (not "graph").
 # measure: name of the concerned topological measure.
@@ -244,8 +244,8 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.segments <- function(object, measure, weights)
-{	table.file <- get.statname.static(object=object, mode="segments", weights=weights)
+load.static.nodelink.stats.scenes <- function(object, measure, weights)
+{	table.file <- get.statname.static(object=object, mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	res <- tmp.tab[,measure]
 	return(res)
@@ -255,7 +255,7 @@ load.static.nodelink.stats.segments <- function(object, measure, weights)
 ###############################################################################
 # Generates the plots containing a single series as boxplots.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -281,10 +281,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 #						xlab="Overlap",
 #						ylab=meas.name
 #				)
-#				segments(overlaps, avg.vals-std.vals, overlaps, avg.vals+std.vals)
+#				scenes(overlaps, avg.vals-std.vals, overlaps, avg.vals+std.vals)
 #				epsilon <- 0.02
-#				segments(overlaps-epsilon, avg.vals-std.vals, overlaps+epsilon, avg.vals-std.vals)
-#				segments(overlaps-epsilon, avg.vals+std.vals, overlaps+epsilon, avg.vals+std.vals)
+#				scenes(overlaps-epsilon, avg.vals-std.vals, overlaps+epsilon, avg.vals-std.vals)
+#				scenes(overlaps-epsilon, avg.vals+std.vals, overlaps+epsilon, avg.vals+std.vals)
 #			dev.off()
 #			
 #			# generate the min/max plot
@@ -295,10 +295,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 #						xlab="Overlap",
 #						ylab=meas.name
 #				)
-#				segments(overlaps, avg.vals-min.vals, overlaps, avg.vals+max.vals)
+#				scenes(overlaps, avg.vals-min.vals, overlaps, avg.vals+max.vals)
 #				epsilon <- 0.02
-#				segments(overlaps-epsilon, avg.vals-min.vals, overlaps+epsilon, avg.vals-min.vals)
-#				segments(overlaps-epsilon, avg.vals+max.vals, overlaps+epsilon, avg.vals+max.vals)
+#				scenes(overlaps-epsilon, avg.vals-min.vals, overlaps+epsilon, avg.vals-min.vals)
+#				scenes(overlaps-epsilon, avg.vals+max.vals, overlaps+epsilon, avg.vals+max.vals)
 #			dev.off()
 #		}
 #	}
@@ -320,9 +320,9 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 		else
 			object <- "links"
 		
-		# load the reference values (segment-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
+		# load the reference values (scene-based graph)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
 		seg.vals <- list()
 		seg.vals[[1]] <- seg.occ.vals
 		seg.vals[[2]] <- seg.dur.vals
@@ -431,7 +431,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 ###############################################################################
 # Generates the plots containing several series at once, as lines.
 # 
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -449,9 +449,9 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 	for(meas.name in gmn)
 	{	tlog(4,"Generating multiple plots for measure ",meas.name," (mode=",mode,")")
 		
-		# load the reference values (segment-based graph)
-		seg.occ.vals <- load.static.graph.stats.segments(measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.graph.stats.segments(measure=meas.name, weights="duration")
+		# load the reference values (scene-based graph)
+		seg.occ.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="duration")
 		
 		# retrieve the window.size data series
 		tlog(5,"Gathering and plotting data by window.size")
@@ -508,7 +508,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 					x="bottomright",
 					lty=c(2,3),
 					legend=c("Occurrences","Duration"),
-					title="Segment-Based"
+					title="Scene-Based"
 				)
 			dev.off()
 		}
@@ -571,7 +571,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 					x="bottomright",
 					lty=c(2,3),
 					legend=c("Occurrences","Duration"),
-					title="Segment-Based"
+					title="Scene-Based"
 				)
 			dev.off()
 		}
@@ -584,7 +584,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 # Generates the plots containing several series at once, as lines, for rank
 # correlation values.
 # 
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -599,14 +599,14 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 	for(meas.name in gmn)
 	{	tlog(4,"Generating rank correlation plots for measure ",meas.name," (mode=",mode,")")
 		
-		# load the reference values (segment-based graph)
-		seg.vals <- load.static.corr.segments(weights="occurrences", measure=meas.name)
+		# load the reference values (scene-based graph)
+		seg.vals <- load.static.corr.scenes(weights="occurrences", measure=meas.name)
 		
 		for(weights in c("duration","occurrences"))
 		{	if(weights=="duration")
-				ylab <- "Spearman Correlation with Segment-Based Duration Graph"
+				ylab <- "Spearman Correlation with Scene-Based Duration Graph"
 			else
-				ylab <- "Spearman Correlation with Segment-Based Occurrences Graph"
+				ylab <- "Spearman Correlation with Scene-Based Occurrences Graph"
 			
 			# retrieve the window.size data series
 			tlog(5,"Gathering and plotting data by window.size")
@@ -656,7 +656,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 						x="bottomright",
 						lty=c(2,3),
 						legend=c("Occurrences","Duration"),
-						title="Segment-Based"
+						title="Scene-Based"
 					)
 				dev.off()
 			}
@@ -712,7 +712,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 							x="bottomright",
 							lty=c(2,3),
 							legend=c("Occurrences","Duration"),
-							title="Segment-Based"
+							title="Scene-Based"
 					)
 				dev.off()
 			}
@@ -727,7 +727,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 # a baseline, and to order the nodes on the x axis. The comparison measure is used to process
 # the ranking difference with the reference measure, and the result appears as the bar heights.
 # 
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -745,17 +745,17 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 		else if(meas.name %in% names(NODEPAIR_MEASURES))
 			object <- "nodepairs"
 		
-		# load the reference values (segment-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
+		# load the reference values (scene-based graph)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
 		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
-		seg.dur.vals <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
 		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
 		
 		for(weights in c("duration","occurrences"))
 		{	if(weights=="duration")
-				ylab <- "Rank difference with Segment-Based Duration Graph"
+				ylab <- "Rank difference with Scene-Based Duration Graph"
 			else
-				ylab <- "Rank difference with Segment-Based Occurrences Graph"
+				ylab <- "Rank difference with Scene-Based Occurrences Graph"
 			
 			# generate a plot for each window size value
 			for(i in 1:length(window.sizes))
@@ -807,7 +807,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 ###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
-# mode: either "panel.window" or "page.window" (not "segments").
+# mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.

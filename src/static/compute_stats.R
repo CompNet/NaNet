@@ -14,10 +14,10 @@ cache <- list()
 # Computes all preselected nodal topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: an nxk table containing all computed values, where n is the number of
@@ -62,10 +62,10 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # Computes all preselected node-pair topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: an n(n-1)/2 x k table containing all computed values, where n(n-1)/2 is the 
@@ -111,10 +111,10 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 # Computes all preselected link topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: an mxk table containing all computed values, where m is the number of
@@ -162,10 +162,10 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # Computes all preselected graph topological measures for the specified static graph.
 #
 # g: graph whose statistics must be computed.
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
@@ -211,15 +211,15 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 ###############################################################################
 # Computes all preselected nodal topological measures for the specified static graph.
 #
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 #
 # returns: a kx4 table containing all computed values, where k is the number of measures,
 #		   and the columns correspond to Spearman's correlation and the associated p-value,
-#          relatively to the duration and occurrences segment-based networks.
+#          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
 compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA)
 {	table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
@@ -251,8 +251,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		else if(meas.name %in% names(LINK_MEASURES))
 			object <- "links"
 		# retrieve reference values
-		vals.dur <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="duration")
-		vals.occ <- load.static.nodelink.stats.segments(object=object, measure=meas.name, weights="occurrences")
+		vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
+		vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
 		# retrieve tested values
 		tab.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 #print(tab.file)		
@@ -310,10 +310,10 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 ###############################################################################
 # Computes all rank correlation measures for the specified static graph.
 #
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 ###############################################################################
 compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA)
@@ -346,10 +346,10 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 ###############################################################################
 # Computes all preselected topological measures for the specified static graph.
 #
-# mode: either "segments", "panel.window", or "page.window".
-# window.size: value for this parameter (ignored for mode="segments").
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
-#          (also ignored for mode="segments").
+#          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA)
@@ -394,11 +394,11 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Computing statistics for static graphs")
 	
-	# statistics for the segment-based graph
+	# statistics for the scene-based graph
 	for(weights in c("occurrences","duration"))
-		compute.all.static.statistics(mode="segments", weights=weights)
+		compute.all.static.statistics(mode="scenes", weights=weights)
 	for(weights in c("occurrences","duration"))
-		compute.all.static.corrs(mode="segments", weights=weights)
+		compute.all.static.corrs(mode="scenes", weights=weights)
 	
 	# statistics for the panel window-based static graphs
 	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb

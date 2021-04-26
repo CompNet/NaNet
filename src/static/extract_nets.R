@@ -10,8 +10,8 @@
 
 ###############################################################################
 # Extracts a static graph based on a list of pairwise interactions, using the
-# segment as the time unit, without overlap. Nodes are characters, and links
-# represents them (inter-)acting during the same segment.
+# scene as the time unit, without overlap. Nodes are characters, and links
+# represents them (inter-)acting during the same scene.
 #
 # inter.df: dataframe containing the pairwise interactions (columns 
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
@@ -21,8 +21,8 @@
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
 ###############################################################################
-extract.static.graph.from.segments <- function(inter.df)
-{	tlog(2,"Extracting the segment-based static graph")
+extract.static.graph.from.scenes <- function(inter.df)
+{	tlog(2,"Extracting the scene-based static graph")
 	
 	# init the dataframe
 	static.df <- data.frame(
@@ -63,10 +63,10 @@ extract.static.graph.from.segments <- function(inter.df)
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
 	# write to file
-	graph.file <- get.graphname.static(mode="segments")
+	graph.file <- get.graphname.static(mode="scenes")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
-	tlog(2,"Extraction of the segment-based static graph completed")
+	tlog(2,"Extraction of the scene-based static graph completed")
 	return(g)
 }
 
@@ -115,7 +115,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 	{	window.end <- min(window.end,last.panel)
 		covered <- window.end==last.panel
 		tlog(3,"Current window: [",window.start,",",window.end,"]")
-		# segments intersecting the window
+		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<window.start | inter.df[,COL_INTER_START_PANEL_ID]>window.end))
 		# get all concerned chars
 		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
@@ -204,7 +204,7 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 		start.panel <- page.info[window.start,COL_INTER_START_PANEL_ID]
 		end.panel <- page.info[window.end,COL_INTER_START_PANEL_ID] + page.info[window.end,COL_PAGES_PANELS] - 1
 		tlog(3,paste0(msg, " ie [",start.panel,",",end.panel,"]"))
-		# segments intersecting the window
+		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<start.panel | inter.df[,COL_INTER_START_PANEL_ID]>end.panel))
 		# get all concerned chars
 		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
@@ -257,8 +257,8 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 ###############################################################################
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
-	# extract the segment-based static graph
-	g <- extract.static.graph.from.segments(data$inter.df)
+	# extract the scene-based static graph
+	g <- extract.static.graph.from.scenes(data$inter.df)
 	#plot(g, layout=layout_with_fr(g))
 	
 	# extract the panel window-based static graphs

@@ -9,7 +9,7 @@ get.ref.graph <- function(name)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
-	{	graph.file <- get.graphname.static(mode="segments")
+	{	graph.file <- get.graphname.static(mode="scenes")
 		res <- read.graph(file=graph.file, format="graphml")
 		if(name==SFX_DUR)
 			E(res)$weight <- E(res)$Duration
@@ -42,7 +42,7 @@ graph.euclidean.distance <- function(graph1, graph2, weighted)
 COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_DUR)]] <- list( #Euclidean distance with duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Euclidean Distance with Segment-Based Duration Graph",
+	cname="Euclidean Distance with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
 		graph.euclidean.distance(graph1=graph, graph2=ref, weighted=FALSE)
@@ -51,7 +51,7 @@ COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_DUR)]] <- list( #Euclidean distance wi
 COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Euclidean distance with duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted Euclidean Distance with Segment-Based Duration Graph",
+	cname="Weighted Euclidean Distance with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
 		graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE)
@@ -60,7 +60,7 @@ COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted 
 COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_OCC)]] <- list( #Euclidean distance with occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Euclidean Distance with Segment-Based Occurrences Graph",
+	cname="Euclidean Distance with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
 		graph.euclidean.distance(graph1=graph, graph2=ref, weighted=FALSE)
@@ -69,7 +69,7 @@ COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_OCC)]] <- list( #Euclidean distance wi
 COMP_MEASURES[[paste0(MEAS_EUCLIDEAN, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Euclidean distance with occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted Euclidean Distance with Segment-Based Occurrences Graph",
+	cname="Weighted Euclidean Distance with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
 		graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE)
