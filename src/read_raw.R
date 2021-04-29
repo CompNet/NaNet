@@ -99,10 +99,33 @@ read.page.table <- function(volume.info)
 #			- COL_INTER_END_PANEL_ID: absolute id of the panel where the interaction ends.
 ###############################################################################
 read.inter.table <- function(volume.info, page.info)
-{	# read the proper table
+{	char.scenes <- list()
+	
+	# init stats table for scenes
+	stats.scenes <- data.frame(
+			character(), integer(),
+			integer(), integer(),
+			integer(), integer(), 
+			integer(), integer(),
+			integer(), integer(), 
+			integer(), integer(), integer(),
+			logical(), logical(), logical(),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.scenes) <- c(
+			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
+			COL_STATS_START_PAGE, COL_STATS_START_PAGE_ID, 
+			COL_STATS_START_PANEL, COL_STATS_START_PANEL_ID,
+			COL_STATS_END_PAGE, COL_STATS_END_PAGE_ID, 
+			COL_STATS_END_PANEL, COL_STATS_END_PANEL_ID, 
+			COL_STATS_PANELS, COL_STATS_PAGES, COL_STATS_CHARS,
+			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
+	)
+	
+	# read the proper table
 	tlog(2,"Trying to read the interaction file (",INTER_FILE,")")
 	con <- file(INTER_FILE, open="r")
-	temp <- readLines(con)
+		temp <- readLines(con)
 	close(con)
 	lines <- strsplit(temp, split='\t', fixed=TRUE)
 	tlog(2,"Reading of the interaction file completed")
@@ -168,62 +191,91 @@ read.inter.table <- function(volume.info, page.info)
 			tlog(3,msg)
 			stop(msg)
 		}
-		
-		# compute scene length (in pages)
-		page.length <- end.page.id - start.page.id + 1
-		
+
 		# get all combinations of characters
-		chars <- line[6:length(line)]
-		chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
-		chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
-				{	if(length(v)==0)
-						return("")
-					else if(length(v)==1)
-						return(trimws(v))
-					else if(length(v)==2)
-						return(trimws(v[2]))
-					else
-					{	msg <- paste0("ERROR when splitting the names: ",v)
-						tlog(4,msg)
-						stop(msg)
-					}
-				})
-		chars <- sort(chars[which(chars!="" & chars!=" ")])
-		if(length(chars)<=1)
-		{	if(length(chars)==0)
-				msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
-			else #if(length(chars)==1)
-				msg <- paste0("WARNING there is less than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			#warning(msg)
-		}
+		if(length(line)<6)
+			chars <- c()
 		else
-		{	if(length(chars)>length(unique(chars)))
-			{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
-				tlog(3,msg)
-				#stop(msg)
-				chars <- unique(chars)
-			}
+		{	chars <- line[6:length(line)]
+			chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
+			chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
+					{	if(length(v)==0)
+							return("")
+						else if(length(v)==1)
+							return(trimws(v))
+						else if(length(v)==2)
+							return(trimws(v[2]))
+						else
+						{	msg <- paste0("ERROR when splitting the names: ",v)
+							tlog(4,msg)
+							stop(msg)
+						}
+					})
+			chars <- sort(chars[which(chars!="" & chars!=" ")])
 			if(length(chars)<=1)
-			{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
+			{	if(length(chars)==0)
+					msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
+				else #if(length(chars)==1)
+					msg <- paste0("WARNING there is less than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
 				tlog(3,msg)
 				#warning(msg)
 			}
 			else
-			{	chars <- t(combn(x=chars,m=2))
-			
-				# add scene to data frame
-				tmp.df <- data.frame(From=(chars[,1]), To=chars[,2], 
-						Start=as.integer(rep(start.panel.id,nrow(chars))), End=as.integer(rep(end.panel.id,nrow(chars))),
-						stringsAsFactors=FALSE)
-				colnames(tmp.df) <- cn
-				inter.df <- rbind(inter.df, tmp.df)
+			{	if(length(chars)>length(unique(chars)))
+				{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
+					tlog(3,msg)
+					#stop(msg)
+					chars <- unique(chars)
+				}
+				if(length(chars)<=1)
+				{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
+					tlog(3,msg)
+					#warning(msg)
+				}
+				else
+				{	chars.mat <- t(combn(x=chars,m=2))
+				
+					# add scene to data frame
+					tmp.df <- data.frame(From=(chars.mat[,1]), To=chars.mat[,2], 
+							Start=as.integer(rep(start.panel.id,nrow(chars.mat))), End=as.integer(rep(end.panel.id,nrow(chars.mat))),
+							stringsAsFactors=FALSE)
+					colnames(tmp.df) <- cn
+					inter.df <- rbind(inter.df, tmp.df)
+				}
 			}
 		}
+		char.scenes <- c(char.scenes, list(chars))
+		
+		# update the scene stats
+		panel.nbr <- end.panel.id - start.panel.id + 1
+		page.nbr <- end.page.id - start.page.id + 1
+		match.start <- start.panel==1
+		match.end <- end.panel==page.info[end.page.id,COL_PAGES_PANELS]
+		row.scene <- data.frame(
+			volume, volume.id,
+			start.page, start.page.id, 
+			start.panel, start.panel.id,
+			end.page, end.page.id, 
+			end.panel, end.panel.id,
+			panel.nbr, page.nbr, length(chars),
+			match.start, match.end, match.start && match.end,
+			stringsAsFactors=FALSE, check.names=FALSE
+		)
+		colnames(row.scene) <- c(
+			COL_STATS_VOLUME, COL_STATS_VOLUME_ID, 
+			COL_STATS_START_PAGE, COL_STATS_START_PAGE_ID, 
+			COL_STATS_START_PANEL, COL_STATS_START_PANEL_ID,
+			COL_STATS_END_PAGE, COL_STATS_END_PAGE_ID, 
+			COL_STATS_END_PANEL, COL_STATS_END_PANEL_ID, 
+			COL_STATS_PANELS, COL_STATS_PAGES, COL_STATS_CHARS,
+			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
+		)
+		stats.scenes <- rbind(stats.scenes, row.scene)
 	}
 	
 	tlog(2,"Conversion of the interaction raw data completed")
-	return(inter.df)
+	result <- list(inter.df=inter.df, stats.scenes=stats.scenes, char.scenes=char.scenes)
+	return(result)
 }
 
 
@@ -304,6 +356,481 @@ read.char.table <- function(inter.df)
 
 
 ###############################################################################
+# Computes and records some statistics regarding the parsed corpus.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# stats.scenes: previously computed scene statistics.
+# char.scenes: information about the scenes.
+###############################################################################
+update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
+{	tlog(2,"Computing corpus stats")
+	pages.end.panel.ids <- c(
+			page.info[2:nrow(page.info),COL_PAGES_START_PANEL_ID]-1,
+			page.info[nrow(page.info),COL_PAGES_START_PANEL_ID]+page.info[nrow(page.info),COL_PAGES_PANELS]
+		)
+	
+		
+		
+		
+	##### panels stats
+	tlog(3,"Computing panel stats")
+	panel.nbr <- max(c(stats.scenes[,COL_STATS_START_PANEL_ID],stats.scenes[,COL_STATS_END_PANEL_ID]))
+	
+	# init stats table for panels
+	stats.panels <- data.frame(
+			character(panel.nbr), integer(panel.nbr), 
+			integer(panel.nbr), integer(panel.nbr), 
+			integer(panel.nbr), integer(panel.nbr),
+			integer(panel.nbr),
+			logical(panel.nbr), logical(panel.nbr), logical(panel.nbr),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.panels) <- c(
+			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
+			COL_STATS_PAGE, COL_STATS_PAGE_ID,
+			COL_STATS_PANEL, COL_STATS_PANEL_ID, 
+			COL_STATS_CHARS, 
+			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
+	)
+	
+	# compute the stats for each panel
+	tlog(4,"Processing each panel separately")
+	char.panels <- lapply(1:panel.nbr, function(x) c())
+	for(p in 1:panel.nbr)
+	{	tlog(5,"Processing panel id ",p,"/",panel.nbr)
+		
+		# find the scenes containing this panel
+		ss <- which(stats.scenes[,COL_STATS_START_PANEL_ID]<=p & stats.scenes[,COL_STATS_END_PANEL_ID]>=p)
+		cur.page.id <- which(page.info[,COL_PAGES_START_PANEL_ID]<=p & pages.end.panel.ids>=p)
+		pos <- p - page.info[cur.page.id, COL_PAGES_START_PANEL_ID] + 1
+		match.start <- pos==1
+		match.end <- pos==page.info[cur.page.id,COL_PAGES_PANELS]
+		for(s in ss)
+		{	if(length(char.scenes[[s]])>0)
+				char.panels[[p]] <- union(char.panels[[p]], char.scenes[[s]])
+		}
+		
+		# update the table
+		stats.panels[p, COL_STATS_VOLUME] <- stats.scenes[ss[1],COL_STATS_VOLUME]
+		stats.panels[p, COL_STATS_VOLUME_ID] <- stats.scenes[ss[1],COL_STATS_VOLUME_ID]
+		stats.panels[p, COL_STATS_PAGE] <- page.info[cur.page.id,COL_PAGES_PAGE]
+		stats.panels[p, COL_STATS_PAGE_ID] <- cur.page.id
+		stats.panels[p, COL_STATS_PANEL] <- pos
+		stats.panels[p, COL_STATS_PANEL_ID] <- p
+		stats.panels[p, COL_STATS_CHARS] <- length(char.panels[[p]])
+		stats.panels[p, COL_STATS_MATCH_START] <- match.start
+		stats.panels[p, COL_STATS_MATCH_END] <- match.end
+		stats.panels[p, COL_STATS_MATCH_BOTH] <- match.start && match.end
+	}
+	
+	# record stats
+	tlog(4,"Recording in ",STATS_PANELS_FILE)
+	write.csv(x=stats.panels, STATS_PANELS_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	# distributions of character numbers
+	vals <- table(stats.panels[,COL_STATS_CHARS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PANELS, "Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.panels[,COL_STATS_CHARS],
+			breaks=0:max(stats.panels[,COL_STATS_CHARS]),
+			col="RED",
+			xlab="Number of characters by panel",
+			main="Character number distribution over panels",
+			freq=FALSE
+		)
+	dev.off()
+		
+	# distribution of panel positions
+	vals <- c()
+	vals["Both"] <- length(which(stats.panels[, COL_STATS_MATCH_BOTH]))
+	vals["Starts page"] <- length(which(stats.panels[, COL_STATS_MATCH_START])) - vals["Both"]
+	vals["Ends page"] <- length(which(stats.panels[, COL_STATS_MATCH_END])) - vals["Both"]
+	vals["None"] <- nrow(stats.panels) - vals["Both"] - vals["Starts page"] - vals["Ends page"]
+	perc <- vals/sum(vals)*100
+	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+	colnames(df) <- c("Position","Frequency","Proportion")
+	write.csv(x=df, file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		barplot(
+			height=perc,
+			main="Distribution of panel positions (%)",
+			col="RED"
+		)
+	dev.off()
+	
+	
+	
+	
+	##### page stats
+	tlog(3,"Computing page stats")
+	page.nbr <- max(c(stats.scenes[,COL_STATS_START_PAGE_ID],stats.scenes[,COL_STATS_END_PAGE_ID]))
+	
+	# list the characters by page
+	tlog(3,"Listing the characters by page")
+	char.pages <- lapply(1:page.nbr, function(x) c())
+	for(s in 1:nrow(stats.scenes))
+	{	tlog(5,"Processing scene id ",s,"/",nrow(stats.scenes))
+		
+		# find the pages containing the scene
+		start.page.id <- stats.scenes[s,COL_STATS_START_PAGE_ID]
+		end.page.id <- stats.scenes[s,COL_STATS_END_PAGE_ID]
+		page.ids <- start.page.id:end.page.id
+		for(page.id in page.ids)
+		{	if(length(char.scenes[[s]])>0)
+				char.pages[[page.id]] <- union(char.pages[[page.id]], char.scenes[[s]])
+		}
+	}
+	
+	# init stats table for pages
+	stats.pages <- data.frame(
+			character(page.nbr), integer(page.nbr),
+			integer(page.nbr), integer(page.nbr),
+			integer(page.nbr), integer(page.nbr),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.pages) <- c(
+			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
+			COL_STATS_PAGE, COL_STATS_PAGE_ID,
+			COL_STATS_PANELS, COL_STATS_CHARS
+	)
+	
+	# compute the stats for each page
+	tlog(4,"Processing each page separately")
+	for(p in 1:page.nbr)
+	{	tlog(5,"Processing page id ",p,"/",page.nbr)
+		
+		stats.pages[p, COL_STATS_VOLUME] <- page.info[p,COL_PAGES_VOLUME]
+		stats.pages[p, COL_STATS_VOLUME_ID] <- page.info[p,COL_PAGES_VOLUME_ID]
+		stats.pages[p, COL_STATS_PAGE] <- page.info[p,COL_PAGES_PAGE]
+		stats.pages[p, COL_STATS_PAGE_ID] <- p
+		stats.pages[p, COL_STATS_PANELS] <- page.info[p,COL_PAGES_PANELS]
+		stats.pages[p, COL_STATS_CHARS] <- length(char.pages[[p]])
+	}
+	
+	# record stats
+	tlog(4,"Recording in ",STATS_PAGES_FILE)
+	write.csv(x=stats.pages, file=STATS_PAGES_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	# distributions of panel numbers
+	vals <- table(stats.pages[,COL_STATS_PANELS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.pages[,COL_STATS_PANELS],
+			breaks=0:max(stats.pages[,COL_STATS_PANELS]),
+			col="RED",
+			xlab="Number of panels by page",
+			main="Panel number distribution over pages",
+			freq=FALSE
+		)
+	dev.off()
+	
+	# distributions of character numbers
+	vals <- table(stats.pages[,COL_STATS_CHARS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PAGES, "Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.pages[,COL_STATS_CHARS],
+			breaks=0:max(stats.pages[,COL_STATS_CHARS]),
+			col="RED",
+			xlab="Number of characters by page",
+			main="Character number distribution over pages",
+			freq=FALSE
+		)
+	dev.off()
+	
+	
+	
+	
+	##### scene stats
+	tlog(3,"Computing scene stats")
+	scene.nbr <- nrow(stats.scenes)
+	# remove id columns
+#	idx <- match(colnames(stats.scenes), c(
+#					COL_STATS_VOLUME_ID, 
+#					COL_STATS_START_PAGE_ID, COL_STATS_START_PANEL_ID, 
+#					COL_STATS_END_PAGE_ID, COL_STATS_END_PANEL_ID))
+#	stats.scenes <- stats.scenes[,-idx]
+	
+	# record scene stats
+	tlog(4,"Recording in ",STATS_SCENES_FILE)
+	write.csv(x=stats.scenes, file=STATS_SCENES_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	# distributions of panel numbers
+	vals <- table(stats.scenes[,COL_STATS_PANELS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_SCENES,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.scenes[,COL_STATS_PANELS],
+			breaks=0:max(stats.scenes[,COL_STATS_PANELS]),
+			col="RED",
+			xlab="Number of panels by scene",
+			main="Panel number distribution over scenes",
+			freq=FALSE
+		)
+	dev.off()
+	
+	# distributions of character numbers
+	vals <- table(stats.scenes[,COL_STATS_CHARS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_SCENES, "Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.scenes[,COL_STATS_CHARS],
+			breaks=0:max(stats.scenes[,COL_STATS_CHARS]),
+			col="RED",
+			xlab="Number of characters by scene",
+			main="Character number distribution over scenes",
+			freq=FALSE
+		)
+	dev.off()
+	
+	# distributions of page numbers
+	vals <- table(stats.scenes[,COL_STATS_PAGES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.scenes[,COL_STATS_PAGES],
+			breaks=0:max(stats.scenes[,COL_STATS_PAGES]),
+			col="RED",
+			xlab="Number of pages by scene",
+			main="Page number distribution over scenes",
+			freq=FALSE,
+		)
+	dev.off()
+	
+	# distribution of scene positions
+	vals <- c()
+	vals["Both"] <- length(which(stats.scenes[, COL_STATS_MATCH_BOTH]))
+	vals["Starts page"] <- length(which(stats.scenes[, COL_STATS_MATCH_START])) - vals["Both"]
+	vals["Ends page"] <- length(which(stats.scenes[, COL_STATS_MATCH_END])) - vals["Both"]
+	vals["None"] <- nrow(stats.scenes) - vals["Both"] - vals["Starts page"] - vals["Ends page"]
+	perc <- vals/sum(vals)*100
+	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+	colnames(df) <- c("Position","Frequency","Proportion")
+	write.csv(x=df, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_positions.csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_positions.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_positions.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		barplot(
+			height=perc,
+			main="Distribution of scene positions (%)",
+			col="RED"
+		)
+	dev.off()
+	
+	
+	
+	
+	#### character stats
+	tlog(3,"Computing character stats")
+	unique.chars <- sort(unique(unlist(char.scenes)))
+	char.nbr <- length(unique.chars)
+	
+	#  identify the characters in each volume
+	tlog(4,"Identify the character in each volume")
+	volume.nbr <- nrow(volume.info)
+	char.volumes <- lapply(1:volume.nbr, function(x) c())
+	for(v in 1:volume.nbr)
+	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
+		
+		# find the pages contained in the volume
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
+		for(p in idx.pg)
+		{	if(length(char.pages[[p]])>0)
+				char.volumes[[v]] <- union(char.volumes[[v]], char.pages[[p]])
+		}
+	}
+	
+	# init stats table for pages
+	stats.chars <- data.frame(
+			character(char.nbr),
+			integer(char.nbr),
+			integer(char.nbr),
+			integer(char.nbr),
+			integer(char.nbr),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.chars) <- c(
+			COL_STATS_CHAR, 
+			COL_STATS_VOLUMES, 
+			COL_STATS_PAGES, 
+			COL_STATS_SCENES, 
+			COL_STATS_PANELS
+	)
+	
+	# compute the stats for each character
+	tlog(4,"Processing each character separately")
+	for(c in 1:char.nbr)
+	{	tlog(5,"Processing character \"",unique.chars[c],"\" (",c,"/",char.nbr,")")
+		
+		stats.chars[c, COL_STATS_CHAR] <- unique.chars[c]
+		stats.chars[c, COL_STATS_VOLUMES] <- sum(sapply(char.volumes, function(char.volume) unique.chars[c] %in% char.volume))
+		stats.chars[c, COL_STATS_PAGES] <- sum(sapply(char.pages, function(char.page) unique.chars[c] %in% char.page))
+		stats.chars[c, COL_STATS_SCENES] <- sum(sapply(char.scenes, function(char.scene) unique.chars[c] %in% char.scene))
+		stats.chars[c, COL_STATS_PANELS] <- sum(sapply(char.panels, function(char.panel) unique.chars[c] %in% char.panel))
+	}
+	
+	# record stats
+	tlog(4,"Recording in ",STATS_CHARS_FILE)
+	write.csv(x=stats.pages, file=STATS_CHARS_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	# distributions of panel numbers
+	vals <- table(stats.chars[,COL_STATS_PANELS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_CHARS,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		hist(
+			stats.chars[,COL_STATS_PANELS],
+			breaks=0:max(stats.chars[,COL_STATS_PANELS]),
+			col="RED",
+			xlab="Number of panels by character",
+			main="Panel number distribution over characters",
+			freq=FALSE
+		)
+	dev.off()
+# TODO bosser sur la liste de chars spécifiée dans le fichier, et pas retrouvé automatiquement	
+# pq manque-t-il des persos ?	
+	
+	
+	
+	##### overall stats
+	tlog(3,"Computing overall stats")
+	stats.overall <- data.frame(
+			integer(1),
+			integer(1), integer(1), integer(1),
+			integer(1), integer(1), integer(1),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.overall) <- c(
+			COL_STATS_PAGES, 
+			COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, 
+			COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE
+		)
+	
+	# compute stats
+	stats.overall[1,COL_STATS_PAGES] <- page.nbr
+	#
+	stats.overall[1,COL_STATS_PANELS] <- panel.nbr
+	stats.overall[1,COL_STATS_PANEL_BY_PAGE] <- panel.nbr/page.nbr
+	stats.overall[1,COL_STATS_PANEL_BY_SCENE] <- panel.nbr/scene.nbr
+	#
+	stats.overall[1,COL_STATS_CHARS] <- char.nbr
+	stats.overall[1,COL_STATS_CHAR_BY_PAGE] <- sum(stats.pages[,COL_STATS_CHARS])/page.nbr
+	stats.overall[1,COL_STATS_CHAR_BY_SCENE] <- sum(stats.scenes[,COL_STATS_CHARS])/scene.nbr
+
+	# record stats
+	tlog(4,"Recording in ",STATS_OVERALL_FILE)
+	write.csv(x=stats.volumes, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	
+	
+	
+	##### stats by volume
+	tlog(3,"Computing volume stats")
+	
+	# init stats table for volume
+	stats.volumes <- data.frame(
+			character(volume.nbr), integer(volume.nbr),
+			integer(volume.nbr),
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr),
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.volumes) <- c(
+			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
+			COL_STATS_PAGES, 
+			COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, 
+			COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE
+	)
+	
+	
+	
+	
+	# compute the stats for each volume
+	tlog(4,"Processing each volume separately")
+	for(v in 1:volume.nbr)
+	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
+		
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
+		char.volume <- c()
+		for(i in idx.pg)
+			char.volume <- union(char.volume, char.pages[[i]])
+		
+		idx.sc <- which(stats.scenes[,COL_STATS_VOLUME_ID]==v)
+		scn <- length(idx.sc)
+		
+		stats.volumes[v, COL_STATS_VOLUME] <- volume.info[v,COL_VOLS_VOLUME]
+		stats.volumes[v, COL_STATS_VOLUME_ID] <- v
+		#
+		pgn <- volume.info[v,COL_VOLS_END_PAGE] - volume.info[v,COL_VOLS_START_PAGE] + 1
+		stats.volumes[v, COL_STATS_PAGES] <- pgn
+		#
+		pnn <- sum(page.info[idx.pg,COL_PAGES_PANELS])
+		stats.volumes[v, COL_STATS_PANELS] <- pnn
+		stats.volumes[v,COL_STATS_PANEL_BY_PAGE] <- pnn/pgn
+		stats.volumes[v,COL_STATS_PANEL_BY_SCENE] <- pnn/scn
+		#
+		char.nbr <- length(char.volume)
+		stats.volumes[v, COL_STATS_CHARS] <- char.nbr
+		stats.volumes[v,COL_STATS_CHAR_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_CHARS])/pgn
+		stats.volumes[v,COL_STATS_CHAR_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_CHARS])/scn
+	}
+	
+	# record stats
+	tlog(4,"Recording in ",STATS_VOLUMES_FILE)
+	write.csv(x=stats.volumes, file=STATS_VOLUMES_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	# evolution of the number of pages
+	vol.cols <- c(COL_STATS_PAGES, COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE)
+	vol.titles <- c("total number of pages", "total number of panels", "average number of panels by page", "average number of panels by scene", "total number of characters", "average number of characters by page", "average number of characters by scene")
+	vol.fnames <- c("num_pages", "num_panels", "num_panels_by_page", "num_panels_by_scene", "num_chars", "num_chars_by_page", "num_chars_by_scene")
+	tlog(4,"Generating the plots")
+	for(m in 1:length(vol.cols))
+	{	tlog(5,"Processing column \"",vol.cols[m],"\" (",m,"/",length(vol.cols),")")
+		
+		#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.pdf"), bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, paste0("volumes_evol_",vol.fnames[m],".png")), width=800, height=800, units="px", pointsize=20, bg="white")
+			barplot(
+				height=stats.volumes[,vol.cols[m]],
+				names.arg=stats.volumes[,COL_STATS_VOLUME],
+				main=paste0("Evolution of the ",vol.titles[m]),
+				col="RED"
+			)
+		dev.off()
+	}
+	
+	# TODO plot all volume distribs on the same plot?
+}
+
+
+
+
+###############################################################################
 # Reads the raw data contained in several tables, and returns them under the
 # form of data frames.
 #
@@ -319,13 +846,20 @@ read.raw.data <- function()
 	volume.info <- read.volume.table()
 	# read the file describing the pages
 	page.info <- read.page.table(volume.info)
+	
 	# read the file describing the interactions
-	inter.df <- read.inter.table(volume.info, page.info)
+	tmp <- read.inter.table(volume.info, page.info)
+	stats.scenes <- tmp$stats.scenes
+	char.scenes <- tmp$char.scenes
+	inter.df <- tmp$inter.df
 	
 	# read the file describing the characters
 	char.info <- read.char.table(inter.df)
 	
+	# update stats
+	update.stats(volume.info, page.info, stats.scenes, char.scenes)
+	
 	# build result and return
-	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
+	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info, stat.df=stat.df)
 	return(result)
 }

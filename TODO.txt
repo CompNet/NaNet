@@ -5,7 +5,7 @@ Static graph extraction
 
 Dynamic network extraction
    - Implement window-based approach (<< isn't this already done?)
-   - Implement narrative smoothing
+   - Implement narrative smoothing (or use Xavier's version)
 	 - (test on the toy example)
 
 Topological measures
@@ -17,7 +17,7 @@ Stats part:
 - Goal: study the effect of the extraction parameters
 	- window size
 	- overlap
-	- extraction method
+	- extraction method (not sure what I meant here)
 - Methods:
 	- standard topological measures:
 		- how they evolve with the parameters
@@ -71,16 +71,19 @@ Changes:
 
 Corpus stats:
   - distribution/avg value of 
-    - panels/page
-    - panel/scene
-    - characters/scene
-    - scene/characters
+    x panels/page
+    x panel/scene
+    x characters/scene
+    - panel/character
+    - scene/character
       - number of scenes for the main characters
     - char/scene vs. scene duration (heatmap, cf. LREC paper)
-  - avg/counts by volume
-  - proportion of scenes 
-    - starting on a page fist panel
-    - ending on a page last panel
-    - both at the same time
-    
+  x avg/counts by volume
+  x proportion of scenes 
+    x starting on a page fist panel
+    x ending on a page last panel
+    x both at the same time
+ 
+ what if we remove characters occurring only in two scenes (or windows)?
+ >> does this affect important graph properties such as connectedness? 
   

@@ -363,7 +363,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_violin.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=plot.file,bg="white")
-				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
 				vioplot(x=values, 
 						names=nms,
 #						outline=FALSE,
