@@ -786,7 +786,7 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	
 	# record stats
 	tlog(4,"Recording in ",STATS_CHARS_FILE)
-	write.csv(x=stats.pages, file=STATS_CHARS_FILE, row.names=FALSE)#, col.names=TRUE)
+	write.csv(x=stats.chars, file=STATS_CHARS_FILE, row.names=FALSE)#, col.names=TRUE)
 	
 	# distributions of volume numbers
 	vals <- table(stats.chars[,COL_STATS_VOLUMES])
@@ -1070,8 +1070,9 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	
 	# record stats
 	tlog(4,"Recording in ",STATS_OVERALL_FILE)
-	write.csv(x=stats.volumes, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
+	write.csv(x=stats.overall, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
 	
+	# TODO stats by narrative arc?
 	
 	
 	
