@@ -1073,123 +1073,38 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=stats.overall, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
 	
 	# TODO stats by narrative arc?
-	
-	
-	
-#	# density plots
-#	p <- ggplot(data=stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) + 
-#			stat_density2d(
-#					aes(fill = ..density..),
-#					geom = "raster",
-#					contour = FALSE,
-#					h = c(.5, 5)
-#			)
-#	
-#	
-#	p <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
-#			geom_point() +
-#			theme(legend.position="none")
-#	ggMarginal(p, type="histogram")
-#	
-#	
-#	plot(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])
-#	
-#	h <- hexbin(
-#		x=stats.scenes[,COL_STATS_CHARS],
-#		y=stats.scenes[,COL_STATS_PANELS]
-#		)
-#	plot(h, colramp=rf)
-#	hexbinplot(Characters~Panels, data=stats.scenes, colramp=rf)
-#	hexbinplot(Characters~Panels, data=stats.scenes, colramp=rf, trans=log10, inv=function(x) 10^x)
-#	
-#	
-#	contour_plot <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
-#			stat_density_2d(aes(alpha = ..piece..)) +
-#			guides(color = FALSE, alpha = FALSE) +
-#			theme(plot.margin = margin())
-#	plot_grid(
-#			aligned_x_hist
-#			, NULL
-#			, contour_plot
-#			, aligned_y_hist
-#			, ncol = 2
-#			, nrow = 2
-#			, rel_heights = c(0.2, 1)
-#			, rel_widths = c(1, 0.2)
-#	)
-#	
-#	
-#	
-#	scatterplot <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
-#			geom_point(size = 3, alpha = 0.6) +
-#			guides(color = FALSE) +
-#			theme(plot.margin = margin())
-#	
-#	
-## Define marginal histogram
-#	marginal_distribution <- function(x, var, group) {
-#		ggplot(x, aes_string(x = var)) +
-#				geom_histogram(bins = 30, alpha = 0.4, position = "identity") +
-#				# geom_density(alpha = 0.4, size = 0.1) +
-#				guides(fill = FALSE) +
-#				theme_void() +
-#				theme(plot.margin = margin())
-#	}
-#	
-## Set up marginal histograms
-#	x_hist <- marginal_distribution(stats.scenes, COL_STATS_CHARS)
-#	y_hist <- marginal_distribution(stats.scenes, COL_STATS_CHARS) +
-#			coord_flip()
-#	
-## Align histograms with scatterplot
-#	aligned_x_hist <- align_plots(x_hist, scatterplot, align = "v")[[1]]
-#	aligned_y_hist <- align_plots(y_hist, scatterplot, align = "h")[[1]]
-#	
-## Arrange plots
-#	plot_grid(
-#			aligned_x_hist
-#			, NULL
-#			, scatterplot
-#			, aligned_y_hist
-#			, ncol = 2
-#			, nrow = 2
-#			, rel_heights = c(0.2, 1)
-#			, rel_widths = c(1, 0.2)
-#	)
-#	
-#	
-#	
-#	
-#	
-#	# define the data inputs to ggplot
-#	# set data for x and y values x=, and y=
-#	# set the min and max for both the x and y axis, xmin=, xmax=, ymin= and ymax=
-#	ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +#, xmin=40, xmax=90, ymin=10, ymax=30)) +
-#			
-#			# define the color of the outline of the hexagons with color=c()
-#			# using c(#"809FFF") allows for the usage of hexadecimal color codes
-#			stat_binhex(bins=15, color=c("#D7DADB")) +
-#			
-#			# set the graph theme to classic, provides a white background and no grid lines
-#			# Change font size to 18 by using base_size = 18
-#			theme_classic(base_size=18) +
-#			
-#			# Apply lables to the graph for x and y
-#			labs(x = "Dimension 1", y = "Dimension 2")+
-#			
-#			# change the gradient fill to range from grey to Red
-#			scale_fill_gradient(low = "grey", high = "red")
-	
-	
-#	https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html
-#	https://www.r-bloggers.com/2014/09/5-ways-to-do-2d-histograms-in-r/
-#	https://stackoverflow.com/questions/14698870/how-do-i-make-a-heatmap-style-bivariate-histogram-in-a-lattice-layout
-#	https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html	
-#	https://stackoverflow.com/questions/8545035/scatterplot-with-marginal-histograms-in-ggplot2
-#	https://cran.r-project.org/web/packages/hexbin/vignettes/hexagon_binning.pdf
-#	https://powerbi.tips/2016/09/hexbin-plot-using-r/
-#	https://stackoverflow.com/questions/59145189/how-to-create-marginal-histogram-plot-along-with-a-geom-count-plot-in-r
-	}
+
+	# density plots
+	xvals <- stats.scenes[,COL_STATS_CHARS]
+	yvals <- stats.scenes[,COL_STATS_PANELS]
+	xlab <- "Number of characters"
+	ylab <- "Number of panels"
+	p=ggplot(stats.scenes, aes(x=xvals, y=yvals)) +
+		geom_hex(binwidth=2) + 
+		coord_fixed() +
+		scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+		theme_bw() +
+		theme_classic() +	# base_size=18
+		labs(fill="Count",x=xlab, y=ylab) +
+		theme(legend.position="left") +
+		geom_point(aes(x=xvals, y=yvals), alpha=0)
+	ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill="#3a548c")
+
+#	xvals <- stats.chars[,COL_STATS_SCENES]
+#	yvals <- stats.chars[,COL_STATS_PANELS]
+#	xlab <- "Number of scenes"
+#	ylab <- "Number of panels"
+#	p=ggplot(stats.chars, aes(x=xvals, y=yvals)) +
+#		geom_hex(binwidth=100) + 
+#		coord_fixed() +
+#		scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+#		theme_bw() +
+#		theme_classic() +	# base_size=18
+#		labs(fill="Count",x=xlab, y=ylab) +
+#		theme(legend.position="left") +
+#		geom_point(aes(x=xvals, y=yvals), alpha=0)
+#	ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill="#3a548c")
+}
 
 
 

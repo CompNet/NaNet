@@ -11,6 +11,9 @@ library("igraph")
 library("future.apply")
 library("doParallel")
 library("vioplot")
+library("ggplot2")
+library("viridis")
+library("ggExtra")
 
 
 
