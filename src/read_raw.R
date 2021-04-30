@@ -436,14 +436,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	#
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.panels[,COL_STATS_CHARS],
-			breaks=0:max(stats.panels[,COL_STATS_CHARS]),
-			col="RED",
-			xlab="Number of characters by panel",
-			main="Character number distribution over panels",
-			freq=FALSE
+		ml <- "Character number distribution over panels"
+		xl <- "Number of characters by panel"
+		h <- hist(
+				stats.panels[,COL_STATS_CHARS],
+				breaks=0:max(stats.panels[,COL_STATS_CHARS]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 		
 	# distribution of panel positions
@@ -493,13 +502,17 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	stats.pages <- data.frame(
 			character(page.nbr), integer(page.nbr),
 			integer(page.nbr), integer(page.nbr),
-			integer(page.nbr), integer(page.nbr),
+			integer(page.nbr), 
+			integer(page.nbr), 
+			integer(page.nbr),
 			stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(stats.pages) <- c(
 			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
 			COL_STATS_PAGE, COL_STATS_PAGE_ID,
-			COL_STATS_PANELS, COL_STATS_CHARS
+			COL_STATS_SCENES, 
+			COL_STATS_PANELS, 
+			COL_STATS_CHARS
 	)
 	
 	# compute the stats for each page
@@ -507,10 +520,17 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	for(p in 1:page.nbr)
 	{	tlog(5,"Processing page id ",p,"/",page.nbr)
 		
+		# number of scenes overlapping the page
+		scn <- length(which(
+					stats.scenes[,COL_STATS_START_PAGE_ID]<=p
+					& stats.scenes[,COL_STATS_END_PAGE_ID]>=p
+				))
+		
 		stats.pages[p, COL_STATS_VOLUME] <- page.info[p,COL_PAGES_VOLUME]
 		stats.pages[p, COL_STATS_VOLUME_ID] <- page.info[p,COL_PAGES_VOLUME_ID]
 		stats.pages[p, COL_STATS_PAGE] <- page.info[p,COL_PAGES_PAGE]
 		stats.pages[p, COL_STATS_PAGE_ID] <- p
+		stats.pages[p, COL_STATS_SCENES] <- scn
 		stats.pages[p, COL_STATS_PANELS] <- page.info[p,COL_PAGES_PANELS]
 		stats.pages[p, COL_STATS_CHARS] <- length(char.pages[[p]])
 	}
@@ -519,6 +539,32 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	tlog(4,"Recording in ",STATS_PAGES_FILE)
 	write.csv(x=stats.pages, file=STATS_PAGES_FILE, row.names=FALSE)#, col.names=TRUE)
 	
+	# distributions of scene numbers
+	vals <- table(stats.pages[,COL_STATS_SCENES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_PAGES,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		ml <- "Scene number distribution over pages"
+		xl <- "Number of scenes by page"
+		h <- hist(
+				stats.pages[,COL_STATS_SCENES],
+				breaks=0:max(stats.pages[,COL_STATS_SCENES]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
+		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+	dev.off()
+	
 	# distributions of panel numbers
 	vals <- table(stats.pages[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -526,14 +572,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.pages[,COL_STATS_PANELS],
-			breaks=0:max(stats.pages[,COL_STATS_PANELS]),
-			col="RED",
-			xlab="Number of panels by page",
-			main="Panel number distribution over pages",
-			freq=FALSE
+		ml <- "Panel number distribution over pages"
+		xl <- "Number of panels by page"
+		h <- hist(
+				stats.pages[,COL_STATS_PANELS],
+				breaks=0:max(stats.pages[,COL_STATS_PANELS]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 	
 	# distributions of character numbers
@@ -543,14 +598,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.pages[,COL_STATS_CHARS],
-			breaks=0:max(stats.pages[,COL_STATS_CHARS]),
-			col="RED",
-			xlab="Number of characters by page",
-			main="Character number distribution over pages",
-			freq=FALSE
+		ml <- "Character number distribution over pages"
+		xl <- "Number of characters by page"
+		h <- hist(
+				stats.pages[,COL_STATS_CHARS],
+				breaks=0:max(stats.pages[,COL_STATS_CHARS]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 	
 	
@@ -577,14 +641,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.scenes[,COL_STATS_PANELS],
-			breaks=0:max(stats.scenes[,COL_STATS_PANELS]),
-			col="RED",
-			xlab="Number of panels by scene",
-			main="Panel number distribution over scenes",
-			freq=FALSE
+		ml <- "Panel number distribution over scenes"
+		xl <- "Number of panels by scene"
+		h <- hist(
+				stats.scenes[,COL_STATS_PANELS],
+				breaks=0:max(stats.scenes[,COL_STATS_PANELS]),
+#				col="RED",
+#				xlab=xl,
+#				main=ml,
+#				freq=FALSE,
+				plot=FALSE
 		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 	
 	# distributions of character numbers
@@ -594,14 +667,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.scenes[,COL_STATS_CHARS],
-			breaks=0:max(stats.scenes[,COL_STATS_CHARS]),
-			col="RED",
-			xlab="Number of characters by scene",
-			main="Character number distribution over scenes",
-			freq=FALSE
+		ml <- "Character number distribution over scenes"
+		xl <- "Number of characters by scene"
+		h <- hist(
+				stats.scenes[,COL_STATS_CHARS],
+				breaks=0:max(stats.scenes[,COL_STATS_CHARS]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 	
 	# distributions of page numbers
@@ -611,14 +693,23 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.scenes[,COL_STATS_PAGES],
-			breaks=0:max(stats.scenes[,COL_STATS_PAGES]),
-			col="RED",
-			xlab="Number of pages by scene",
-			main="Page number distribution over scenes",
-			freq=FALSE,
+		ml <- "Page number distribution over scenes"
+		xl <- "Number of pages by scene"
+		h <- hist(
+				stats.scenes[,COL_STATS_PAGES],
+				breaks=0:max(stats.scenes[,COL_STATS_PAGES]),
+				col="RED",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
 	
 	# distribution of scene positions
@@ -697,6 +788,84 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	tlog(4,"Recording in ",STATS_CHARS_FILE)
 	write.csv(x=stats.pages, file=STATS_CHARS_FILE, row.names=FALSE)#, col.names=TRUE)
 	
+	# distributions of volume numbers
+	vals <- table(stats.chars[,COL_STATS_VOLUMES])
+	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
+	colnames(vals) <- c(COL_STATS_VOLUMES, COL_STATS_CHARS,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		ml <- "Volume number distribution over characters"
+		xl <- "Number of volumes by character"
+		h <- hist(
+				stats.chars[,COL_STATS_VOLUMES],
+				breaks=0:max(stats.chars[,COL_STATS_VOLUMES]),
+#				col="RED",
+#				xlab=xl,
+#				main=ml,
+#				freq=FALSE,
+				plot=FALSE
+		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+	dev.off()
+	
+	# distributions of page numbers
+	vals <- table(stats.chars[,COL_STATS_PAGES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_PAGES, COL_STATS_CHARS,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		ml <- "Page number distribution over characters"
+		xl <- "Number of pages by character"
+		h <- hist(
+				stats.chars[,COL_STATS_PAGES],
+				breaks=0:max(stats.chars[,COL_STATS_PAGES]),
+#				col="RED",
+#				xlab=xl,
+#				main=ml,
+#				freq=FALSE,
+				plot=FALSE
+		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+	dev.off()
+	
+	# distributions of scene numbers
+	vals <- table(stats.chars[,COL_STATS_SCENES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_CHARS,"Proportion")
+	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		ml <- "Scene number distribution over characters"
+		xl <- "Number of scenes by character"
+		h <- hist(
+			stats.chars[,COL_STATS_SCENES],
+			breaks=0:max(stats.chars[,COL_STATS_SCENES]),
+#			col="RED",
+#			xlab=xl,
+#			main=ml,
+#			freq=FALSE,
+			plot=FALSE
+		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+	dev.off()
+	
 	# distributions of panel numbers
 	vals <- table(stats.chars[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -704,50 +873,26 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		hist(
-			stats.chars[,COL_STATS_PANELS],
-			breaks=0:max(stats.chars[,COL_STATS_PANELS]),
-			col="RED",
-			xlab="Number of panels by character",
-			main="Panel number distribution over characters",
-			freq=FALSE
+		ml <- "Panel number distribution over characters"
+		xl <- "Number of panels by character"
+		h <- hist(
+				stats.chars[,COL_STATS_PANELS],
+				breaks=0:max(stats.chars[,COL_STATS_PANELS]),
+#				col="RED",
+#				xlab=xl,
+#				main=ml,
+#				freq=FALSE,
+				plot=FALSE
 		)
+		x <- h$breaks[2:length(h$breaks)]
+		y <- h$counts
+		idx <- which(y>0)
+		x <- x[idx]
+		y <- y[idx]
+		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
 	dev.off()
-# TODO bosser sur la liste de chars spécifiée dans le fichier, et pas retrouvé automatiquement	
-# pq manque-t-il des persos ?	
 	
-	
-	
-	##### overall stats
-	tlog(3,"Computing overall stats")
-	stats.overall <- data.frame(
-			integer(1),
-			integer(1), integer(1), integer(1),
-			integer(1), integer(1), integer(1),
-			stringsAsFactors=FALSE, check.names=FALSE
-	)
-	colnames(stats.overall) <- c(
-			COL_STATS_PAGES, 
-			COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, 
-			COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE
-		)
-	
-	# compute stats
-	stats.overall[1,COL_STATS_PAGES] <- page.nbr
-	#
-	stats.overall[1,COL_STATS_PANELS] <- panel.nbr
-	stats.overall[1,COL_STATS_PANEL_BY_PAGE] <- panel.nbr/page.nbr
-	stats.overall[1,COL_STATS_PANEL_BY_SCENE] <- panel.nbr/scene.nbr
-	#
-	stats.overall[1,COL_STATS_CHARS] <- char.nbr
-	stats.overall[1,COL_STATS_CHAR_BY_PAGE] <- sum(stats.pages[,COL_STATS_CHARS])/page.nbr
-	stats.overall[1,COL_STATS_CHAR_BY_SCENE] <- sum(stats.scenes[,COL_STATS_CHARS])/scene.nbr
-
-	# record stats
-	tlog(4,"Recording in ",STATS_OVERALL_FILE)
-	write.csv(x=stats.volumes, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
-	
-	
+		
 	
 	
 	##### stats by volume
@@ -756,59 +901,109 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	# init stats table for volume
 	stats.volumes <- data.frame(
 			character(volume.nbr), integer(volume.nbr),
-			integer(volume.nbr),
-			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr),
-			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr),
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), 
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), 
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), 
+			integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), integer(volume.nbr), 
 			stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(stats.volumes) <- c(
 			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
-			COL_STATS_PAGES, 
-			COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, 
-			COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE
+			COL_STATS_PAGES, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+			COL_STATS_SCENES, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+			COL_STATS_PANELS, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+			COL_STATS_CHARS, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL
 	)
-	
-	
-	
 	
 	# compute the stats for each volume
 	tlog(4,"Processing each volume separately")
 	for(v in 1:volume.nbr)
 	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
 		
+		# corresponding pages
 		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
+		pgn <- volume.info[v,COL_VOLS_END_PAGE] - volume.info[v,COL_VOLS_START_PAGE] + 1
+		
+		# corresponding characters
 		char.volume <- c()
 		for(i in idx.pg)
 			char.volume <- union(char.volume, char.pages[[i]])
+		chn <- length(char.volume)
 		
+		# corresponding scenes
 		idx.sc <- which(stats.scenes[,COL_STATS_VOLUME_ID]==v)
 		scn <- length(idx.sc)
 		
+		# corresponding panels
+		idx.pn <- which(stats.panels[,COL_STATS_VOLUME_ID]==v)
+		pnn <- sum(page.info[idx.pg,COL_PAGES_PANELS])
+	
+		# char stats
+		char.volume.pgn <- rep(0,chn)
+		names(char.volume.pgn) <- char.volume
+		for(p in idx.pg)
+		{	for(cc in char.pages[[p]])
+				char.volume.pgn[cc] <- char.volume.pgn[cc] + 1
+		}
+		char.volume.scn <- rep(0,chn)
+		names(char.volume.scn) <- char.volume
+		for(s in idx.sc)
+		{	for(cc in char.scenes[[s]])
+				char.volume.scn[cc] <- char.volume.scn[cc] + 1
+		}
+		char.volume.pnl <- rep(0,chn)
+		names(char.volume.pnl) <- char.volume
+		for(p in idx.pn)
+		{	for(cc in char.panels[[p]])
+				char.volume.pnl[cc] <- char.volume.pnl[cc] + 1
+		}
+		
+		# update stat table
 		stats.volumes[v, COL_STATS_VOLUME] <- volume.info[v,COL_VOLS_VOLUME]
 		stats.volumes[v, COL_STATS_VOLUME_ID] <- v
 		#
-		pgn <- volume.info[v,COL_VOLS_END_PAGE] - volume.info[v,COL_VOLS_START_PAGE] + 1
 		stats.volumes[v, COL_STATS_PAGES] <- pgn
+		stats.volumes[v, COL_STATS_PAGES_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_PAGES])/scn
+		stats.volumes[v, COL_STATS_PAGES_BY_CHAR] <- sum(char.volume.pgn)/chn
 		#
-		pnn <- sum(page.info[idx.pg,COL_PAGES_PANELS])
+		stats.volumes[v, COL_STATS_SCENES] <- scn
+		stats.volumes[v, COL_STATS_SCENES_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_SCENES])/pgn
+		stats.volumes[v, COL_STATS_SCENES_BY_CHAR] <- sum(char.volume.scn)/chn
+		#
 		stats.volumes[v, COL_STATS_PANELS] <- pnn
-		stats.volumes[v,COL_STATS_PANEL_BY_PAGE] <- pnn/pgn
-		stats.volumes[v,COL_STATS_PANEL_BY_SCENE] <- pnn/scn
+		stats.volumes[v,COL_STATS_PANELS_BY_PAGE] <- pnn/pgn
+		stats.volumes[v,COL_STATS_PANELS_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_PANELS])/scn
+		stats.volumes[v, COL_STATS_PANELS_BY_CHAR] <- sum(char.volume.pnl)/chn
 		#
-		char.nbr <- length(char.volume)
-		stats.volumes[v, COL_STATS_CHARS] <- char.nbr
-		stats.volumes[v,COL_STATS_CHAR_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_CHARS])/pgn
-		stats.volumes[v,COL_STATS_CHAR_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_CHARS])/scn
+		stats.volumes[v, COL_STATS_CHARS] <- chn
+		stats.volumes[v,COL_STATS_CHARS_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_CHARS])/pgn
+		stats.volumes[v,COL_STATS_CHARS_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_CHARS])/scn
+		stats.volumes[v, COL_STATS_CHARS_BY_PANEL] <- sum(stats.panels[idx.pn,COL_STATS_CHARS])/pnn
 	}
 	
 	# record stats
 	tlog(4,"Recording in ",STATS_VOLUMES_FILE)
 	write.csv(x=stats.volumes, file=STATS_VOLUMES_FILE, row.names=FALSE)#, col.names=TRUE)
 	
-	# evolution of the number of pages
-	vol.cols <- c(COL_STATS_PAGES, COL_STATS_PANELS, COL_STATS_PANEL_BY_PAGE, COL_STATS_PANEL_BY_SCENE, COL_STATS_CHARS, COL_STATS_CHAR_BY_PAGE, COL_STATS_CHAR_BY_SCENE)
-	vol.titles <- c("total number of pages", "total number of panels", "average number of panels by page", "average number of panels by scene", "total number of characters", "average number of characters by page", "average number of characters by scene")
-	vol.fnames <- c("num_pages", "num_panels", "num_panels_by_page", "num_panels_by_scene", "num_chars", "num_chars_by_page", "num_chars_by_scene")
+	# evolution of the stats by volume
+	vol.cols <- c(
+		COL_STATS_PAGES, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+		COL_STATS_SCENES, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+		COL_STATS_PANELS, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+		COL_STATS_CHARS, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL
+	)
+	vol.titles <- c(
+		"total number of pages", "average number of pages by scene", "average number of pages by character", 
+		"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
+		"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
+		"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel"
+	)
+	vol.fnames <- c(
+		"num_pages", "num_pages_by_scene", "num_pages_by_char",
+		"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
+		"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
+		"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel"
+	)
 	tlog(4,"Generating the plots")
 	for(m in 1:length(vol.cols))
 	{	tlog(5,"Processing column \"",vol.cols[m],"\" (",m,"/",length(vol.cols),")")
@@ -824,8 +1019,176 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		dev.off()
 	}
 	
-	# TODO plot all volume distribs on the same plot?
-}
+	# TODO plot all volume distributions on the same plot?
+	
+	
+	
+	
+	##### overall stats
+	tlog(3,"Computing overall stats")
+	stats.overall <- data.frame(
+			integer(1), integer(1), 
+			integer(1), integer(1), integer(1), integer(1), 
+			integer(1), integer(1), integer(1), integer(1), 
+			integer(1), integer(1), integer(1), integer(1), integer(1), 
+			integer(1), integer(1), integer(1), integer(1), integer(1), 
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.overall) <- c(
+			COL_STATS_VOLUMES, COL_STATS_VOLUMES_BY_CHAR,
+			COL_STATS_PAGES, COL_STATS_PAGES_BY_VOLUME, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+			COL_STATS_SCENES, COL_STATS_SCENES_BY_VOLUME, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+			COL_STATS_PANELS, COL_STATS_PANELS_BY_VOLUME, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+			COL_STATS_CHARS, COL_STATS_CHARS_BY_VOLUME, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL
+	)
+	
+	# compute stats
+	stats.overall[1,COL_STATS_VOLUMES] <- volume.nbr
+	stats.overall[1,COL_STATS_VOLUMES_BY_CHAR] <- sum(stats.chars[,COL_STATS_VOLUMES])/char.nbr
+	#
+	stats.overall[1,COL_STATS_PAGES] <- page.nbr
+	stats.overall[1,COL_STATS_PAGES_BY_VOLUME] <- sum(stats.volumes[,COL_STATS_PAGES])/volume.nbr
+	stats.overall[1,COL_STATS_PAGES_BY_SCENE] <- sum(stats.scenes[,COL_STATS_PAGES])/scene.nbr
+	stats.overall[1,COL_STATS_PAGES_BY_CHAR] <- sum(stats.chars[,COL_STATS_PAGES])/char.nbr
+	#
+	stats.overall[1,COL_STATS_SCENES] <- scene.nbr
+	stats.overall[1,COL_STATS_SCENES_BY_VOLUME] <- sum(stats.volumes[,COL_STATS_SCENES])/volume.nbr
+	stats.overall[1,COL_STATS_SCENES_BY_PAGE] <- sum(stats.pages[,COL_STATS_SCENES])/page.nbr
+	stats.overall[1,COL_STATS_SCENES_BY_CHAR] <- sum(stats.chars[,COL_STATS_SCENES])/char.nbr
+	#
+	stats.overall[1,COL_STATS_PANELS] <- panel.nbr
+	stats.overall[1,COL_STATS_PANELS_BY_VOLUME] <- panel.nbr/volume.nbr
+	stats.overall[1,COL_STATS_PANELS_BY_PAGE] <- panel.nbr/page.nbr
+	stats.overall[1,COL_STATS_PANELS_BY_SCENE] <- sum(stats.scenes[,COL_STATS_PANELS])/scene.nbr
+	stats.overall[1,COL_STATS_PANELS_BY_CHAR] <- sum(stats.chars[,COL_STATS_PANELS])/char.nbr
+	#
+	stats.overall[1,COL_STATS_CHARS] <- char.nbr
+	stats.overall[1,COL_STATS_CHARS_BY_VOLUME] <- sum(stats.volumes[,COL_STATS_CHARS])/volume.nbr
+	stats.overall[1,COL_STATS_CHARS_BY_PAGE] <- sum(stats.pages[,COL_STATS_CHARS])/page.nbr
+	stats.overall[1,COL_STATS_CHARS_BY_SCENE] <- sum(stats.scenes[,COL_STATS_CHARS])/scene.nbr
+	stats.overall[1,COL_STATS_CHARS_BY_PANEL] <- sum(stats.panels[,COL_STATS_CHARS])/panel.nbr
+	
+	# record stats
+	tlog(4,"Recording in ",STATS_OVERALL_FILE)
+	write.csv(x=stats.volumes, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
+	
+	
+	
+	
+#	# density plots
+#	p <- ggplot(data=stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) + 
+#			stat_density2d(
+#					aes(fill = ..density..),
+#					geom = "raster",
+#					contour = FALSE,
+#					h = c(.5, 5)
+#			)
+#	
+#	
+#	p <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
+#			geom_point() +
+#			theme(legend.position="none")
+#	ggMarginal(p, type="histogram")
+#	
+#	
+#	plot(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])
+#	
+#	h <- hexbin(
+#		x=stats.scenes[,COL_STATS_CHARS],
+#		y=stats.scenes[,COL_STATS_PANELS]
+#		)
+#	plot(h, colramp=rf)
+#	hexbinplot(Characters~Panels, data=stats.scenes, colramp=rf)
+#	hexbinplot(Characters~Panels, data=stats.scenes, colramp=rf, trans=log10, inv=function(x) 10^x)
+#	
+#	
+#	contour_plot <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
+#			stat_density_2d(aes(alpha = ..piece..)) +
+#			guides(color = FALSE, alpha = FALSE) +
+#			theme(plot.margin = margin())
+#	plot_grid(
+#			aligned_x_hist
+#			, NULL
+#			, contour_plot
+#			, aligned_y_hist
+#			, ncol = 2
+#			, nrow = 2
+#			, rel_heights = c(0.2, 1)
+#			, rel_widths = c(1, 0.2)
+#	)
+#	
+#	
+#	
+#	scatterplot <- ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +
+#			geom_point(size = 3, alpha = 0.6) +
+#			guides(color = FALSE) +
+#			theme(plot.margin = margin())
+#	
+#	
+## Define marginal histogram
+#	marginal_distribution <- function(x, var, group) {
+#		ggplot(x, aes_string(x = var)) +
+#				geom_histogram(bins = 30, alpha = 0.4, position = "identity") +
+#				# geom_density(alpha = 0.4, size = 0.1) +
+#				guides(fill = FALSE) +
+#				theme_void() +
+#				theme(plot.margin = margin())
+#	}
+#	
+## Set up marginal histograms
+#	x_hist <- marginal_distribution(stats.scenes, COL_STATS_CHARS)
+#	y_hist <- marginal_distribution(stats.scenes, COL_STATS_CHARS) +
+#			coord_flip()
+#	
+## Align histograms with scatterplot
+#	aligned_x_hist <- align_plots(x_hist, scatterplot, align = "v")[[1]]
+#	aligned_y_hist <- align_plots(y_hist, scatterplot, align = "h")[[1]]
+#	
+## Arrange plots
+#	plot_grid(
+#			aligned_x_hist
+#			, NULL
+#			, scatterplot
+#			, aligned_y_hist
+#			, ncol = 2
+#			, nrow = 2
+#			, rel_heights = c(0.2, 1)
+#			, rel_widths = c(1, 0.2)
+#	)
+#	
+#	
+#	
+#	
+#	
+#	# define the data inputs to ggplot
+#	# set data for x and y values x=, and y=
+#	# set the min and max for both the x and y axis, xmin=, xmax=, ymin= and ymax=
+#	ggplot(stats.scenes, aes(x=stats.scenes[,COL_STATS_CHARS], y=stats.scenes[,COL_STATS_PANELS])) +#, xmin=40, xmax=90, ymin=10, ymax=30)) +
+#			
+#			# define the color of the outline of the hexagons with color=c()
+#			# using c(#"809FFF") allows for the usage of hexadecimal color codes
+#			stat_binhex(bins=15, color=c("#D7DADB")) +
+#			
+#			# set the graph theme to classic, provides a white background and no grid lines
+#			# Change font size to 18 by using base_size = 18
+#			theme_classic(base_size=18) +
+#			
+#			# Apply lables to the graph for x and y
+#			labs(x = "Dimension 1", y = "Dimension 2")+
+#			
+#			# change the gradient fill to range from grey to Red
+#			scale_fill_gradient(low = "grey", high = "red")
+	
+	
+#	https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html
+#	https://www.r-bloggers.com/2014/09/5-ways-to-do-2d-histograms-in-r/
+#	https://stackoverflow.com/questions/14698870/how-do-i-make-a-heatmap-style-bivariate-histogram-in-a-lattice-layout
+#	https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html	
+#	https://stackoverflow.com/questions/8545035/scatterplot-with-marginal-histograms-in-ggplot2
+#	https://cran.r-project.org/web/packages/hexbin/vignettes/hexagon_binning.pdf
+#	https://powerbi.tips/2016/09/hexbin-plot-using-r/
+#	https://stackoverflow.com/questions/59145189/how-to-create-marginal-histogram-plot-along-with-a-geom-count-plot-in-r
+	}
 
 
 
@@ -834,7 +1197,7 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 # Reads the raw data contained in several tables, and returns them under the
 # form of data frames.
 #
-# returns: a list of 3 dataframes, volume.info (information related to the
+# returns: a list of 4 dataframes, volume.info (information related to the
 #          volumes), page.info (information related to the pages), inter.df
 #          (interactions between the characters), and char.info (character
 #		   information).
@@ -860,6 +1223,6 @@ read.raw.data <- function()
 	update.stats(volume.info, page.info, stats.scenes, char.scenes)
 	
 	# build result and return
-	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info, stat.df=stat.df)
+	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
 	return(result)
 }

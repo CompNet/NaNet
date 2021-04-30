@@ -74,9 +74,9 @@ Corpus stats:
     x panels/page
     x panel/scene
     x characters/scene
-    - panel/character
-    - scene/character
-      - number of scenes for the main characters
+    x panel/character
+    x scene/character
+      x number of scenes for the main characters
     - char/scene vs. scene duration (heatmap, cf. LREC paper)
   x avg/counts by volume
   x proportion of scenes 

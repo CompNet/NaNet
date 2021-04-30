@@ -1806,8 +1806,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 28	15	6	15	7	Thorgal Aegirsson
 28	16	1	18	10	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Kriss de Valnor
 28	19	1	19	3	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Kriss de Valnor
-28	19	4	19	7	Kriss de Valnor	Garde 28.19.1
-28	19	8	19	10	Kriss de Valnor	Garde 28.19.1
+28	19	4	19	7	Kriss de Valnor	Garde 28.19
+28	19	8	19	10	Kriss de Valnor	Garde 28.19
 28	20	1	20	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Kriss de Valnor
 28	20	5	20	7	Aaricia Ganfalfsdottir	Jolan Thorgalsson
 28	21	1	21	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
