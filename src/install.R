@@ -8,11 +8,22 @@
 
 
 
-# comparison of character strings
+# graph computing
 install.packages("igraph")
 
 # parallel computation
+#install.packages("foreach")
 install.packages("future.apply")
+install.packages("doParallel")
 
+# various plots
+install.packages("ggplot2")
+install.packages("ggExtra")
 # violin plots
 install.packages("vioplot")
+# palette
+install.packages("viridis")
+
+# statistical tests
+install.packages("ercv")
+install.packages("poweRlaw")

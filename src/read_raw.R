@@ -639,12 +639,14 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_SCENES,"Proportion")
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
-	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.pdf"), bg="white")
+#	pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.scenes[,COL_STATS_PANELS]
 		ml <- "Panel number distribution over scenes"
 		xl <- "Number of panels by scene"
+		# histogram
 		h <- hist(
-				stats.scenes[,COL_STATS_PANELS],
+				data,
 				breaks=0:max(stats.scenes[,COL_STATS_PANELS]),
 #				col="RED",
 #				xlab=xl,
@@ -652,13 +654,44 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 #				freq=FALSE,
 				plot=FALSE
 		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+		# scatterplot
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$density
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		expmax <- floor(log(min(y),10))
+#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
+#		axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
+		# complementary cumulated distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+	# check distribution
+	m_pl <- displ$new(data)
+		est <- estimate_xmin(m_pl)
+		m_pl$setXmin(est)
+		#bs_pl <- bootstrap_p(m_pl)		# bootstrap test power law
+	m_ln <- dislnorm$new(data)
+		est <- estimate_xmin(m_ln)
+		m_ln$setXmin(est)
+	m_ps <- dispois$new(data)	
+		est <- estimate_xmin(m_ps)
+		m_ps$setXmin(est)
+	m_xp <- disexp$new(data)
+		est <- estimate_xmin(m_xp)
+		m_xp$setXmin(est)
+	#
+	plot(m_pl)
+	lines(m_pl, col = 2)
+	lines(m_ln, col = 3)
+	lines(m_ps, col = 4)
+	lines(m_xp, col = 5)
+	#
+	m_ln$setXmin(m_pl$getXmin())
+	est <- estimate_pars(m_ln)
+	m_ln$setPars(est)
+	comp <- compare_distributions(m_pl, m_ln)
+	
 	
 	# distributions of character numbers
 	vals <- table(stats.scenes[,COL_STATS_CHARS])
@@ -1104,6 +1137,10 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 #		theme(legend.position="left") +
 #		geom_point(aes(x=xvals, y=yvals), alpha=0)
 #	ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill="#3a548c")
+
+	# TODO stats by vertex attribute (gender, nature, whatever is present in char.info)
+
+	# TODO extract networks using page-based windows, and also volume-based window.
 }
 
 

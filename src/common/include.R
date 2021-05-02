@@ -14,6 +14,7 @@ library("vioplot")
 library("ggplot2")
 library("viridis")
 library("ggExtra")
+library("poweRlaw")
 
 
 
@@ -47,6 +48,7 @@ DATA_FOLDER <- file.path("data",SERIES)
 source("src/read_raw.R")
 
 source("src/common/logging.R")
+source("src/common/ccdf_plot.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
 source("src/common/topo_measures.R")
