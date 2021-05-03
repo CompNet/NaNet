@@ -667,30 +667,8 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 	# check distribution
-	m_pl <- displ$new(data)
-		est <- estimate_xmin(m_pl)
-		m_pl$setXmin(est)
-		#bs_pl <- bootstrap_p(m_pl)		# bootstrap test power law
-	m_ln <- dislnorm$new(data)
-		est <- estimate_xmin(m_ln)
-		m_ln$setXmin(est)
-	m_ps <- dispois$new(data)	
-		est <- estimate_xmin(m_ps)
-		m_ps$setXmin(est)
-	m_xp <- disexp$new(data)
-		est <- estimate_xmin(m_xp)
-		m_xp$setXmin(est)
-	#
-	plot(m_pl)
-	lines(m_pl, col = 2)
-	lines(m_ln, col = 3)
-	lines(m_ps, col = 4)
-	lines(m_xp, col = 5)
-	#
-	m_ln$setXmin(m_pl$getXmin())
-	est <- estimate_pars(m_ln)
-	m_ln$setPars(est)
-	comp <- compare_distributions(m_pl, m_ln)
+	test.disc.distr(data)
+	
 	
 	
 	# distributions of character numbers
