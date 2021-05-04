@@ -1060,11 +1060,11 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	##### overall stats
 	tlog(3,"Computing overall stats")
 	stats.overall <- data.frame(
-			integer(1), integer(1), 
-			integer(1), integer(1), integer(1), integer(1), 
-			integer(1), integer(1), integer(1), integer(1), 
-			integer(1), integer(1), integer(1), integer(1), integer(1), 
-			integer(1), integer(1), integer(1), integer(1), integer(1), 
+			integer(1), numeric(1), 
+			integer(1), numeric(1), numeric(1), numeric(1), 
+			integer(1), numeric(1), numeric(1), numeric(1), 
+			integer(1), numeric(1), numeric(1), numeric(1), numeric(1), 
+			integer(1), numeric(1), numeric(1), numeric(1), numeric(1), 
 			stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(stats.overall) <- c(
