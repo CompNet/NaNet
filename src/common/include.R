@@ -45,13 +45,15 @@ DATA_FOLDER <- file.path("data",SERIES)
 ###############################################################################
 # load auxiliary functions
 
-source("src/read_raw.R")
-
 source("src/common/logging.R")
-source("src/common/ccdf_plot.R")
+source("src/common/distr_test.R")
+source("src/common/stats.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
 source("src/common/topo_measures.R")
+
+source("src/corpus/read_data.R")
+source("src/corpus/compute_stats.R")
 
 source("src/static/extract_nets.R")
 source("src/static/compute_stats.R")

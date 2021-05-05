@@ -1,379 +1,39 @@
-# This script contains functions used to read the raw data and build a matrix
-# representing character interactions.
+# This script contains functions used to compute some statistics and generate
+# plots related to the corpus.
 # 
 # Vincent Labatut
-# 01/2019
+# 05/2021
 ###############################################################################
 
 
 
 
 ###############################################################################
-# Reads the table describing the volumes of the BD series: starting page, ending
-# page, etc.
-#
-# returns: a dataframe listing the volume information, with the following columns:
-#			- COL_VOLS_VOLUME: volume in the BD series.
-#			- COL_VOLS_START_PAGE: starting page relatively to the volume.
-#			- COL_VOLS_END_PAGE: ending page relatively to the volume.
-#			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
-#			- COL_VOLS_TITLE: title of the volume.
-###############################################################################
-read.volume.table <- function(page.info)
-{	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
-	
-	# read the proper table
-	volume.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
-	
-	# nothing to do here, for now
-	
-	tlog(2,"Reading of the volume file completed")
-	return(volume.info)
-}
-
-
-
-
-###############################################################################
-# Reads the table describing the pages constituting the BD series,
-# performs some verifications and add some columns required for subsequent
-# processing.
-#
-# volume.info: table describing the series volumes.
-# 
-# returns: a dataframe listing the pages information, with the following columns:
-#			- COL_PAGES_VOLUME: volume in the BD series.
-#			- COL_PAGES_VOLUME_ID: absolute number of this volume.
-#			- COL_PAGES_PAGE: page in the above volume.
-#			- COL_PAGES_PANELS: number of panels in this page.
-#			- COL_PAGES_START_PANEL_ID: absolute number of the page's first panel in the whole series.
-###############################################################################
-read.page.table <- function(volume.info)
-{	tlog(2,"Trying to read the page file (",PAGE_FILE,")")
-	
-	# read the proper table
-	page.info <- read.csv(PAGE_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
-	
-	# check that each relative page number matches the interval defined in the volume table 
-	vol.ids <- match(page.info[,COL_PAGES_VOLUME],volume.info[,COL_VOLS_VOLUME])
-	err.pg.idx <- which(page.info[,COL_PAGES_PAGE]<volume.info[vol.ids,COL_VOLS_START_PAGE]
-		| page.info[,COL_PAGES_PAGE]>volume.info[vol.ids,COL_VOLS_END_PAGE])
-	if(length(err.pg.idx)>0)
-	{	tmp.msg <- apply(as.matrix(page.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
-		tmp.msg <- apply(cbind(err.pg.idx,tmp.msg),1, function(r) paste(r,collapse=": "))
-		tmp.msg <- c(paste(colnames(page.info),collapse=","),tmp.msg)
-		tmp.msg <- paste(tmp.msg,collapse="\n")
-		msg <- paste0("ERROR while reading file \"",PAGE_FILE,"\". The following pages are out of bounds, compared to the volume information:\n",tmp.msg)
-		tlog(3,msg)
-		stop(msg)
-	}
-	
-	# get the number of the panel starting each page since the beginning
-	start.panel.ids <- cumsum(c(1,page.info[,COL_PAGES_PANELS]))
-	start.panel.ids <- start.panel.ids[1:(length(start.panel.ids)-1)]
-	# add this as a new column
-	page.info <- cbind(page.info,start.panel.ids)
-	colnames(page.info)[ncol(page.info)] <- COL_PAGES_START_PANEL_ID
-	
-	# also add the volume id (i.e. absolute number over the whole series)
-	page.info <- cbind(page.info,vol.ids)
-	colnames(page.info)[ncol(page.info)] <- COL_PAGES_VOLUME_ID
-	
-	tlog(2,"Reading of the page file completed")
-	return(page.info)	
-}	
-
-
-	
-###############################################################################
-# Reads the table describing the interactions between characters, and coverts
-# them into an edge list while performing some verifications.
+# Computes and records some statistics regarding the panels.
 #
 # volume.info: table describing the series volumes.
 # page.info: table describing all the pages constituting the BD series.
-# 
-# returns: a dataframe listing the interactions, with the following columns:
-#			- COL_INTER_FROM_CHAR: first character concerned by the interaction.
-#			- COL_INTER_TO_CHAR: second character concerned by the interaction.
-#			- COL_INTER_START_PANEL_ID: absolute id of the panel where the interaction starts.
-#			- COL_INTER_END_PANEL_ID: absolute id of the panel where the interaction ends.
-###############################################################################
-read.inter.table <- function(volume.info, page.info)
-{	char.scenes <- list()
-	
-	# init stats table for scenes
-	stats.scenes <- data.frame(
-			character(), integer(),
-			integer(), integer(),
-			integer(), integer(), 
-			integer(), integer(),
-			integer(), integer(), 
-			integer(), integer(), integer(),
-			logical(), logical(), logical(),
-			stringsAsFactors=FALSE, check.names=FALSE
-	)
-	colnames(stats.scenes) <- c(
-			COL_STATS_VOLUME, COL_STATS_VOLUME_ID,
-			COL_STATS_START_PAGE, COL_STATS_START_PAGE_ID, 
-			COL_STATS_START_PANEL, COL_STATS_START_PANEL_ID,
-			COL_STATS_END_PAGE, COL_STATS_END_PAGE_ID, 
-			COL_STATS_END_PANEL, COL_STATS_END_PANEL_ID, 
-			COL_STATS_PANELS, COL_STATS_PAGES, COL_STATS_CHARS,
-			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
-	)
-	
-	# read the proper table
-	tlog(2,"Trying to read the interaction file (",INTER_FILE,")")
-	con <- file(INTER_FILE, open="r")
-		temp <- readLines(con)
-	close(con)
-	lines <- strsplit(temp, split='\t', fixed=TRUE)
-	tlog(2,"Reading of the interaction file completed")
-	
-	# extract the edge list
-	tlog(2,"Converting interactions to dataframe")
-	inter.df <- data.frame(
-			From=character(), To=character(),
-			Start=integer(), End=integer(), 
-			stringsAsFactors=FALSE)
-	Encoding(inter.df$From) <- "UTF-8"
-	Encoding(inter.df$To) <- "UTF-8"
-	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_START_PANEL_ID, COL_INTER_END_PANEL_ID)
-	colnames(inter.df) <- cn
-	prev.end.panel.id <- NA
-	for(l in 2:length(lines))
-	{	line <- lines[[l]]
-		# get volume
-		volume <- line[1]
-		volume.id <- which(volume.info[,COL_VOLS_VOLUME]==volume)
-		
-		# get start page and panel
-		start.page <- line[2]
-		start.page.id <- which(page.info[,COL_PAGES_PAGE]==start.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
-		if(length(start.page.id)==0)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			stop(msg)
-		}
-		start.panel <-  as.integer(line[3])
-		if(start.panel>page.info[start.page.id,COL_PAGES_PANELS])
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			stop(msg)
-		}
-		start.panel.id <- page.info[start.page.id,COL_PAGES_START_PANEL_ID] + start.panel - 1
-		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
-		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			#warning(msg)
-		}
-		
-		# get end page and panel
-		end.page <- line[4]
-		end.page.id <- which(page.info[,COL_PAGES_PAGE]==end.page & page.info[,COL_PAGES_VOLUME_ID]==volume.id)
-		if(length(end.page.id)==0)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line: \"",paste(line,collapse=","),"\"") 
-			tlog(3,msg)
-			stop(msg)
-		}
-		end.panel <- as.integer(line[5])
-		if(end.panel>page.info[end.page.id,COL_PAGES_PANELS])
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			stop(msg)
-		}
-		end.panel.id <- page.info[end.page.id,COL_PAGES_START_PANEL_ID] + end.panel - 1
-		prev.end.panel.id <- end.panel.id
-		
-		# check that the end is after the start
-		if(start.panel.id>end.panel.id)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\"")
-			tlog(3,msg)
-			stop(msg)
-		}
-
-		# get all combinations of characters
-		if(length(line)<6)
-			chars <- c()
-		else
-		{	chars <- line[6:length(line)]
-			chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
-			chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
-					{	if(length(v)==0)
-							return("")
-						else if(length(v)==1)
-							return(trimws(v))
-						else if(length(v)==2)
-							return(trimws(v[2]))
-						else
-						{	msg <- paste0("ERROR when splitting the names: ",v)
-							tlog(4,msg)
-							stop(msg)
-						}
-					})
-			chars <- sort(chars[which(chars!="" & chars!=" ")])
-			if(length(chars)<=1)
-			{	if(length(chars)==0)
-					msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
-				else #if(length(chars)==1)
-					msg <- paste0("WARNING there is less than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
-				tlog(3,msg)
-				#warning(msg)
-			}
-			else
-			{	if(length(chars)>length(unique(chars)))
-				{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
-					tlog(3,msg)
-					#stop(msg)
-					chars <- unique(chars)
-				}
-				if(length(chars)<=1)
-				{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
-					tlog(3,msg)
-					#warning(msg)
-				}
-				else
-				{	chars.mat <- t(combn(x=chars,m=2))
-				
-					# add scene to data frame
-					tmp.df <- data.frame(From=(chars.mat[,1]), To=chars.mat[,2], 
-							Start=as.integer(rep(start.panel.id,nrow(chars.mat))), End=as.integer(rep(end.panel.id,nrow(chars.mat))),
-							stringsAsFactors=FALSE)
-					colnames(tmp.df) <- cn
-					inter.df <- rbind(inter.df, tmp.df)
-				}
-			}
-		}
-		char.scenes <- c(char.scenes, list(chars))
-		
-		# update the scene stats
-		panel.nbr <- end.panel.id - start.panel.id + 1
-		page.nbr <- end.page.id - start.page.id + 1
-		match.start <- start.panel==1
-		match.end <- end.panel==page.info[end.page.id,COL_PAGES_PANELS]
-		row.scene <- data.frame(
-			volume, volume.id,
-			start.page, start.page.id, 
-			start.panel, start.panel.id,
-			end.page, end.page.id, 
-			end.panel, end.panel.id,
-			panel.nbr, page.nbr, length(chars),
-			match.start, match.end, match.start && match.end,
-			stringsAsFactors=FALSE, check.names=FALSE
-		)
-		colnames(row.scene) <- c(
-			COL_STATS_VOLUME, COL_STATS_VOLUME_ID, 
-			COL_STATS_START_PAGE, COL_STATS_START_PAGE_ID, 
-			COL_STATS_START_PANEL, COL_STATS_START_PANEL_ID,
-			COL_STATS_END_PAGE, COL_STATS_END_PAGE_ID, 
-			COL_STATS_END_PANEL, COL_STATS_END_PANEL_ID, 
-			COL_STATS_PANELS, COL_STATS_PAGES, COL_STATS_CHARS,
-			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
-		)
-		stats.scenes <- rbind(stats.scenes, row.scene)
-	}
-	
-	tlog(2,"Conversion of the interaction raw data completed")
-	result <- list(inter.df=inter.df, stats.scenes=stats.scenes, char.scenes=char.scenes)
-	return(result)
-}
-
-
-
-###############################################################################
-# Reads the table describing the characters of the BD series: the name is compulsory,
-# then the other columns depend on the series itself. The function also checks
-# whether some character misses from the table based on the previously loaded
-# interactions, and vice-versa.
-#
-# inter.df: dataframe containing all the character interactions.
-#
-# returns: a dataframe listing the character information, with the following columns:
-#			- COL_VOLS_VOLUME: volume in the BD series.
-#			- COL_VOLS_START_PAGE: starting page relatively to the volume.
-#			- COL_VOLS_END_PAGE: ending page relatively to the volume.
-#			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
-#			- COL_VOLS_TITLE: title of the volume.
-###############################################################################
-read.char.table <- function(inter.df)
-{	if(file.exists(CHAR_FILE))
-	{	tlog(2,"Trying to read the character file (",CHAR_FILE,")")
-	
-		# read the proper table
-		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
-		table.chars <- char.info[,COL_CHAR_NAME]
-		table.chars <- sort(table.chars)
-		
-		# check multiple name use
-		x <- table(table.chars)
-		pb.chars <- names(x)[x!=1]
-		if(length(pb.chars)>0)
-		{	msg <- paste0("ERROR: The following names are used multiple times in file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
-			tlog(3,msg)
-			stop(msg)
-		}
-		
-		# get the list of characters from the interactions
-		inter.chars <- c(inter.df[,COL_INTER_FROM_CHAR],inter.df[,COL_INTER_TO_CHAR])
-		inter.chars <- sort(unique(inter.chars))
-		
-		# check whether some characters miss from the table
-		pb.chars <- setdiff(inter.chars,table.chars)
-		if(length(pb.chars)>0)
-		{	#cat(paste(pb.chars,collapse="\n"))
-			msg <- paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
-			tlog(3,msg)
-			stop(msg)
-		}
-		
-		# check whether some characters miss from the interactions
-		pb.chars <- setdiff(table.chars,inter.chars)
-		if(length(pb.chars)>0)
-		{	#cat(paste(pb.chars,collapse="\n"))
-			msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
-			tlog(3,msg)
-			#warning(msg)
-		}
-		
-		tlog(2,"Reading of the character file completed")
-	}
-	else
-	{	tlog(2,"No character file found")
-		
-		# just get the character names from the interactions
-		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
-		inter.chars <- sort(unique(inter.chars))
-		
-		char.info <- data.frame(name=c("lkj","lkj","oiu","uyt"))
-		cn <- c(COL_CHAR_NAME)
-		colnames(char.info) <- cn
-	}
-	
-	return(char.info)
-}
-
-
-
-
-###############################################################################
-# Computes and records some statistics regarding the parsed corpus.
-#
-# volume.info: table describing the series volumes.
-# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
 # stats.scenes: previously computed scene statistics.
-# char.scenes: information about the scenes.
+# char.scenes: characters present in each scene.
+#
+# returns: a list containing the table with overall panel stats (stats.panels), the 
+#          panel stats by vertex attribute values (stats.panels.atts), and the list
+#          of characters for each panel.
 ###############################################################################
-update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
-{	tlog(2,"Computing corpus stats")
+compute.stats.panels <- function(volume.info, page.info, char.info, 
+		stats.scenes, 
+		char.scenes)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
+	# panel positions
 	pages.end.panel.ids <- c(
 			page.info[2:nrow(page.info),COL_PAGES_START_PANEL_ID]-1,
 			page.info[nrow(page.info),COL_PAGES_START_PANEL_ID]+page.info[nrow(page.info),COL_PAGES_PANELS]
-		)
+	)
 	
-		
-		
-		
-	##### panels stats
+	# compute stats
 	tlog(3,"Computing panel stats")
 	panel.nbr <- max(c(stats.scenes[,COL_STATS_START_PANEL_ID],stats.scenes[,COL_STATS_END_PANEL_ID]))
 	
@@ -393,6 +53,12 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 			COL_STATS_CHARS, 
 			COL_STATS_MATCH_START, COL_STATS_MATCH_END, COL_STATS_MATCH_BOTH
 	)
+	#
+	stats.panels.atts <- list()
+	if(att.nbr>0)
+	{	stats.panels.atts <- matrix(NA, nrow=panel.nbr, ncol=att.nbr)
+		colnames(stats.panels.atts) <- atts
+	}
 	
 	# compute the stats for each panel
 	tlog(4,"Processing each panel separately")
@@ -422,6 +88,12 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		stats.panels[p, COL_STATS_MATCH_START] <- match.start
 		stats.panels[p, COL_STATS_MATCH_END] <- match.end
 		stats.panels[p, COL_STATS_MATCH_BOTH] <- match.start && match.end
+		
+		if(att.nbr>0)
+		{	idx <- match(char.panels[[p]], char.info[,COL_CHAR_NAME])
+			for(a in 1:length(atts))
+				stats.panels.atts <- table(char.info[idx,atts[a]])
+		}
 	}
 	
 	# record stats
@@ -436,25 +108,30 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	#
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.panels[,COL_STATS_CHARS]
 		ml <- "Character number distribution over panels"
 		xl <- "Number of characters by panel"
+		# histogram
 		h <- hist(
-				stats.panels[,COL_STATS_CHARS],
-				breaks=0:max(stats.panels[,COL_STATS_CHARS]),
-				col="RED",
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
+			data,
+			breaks=0:max(data),
+			col="#3a548c",
+			xlab=xl,
+			main=ml,
+			freq=FALSE,
 #				plot=FALSE
 		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$counts
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# complementary cumulative distribution function
+#		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
-		
+	
 	# distribution of panel positions
 	vals <- c()
 	vals["Both"] <- length(which(stats.panels[, COL_STATS_MATCH_BOTH]))
@@ -468,18 +145,43 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	#
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		barplot(
+	barplot(
 			height=perc,
 			main="Distribution of panel positions (%)",
-			col="RED"
-		)
+			col="#3a548c"
+	)
 	dev.off()
 	
+	result <- list(stats.panels=stats.panels, stats.panels.atts=stats.panels.atts, char.panels=char.panels)
+	return(result)
+}	
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the pages.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
+#
+# returns: a list containing the table with overall page stats (stats.panels), the 
+#          page stats by vertex attribute values (stats.panels.atts), and the list
+#          of characters for each page.
+###############################################################################
+compute.stats.pages <- function(volume.info, page.info, char.info, 
+		stats.scenes, stats.panels, 
+		char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
 	
-	
-	
-	##### page stats
-	tlog(3,"Computing page stats")
+	# compute stats
 	page.nbr <- max(c(stats.scenes[,COL_STATS_START_PAGE_ID],stats.scenes[,COL_STATS_END_PAGE_ID]))
 	
 	# list the characters by page
@@ -522,8 +224,8 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		
 		# number of scenes overlapping the page
 		scn <- length(which(
-					stats.scenes[,COL_STATS_START_PAGE_ID]<=p
-					& stats.scenes[,COL_STATS_END_PAGE_ID]>=p
+						stats.scenes[,COL_STATS_START_PAGE_ID]<=p
+								& stats.scenes[,COL_STATS_END_PAGE_ID]>=p
 				))
 		
 		stats.pages[p, COL_STATS_VOLUME] <- page.info[p,COL_PAGES_VOLUME]
@@ -546,23 +248,28 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_scene_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.pages[,COL_STATS_SCENES]
 		ml <- "Scene number distribution over pages"
 		xl <- "Number of scenes by page"
+		# histogram
 		h <- hist(
-				stats.pages[,COL_STATS_SCENES],
-				breaks=0:max(stats.pages[,COL_STATS_SCENES]),
-				col="RED",
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
 #				plot=FALSE
 		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$counts
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# complementary cumulative distribution function
+#		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 	
 	# distributions of panel numbers
@@ -572,23 +279,28 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.pages[,COL_STATS_PANELS]
 		ml <- "Panel number distribution over pages"
 		xl <- "Number of panels by page"
+		# histogram
 		h <- hist(
-				stats.pages[,COL_STATS_PANELS],
-				breaks=0:max(stats.pages[,COL_STATS_PANELS]),
-				col="RED",
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
 #				plot=FALSE
 		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$counts
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# complementary cumulative distribution function
+#		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 	
 	# distributions of character numbers
@@ -598,29 +310,61 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "pages_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.pages[,COL_STATS_CHARS]
 		ml <- "Character number distribution over pages"
 		xl <- "Number of characters by page"
+		# histogram
 		h <- hist(
-				stats.pages[,COL_STATS_CHARS],
-				breaks=0:max(stats.pages[,COL_STATS_CHARS]),
-				col="RED",
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
 #				plot=FALSE
 		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$counts
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# complementary cumulative distribution function
+#		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 	
+	result <- list(stats.pages=stats.pages, stats.pages.atts=stats.pages.atts, char.pages=char.pages)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the scenes.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.pages: previously computed page statistics.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# char.page: characters present in each page.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
+#
+# returns: a list containing the table with overall scene stats (stats.scenes) and the 
+#          scene stats by vertex attribute values (stats.scenes.atts).
+###############################################################################
+compute.stats.scenes <- function(volume.info, page.info, char.info, 
+		stats.pages, stats.scenes, stats.panels, 
+		char.pages, char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
 	
-	
-	
-	##### scene stats
+	# compute stats
 	tlog(3,"Computing scene stats")
 	scene.nbr <- nrow(stats.scenes)
 	# remove id columns
@@ -640,36 +384,34 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_SCENES,"Proportion")
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 #	pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.pdf"), bg="white")
-	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
 		data <- stats.scenes[,COL_STATS_PANELS]
 		ml <- "Panel number distribution over scenes"
 		xl <- "Number of panels by scene"
-		# histogram
-		h <- hist(
-				data,
-				breaks=0:max(stats.scenes[,COL_STATS_PANELS]),
-#				col="RED",
-#				xlab=xl,
-#				main=ml,
-#				freq=FALSE,
-				plot=FALSE
-		)
-		# scatterplot
+#		# histogram
+#		h <- hist(
+#				data,
+#				breaks=0:max(data),
+##				col="#3a548c",
+##				xlab=xl,
+##				main=ml,
+##				freq=FALSE,
+#				plot=FALSE
+#		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$density
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
 #		expmax <- floor(log(min(y),10))
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #		axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
-		# complementary cumulated distribution function
+		# complementary cumulative distribution function
 		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
-	# check distribution
-	test.disc.distr(data)
-	
-	
+#	# check distribution
+#	test.disc.distr(data)
 	
 	# distributions of character numbers
 	vals <- table(stats.scenes[,COL_STATS_CHARS])
@@ -677,24 +419,29 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_SCENES, "Proportion")
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.pdf"), bg="white")
-	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.scenes[,COL_STATS_CHARS]
 		ml <- "Character number distribution over scenes"
 		xl <- "Number of characters by scene"
+		# histogram
 		h <- hist(
-				stats.scenes[,COL_STATS_CHARS],
-				breaks=0:max(stats.scenes[,COL_STATS_CHARS]),
-				col="RED",
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
 #				plot=FALSE
 		)
+#		# scatterplot
 #		x <- h$breaks[2:length(h$breaks)]
 #		y <- h$counts
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# complementary cumulative distribution function
+#		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 	
 	# distributions of page numbers
@@ -704,24 +451,31 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "scenes_distrib_page_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.scenes[,COL_STATS_PAGES]
 		ml <- "Page number distribution over scenes"
 		xl <- "Number of pages by scene"
+		# histogram
 		h <- hist(
-				stats.scenes[,COL_STATS_PAGES],
-				breaks=0:max(stats.scenes[,COL_STATS_PAGES]),
-				col="RED",
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
 #				plot=FALSE
 		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# scatterplot
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+		# complementary cumulative distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+#	# check distribution
+#	test.disc.distr(data)
 	
 	# distribution of scene positions
 	vals <- c()
@@ -739,14 +493,42 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		barplot(
 			height=perc,
 			main="Distribution of scene positions (%)",
-			col="RED"
+			col="#3a548c"
 		)
 	dev.off()
 	
+	result <- list(stats.scenes=stats.scenes, stats.scenes.atts=stats.scenes.atts)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the characters.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.pages: previously computed page statistics.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# char.pages: characters present in each page.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
+#
+# returns: a list containing the table with overall character stats (stats.chars), the 
+#          character stats by vertex attribute values (stats.chars.atts), and the list
+#          of characters for each volume.
+###############################################################################
+compute.stats.chars <- function(volume.info, page.info, char.info, 
+		stats.pages, stats.scenes, stats.panels,
+		char.pages, char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
 	
-	
-	
-	#### character stats
+	# compute stats
 	tlog(3,"Computing character stats")
 	unique.chars <- sort(unique(unlist(char.scenes)))
 	char.nbr <- length(unique.chars)
@@ -806,24 +588,31 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_volume_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.chars[,COL_STATS_VOLUMES]
 		ml <- "Volume number distribution over characters"
 		xl <- "Number of volumes by character"
-		h <- hist(
-				stats.chars[,COL_STATS_VOLUMES],
-				breaks=0:max(stats.chars[,COL_STATS_VOLUMES]),
-#				col="RED",
-#				xlab=xl,
-#				main=ml,
-#				freq=FALSE,
-				plot=FALSE
-		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# histogram
+#		h <- hist(
+#				data,
+#				breaks=0:max(data),
+##				col="#3a548c",
+##				xlab=xl,
+##				main=ml,
+##				freq=FALSE,
+#				plot=FALSE
+#		)
+#		# scatterplot
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+		# complementary cumulative distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+#	# check distribution
+#	test.disc.distr(data)
 	
 	# distributions of page numbers
 	vals <- table(stats.chars[,COL_STATS_PAGES])
@@ -832,50 +621,63 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_page_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.chars[,COL_STATS_PAGES]
 		ml <- "Page number distribution over characters"
 		xl <- "Number of pages by character"
-		h <- hist(
-				stats.chars[,COL_STATS_PAGES],
-				breaks=0:max(stats.chars[,COL_STATS_PAGES]),
-#				col="RED",
-#				xlab=xl,
-#				main=ml,
-#				freq=FALSE,
-				plot=FALSE
-		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# histogram
+#		h <- hist(
+#				data,
+#				breaks=0:max(data),
+##				col="#3a548c",
+##				xlab=xl,
+##				main=ml,
+##				freq=FALSE,
+#				plot=FALSE
+#		)
+#		# scatterplot
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+		# complementary cumulative distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+#	# check distribution
+#	test.disc.distr(data)
 	
 	# distributions of scene numbers
 	vals <- table(stats.chars[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_CHARS,"Proportion")
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
-	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.pdf"), bg="white")
+#	pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_scene_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.chars[,COL_STATS_SCENES]
 		ml <- "Scene number distribution over characters"
 		xl <- "Number of scenes by character"
-		h <- hist(
-			stats.chars[,COL_STATS_SCENES],
-			breaks=0:max(stats.chars[,COL_STATS_SCENES]),
-#			col="RED",
-#			xlab=xl,
-#			main=ml,
-#			freq=FALSE,
-			plot=FALSE
-		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# histogram
+#		h <- hist(
+#				data,
+#			breaks=0:max(data),
+##			col="#3a548c",
+##			xlab=xl,
+##			main=ml,
+##			freq=FALSE,
+#			plot=FALSE
+#		)
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+		# complementary cumulative distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+#	# check distribution
+#	test.disc.distr(data)
 	
 	# distributions of panel numbers
 	vals <- table(stats.chars[,COL_STATS_PANELS])
@@ -884,29 +686,65 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
 	#pdf(file=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.pdf"), bg="white")
 	png(filename=file.path(STAT_CORPUS_FOLDER, "chars_distrib_panel_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		data <- stats.chars[,COL_STATS_PANELS]
 		ml <- "Panel number distribution over characters"
 		xl <- "Number of panels by character"
-		h <- hist(
-				stats.chars[,COL_STATS_PANELS],
-				breaks=0:max(stats.chars[,COL_STATS_PANELS]),
-#				col="RED",
-#				xlab=xl,
-#				main=ml,
-#				freq=FALSE,
-				plot=FALSE
-		)
-		x <- h$breaks[2:length(h$breaks)]
-		y <- h$counts
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
-		plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy")
+#		# histogram
+#		h <- hist(
+#				data,
+#				breaks=0:max(data),
+##				col="#3a548c",
+##				xlab=xl,
+##				main=ml,
+##				freq=FALSE,
+#				plot=FALSE
+#		)
+#		# scatterplot
+#		x <- h$breaks[2:length(h$breaks)]
+#		y <- h$counts
+#		idx <- which(y>0)
+#		x <- x[idx]
+#		y <- y[idx]
+#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+		# complementary cumulative distribution function
+		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
+#	# check distribution
+#	test.disc.distr(data)
+
+	result <- list(stats.chars=stats.chars, stats.chars.atts=stats.chars.atts, char.volumes=char.volumes)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the volumes.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.pages: previously computed page statistics.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# stats.chars: previously computed character statistics.
+# char.volumes: characters present in each volume.
+# char.pages: characters present in each page.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
+#
+# returns: a list containing the table with overall volume stats (stats.chars), and
+#          the volume stats by vertex attribute values (stats.chars.atts).
+###############################################################################
+compute.stats.volumes <- function(volume.info, page.info, char.info, 
+		stats.pages, stats.scenes, stats.panels, stats.chars,
+		char.volumes, char.pages, char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
 	
-		
-	
-	
-	##### stats by volume
+	# compute stats
 	tlog(3,"Computing volume stats")
 	
 	# init stats table for volume
@@ -948,7 +786,7 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		# corresponding panels
 		idx.pn <- which(stats.panels[,COL_STATS_VOLUME_ID]==v)
 		pnn <- sum(page.info[idx.pg,COL_PAGES_PANELS])
-	
+		
 		# char stats
 		char.volume.pgn <- rep(0,chn)
 		names(char.volume.pgn) <- char.volume
@@ -990,6 +828,27 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 		stats.volumes[v,COL_STATS_CHARS_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_CHARS])/pgn
 		stats.volumes[v,COL_STATS_CHARS_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_CHARS])/scn
 		stats.volumes[v, COL_STATS_CHARS_BY_PANEL] <- sum(stats.panels[idx.pn,COL_STATS_CHARS])/pnn
+		
+		# density plot: chars vs. panels
+		#pdf(file=file.path(STAT_CORPUS_FOLDER, paste0("comparison_vol",v,"_chars-scenes_vs_panels-scenes.pdf")), bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, paste0("comparison_vol",v,"_chars-scenes_vs_panels-scenes.png")), width=800, height=800, units="px", pointsize=20, bg="white")
+			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
+			yvals <- stats.scenes[idx.sc,COL_STATS_PANELS]
+			xlab <- "Number of characters by scene"
+			ylab <- "Number of panels by scene"
+			p=ggplot(stats.scenes[idx.sc,], aes(x=xvals, y=yvals)) +
+				geom_hex(binwidth=1) + 
+				coord_fixed() +
+				scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+				theme_bw() +
+				theme_classic() +	# base_size=18
+				labs(fill="Frequency",x=xlab, y=ylab) +
+				theme(legend.position="left") +
+				geom_point(aes(x=xvals, y=yvals), alpha=0)
+			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill="#3a548c")
+			print(p)
+		dev.off()
+		tlog(6,"Correlation between characters/scene and panels/scene: ", cor(stats.scenes[idx.sc,COL_STATS_CHARS],stats.scenes[idx.sc,COL_STATS_PANELS]))
 	}
 	
 	# record stats
@@ -998,44 +857,74 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	
 	# evolution of the stats by volume
 	vol.cols <- c(
-		COL_STATS_PAGES, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
-		COL_STATS_SCENES, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
-		COL_STATS_PANELS, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
-		COL_STATS_CHARS, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL
+			COL_STATS_PAGES, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+			COL_STATS_SCENES, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+			COL_STATS_PANELS, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+			COL_STATS_CHARS, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL
 	)
 	vol.titles <- c(
-		"total number of pages", "average number of pages by scene", "average number of pages by character", 
-		"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
-		"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
-		"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel"
+			"total number of pages", "average number of pages by scene", "average number of pages by character", 
+			"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
+			"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
+			"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel"
 	)
 	vol.fnames <- c(
-		"num_pages", "num_pages_by_scene", "num_pages_by_char",
-		"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
-		"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
-		"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel"
+			"num_pages", "num_pages_by_scene", "num_pages_by_char",
+			"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
+			"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
+			"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel"
 	)
 	tlog(4,"Generating the plots")
-	for(m in 1:length(vol.cols))
-	{	tlog(5,"Processing column \"",vol.cols[m],"\" (",m,"/",length(vol.cols),")")
+	for(v in 1:length(vol.cols))
+	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
 		#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.pdf"), bg="white")
-		png(filename=file.path(STAT_CORPUS_FOLDER, paste0("volumes_evol_",vol.fnames[m],".png")), width=800, height=800, units="px", pointsize=20, bg="white")
-			barplot(
-				height=stats.volumes[,vol.cols[m]],
+		png(filename=file.path(STAT_CORPUS_FOLDER, paste0("volumes_evol_",vol.fnames[v],".png")), width=800, height=800, units="px", pointsize=20, bg="white")
+		barplot(
+				height=stats.volumes[,vol.cols[v]],
 				names.arg=stats.volumes[,COL_STATS_VOLUME],
-				main=paste0("Evolution of the ",vol.titles[m]),
-				col="RED"
-			)
+				main=paste0("Evolution of the ",vol.titles[v]),
+				col="#3a548c"
+		)
 		dev.off()
 	}
 	
 	# TODO plot all volume distributions on the same plot?
+
+	result <- list(stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the volumes.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.volumes: previously computed volume statistics.
+# stats.pages: previously computed page statistics.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# stats.panels: previously computed character statistics.
+# char.pages: characters present in each page.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
+# char.panels: characters present in each volume.
+#
+# returns: a list containing the table with overall volume stats (stats.chars), and
+#          the volume stats by vertex attribute values (stats.chars.atts).
+###############################################################################
+compute.stats.overall <- function(volume.info, page.info, char.info, 
+		stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+		char.volumes, char.pages, char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
 	
-	
-	
-	
-	##### overall stats
+	# compute stats
 	tlog(3,"Computing overall stats")
 	stats.overall <- data.frame(
 			integer(1), numeric(1), 
@@ -1083,77 +972,188 @@ update.stats <- function(volume.info, page.info, stats.scenes, char.scenes)
 	tlog(4,"Recording in ",STATS_OVERALL_FILE)
 	write.csv(x=stats.overall, file=STATS_OVERALL_FILE, row.names=FALSE)#, col.names=TRUE)
 	
-	# TODO stats by narrative arc?
-
-	# density plots
-	xvals <- stats.scenes[,COL_STATS_CHARS]
-	yvals <- stats.scenes[,COL_STATS_PANELS]
-	xlab <- "Number of characters"
-	ylab <- "Number of panels"
-	p=ggplot(stats.scenes, aes(x=xvals, y=yvals)) +
-		geom_hex(binwidth=2) + 
-		coord_fixed() +
-		scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
-		theme_bw() +
-		theme_classic() +	# base_size=18
-		labs(fill="Count",x=xlab, y=ylab) +
-		theme(legend.position="left") +
-		geom_point(aes(x=xvals, y=yvals), alpha=0)
-	ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill="#3a548c")
-
-#	xvals <- stats.chars[,COL_STATS_SCENES]
-#	yvals <- stats.chars[,COL_STATS_PANELS]
-#	xlab <- "Number of scenes"
-#	ylab <- "Number of panels"
-#	p=ggplot(stats.chars, aes(x=xvals, y=yvals)) +
-#		geom_hex(binwidth=100) + 
-#		coord_fixed() +
-#		scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
-#		theme_bw() +
-#		theme_classic() +	# base_size=18
-#		labs(fill="Count",x=xlab, y=ylab) +
-#		theme(legend.position="left") +
-#		geom_point(aes(x=xvals, y=yvals), alpha=0)
-#	ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill="#3a548c")
-
-	# TODO stats by vertex attribute (gender, nature, whatever is present in char.info)
-
-	# TODO extract networks using page-based windows, and also volume-based window.
+	# density plot: chars vs. panels
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "comparison_chars-scenes_vs_panels-scenes.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "comparison_chars-scenes_vs_panels-scenes.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		xvals <- stats.scenes[,COL_STATS_CHARS]
+		yvals <- stats.scenes[,COL_STATS_PANELS]
+		xlab <- "Number of characters by scene"
+		ylab <- "Number of panels by scene"
+		p=ggplot(stats.scenes, aes(x=xvals, y=yvals)) +
+			geom_hex(binwidth=2) + 
+			coord_fixed() +
+			scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+			theme_bw() +
+			theme_classic() +	# base_size=18
+			labs(fill="Frequency",x=xlab, y=ylab) +
+			theme(legend.position="left") +
+			geom_point(aes(x=xvals, y=yvals), alpha=0)
+		ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill="#3a548c")
+	dev.off()
+	tlog(4,"Correlation between characters/scene and panels/scene: ", cor(stats.scenes[,COL_STATS_CHARS],stats.scenes[,COL_STATS_PANELS]))
+	
+	# density plot: scenes vs. panels
+	#pdf(file=file.path(STAT_CORPUS_FOLDER, "comparison_scenes-chars_vs_panels-chars.pdf"), bg="white")
+	png(filename=file.path(STAT_CORPUS_FOLDER, "comparison_scenes_vs_panels.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		xvals <- stats.chars[,COL_STATS_SCENES]
+		yvals <- stats.chars[,COL_STATS_PANELS]
+		xlab <- "Number of scenes by character"
+		ylab <- "Number of panels by character"
+		p=ggplot(stats.chars, aes(x=xvals, y=yvals)) +
+			geom_hex(binwidth=100) + 
+			coord_fixed() +
+			scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+			theme_bw() +
+			theme_classic() +	# base_size=18
+			labs(fill="Frequency",x=xlab, y=ylab) +
+			theme(legend.position="left") +
+			geom_point(aes(x=xvals, y=yvals), alpha=0)
+		ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill="#3a548c")
+	dev.off()
+	tlog(4,"Correlation between scenes/character and panels/character: ", cor(stats.chars[,COL_STATS_SCENES],stats.chars[,COL_STATS_PANELS]))
+	
+	
+	
+	
+	##### attribute stats
+	tlog(3,"Computing attribute stats")
+	
+	for(a in 1:length(atts))
+	{	tlog(4,"Computing attribute ",atts[a]," (",a,"/",length(atts),")")
+		
+		# attribute distribution over the characters
+		vals <- table(char.info[,atts[a]])
+		perc <- vals/sum(vals)*100
+		df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+		colnames(df) <- c("Position","Frequency","Proportion")
+		write.csv(x=df, file.path(STAT_CORPUS_FOLDER, paste0("attr_distrib_",atts[a],".csv")), row.names=FALSE)#, col.names=TRUE)
+		#
+		#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.pdf"), bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_positions.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		barplot(
+				height=perc,
+				main=paste0("Distribution of character attribute ",atts[a]," (%)"),
+				col="#3a548c"
+		)
+		dev.off()
+		
+		# distributions of character attribute numbers
+		vals <- table(stats.panels[,COL_STATS_CHARS])
+		vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+		colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PANELS, "Proportion")
+		write.csv(x=vals, file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.csv"), row.names=FALSE)#, col.names=TRUE)
+		#
+		#pdf(file=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.pdf"), bg="white")
+		png(filename=file.path(STAT_CORPUS_FOLDER, "panels_distrib_char_nbr.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			data <- stats.panels[,COL_STATS_CHARS]
+			ml <- "Character number distribution over panels"
+			xl <- "Number of characters by panel"
+			# histogram
+			h <- hist(
+				data,
+				breaks=0:max(data),
+				col="#3a548c",
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
+			)
+#			# scatterplot
+#			x <- h$breaks[2:length(h$breaks)]
+#			y <- h$counts
+#			idx <- which(y>0)
+#			x <- x[idx]
+#			y <- y[idx]
+#			plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#			# complementary cumulative distribution function
+#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+		dev.off()
+		
+		
+		
+	}
 }
 
 
 
-
+	
 ###############################################################################
-# Reads the raw data contained in several tables, and returns them under the
-# form of data frames.
+# Computes and records some statistics regarding the parsed corpus.
 #
-# returns: a list of 4 dataframes, volume.info (information related to the
-#          volumes), page.info (information related to the pages), inter.df
-#          (interactions between the characters), and char.info (character
-#		   information).
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.scenes: previously computed scene statistics.
+# char.scenes: characters present in each scene.
 ###############################################################################
-read.raw.data <- function()
-{	tlog(1,"Reading data files")
+compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.scenes)
+{	tlog(2,"Computing corpus stats")
+	#
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	att.nbr <- length(atts)
+	#
+	pages.end.panel.ids <- c(
+			page.info[2:nrow(page.info),COL_PAGES_START_PANEL_ID]-1,
+			page.info[nrow(page.info),COL_PAGES_START_PANEL_ID]+page.info[nrow(page.info),COL_PAGES_PANELS]
+		)
 	
-	# read the file describing the volumes
-	volume.info <- read.volume.table()
-	# read the file describing the pages
-	page.info <- read.page.table(volume.info)
+	# compute panel stats
+	tmp <- compute.stats.panels(
+			page.info, char.info, 
+			stats.scenes, 
+			char.scenes
+	)
+	stats.panels <- tmp$stats.panels
+	stats.panels.atts <- tmp$stats.panels.atts
+	char.panels <- tmp$char.panels
 	
-	# read the file describing the interactions
-	tmp <- read.inter.table(volume.info, page.info)
+	# compute page stats
+	tmp <- compute.stats.pages(
+			volume.info, page.info, char.info, 
+			stats.scenes, stats.panels, 
+			char.scenes, char.panels
+	)
+	stats.pages <- tmp$stats.pages
+	stats.pages.atts <- tmp$stats.pages.atts
+	char.pages <- tmp$char.pages
+	
+	# compute scene stats
+	tmp <- compute.stats.scenes(
+			volume.info, page.info, char.info, 
+			stats.pages, stats.scenes, stats.panels, 
+			char.pages, char.scenes, char.panels
+	)
 	stats.scenes <- tmp$stats.scenes
+	stats.scenes.atts <- tmp$stats.scenes.atts
 	char.scenes <- tmp$char.scenes
-	inter.df <- tmp$inter.df
 	
-	# read the file describing the characters
-	char.info <- read.char.table(inter.df)
+	# compute character stats
+	tmp <- compute.stats.chars(
+			volume.info, page.info, char.info, 
+			stats.pages, stats.scenes, stats.panels, 
+			char.pages, char.scenes, char.panels
+	)
+	stats.chars <- tmp$stats.chars
+	stats.chars.atts <- tmp$stats.chars.atts
+	char.volumes <- tmp$char.volumes
 	
-	# update stats
-	update.stats(volume.info, page.info, stats.scenes, char.scenes)
+	# compute volume stats
+	tmp <- compute.stats.volumes(
+			volume.info, page.info, char.info, 
+			stats.pages, stats.scenes, stats.panels, stats.chars,
+			char.volumes, char.pages, char.scenes, char.panels
+	)
+	stats.volumes <- tmp$stats.volumes
+	stats.volumes.atts <- tmp$stats.volumes.atts
 	
-	# build result and return
-	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
-	return(result)
+	# compute overall stats
+	compute.stats.overall(
+			volume.info, page.info, char.info, 
+			stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+			char.volumes, char.pages, char.scenes, char.panels
+	)
+	
+	# TODO stats by narrative arc?
+
+	# TODO extract networks using page-based windows, and also volume-based window.
 }
