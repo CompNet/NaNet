@@ -20,6 +20,21 @@ dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the corpus stat files
 	STAT_CORPUS_FOLDER <- file.path(STAT_FOLDER,"corpus")
 	dir.create(path=STAT_CORPUS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus character stat files
+		STAT_CORPUS_CHARS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"characters")
+		dir.create(path=STAT_CORPUS_CHARS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus page stat files
+		STAT_CORPUS_PAGES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"pages")
+		dir.create(path=STAT_CORPUS_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus panel stat files
+		STAT_CORPUS_PANELS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"panels")
+		dir.create(path=STAT_CORPUS_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus scene stat files
+		STAT_CORPUS_SCENES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"scenes")
+		dir.create(path=STAT_CORPUS_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus volume stat files
+		STAT_CORPUS_VOLUMES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"volumes")
+		dir.create(path=STAT_CORPUS_VOLUMES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 # folder containing the produced plot files
 PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
 dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
@@ -34,18 +49,6 @@ VOLUME_FILE <- file.path(DATA_FOLDER,"volumes.csv")
 INTER_FILE <- file.path(DATA_FOLDER,"interactions.txt")
 # file containing character descriptions
 CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
-# file containing the character statistics
-STATS_CHARS_FILE <- file.path(STAT_CORPUS_FOLDER,"characters.csv")
-# file containing the overall statistics
-STATS_OVERALL_FILE <- file.path(STAT_CORPUS_FOLDER,"overall.csv")
-# file containing the scene statistics
-STATS_PAGES_FILE <- file.path(STAT_CORPUS_FOLDER,"pages.csv")
-# file containing the scene statistics
-STATS_PANELS_FILE <- file.path(STAT_CORPUS_FOLDER,"panels.csv")
-# file containing the scene statistics
-STATS_SCENES_FILE <- file.path(STAT_CORPUS_FOLDER,"scenes.csv")
-# file containing the volume statistics
-STATS_VOLUMES_FILE <- file.path(STAT_CORPUS_FOLDER,"volumes.csv")
 
 
 ###############################################################################

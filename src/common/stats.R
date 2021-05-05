@@ -58,31 +58,31 @@ plot.ccdf <- function(data, main, xlab, log=FALSE)
 		
 		# render the plot
 		plot(
-				x, y, 
-				col="RED", 
-				xlab=xlab, 
-				ylab="Complementary Cumulative Density", 
-				main=main, 
-				log="xy", 
-				yaxt="n"
+			x, y, 
+			col="#3a548c", 
+			xlab=xlab, 
+			ylab="Complementary Cumulative Density", 
+			main=main, 
+			log="xy", 
+			yaxt="n"
 		)
 		# render the y-axis
 		axis(
-				side=2, 
-				at=10^(expmax:0), 
-				label=parse(text=paste("10^", expmax:0, sep="")), 
-				las=1
+			side=2, 
+			at=10^(expmax:0), 
+			label=parse(text=paste("10^", expmax:0, sep="")), 
+			las=1
 		)
 	}
 	else
 	{	# render the plot
 		plot(
-				x, y, 
-				col="RED", 
-				xlab=xlab, 
-				ylab="Complementary Cumulative Density", 
-				main=main, 
-				las=1
+			x, y, 
+			col="#3a548c", 
+			xlab=xlab, 
+			ylab="Complementary Cumulative Density", 
+			main=main, 
+			las=1
 		)
 	}
 }
@@ -95,7 +95,7 @@ plot.ccdf <- function(data, main, xlab, log=FALSE)
 #h <- hist(
 #	data,
 #	breaks=0:max(data),
-##	col="RED",
+##	col="#3a548c",
 ##	xlab=xl,
 ##	main=ml,
 ##	freq=FALSE,
@@ -108,5 +108,5 @@ plot.ccdf <- function(data, main, xlab, log=FALSE)
 #x <- x[idx]
 #y <- y[idx]
 #expmax <- floor(log(min(y),10))
-#plot(x, y, col="RED", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
+#plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)

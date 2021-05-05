@@ -46,6 +46,7 @@ DATA_FOLDER <- file.path("data",SERIES)
 # load auxiliary functions
 
 source("src/common/logging.R")
+source("src/common/colors.R")
 source("src/common/distr_test.R")
 source("src/common/stats.R")
 source("src/common/file_system.R")
