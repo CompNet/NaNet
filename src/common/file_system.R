@@ -9,11 +9,19 @@
 # folder containing the log files
 LOG_FOLDER <- "log"
 
-
-###############################################################################
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
 dir.create(path=NET_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the page network files
+	NET_PAGES_FOLDER <- file.path(NET_FOLDER,"pages")
+	dir.create(path=NET_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the panel network files
+	NET_PANELS_FOLDER <- file.path(NET_FOLDER,"panels")
+	dir.create(path=NET_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the scene network files
+	NET_SCENES_FOLDER <- file.path(NET_FOLDER,"scenes")
+	dir.create(path=NET_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+
 # folder containing the produced stat files
 STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
 dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
@@ -35,9 +43,30 @@ dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus volume stat files
 		STAT_CORPUS_VOLUMES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"volumes")
 		dir.create(path=STAT_CORPUS_VOLUMES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the page stat files
+	STAT_PAGES_FOLDER <- file.path(STAT_FOLDER,"pages")
+	dir.create(path=STAT_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the panel stat files
+	STAT_PANELS_FOLDER <- file.path(STAT_FOLDER,"panels")
+	dir.create(path=STAT_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the scene stat files
+	STAT_SCENES_FOLDER <- file.path(STAT_FOLDER,"scenes")
+	dir.create(path=STAT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+
 # folder containing the produced plot files
 PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
 dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the page plot files
+	PLOT_PAGES_FOLDER <- file.path(PLOT_FOLDER,"pages")
+	dir.create(path=PLOT_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the panel plot files
+	PLOT_PANELS_FOLDER <- file.path(PLOT_FOLDER,"panels")
+	dir.create(path=PLOT_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+	# folder containing the scene plot files
+	PLOT_SCENES_FOLDER <- file.path(PLOT_FOLDER,"scenes")
+	dir.create(path=PLOT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+
+
 
 
 ###############################################################################
@@ -49,6 +78,8 @@ VOLUME_FILE <- file.path(DATA_FOLDER,"volumes.csv")
 INTER_FILE <- file.path(DATA_FOLDER,"interactions.txt")
 # file containing character descriptions
 CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
+
+
 
 
 ###############################################################################
@@ -64,16 +95,18 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 {	res <- "static"
 	
 	if(mode=="scenes")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_scenes"))
+		res <- 	file.path(NET_SCENES_FOLDER, paste0(res, "_scenes"))
 	else if(mode=="panel.window")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+		res <- 	file.path(NET_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
-		res <- 	file.path(NET_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+		res <- 	file.path(NET_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
 	
 	res <- paste0(res, ".graphml")
 	
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -92,11 +125,11 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 {	res <- "static"
 	
 	if(mode=="scenes")
-		res <- 	file.path(STAT_FOLDER, paste0(res, "_scenes_wt=",weights))
+		res <- 	file.path(STAT_SCENES_FOLDER, paste0(res, "_scenes_wt=",weights))
 	else if(mode=="panel.window")
-		res <- 	file.path(STAT_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
-		res <- 	file.path(STAT_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+		res <- 	file.path(STAT_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
 	
 	res <- paste0(res, "_meas")
 	
@@ -131,14 +164,14 @@ get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
 {	res <- "static"
 	
 	if(mode=="panel.window")
-	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_panels"))
+	{	res <- 	file.path(PLOT_PANELS_FOLDER, paste0(res, "_panels"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
 		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
 	}
 	else if(mode=="page.window")
-	{	res <- 	file.path(PLOT_FOLDER, paste0(res, "_pages"))
+	{	res <- 	file.path(PLOT_PAGES_FOLDER, paste0(res, "_pages"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
 		if(!is.na(overlap))
