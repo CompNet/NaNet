@@ -4215,12 +4215,12 @@ J7	23	8	23	8	Saxons J7.17
 J7	23	9	23	10	Thorgal Aegirsson
 J7	24	1	24	9	Aaricia Ganfalfsdottir	Isoline
 J7	25	1	25	1	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17
-J7	25	2	25	9	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17	Sveynn	Björnulf	Vikings J7.25
+J7	25	2	25	9	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17	Sveynn Tiuguskegg	Björnulf	Vikings J7.25
 J7	26	1	26	4	Aaricia Ganfalfsdottir	Isoline
 J7	26	5	26	5	Aaricia Ganfalfsdottir	Isoline	Passant J7.26
 J7	26	6	26	6	Aaricia Ganfalfsdottir	Isoline
 J7	26	7	26	8	Aaricia Ganfalfsdottir	Isoline	Oncle d'Isoline J7.26
-J7	27	1	27	6	Gardes J7.27	Sveynn	Björnulf	Vikings J7.25	Eskil	Grim	Aslak	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17	Troy
+J7	27	1	27	6	Gardes J7.27	Sveynn Tiuguskegg	Björnulf	Vikings J7.25	Eskil	Grim	Aslak	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17	Troy
 J7	28	1	29	8	Vikings J7.25	Eskil	Grim	Aslak	Mehdi	Thorgal Aegirsson	Enyd	Saxons J7.17	Viskön	Troy
 J7	30	1	31	8	Vikings J7.25	Eskil	Grim	Aslak	Mehdi	Thorgal Aegirsson	Viskön	Troy
 J7	32	1	32	1	Aaricia Ganfalfsdottir	Villageoises J7.32
@@ -4238,10 +4238,10 @@ J7	36	4	36	6	Gunhilda Görmsson	Thyra
 J7	37	1	37	8	Harald Görmsson	2nd d'Harald J7.35.1	Yvön	Thorbiorg
 J7	38	1	38	2	Fouad Wholaï	Tabib Abd El Bouheddi	Harald Görmsson
 J7	38	3	38	5	Fouad Wholaï	Tabib Abd El Bouheddi	Harald Görmsson	Gardes J7.38
-J7	38	6	38	8	Fouad Wholaï	Tabib Abd El Bouheddi	Harald Görmsson	Gardes J7.38	Sveynn	Courtisanes J7.38
-J7	39	1	40	3	Harald Görmsson	Gardes J7.38	Sveynn
-J7	40	4	40	8	Harald Görmsson	Gardes J7.38	Sveynn	Thyra
-J7	40	9	40	9	Sveynn	Thyra
+J7	38	6	38	8	Fouad Wholaï	Tabib Abd El Bouheddi	Harald Görmsson	Gardes J7.38	Sveynn Tiuguskegg	Courtisanes J7.38
+J7	39	1	40	3	Harald Görmsson	Gardes J7.38	Sveynn Tiuguskegg
+J7	40	4	40	8	Harald Görmsson	Gardes J7.38	Sveynn Tiuguskegg	Thyra
+J7	40	9	40	9	Sveynn Tiuguskegg	Thyra
 J7	41	1	41	7	Aaricia Ganfalfsdottir	Isoline	Cuisiniers J7.40	Remik
 J7	42	1	42	10	Mehdi	Thorgal Aegirsson	Saxons J7.17	Prisonniers J7.33	Gardes J7.42	Rylynn	Troy
 J7	43	1	43	1	Enyd
@@ -4385,32 +4385,32 @@ J8	26	4	26	7	Enyd	Thorgal Aegirsson	Mehdi	Gardes J8.26	Troy
 J8	27	1	27	1	Aaricia Ganfalfsdottir	Isoline	Serviteurs J8.7	Remik	Gardes J8.27	Serviteurs J8.27	Sigvalda	Fouad Wholaï	Tabib Abd El Bouheddi
 J8	27	2	27	8	Aaricia Ganfalfsdottir	Isoline	Fouad Wholaï
 J8	27	2	27	8	Serviteurs J8.7	Remik	Gardes J8.27	Serviteurs J8.27	Sigvalda	Tabib Abd El Bouheddi
-J8	28	1	28	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.28	Serviteurs J8.28
-J8	29	1	30	6	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Sydönia
-J8	30	7	30	7	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Sydönia
-J8	30	8	32	10	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
-J8	33	1	34	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
-J8	34	10	34	12	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
+J8	28	1	28	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.28	Serviteurs J8.28
+J8	29	1	30	6	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Sydönia
+J8	30	7	30	7	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Sydönia
+J8	30	8	32	10	Thorbiorg	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
+J8	33	1	34	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Yvön	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
+J8	34	10	34	12	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
 J8	35	1	35	3	Aaricia Ganfalfsdottir	Isoline	Cuisinier J8.35
 J8	35	4	35	5	Aaricia Ganfalfsdottir	Isoline
 J8	35	6	35	8	Gardes J8.35	Mehdi	Enyd
-J8	36	1	36	3	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
+J8	36	1	36	3	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
 J8	36	4	36	7	Gardes J8.35	Mehdi	Enyd
 J8	36	8	36	9	Mehdi	Enyd	Prisonniers J8.36
-J8	37	1	40	2	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
-J8	40	3	40	3	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia	Prisonniers J8.36
-J8	40	4	40	8	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia	Prisonniers J8.36	Mehdi
-J8	41	1	41	6	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Ours J8.30	Sydönia	Prisonniers J8.36
-J8	41	7	41	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Sydönia	Prisonniers J8.36
-J8	42	1	44	5	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Mehdi	Sveynn	Thyra	Prisonniers J8.42	Vikings J8.42	Gardes J8.42
-J8	44	6	45	5	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Mehdi	Sveynn	Thyra	Prisonniers J8.42	Vikings J8.42	Fouad Wholaï	Tabib Abd El Bouheddi	Thorbiorg	Rylynn	Troy
+J8	37	1	40	2	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia
+J8	40	3	40	3	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia	Prisonniers J8.36
+J8	40	4	40	8	Aaricia Ganfalfsdottir	Isoline	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Thorgal Aegirsson	Ours J8.30	Sydönia	Prisonniers J8.36	Mehdi
+J8	41	1	41	6	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Ours J8.30	Sydönia	Prisonniers J8.36
+J8	41	7	41	9	Harald Görmsson	Fouad Wholaï	Tabib Abd El Bouheddi	2nd d'Harald J7.35.1	Sveynn Tiuguskegg	Thyra	Gunhilda Görmsson	Gardes J8.29	Serviteurs J8.29	Vikings J8.29	Leif J8.29	Sydönia	Prisonniers J8.36
+J8	42	1	44	5	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Mehdi	Sveynn Tiuguskegg	Thyra	Prisonniers J8.42	Vikings J8.42	Gardes J8.42	Seck
+J8	44	6	45	5	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Mehdi	Sveynn Tiuguskegg	Thyra	Prisonniers J8.42	Vikings J8.42	Fouad Wholaï	Tabib Abd El Bouheddi	Thorbiorg	Rylynn	Troy	Seck
 J8	45	6	46	1	Fouad Wholaï	Tabib Abd El Bouheddi	Marins J8.45	Mehdi	Enyd
 J8	46	2	46	3	Fouad Wholaï	Tabib Abd El Bouheddi
-J8	46	4	46	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn	Vikings J8.42	Thorbiorg	Rylynn	Troy
+J8	46	4	46	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings J8.42	Thorbiorg	Rylynn	Troy	Seck
 J8	47	1	47	7	Mehdi	Enyd
 J8	47	8	47	9	Mehdi	Enyd	Tabib Abd El Bouheddi
 J8	47	10	47	10	Fouad Wholaï	Tabib Abd El Bouheddi	Marins J8.45	Mehdi	Enyd
-J8	48	1	48	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn	Vikings J8.42	Thorbiorg	Rylynn	Troy
+J8	48	1	48	7	Aaricia Ganfalfsdottir	Isoline	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings J8.42	Thorbiorg	Rylynn	Troy	Seck
 J8	48	8	48	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson
 38	3	1	3	4	Louve
 38	4	1	4	7	Louve	Selkie 38.4
@@ -4488,3 +4488,64 @@ J8	48	8	48	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson
 38	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
 38	47	1	48	4	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
 38	48	5	48	5	Huginn	Muninn
+J9	3	1	3	4	Thorgal Aegirsson	Seck	Vikings J8.42
+J9	3	5	3	5	Vikings J8.42	Sveynn Tiuguskegg
+J9	4	1	4	5	Thorgal Aegirsson	Seck	Sveynn Tiuguskegg	Arlesthön	Klöd
+J9	4	6	5	6	Thorbiorg	Aaricia Ganfalfsdottir	Isoline
+J9	5	1	5	1	Palnatoki	Harald Görmsson	Vikings J9.5.1
+J9	5	2	5	2	Harald Görmsson	Sy-Aesa
+J9	5	3	5	3	Palnatoki	Sy-Aesa	Sages-femmes J9.5	Sveynn Tiuguskegg
+J9	5	4	5	4	Palnatoki	Harald Görmsson	Vikings J9.5.1
+J9	5	5	5	5	Palnatoki	Sveynn Tiuguskegg	Vikings J9.5.2
+J9	5	6	5	7	Arlesthön
+J9	6	1	6	2	Thorgal Aegirsson	Seck	Thorbiorg
+J9	6	3	6	9	Thorgal Aegirsson	Seck	Thorbiorg	Vikings J8.42	Arlesthön	Sveynn Tiuguskegg
+J9	7	1	7	7	Harald Görmsson	Vikings J9.7	Viking roux J9.7
+J9	8	1	8	7	Thorgal Aegirsson	Vikings J8.42	Sveynn Tiuguskegg	Aaricia Ganfalfsdottir	Klöd
+J9	8	8	9	1	Thorbiorg	Deux femmes J9.8	Isoline
+J9	9	2	9	4	Klöd
+J9	9	5	9	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline
+J9	9	6	9	6	Klöd	Hrafn
+J9	9	7	9	9	Sveynn Tiuguskegg	Aaricia Ganfalfsdottir	Thorbiorg
+J9	9	10	9	10	Klöd	Hrafn	Vikings J8.42
+J9	10	1	10	1	Thorgal Aegirsson	Sveynn Tiuguskegg
+J9	10	2	10	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42
+J9	10	3	10	3	Klöd
+J9	10	4	14	10	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	15	1	15	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	15	3	17	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	17	3	17	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+J9	17	8	17	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Thorbiorg
+J9	18	1	18	10	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	19	1	19	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	19	3	19	3
+J9	19	4	19	5	Isoline	Aaricia Ganfalfsdottir
+J9	19	6	20	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Hrafn	Vikings J8.42	Aaricia Ganfalfsdottir	Thorbiorg	Isoline	Seck	Arlesthön
+J9	20	3	20	6	Seck	Isoline
+J9	21	1	21	11	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+J9	22	1	22	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+J9	22	5	24	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Thorbiorg
+J9	25	1	27	10	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Thorbiorg	Modgud
+J9	28	1	28	6	Isoline	Seck	Vikings J8.42	Sveynn Tiuguskegg	Ketill	Björn J9	Skuli
+J9	29	1	30	9	Thorgal Aegirsson
+J9	31	1	31	9	Aaricia Ganfalfsdottir	Thorbiorg	Modgud
+J9	32	1	32	10	Thorgal Aegirsson
+J9	33	1	33	6	Aaricia Ganfalfsdottir	Thorbiorg	Sveynn Tiuguskegg	Ketill	Björn J9	Skuli
+J9	34	1	34	7	Sveynn Tiuguskegg	Ketill	Björn J9	Skuli
+J9	34	8	35	7	Sveynn Tiuguskegg
+J9	36	1	36	9	Thorgal Aegirsson
+J9	37	1	37	6	Sveynn Tiuguskegg
+J9	38	1	38	9	Harald Görmsson	Vikings J9.7	Aaricia Ganfalfsdottir	Thorbiorg
+J9	39	1	39	4	Modgud	Hildegunn	Femmes J9.39	Sy-Aesa
+J9	39	5	41	3	Modgud	Thorgal Aegirsson	Femmes J9.39	Hildegunn	Sy-Aesa
+J9	41	4	41	8	Modgud	Thorgal Aegirsson	Femmes J9.39	Hildegunn	Femme J9.41	Sy-Aesa
+J9	42	1	42	8	Aaricia Ganfalfsdottir	Isoline	Seck	Vikings J8.42
+J9	43	1	43	2	Sveynn Tiuguskegg
+J9	43	3	44	7	Sveynn Tiuguskegg	Harald Görmsson	Vikings J9.7
+J9	44	8	45	8	Sveynn Tiuguskegg	Harald Görmsson	Vikings J9.7	Sy-Aesa	Femmes J9.39	Modgud	Hildegunn	Thorgal Aegirsson
+J9	46	1	46	8	Sveynn Tiuguskegg	Vikings J9.7	Sy-Aesa	Femmes J9.39	Modgud	Hildegunn	Thorgal Aegirsson
+J9	47	1	47	5	Sveynn Tiuguskegg	Vikings J9.7	Sy-Aesa	Femmes J9.39	Modgud	Hildegunn	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Isoline	Seck	Vikings J8.42
+J9	47	6	47	9	Sy-Aesa	Femmes J9.39	Modgud	Hildegunn	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+J9	48	1	48	3	Thorgal Aegirsson	Sveynn Tiuguskegg
+J9	48	4	48	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Aaricia Ganfalfsdottir
+J9	48	6	48	6	Seck	Isoline

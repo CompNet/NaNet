@@ -127,6 +127,7 @@ Argun Pied d'Arbre,Male
 Arkadès,Male
 Arlac d'Auxaterra,Male
 Arlane,Female
+Arlesthön,Male
 Armée 12.4,Male
 Armée de Francus K5.21,Male
 Armée de géants 32.35,Male
@@ -196,6 +197,7 @@ Binôme 27.9,Male
 Birbu,Male
 Björg,Male
 Björn Gandalfson,Male
+Björn J9,Male
 Björnulf,Male
 Bohr,Male
 Bossu 16.3,Male
@@ -321,6 +323,7 @@ Cybèle,Female
 Darek le Svéar,Male
 Déesse 30.42,Female
 Démon de lave L6.9,Unknown
+Deux femmes J9.8,Female
 Devin 24.25,Male
 Dhrys,Male
 Dieux 19.14,Mixed
@@ -456,8 +459,10 @@ Fées J1.18,Female
 Femme de Dracon,Female
 Femme d'Herzog 34.39,Female
 Femme du fermier 18.6,Female
+Femme J9.41,Female
 Femme K3.28,Female
 Femmes 4.4,Female
+Femmes J9.39,Female
 Fenrir,Male
 Ferkel,Male
 Fermier 18.6,Male
@@ -695,11 +700,13 @@ Hicham,Male
 Hiemdal,Male
 Hiérulf-le-penseur,Male
 Hildebrün,Female
+Hildegunn,Female
 Hjalmgunnar,Male
 Hog,Male
 Hogrid,Male
 Holger,Male
 Hommes de Gandalf J4.4,Male
+Hrafn,Male
 Hrun,Male
 Hsrak,Male
 Huginn,Unknown
@@ -737,9 +744,11 @@ Karsh,Male
 Karshan d'Urizen,Male
 Kayla,Female
 Kazar,Female
+Ketill,Male
 Kheela,Female
 Kilda,Female
 Kisha,Female
+Klöd,Male
 Knorr,Male
 Knut,Male
 Konoag,Male
@@ -862,6 +871,7 @@ Meute de Griz L1.19,Mixed
 Migaïl,Male
 Mimir,Male
 Misha,Male
+Modgud,Female
 Moldi-le-furieux,Male
 Monstre 29.13,Unknown
 Monstre 29.14,Unknown
@@ -936,6 +946,7 @@ Ottar J8.4,Male
 Ours 18.3,Unknown
 Ours J8.30,Female
 Ours L5.29,Unknown
+Palnatoki,Male
 Panthères 27.22,Unknown
 Participants 27.34,Male
 Participants 27.36,Male
@@ -1016,6 +1027,7 @@ Roi d'Umbria,Male
 Runa,Female
 Rylynn,Male
 Sacrifiés 10.25,Mixed
+Sages-femmes J9.5,Female
 Salouma,Female
 Samios,Male
 Sarasin 3.19,Male
@@ -1085,6 +1097,7 @@ Siloé,Female
 Skadia,Female
 Skald,Male
 Skuld,Female
+Skuli,Male
 Slargh Vensson,Male
 Slive,Female
 Slugs 2.33,Mixed
@@ -1183,8 +1196,9 @@ Stieg,Male
 Storböndi 38.11,Male
 Suivantes 34.11,Female
 Sven,Male
-Sveynn,Male
+Sveynn Tiuguskegg,Male
 Swanée,Female
+Sy-Aesa,Female
 Sydönia,Female
 Syrane,Female
 Tabib Abd El Bouheddi,Male
@@ -1248,6 +1262,7 @@ Viking J2.44,Male
 Viking K5.27,Male
 Viking L2.8,Male
 Viking L3.26,Male
+Viking roux J9.7,Male
 Vikings 14.13,Mixed
 Vikings 14.17,Mixed
 Vikings 14.19,Mixed
@@ -1292,6 +1307,9 @@ Vikings J7.35,Male
 Vikings J7.8,Male
 Vikings J8.29,Mixed
 Vikings J8.42,Male
+Vikings J9.5.1,Male
+Vikings J9.5.2,Male
+Vikings J9.7,Male
 Vikings K6.56,Male
 Vikings L1.7.3,Male
 Vikings L2.42,Male
