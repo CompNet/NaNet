@@ -12,7 +12,7 @@ compute.distance <- function(name, graph)
 	{	if(name==MEAS_DISTANCE)
 			res <- distances(graph=graph, mode="all", weights=NA)
 		else if(name==paste0(MEAS_DISTANCE,SFX_WEIGHT))
-			res <- distances(graph=graph, mode="all", weights=E(graph)$weight)
+			res <- distances(graph=graph, mode="all", weights=reverse.graph.weights(E(graph)$weight))
 		res <- res[upper.tri(res,diag=F)]
 		cache[[name]] <<- res
 	}

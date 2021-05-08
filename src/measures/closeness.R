@@ -22,9 +22,9 @@ compute.closeness <- function(name, graph)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_NORM))
 			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=NA, normalized=TRUE)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_WEIGHT))
-			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=E(g.comp)$weight, normalized=FALSE)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=reverse.graph.weights(E(g.comp)$weight), normalized=FALSE)
 		else if(name==paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM))
-			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=E(g.comp)$weight, normalized=TRUE)
+			res[giant.comp.nodes] <- closeness(graph=g.comp, mode="all", weights=reverse.graph.weights(E(g.comp)$weight), normalized=TRUE)
 		cache[[name]] <<- res
 	}
 }

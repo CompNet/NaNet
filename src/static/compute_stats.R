@@ -209,7 +209,8 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 
 
 ###############################################################################
-# Computes all preselected nodal topological measures for the specified static graph.
+# Computes the correlation between the previously computed topological measures 
+# for the specified static graph.
 #
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter (ignored for mode="scenes").
@@ -238,7 +239,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		colnames(res.tab) <- cn
 	}
 	
-	# compute each measure
+	# retrieve each measure
 	tlog(5,"Computing each nodal/node-pair measure")
 	for(m in 1:length(mn))
 	{	meas.name <- mn[m]
