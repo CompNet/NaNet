@@ -10,6 +10,8 @@
 
 # graph computing
 install.packages("igraph")
+# harmonic closeness
+install.packages("CINNA")
 
 # parallel computation
 #install.packages("foreach")

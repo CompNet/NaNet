@@ -7,6 +7,7 @@
 # load libraries
 
 library("igraph")
+library("CINNA")
 #library("foreach")
 library("future.apply")
 library("doParallel")

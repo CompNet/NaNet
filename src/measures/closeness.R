@@ -230,6 +230,16 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #closene
 		assortativity(graph=induced_subgraph(graph,idx), types1=values[idx], types2=NULL, directed=FALSE)
 	}
 )
+GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #closeness-weighted-centralization
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted Closeness Centralization",
+	foo=function(graph)
+	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
+		idx <- which(!is.na(values))
+		centralize(scores=values[idx], normalized=FALSE)
+	}
+)
 
 
 

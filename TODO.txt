@@ -1,17 +1,12 @@
 Static graph extraction
 	- Extract one graph for each volume
       Plot a "panel" showing the sequence of these volume graphs (for a given BD series)
-	- For each narrative arc?
+	- Same for each narrative arc?
 
 Dynamic network extraction
-   - Implement window-based approach (<< isn't this already done?)
+   - Implement window-based approach
    - Implement narrative smoothing (or use Xavier's version)
 	 - (test on the toy example)
-
-Topological measures
-	- include the harmonic closeness (leverage Trajan code)
-	- weighted measures: sometimes weights=relation intensity, but sometimes weights=distance
-	  >> sometimes normalize or take the reciprocal or something
 
 Stats part:
 - Goal: study the effect of the extraction parameters
@@ -26,30 +21,30 @@ Stats part:
 	- also consider global similarity measures between graphs
 	- Identify which nodal measures are used in apps of char nets (in the literature)
 	  >> study how these are affected by extraction parameters
-	- assess the difference between parameters on a simple task such as story segmentation (ref=segments or volumes?)
+	- assess the difference between parameters on a simple task such as story segmentation (ref=scenes or volumes?)
 	  >> maybe in a different paper
 
-- Segments: weights=occurrences vs. durations
+- Scenes: weights=occurrences vs. durations
   - compare them, are they correlated?
 
 - Plots:
   - Plots combining the different assortativities / centralizations? 
     (for comparison purposes. not sure of the interest)
-  - Check the violin plots (NdV: what about them? I forgot)
+  - Some boxes are missing in boxplots (when the corresponding violins are there)
   
 - Segmentation task: 
   - requires dynamic nets
   - maybe do that in a separate paper
 - This first work:
-  - descriptive study of the segment-based networks
+  - descriptive study of the scene-based networks
   - compare with other fictional character networks properties
   - assess window-based approaches as approximations
-    - compare how good the window corresponding to the typical segment length is
+    - compare how good the window corresponding to the typical scene length is
   - study the effect on some simple tools from the literature 
     (eg main character detection through combination of centrality measures)
 
 Method to compare between bédés
-  - just compare segment-based graphs (through their topological measures)
+  - just compare scene-based graphs (through their topological measures)
     >> can be done through tables (?)
   - also compare to other types of character networks
   - compare the best window-based parameters
@@ -63,7 +58,7 @@ Plot comparison
 
 Changes:
   - remove links whose weight is under some threshold (e.g. determined from some stat computed over the whole node/link set)
-    >> OK for the segments, but how to do that for the window-based nets?
+    >> OK for the scenes, but how to do that for the window-based nets?
   - plot centrality changes over only the top k most central nodes
     (don't we care about the other characters?)
     >> or consider classes of centrality? (use some clustering tool to detect them automatically)

@@ -207,6 +207,15 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_ASSORT)]] <- list( #eigenve
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
+GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #eigenvector-weighted-centralization
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted Eigencentrality Centralization",
+	foo=function(graph)
+	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
+		centralize(scores=values, normalized=FALSE)
+	}
+)
 
 
 

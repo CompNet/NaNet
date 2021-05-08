@@ -207,6 +207,15 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #betwe
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
+GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #betweenness-weighted-centralization
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted Betweenness Centralization",
+	foo=function(graph)
+	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
+		centralize(scores=values, normalized=FALSE)
+	}
+)
 
 
 

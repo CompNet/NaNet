@@ -9,6 +9,7 @@
 # topological measure names
 MEAS_BETWEENNESS <- "betweenness"
 MEAS_CLOSENESS <- "closeness"
+MEAS_HARMO_CLOSENESS <- "harmo-closeness"
 MEAS_MODULARITY <- "modularity"
 MEAS_COMMUNITY <- "community"
 MEAS_COMPONENT <- "component"
@@ -65,6 +66,7 @@ source("src/measures/distance.R")
 source("src/measures/eccentricity.R")
 source("src/measures/edgebetweenness.R")
 source("src/measures/element.R")
+source("src/measures/harmo_closeness.R")
 source("src/measures/spectral.R")
 source("src/measures/transitivity.R")
 # comparison measures
