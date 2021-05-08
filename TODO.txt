@@ -67,23 +67,17 @@ Changes:
   - plot centrality changes over only the top k most central nodes
     (don't we care about the other characters?)
     >> or consider classes of centrality? (use some clustering tool to detect them automatically)
-  - in plots: use violins rather than boxplots
-
-Corpus stats:
-  - distribution/avg value of 
-    x panels/page
-    x panel/scene
-    x characters/scene
-    x panel/character
-    x scene/character
-      x number of scenes for the main characters
-    - char/scene vs. scene duration (heatmap, cf. LREC paper)
-  x avg/counts by volume
-  x proportion of scenes 
-    x starting on a page fist panel
-    x ending on a page last panel
-    x both at the same time
  
- what if we remove characters occurring only in two scenes (or windows)?
- >> does this affect important graph properties such as connectedness? 
-  
+what if we remove characters occurring only in two scenes (or windows)?
+  - those are probably extra, and most authors do some filtering like this
+  >> does this affect important graph properties such as connectedness? 
+
+VOLUMES/ARCS
+- when recording the graphml file, indicate the volumes in which each char appears in order to ease the interpretation of communities. 
+- but how ?
+  - Boolean field for each vol? (lots of fields!)
+  - 1 field = List of volumes (cannot use that with Gephi)
+- Or compute a priori the most widespread volume represented in a community?
+- Or do the same thing with arcs?
+- Visualization: red for 1 vol/arc of interest, grey for the rest >> allows studying story evolution
+

@@ -1236,7 +1236,7 @@ compute.stats.volumes <- function(
 	for(v in 1:length(vol.cols))
 	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
-		file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, "panels_distrib_positions")
+		file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol.fnames[v])
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 		barplot(
