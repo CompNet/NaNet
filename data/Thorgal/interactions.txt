@@ -796,9 +796,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 14	48	1	48	4	Thorgal Aegirsson
 14	48	5	48	9	Aaricia Ganfalfsdottir	Thorgal Aegirsson
 15	3	1	4	1	Thorgal Aegirsson
-15	4	2	4	2	Saxegaard
+15	4	2	4	2	Saxegaard / Torric
 15	4	3	4	5	Thorgal Aegirsson
-15	4	6	4	6	Saxegaard
+15	4	6	4	6	Saxegaard / Torric
 15	4	7	4	7
 15	4	8	7	5	Thorgal Aegirsson
 15	7	6	8	2	Thorgal Aegirsson	Torric
@@ -1098,12 +1098,12 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 19	32	1	32	3	Thorgal Aegirsson	Leif Haraldson
 19	32	4	32	9	Thorgal Aegirsson	Leif Haraldson	Kriss de Valnor
 19	33	1	33	9	Thorgal Aegirsson	Kriss de Valnor
-19	33	10	34	1	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant
-19	34	2	34	4	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
-19	34	5	35	5	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor	Jadawin	Nidhogg
-19	35	6	36	1	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
-19	36	2	36	3	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor	Jadawin
-19	36	4	36	5	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegard	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
+19	33	10	34	1	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant
+19	34	2	34	4	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
+19	34	5	35	5	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor	Jadawin	Nidhogg
+19	35	6	36	1	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
+19	36	2	36	3	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor	Jadawin
+19	36	4	36	5	Thorgal Aegirsson	Gandalf-le-fou	Volsung de Nichor	Saxegaard / Torric	Slive	Ewing	Shardar-le-puissant	Kriss de Valnor
 19	36	6	37	1	Thorgal Aegirsson	Kriss de Valnor
 19	37	2	37	4	Thorgal Aegirsson	Kriss de Valnor	Shaniah
 19	37	5	37	6	Thorgal Aegirsson	Kriss de Valnor
