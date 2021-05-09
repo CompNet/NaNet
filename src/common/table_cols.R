@@ -7,11 +7,16 @@
 
 ###############################################################################
 # column names for the volume table
-COL_VOLS_VOLUME <- "Volume"
-COL_VOLS_START_PAGE <- "Start"
-COL_VOLS_END_PAGE <- "End"
+COL_VOLS_ARC <- "Arc"
 COL_VOLS_LENGTH <- "Length"
+COL_VOLS_MONTH <- "Month"
+COL_VOLS_PAGE_END <- "End"
+COL_VOLS_PAGE_START <- "Start"
+COL_VOLS_SERIES <- "Series"
 COL_VOLS_TITLE <- "Title"
+COL_VOLS_VOLUME <- "Volume"
+COL_VOLS_VOLUME_ID <- "VolumeId"
+COL_VOLS_YEAR <- "Year"
 
 
 ###############################################################################
@@ -95,16 +100,3 @@ COL_STATS_VOLUME <- "Volume"
 COL_STATS_VOLUMES <- "Volumes"
 COL_STATS_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"
 COL_STATS_VOLUME_ID <- "VolumeId"
-
-#- distribution/avg value of 
-#	x panels/page
-#	x panel/scene
-#	x characters/scene
-#	x scene/characters
-#		- number of scenes for the main characters
-#	- char/scene vs. scene duration (heatmap, cf. LREC paper)
-#- avg/counts by volume
-#- proportion of scenes 
-#	- starting on a page fist panel
-#	- ending on a page last panel
-#	- both at the same time

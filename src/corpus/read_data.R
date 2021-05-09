@@ -14,8 +14,8 @@
 #
 # returns: a dataframe listing the volume information, with the following columns:
 #			- COL_VOLS_VOLUME: volume in the BD series.
-#			- COL_VOLS_START_PAGE: starting page relatively to the volume.
-#			- COL_VOLS_END_PAGE: ending page relatively to the volume.
+#			- COL_VOLS_PAGE_START: starting page relatively to the volume.
+#			- COL_VOLS_PAGE_END: ending page relatively to the volume.
 #			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
 #			- COL_VOLS_TITLE: title of the volume.
 ###############################################################################
@@ -25,7 +25,9 @@ read.volume.table <- function(page.info)
 	# read the proper table
 	volume.info <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	
-	# nothing to do here, for now
+	# add volume id
+	volume.info <- cbind(1:nrow(volume.info), volume.info)
+	colnames(volume.info)[1] <- COL_VOLS_VOLUME_ID
 	
 	tlog(2,"Reading of the volume file completed")
 	return(volume.info)
@@ -56,8 +58,8 @@ read.page.table <- function(volume.info)
 	
 	# check that each relative page number matches the interval defined in the volume table 
 	vol.ids <- match(page.info[,COL_PAGES_VOLUME],volume.info[,COL_VOLS_VOLUME])
-	err.pg.idx <- which(page.info[,COL_PAGES_PAGE]<volume.info[vol.ids,COL_VOLS_START_PAGE]
-		| page.info[,COL_PAGES_PAGE]>volume.info[vol.ids,COL_VOLS_END_PAGE])
+	err.pg.idx <- which(page.info[,COL_PAGES_PAGE]<volume.info[vol.ids,COL_VOLS_PAGE_START]
+		| page.info[,COL_PAGES_PAGE]>volume.info[vol.ids,COL_VOLS_PAGE_END])
 	if(length(err.pg.idx)>0)
 	{	tmp.msg <- apply(as.matrix(page.info[err.pg.idx,]),1, function(r) paste(r,collapse=","))
 		tmp.msg <- apply(cbind(err.pg.idx,tmp.msg),1, function(r) paste(r,collapse=": "))
@@ -286,19 +288,19 @@ read.inter.table <- function(volume.info, page.info)
 # whether some character misses from the table based on the previously loaded
 # interactions, and vice-versa.
 #
-# inter.df: dataframe containing all the character interactions.
+# char.scenes: list of characters for each scene.
 #
 # returns: a dataframe listing the character information, with the following columns:
 #			- COL_VOLS_VOLUME: volume in the BD series.
-#			- COL_VOLS_START_PAGE: starting page relatively to the volume.
-#			- COL_VOLS_END_PAGE: ending page relatively to the volume.
+#			- COL_VOLS_PAGE_START: starting page relatively to the volume.
+#			- COL_VOLS_PAGE_END: ending page relatively to the volume.
 #			- COL_VOLS_LENGTH: number of (effective) pages in the volume.
 #			- COL_VOLS_TITLE: title of the volume.
 ###############################################################################
-read.char.table <- function(inter.df)
+read.char.table <- function(char.scenes)
 {	if(file.exists(CHAR_FILE))
 	{	tlog(2,"Trying to read the character file (",CHAR_FILE,")")
-	
+		
 		# read the proper table
 		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 		table.chars <- char.info[,COL_CHAR_NAME]
@@ -313,12 +315,11 @@ read.char.table <- function(inter.df)
 			stop(msg)
 		}
 		
-		# get the list of characters from the interactions
-		inter.chars <- c(inter.df[,COL_INTER_FROM_CHAR],inter.df[,COL_INTER_TO_CHAR])
-		inter.chars <- sort(unique(inter.chars))
+		# get the list of characters from the scenes
+		scene.chars <- sort(unique(unlist(char.scenes)))
 		
 		# check whether some characters miss from the table
-		pb.chars <- setdiff(inter.chars,table.chars)
+		pb.chars <- setdiff(scene.chars,table.chars)
 		if(length(pb.chars)>0)
 		{	#cat(paste(pb.chars,collapse="\n"))
 			msg <- paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
@@ -326,27 +327,30 @@ read.char.table <- function(inter.df)
 			stop(msg)
 		}
 		
-		# check whether some characters miss from the interactions
-		pb.chars <- setdiff(table.chars,inter.chars)
+		# check whether some characters miss at all
+		pb.char <- setdiff(table.chars, scene.chars)
 		if(length(pb.chars)>0)
 		{	#cat(paste(pb.chars,collapse="\n"))
-			msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but never interact: ",paste(pb.chars,collapse=","))
+			msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,collapse=","))
 			tlog(3,msg)
+			stop(msg)
 			#warning(msg)
 		}
 		
 		tlog(2,"Reading of the character file completed")
 	}
 	else
-	{	tlog(2,"No character file found")
+	{	msg <- "No character file found"
+		tlog(2,msg)
+		stop(msg)
 		
-		# just get the character names from the interactions
-		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
-		inter.chars <- sort(unique(inter.chars))
-		
-		char.info <- data.frame(name=c("lkj","lkj","oiu","uyt"))
-		cn <- c(COL_CHAR_NAME)
-		colnames(char.info) <- cn
+#		# just get the character names from the interactions
+#		inter.chars <- c(inter.df[,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)])
+#		inter.chars <- sort(unique(inter.chars))
+#		
+#		char.info <- data.frame(name=c("lkj","lkj","oiu","uyt"))
+#		cn <- c(COL_CHAR_NAME)
+#		colnames(char.info) <- cn
 	}
 	
 	return(char.info)
@@ -379,7 +383,7 @@ read.raw.data <- function()
 	inter.df <- tmp$inter.df
 	
 	# read the file describing the characters
-	char.info <- read.char.table(inter.df)
+	char.info <- read.char.table(char.scenes)
 	
 	# update stats
 	compute.stats(volume.info, page.info, char.info, stats.scenes, char.scenes)
