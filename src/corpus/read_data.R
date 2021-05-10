@@ -306,6 +306,13 @@ read.char.table <- function(char.scenes)
 		table.chars <- char.info[,COL_CHAR_NAME]
 		table.chars <- sort(table.chars)
 		
+		# add the frequency column
+		char.info <- cbind(char.info, rep(0, nrow(char.info)))
+		colnames(char.info)[ncol(char.info)] <- COL_CHAR_FREQ
+		idx <- sapply(char.scenes, function(char.scene) length(char.scene)>1)	# only consider scenes with several characters
+		tt <- table(unlist(char.scenes[idx]))
+		char.info[match(names(tt),char.info[,COL_CHAR_NAME]),COL_CHAR_FREQ] <- tt
+		
 		# check multiple name use
 		x <- table(table.chars)
 		pb.chars <- names(x)[x!=1]

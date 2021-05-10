@@ -13,6 +13,7 @@
 # scene as the time unit, without overlap. Nodes are characters, and links
 # represents them (inter-)acting during the same scene.
 #
+# char.info: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
@@ -21,7 +22,7 @@
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
 ###############################################################################
-extract.static.graph.from.scenes <- function(inter.df)
+extract.static.graph.from.scenes <- function(char.info, inter.df)
 {	tlog(2,"Extracting the scene-based static graph")
 	
 	# init the dataframe
@@ -34,7 +35,7 @@ extract.static.graph.from.scenes <- function(inter.df)
 	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES, COL_INTER_DURATION)
 	colnames(static.df) <- cn
 	
-	# build the edgelist by considering each line (ie interaction) in the dataframe
+	# build the edgelist by considering each line (i.e. interaction) in the dataframe
 	for(i in 1:nrow(inter.df))
 	{	# get the characters
 		from.char <- inter.df[i,COL_INTER_FROM_CHAR]
@@ -61,7 +62,7 @@ extract.static.graph.from.scenes <- function(inter.df)
 #	print(static.df)
 	
 	# init the graph
-	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
+	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
 	graph.file <- get.graphname.static(mode="scenes")
 	write_graph(graph=g, file=graph.file, format="graphml")
@@ -75,6 +76,7 @@ extract.static.graph.from.scenes <- function(inter.df)
 # Extracts a static graph based on a list of pairwise interactions, using the
 # specified window size and overlap, both expressed in number of panels.
 #
+# char.info: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
@@ -85,7 +87,7 @@ extract.static.graph.from.scenes <- function(inter.df)
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.from.panel.window <- function(inter.df, window.size=10, overlap=2)
+extract.static.graph.from.panel.window <- function(char.info, inter.df, window.size=10, overlap=2)
 {	tlog(2,"Extracting the panel window-based static graph")
 	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
 	
@@ -145,7 +147,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 #	print(static.df)
 	
 	# init the graph
-	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
+	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
 	graph.file <- get.graphname.static(mode="panel.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
@@ -159,6 +161,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 # Extracts a static graph based on a list of pairwise interactions, using the
 # specified window size and overlap, both expressed in number of pages.
 #
+# char.info: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
@@ -170,7 +173,7 @@ extract.static.graph.from.panel.window <- function(inter.df, window.size=10, ove
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.from.page.window <- function(inter.df, page.info, window.size=2, overlap=1)
+extract.static.graph.from.page.window <- function(char.info, inter.df, page.info, window.size=2, overlap=1)
 {	tlog(2,"Extracting the page window-based static graph")
 	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
 	
@@ -234,7 +237,7 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 #	print(static.df)
 	
 	# init the graph
-	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=NULL)
+	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
 	graph.file <- get.graphname.static(mode="page.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
@@ -258,21 +261,21 @@ extract.static.graph.from.page.window <- function(inter.df, page.info, window.si
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
 	# extract the scene-based static graph
-	g <- extract.static.graph.from.scenes(data$inter.df)
+	g <- extract.static.graph.from.scenes(data$char.info, data$inter.df)
 	#plot(g, layout=layout_with_fr(g))
 	
 	# extract the panel window-based static graphs
 	future_sapply(1:length(panel.window.sizes), function(i)
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
-			g <- extract.static.graph.from.panel.window(data$inter.df, window.size=window.size, overlap=overlap)
+			g <- extract.static.graph.from.panel.window(data$char.info, data$inter.df, window.size=window.size, overlap=overlap)
 	})
 	
 	# extract the page window-based static graphs
 	future_sapply(1:length(page.window.sizes), function(i)
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-			g <- extract.static.graph.from.page.window(data$inter.df, data$page.info, window.size=window.size, overlap=overlap)
+			g <- extract.static.graph.from.page.window(data$char.info, data$inter.df, data$page.info, window.size=window.size, overlap=overlap)
 	})
 	
 	tlog(1,"Extraction of the static graphs complete")
