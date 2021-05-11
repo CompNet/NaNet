@@ -14,9 +14,9 @@ compute.betweenness <- function(name, graph)
 		else if(name==paste0(MEAS_BETWEENNESS,SFX_NORM))
 			res <- betweenness(graph=graph, directed=FALSE, weights=NA, normalized=TRUE)
 		else if(name==paste0(MEAS_BETWEENNESS,SFX_WEIGHT))
-			res <- betweenness(graph=graph, directed=FALSE, weights=reverse.graph.weights(E(graph)$weight), normalized=FALSE)
+			res <- betweenness(graph=graph, directed=FALSE, weights=reverse.weights(E(graph)$weight), normalized=FALSE)
 		else if(name==paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM))
-			res <- betweenness(graph=graph, directed=FALSE, weights=reverse.graph.weights(E(graph)$weight), normalized=TRUE)
+			res <- betweenness(graph=graph, directed=FALSE, weights=reverse.weights(E(graph)$weight), normalized=TRUE)
 		cache[[name]] <<- res
 	}
 }

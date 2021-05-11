@@ -209,6 +209,6 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_CENTRZ)]] <- list( #strength-centraliza
 	cname="Strength Centralization",
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
-		centralize(scores=values[idx], normalized=FALSE)
+		centralize(scores=values, normalized=FALSE)
 	}
 )

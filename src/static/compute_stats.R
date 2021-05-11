@@ -221,7 +221,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	measures <- c(GRAPH_MEASURES, COMP_MEASURES)
 	for(m in 1:length(measures))
 	{	meas.name <- names(measures)[m]
-		tlog(6,"Computing measure ",meas.name)
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
 		# compute value
 		measure <- measures[[m]]
 		value <- measure$foo(graph=g)

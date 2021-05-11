@@ -15,9 +15,9 @@ compute.harmo.closeness <- function(name, graph)
 		else if(name==paste0(MEAS_HARMO_CLOSENESS,SFX_NORM))
 			res <- harmonic_centrality(x=graph, mode="all", weights=NA)/(length(which(igraph::degree(graph)>0))-1)
 		else if(name==paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT))
-			res <- harmonic_centrality(x=graph, mode="all", weights=reverse.graph.weights(E(graph)$weight))
+			res <- harmonic_centrality(x=graph, mode="all", weights=reverse.weights(E(graph)$weight))
 		else if(name==paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM))
-			res <- harmonic_centrality(x=graph, mode="all", weights=reverse.graph.weights(E(graph)$weight))/(length(which(igraph::degree(graph)>0))-1)
+			res <- harmonic_centrality(x=graph, mode="all", weights=reverse.weights(E(graph)$weight))/(length(which(igraph::degree(graph)>0))-1)
 		
 		# possibly clean
 		res[is.nan(res)] <- NA

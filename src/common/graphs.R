@@ -20,7 +20,7 @@
 #############################################################################################
 reverse.graph.weights <- function(g)
 {	w <- E(g)$weight
-	w <- reverse.graph.weights(w)
+	w <- reverse.weights(w)
 	E(g)$weight <- w
 	return(g)
 }
@@ -36,7 +36,7 @@ reverse.graph.weights <- function(g)
 #
 # returns: reversed weights.
 #############################################################################################
-reverse.graph.weights <- function(w)
+reverse.weights <- function(w)
 {	w <- (w-min(w))/(max(w)-min(w)) * (-1) * (max(w)-min(w)) + max(w)
 	return(w)
 }

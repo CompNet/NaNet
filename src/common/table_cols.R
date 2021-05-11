@@ -48,6 +48,7 @@ COL_INTER_DURATION <- "Duration"
 # column names for the character table
 COL_CHAR_NAME <- "Name"
 COL_CHAR_FREQ <- "Frequency"	# number of scenes
+COL_CHAR_SHORT_NAME <- "ShortName"
 
 
 ###############################################################################

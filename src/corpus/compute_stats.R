@@ -26,7 +26,7 @@ compute.stats.panels <- function(
 		stats.scenes, 
 		char.scenes)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	# panel positions
 	pages.end.panel.ids <- c(
@@ -291,7 +291,7 @@ compute.stats.pages <- function(
 		stats.scenes, stats.panels, 
 		char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	
 	# main folder
@@ -574,7 +574,7 @@ compute.stats.scenes <- function(
 		stats.pages, stats.scenes, stats.panels, 
 		char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	
 	# main folder
@@ -834,7 +834,7 @@ compute.stats.chars <- function(
 		stats.pages, stats.scenes, stats.panels,
 		char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	
 	# main folder
@@ -1071,7 +1071,7 @@ compute.stats.volumes <- function(
 		stats.pages, stats.scenes, stats.panels, stats.chars,
 		char.volumes, char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	
 	# compute stats
@@ -1363,7 +1363,7 @@ compute.stats.overall <- function(
 		stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
 		char.volumes, char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
 	att.nbr <- length(atts)
 	
 	# compute stats
@@ -1596,7 +1596,7 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 		stats.pages=stats.pages, stats.pages.atts=stats.pages.atts, char.pages=char.pages,
 		stats.scenes=stats.scenes, stats.scenes.atts=stats.scenes.atts, char.scenes=char.scenes,
 		stats.chars=stats.chars, char.volumes=char.volumes,
-		stats.volumes=, stats.volumes.atts=stats.volumes.atts,
+		stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts,
 		stats.overall=stats.overall, stats.overall.atts=stats.overall.atts
 	)
 	return(result)

@@ -12,7 +12,7 @@ compute.edgebetweenness <- function(name, graph)
 	{	if(name==MEAS_EDGEBETWNS)
 			res <- edge_betweenness(graph=graph, directed=FALSE, weights=NA)
 		else if(name==paste0(MEAS_EDGEBETWNS,SFX_WEIGHT))
-			res <- edge_betweenness(graph=graph, directed=FALSE, weights=reverse.graph.weights(E(graph)$weight))
+			res <- edge_betweenness(graph=graph, directed=FALSE, weights=reverse.weights(E(graph)$weight))
 		cache[[name]] <<- res
 	}
 }

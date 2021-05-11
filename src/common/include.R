@@ -53,6 +53,7 @@ source("src/common/graphs.R")
 source("src/common/stats.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
+source("src/common/plot_graphs.R")
 source("src/common/topo_measures.R")
 
 source("src/corpus/read_data.R")
@@ -60,4 +61,5 @@ source("src/corpus/compute_stats.R")
 
 source("src/static/extract_nets.R")
 source("src/static/compute_stats.R")
+source("src/static/plot_nets.R")
 source("src/static/plot_stats.R")
