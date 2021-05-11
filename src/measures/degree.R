@@ -203,3 +203,12 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_ASSORT)]] <- list( #strength-assortativ
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
 	}
 )
+GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_CENTRZ)]] <- list( #strength-centralization
+	type=integer(),
+	bounds=c(0,NA),
+	cname="Strength Centralization",
+	foo=function(graph) 
+	{	values <- compute.degree(MEAS_STRENGTH, graph)
+		centralize(scores=values[idx], normalized=FALSE)
+	}
+)

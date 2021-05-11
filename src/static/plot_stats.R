@@ -6,24 +6,26 @@
 ###############################################################################
 
 
-# graph measures based on assortativity
-assort.groups <- list(
-	c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
-	c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
-	c("degree", "degree-norm", "strength"),
-	c("eccentricity"),
-	c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
-	c("transitivity-local", "transitivity-weighted-local")
-)
-assort.suffix <- "-assortativity"
-# graph measures based on centralization
-ctrlztn.group <- list(
-	c("betweenness", "betweenness-norm"),
-	c("closeness", "closeness-norm"),
-	c("degree", "degree-norm"),
-	c("eigenvector", "eigenvector-norm")
-)
-ctrlztn.suffix <- "-centralization"
+## graph measures based on assortativity
+#assort.groups <- list(
+#	c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
+#	c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
+#	c("harmo-closeness", "harmo-closeness-norm", "harmo-closeness-weighted", "harmo-closeness-weighted-norm"),
+#	c("degree", "degree-norm", "strength"),
+#	c("eccentricity"),
+#	c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
+#	c("transitivity-local", "transitivity-weighted-local")
+#)
+#assort.suffix <- "-assortativity"
+## graph measures based on centralization
+#ctrlztn.group <- list(
+#	c("betweenness", "betweenness-norm", "betweenness-weighted"),
+#	c("closeness", "closeness-norm", "closeness-weighted"),
+#	c("harmo-closeness", "harmo-closeness-weighted"),
+#	c("degree", "degree-norm", "strength"),
+#	c("eigenvector", "eigenvector-norm", "eigenvector-weighted")
+#)
+#ctrlztn.suffix <- "-centralization"
 
 
 
