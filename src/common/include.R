@@ -13,9 +13,10 @@ library("future.apply")
 library("doParallel")
 library("vioplot")
 library("ggplot2")
-library("viridis")
 library("ggExtra")
+library("viridis")
 library("poweRlaw")
+library("qgraph")
 
 
 

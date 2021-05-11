@@ -29,7 +29,7 @@ plot.static.graph.scenes <- function(data)
 	btw <- betweenness(graph=g, directed=FALSE, weights=reverse.weights(E(g)$weight), normalized=FALSE)
 	#vsizes <- btw/max(btw) * 8 + 2
 	nbtw <- (btw - min(btw)) / (max(btw) - min(btw))
-	vsize <- sqrt(-nbtw^2 + 2*nbtw) * 8
+	vsizes <- sqrt(-nbtw^2 + 2*nbtw) * 8 + 2
 	
 	# set up vertex labels
 	vlabs <- rep(NA, gorder(g))
