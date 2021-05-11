@@ -28,26 +28,6 @@
 #ctrlztn.suffix <- "-centralization"
 
 
-
-###############################################################################
-# Colors used in the plots.
-# Taken from http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=9
-###############################################################################
-COLORS <- c(
-		rgb(228,26,28,maxColorValue=255),
-		rgb(55,126,184,maxColorValue=255),
-		rgb(77,175,74,maxColorValue=255),
-		rgb(152,78,163,maxColorValue=255),
-		rgb(255,127,0,maxColorValue=255),
-#		rgb(255,255,51,maxColorValue=255),	# yellow
-		rgb(166,86,40,maxColorValue=255),
-		rgb(247,129,191,maxColorValue=255),
-		rgb(153,153,153,maxColorValue=255),
-		rgb(30,30,30,maxColorValue=255)
-)
-
-
-
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -429,7 +409,6 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 }
 
 
-
 ###############################################################################
 # Generates the plots containing several series at once, as lines.
 # 
@@ -464,6 +443,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 		}
 		# generate a plot containing each window size value as a series
+		cols <- get.palette(length(data))
 		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_series.png")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
@@ -495,13 +475,13 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 				# draw series
 				for(d in 1:length(data))
 				{	lines(x=overlaps[[d]],y=data[[d]],
-						col=COLORS[d], lwd=2
+						col=cols[d], lwd=2
 					)
 				}
 				# add color legend
 				legend(
 					x="topright", 
-					fill=COLORS, 
+					fill=cols, 
 					legend=window.sizes, 
 					title="Window Size"
 				)
@@ -527,6 +507,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			axis[[i]] <- window.sizes[idx]
 		}
 		# generate a plot representing each overlap value as a series
+		cols <- get.palette(length(data))
 		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_series.png")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
@@ -558,13 +539,13 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 				# draw series
 				for(d in 1:length(data))
 				{	lines(x=axis[[d]],y=data[[d]],
-						col=COLORS[d], lwd=2
+						col=cols[d], lwd=2
 					)
 				}
 				# add color legend
 				legend(
 					x="topright", 
-					fill=COLORS, 
+					fill=cols, 
 					legend=common.overlaps, 
 					title="Overlap"
 				)
@@ -579,7 +560,6 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		}
 	}
 }
-
 
 
 ###############################################################################
@@ -619,6 +599,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				data[[i]] <- load.static.corr.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights)
 			}
 			# generate a plot containing each window size value as a series
+			cols <- get.palette(length(data))
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_corr.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
@@ -643,13 +624,13 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 					# draw series
 					for(d in 1:length(data))
 					{	lines(x=overlaps[[d]],y=data[[d]],
-								col=COLORS[d], lwd=2
+								col=cols[d], lwd=2
 						)
 					}
 					# add color legend
 					legend(
 						x="topright", 
-						fill=COLORS, 
+						fill=cols, 
 						legend=window.sizes, 
 						title="Window Size"
 					)
@@ -675,6 +656,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				axis[[i]] <- window.sizes[idx]
 			}
 			# generate a plot representing each overlap value as a series
+			cols <- get.palette(length(data))
 			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_corr.png")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
@@ -699,13 +681,13 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 					# draw series
 					for(d in 1:length(data))
 					{	lines(x=axis[[d]],y=data[[d]],
-								col=COLORS[d], lwd=2
+								col=cols[d], lwd=2
 						)
 					}
 					# add color legend
 					legend(
 							x="topright", 
-							fill=COLORS, 
+							fill=cols, 
 							legend=common.overlaps, 
 							title="Overlap"
 					)
@@ -805,7 +787,6 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 }
 
 
-
 ###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
@@ -816,7 +797,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-generate.all.static.plots <- function(mode, window.sizes, overlaps)
+generate.static.plots.all <- function(mode, window.sizes, overlaps)
 {	
 	tlog(3,"Generating single plots for mode=",mode)
 	generate.static.plots.single(mode, window.sizes, overlaps)
@@ -832,7 +813,6 @@ generate.all.static.plots <- function(mode, window.sizes, overlaps)
 }
 
 
-
 ###############################################################################
 # Main function for the generation of plots describing static graphs.
 # The statistics must have been previously extracted.
@@ -846,10 +826,10 @@ generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.windo
 {	tlog(1,"Generating plots for static graphs")
 	
 	tlog(2,"Generating plots for static graphs with panel-based windows")
-	generate.all.static.plots(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+	generate.all.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
 	
 	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.all.static.plots(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	generate.all.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
 	
 	tlog(1,"Generation of plots for static graphs complete")	
 }

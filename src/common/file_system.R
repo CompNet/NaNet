@@ -119,7 +119,7 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # 
-# Returns: basename of the graph and related files.
+# Returns: basename of the stat file.
 ###############################################################################
 get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
 {	res <- "static"
@@ -134,15 +134,47 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 	res <- paste0(res, "_meas")
 	
 	if(object=="graph")
-		res <- 	paste0(res, "_graph.csv")
+		res <- 	paste0(res, "_graph")
 	else if(object=="nodes")
-		res <- 	paste0(res, "_nodes.csv")
+		res <- 	paste0(res, "_nodes")
 	else if(object=="nodepairs")
-		res <- 	paste0(res, "_nodepairs.csv")
+		res <- 	paste0(res, "_nodepairs")
 	else if(object=="links")
-		res <- 	paste0(res, "_links.csv")
+		res <- 	paste0(res, "_links")
 	else if(object=="corr")
-		res <- 	paste0(res, "_corr.csv")
+		res <- 	paste0(res, "_corr")
+	
+	res <- paste0(res, ".csv")
+	
+	return(res)
+}
+
+
+
+
+###############################################################################
+# Returns the name of a topological measure plot file based on the specified parameters.
+# 
+# measure: file-ready name of the measure.
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="scenes").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# 
+# Returns: basename of the plot file.
+###############################################################################
+get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weights=NA)
+{	res <- "static"
+	
+	if(mode=="scenes")
+		res <- 	file.path(STAT_SCENES_FOLDER, paste0(res, "_scenes_wt=",weights))
+	else if(mode=="panel.window")
+		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+	else if(mode=="page.window")
+		res <- 	file.path(STAT_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+	
+	res <- paste0(res, "_meas=",measure)
 	
 	return(res)
 }

@@ -139,6 +139,7 @@ get.palette <- function(values)
 	else
 		result <- CAT_COLORS_32
 	
+	result <- result[1:values]
 	return(result)
 }
 

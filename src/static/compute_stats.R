@@ -41,15 +41,28 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	for(m in 1:length(NODE_MEASURES))
 	{	meas.name <- names(NODE_MEASURES)[m]
 		tlog(6,"Computing measure ",meas.name)
+		
 		# compute values
 		measure <- NODE_MEASURES[[m]]
 		values <- measure$foo(graph=g)
 		if(length(values)==0)
 			values <- rep(NA,gorder(g))
+		
 		# update table
 		res.tab[,meas.name] <- values
+		
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# plot
+		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			hist(
+				values,
+				col="RED"
+			)
+		dev.off()
 	}
 	
 	tlog(4,"Computation of nodal topological measures complete")
@@ -99,6 +112,16 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		res.tab[,meas.name] <- values
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# plot
+		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			hist(
+				values,
+				col="RED"
+			)
+		dev.off()
 	}
 	
 	tlog(4,"Computation of node-pair topological measures complete")
@@ -150,6 +173,16 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		res.tab[,meas.name] <- values
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# plot
+		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			hist(
+				values,
+				col="RED"
+			)
+		dev.off()
 	}
 	
 	tlog(4,"Computation of link topological measures complete")
