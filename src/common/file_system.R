@@ -28,6 +28,9 @@ dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the corpus stat files
 	STAT_CORPUS_FOLDER <- file.path(STAT_FOLDER,"corpus")
 	dir.create(path=STAT_CORPUS_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the corpus arc stat files
+		STAT_CORPUS_ARCS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"arcs")
+		dir.create(path=STAT_CORPUS_ARCS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus character stat files
 		STAT_CORPUS_CHARS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"characters")
 		dir.create(path=STAT_CORPUS_CHARS_FOLDER, showWarnings=FALSE, recursive=TRUE)

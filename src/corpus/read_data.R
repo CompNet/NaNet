@@ -380,8 +380,11 @@ read.raw.data <- function()
 	
 	# read the file describing the volumes
 	volume.info <- read.volume.table()
+	
 	# read the file describing the pages
 	page.info <- read.page.table(volume.info)
+	page.info <- cbind(1:nrow(page.info), page.info)
+	colnames(page.info)[1] <- COL_PAGES_PAGE_ID
 	
 	# read the file describing the interactions
 	tmp <- read.inter.table(volume.info, page.info)

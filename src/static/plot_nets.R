@@ -38,7 +38,8 @@ plot.static.graph.scenes <- function(data)
 	vlabsize <- vsizes*0.12
 	
 	# plot the whole graph
-	tlog(4,"Plotting the whole graph")
+	graph.file <- file.path(NET_SCENES_FOLDER, "static_scenes")
+	tlog(4,"Plotting the whole graph in file ",graph.file)
 	png(filename=paste0(graph.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 #	pdf(file=paste0(graph.file,".pdf"),bg="white")
 		plot(g, 
@@ -52,14 +53,17 @@ plot.static.graph.scenes <- function(data)
 	dev.off()
 	
 	# plot each volume separately (full graph but different colors)
-	tlog(4,"Plotting volume-related graphs using vertex colors")
+	vols.folder <- file.path(NET_SCENES_FOLDER, "volumes")
+	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
+	graph.file <- file.path(vols.folder, "static_scenes")
+	tlog(4,"Plotting volume-related graphs using vertex colors, in file ",graph.file)
 	for(v in 1:length(data$char.volumes))
 	{	tlog(6,"Plotting volume ",v,"/",length(data$char.volumes))
 		idx <- match(data$char.volumes[[v]], data$char.info[,COL_CHAR_NAME])
 		cols <- rep("LIGHTGRAY", nrow(data$char.info))
 		cols[idx] <- "RED"
 		png(filename=paste0(graph.file,"_vol",v,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
-#		pdf(file=paste0(graph.file,".pdf"),bg="white")
+#		pdf(file=paste0(graph.file,"_vol",v,".pdf"),bg="white")
 			plot(g, 
 				layout=LAYOUT, 
 				vertex.size=vsizes, vertex.color=cols, 
@@ -72,8 +76,35 @@ plot.static.graph.scenes <- function(data)
 		dev.off()
 	}
 	
+	# plot each arc separately (full graph but different colors)
+	tlog(4,"Plotting arc-related graphs using vertex colors")
+	arcs.folder <- file.path(NET_SCENES_FOLDER, "arcs")
+	dir.create(path=arcs.folder, showWarnings=FALSE, recursive=TRUE)
+	graph.file <- file.path(arcs.folder, "static_scenes")
+	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	for(a in 1:length(data$char.arcs))
+	{	tlog(6,"Plotting arc ",a,"/",length(data$char.arcs))
+		idx <- match(data$char.arcs[[a]], data$char.info[,COL_CHAR_NAME])
+		cols <- rep("LIGHTGRAY", nrow(data$char.info))
+		cols[idx] <- "RED"
+		png(filename=paste0(graph.file,"_arc",a,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		#pdf(file=paste0(graph.file,"_arc",a,".pdf"),bg="white")
+			plot(g, 
+				layout=LAYOUT, 
+				vertex.size=vsizes, vertex.color=cols, 
+				vertex.label=vlabs, vertex.label.cex=vlabsize,
+				vertex.label.family="sans",
+				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
+				vertex.label.color="BLACK",
+				main=paste0(arc.titles[a], " (",a,"/",length(data$char.arcs),")")
+			)
+		dev.off()
+	}
+	
 	tlog(2,"Extraction of the scene-based static graph completed")
 	return(g)
+	
+	# TODO add the plots without the extras
 }
 
 

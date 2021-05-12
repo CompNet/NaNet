@@ -16,6 +16,8 @@
 # char.info: table describing all the characters occurring in the BD series.
 # stats.scenes: previously computed scene statistics.
 # char.scenes: characters present in each scene.
+# cur.vol: NA (regular mode) or Id of the volume specifically processed.
+# cur.arc: NA (regular mode) or Id of the arc specifically processed.
 #
 # returns: a list containing the table with overall panel stats (stats.panels), the 
 #          panel stats by vertex attribute values (stats.panels.atts), and the list
@@ -24,9 +26,10 @@
 compute.stats.panels <- function(
 		volume.info, page.info, char.info, 
 		stats.scenes, 
-		char.scenes)
+		char.scenes,
+		cur.vol=NA, cur.arc=NA)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	# panel positions
 	pages.end.panel.ids <- c(
@@ -35,8 +38,12 @@ compute.stats.panels <- function(
 	)
 	
 	# main folder
-	if(nrow(volume.info)==1)
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[1,COL_VOLS_VOLUME_ID], "panels")
+	if(!is.na(cur.vol))
+	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "panels")
+		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
+	}
+	else if(!is.na(cur.arc))
+	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "panels")
 		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
 	}
 	else
@@ -44,7 +51,15 @@ compute.stats.panels <- function(
 	
 	# compute stats
 	tlog(3,"Computing panel stats")
-	panel.nbr <- stats.scenes[nrow(stats.scenes),COL_STATS_END_PANEL_ID] - stats.scenes[1,COL_STATS_START_PANEL_ID] + 1
+	
+	# list of concerned panel ids
+	panel.ids <- c()
+	for(s in 1:nrow(stats.scenes))
+	{	panel.ids <- union(panel.ids, 
+				seq(stats.scenes[s,COL_STATS_START_PANEL_ID], stats.scenes[s,COL_STATS_END_PANEL_ID])
+		)
+	}
+	panel.nbr <- length(panel.ids)
 	
 	# init stats table for panels
 	stats.panels <- data.frame(
@@ -77,18 +92,17 @@ compute.stats.panels <- function(
 	# compute the stats for each panel
 	tlog(4,"Processing each panel separately")
 	char.panels <- lapply(1:panel.nbr, function(x) c())
-	panel.ids <- seq(stats.scenes[1,COL_STATS_START_PANEL_ID], stats.scenes[1,COL_STATS_START_PANEL_ID]+panel.nbr-1)
 	for(p in 1:panel.nbr)
 	{	tlog(5,"Processing panel id ",panel.ids[p]," (",p,"/",panel.nbr,")")
 		
 		# find the scenes containing this panel
 		ss <- which(stats.scenes[,COL_STATS_START_PANEL_ID]<=panel.ids[p]
 						& stats.scenes[,COL_STATS_END_PANEL_ID]>=panel.ids[p])
-		cur.page.id <- which(page.info[,COL_PAGES_START_PANEL_ID]<=panel.ids[p]
+		cur.page <- which(page.info[,COL_PAGES_START_PANEL_ID]<=panel.ids[p]
 						& pages.end.panel.ids>=panel.ids[p])
-		pos <- panel.ids[p] - page.info[cur.page.id, COL_PAGES_START_PANEL_ID] + 1
+		pos <- panel.ids[p] - page.info[cur.page, COL_PAGES_START_PANEL_ID] + 1
 		match.start <- pos==1
-		match.end <- pos==page.info[cur.page.id,COL_PAGES_PANELS]
+		match.end <- pos==page.info[cur.page,COL_PAGES_PANELS]
 		for(s in ss)
 		{	if(length(char.scenes[[s]])>0)
 				char.panels[[p]] <- union(char.panels[[p]], char.scenes[[s]])
@@ -97,8 +111,8 @@ compute.stats.panels <- function(
 		# update overall stat table
 		stats.panels[p, COL_STATS_VOLUME] <- stats.scenes[ss[1],COL_STATS_VOLUME]
 		stats.panels[p, COL_STATS_VOLUME_ID] <- stats.scenes[ss[1],COL_STATS_VOLUME_ID]
-		stats.panels[p, COL_STATS_PAGE] <- page.info[cur.page.id,COL_PAGES_PAGE]
-		stats.panels[p, COL_STATS_PAGE_ID] <- cur.page.id
+		stats.panels[p, COL_STATS_PAGE] <- page.info[cur.page,COL_PAGES_PAGE]
+		stats.panels[p, COL_STATS_PAGE_ID] <- page.info[cur.page,COL_PAGES_PAGE_ID]
 		stats.panels[p, COL_STATS_PANEL] <- pos
 		stats.panels[p, COL_STATS_PANEL_ID] <- panel.ids[p]
 		stats.panels[p, COL_STATS_CHARS] <- length(char.panels[[p]])
@@ -266,7 +280,7 @@ compute.stats.panels <- function(
 	
 	result <- list(stats.panels=stats.panels, stats.panels.atts=stats.panels.atts, char.panels=char.panels)
 	return(result)
-}	
+}
 
 
 
@@ -281,6 +295,8 @@ compute.stats.panels <- function(
 # stats.panels: previously computed panel statistics.
 # char.scenes: characters present in each scene.
 # char.panels: characters present in each panel.
+# cur.vol: NA (regular mode) or Id of the volume specifically processed.
+# cur.arc: NA (regular mode) or Id of the arc specifically processed.
 #
 # returns: a list containing the table with overall page stats (stats.panels), the 
 #          page stats by vertex attribute values (stats.panels.atts), and the list
@@ -289,21 +305,27 @@ compute.stats.panels <- function(
 compute.stats.pages <- function(
 		volume.info, page.info, char.info, 
 		stats.scenes, stats.panels, 
-		char.scenes, char.panels)
+		char.scenes, char.panels,
+		cur.vol=NA, cur.arc=NA)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
 	# main folder
-	if(nrow(volume.info)==1)
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[1,COL_VOLS_VOLUME_ID], "pages")
+	if(!is.na(cur.vol))
+	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "pages")
+		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
+	}
+	else if(!is.na(cur.arc))
+	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "pages")
 		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
 	}
 	else
 		main.folder <- STAT_CORPUS_PAGES_FOLDER
 	
 	# compute stats
-	page.nbr <- stats.scenes[nrow(stats.scenes),COL_STATS_END_PAGE_ID] - stats.scenes[1,COL_STATS_START_PAGE_ID] + 1
+	page.ids <- sort(unique(stats.panels[,COL_STATS_PAGE_ID]))
+	page.nbr <- length(page.ids)
 	
 	# list the characters by page
 	tlog(3,"Listing the characters by page")
@@ -315,10 +337,12 @@ compute.stats.pages <- function(
 		# find the pages containing the scene
 		start.page.id <- stats.scenes[s,COL_STATS_START_PAGE_ID]
 		end.page.id <- stats.scenes[s,COL_STATS_END_PAGE_ID]
-		page.ids <- start.page.id:end.page.id
-		for(page.id in page.ids)
+		sc.page.ids <- start.page.id:end.page.id
+		for(page.id in sc.page.ids)
 		{	if(length(char.scenes[[s]])>0)
-				char.pages[[page.id-first.pg.id+1]] <- union(char.pages[[page.id-first.pg.id+1]], char.scenes[[s]])
+			{	i <- which(page.info[,COL_PAGES_PAGE_ID]==page.id)
+				char.pages[[i]] <- union(char.pages[[i]], char.scenes[[s]])
+			}
 		}
 	}
 	
@@ -352,7 +376,6 @@ compute.stats.pages <- function(
 	
 	# compute the stats for each page
 	tlog(4,"Processing each page separately")
-	page.ids <- seq(stats.scenes[1,COL_STATS_START_PAGE_ID], stats.scenes[1,COL_STATS_START_PAGE_ID]+page.nbr-1)
 	for(p in 1:page.nbr)
 	{	tlog(5,"Processing page id ",page.ids[p]," (",p,"/",page.nbr,")")
 		
@@ -373,7 +396,7 @@ compute.stats.pages <- function(
 		
 		# update attribute stat table
 		if(att.nbr>0)
-		{	idx <- match(char.panels[[p]], char.info[,COL_CHAR_NAME])
+		{	idx <- match(char.pages[[p]], char.info[,COL_CHAR_NAME])
 			for(att in atts)
 			{	m <- stats.pages.atts[[att]]
 				tt <- table(char.info[idx,att])
@@ -565,6 +588,8 @@ compute.stats.pages <- function(
 # char.page: characters present in each page.
 # char.scenes: characters present in each scene.
 # char.panels: characters present in each panel.
+# cur.vol: NA (regular mode) or Id of the volume specifically processed.
+# cur.arc: NA (regular mode) or Id of the arc specifically processed.
 #
 # returns: a list containing the table with overall scene stats (stats.scenes) and the 
 #          scene stats by vertex attribute values (stats.scenes.atts).
@@ -572,14 +597,19 @@ compute.stats.pages <- function(
 compute.stats.scenes <- function(
 		volume.info, page.info, char.info, 
 		stats.pages, stats.scenes, stats.panels, 
-		char.pages, char.scenes, char.panels)
+		char.pages, char.scenes, char.panels,
+		cur.vol=NA, cur.arc=NA)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
 	# main folder
-	if(nrow(volume.info)==1)
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[1,COL_VOLS_VOLUME_ID], "scenes")
+	if(!is.na(cur.vol))
+	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "scenes")
+		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
+	}
+	else if(!is.na(cur.arc))
+	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "scenes")
 		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
 	}
 	else
@@ -604,7 +634,7 @@ compute.stats.scenes <- function(
 	# compute additional stats for each scene
 	tlog(4,"Processing each scene separately")
 	for(s in 1:scene.nbr)
-	{	tlog(5,"Processing scene id ",s,"/",scene.nbr)
+	{	tlog(5,"Processing scene ",s,"/",scene.nbr)
 		
 		# update attribute stat table
 		if(att.nbr>0)
@@ -825,6 +855,8 @@ compute.stats.scenes <- function(
 # char.pages: characters present in each page.
 # char.scenes: characters present in each scene.
 # char.panels: characters present in each panel.
+# cur.vol: NA (regular mode) or Id of the volume specifically processed.
+# cur.arc: NA (regular mode) or Id of the arc specifically processed.
 #
 # returns: a list containing the table with overall character stats (stats.chars) and
 #		   the list of characters for each volume.
@@ -832,14 +864,19 @@ compute.stats.scenes <- function(
 compute.stats.chars <- function(
 		volume.info, page.info, char.info, 
 		stats.pages, stats.scenes, stats.panels,
-		char.pages, char.scenes, char.panels)
+		char.pages, char.scenes, char.panels,
+		cur.vol=NA, cur.arc=NA)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
 	# main folder
-	if(nrow(volume.info)==1)
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[1,COL_VOLS_VOLUME_ID], "characters")
+	if(!is.na(cur.vol))
+	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "characters")
+		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
+	}
+	else if(!is.na(cur.arc))
+	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "characters")
 		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
 	}
 	else
@@ -852,13 +889,14 @@ compute.stats.chars <- function(
 	
 	#  identify the characters in each volume
 	tlog(4,"Identify the character in each volume")
-	volume.nbr <- nrow(volume.info)
+	volume.ids <- volume.info[,COL_VOLS_VOLUME_ID]
+	volume.nbr <- length(volume.ids)
 	char.volumes <- lapply(1:volume.nbr, function(x) c())
 	for(v in 1:volume.nbr)
-	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
+	{	tlog(5,"Processing volume id ",volume.ids[v]," (",v,"/",volume.nbr,")")
 		
 		# find the pages contained in the volume
-		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==volume.ids[v])
 		for(p in idx.pg)
 		{	if(length(char.pages[[p]])>0)
 				char.volumes[[v]] <- union(char.volumes[[v]], char.pages[[p]])
@@ -1071,14 +1109,14 @@ compute.stats.volumes <- function(
 		stats.pages, stats.scenes, stats.panels, stats.chars,
 		char.volumes, char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
 	# compute stats
 	tlog(3,"Computing volume stats")
 	volume.nbr <- nrow(volume.info)
 	
-	# init stats table for volume
+	# init stats table for volumes
 	stats.volumes <- data.frame(
 			character(volume.nbr), integer(volume.nbr),
 			integer(volume.nbr), numeric(volume.nbr), numeric(volume.nbr), 
@@ -1113,6 +1151,8 @@ compute.stats.volumes <- function(
 	tlog(4,"Processing each volume separately")
 	for(v in 1:volume.nbr)
 	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
+		folder.vol <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[v,COL_VOLS_VOLUME_ID])
+		dir.create(path=folder.vol, showWarnings=FALSE, recursive=TRUE)
 		
 		# corresponding pages
 		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
@@ -1163,7 +1203,8 @@ compute.stats.volumes <- function(
 		tmp <- compute.stats.panels(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.scenes, 
-				vol.char.scenes
+				vol.char.scenes,
+				v, NA
 		)
 		vol.stats.panels <- tmp$stats.panels
 		vol.stats.panels.atts <- tmp$stats.panels.atts
@@ -1172,7 +1213,8 @@ compute.stats.volumes <- function(
 		tmp <- compute.stats.pages(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.scenes, vol.stats.panels, 
-				vol.char.scenes, vol.char.panels
+				vol.char.scenes, vol.char.panels,
+				v, NA
 		)
 		vol.stats.pages <- tmp$stats.pages
 		vol.stats.pages.atts <- tmp$stats.pages.atts
@@ -1181,7 +1223,8 @@ compute.stats.volumes <- function(
 		tmp <- compute.stats.scenes(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.pages, vol.stats.scenes, vol.stats.panels, 
-				vol.char.pages, vol.char.scenes, vol.char.panels
+				vol.char.pages, vol.char.scenes, vol.char.panels,
+				v, NA
 		)
 		vol.stats.scenes <- tmp$stats.scenes
 		vol.stats.scenes.atts <- tmp$stats.scenes.atts
@@ -1189,7 +1232,8 @@ compute.stats.volumes <- function(
 		tmp <- compute.stats.chars(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.pages, vol.stats.scenes, vol.stats.panels, 
-				vol.char.pages, vol.char.scenes, vol.char.panels
+				vol.char.pages, vol.char.scenes, vol.char.panels,
+				v, NA
 		)
 		vol.stats.chars <- tmp$stats.chars
 		vol.char.volumes <- tmp$char.volumes
@@ -1228,7 +1272,7 @@ compute.stats.volumes <- function(
 		}
 		
 		# density plot: chars vs. panels (by scene)
-		file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[v,COL_VOLS_VOLUME_ID], paste0("comparison_vol",v,"_chars-scenes_vs_panels-scenes"))
+		file <- file.path(folder.vol, paste0("comparison_vol",v,"_chars-scenes_vs_panels-scenes"))
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
@@ -1267,7 +1311,7 @@ compute.stats.volumes <- function(
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[v,COL_VOLS_VOLUME_ID], paste0("attr_distrib_vol",v,"_",atts[a]))
+			file <- file.path(folder.vol, paste0("attr_distrib_vol",v,"_",atts[a]))
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			#pdf(file=paste0(file,".pdf"), bg="white")
@@ -1340,7 +1384,7 @@ compute.stats.volumes <- function(
 
 
 ###############################################################################
-# Computes and records some statistics regarding the volumes.
+# Computes and records some statistics regarding the narrative arcs.
 #
 # volume.info: table describing the series volumes.
 # page.info: table describing all the pages constituting the BD series.
@@ -1349,21 +1393,359 @@ compute.stats.volumes <- function(
 # stats.pages: previously computed page statistics.
 # stats.scenes: previously computed scene statistics.
 # stats.panels: previously computed panel statistics.
-# stats.panels: previously computed character statistics.
+# stats.chars: previously computed character statistics.
+# char.volumes: characters present in each volume.
 # char.pages: characters present in each page.
 # char.scenes: characters present in each scene.
 # char.panels: characters present in each panel.
-# char.panels: characters present in each volume.
+#
+# returns: a list containing the table with overall arc stats (stats.arcs), and
+#          the arc stats by vertex attribute values (stats.chars.arcs).
+###############################################################################
+compute.stats.arcs <- function(
+		volume.info, page.info, char.info, 
+		stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+		char.volumes, char.pages, char.scenes, char.panels)
+{	# vertex attributes
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
+	att.nbr <- length(atts)
+	
+	# compute stats
+	tlog(3,"Computing arc stats")
+	arc.titles <- unique(volume.info[,COL_VOLS_ARC])
+	arc.nbr <- length(arc.titles)
+	
+	#  identify the characters in each arc
+	tlog(4,"Identify the character in each arc")
+	char.arcs <- lapply(1:arc.nbr, function(x) c())
+	for(a in 1:arc.nbr)
+	{	tlog(5,"Processing arc ",a,"/",arc.nbr)
+		
+		# find the pages contained in the arc
+		vols <- which(volume.info[,COL_VOLS_ARC]==arc.titles[a])
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID] %in% vols)
+		for(p in idx.pg)
+		{	if(length(char.pages[[p]])>0)
+				char.arcs[[a]] <- union(char.arcs[[a]], char.pages[[p]])
+		}
+	}
+	
+	# init stats table for arcs
+	stats.arcs <- data.frame(
+			character(arc.nbr), integer(arc.nbr),
+			integer(arc.nbr), numeric(arc.nbr), 
+			integer(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
+			integer(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
+			integer(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
+			integer(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
+			numeric(arc.nbr), numeric(arc.nbr),
+			stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(stats.arcs) <- c(
+			COL_STATS_ARC, COL_STATS_ARC_ID,
+			COL_STATS_VOLUMES, COL_STATS_VOLUMES_BY_CHAR,
+			COL_STATS_PAGES, COL_STATS_PAGES_BY_VOLUME, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+			COL_STATS_SCENES, COL_STATS_SCENES_BY_VOLUME, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+			COL_STATS_PANELS, COL_STATS_PANELS_BY_VOLUME, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+			COL_STATS_CHARS, COL_STATS_CHARS_BY_VOLUME, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL,
+			COL_STATS_CORR_PANELS_CHARS_BY_SCENE, COL_STATS_CORR_SCENES_PANELS_BY_CHAR
+	)
+	
+	# init stats tables for attributes
+	stats.arcs.atts <- list()
+	if(att.nbr>0)
+	{	for(att in atts)
+		{	vals <- char.info[,att]
+			uniq <- names(table(vals))	#, useNA="always"))
+			m <- matrix(0, nrow=arc.nbr, ncol=length(uniq))
+			colnames(m) <- uniq
+			stats.arcs.atts[[att]] <- m
+		}
+	}
+	
+	# compute the stats for each arc
+	tlog(4,"Processing each arc separately")
+	for(a in 1:arc.nbr)
+	{	tlog(5,"Processing arc ",a,"/",arc.nbr)
+		folder.arc <- file.path(STAT_CORPUS_ARCS_FOLDER, a)
+		dir.create(path=folder.arc, showWarnings=FALSE, recursive=TRUE)
+		
+		# corresponding volumes
+		idx.vol <- which(volume.info[,COL_VOLS_ARC]==arc.titles[a])
+		vln <- length(idx.vol)
+		
+		# corresponding pages
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID] %in% idx.vol)
+		pgn <- length(idx.pg)
+		
+		# corresponding characters
+		char.arc <- c()
+		for(i in idx.pg)
+			char.arc <- union(char.arc, char.pages[[i]])
+		idx.char <- match(char.arc, char.info[,COL_CHAR_NAME])
+		chn <- length(char.arc)
+		
+		# corresponding scenes
+		idx.sc <- which(stats.scenes[,COL_STATS_VOLUME_ID] %in% idx.vol)
+		scn <- length(idx.sc)
+		
+		# corresponding panels
+		idx.pn <- which(stats.panels[,COL_STATS_VOLUME_ID] %in% idx.vol)
+		pnn <- sum(page.info[idx.pg,COL_PAGES_PANELS])
+		
+		# char stats
+		char.arc.vln <- rep(0,chn)
+		names(char.arc.vln) <- char.arc
+		for(v in idx.vol)
+		{	for(cc in char.volumes[[v]])
+				char.arc.vln[cc] <- char.arc.vln[cc] + 1
+		}
+		char.arc.pgn <- rep(0,chn)
+		names(char.arc.pgn) <- char.arc
+		for(p in idx.pg)
+		{	for(cc in char.pages[[p]])
+				char.arc.pgn[cc] <- char.arc.pgn[cc] + 1
+		}
+		char.arc.scn <- rep(0,chn)
+		names(char.arc.scn) <- char.arc
+		for(s in idx.sc)
+		{	for(cc in char.scenes[[s]])
+				char.arc.scn[cc] <- char.arc.scn[cc] + 1
+		}
+		char.arc.pnl <- rep(0,chn)
+		names(char.arc.pnl) <- char.arc
+		for(p in idx.pn)
+		{	for(cc in char.panels[[p]])
+				char.arc.pnl[cc] <- char.arc.pnl[cc] + 1
+		}
+		
+		# compute detailed stats
+		arc.volume.info <- volume.info[idx.vol,]
+		arc.page.info <- page.info[idx.pg,]
+		arc.char.info <- char.info[idx.char,] 
+		arc.stats.scenes <- stats.scenes[idx.sc,] 
+		arc.char.scenes <- char.scenes[idx.sc]
+		# compute panel stats
+		tmp <- compute.stats.panels(
+				arc.volume.info, arc.page.info, arc.char.info, 
+				arc.stats.scenes, 
+				arc.char.scenes,
+				NA, a
+		)
+		arc.stats.panels <- tmp$stats.panels
+		arc.stats.panels.atts <- tmp$stats.panels.atts
+		arc.char.panels <- tmp$char.panels
+		# compute page stats
+		tmp <- compute.stats.pages(
+				arc.volume.info, arc.page.info, arc.char.info, 
+				arc.stats.scenes, arc.stats.panels, 
+				arc.char.scenes, arc.char.panels,
+				NA, a
+		)
+		arc.stats.pages <- tmp$stats.pages
+		arc.stats.pages.atts <- tmp$stats.pages.atts
+		arc.char.pages <- tmp$char.pages
+		# compute scene stats
+		tmp <- compute.stats.scenes(
+				arc.volume.info, arc.page.info, arc.char.info, 
+				arc.stats.pages, arc.stats.scenes, arc.stats.panels, 
+				arc.char.pages, arc.char.scenes, arc.char.panels,
+				NA, a
+		)
+		arc.stats.scenes <- tmp$stats.scenes
+		arc.stats.scenes.atts <- tmp$stats.scenes.atts
+		# compute character stats
+		tmp <- compute.stats.chars(
+				arc.volume.info, arc.page.info, arc.char.info, 
+				arc.stats.pages, arc.stats.scenes, arc.stats.panels, 
+				arc.char.pages, arc.char.scenes, arc.char.panels,
+				NA, a
+		)
+		arc.stats.chars <- tmp$stats.chars
+		arc.char.volumes <- tmp$char.volumes
+		
+		# update overall stat table
+		stats.arcs[a, COL_STATS_ARC] <- arc.titles[a]
+		stats.arcs[a, COL_STATS_ARC_ID] <- a
+		#
+		stats.arcs[a, COL_STATS_VOLUMES] <- vln
+		stats.arcs[a, COL_STATS_VOLUMES_BY_CHAR] <- sum(char.arc.vln)/chn
+		#
+		stats.arcs[a, COL_STATS_PAGES] <- pgn
+		stats.arcs[a, COL_STATS_PAGES_BY_VOLUME] <- sum(stats.volumes[idx.vol,COL_STATS_PAGES])/vln
+		stats.arcs[a, COL_STATS_PAGES_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_PAGES])/scn
+		stats.arcs[a, COL_STATS_PAGES_BY_CHAR] <- sum(char.arc.pgn)/chn
+		#
+		stats.arcs[a, COL_STATS_SCENES] <- scn
+		stats.arcs[a, COL_STATS_SCENES_BY_VOLUME] <- sum(stats.volumes[idx.vol,COL_STATS_SCENES])/vln
+		stats.arcs[a, COL_STATS_SCENES_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_SCENES])/pgn
+		stats.arcs[a, COL_STATS_SCENES_BY_CHAR] <- sum(char.arc.scn)/chn
+		#
+		stats.arcs[a, COL_STATS_PANELS] <- pnn
+		stats.arcs[a, COL_STATS_PANELS_BY_VOLUME] <- sum(stats.volumes[idx.vol,COL_STATS_PANELS])/vln
+		stats.arcs[a, COL_STATS_PANELS_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_PANELS])/pgn
+		stats.arcs[a, COL_STATS_PANELS_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_PANELS])/scn
+		stats.arcs[a, COL_STATS_PANELS_BY_CHAR] <- sum(char.arc.pnl)/chn
+		#
+		stats.arcs[a, COL_STATS_CHARS] <- chn
+		stats.arcs[a, COL_STATS_CHARS_BY_VOLUME] <- sum(stats.volumes[idx.vol,COL_STATS_CHARS])/vln
+		stats.arcs[a, COL_STATS_CHARS_BY_PAGE] <- sum(stats.pages[idx.pg,COL_STATS_CHARS])/pgn
+		stats.arcs[a, COL_STATS_CHARS_BY_SCENE] <- sum(stats.scenes[idx.sc,COL_STATS_CHARS])/scn
+		stats.arcs[a, COL_STATS_CHARS_BY_PANEL] <- sum(stats.panels[idx.pn,COL_STATS_CHARS])/pnn
+		
+		# update attribute stat table
+		if(att.nbr>0)
+		{	idx <- match(char.arcs[[a]], char.info[,COL_CHAR_NAME])
+			for(att in atts)
+			{	m <- stats.arcs.atts[[att]]
+				tt <- table(char.info[idx,att])
+				m[a,names(tt)] <- tt
+				stats.arcs.atts[[att]] <- m
+			}
+		}
+		
+		# density plot: chars vs. panels (by scene)
+		file <- file.path(folder.arc, paste0("comparison_arc",a,"_chars-scenes_vs_panels-scenes"))
+		#pdf(file=paste0(file,".pdf"), bg="white")
+		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
+			yvals <- stats.scenes[idx.sc,COL_STATS_PANELS]
+			xlab <- "Number of characters by scene"
+			ylab <- "Number of panels by scene"
+			p=ggplot(stats.scenes[idx.sc,], aes(x=xvals, y=yvals)) +
+				geom_hex(binwidth=1) + 
+				coord_fixed() +
+				scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+				theme_bw() +
+				theme_classic() +	# base_size=18
+				labs(fill="Frequency",x=xlab, y=ylab) +
+				theme(legend.position="left") +
+				geom_point(aes(x=xvals, y=yvals), alpha=0)
+			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill="#3a548c")
+			print(p)
+		dev.off()
+		# correlation
+		val <- cor(stats.scenes[idx.sc,COL_STATS_CHARS],stats.scenes[idx.sc,COL_STATS_PANELS])
+		stats.arcs[a, COL_STATS_CORR_PANELS_CHARS_BY_SCENE] <- val
+		tlog(6,"Correlation between characters/scene and panels/scene: ", val)
+		
+		# density: scenes vs. panels (by char)
+		val <- cor(stats.chars[idx.char,COL_STATS_SCENES],stats.chars[idx.char,COL_STATS_PANELS])
+		stats.arcs[a, COL_STATS_CORR_SCENES_PANELS_BY_CHAR] <- val
+		tlog(6,"Correlation between scenes/character and panels/character: ", val)
+		
+		# attribute stats
+		tlog(6,"Computing attribute stats")
+		for(at in 1:length(atts))
+		{	tlog(5,"Computing attribute ",atts[at]," (",at,"/",length(atts),")")
+			
+			# attribute distribution over the characters
+			vals <- table(char.info[idx.char,atts[at]])
+			perc <- vals/sum(vals)*100
+			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+			colnames(df) <- c(atts[at],"Frequency","Proportion")
+			file <- file.path(folder.arc, paste0("attr_distrib_arc",a,"_",atts[at]))
+			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			#
+			#pdf(file=paste0(file,".pdf"), bg="white")
+			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+				barplot(
+					height=perc,
+					main=paste0("Distribution of character attribute ",atts[at]," (%)"),
+					col="#3a548c"
+				)
+			dev.off()
+			
+			# others?
+		}
+	}
+	
+	# record stats
+	file <- file.path(STAT_CORPUS_ARCS_FOLDER, "arcs")
+	tlog(4,"Recording in ",file)
+	write.csv(x=stats.arcs, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	if(att.nbr>0)
+	{	for(att in atts)
+			write.csv(x=stats.arcs.atts[[att]], file=paste0(file,"_att=",att,".csv"), row.names=FALSE)#, col.names=TRUE)
+	}
+	
+	# evolution of the stats by arc
+	arc.cols <- c(
+			COL_STATS_VOLUMES, COL_STATS_VOLUMES_BY_CHAR,
+			COL_STATS_PAGES, COL_STATS_PAGES_BY_VOLUME, COL_STATS_PAGES_BY_SCENE, COL_STATS_PAGES_BY_CHAR,
+			COL_STATS_SCENES, COL_STATS_SCENES_BY_VOLUME, COL_STATS_SCENES_BY_PAGE, COL_STATS_SCENES_BY_CHAR, 
+			COL_STATS_PANELS, COL_STATS_PANELS_BY_VOLUME, COL_STATS_PANELS_BY_PAGE, COL_STATS_PANELS_BY_SCENE, COL_STATS_PANELS_BY_CHAR, 
+			COL_STATS_CHARS, COL_STATS_CHARS_BY_VOLUME, COL_STATS_CHARS_BY_PAGE, COL_STATS_CHARS_BY_SCENE, COL_STATS_CHARS_BY_PANEL,
+			COL_STATS_CORR_PANELS_CHARS_BY_SCENE, COL_STATS_CORR_SCENES_PANELS_BY_CHAR
+	)
+	arc.ttls <- c(
+			"total number of volumes", "average number of volumes by character", 
+			"total number of pages", "average number of pages by volume", "average number of pages by scene", "average number of pages by character", 
+			"total number of scenes", "average number of scenes by volume", "average number of scenes by page", "average number of scenes by character", 
+			"total number of panels", "average number of panels by volume", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
+			"total number of characters", "average number of characters by volume", "average number of characters by page", "average number of characters by scene", "average number of characters by panel",
+			"correlation between the numbers of characters and panels by scene", "correlation between the numbers of scenes and panels by character"
+	)
+	arc.fnames <- c(
+			"num_volumes", "num_volumes_by_char",
+			"num_pages", "num_pages_by_volume", "num_pages_by_scene", "num_pages_by_char",
+			"num_scenes", "num_scenes_by_volume", "num_scenes_by_page", "num_scenes_by_char",
+			"num_panels", "num_panels_by_volume", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
+			"num_chars", "num_chars_by_volume", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel",
+			"corr_chars_panels_by_scene", "corr_scenes_panels_by_char"
+	)
+	tlog(4,"Generating the plots")
+	for(a in 1:length(arc.cols))
+	{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
+		
+		file <- file.path(STAT_CORPUS_ARCS_FOLDER, arc.fnames[a])
+		#pdf(file=paste0(file,".pdf"), bg="white")
+		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			barplot(
+				height=stats.arcs[,arc.cols[a]],
+				names.arg=stats.arcs[,COL_STATS_ARC],
+				main=paste0("Evolution of the ",arc.ttls[a]),
+				col="#3a548c"
+			)
+		dev.off()
+	}
+	
+	# TODO plot all arc distributions on the same plot?
+	
+	result <- list(stats.arcs=stats.arcs, stats.arcs.atts=stats.arcs.atts, char.arcs=char.arcs)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Computes and records some statistics regarding the volumes.
+#
+# volume.info: table describing the series volumes.
+# page.info: table describing all the pages constituting the BD series.
+# char.info: table describing all the characters occurring in the BD series.
+# stats.arcs: previously computed arc statistics.
+# stats.volumes: previously computed volume statistics.
+# stats.pages: previously computed page statistics.
+# stats.scenes: previously computed scene statistics.
+# stats.panels: previously computed panel statistics.
+# stats.chars: previously computed character statistics.
+# char.arcs: characters present in each narrative arc.
+# char.volumes: characters present in each volume.
+# char.pages: characters present in each page.
+# char.scenes: characters present in each scene.
+# char.panels: characters present in each panel.
 #
 # returns: a list containing the table with overall volume stats (stats.chars), and
 #          the volume stats by vertex attribute values (stats.chars.atts).
 ###############################################################################
 compute.stats.overall <- function(
 		volume.info, page.info, char.info, 
-		stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
-		char.volumes, char.pages, char.scenes, char.panels)
+		stats.arcs, stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+		char.arcs, char.volumes, char.pages, char.scenes, char.panels)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
 	# compute stats
@@ -1535,7 +1917,8 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 	tmp <- compute.stats.panels(
 			volume.info, page.info, char.info, 
 			stats.scenes, 
-			char.scenes
+			char.scenes,
+			NA, NA
 	)
 	stats.panels <- tmp$stats.panels
 	stats.panels.atts <- tmp$stats.panels.atts
@@ -1545,7 +1928,8 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 	tmp <- compute.stats.pages(
 			volume.info, page.info, char.info, 
 			stats.scenes, stats.panels, 
-			char.scenes, char.panels
+			char.scenes, char.panels,
+			NA, NA
 	)
 	stats.pages <- tmp$stats.pages
 	stats.pages.atts <- tmp$stats.pages.atts
@@ -1555,7 +1939,8 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 	tmp <- compute.stats.scenes(
 			volume.info, page.info, char.info, 
 			stats.pages, stats.scenes, stats.panels, 
-			char.pages, char.scenes, char.panels
+			char.pages, char.scenes, char.panels,
+			NA, NA
 	)
 	stats.scenes <- tmp$stats.scenes
 	stats.scenes.atts <- tmp$stats.scenes.atts
@@ -1564,7 +1949,8 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 	tmp <- compute.stats.chars(
 			volume.info, page.info, char.info, 
 			stats.pages, stats.scenes, stats.panels, 
-			char.pages, char.scenes, char.panels
+			char.pages, char.scenes, char.panels,
+			NA, NA
 	)
 	stats.chars <- tmp$stats.chars
 	char.volumes <- tmp$char.volumes
@@ -1579,13 +1965,20 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 	stats.volumes.atts <- tmp$stats.volumes.atts
 	
 	# compute arc stats
-	# TODO stats by narrative arc? (code very similar to volumes)
+	tmp <- compute.stats.arcs(
+			volume.info, page.info, char.info, 
+			stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+			char.volumes, char.pages, char.scenes, char.panels
+	)
+	stats.arcs <- tmp$stats.arcs
+	stats.arcs.atts <- tmp$stats.arcs.atts
+	char.arcs <- tmp$char.arcs
 	
 	# compute overall stats
 	tmp <- compute.stats.overall(
 			volume.info, page.info, char.info, 
-			stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
-			char.volumes, char.pages, char.scenes, char.panels
+			stats.arcs, stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
+			char.arcs, char.volumes, char.pages, char.scenes, char.panels
 	)
 	stats.overall <- tmp$stats.overall
 	stats.overall.atts <- tmp$stats.overall.atts
@@ -1595,8 +1988,9 @@ compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.
 		stats.panels=stats.panels, stats.panels.atts=stats.panels.atts, char.panels=char.panels,
 		stats.pages=stats.pages, stats.pages.atts=stats.pages.atts, char.pages=char.pages,
 		stats.scenes=stats.scenes, stats.scenes.atts=stats.scenes.atts, char.scenes=char.scenes,
-		stats.chars=stats.chars, char.volumes=char.volumes,
-		stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts,
+		stats.chars=stats.chars, 
+		stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts, char.volumes=char.volumes,
+		stats.arcs=stats.arcs, stats.arcs.atts=stats.arcs.atts, char.arcs=char.arcs,
 		stats.overall=stats.overall, stats.overall.atts=stats.overall.atts
 	)
 	return(result)

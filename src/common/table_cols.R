@@ -23,6 +23,7 @@ COL_VOLS_YEAR <- "Year"
 # column names for the page table
 COL_PAGES_VOLUME <- "Volume"
 COL_PAGES_PAGE <- "Page"
+COL_PAGES_PAGE_ID <- "PageId"
 COL_PAGES_PANELS <- "Panels"
 COL_PAGES_START_PANEL_ID <- "StartPanelId"
 COL_PAGES_VOLUME_ID <- "VolumeId"
@@ -61,6 +62,8 @@ COL_PVAL_OCC <- "p-occurrences"
 
 ###############################################################################
 # column names for the stats tables
+COL_STATS_ARC <- "Arc"
+COL_STATS_ARC_ID <- "ArcId"
 COL_STATS_CHAR <- "Character"
 COL_STATS_CHARS <- "Characters"
 COL_STATS_CHARS_BY_PAGE <- "AvgCharactersByPage"
