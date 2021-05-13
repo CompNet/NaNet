@@ -14,19 +14,16 @@ LAYOUT <- NA	# graph layout
 
 
 #############################################################
-# Displays the specified graph in an appropriate way, taking
-# into account the previously set link and node attributes.
+# Setups the layout of the specified graph and records it at 
+# the specified path. If the file already exists, then just
+# loads it.
 #
-# g: graph to plot.
-# paths: (optional) paths to highlight while plotting. This parameter
-# 		 is either a list of integer vectors (node sequences), or
-# 		 an integer vector if there is only one path to plot.
-# vvals: (optional) vertex values, used to determine node color.
-# file: (optional) file name, to record the plot.
+# g: graph concerned by the layout.
+# folder: where to record the layout.
 #############################################################
-setup.graph.layout <- function(g)
+setup.graph.layout <- function(g, folder)
 {	# try to read the layout if the file exists
-	lay.file <- file.path(NET_FOLDER,"all_layout.txt")
+	lay.file <- file.path(folder,"all_layout.txt")
 	if(file.exists(lay.file))
 	{	cat("Loading layout file \"",lay.file,"\"\n",sep="")
 		LAYOUT <<- as.matrix(read.table(file=lay.file))

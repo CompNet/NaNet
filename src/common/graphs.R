@@ -8,6 +8,33 @@
 
 
 #############################################################################################
+# Returns the weakly connected largest component of the specified graph, and possibly the
+# indices of the concerned vertices in the original graph.
+#
+# graph: graph to process.
+# indices: if TRUE, the function returns a list with both the component and the vertex indices.
+# 
+# returns: the subgraph corresponding to the largest component, and possibly the ids of the
+#          corresponding vertices in the original graph.
+#############################################################################################
+get.largest.component <- function(g, indices=FALSE)
+{	comps <- components(graph=g, mode="weak")
+	largest.comp.idx <- which.max(comps$csize)
+	idx <- which(comps$membership==largest.comp.idx)
+	largest.comp <- induced_subgraph(g, v=idx)
+	
+	if(indices)
+		result <- list(comp=largest.comp, indices=idx)
+	else
+		result <- largest.comp
+	
+	return(result)
+}
+
+
+
+
+#############################################################################################
 # Reverse the weights of the specified graph: if it is a cost, it becomes a capacity, and
 # vice-versa. The bounds stay the same.
 #
