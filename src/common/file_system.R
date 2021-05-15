@@ -55,7 +55,13 @@ dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the scene stat files
 	STAT_SCENES_FOLDER <- file.path(STAT_FOLDER,"scenes")
 	dir.create(path=STAT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
-
+		# folder containing the scene stat files for duration weights
+		STAT_SCENES_DURATION_FOLDER <- file.path(STAT_SCENES_FOLDER,"duration")
+		dir.create(path=STAT_SCENES_DURATION_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the scene stat files for occurrences weights
+		STAT_SCENES_OCCURRENCES_FOLDER <- file.path(STAT_SCENES_FOLDER,"occurrences")
+		dir.create(path=STAT_SCENES_OCCURRENCES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		
 # folder containing the produced plot files
 PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
 dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
@@ -68,7 +74,13 @@ dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the scene plot files
 	PLOT_SCENES_FOLDER <- file.path(PLOT_FOLDER,"scenes")
 	dir.create(path=PLOT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
-
+		# folder containing the scene plot files for duration weights
+		PLOT_SCENES_DURATION_FOLDER <- file.path(PLOT_SCENES_FOLDER,"duration")
+		dir.create(path=PLOT_SCENES_DURATION_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		# folder containing the scene plot files for occurrences weights
+		PLOT_SCENES_OCCURRENCES_FOLDER <- file.path(PLOT_SCENES_FOLDER,"occurrences")
+		dir.create(path=PLOT_SCENES_OCCURRENCES_FOLDER, showWarnings=FALSE, recursive=TRUE)
+		
 
 
 
@@ -128,7 +140,7 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 {	res <- "static"
 	
 	if(mode=="scenes")
-		res <- 	file.path(STAT_SCENES_FOLDER, paste0(res, "_scenes_wt=",weights))
+		res <- 	file.path(STAT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=",weights))
 	else if(mode=="panel.window")
 		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
@@ -171,7 +183,7 @@ get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weigh
 {	res <- "static"
 	
 	if(mode=="scenes")
-		res <- 	file.path(STAT_SCENES_FOLDER, paste0(res, "_scenes_wt=",weights))
+		res <- 	file.path(STAT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=",weights))
 	else if(mode=="panel.window")
 		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
 	else if(mode=="page.window")
@@ -192,10 +204,11 @@ get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weigh
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
+# weights: value for this parameters, either "duration" or "occurrences".
 # 
 # Returns: basename of the graph and related files.
 ###############################################################################
-get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
+get.plotname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
 {	res <- "static"
 	
 	if(mode=="panel.window")
@@ -211,6 +224,9 @@ get.plotname.static <- function(object, mode, window.size=NA, overlap=NA)
 			res <- paste0(res, "_ws=",window.size)
 		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
+	}
+	else if(mode=="scenes")
+	{	res <- file.path(PLOT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=", weights))
 	}
 	
 	if(object=="graph")

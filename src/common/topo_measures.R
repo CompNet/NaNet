@@ -27,7 +27,12 @@ MEAS_LINKWEIGHT <- "linkweight"
 MEAS_EIGENCNTR <- "eigenvector"
 MEAS_TRANSITIVITY <- "transitivity"
 # comparison measure names
-MEAS_EUCLIDEAN <- "euclidean"
+MEAS_COSINE_SIM <- "cosine"
+MEAS_EUCLIDEAN_DIST <- "euclidean"
+MEAS_JACCARD_SIM <- "jaccard"
+MEAS_PRECISION <- "precision"
+MEAS_RECALL <- "recall"
+MEAS_FMEASURE <- "fmeasure"
 
 
 

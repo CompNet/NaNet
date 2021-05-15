@@ -321,10 +321,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- c("SO","SD",nms)
 			
 			# generate the boxplot plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
 					names=nms,
@@ -342,17 +342,17 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			dev.off()
 			
 			# generate the violin plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_violin.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size),"_",meas.name,"_violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				vioplot(x=values, 
-						names=nms,
-#						outline=FALSE,
-						xlab="Overlap",
-						ylab=ALL_MEASURES[[meas.name]]$cname,
-						main=paste0("mode=",mode," window.size=",window.size),
-						border=c(rep("RED",2),rep("BLUE",length(values)-2))
+					names=nms,
+#					outline=FALSE,
+					xlab="Overlap",
+					ylab=ALL_MEASURES[[meas.name]]$cname,
+					main=paste0("mode=",mode," window.size=",window.size),
+					border=c(rep("RED",2),rep("BLUE",length(values)-2))
 				)
 			dev.off()
 		}
@@ -370,10 +370,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- c("SO","SD",nms)
 			
 			# generate the boxplot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
 					names=nms,
@@ -391,10 +391,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			dev.off()
 			
 			# generate the violin plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_violin.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap),"_",meas.name,"_violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				vioplot(x=values, 
 						names=nms,
 #						outline=FALSE,
@@ -444,7 +444,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		}
 		# generate a plot containing each window size value as a series
 		cols <- get.palette(length(data))
-		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_series.png")
+		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -452,8 +452,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			#warning(msg)
 		}
 		else{
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				# init plot
 				plot(NULL, 
 					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
@@ -508,7 +508,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		}
 		# generate a plot representing each overlap value as a series
 		cols <- get.palette(length(data))
-		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_series.png")
+		plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -516,8 +516,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			#warning(msg)
 		}
 		else{	
-#			pdf(file=plot.file,bg="white")
-			png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				# init plot
 				plot(NULL, 
 					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
@@ -600,7 +600,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot containing each window size value as a series
 			cols <- get.palette(length(data))
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_corr.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ws_",meas.name,"_corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -608,8 +608,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				#warning(msg)
 			}
 			else{
-#				pdf(file=plot.file,bg="white")
-				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#				pdf(file=paste0(plot.file,".pdf"),bg="white")
+				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 					# init plot
 					plot(NULL, 
 						xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
@@ -657,7 +657,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot representing each overlap value as a series
 			cols <- get.palette(length(data))
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_corr.png")
+			plot.file <- paste0(get.plotname.static(object="graph", mode=mode),"_ol_",meas.name,"_corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -665,8 +665,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				#warning(msg)
 			}
 			else{	
-#				pdf(file=plot.file,bg="white")
-				png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#				pdf(file=paste0(plot.file,".pdf"),bg="white")
+				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 					# init plot
 					plot(NULL, 
 						xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
@@ -767,10 +767,10 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					colors <- heat.colors(max(ranks))
 					
 					# generate the plot
-					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",substr(weights,1,3),".png")
+					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap),"_",meas.name,"_ranks=",substr(weights,1,3))
 					tlog(5,"Plotting file \"",plot.file,"\"")
-#					pdf(file=plot.file,bg="white")
-					png(filename=plot.file,width=800,height=800,units="px",pointsize=20,bg="white")
+#					pdf(file=paste0(plot.file,".pdf"),bg="white")
+					png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 						barplot(
 							diff[idx],
 							col=colors,
@@ -814,8 +814,69 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 
 
 ###############################################################################
+# Generates the plots related to the topological measures obtained on the
+# scene-based graph, for both types of weights (occurrences, durations).
+# The stats must have been computed beforehand.
+###############################################################################
+generate.static.plots.scene <- function()
+{	tlog(3,"Generating plots for the scene-based graphs")
+	wmodes <- c("occurrences","duration")
+	
+	# list measures to process
+	nmn <- names(NODE_MEASURES)
+	lmn <- names(LINK_MEASURES)
+	npmn <- names(NODEPAIR_MEASURES)
+	
+	# process each measure
+	for(meas.name in c(nmn,lmn))
+	{	tlog(4,"Generating plots for measure ",meas.name)
+		
+		if(meas.name %in% nmn)
+			object <- "nodes"
+		else if(meas.name %in% lmn)
+			object <- "links"
+		else if(meas.name %in% npmn)
+			object <- "nodepairs"
+		
+		# process each type of weights
+		for(wmode in wmodes)
+		{	tlog(4,"Dealing with weights=",wmode)
+			file <- paste0(get.plotname.static(object=object, mode="scenes", weights=wmode), "_", meas.name)
+			
+			# load pre-computed values (scene-based graph)
+			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode)
+			# remove possible NAs
+			vals <- vals[!is.na(vals)]
+			
+			# plot histogram
+			#pdf(file=paste0(file,"_histo.pdf"), bg="white")
+			png(filename=paste0(file,"_histo.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+				ml <- paste0("weights=",wmode)
+				xl <- ALL_MEASURES[[meas.name]]$cname
+				# histogram
+				h <- hist(
+					vals,
+					breaks=20, #breaks=0:max(vals),
+					col="#3a548c",
+					xlab=xl,
+					main=ml,
+					freq=FALSE
+				)
+			dev.off()
+			
+			# plot complementary cumulative distribution function
+			#pdf(file=paste0(file,"_ccdf.pdf"), bg="white")
+			png(filename=paste0(file,"_ccdf.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+				plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
+			dev.off()
+		}
+	}
+}
+
+
+###############################################################################
 # Main function for the generation of plots describing static graphs.
-# The statistics must have been previously extracted.
+# The statistics must have been previously computed.
 #
 # panel.window.sizes: values for this parameter
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
@@ -824,12 +885,18 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Generating plots for static graphs")
-	
+
+	# deal with scene-based graph
+	tlog(2,"Generating plots for static graphs with scene-based windows")
+	generate.static.plots.scene()
+
+	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
-	generate.all.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
 	
+	# page-based windows
 	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.all.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
 	
 	tlog(1,"Generation of plots for static graphs complete")	
 }
