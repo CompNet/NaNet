@@ -96,7 +96,7 @@ graph.cosine.similarity <- function(graph1, graph2, weighted)
 }
 COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_DUR)]] <- list( #Cosine similarity with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -105,7 +105,7 @@ COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_DUR)]] <- list( #Cosine similarity wi
 )
 COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Cosine similarity with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -114,7 +114,7 @@ COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted
 )
 COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_OCC)]] <- list( #Cosine similarity with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -123,7 +123,7 @@ COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_OCC)]] <- list( #Cosine similarity wi
 )
 COMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Cosine similarity with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -145,15 +145,13 @@ graph.jaccard.similarity <- function(graph1, graph2, weighted)
 	x2 <- as_adjacency_matrix(graph=graph2, type="upper", attr=attr, names=FALSE)
 	x2 <- x2[upper.tri(x2,diag=F)]
 	# jaccard's similarity between these vectors
-	numerator <- sum(apply(cbind(x1,x2), 1, min))
-	denominator <- sum(apply(cbind(x1,x2), 1, max))
-	res <- numerator / denominator
+	res <- sum(apply(cbind(x1,x2), 1, min)) / sum(apply(cbind(x1,x2), 1, max))
 	
 	return(res)
 }
 COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_DUR)]] <- list( #Jaccard's similarity with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Jaccard Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -162,7 +160,7 @@ COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_DUR)]] <- list( #Jaccard's similarit
 )
 COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Jaccard's similarity with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -171,7 +169,7 @@ COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighte
 )
 COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_OCC)]] <- list( #Jaccard's similarity with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Jaccard Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -180,7 +178,7 @@ COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_OCC)]] <- list( #Jaccard's similarit
 )
 COMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Jaccard's similarity with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -202,15 +200,13 @@ graph.precision.measure <- function(graph1, graph2, weighted)
 	x2 <- as_adjacency_matrix(graph=graph2, type="upper", attr=attr, names=FALSE)
 	x2 <- x2[upper.tri(x2,diag=F)]
 	# precision of the first relative to the second
-	numerator <- sum(apply(cbind(x1,x2), 1, min))
-	denominator <- sum(x1)
-	res <- numerator / denominator
+	res <- sum(apply(cbind(x1,x2), 1, min)) / sum(x1)
 	
 	return(res)
 }
 COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_DUR)]] <- list( #precision with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Precision with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -219,7 +215,7 @@ COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_DUR)]] <- list( #precision with durati
 )
 COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted precision with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Precision with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -228,7 +224,7 @@ COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted 
 )
 COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_OCC)]] <- list( #precision with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Precision with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -237,7 +233,7 @@ COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_OCC)]] <- list( #precision with occurr
 )
 COMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted precision with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Precision with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -259,15 +255,13 @@ graph.recall.measure <- function(graph1, graph2, weighted)
 	x2 <- as_adjacency_matrix(graph=graph2, type="upper", attr=attr, names=FALSE)
 	x2 <- x2[upper.tri(x2,diag=F)]
 	# recall of the first relative to the second
-	numerator <- sum(apply(cbind(x1,x2), 1, min))
-	denominator <- sum(x2)
-	res <- numerator / denominator
+	res <- sum(apply(cbind(x1,x2), 1, min)) / sum(x2)
 	
 	return(res)
 }
 COMP_MEASURES[[paste0(MEAS_RECALL, SFX_DUR)]] <- list( #recall with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Recall with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -276,7 +270,7 @@ COMP_MEASURES[[paste0(MEAS_RECALL, SFX_DUR)]] <- list( #recall with duration gra
 )
 COMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted recall with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Recall with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -285,7 +279,7 @@ COMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted rec
 )
 COMP_MEASURES[[paste0(MEAS_RECALL, SFX_OCC)]] <- list( #recall with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Recall with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -294,7 +288,7 @@ COMP_MEASURES[[paste0(MEAS_RECALL, SFX_OCC)]] <- list( #recall with occurrences 
 )
 COMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted recall with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted Recall with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -324,7 +318,7 @@ graph.f.measure <- function(graph1, graph2, weighted)
 }
 COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_DUR)]] <- list( #F-measure with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="F-measure with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -333,7 +327,7 @@ COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_DUR)]] <- list( #F-measure with duratio
 )
 COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted F-measure with duration graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Duration Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_DUR)
@@ -342,7 +336,7 @@ COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted F
 )
 COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_OCC)]] <- list( #F-measure with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="F-measure with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)
@@ -351,7 +345,7 @@ COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_OCC)]] <- list( #F-measure with occurre
 )
 COMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted F-measure with occurrences graph
 	type=numeric(),
-	bounds=c(0,NA),
+	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Occurrences Graph",
 	foo=function(graph)
 	{	ref <- get.ref.graph(SFX_OCC)

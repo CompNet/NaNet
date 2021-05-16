@@ -205,28 +205,41 @@ get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weigh
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # weights: value for this parameters, either "duration" or "occurrences".
+# pre: folder insterted between the main folder and the file name.
 # 
 # Returns: basename of the graph and related files.
 ###############################################################################
-get.plotname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
+get.plotname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA, pre=NA)
 {	res <- "static"
 	
 	if(mode=="panel.window")
-	{	res <- 	file.path(PLOT_PANELS_FOLDER, paste0(res, "_panels"))
+	{	folder <- PLOT_PANELS_FOLDER
+		if(!is.na(pre))
+			folder <- file.path(folder, pre)
+		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
+		res <- 	file.path(folder, paste0(res, "_panels"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
 		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
 	}
 	else if(mode=="page.window")
-	{	res <- 	file.path(PLOT_PAGES_FOLDER, paste0(res, "_pages"))
+	{	folder <- PLOT_PAGES_FOLDER
+		if(!is.na(pre))
+			folder <- file.path(folder, pre)
+		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
+		res <- 	file.path(folder, paste0(res, "_pages"))
 		if(!is.na(window.size))
 			res <- paste0(res, "_ws=",window.size)
 		if(!is.na(overlap))
 			res <- paste0(res, "_ol=",overlap)
 	}
 	else if(mode=="scenes")
-	{	res <- file.path(PLOT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=", weights))
+	{	folder <- PLOT_SCENES_FOLDER
+		if(!is.na(pre))
+			folder <- file.path(folder, weights, pre)
+		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
+		res <- file.path(folder, paste0(res, "_scenes_wt=", weights))
 	}
 	
 	if(object=="graph")
