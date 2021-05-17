@@ -1904,14 +1904,17 @@ compute.stats.overall <- function(
 ###############################################################################
 # Computes and records some statistics regarding the parsed corpus.
 #
-# volume.info: table describing the series volumes.
-# page.info: table describing all the pages constituting the BD series.
-# char.info: table describing all the characters occurring in the BD series.
-# stats.scenes: previously computed scene statistics.
-# char.scenes: characters present in each scene.
+# data: previously read raw data.
+#
+# returns: same data, completed with stats.
 ###############################################################################
-compute.stats <- function(volume.info, page.info, char.info, stats.scenes, char.scenes)
+compute.stats <- function(data)
 {	tlog(2,"Computing corpus stats")
+	volume.info <- data$volume.info
+	page.info <- data$page.info
+	char.info <- data$char.info
+	stats.scenes <- data$stats.scenes
+	char.scenes <- data$char.scenes
 	
 	# compute panel stats
 	tmp <- compute.stats.panels(

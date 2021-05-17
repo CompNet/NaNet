@@ -395,11 +395,12 @@ read.raw.data <- function()
 	# read the file describing the characters
 	char.info <- read.char.table(char.scenes)
 	
-	# update stats
-	stats <- compute.stats(volume.info, page.info, char.info, stats.scenes, char.scenes)
-	
 	# build result and return
-	result <- list(page.info=page.info, volume.info=volume.info, inter.df=inter.df, char.info=char.info)
-	result <- c(result, stats)
+	result <- list(
+		volume.info=volume.info, page.info=page.info, char.info=char.info, 
+		inter.df=inter.df,
+		stats.scenes, char.scenes
+	)
+	
 	return(result)
 }
