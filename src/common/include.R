@@ -36,9 +36,9 @@ plan(multisession)
 ###############################################################################
 # init folder path
 
-SERIES <- "Test"
+#SERIES <- "Test"
 #SERIES <- "Ralph_Azham"
-#SERIES <- "Thorgal"
+SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
 
 
