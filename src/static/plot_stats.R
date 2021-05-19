@@ -233,7 +233,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 #	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	# process each appropriate measure
-	for(meas.name in c(nmn,lmn))
+	for(meas.name in c(nmn,lmn,cmn))
 	{	tlog(4,"Generating single plots for measure ",meas.name," (mode=",mode,")")
 		
 		if(meas.name %in% nmn)
