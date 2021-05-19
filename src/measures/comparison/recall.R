@@ -35,28 +35,28 @@ compute.recall.measure <- function(name, graph)
 	{	# durations
 		if(name==paste0(MEAS_RECALL, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_RECALL, SFX_WEIGHT, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
 		else if(name==paste0(MEAS_RECALL, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_RECALL, SFX_WEIGHT, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.recall.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
 	}

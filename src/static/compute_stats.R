@@ -178,14 +178,16 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		#pdf(file=paste0(plot.file,".pdf"),bg="white")
-		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
-			hist(
-				values,
-				col="RED"
-			)
-		dev.off()
+		if(!all(is.na(values)))
+		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+			#pdf(file=paste0(plot.file,".pdf"),bg="white")
+			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+				hist(
+					values,
+					col="RED"
+				)
+			dev.off()
+		}
 	}
 	
 	tlog(4,"Computation of node-pair topological measures complete")
@@ -276,7 +278,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
 	{	res.tab <- matrix(NA,nrow=length(names(GRAPH_MEASURES)),ncol=1)
-		rownames(res.tab) <- GRAPH_MEASURES
+		rownames(res.tab) <- names(GRAPH_MEASURES)
 	}
 	
 	# compute each topological and comparison measure
@@ -324,7 +326,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
 	{	res.tab <- matrix(NA,nrow=length(names(GRAPHCOMP_MEASURES)),ncol=1)
-		rownames(res.tab) <- GRAPHCOMP_MEASURES
+		rownames(res.tab) <- names(GRAPHCOMP_MEASURES)
 	}
 	
 	# compute each topological and comparison measure
@@ -507,6 +509,7 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	
 	# compute its stats
 	compute.static.node.statistics(g, mode, window.size, overlap, weights)
+	compute.static.nodecomp.statistics(g, mode, window.size, overlap, weights)
 	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
 	compute.static.link.statistics(g, mode, window.size, overlap, weights)
 	compute.static.graph.statistics(g, mode, window.size, overlap, weights)

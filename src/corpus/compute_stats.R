@@ -777,7 +777,8 @@ compute.stats.scenes <- function(
 #		y <- y[idx]
 #		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
-		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+		if(length(unique(data))>1)
+			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 #	# check distribution
 #	test.disc.distr(data)
@@ -961,7 +962,8 @@ compute.stats.chars <- function(
 #		y <- y[idx]
 #		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
-		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+		if(length(unique(data))>1)
+			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 #	# check distribution
 #	test.disc.distr(data)
@@ -995,7 +997,8 @@ compute.stats.chars <- function(
 #		y <- y[idx]
 #		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
-		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+		if(length(unique(data))>1)
+			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 #	# check distribution
 #	test.disc.distr(data)
@@ -1030,7 +1033,8 @@ compute.stats.chars <- function(
 #		y <- y[idx]
 #		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
-		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+		if(length(unique(data))>1)
+			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
 #	# check distribution
 #	test.disc.distr(data)
@@ -1266,7 +1270,7 @@ compute.stats.volumes <- function(
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- get.path.stat.corpus(vol=cur.vol, desc="attr_distrib", att=atts[a])
+			file <- get.path.stat.corpus(vol=v, desc="attr_distrib", att=atts[a])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			#pdf(file=paste0(file,".pdf"), bg="white")
@@ -1864,6 +1868,7 @@ compute.stats.overall <- function(
 ###############################################################################
 compute.stats <- function(data)
 {	tlog(2,"Computing corpus stats")
+	inter.df <- data$inter.df
 	volume.info <- data$volume.info
 	page.info <- data$page.info
 	char.info <- data$char.info
@@ -1942,11 +1947,12 @@ compute.stats <- function(data)
 	
 	# return all the stats
 	result <- list(
+		inter.df=inter.df,
 		stats.panels=stats.panels, stats.panels.atts=stats.panels.atts, char.panels=char.panels,
-		stats.pages=stats.pages, stats.pages.atts=stats.pages.atts, char.pages=char.pages,
+		page.info=page.info, stats.pages=stats.pages, stats.pages.atts=stats.pages.atts, char.pages=char.pages,
 		stats.scenes=stats.scenes, stats.scenes.atts=stats.scenes.atts, char.scenes=char.scenes,
-		stats.chars=stats.chars, 
-		stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts, char.volumes=char.volumes,
+		char.info=char.info, stats.chars=stats.chars, 
+		volume.info=volume.info, stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts, char.volumes=char.volumes,
 		stats.arcs=stats.arcs, stats.arcs.atts=stats.arcs.atts, char.arcs=char.arcs,
 		stats.overall=stats.overall, stats.overall.atts=stats.overall.atts
 	)

@@ -399,7 +399,7 @@ read.raw.data <- function()
 	result <- list(
 		volume.info=volume.info, page.info=page.info, char.info=char.info, 
 		inter.df=inter.df,
-		stats.scenes, char.scenes
+		stats.scenes=stats.scenes, char.scenes=char.scenes
 	)
 	
 	return(result)

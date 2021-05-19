@@ -28,35 +28,35 @@ graph.precision.measure <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.cosine.sim <- function(name, graph)
+compute.precision.measure <- function(name, graph)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
 		if(name==paste0(MEAS_PRECISION, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
 		else if(name==paste0(MEAS_PRECISION, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.precision.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
 	}

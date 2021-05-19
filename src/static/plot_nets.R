@@ -50,6 +50,8 @@ plot.static.graph.scenes <- function(data)
 	# set up vertex labels
 	vlabs <- rep(NA, gorder(g))
 	idx <- which(V(g)$Frequency>=sort(V(g)$Frequency, decreasing=TRUE)[10])
+	if(length(idx)==0)
+		idx <- which(V(g)$Frequency>=sort(V(g)$Frequency, decreasing=TRUE)[4])
 	vlabs[idx] <- sapply(idx, function(i) if(V(g)$ShortName[i]=="") V(g)$name[i] else V(g)$ShortName[i])
 	vlabsize <- vsizes*0.12
 	

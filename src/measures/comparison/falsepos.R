@@ -35,28 +35,28 @@ compute.falsepositive <- function(name, graph)
 	{	# durations
 		if(name==paste0(MEAS_FALSEPOS, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
 		else if(name==paste0(MEAS_FALSEPOS, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.falsepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
 	}
@@ -71,8 +71,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_DUR)]] <- list( #false positive com
 		cname="False Positives relative to Scene-Based Duration Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_DUR), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}
@@ -83,8 +84,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR)]] <- list( #Weight
 		cname="Weighted False Positives relative to Scene-Based Duration Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}
@@ -95,8 +97,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- lis
 		cname="Weighted normalized False Positives relative to Scene-Based Duration Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}
@@ -107,8 +110,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_OCC)]] <- list( #false positive com
 		cname="False Positives relative to Scene-Based Occurrences Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_OCC), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}
@@ -119,8 +123,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC)]] <- list( #Weight
 		cname="Weighted False Positives relative to Scene-Based Occurrences Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}
@@ -131,8 +136,9 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- lis
 		cname="Weighted normalized False Positives relative to Scene-Based Occurrences Graph",
 		foo=function(graph)
 		{	tmp <- compute.falsepositive(paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph)
-			m <- matrix(NA, nrow=gorder(graph), ncol=gorder(graph))
+			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 			m[upper.tri(m,diag=F)] <- tmp
+			m <- m + t(m)
 			values <- rowSums(m)
 			return(values)
 		}

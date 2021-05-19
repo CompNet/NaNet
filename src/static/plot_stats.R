@@ -57,13 +57,14 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
+# object: either "graph" or "graphcomp".
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.scenes <- function(weights, measure)
-{	table.file <- get.path.stat.table(object="graph", mode="scenes", weights=weights)
+load.static.graph.stats.scenes <- function(object, weights, measure)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -384,8 +385,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			object <- "graphcomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="duration")
+		seg.occ.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="occurrences")
+		seg.dur.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="duration")
 		
 		# retrieve the window.size data series
 		tlog(5,"Gathering and plotting data by window.size")
@@ -394,6 +395,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
 			data[[i]] <- load.static.graph.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			data[[i]][is.infinite(data[[i]])] <- NA
 		}
 		# generate a plot containing each window size value as a series
 		cols <- get.palette(length(data))
@@ -405,8 +407,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			tlog(6,msg)
 			#warning(msg)
 		}
-		else{
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
+		else
+		{	#pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				# init plot
 				plot(NULL, 
@@ -458,6 +460,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			overlap <- common.overlaps[i]
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
 			data[[i]] <- load.static.graph.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			data[[i]][is.infinite(data[[i]])] <- NA
 			axis[[i]] <- window.sizes[idx]
 		}
 		# generate a plot representing each overlap value as a series
@@ -801,7 +804,6 @@ generate.static.plots.scene <- function()
 		# process each type of weights
 		for(wmode in wmodes)
 		{	tlog(4,"Dealing with weights=",wmode)
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
 			
 			# load pre-computed values (scene-based graph)
 			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode)
@@ -809,8 +811,9 @@ generate.static.plots.scene <- function()
 			vals <- vals[!is.na(vals)]
 			
 			# plot histogram
-			#pdf(file=paste0(file,"_histo.pdf"), bg="white")
-			png(filename=paste0(file,"_histo.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
+			#pdf(file=paste0(file,".pdf"), bg="white")
+			png(filename=paste0(plot.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("weights=",wmode)
 				xl <- ALL_MEASURES[[meas.name]]$cname
 				# histogram
@@ -825,8 +828,9 @@ generate.static.plots.scene <- function()
 			dev.off()
 			
 			# plot complementary cumulative distribution function
-			#pdf(file=paste0(file,"_ccdf.pdf"), bg="white")
-			png(filename=paste0(file,"_ccdf.png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="ccdf")
+			#pdf(file=paste0(file,".pdf"), bg="white")
+			png(filename=paste0(plot.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 				plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
 			dev.off()
 		}

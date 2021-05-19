@@ -58,6 +58,7 @@ setup.graph.layout <- function(g, folder)
 #		tkplot(g, layout=LAYOUT)
 #		LAYOUT <<- tk_coords(3)
 		
+		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 		write.table(x=LAYOUT,file=lay.file)
 	}
 }

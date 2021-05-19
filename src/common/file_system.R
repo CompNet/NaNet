@@ -96,7 +96,7 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- paste0(folder, "static")
+	res <- file.path(folder, "static")
 	# possibly add base name
 	if(mode=="scenes")
 		res <- 	paste0(res, "_scenes")
@@ -144,7 +144,7 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- paste0(folder, "static")
+	res <- file.path(folder, "static")
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
@@ -153,7 +153,7 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 		res <- paste0(res, "_ol=",overlap)
 	# possibly add object
 	if(!is.na(object))
-		res <- 	paste0(res, object)
+		res <- 	paste0(res, "_", object)
 	
 	# add extension
 	res <- paste0(res, ".csv")
@@ -195,7 +195,7 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- paste0(folder, "static")
+	res <- file.path(folder, "static")
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
@@ -204,7 +204,7 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 		res <- paste0(res, "_ol=",overlap)
 	# possibly add object
 	if(!is.na(object))
-		res <- 	paste0(res, object)
+		res <- 	paste0(res, "_", object)
 	# add measure
 	res <- paste0(res, "_meas=",meas.name)
 	# possibly add plot type
@@ -249,7 +249,7 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- paste0(folder, "static")
+	res <- file.path(folder, "static")
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
@@ -282,7 +282,7 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.corpus <- function(object, vol=NA, arc=NA, desc, att=NA, val=NA)
+get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, desc, att=NA, val=NA)
 {	# base folder
 	if(!is.na(vol))
 		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol)
@@ -297,7 +297,7 @@ get.path.stat.corpus <- function(object, vol=NA, arc=NA, desc, att=NA, val=NA)
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- desc
+	res <- file.path(folder, desc)
 	# possibly add attribute name
 	if(!is.na(att))
 		res <- paste0(res,"_att=",att)

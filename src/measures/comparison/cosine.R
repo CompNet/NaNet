@@ -35,28 +35,28 @@ compute.cosine.similarity <- function(name, graph)
 	{	# durations
 		if(name==paste0(MEAS_COSINE_SIM, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR))
 		{	ref <- get.ref.graph(SFX_DUR)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
 		else if(name==paste0(MEAS_COSINE_SIM, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
 		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC))
 		{	ref <- get.ref.graph(SFX_OCC)
-			graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
+			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
 	}
