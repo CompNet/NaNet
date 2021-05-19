@@ -65,7 +65,7 @@ extract.static.graph.scenes <- function(char.volumes, char.info, inter.df)
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.graphname.static(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	#plot(g, layout=layout_with_fr(g))
 	
@@ -151,7 +151,7 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.graphname.static(mode="panel.window", window.size=window.size, overlap=overlap)
+	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed")
@@ -241,7 +241,7 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.graphname.static(mode="page.window", window.size=window.size, overlap=overlap)
+	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed")

@@ -28,7 +28,8 @@ compute.stats.panels <- function(
 		stats.scenes, 
 		char.scenes,
 		cur.vol=NA, cur.arc=NA)
-{	# vertex attributes
+{	object <- "panels"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	# panel positions
@@ -36,19 +37,7 @@ compute.stats.panels <- function(
 			page.info[2:nrow(page.info),COL_PAGES_START_PANEL_ID]-1,
 			page.info[nrow(page.info),COL_PAGES_START_PANEL_ID]+page.info[nrow(page.info),COL_PAGES_PANELS]
 	)
-	
-	# main folder
-	if(!is.na(cur.vol))
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "panels")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else if(!is.na(cur.arc))
-	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "panels")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else
-		main.folder <- STAT_CORPUS_PANELS_FOLDER
-	
+			
 	# compute stats
 	tlog(3,"Computing panel stats")
 	
@@ -133,7 +122,7 @@ compute.stats.panels <- function(
 	}
 	
 	# record stats
-	file <- file.path(main.folder, "panels")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.panels, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -145,7 +134,7 @@ compute.stats.panels <- function(
 	vals <- table(stats.panels[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PANELS, "Proportion")
-	file <- file.path(main.folder, "panels_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.panels[,COL_STATS_CHARS]
@@ -179,7 +168,7 @@ compute.stats.panels <- function(
 	{	for(att in atts)
 		{	data <- stats.panels.atts[[att]]
 			pal <- get.palette(ncol(stats.panels.atts[[att]]))[1:ncol(stats.panels.atts[[att]])]
-			file <- file.path(main.folder, paste0("panels_distrib_char_nbr_att=",att))
+			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
 			#pdf(file=paste0(file,".pdf"), bg="white")
 			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over pages (att=",att)
@@ -240,7 +229,7 @@ compute.stats.panels <- function(
 			# separate plot for each value
 			for(d in 1:ncol(stats.panels.atts[[att]]))
 			{	data <- stats.panels.atts[[att]][,d]
-				file <- file.path(main.folder, paste0("panels_distrib_char_nbr_att=",att,"_val=",colnames(stats.panels.atts[[att]])[d]))
+				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=colnames(stats.panels.atts[[att]])[d])
 				#pdf(file=paste0(file,".pdf"), bg="white")
 				png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 					h <- hist(
@@ -266,7 +255,7 @@ compute.stats.panels <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- file.path(main.folder, "panels_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_positions")
 	write.csv(x=df, paste0(file, ".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	#pdf(file=paste0(file,".pdf"), bg="white")
@@ -307,21 +296,10 @@ compute.stats.pages <- function(
 		stats.scenes, stats.panels, 
 		char.scenes, char.panels,
 		cur.vol=NA, cur.arc=NA)
-{	# vertex attributes
+{	object <- "pages"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
-	
-	# main folder
-	if(!is.na(cur.vol))
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "pages")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else if(!is.na(cur.arc))
-	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "pages")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else
-		main.folder <- STAT_CORPUS_PAGES_FOLDER
 	
 	# compute stats
 	page.ids <- sort(unique(stats.panels[,COL_STATS_PAGE_ID]))
@@ -407,7 +385,7 @@ compute.stats.pages <- function(
 	}
 	
 	# record stats
-	file <- file.path(main.folder, "pages")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.pages, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -419,7 +397,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_PAGES,"Proportion")
-	file <- file.path(main.folder, "pages_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_scene_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_SCENES]
@@ -452,7 +430,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
-	file <- file.path(main.folder, "pages_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_PANELS]
@@ -485,7 +463,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PAGES, "Proportion")
-	file <- file.path(main.folder, "pages_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_CHARS]
@@ -519,7 +497,7 @@ compute.stats.pages <- function(
 	{	for(att in atts)
 		{	data <- stats.pages.atts[[att]]
 			pal <- get.palette(ncol(stats.pages.atts[[att]]))[1:ncol(stats.pages.atts[[att]])]
-			file <- file.path(main.folder, paste0("pages_distrib_char_nbr_att=",att))
+			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
 			#pdf(file=paste0(file,".pdf"), bg="white")
 			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over pages (att=",att)
@@ -551,7 +529,7 @@ compute.stats.pages <- function(
 			for(d in 1:ncol(stats.pages.atts[[att]]))
 			{	data <- stats.pages.atts[[att]][,d]
 				if(any(data!=0))
-				{	file <- file.path(main.folder, paste0("pages_distrib_char_nbr_att=",att,"_val=",colnames(stats.pages.atts[[att]])[d]))
+				{	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(stats.pages.atts[[att]])[d])
 					#pdf(file=paste0(file,".pdf"), bg="white")
 					png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 						h <- hist(
@@ -599,21 +577,10 @@ compute.stats.scenes <- function(
 		stats.pages, stats.scenes, stats.panels, 
 		char.pages, char.scenes, char.panels,
 		cur.vol=NA, cur.arc=NA)
-{	# vertex attributes
+{	object <- "scenes"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
-	
-	# main folder
-	if(!is.na(cur.vol))
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "scenes")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else if(!is.na(cur.arc))
-	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "scenes")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else
-		main.folder <- STAT_CORPUS_SCENES_FOLDER
 	
 	# compute stats
 	tlog(3,"Computing scene stats")
@@ -649,7 +616,7 @@ compute.stats.scenes <- function(
 	}
 	
 	# record scene stats
-	file <- file.path(main.folder, "scenes")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.scenes, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -661,7 +628,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_SCENES,"Proportion")
-	file <- file.path(main.folder, "scenes_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PANELS]
@@ -698,7 +665,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_SCENES, "Proportion")
-	file <- file.path(main.folder, "scenes_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_CHARS]
@@ -732,7 +699,7 @@ compute.stats.scenes <- function(
 	{	for(att in atts)
 		{	data <- stats.scenes.atts[[att]]
 			pal <- get.palette(ncol(stats.scenes.atts[[att]]))[1:ncol(stats.scenes.atts[[att]])]
-			file <- file.path(main.folder, paste0("scenes_distrib_char_nbr_att=",att))
+			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
 			#pdf(file=paste0(file,".pdf"), bg="white")
 			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over scenes (att=",att)
@@ -763,7 +730,7 @@ compute.stats.scenes <- function(
 			# separate plot for each value
 			for(d in 1:ncol(stats.scenes.atts[[att]]))
 			{	data <- stats.scenes.atts[[att]][,d]
-				file <- file.path(main.folder, paste0("scenes_distrib_char_nbr_att=",att,"_val=",colnames(stats.scenes.atts[[att]])[d]))
+				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att, val=colnames(stats.scenes.atts[[att]])[d])
 				#pdf(file=paste0(file,".pdf"), bg="white")
 				png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 					h <- hist(
@@ -784,7 +751,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
-	file <- file.path(main.folder, "scenes_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_page_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PAGES]
@@ -824,7 +791,7 @@ compute.stats.scenes <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- file.path(main.folder, "scenes_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_positions")
 	write.csv(x=df, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	#pdf(file=paste0(file,".pdf"), bg="white")
@@ -866,21 +833,10 @@ compute.stats.chars <- function(
 		stats.pages, stats.scenes, stats.panels,
 		char.pages, char.scenes, char.panels,
 		cur.vol=NA, cur.arc=NA)
-{	# vertex attributes
+{	object <- "characters"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
-	
-	# main folder
-	if(!is.na(cur.vol))
-	{	main.folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, cur.vol, "characters")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else if(!is.na(cur.arc))
-	{	main.folder <- file.path(STAT_CORPUS_ARCS_FOLDER, cur.arc, "characters")
-		dir.create(path=main.folder, showWarnings=FALSE, recursive=TRUE)
-	}
-	else
-		main.folder <- STAT_CORPUS_CHARS_FOLDER
 	
 	# compute stats
 	tlog(3,"Computing character stats")
@@ -934,15 +890,15 @@ compute.stats.chars <- function(
 	}
 	
 	# record stats
-	file <- file.path(main.folder, "characters.csv")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="characters")
 	tlog(4,"Recording in ",file)
-	write.csv(x=stats.chars, file=file, row.names=FALSE)#, col.names=TRUE)
+	write.csv(x=stats.chars, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
 	# distributions of volume numbers
 	vals <- table(stats.chars[,COL_STATS_VOLUMES])
 	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(vals) <- c(COL_STATS_VOLUMES, COL_STATS_CHARS,"Proportion")
-	file <- file.path(main.folder, "chars_distrib_volume_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_volume_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_VOLUMES]
@@ -979,7 +935,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PAGES, COL_STATS_CHARS,"Proportion")
-	file <- file.path(main.folder, "chars_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_page_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PAGES]
@@ -1014,7 +970,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_CHARS,"Proportion")
-	file <- file.path(main.folder, "chars_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_scene_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_SCENES]
@@ -1048,7 +1004,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_CHARS,"Proportion")
-	file <- file.path(main.folder, "chars_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PANELS]
@@ -1108,7 +1064,8 @@ compute.stats.volumes <- function(
 		volume.info, page.info, char.info, 
 		stats.pages, stats.scenes, stats.panels, stats.chars,
 		char.volumes, char.pages, char.scenes, char.panels)
-{	# vertex attributes
+{	object <- "volumes"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
@@ -1151,8 +1108,6 @@ compute.stats.volumes <- function(
 	tlog(4,"Processing each volume separately")
 	for(v in 1:volume.nbr)
 	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
-		folder.vol <- file.path(STAT_CORPUS_VOLUMES_FOLDER, volume.info[v,COL_VOLS_VOLUME_ID])
-		dir.create(path=folder.vol, showWarnings=FALSE, recursive=TRUE)
 		
 		# corresponding pages
 		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
@@ -1272,7 +1227,7 @@ compute.stats.volumes <- function(
 		}
 		
 		# density plot: chars vs. panels (by scene)
-		file <- file.path(folder.vol, paste0("comparison_vol",v,"_chars-scenes_vs_panels-scenes"))
+		file <- get.path.stat.corpus(vol=v, desc="comparison_chars-scenes_vs_panels-scenes")
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
@@ -1311,7 +1266,7 @@ compute.stats.volumes <- function(
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- file.path(folder.vol, paste0("attr_distrib_vol",v,"_",atts[a]))
+			file <- get.path.stat.corpus(vol=cur.vol, desc="attr_distrib", att=atts[a])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			#pdf(file=paste0(file,".pdf"), bg="white")
@@ -1328,7 +1283,7 @@ compute.stats.volumes <- function(
 	}
 	
 	# record stats
-	file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, "volumes")
+	file <- get.path.stat.corpus(object=object, desc="volumes")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.volumes, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -1362,15 +1317,15 @@ compute.stats.volumes <- function(
 	for(v in 1:length(vol.cols))
 	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
-		file <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol.fnames[v])
+		file <- get.path.stat.corpus(object=object, desc=vol.fnames[v])
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		barplot(
+			barplot(
 				height=stats.volumes[,vol.cols[v]],
 				names.arg=stats.volumes[,COL_STATS_VOLUME],
 				main=paste0("Evolution of the ",vol.titles[v]),
 				col="#3a548c"
-		)
+			)
 		dev.off()
 	}
 	
@@ -1406,7 +1361,8 @@ compute.stats.arcs <- function(
 		volume.info, page.info, char.info, 
 		stats.volumes, stats.pages, stats.scenes, stats.panels, stats.chars,
 		char.volumes, char.pages, char.scenes, char.panels)
-{	# vertex attributes
+{	object <- "arcs"
+	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
@@ -1467,8 +1423,6 @@ compute.stats.arcs <- function(
 	tlog(4,"Processing each arc separately")
 	for(a in 1:arc.nbr)
 	{	tlog(5,"Processing arc ",a,"/",arc.nbr)
-		folder.arc <- file.path(STAT_CORPUS_ARCS_FOLDER, a)
-		dir.create(path=folder.arc, showWarnings=FALSE, recursive=TRUE)
 		
 		# corresponding volumes
 		idx.vol <- which(volume.info[,COL_VOLS_ARC]==arc.titles[a])
@@ -1605,7 +1559,7 @@ compute.stats.arcs <- function(
 		}
 		
 		# density plot: chars vs. panels (by scene)
-		file <- file.path(folder.arc, paste0("comparison_arc",a,"_chars-scenes_vs_panels-scenes"))
+		file <- get.path.stat.corpus(arc=a, desc="comparison_chars-scenes_vs_panels-scenes")
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
@@ -1644,7 +1598,7 @@ compute.stats.arcs <- function(
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[at],"Frequency","Proportion")
-			file <- file.path(folder.arc, paste0("attr_distrib_arc",a,"_",atts[at]))
+			file <- get.path.stat.corpus(arc=a, desc="attr_distrib_arc_", att=atts[at])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			#pdf(file=paste0(file,".pdf"), bg="white")
@@ -1661,7 +1615,7 @@ compute.stats.arcs <- function(
 	}
 	
 	# record stats
-	file <- file.path(STAT_CORPUS_ARCS_FOLDER, "arcs")
+	file <- get.path.stat.corpus(object=object, desc="arcs")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.arcs, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -1698,7 +1652,7 @@ compute.stats.arcs <- function(
 	for(a in 1:length(arc.cols))
 	{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
 		
-		file <- file.path(STAT_CORPUS_ARCS_FOLDER, arc.fnames[a])
+		file <- get.path.stat.corpus(object=object, desc=arc.fnames[a])
 		#pdf(file=paste0(file,".pdf"), bg="white")
 		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 			barplot(
@@ -1814,12 +1768,12 @@ compute.stats.overall <- function(
 	stats.overall[1,COL_STATS_CHARS_BY_PANEL] <- sum(stats.panels[,COL_STATS_CHARS])/panel.nbr
 	
 	# record stats
-	file <- file.path(STAT_CORPUS_FOLDER, "overall.csv")
+	file <- get.path.stat.corpus(desc="overall")
 	tlog(4,"Recording in ",file)
-	write.csv(x=stats.overall, file=file, row.names=FALSE)#, col.names=TRUE)
+	write.csv(x=stats.overall, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
 	# density plot: chars vs. panels
-	file <- file.path(STAT_CORPUS_FOLDER, "comparison_chars-scenes_vs_panels-scenes")
+	file <- get.path.stat.corpus(desc="comparison_chars-scenes_vs_panels-scenes")
 	#pdf(file=paste0(file,".pdf"), bg="white")
 	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 		xvals <- stats.scenes[,COL_STATS_CHARS]
@@ -1844,7 +1798,7 @@ compute.stats.overall <- function(
 	tlog(4,"Correlation between characters/scene and panels/scene: ", val)
 	
 	# density plot: scenes vs. panels
-	file <- file.path(STAT_CORPUS_FOLDER, "comparison_scenes-chars_vs_panels-chars")
+	file <- get.path.stat.corpus(desc="comparison_scenes-chars_vs_panels-chars")
 	#pdf(file=paste0(file,".pdf"), bg="white")
 	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
 		xvals <- stats.chars[,COL_STATS_SCENES]
@@ -1878,7 +1832,7 @@ compute.stats.overall <- function(
 		perc <- vals/sum(vals)*100
 		df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 		colnames(df) <- c(atts[a],"Frequency","Proportion")
-		file <- file.path(STAT_CORPUS_FOLDER, paste0("attr_distrib_",atts[a]))
+		file <- get.path.stat.corpus(desc="attr_distrib", att=atts[a])
 		write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		#
 		#pdf(file=paste0(file,".pdf"), bg="white")

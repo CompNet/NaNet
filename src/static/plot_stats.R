@@ -6,31 +6,10 @@
 ###############################################################################
 
 
-## graph measures based on assortativity
-#assort.groups <- list(
-#	c("betweenness", "betweenness-norm", "betweenness-weighted", "betweenness-weighted-norm"),
-#	c("closeness", "closeness-norm", "closeness-weighted", "closeness-weighted-norm"),
-#	c("harmo-closeness", "harmo-closeness-norm", "harmo-closeness-weighted", "harmo-closeness-weighted-norm"),
-#	c("degree", "degree-norm", "strength"),
-#	c("eccentricity"),
-#	c("eigenvector", "eigenvector-norm", "eigenvector-weighted", "eigenvector-weighted-norm"),
-#	c("transitivity-local", "transitivity-weighted-local")
-#)
-#assort.suffix <- "-assortativity"
-## graph measures based on centralization
-#ctrlztn.group <- list(
-#	c("betweenness", "betweenness-norm", "betweenness-weighted"),
-#	c("closeness", "closeness-norm", "closeness-weighted"),
-#	c("harmo-closeness", "harmo-closeness-weighted"),
-#	c("degree", "degree-norm", "strength"),
-#	c("eigenvector", "eigenvector-norm", "eigenvector-weighted")
-#)
-#ctrlztn.suffix <- "-centralization"
-
-
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
+# object: either "graph" or "graphcomp".
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
@@ -38,11 +17,11 @@
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measure)
+load.static.graph.stats.by.window <- function(object, mode, window.size, overlaps, measure)
 {	res <- rep(NA, length(overlaps))
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,1]
 	}
@@ -54,6 +33,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
+# object: either "graph" or "graphcomp".
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
@@ -61,11 +41,11 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measu
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
+load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overlap, measure)
 {	res <- rep(NA, length(window.sizes))
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,1]
 	}
@@ -83,7 +63,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 # returns: a vector of values representing the desired series.
 ###############################################################################
 load.static.graph.stats.scenes <- function(weights, measure)
-{	table.file <- get.statname.static(object="graph", mode="scenes", weights=weights)
+{	table.file <- get.path.stat.table(object="graph", mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -109,7 +89,7 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 		col <- COL_SPEAR_OCC
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,col]
 	}
@@ -137,7 +117,7 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 		col <- COL_SPEAR_OCC
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,col]
 	}
@@ -155,7 +135,7 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 # returns: a vector of values representing the desired series.
 ###############################################################################
 load.static.corr.scenes <- function(weights, measure)
-{	table.file <- get.statname.static(object="corr", mode="scenes", weights=weights)
+{	table.file <- get.path.stat.table(object="corr", mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -179,7 +159,7 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 {	res <- list()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
 		tlog(6,"Loading file \"",table.file,"\" (",j,"/",length(overlaps),")")
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 		values <- tmp.tab[,measure]
@@ -207,7 +187,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 {	res <- list()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 		values <- tmp.tab[,measure]
 		res[[i]] <- values
@@ -227,7 +207,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
 load.static.nodelink.stats.scenes <- function(object, measure, weights)
-{	table.file <- get.statname.static(object=object, mode="scenes", weights=weights)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	res <- tmp.tab[,measure]
 	return(res)
@@ -243,52 +223,10 @@ load.static.nodelink.stats.scenes <- function(object, measure, weights)
 #           value of window.size.
 ###############################################################################
 generate.static.plots.single <- function(mode, window.sizes, overlaps)
-{	
-## Old version : just error bars	
-#	# process each appropriate measure
-#	for(meas.name in ASMM_MEASURES)
-#	{	# generate a plot for each window size value
-#		for(window.size in window.sizes)
-#		{	# the series corresponds to the values of the overlap
-#			avg.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_AVG))
-#			std.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_STDEV))
-#			min.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_MIN))
-#			max.vals <- load.static.graph.stats.by.window(mode, window.size, overlaps, paste0(meas.name,SFX_MAX))
-#			
-#			# generate the stdev plot
-#			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, pre=meas.name),"_stdev.pdf")
-#			pdf(file=plot.file,bg="white")
-#				plot(x=overlaps, y=avg.vals,
-#						ylim=c(min(avg.vals-std.vals),max(avg.vals+std.vals)),
-#						xlab="Overlap",
-#						ylab=meas.name
-#				)
-#				scenes(overlaps, avg.vals-std.vals, overlaps, avg.vals+std.vals)
-#				epsilon <- 0.02
-#				scenes(overlaps-epsilon, avg.vals-std.vals, overlaps+epsilon, avg.vals-std.vals)
-#				scenes(overlaps-epsilon, avg.vals+std.vals, overlaps+epsilon, avg.vals+std.vals)
-#			dev.off()
-#			
-#			# generate the min/max plot
-#			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, pre=meas.name),"_minmax.pdf")
-#			pdf(file=plot.file,bg="white")
-#				plot(x=overlaps, y=avg.vals,
-#						ylim=c(min(avg.vals-min.vals),max(avg.vals+max.vals)),
-#						xlab="Overlap",
-#						ylab=meas.name
-#				)
-#				scenes(overlaps, avg.vals-min.vals, overlaps, avg.vals+max.vals)
-#				epsilon <- 0.02
-#				scenes(overlaps-epsilon, avg.vals-min.vals, overlaps+epsilon, avg.vals-min.vals)
-#				scenes(overlaps-epsilon, avg.vals+max.vals, overlaps+epsilon, avg.vals+max.vals)
-#			dev.off()
-#		}
-#	}
-
-## new version: boxplots
-	# setup measure name lists
+{	# setup measure name lists
 	nmn <- names(NODE_MEASURES)
 	lmn <- names(LINK_MEASURES)
+	cmn <- names(NODECOMP_MEASURES)
 	# identify common overlap values (over window sizes)
 #	tmp <- table(unlist(overlaps))
 #	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
@@ -299,8 +237,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 		
 		if(meas.name %in% nmn)
 			object <- "nodes"
-		else
+		else if(meas.name %in% lmn)
 			object <- "links"
+		else if(meas.name %in% cmn)
+			object <- "nodescomp"
 		
 		# load the reference values (scene-based graph)
 		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
@@ -321,7 +261,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- c("SO","SD",nms)
 			
 			# generate the boxplot plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, pre=meas.name),"_",meas.name,"_boxplot")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -342,7 +283,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			dev.off()
 			
 			# generate the violin plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, pre=meas.name),"_",meas.name,"_violin")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="violin")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -371,7 +313,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			nms <- c("SO","SD",nms)
 			
 			# generate the boxplot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap, pre=meas.name),"_",meas.name,"_boxplot")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -392,7 +335,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			dev.off()
 			
 			# generate the violin plot
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, overlap=overlap, pre=meas.name),"_",meas.name,"_violin")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="violin")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -421,16 +365,23 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
-	gmn <- c(names(GRAPH_MEASURES), names(COMP_MEASURES))
+	gmn <- names(GRAPH_MEASURES)
+	cmn <- names(GRAPHCOMP_MEASURES)
+	amn <- c(gmn, cmn)
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
-		gmn <- gmn[!grepl(sfx, gmn, fixed=TRUE)]
+		amn <- amn[!grepl(sfx, amn, fixed=TRUE)]
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	# process each appropriate measure
-	for(meas.name in gmn)
+	for(meas.name in amn)
 	{	tlog(4,"Generating multiple plots for measure ",meas.name," (mode=",mode,")")
+		
+		if(meas.name %in% gmn)
+			object <- "graph"
+		else if(meas.name %in% cmn)
+			object <- "graphcomp"
 		
 		# load the reference values (scene-based graph)
 		seg.occ.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="occurrences")
@@ -442,11 +393,12 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
-			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			data[[i]] <- load.static.graph.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 		}
 		# generate a plot containing each window size value as a series
 		cols <- get.palette(length(data))
-		plot.file <- paste0(get.plotname.static(object="graph", mode=mode, pre=meas.name),"_ws_",meas.name,"_series")
+		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="series")
+		dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -505,12 +457,13 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		{	# the series corresponds to the values of the window sizes
 			overlap <- common.overlaps[i]
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			data[[i]] <- load.static.graph.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
 			axis[[i]] <- window.sizes[idx]
 		}
 		# generate a plot representing each overlap value as a series
 		cols <- get.palette(length(data))
-		plot.file <- paste0(get.plotname.static(object="graph", mode=mode, pre=meas.name),"_ol_",meas.name,"_series")
+		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="series")
+		dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -575,13 +528,14 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
-	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES))
+	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES), names(NODECOMP_MEASURES))
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
 	# process each appropriate measure
 	for(meas.name in gmn)
 	{	tlog(4,"Generating rank correlation plots for measure ",meas.name," (mode=",mode,")")
+		object <- "graph"
 		
 		# load the reference values (scene-based graph)
 		seg.vals <- load.static.corr.scenes(weights="occurrences", measure=meas.name)
@@ -602,15 +556,16 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot containing each window size value as a series
 			cols <- get.palette(length(data))
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, pre=meas.name),"_ws_",meas.name,"_corr")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="corr")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
 				tlog(6,msg)
 				#warning(msg)
 			}
-			else{
-#				pdf(file=paste0(plot.file,".pdf"),bg="white")
+			else
+			{	#pdf(file=paste0(plot.file,".pdf"),bg="white")
 				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 					# init plot
 					plot(NULL, 
@@ -659,7 +614,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot representing each overlap value as a series
 			cols <- get.palette(length(data))
-			plot.file <- paste0(get.plotname.static(object="graph", mode=mode, pre=meas.name),"_ol_",meas.name,"_corr")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="corr")
+			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -769,7 +725,8 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					colors <- heat.colors(max(ranks))
 					
 					# generate the plot
-					plot.file <- paste0(get.plotname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap, pre=meas.name),"_",meas.name,"_ranks=",substr(weights,1,3))
+					plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0("ranks=",substr(weights,1,3)))
+					dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 					tlog(5,"Plotting file \"",plot.file,"\"")
 #					pdf(file=paste0(plot.file,".pdf"),bg="white")
 					png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -807,7 +764,7 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 	tlog(3,"Generating multiple plots for mode=",mode)
 	generate.static.plots.multiple(mode, window.sizes, overlaps)
 	
-	tlog(3,"Generating rank correlation plots for mode=",mode)
+	tlog(3,"Generating correlation plots for mode=",mode)
 	generate.static.plots.corr(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
@@ -822,6 +779,7 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.plots.scene <- function()
 {	tlog(3,"Generating plots for the scene-based graphs")
+	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	
 	# list measures to process
@@ -843,7 +801,7 @@ generate.static.plots.scene <- function()
 		# process each type of weights
 		for(wmode in wmodes)
 		{	tlog(4,"Dealing with weights=",wmode)
-			file <- paste0(get.plotname.static(object=object, mode="scenes", weights=wmode, pre=meas.name), "_", meas.name)
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
 			
 			# load pre-computed values (scene-based graph)
 			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode)

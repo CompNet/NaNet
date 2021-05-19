@@ -24,7 +24,8 @@ cache <- list()
 #          nodes and k the number of measures.
 ###############################################################################
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.statname.static(object="nodes", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+{	object <- "nodes"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -55,8 +56,8 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 		
 		# plot
-		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+		#pdf(file=paste0(plot.file,".pdf"),bg="white")
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
@@ -66,6 +67,68 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	}
 	
 	tlog(4,"Computation of nodal topological measures complete")
+	return(res.tab)
+}
+
+
+
+###############################################################################
+# Computes all preselected nodal comparison measures for the specified static graph.
+#
+# g: graph whose statistics must be computed.
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="scenes").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+#
+# returns: an nxk table containing all computed values, where n is the number of
+#          nodes and k the number of measures.
+###############################################################################
+compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	object <- "nodescomp"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	tlog(4,"Computing nodal comparision measures for \"",table.file,"\"")
+	
+	# read or create the table containing the computed values
+	tlog(5,"Getting/creating file \"",table.file,"\"")
+	if(file.exists(table.file))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+	else
+	{	res.tab <- matrix(NA,nrow=gorder(g),ncol=length(NODECOMP_MEASURES))
+		colnames(res.tab) <- names(NODECOMP_MEASURES)
+	}
+	
+	# compute each measure
+	tlog(5,"Computing each nodal measure")
+	for(m in 1:length(NODECOMP_MEASURES))
+	{	meas.name <- names(NODECOMP_MEASURES)[m]
+		tlog(6,"Computing measure ",meas.name)
+		
+		# compute values
+		measure <- NODECOMP_MEASURES[[m]]
+		values <- measure$foo(graph=g)
+		if(length(values)==0)
+			values <- rep(NA,gorder(g))
+		
+		# update table
+		res.tab[,meas.name] <- values
+		
+		# update file
+		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# plot
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+		#pdf(file=paste0(plot.file,".pdf"),bg="white")
+		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			hist(
+				values,
+				col="RED"
+			)
+		dev.off()
+	}
+	
+	tlog(4,"Computation of nodal comparison measures complete")
 	return(res.tab)
 }
 
@@ -85,7 +148,8 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # 	       number of pairs of nodes and k the number of measures.
 ###############################################################################
 compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.statname.static(object="nodepairs", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+{	object <- "nodepairs"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -114,8 +178,8 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 		
 		# plot
-		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+		#pdf(file=paste0(plot.file,".pdf"),bg="white")
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
@@ -144,7 +208,8 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 #          links and k the number of measures.
 ###############################################################################
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.statname.static(object="links", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+{	object <- "links"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -167,16 +232,13 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		if(length(values)==0)
 			values <- rep(NA,gsize(g))
 		# update table
-#		print(head(res.tab))
-#		print(dim(res.tab))
-#		print(length(values))
 		res.tab[,meas.name] <- values
 		# update file
 		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
 		
 		# plot
-		plot.file <- get.toponame.static(measure=meas.name, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-#		pdf(file=paste0(plot.file,".pdf"),bg="white")
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+		#pdf(file=paste0(plot.file,".pdf"),bg="white")
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
@@ -204,21 +266,22 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.statname.static(object="graph", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-	tlog(4,"Computing graph topological measures for \"",table.file,"\"")
+{	object <- "graph"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	tlog(4,"Computing graph topological measures")
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
-	{	res.tab <- matrix(NA,nrow=length(c(names(GRAPH_MEASURES),names(COMP_MEASURES))),ncol=1)
-		rownames(res.tab) <- c(names(GRAPH_MEASURES),names(COMP_MEASURES))
+	{	res.tab <- matrix(NA,nrow=length(names(GRAPH_MEASURES)),ncol=1)
+		rownames(res.tab) <- GRAPH_MEASURES
 	}
 	
 	# compute each topological and comparison measure
-	tlog(5,"Computing each graph measure")
-	measures <- c(GRAPH_MEASURES, COMP_MEASURES)
+	tlog(5,"Computing each graph topological measure")
+	measures <- GRAPH_MEASURES
 	for(m in 1:length(measures))
 	{	meas.name <- names(measures)[m]
 		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
@@ -226,9 +289,6 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		measure <- measures[[m]]
 		value <- measure$foo(graph=g)
 		# update table
-#		print(head(res.tab))
-#		print(dim(res.tab))
-#		print(length(value))
 		res.tab[meas.name,1] <- value
 		tlog(7,"Value: ",value)
 		# update file
@@ -236,6 +296,54 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	}
 	
 	tlog(4,"Computation of graph topological measures complete")
+	return(res.tab)
+}
+
+
+
+###############################################################################
+# Computes all preselected graph comparison measures for the specified static graph.
+#
+# g: graph whose statistics must be computed.
+# mode: either "scenes", "panel.window", or "page.window".
+# window.size: value for this parameter (ignored for mode="scenes").
+# overlap: value for this parameter, specified for of the above parameter value.
+#          (also ignored for mode="scenes").
+# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+#
+# returns: a kx1 table containing all computed values, where k is the number of measures.
+###############################################################################
+compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
+{	object <- "graphcomp"
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	tlog(4,"Computing graph comparison measures")
+	
+	# read or create the table containing the computed values
+	tlog(5,"Getting/creating file \"",table.file,"\"")
+	if(file.exists(table.file))
+		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+	else
+	{	res.tab <- matrix(NA,nrow=length(names(GRAPHCOMP_MEASURES)),ncol=1)
+		rownames(res.tab) <- GRAPHCOMP_MEASURES
+	}
+	
+	# compute each topological and comparison measure
+	tlog(5,"Computing each graph comparison measure")
+	measures <- GRAPHCOMP_MEASURES
+	for(m in 1:length(measures))
+	{	meas.name <- names(measures)[m]
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
+		# compute value
+		measure <- measures[[m]]
+		value <- measure$foo(graph=g)
+		# update table
+		res.tab[meas.name,1] <- value
+		tlog(7,"Value: ",value)
+		# update file
+		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+	}
+	
+	tlog(4,"Computation of graph comparison measures complete")
 	return(res.tab)
 }
 
@@ -256,10 +364,10 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 #          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
 compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.statname.static(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+{	table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
-	mn <- c(names(NODE_MEASURES),names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
+	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES), names(NODECOMP_MEASURES)) # not links, as their number can vary from one graph to the other
 	cn <- c(COL_SPEAR_DUR, COL_PVAL_DUR, COL_SPEAR_OCC, COL_PVAL_OCC) 
 	
 	# read or create the table containing the computed values
@@ -280,6 +388,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		# get object
 		if(meas.name %in% names(NODE_MEASURES))
 			object <- "nodes"
+		else if(meas.name %in% names(NODECOMP_MEASURES))
+			object <- "nodescomp"
 		else if(meas.name %in% names(NODEPAIR_MEASURES))
 			object <- "nodepairs"
 		else if(meas.name %in% names(LINK_MEASURES))
@@ -288,17 +398,11 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
 		vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
 		# retrieve tested values
-		tab.file <- get.statname.static(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-#print(tab.file)		
+		tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 		tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
 		vals.cur <- tmp.tab[,meas.name]
 		# compute correlations
-#print(vals.dur)
-#print(vals.cur)
-#print(length(vals.dur))
-#print(length(vals.cur))
-#		corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
-	
+		#corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
 		corr <- tryCatch(
 			cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
 #			warning=function(w) 
@@ -314,11 +418,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		)		
 		res.tab[meas.name,COL_SPEAR_DUR] <- corr$estimate
 		res.tab[meas.name,COL_PVAL_DUR] <- corr$p.value
-#print(vals.occ)
-#print(vals.cur)
-#print(length(vals.occ))
-#print(length(vals.cur))
-#		corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+		#corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
 		corr <- tryCatch(
 			cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
 			error=function(e) 
@@ -351,7 +451,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 ###############################################################################
 compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA)
-{	graph.file <- get.graphname.static(mode, window.size, overlap)
+{	graph.file <- get.path.graph.file(mode, window.size, overlap)
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -387,7 +487,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA)
-{	graph.file <- get.graphname.static(mode, window.size, overlap)
+{	graph.file <- get.path.graph.file(mode, window.size, overlap)
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -410,6 +510,7 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights)
 	compute.static.link.statistics(g, mode, window.size, overlap, weights)
 	compute.static.graph.statistics(g, mode, window.size, overlap, weights)
+	compute.static.graphcomp.statistics(g, mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of all topological measures complete")
 }

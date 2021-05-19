@@ -17,7 +17,7 @@ plot.static.graph.scenes <- function(data)
 {	tlog(2,"Plotting the scene-based static graph")
 	
 	# read the graph
-	graph.file <- get.graphname.static(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes")
 	g <- read_graph(file=graph.file, format="graphml")
 	
 	# set up layout
@@ -154,8 +154,6 @@ plot.static.graph.scenes <- function(data)
 	
 	tlog(2,"Extraction of the scene-based static graph completed")
 	return(g)
-	
-	# TODO add the plots without the extras
 }
 
 
@@ -236,7 +234,7 @@ plot.static.graph.scenes <- function(data)
 #	# init the graph
 #	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 #	# write to file
-#	graph.file <- get.graphname.static(mode="panel.window", window.size=window.size, overlap=overlap)
+#	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap)
 #	write_graph(graph=g, file=graph.file, format="graphml")
 #	
 #	tlog(2,"Extraction of the panel window-based static graph completed")
@@ -326,7 +324,7 @@ plot.static.graph.scenes <- function(data)
 #	# init the graph
 #	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 #	# write to file
-#	graph.file <- get.graphname.static(mode="page.window", window.size=window.size, overlap=overlap)
+#	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap)
 #	write_graph(graph=g, file=graph.file, format="graphml")
 #	
 #	tlog(2,"Extraction of the page window-based static graph completed")

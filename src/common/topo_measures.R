@@ -33,6 +33,9 @@ MEAS_JACCARD_SIM <- "jaccard"
 MEAS_PRECISION <- "precision"
 MEAS_RECALL <- "recall"
 MEAS_FMEASURE <- "fmeasure"
+MEAS_FALSENEG <- "falsenegative"
+MEAS_FALSEPOS <- "falsepositive"
+MEAS_TRUEPOS <- "truepositive"
 
 
 
@@ -53,6 +56,7 @@ SFX_GLOBAL <- "-global"
 # for comparison measures
 SFX_DUR <- "-duration"
 SFX_OCC <- "-occurrences"
+SFX_TOTAL <- "-total"
 
 
 ###############################################################################
@@ -61,23 +65,33 @@ NODE_MEASURES <- list()
 NODEPAIR_MEASURES <- list()
 LINK_MEASURES <- list()
 GRAPH_MEASURES <- list()
-source("src/measures/betweenness.R")
-source("src/measures/closeness.R")
-source("src/measures/community.R")
-source("src/measures/component.R")
-#source("src/measures/connectivity.R")
-source("src/measures/degree.R")
-source("src/measures/distance.R")
-source("src/measures/eccentricity.R")
-source("src/measures/edgebetweenness.R")
-source("src/measures/element.R")
-source("src/measures/harmo_closeness.R")
-source("src/measures/spectral.R")
-source("src/measures/transitivity.R")
+source("src/measures/topological/betweenness.R")
+source("src/measures/topological/closeness.R")
+source("src/measures/topological/community.R")
+source("src/measures/topological/component.R")
+#source("src/measures/topological/connectivity.R")
+source("src/measures/topological/degree.R")
+source("src/measures/topological/distance.R")
+source("src/measures/topological/eccentricity.R")
+source("src/measures/topological/edgebetweenness.R")
+source("src/measures/topological/element.R")
+source("src/measures/topological/harmo_closeness.R")
+source("src/measures/topological/spectral.R")
+source("src/measures/topological/transitivity.R")
 # comparison measures
-COMP_MEASURES <- list()
-source("src/measures/comparison.R")
-ALL_MEASURES <- c(NODE_MEASURES, NODEPAIR_MEASURES, LINK_MEASURES, GRAPH_MEASURES, COMP_MEASURES)
+GRAPHCOMP_MEASURES <- list()
+NODECOMP_MEASURES <- list()
+source("src/measures/comparison/comparison.R")
+source("src/measures/comparison/euclidean.R")
+source("src/measures/comparison/cosine.R")
+source("src/measures/comparison/falseneg.R")
+source("src/measures/comparison/falsepos.R")
+source("src/measures/comparison/fmeasure.R")
+source("src/measures/comparison/jaccard.R")
+source("src/measures/comparison/precision.R")
+source("src/measures/comparison/recall.R")
+source("src/measures/comparison/truepos.R")
+ALL_MEASURES <- c(NODE_MEASURES, NODEPAIR_MEASURES, LINK_MEASURES, GRAPH_MEASURES, GRAPHCOMP_MEASURES, NODECOMP_MEASURES)
 
 
 ###############################################################################

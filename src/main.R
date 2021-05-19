@@ -21,26 +21,31 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # setup parameters
-panel.window.sizes <- c(1,2,5,10,15,20,25,30)
-panel.overlaps <- list(
-	c(0), 										#1
-	c(0,1), 									#2
-	c(0,1,2,3,4), 								#5
-	c(0,1,2,3,4,5,7,9), 						#10
-	c(0,1,2,3,4,5,7,9,11,14), 					#15
-	c(0,1,2,3,4,5,7,9,11,14,16,19), 			#20
-	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24), 		#25
-	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24,26,29)	#30
-)
-page.window.sizes <- c(1,2,5,10,15,20)
-page.overlaps <- list(
-	c(0), 										#1
-	c(0,1), 									#2
-	c(0,1,2,3,4), 								#5
-	c(0,1,2,3,4,5,7,9), 						#10
-	c(0,1,2,3,4,5,7,9,11,14), 					#15
-	c(0,1,2,3,4,5,7,9,11,14,16,19) 				#20
-)
+#panel.window.sizes <- c(1,2,5,10,15,20,25,30)
+#panel.overlaps <- list(
+#	c(0), 										#1
+#	c(0,1), 									#2
+#	c(0,1,2,3,4), 								#5
+#	c(0,1,2,3,4,5,7,9), 						#10
+#	c(0,1,2,3,4,5,7,9,11,14), 					#15
+#	c(0,1,2,3,4,5,7,9,11,14,16,19), 			#20
+#	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24), 		#25
+#	c(0,1,2,3,4,5,7,9,11,14,16,19,21,24,26,29)	#30
+#)
+#page.window.sizes <- c(1,2,5,10,15,20)
+#page.overlaps <- list(
+#	c(0), 										#1
+#	c(0,1), 									#2
+#	c(0,1,2,3,4), 								#5
+#	c(0,1,2,3,4,5,7,9), 						#10
+#	c(0,1,2,3,4,5,7,9,11,14), 					#15
+#	c(0,1,2,3,4,5,7,9,11,14,16,19) 				#20
+#)
+# more complete parameters
+panel.window.sizes <- c(1:30)
+panel.overlaps <- lapply(panel.window.sizes, function(size) 0:(size-1)) # 465 networks
+page.window.sizes <- c(1:20)
+page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 networks
 
 
 
@@ -48,6 +53,8 @@ page.overlaps <- list(
 ###############################################################################
 # read raw data
 data <- read.raw.data()
+# compute and plot corpus stats
+data <- compute.stats(data)
 
 
 
@@ -62,7 +69,7 @@ plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, 
 
 
 ###############################################################################
-# compute stats
+# compute graph stats
 compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
 generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)

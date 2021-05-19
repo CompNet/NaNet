@@ -11,75 +11,52 @@ LOG_FOLDER <- "log"
 
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
-dir.create(path=NET_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the page network files
 	NET_PAGES_FOLDER <- file.path(NET_FOLDER,"pages")
-	dir.create(path=NET_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the panel network files
 	NET_PANELS_FOLDER <- file.path(NET_FOLDER,"panels")
-	dir.create(path=NET_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the scene network files
 	NET_SCENES_FOLDER <- file.path(NET_FOLDER,"scenes")
-	dir.create(path=NET_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 
 # folder containing the produced stat files
 STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
-dir.create(path=STAT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the corpus stat files
 	STAT_CORPUS_FOLDER <- file.path(STAT_FOLDER,"corpus")
-	dir.create(path=STAT_CORPUS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus arc stat files
 		STAT_CORPUS_ARCS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"arcs")
-		dir.create(path=STAT_CORPUS_ARCS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus character stat files
 		STAT_CORPUS_CHARS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"characters")
-		dir.create(path=STAT_CORPUS_CHARS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus page stat files
 		STAT_CORPUS_PAGES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"pages")
-		dir.create(path=STAT_CORPUS_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus panel stat files
 		STAT_CORPUS_PANELS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"panels")
-		dir.create(path=STAT_CORPUS_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus scene stat files
 		STAT_CORPUS_SCENES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"scenes")
-		dir.create(path=STAT_CORPUS_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the corpus volume stat files
 		STAT_CORPUS_VOLUMES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"volumes")
-		dir.create(path=STAT_CORPUS_VOLUMES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the page stat files
 	STAT_PAGES_FOLDER <- file.path(STAT_FOLDER,"pages")
-	dir.create(path=STAT_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the panel stat files
 	STAT_PANELS_FOLDER <- file.path(STAT_FOLDER,"panels")
-	dir.create(path=STAT_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the scene stat files
 	STAT_SCENES_FOLDER <- file.path(STAT_FOLDER,"scenes")
-	dir.create(path=STAT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the scene stat files for duration weights
 		STAT_SCENES_DURATION_FOLDER <- file.path(STAT_SCENES_FOLDER,"duration")
-		dir.create(path=STAT_SCENES_DURATION_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the scene stat files for occurrences weights
 		STAT_SCENES_OCCURRENCES_FOLDER <- file.path(STAT_SCENES_FOLDER,"occurrences")
-		dir.create(path=STAT_SCENES_OCCURRENCES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		
 # folder containing the produced plot files
 PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
-dir.create(path=PLOT_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the page plot files
 	PLOT_PAGES_FOLDER <- file.path(PLOT_FOLDER,"pages")
-	dir.create(path=PLOT_PAGES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the panel plot files
 	PLOT_PANELS_FOLDER <- file.path(PLOT_FOLDER,"panels")
-	dir.create(path=PLOT_PANELS_FOLDER, showWarnings=FALSE, recursive=TRUE)
 	# folder containing the scene plot files
 	PLOT_SCENES_FOLDER <- file.path(PLOT_FOLDER,"scenes")
-	dir.create(path=PLOT_SCENES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the scene plot files for duration weights
 		PLOT_SCENES_DURATION_FOLDER <- file.path(PLOT_SCENES_FOLDER,"duration")
-		dir.create(path=PLOT_SCENES_DURATION_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		# folder containing the scene plot files for occurrences weights
 		PLOT_SCENES_OCCURRENCES_FOLDER <- file.path(PLOT_SCENES_FOLDER,"occurrences")
-		dir.create(path=PLOT_SCENES_OCCURRENCES_FOLDER, showWarnings=FALSE, recursive=TRUE)
 		
 
 
@@ -98,24 +75,39 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 
 
 ###############################################################################
-# Returns the basename of the static graph based on the specified parameters.
+# Returns the full path for a graph file, based on the specified parameters. 
+# File extension is included (.graphml).
 # 
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # 
-# Returns: basename of the graph and related files.
+# returns: full path.
 ###############################################################################
-get.graphname.static <- function(mode, window.size=NA, overlap=NA)
-{	res <- "static"
-	
-	if(mode=="scenes")
-		res <- 	file.path(NET_SCENES_FOLDER, paste0(res, "_scenes"))
-	else if(mode=="panel.window")
-		res <- 	file.path(NET_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
+{	# base folder
+	if(mode=="panel.window")
+		folder <- NET_PANELS_FOLDER
 	else if(mode=="page.window")
-		res <- 	file.path(NET_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+		folder <- NET_PAGES_FOLDER
+	else if(mode=="scenes")
+		folder <- STAT_SCENES_FOLDER
+	# possibly create folder
+	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
+	# set up file name
+	res <- paste0(folder, "static")
+	# possibly add base name
+	if(mode=="scenes")
+		res <- 	paste0(res, "_scenes")
+	# possibly add window size
+	if(!is.na(window.size))
+		res <- paste0(res, "_ws=",window.size)
+	# possibly add overlap
+	if(!is.na(overlap))
+		res <- paste0(res, "_ol=",overlap)
+	
+	# add extension
 	res <- paste0(res, ".graphml")
 	
 	return(res)
@@ -125,40 +117,45 @@ get.graphname.static <- function(mode, window.size=NA, overlap=NA)
 
 
 ###############################################################################
-# Returns the name of a statistics file based on the specified parameters.
+# Returns the full path for a table file containing the values of some topological 
+# measure. File extension is included (.csv).
 # 
-# object: either "nodes", "nodepairs", "links" or "graph".
+# object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # 
-# Returns: basename of the stat file.
+# returns: full path.
 ###############################################################################
-get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
-{	res <- "static"
-	
-	if(mode=="scenes")
-		res <- 	file.path(STAT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=",weights))
-	else if(mode=="panel.window")
-		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
+{	# base folder
+	if(mode=="panel.window")
+		folder <- STAT_PANELS_FOLDER
 	else if(mode=="page.window")
-		res <- 	file.path(STAT_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+		folder <- STAT_PAGES_FOLDER
+	else if(mode=="scenes")
+		folder <- STAT_SCENES_FOLDER
+	# possibly add scene weights
+	if(!is.na(weights))
+		folder <- file.path(folder, weights)
+	# possibly create folder
+	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
-	res <- paste0(res, "_meas")
+	# set up file name
+	res <- paste0(folder, "static")
+	# possibly add window size
+	if(!is.na(window.size))
+		res <- paste0(res, "_ws=",window.size)
+	# possibly add overlap
+	if(!is.na(overlap))
+		res <- paste0(res, "_ol=",overlap)
+	# possibly add object
+	if(!is.na(object))
+		res <- 	paste0(res, object)
 	
-	if(object=="graph")
-		res <- 	paste0(res, "_graph")
-	else if(object=="nodes")
-		res <- 	paste0(res, "_nodes")
-	else if(object=="nodepairs")
-		res <- 	paste0(res, "_nodepairs")
-	else if(object=="links")
-		res <- 	paste0(res, "_links")
-	else if(object=="corr")
-		res <- 	paste0(res, "_corr")
-	
+	# add extension
 	res <- paste0(res, ".csv")
 	
 	return(res)
@@ -168,28 +165,51 @@ get.statname.static <- function(object, mode, window.size=NA, overlap=NA, weight
 
 
 ###############################################################################
-# Returns the name of a topological measure plot file based on the specified parameters.
+# Returns the full path for a file containing a plot displaying the topological
+# measure of some network. File extension is not included and must be added 
+# a posteriori.
 # 
-# measure: file-ready name of the measure.
+# object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# meas.name: file-ready name of the measure.
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# plot.type: type of plot (barplot, histogram, etc.).
 # 
-# Returns: basename of the plot file.
+# returns: full path.
 ###############################################################################
-get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weights=NA)
-{	res <- "static"
-	
-	if(mode=="scenes")
-		res <- 	file.path(STAT_SCENES_FOLDER, weights, paste0(res, "_scenes_wt=",weights))
-	else if(mode=="panel.window")
-		res <- 	file.path(STAT_PANELS_FOLDER, paste0(res, "_panels_ws=",window.size,"_ol=",overlap))
+get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, plot.type=NA)
+{	# base folder
+	if(mode=="panel.window")
+		folder <- STAT_PANELS_FOLDER
 	else if(mode=="page.window")
-		res <- 	file.path(STAT_PAGES_FOLDER, paste0(res, "_pages_ws=",window.size,"_ol=",overlap))
+		folder <- STAT_PAGES_FOLDER
+	else if(mode=="scenes")
+		folder <- STAT_SCENES_FOLDER
+	# possibly add scene weights
+	if(!is.na(weights))
+		folder <- file.path(folder, weights)
+	# possibly create folder
+	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
-	res <- paste0(res, "_meas=",measure)
+	# set up file name
+	res <- paste0(folder, "static")
+	# possibly add window size
+	if(!is.na(window.size))
+		res <- paste0(res, "_ws=",window.size)
+	# possibly add overlap
+	if(!is.na(overlap))
+		res <- paste0(res, "_ol=",overlap)
+	# possibly add object
+	if(!is.na(object))
+		res <- 	paste0(res, object)
+	# add measure
+	res <- paste0(res, "_meas=",meas.name)
+	# possibly add plot type
+	if(!is.na(plot.type))
+		res <- paste0(res, "_", plot.type)
 	
 	return(res)
 }
@@ -198,58 +218,92 @@ get.toponame.static <- function(measure, mode, window.size=NA, overlap=NA, weigh
 
 
 ###############################################################################
-# Returns the name of the plot file based on the specified parameters.
+# Returns the full path for a file containing a plot some network(s) topological
+# measures with one of the references. File extension is not included and must 
+# be added a posteriori.
 # 
-# object: either "nodes", "nodepairs", "links" or "graph".
+# object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# meas.name: name of the plot measure.
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # weights: value for this parameters, either "duration" or "occurrences".
-# pre: folder insterted between the main folder and the file name.
+# plot.type: type of plot (barplot, histogram, etc.).
 # 
-# Returns: basename of the graph and related files.
+# returns: full path.
 ###############################################################################
-get.plotname.static <- function(object, mode, window.size=NA, overlap=NA, weights=NA, pre=NA)
-{	res <- "static"
-	
+get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, plot.type=NA)
+{	# base folder
 	if(mode=="panel.window")
-	{	folder <- PLOT_PANELS_FOLDER
-		if(!is.na(pre))
-			folder <- file.path(folder, pre)
-		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		res <- 	file.path(folder, paste0(res, "_panels"))
-		if(!is.na(window.size))
-			res <- paste0(res, "_ws=",window.size)
-		if(!is.na(overlap))
-			res <- paste0(res, "_ol=",overlap)
-	}
+		folder <- PLOT_PANELS_FOLDER
 	else if(mode=="page.window")
-	{	folder <- PLOT_PAGES_FOLDER
-		if(!is.na(pre))
-			folder <- file.path(folder, pre)
-		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		res <- 	file.path(folder, paste0(res, "_pages"))
-		if(!is.na(window.size))
-			res <- paste0(res, "_ws=",window.size)
-		if(!is.na(overlap))
-			res <- paste0(res, "_ol=",overlap)
-	}
+		folder <- PLOT_PAGES_FOLDER
 	else if(mode=="scenes")
-	{	folder <- PLOT_SCENES_FOLDER
-		if(!is.na(pre))
-			folder <- file.path(folder, weights, pre)
-		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		res <- file.path(folder, paste0(res, "_scenes_wt=", weights))
-	}
+		folder <- PLOT_SCENES_FOLDER
+	# add object folder
+	folder <- file.path(folder, object)
+	# possibly add measure folder
+	if(!is.na(meas.name))
+		folder <- file.path(folder, meas.name)
+	# possibly create folder
+	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
-	if(object=="graph")
-		res <- 	paste0(res, "_graph")
-	else if(object=="nodes")
-		res <- 	paste0(res, "_nodes")
-	else if(object=="nodepairs")
-		res <- 	paste0(res, "_nodepairs")
-	else if(object=="links")
-		res <- 	paste0(res, "_links")
+	# set up file name
+	res <- paste0(folder, "static")
+	# possibly add window size
+	if(!is.na(window.size))
+		res <- paste0(res, "_ws=",window.size)
+	# possibly add overlap
+	if(!is.na(overlap))
+		res <- paste0(res, "_ol=",overlap)
+	# possibly add scene weights
+	if(!is.na(weights))
+		res <- paste0(res, "_wt=", weights)
+	# possibly add plot type
+	if(!is.na(plot.type))
+		res <- paste0(res, "_", plot.type)
+	
+	return(res)
+}
+
+
+
+
+###############################################################################
+# Returns the full path for a file containing stats regarding the corpus. The
+# extension is not included as the same basename can be used for both csv and plots.
+# 
+# object: "panels", "scenes", "characters", etc.
+# vol: id of the considered volume.
+# arc: id of the considered narrative arc.
+# desc: ad hoc description of the file.
+# att: vertex attribute concerned.
+# val: considered value of the vertex attribute.
+# 
+# returns: full path.
+###############################################################################
+get.path.stat.corpus <- function(object, vol=NA, arc=NA, desc, att=NA, val=NA)
+{	# base folder
+	if(!is.na(vol))
+		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol)
+	else if(!is.na(arc))
+		folder <- file.path(STAT_CORPUS_ARCS_FOLDER, arc)
+	else
+		folder <- STAT_CORPUS_FOLDER
+	# possibly add object
+	if(!is.na(object))
+		folder <- file.path(STAT_CORPUS_FOLDER, object)
+	# possibly create folder
+	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
+	
+	# set up file name
+	res <- desc
+	# possibly add attribute name
+	if(!is.na(att))
+		res <- paste0(res,"_att=",att)
+	# possibly add attribute value
+	if(!is.na(val))
+		res <- paste0(res,"_val=",val)
 	
 	return(res)
 }
