@@ -169,7 +169,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					ylab <- "Proportion"
 				}
 				else
-				{	ylim <- c(0,max(data))
+				{	ylim <- c(0,max(colSums(data)))
 					ylab <- "Frequency"
 				}
 				
