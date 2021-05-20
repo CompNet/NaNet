@@ -313,6 +313,16 @@ read.char.table <- function(char.scenes)
 		tt <- table(unlist(char.scenes[idx]))
 		char.info[match(names(tt),char.info[,COL_CHAR_NAME]),COL_CHAR_FREQ] <- tt
 		
+		# complete the shortname column (using fullnames)
+		if(!(COL_CHAR_SHORT_NAME %in% colnames(char.info)))
+		{	char.info <- cbind(char.info, char.info[,COL_CHAR_NAME])
+			colnames(char.info)[ncol(char.info)] <- COL_CHAR_SHORT_NAME
+		}
+		else
+		{	idx <- which(char.info[,COL_CHAR_SHORT_NAME]=="")
+			char.info[idx,COL_CHAR_SHORT_NAME] <- char.info[idx,COL_CHAR_NAME]
+		}
+		
 		# check multiple name use
 		x <- table(table.chars)
 		pb.chars <- names(x)[x!=1]

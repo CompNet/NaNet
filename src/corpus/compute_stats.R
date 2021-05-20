@@ -146,7 +146,7 @@ compute.stats.panels <- function(
 		h <- hist(
 			data,
 			breaks=0:max(data),
-			col="#3a548c",
+			col=MAIN_COLOR,
 			xlab=xl,
 			main=ml,
 			freq=FALSE,
@@ -158,7 +158,7 @@ compute.stats.panels <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #		# complementary cumulative distribution function
 #		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
@@ -263,7 +263,7 @@ compute.stats.panels <- function(
 		barplot(
 			height=perc,
 			main="Distribution of panel positions (%)",
-			col="#3a548c"
+			col=MAIN_COLOR
 	)
 	dev.off()
 	
@@ -409,7 +409,7 @@ compute.stats.pages <- function(
 		h <- hist(
 				data,
 				breaks=0:max(data),
-				col="#3a548c",
+				col=MAIN_COLOR,
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
@@ -421,7 +421,7 @@ compute.stats.pages <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #		# complementary cumulative distribution function
 #		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
@@ -442,7 +442,7 @@ compute.stats.pages <- function(
 		h <- hist(
 				data,
 				breaks=0:max(data),
-				col="#3a548c",
+				col=MAIN_COLOR,
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
@@ -454,7 +454,7 @@ compute.stats.pages <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #		# complementary cumulative distribution function
 #		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
@@ -475,7 +475,7 @@ compute.stats.pages <- function(
 		h <- hist(
 				data,
 				breaks=0:max(data),
-				col="#3a548c",
+				col=MAIN_COLOR,
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
@@ -487,7 +487,7 @@ compute.stats.pages <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #		# complementary cumulative distribution function
 #		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
@@ -640,7 +640,7 @@ compute.stats.scenes <- function(
 #		h <- hist(
 #				data,
 #				breaks=0:max(data),
-##				col="#3a548c",
+##				col=MAIN_COLOR,
 ##				xlab=xl,
 ##				main=ml,
 ##				freq=FALSE,
@@ -653,7 +653,7 @@ compute.stats.scenes <- function(
 #		x <- x[idx]
 #		y <- y[idx]
 #		expmax <- floor(log(min(y),10))
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #		axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
 		# complementary cumulative distribution function
 		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
@@ -677,7 +677,7 @@ compute.stats.scenes <- function(
 		h <- hist(
 				data,
 				breaks=0:max(data),
-				col="#3a548c",
+				col=MAIN_COLOR,
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
@@ -689,7 +689,7 @@ compute.stats.scenes <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #		# complementary cumulative distribution function
 #		plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 	dev.off()
@@ -763,7 +763,7 @@ compute.stats.scenes <- function(
 		h <- hist(
 				data,
 				breaks=0:max(data),
-				col="#3a548c",
+				col=MAIN_COLOR,
 				xlab=xl,
 				main=ml,
 				freq=FALSE,
@@ -775,7 +775,7 @@ compute.stats.scenes <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
 		if(length(unique(data))>1)
 			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
@@ -800,7 +800,7 @@ compute.stats.scenes <- function(
 		barplot(
 			height=perc,
 			main="Distribution of scene positions (%)",
-			col="#3a548c"
+			col=MAIN_COLOR
 		)
 	dev.off()
 	
@@ -912,7 +912,7 @@ compute.stats.chars <- function(
 #			h <- hist(
 #					data,
 #					breaks=0:max(data),
-##					col="#3a548c",
+##					col=MAIN_COLOR,
 ##					xlab=xl,
 ##					main=ml,
 ##					freq=FALSE,
@@ -924,7 +924,7 @@ compute.stats.chars <- function(
 #			idx <- which(y>0)
 #			x <- x[idx]
 #			y <- y[idx]
-#			plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 			# complementary cumulative distribution function
 			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 		dev.off()
@@ -948,7 +948,7 @@ compute.stats.chars <- function(
 #		h <- hist(
 #				data,
 #				breaks=0:max(data),
-##				col="#3a548c",
+##				col=MAIN_COLOR,
 ##				xlab=xl,
 ##				main=ml,
 ##				freq=FALSE,
@@ -960,7 +960,7 @@ compute.stats.chars <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
 		if(length(unique(data))>1)
 			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
@@ -984,7 +984,7 @@ compute.stats.chars <- function(
 #		h <- hist(
 #				data,
 #			breaks=0:max(data),
-##			col="#3a548c",
+##			col=MAIN_COLOR,
 ##			xlab=xl,
 ##			main=ml,
 ##			freq=FALSE,
@@ -995,7 +995,7 @@ compute.stats.chars <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
 		if(length(unique(data))>1)
 			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
@@ -1019,7 +1019,7 @@ compute.stats.chars <- function(
 #		h <- hist(
 #				data,
 #				breaks=0:max(data),
-##				col="#3a548c",
+##				col=MAIN_COLOR,
 ##				xlab=xl,
 ##				main=ml,
 ##				freq=FALSE,
@@ -1031,7 +1031,7 @@ compute.stats.chars <- function(
 #		idx <- which(y>0)
 #		x <- x[idx]
 #		y <- y[idx]
-#		plot(x, y, col="#3a548c", xlab=xl, ylab="Density", main=ml, log="xy")
+#		plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 		# complementary cumulative distribution function
 		if(length(unique(data))>1)
 			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
@@ -1247,7 +1247,7 @@ compute.stats.volumes <- function(
 				labs(fill="Frequency",x=xlab, y=ylab) +
 				theme(legend.position="left") +
 				geom_point(aes(x=xvals, y=yvals), alpha=0)
-			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill="#3a548c")
+			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
 			print(p)
 		dev.off()
 		# correlation
@@ -1278,7 +1278,7 @@ compute.stats.volumes <- function(
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-					col="#3a548c"
+					col=MAIN_COLOR
 				)
 			dev.off()
 			
@@ -1328,7 +1328,7 @@ compute.stats.volumes <- function(
 				height=stats.volumes[,vol.cols[v]],
 				names.arg=stats.volumes[,COL_STATS_VOLUME],
 				main=paste0("Evolution of the ",vol.titles[v]),
-				col="#3a548c"
+				col=MAIN_COLOR
 			)
 		dev.off()
 	}
@@ -1579,7 +1579,7 @@ compute.stats.arcs <- function(
 				labs(fill="Frequency",x=xlab, y=ylab) +
 				theme(legend.position="left") +
 				geom_point(aes(x=xvals, y=yvals), alpha=0)
-			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill="#3a548c")
+			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
 			print(p)
 		dev.off()
 		# correlation
@@ -1610,7 +1610,7 @@ compute.stats.arcs <- function(
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[at]," (%)"),
-					col="#3a548c"
+					col=MAIN_COLOR
 				)
 			dev.off()
 			
@@ -1663,7 +1663,7 @@ compute.stats.arcs <- function(
 				height=stats.arcs[,arc.cols[a]],
 				names.arg=stats.arcs[,COL_STATS_ARC],
 				main=paste0("Evolution of the ",arc.ttls[a]),
-				col="#3a548c"
+				col=MAIN_COLOR
 			)
 		dev.off()
 	}
@@ -1793,7 +1793,7 @@ compute.stats.overall <- function(
 			labs(fill="Frequency",x=xlab, y=ylab) +
 			theme(legend.position="left") +
 			geom_point(aes(x=xvals, y=yvals), alpha=0)
-		ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill="#3a548c")
+		ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill=MAIN_COLOR)
 		print(p)
 	dev.off()
 	# correlation
@@ -1818,7 +1818,7 @@ compute.stats.overall <- function(
 			labs(fill="Frequency",x=xlab, y=ylab) +
 			theme(legend.position="left") +
 			geom_point(aes(x=xvals, y=yvals), alpha=0)
-		ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill="#3a548c")
+		ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill=MAIN_COLOR)
 		print(p)
 	dev.off()
 	# correlation
@@ -1844,7 +1844,7 @@ compute.stats.overall <- function(
 			barplot(
 				height=perc,
 				main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-				col="#3a548c"
+				col=MAIN_COLOR
 			)
 		dev.off()
 		

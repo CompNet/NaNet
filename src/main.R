@@ -23,17 +23,9 @@ start.rec.log(text=SERIES)
 # setup parameters
 ## test
 #panel.window.sizes <- c(1, 2, 3)
-#panel.overlaps <- list(
-#	c(0), 										#1
-#	c(0,1), 									#2
-#	c(0,1,2) 									#3
-#)
+#panel.overlaps <- list(c(0), c(0,1), c(0,1,2))
 #page.window.sizes <- c(1,2,3)
-#page.overlaps <- list(
-#	c(0), 										#1
-#	c(0,1), 									#2
-#	c(0,1,2) 									#3
-#)
+#page.overlaps <- list(c(0), c(0,1), c(0,1,2))
 
 # regular values
 panel.window.sizes <- c(1,2,5,10,15,20,25,30)
@@ -96,11 +88,3 @@ generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, pag
 ###############################################################################
 # stop logging
 end.rec.log()
-
-
-
-
-###############################################################################
-# maybe we get different numbers of nodes between parameter sets?
-# >> systematically put all nodes?
-# >> but then, how to deal with disconnected nets?

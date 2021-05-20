@@ -78,4 +78,4 @@ VOLUMES/ARCS
 
 - Extract networks using volume-based windows?
 
-- Add attribute indicating character=extra (two scenes or less?)
+- plot attributes on network

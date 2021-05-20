@@ -10,6 +10,8 @@
 ###############################################################################
 # Colors used in the plots.
 ###############################################################################
+MAIN_COLOR <- "#3a548c"
+
 CAT_COLORS_8 <- c(								# basic color brewer palette, see http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=9
 	rgb(228,26,28,maxColorValue=255),		# red
 	rgb(55,126,184,maxColorValue=255),		# blue

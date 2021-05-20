@@ -45,18 +45,18 @@ STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
 		# folder containing the scene stat files for occurrences weights
 		STAT_SCENES_OCCURRENCES_FOLDER <- file.path(STAT_SCENES_FOLDER,"occurrences")
 		
-# folder containing the produced plot files
-PLOT_FOLDER <- file.path(DATA_FOLDER,"plots")
-	# folder containing the page plot files
-	PLOT_PAGES_FOLDER <- file.path(PLOT_FOLDER,"pages")
-	# folder containing the panel plot files
-	PLOT_PANELS_FOLDER <- file.path(PLOT_FOLDER,"panels")
-	# folder containing the scene plot files
-	PLOT_SCENES_FOLDER <- file.path(PLOT_FOLDER,"scenes")
-		# folder containing the scene plot files for duration weights
-		PLOT_SCENES_DURATION_FOLDER <- file.path(PLOT_SCENES_FOLDER,"duration")
-		# folder containing the scene plot files for occurrences weights
-		PLOT_SCENES_OCCURRENCES_FOLDER <- file.path(PLOT_SCENES_FOLDER,"occurrences")
+# folder containing the produced comparison plots
+COMP_FOLDER <- file.path(DATA_FOLDER,"comparison")
+	# folder containing the page comparison plots
+	COMP_PAGES_FOLDER <- file.path(COMP_FOLDER,"pages")
+	# folder containing the panel comparison plots
+	COMP_PANELS_FOLDER <- file.path(COMP_FOLDER,"panels")
+	# folder containing the scene comparison plots
+	COMP_SCENES_FOLDER <- file.path(COMP_FOLDER,"scenes")
+		# folder containing the scene comparison plots for duration weights
+		COMP_SCENES_DURATION_FOLDER <- file.path(COMP_SCENES_FOLDER,"duration")
+		# folder containing the scene comparison plots for occurrences weights
+		COMP_SCENES_OCCURRENCES_FOLDER <- file.path(COMP_SCENES_FOLDER,"occurrences")
 		
 
 
@@ -91,7 +91,7 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
 	else if(mode=="page.window")
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
-		folder <- STAT_SCENES_FOLDER
+		folder <- NET_SCENES_FOLDER
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
@@ -137,6 +137,16 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
+	# possibly add window size
+	if(!is.na(window.size))
+	{	folder <- file.path(folder, paste0("ws=",window.size))
+		# possibly add overlap
+		if(!is.na(overlap))
+			folder <- paste0(folder, "_ol=",overlap)
+	}
+	# possibly add overlap
+	else if(!is.na(overlap))
+		folder <- file.path(folder, paste0("ol=",overlap))
 	# possibly add scene weights
 	if(!is.na(weights))
 		folder <- file.path(folder, weights)
@@ -145,12 +155,6 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 	
 	# set up file name
 	res <- file.path(folder, "static")
-	# possibly add window size
-	if(!is.na(window.size))
-		res <- paste0(res, "_ws=",window.size)
-	# possibly add overlap
-	if(!is.na(overlap))
-		res <- paste0(res, "_ol=",overlap)
 	# possibly add object
 	if(!is.na(object))
 		res <- 	paste0(res, "_", object)
@@ -188,6 +192,16 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
+	# possibly add window size
+	if(!is.na(window.size))
+	{	folder <- file.path(folder, paste0("ws=",window.size))
+		# possibly add overlap
+		if(!is.na(overlap))
+			folder <- paste0(folder, "_ol=",overlap)
+	}
+	# possibly add overlap
+	else if(!is.na(overlap))
+		folder <- file.path(folder, paste0("ol=",overlap))
 	# possibly add scene weights
 	if(!is.na(weights))
 		folder <- file.path(folder, weights)
@@ -196,12 +210,6 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 	
 	# set up file name
 	res <- file.path(folder, "static")
-	# possibly add window size
-	if(!is.na(window.size))
-		res <- paste0(res, "_ws=",window.size)
-	# possibly add overlap
-	if(!is.na(overlap))
-		res <- paste0(res, "_ol=",overlap)
 	# possibly add object
 	if(!is.na(object))
 		res <- 	paste0(res, "_", object)
@@ -235,11 +243,11 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
-		folder <- PLOT_PANELS_FOLDER
+		folder <- COMP_PANELS_FOLDER
 	else if(mode=="page.window")
-		folder <- PLOT_PAGES_FOLDER
+		folder <- COMP_PAGES_FOLDER
 	else if(mode=="scenes")
-		folder <- PLOT_SCENES_FOLDER
+		folder <- COMP_SCENES_FOLDER
 	# add object folder
 	folder <- file.path(folder, object)
 	# possibly add measure folder

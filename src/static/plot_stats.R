@@ -263,7 +263,6 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the boxplot plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -285,7 +284,6 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="violin")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -315,7 +313,6 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the boxplot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -337,7 +334,6 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="violin")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 #			pdf(file=paste0(plot.file,".pdf"),bg="white")
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -400,7 +396,6 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot containing each window size value as a series
 		cols <- get.palette(length(data))
 		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="series")
-		dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -466,7 +461,6 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot representing each overlap value as a series
 		cols <- get.palette(length(data))
 		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="series")
-		dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -560,7 +554,6 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			# generate a plot containing each window size value as a series
 			cols <- get.palette(length(data))
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="corr")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -618,7 +611,6 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			# generate a plot representing each overlap value as a series
 			cols <- get.palette(length(data))
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="corr")
-			dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -664,7 +656,6 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 		}
 	}
 }
-
 
 
 #############################################################################################
@@ -729,7 +720,6 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					
 					# generate the plot
 					plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0("ranks=",substr(weights,1,3)))
-					dir.create(path=dirname(plot.file), showWarnings=FALSE, recursive=TRUE)
 					tlog(5,"Plotting file \"",plot.file,"\"")
 #					pdf(file=paste0(plot.file,".pdf"),bg="white")
 					png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
@@ -820,7 +810,7 @@ generate.static.plots.scene <- function()
 				h <- hist(
 					vals,
 					breaks=20, #breaks=0:max(vals),
-					col="#3a548c",
+					col=MAIN_COLOR,
 					xlab=xl,
 					main=ml,
 					freq=FALSE

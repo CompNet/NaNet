@@ -61,7 +61,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
-				col="RED"
+				col=MAIN_COLOR
 			)
 		dev.off()
 	}
@@ -123,11 +123,75 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
-				col="RED"
+				col=MAIN_COLOR
 			)
 		dev.off()
 	}
 	
+	# plot the TP, FP and FN values for the main characters
+	ms <- rbind(
+		c(paste0(MEAS_TRUEPOS, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_DUR), paste0(MEAS_FALSENEG, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_OCC), paste0(MEAS_FALSENEG, SFX_OCC)), 
+		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC)), 
+		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
+	)
+	rownames(ms) <- c(
+		paste0("tfpn", SFX_DUR),
+		paste0("tfpn", SFX_WEIGHT, SFX_DUR),
+		paste0("tfpn", SFX_WEIGHT, SFX_NORM, SFX_DUR),
+		paste0("tfpn", SFX_OCC),
+		paste0("tfpn", SFX_WEIGHT, SFX_OCC),
+		paste0("tfpn", SFX_WEIGHT, SFX_NORM, SFX_OCC)
+	)
+	
+	idx.filtr <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
+	for(i in 1:nrow(ms))
+	{	tlog(5,"Plotting file \"",plot.file,"\"")
+		meas.name <- rownames(ms)[i]
+		
+		mds1 <- c("freq", "prop")
+		for(md1 in mds1)
+		{	mds2 <- c("all","main")
+			for(md2 in mds2)
+			{	# all vs main
+				if(md2=="main")
+					idx <- idx.filtr
+				else
+					idx <- 1:nrow(res.tab)
+				
+				# prop vs freq
+				data <- t(res.tab[idx,ms[i,]])
+				if(md1=="prop")
+				{	data <- data/matrix(rep(colSums(data),3), ncol=ncol(data), byrow=TRUE)
+					ylim <- c(0,1)
+					ylab <- "Proportion"
+				}
+				else
+				{	ylim <- c(0,max(data))
+					ylab <- "Frequency"
+				}
+				
+				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0(md2,"_",md1,"_barplot"))
+				#pdf(file=paste0(plot.file,".pdf"),bg="white")
+				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+					barplot(
+						data,
+						col=get.palette(3),
+						ylim=ylim,
+						xlab="Characters",
+						ylab=ylab,
+						legend.text=c("TP","FP","FN"),
+						names.arg=V(g)$ShortName[idx], las=2,
+						main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
+					)
+				dev.off()
+			}
+		}
+	}
+	
+	# TODO
 	tlog(4,"Computation of nodal comparison measures complete")
 	return(res.tab)
 }
@@ -184,7 +248,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 				hist(
 					values,
-					col="RED"
+					col=MAIN_COLOR
 				)
 			dev.off()
 		}
@@ -244,7 +308,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
 			hist(
 				values,
-				col="RED"
+				col=MAIN_COLOR
 			)
 		dev.off()
 	}
