@@ -61,7 +61,7 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
 #
-# returns: a vector of values representing the desired series.
+# returns: the value corresponding to the specified parameters.
 ###############################################################################
 load.static.graph.stats.scenes <- function(object, weights, measure)
 {	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights)
@@ -216,7 +216,7 @@ load.static.nodelink.stats.scenes <- function(object, measure, weights)
 
 
 ###############################################################################
-# Generates the plots containing a single series as boxplots.
+# Generates the plots containing a single series as boxplots or violin plots.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
@@ -228,10 +228,12 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 	nmn <- names(NODE_MEASURES)
 	lmn <- names(LINK_MEASURES)
 	cmn <- names(NODECOMP_MEASURES)
+	
 	# identify common overlap values (over window sizes)
 #	tmp <- table(unlist(overlaps))
 #	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
+	
 	# process each appropriate measure
 	for(meas.name in c(nmn,lmn,cmn))
 	{	tlog(4,"Generating single plots for measure ",meas.name," (mode=",mode,")")
@@ -371,6 +373,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
+	
 	# process each appropriate measure
 	for(meas.name in amn)
 	{	tlog(4,"Generating multiple plots for measure ",meas.name," (mode=",mode,")")
@@ -529,6 +532,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
+	
 	# process each appropriate measure
 	for(meas.name in gmn)
 	{	tlog(4,"Generating rank correlation plots for measure ",meas.name," (mode=",mode,")")
@@ -671,6 +675,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 {	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
+	
 	# process each appropriate measure
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES))
 	for(meas.name in mn)
@@ -740,6 +745,138 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 
 
 ###############################################################################
+# Computes the TP/FP/FN graph comparison measures for the specified static graph.
+#
+# mode: either "panel.window" or "page.window" (not "scenes").
+# window.sizes: vector of values for this parameter.
+# overlaps: list of vectors of values for this parameter. Each vector matches a
+#           value of window.size.
+###############################################################################
+compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
+{	object <- "graphcomp"
+	
+	# setup measure name lists
+	ms <- rbind(
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_OCC)), 
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)), 
+		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
+	)
+	rownames(ms) <- c(
+		paste0("tfpn", SFX_TOTAL, SFX_DUR),
+		paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_DUR),
+		paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR),
+		paste0("tfpn", SFX_TOTAL, SFX_OCC),
+		paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_OCC),
+		paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)
+	)
+	
+	# identify common overlap values (over window sizes)
+	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
+	
+	for(m in 1:nrow(ms))
+	{	meas.name <- rownames(ms)[m]
+		tlog(4,"Computing measure \"",meas.name,"\"")
+		
+		# load the reference values (scene-based graph)
+		data0 <- cbind(
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="occurrences", measure=ms[m,i])),
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="duration", measure=ms[m,i]))
+		)
+		
+		# generate a plot for each window size value
+		for(i in 1:length(window.sizes))
+		{	# the series corresponds to the values of the overlap
+			window.size <- window.sizes[i]
+			tlog(5,"Dealing with window.size=",window.size)
+			
+			# load values for estimations
+			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=ms[m,j]))
+			if(length(overlaps[[i]])>1)
+				tmp <- t(tmp)
+			data <- cbind(data0, tmp)
+			nms <- c("SO","SD",overlaps[[i]])
+			
+			mds <- c("freq", "prop")
+			for(md in mds)
+			{	# prop vs freq
+				values <- data
+				if(md=="prop")
+				{	values <- values/matrix(rep(colSums(values),3), ncol=ncol(values), byrow=TRUE)
+					ylim <- c(0,1)
+					ylab <- "Proportion"
+				}
+				else
+				{	ylim <- c(0,max(colSums(values)))
+					ylab <- "Frequency"
+				}
+				
+				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type=paste0(md,"_barplot"))
+				#pdf(file=paste0(plot.file,".pdf"),bg="white")
+				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+					barplot(
+						values,
+						col=get.palette(3),
+						ylim=ylim,
+						xlab="Overlap",
+						ylab=ylab,
+						legend.text=c("TP","FP","FN"),
+						names.arg=nms,
+						main=paste0("mode=",mode," window.size=",window.size)
+					)
+				dev.off()
+			}
+		}
+		
+		# generate a plot for each overlap value appearing at least twice
+		for(overlap in common.overlaps)
+		{	tlog(5,"Dealing with overlap=",overlap)
+			
+			# the series corresponds to the values of the window sizes
+			idx <- sapply(overlaps, function(vect) overlap %in% vect)
+			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=ms[m,j]))
+			if(length(window.sizes[idx])>1)
+				tmp <- t(tmp)
+			data <- cbind(data0, tmp)
+			nms <- c("SO","SD",window.sizes[idx])
+			
+			mds <- c("freq", "prop")
+			for(md in mds)
+			{	# prop vs freq
+				values <- data
+				if(md=="prop")
+				{	values <- values/matrix(rep(colSums(values),3), ncol=ncol(values), byrow=TRUE)
+					ylim <- c(0,1)
+					ylab <- "Proportion"
+				}
+				else
+				{	ylim <- c(0,max(colSums(values)))
+					ylab <- "Frequency"
+				}
+				
+				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type=paste0(md,"_barplot"))
+				#pdf(file=paste0(plot.file,".pdf"),bg="white")
+				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+					barplot(
+						values,
+						col=get.palette(3),
+						ylim=ylim,
+						xlab="Window size",
+						ylab=ylab,
+						legend.text=c("TP","FP","FN"),
+						names.arg=nms,
+						main=paste0("mode=",mode," overlap=",overlap)
+					)
+				dev.off()
+			}
+		}
+	}
+}
+
+
+###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
@@ -762,6 +899,9 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
 	generate.static.plots.ranks(mode, window.sizes, overlaps)
+	
+	tlog(3,"Generating rank comparison plots for mode=",mode)
+	compute.static.tfpn.statistics(mode, window.sizes, overlaps)
 }
 
 

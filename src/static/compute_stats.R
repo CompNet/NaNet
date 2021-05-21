@@ -147,9 +147,9 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	)
 	
 	idx.filtr <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
-	for(i in 1:nrow(ms))
-	{	tlog(5,"Plotting file \"",plot.file,"\"")
-		meas.name <- rownames(ms)[i]
+	for(m in 1:nrow(ms))
+	{	meas.name <- rownames(ms)[m]
+		tlog(5,"Computing measure \"",meas.name,"\"")
 		
 		mds1 <- c("freq", "prop")
 		for(md1 in mds1)
@@ -162,7 +162,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					idx <- 1:nrow(res.tab)
 				
 				# prop vs freq
-				data <- t(res.tab[idx,ms[i,]])
+				data <- t(res.tab[idx,ms[m,]])
 				if(md1=="prop")
 				{	data <- data/matrix(rep(colSums(data),3), ncol=ncol(data), byrow=TRUE)
 					ylim <- c(0,1)
@@ -180,7 +180,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 						data,
 						col=get.palette(3),
 						ylim=ylim,
-						xlab="Characters",
+						xlab="Character",
 						ylab=ylab,
 						legend.text=c("TP","FP","FN"),
 						names.arg=V(g)$ShortName[idx], las=2,
@@ -191,7 +191,6 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 	}
 	
-	# TODO
 	tlog(4,"Computation of nodal comparison measures complete")
 	return(res.tab)
 }
