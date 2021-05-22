@@ -266,8 +266,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the boxplot plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
 					names=nms,
@@ -287,8 +289,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				vioplot(x=values, 
 					names=nms,
 #					outline=FALSE,
@@ -316,8 +320,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the boxplot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				bp <- boxplot(x=values, 
 					outline=FALSE,
 					names=nms,
@@ -337,8 +343,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				vioplot(x=values, 
 					names=nms,
 #					outline=FALSE,
@@ -366,7 +374,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
 	gmn <- names(GRAPH_MEASURES)
 	cmn <- names(GRAPHCOMP_MEASURES)
-	amn <- c(gmn, cmn)
+	amn <- c(cmn)
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
 		amn <- amn[!grepl(sfx, amn, fixed=TRUE)]
@@ -406,8 +414,10 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			#warning(msg)
 		}
 		else
-		{	#pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+		{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				# init plot
 				plot(NULL, 
 					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
@@ -470,9 +480,11 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			tlog(6,msg)
 			#warning(msg)
 		}
-		else{	
-#			pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+		else
+		{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				# init plot
 				plot(NULL, 
 					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
@@ -565,8 +577,10 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				#warning(msg)
 			}
 			else
-			{	#pdf(file=paste0(plot.file,".pdf"),bg="white")
-				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					# init plot
 					plot(NULL, 
 						xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
@@ -621,9 +635,11 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				tlog(6,msg)
 				#warning(msg)
 			}
-			else{	
-#				pdf(file=paste0(plot.file,".pdf"),bg="white")
-				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			else
+			{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					# init plot
 					plot(NULL, 
 						xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
@@ -726,8 +742,10 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					# generate the plot
 					plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0("ranks=",substr(weights,1,3)))
 					tlog(5,"Plotting file \"",plot.file,"\"")
-#					pdf(file=paste0(plot.file,".pdf"),bg="white")
-					png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+					if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 						barplot(
 							diff[idx],
 							col=colors,
@@ -814,8 +832,10 @@ compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type=paste0(md,"_barplot"))
-				#pdf(file=paste0(plot.file,".pdf"),bg="white")
-				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					barplot(
 						values,
 						col=get.palette(3),
@@ -857,8 +877,10 @@ compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type=paste0(md,"_barplot"))
-				#pdf(file=paste0(plot.file,".pdf"),bg="white")
-				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					barplot(
 						values,
 						col=get.palette(3),
@@ -942,8 +964,10 @@ generate.static.plots.scene <- function()
 			
 			# plot histogram
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(plot.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("weights=",wmode)
 				xl <- ALL_MEASURES[[meas.name]]$cname
 				# histogram
@@ -959,8 +983,10 @@ generate.static.plots.scene <- function()
 			
 			# plot complementary cumulative distribution function
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="ccdf")
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(plot.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
 			dev.off()
 		}

@@ -267,12 +267,12 @@ custom.gplot <- function(g, paths, col.att, size.att, cat.att=FALSE, v.hl, e.hl,
 		vsizes <- 5
 	
 	# main plot
-	for(fformat in FORMAT)
+	for(fformat in PLOT_FORMAT)
 	{	if(hasArg(file))
-		{	if(fformat=="pdf")
-				pdf(paste0(file,".pdf"), width=15, height=15)
-			else if(fformat=="png")
-				png(paste0(file,".png"), width=1024, height=1024)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(paste0(file,fformat), width=15, height=15)
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(paste0(file,fformat), width=1024, height=1024)
 		}
 		plot(g,										# graph to plot
 			#axes=TRUE,								# whether to draw axes or not
@@ -404,12 +404,12 @@ custom.gplot <- function(g, paths, col.att, size.att, cat.att=FALSE, v.hl, e.hl,
 custom.hist <- function(vals, name, file)
 {	vals <- vals[!is.na(vals)]
 	if(length(vals)>0)
-	{	for(fformat in FORMAT)
+	{	for(fformat in PLOT_FORMAT)
 		{	if(hasArg(file))
-			{	if(fformat=="pdf")
-					pdf(paste0(file,".pdf"), width=25, height=25)
-				else if(fformat=="png")
-					png(paste0(file,".png"), width=1024, height=1024)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(paste0(file,fformat), width=25, height=25)
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(paste0(file,fformat), width=1024, height=1024)
 			}
 #			par(mar=c(5,3,1,2)+0.1)	# remove the title space Bottom Left Top Right
 			par(mar=c(5.1, 4.1, 4.1, 2.1))
@@ -463,10 +463,10 @@ custom.barplot <- function(vals, text, xlab, ylab, file, ...)
 	
 	for(fformat in FORMAT)
 	{	if(hasArg(file))
-		{	if(FORMAT=="pdf")
-				pdf(paste0(file,".pdf"), width=25, height=25)
-			else if(FORMAT=="png")
-				png(paste0(file,".png"), width=1024, height=1024)
+		{	if(FORMAT==PLOT_FORMAT_PDF)
+				pdf(paste0(file,fformat), width=25, height=25)
+			else if(FORMAT==PLOT_FORMAT_PNG)
+				png(paste0(file,fformat), width=1024, height=1024)
 		}
 #		par(mar=c(5,3,1,2)+0.1)	# remove the title space Bottom Left Top Right
 		if(wide)

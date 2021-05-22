@@ -58,8 +58,10 @@ plot.static.graph.scenes <- function(data)
 	# plot the whole graph
 	graph.file <- file.path(NET_SCENES_FOLDER, "static_scenes")
 	tlog(4,"Plotting the whole graph in file ",graph.file)
-	png(filename=paste0(graph.file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
-#	pdf(file=paste0(graph.file,".pdf"),bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		plot(g, 
 			layout=LAYOUT,
 			vertex.size=vsizes, vertex.color="LIGHTGREY", 
@@ -69,8 +71,10 @@ plot.static.graph.scenes <- function(data)
 			vertex.label.color="BLACK"
 		)
 	dev.off()
-	png(filename=paste0(graph.file,"_filtered.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-#	pdf(file=paste0(graph.file,"_filtered.pdf"),bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(graph.file,"_filtered",PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(graph.file,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		plot(g.filtr, 
 			layout=lay.cmp, #LAYOUT[idx.cmp,],
 			vertex.size=vsizes[idx.cmp], vertex.color="LIGHTGREY"[idx.cmp], 
@@ -91,8 +95,10 @@ plot.static.graph.scenes <- function(data)
 		idx <- match(data$char.volumes[[v]], data$char.info[,COL_CHAR_NAME])
 		cols <- rep("LIGHTGRAY", nrow(data$char.info))
 		cols[idx] <- "RED"
-		png(filename=paste0(graph.file,"_vol",v,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
-#		pdf(file=paste0(graph.file,"_vol",v,".pdf"),bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(graph.file,"_vol",v,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(graph.file,"_vol",v,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			plot(g, 
 				layout=LAYOUT, 
 				vertex.size=vsizes, vertex.color=cols, 
@@ -103,8 +109,10 @@ plot.static.graph.scenes <- function(data)
 				main=paste0(data$volume.info[v,COL_VOLS_VOLUME], " - ", data$volume.info[v,COL_VOLS_TITLE], " (",v,"/",nrow(data$volume.info),")")
 			)
 		dev.off()
-		png(filename=paste0(graph.file,"_vol",v,"_filtered.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-#		pdf(file=paste0(graph.file,"_vol",v,"_filtered.pdf"),bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(graph.file,"_vol",v,"_filtered",PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(graph.file,"_vol",v,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			plot(g.cmp, 
 				layout=lay.cmp, #LAYOUT[idx.cmp,], 
 				vertex.size=vsizes[idx.cmp], vertex.color=cols[idx.cmp], 
@@ -128,8 +136,10 @@ plot.static.graph.scenes <- function(data)
 		idx <- match(data$char.arcs[[a]], data$char.info[,COL_CHAR_NAME])
 		cols <- rep("LIGHTGRAY", nrow(data$char.info))
 		cols[idx] <- "RED"
-		png(filename=paste0(graph.file,"_arc",a,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		#pdf(file=paste0(graph.file,"_arc",a,".pdf"),bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(graph.file,"_arc",a,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(graph.file,"_arc",a,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			plot(g, 
 				layout=LAYOUT, 
 				vertex.size=vsizes, vertex.color=cols, 
@@ -140,8 +150,10 @@ plot.static.graph.scenes <- function(data)
 				main=paste0(arc.titles[a], " (",a,"/",length(data$char.arcs),")")
 			)
 		dev.off()
-		png(filename=paste0(graph.file,"_arc",a,"_filtered.png"), width=800, height=800, units="px", pointsize=20, bg="white")
-		#pdf(file=paste0(graph.file,"_arc",a,"_filtered.pdf"),bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(graph.file,"_arc",a,"_filtered",PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(graph.file,"_arc",a,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			plot(g.cmp, 
 				layout=lay.cmp, #LAYOUT[idx.cmp,], 
 				vertex.size=vsizes[idx.cmp], vertex.color=cols[idx.cmp], 

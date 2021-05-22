@@ -33,7 +33,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
-	{	res.tab <- matrix(NA,nrow=gorder(g),ncol=length(NODE_MEASURES))
+	{	res.tab <- matrix(NA, nrow=gorder(g), ncol=length(NODE_MEASURES))
 		colnames(res.tab) <- names(NODE_MEASURES)
 	}
 	
@@ -43,22 +43,38 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	{	meas.name <- names(NODE_MEASURES)[m]
 		tlog(6,"Computing measure ",meas.name)
 		
-		# compute values
-		measure <- NODE_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			values <- rep(NA,gorder(g))
+		# possibly add column if missing
+		if(!(meas.name %in% colnames(res.tab)))
+		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+			colnames(res.tab)[ncol(res.tab)] <- meas.name
+		}
 		
-		# update table
-		res.tab[,meas.name] <- values
-		
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		# check if already computed
+		if(!all(is.na(res.tab[,meas.name])))
+		{	tlog(7,"Measure already computed, using the existing values")
+			values <- res.tab[,meas.name]
+		}
+		else
+		{	# compute values
+			measure <- NODE_MEASURES[[m]]
+			values <- measure$foo(graph=g)
+			if(length(values)==0)
+				values <- rep(NA,gorder(g))
+			tlog(7,"Number of values: ",length(values))
+			
+			# update table
+			res.tab[,meas.name] <- values
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		}
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		#pdf(file=paste0(plot.file,".pdf"),bg="white")
-		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			hist(
 				values,
 				col=MAIN_COLOR
@@ -95,7 +111,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
-	{	res.tab <- matrix(NA,nrow=gorder(g),ncol=length(NODECOMP_MEASURES))
+	{	res.tab <- matrix(NA, nrow=gorder(g), ncol=length(NODECOMP_MEASURES))
 		colnames(res.tab) <- names(NODECOMP_MEASURES)
 	}
 	
@@ -105,22 +121,38 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	{	meas.name <- names(NODECOMP_MEASURES)[m]
 		tlog(6,"Computing measure ",meas.name)
 		
-		# compute values
-		measure <- NODECOMP_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			values <- rep(NA,gorder(g))
+		# possibly add column if missing
+		if(!(meas.name %in% colnames(res.tab)))
+		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+			colnames(res.tab)[ncol(res.tab)] <- meas.name
+		}
 		
-		# update table
-		res.tab[,meas.name] <- values
-		
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		# check if already computed
+		if(!all(is.na(res.tab[,meas.name])))
+		{	tlog(7,"Measure already computed, using the existing values")
+			values <- res.tab[,meas.name]
+		}
+		else
+		{	# compute values
+			measure <- NODECOMP_MEASURES[[m]]
+			values <- measure$foo(graph=g)
+			if(length(values)==0)
+				values <- rep(NA,gorder(g))
+			tlog(7,"Number of values: ",length(values))
+			
+			# update table
+			res.tab[,meas.name] <- values
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		}
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		#pdf(file=paste0(plot.file,".pdf"),bg="white")
-		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			hist(
 				values,
 				col=MAIN_COLOR
@@ -174,8 +206,10 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0(md2,"_",md1,"_barplot"))
-				#pdf(file=paste0(plot.file,".pdf"),bg="white")
-				png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					barplot(
 						data,
 						col=get.palette(3),
@@ -221,7 +255,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
-	{	res.tab <- matrix(NA,nrow=n*(n-1)/2,ncol=length(NODEPAIR_MEASURES))
+	{	res.tab <- matrix(NA, nrow=n*(n-1)/2, ncol=length(NODEPAIR_MEASURES))
 		colnames(res.tab) <- names(NODEPAIR_MEASURES)
 	}
 	
@@ -230,21 +264,40 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 	for(m in 1:length(NODEPAIR_MEASURES))
 	{	meas.name <- names(NODEPAIR_MEASURES)[m]
 		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- NODEPAIR_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			values <- rep(NA,n*(n-1)/2)
-		# update table
-		res.tab[,meas.name] <- values
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# possibly add column if missing
+		if(!(meas.name %in% colnames(res.tab)))
+		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+			colnames(res.tab)[ncol(res.tab)] <- meas.name
+		}
+		
+		# check if already computed
+		if(!all(is.na(res.tab[,meas.name])))
+		{	tlog(7,"Measure already computed, using the existing values")
+			values <- res.tab[,meas.name]
+		}
+		else
+		{	# compute values
+			measure <- NODEPAIR_MEASURES[[m]]
+			values <- measure$foo(graph=g)
+			if(length(values)==0)
+				values <- rep(NA,n*(n-1)/2)
+			tlog(7,"Number of values: ",length(values))
+			
+			# update table
+			res.tab[,meas.name] <- values
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		}
 		
 		# plot
 		if(!all(is.na(values)))
 		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-			#pdf(file=paste0(plot.file,".pdf"),bg="white")
-			png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				hist(
 					values,
 					col=MAIN_COLOR
@@ -282,7 +335,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
 	else
-	{	res.tab <- matrix(NA,nrow=gsize(g),ncol=length(LINK_MEASURES))
+	{	res.tab <- matrix(NA, nrow=gsize(g), ncol=length(LINK_MEASURES))
 		colnames(res.tab) <- names(LINK_MEASURES)
 	}
 	
@@ -291,20 +344,39 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	for(m in 1:length(LINK_MEASURES))
 	{	meas.name <- names(LINK_MEASURES)[m]
 		tlog(6,"Computing measure ",meas.name)
-		# compute values
-		measure <- LINK_MEASURES[[m]]
-		values <- measure$foo(graph=g)
-		if(length(values)==0)
-			values <- rep(NA,gsize(g))
-		# update table
-		res.tab[,meas.name] <- values
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		
+		# possibly add column if missing
+		if(!(meas.name %in% colnames(res.tab)))
+		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+			colnames(res.tab)[ncol(res.tab)] <- meas.name
+		}
+		
+		# check if already computed
+		if(!all(is.na(res.tab[,meas.name])))
+		{	tlog(7,"Measure already computed, using the existing values")
+			values <- res.tab[,meas.name]
+		}
+		else
+		{	# compute values
+			measure <- LINK_MEASURES[[m]]
+			values <- measure$foo(graph=g)
+			if(length(values)==0)
+				values <- rep(NA,gsize(g))
+			tlog(7,"Number of values: ",length(values))
+			
+			# update table
+			res.tab[,meas.name] <- values
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=FALSE)#, col.names=TRUE)
+		}
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		#pdf(file=paste0(plot.file,".pdf"),bg="white")
-		png(filename=paste0(plot.file,".png"),width=800,height=800,units="px",pointsize=20,bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			hist(
 				values,
 				col=MAIN_COLOR
@@ -340,7 +412,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	if(file.exists(table.file))
 		res.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	else
-	{	res.tab <- matrix(NA,nrow=length(names(GRAPH_MEASURES)),ncol=1)
+	{	res.tab <- matrix(NA, nrow=length(names(GRAPH_MEASURES)), ncol=1)
 		rownames(res.tab) <- names(GRAPH_MEASURES)
 	}
 	
@@ -350,14 +422,30 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	for(m in 1:length(measures))
 	{	meas.name <- names(measures)[m]
 		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
-		# compute value
-		measure <- measures[[m]]
-		value <- measure$foo(graph=g)
-		# update table
-		res.tab[meas.name,1] <- value
-		tlog(7,"Value: ",value)
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+		
+		# possibly add row if missing
+		if(!(meas.name %in% rownames(res.tab)))
+		{	res.tab <- rbind(meas.name, NA)
+			rownames(res.tab)[nrow(res.tab)] <- meas.name
+		}
+		
+		# check if already computed
+		if(!is.na(res.tab[meas.name,1]))
+		{	tlog(7,"Measure already computed, using the existing values")
+			value <- res.tab[meas.name,1]
+		}
+		else
+		{	# compute value
+			measure <- measures[[m]]
+			value <- measure$foo(graph=g)
+			tlog(7,"Value: ",value)
+			
+			# update table
+			res.tab[meas.name,1] <- value
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+		}
 	}
 	
 	tlog(4,"Computation of graph topological measures complete")
@@ -398,14 +486,30 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	for(m in 1:length(measures))
 	{	meas.name <- names(measures)[m]
 		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
-		# compute value
-		measure <- measures[[m]]
-		value <- measure$foo(graph=g)
-		# update table
-		res.tab[meas.name,1] <- value
-		tlog(7,"Value: ",value)
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+		
+		# possibly add row if missing
+		if(!(meas.name %in% rownames(res.tab)))
+		{	res.tab <- rbind(meas.name, NA)
+			rownames(res.tab)[nrow(res.tab)] <- meas.name
+		}
+		
+		# check if already computed
+		if(!is.na(res.tab[meas.name,1]))
+		{	tlog(7,"Measure already computed, using the existing values")
+			value <- res.tab[meas.name,1]
+		}
+		else
+		{	# compute value
+			measure <- measures[[m]]
+			value <- measure$foo(graph=g)
+			tlog(7,"Value: ",value)
+			
+			# update table
+			res.tab[meas.name,1] <- value
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+		}
 	}
 	
 	tlog(4,"Computation of graph comparison measures complete")
@@ -450,54 +554,80 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 	for(m in 1:length(mn))
 	{	meas.name <- mn[m]
 		tlog(6,"Computing rank correlation for measure ",meas.name)
-		# get object
-		if(meas.name %in% names(NODE_MEASURES))
-			object <- "nodes"
-		else if(meas.name %in% names(NODECOMP_MEASURES))
-			object <- "nodescomp"
-		else if(meas.name %in% names(NODEPAIR_MEASURES))
-			object <- "nodepairs"
-		else if(meas.name %in% names(LINK_MEASURES))
-			object <- "links"
-		# retrieve reference values
-		vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
-		vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
-		# retrieve tested values
-		tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-		tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
-		vals.cur <- tmp.tab[,meas.name]
-		# compute correlations
-		#corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
-		corr <- tryCatch(
-			cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
-#			warning=function(w) 
-#			{	tlog(7,"WARNING: ",w)
-#			},
-			error=function(e)
-			{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
-				tlog(7,msg)
-				warning(msg)
-				corr <- list(estimate=NA,p.value=NA)
-				return(corr)
+		
+		# possibly add row if missing
+		if(!(meas.name %in% rownames(res.tab)))
+		{	res.tab <- rbind(meas.name, NA)
+			rownames(res.tab)[nrow(res.tab)] <- meas.name
+		}
+		
+		# check if already computed
+		if(!all(is.na(res.tab[meas.name,])))
+		{	tlog(7,"Measure already computed, using the existing values")
+			#value <- res.tab[meas.name,1]
+		}
+		else
+		{	# get object
+			if(meas.name %in% names(NODE_MEASURES))
+				object <- "nodes"
+			else if(meas.name %in% names(NODECOMP_MEASURES))
+				object <- "nodescomp"
+			else if(meas.name %in% names(NODEPAIR_MEASURES))
+				object <- "nodepairs"
+			else if(meas.name %in% names(LINK_MEASURES))
+				object <- "links"
+			
+			# retrieve reference values
+			vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
+			vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
+			
+			# retrieve tested values
+			tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
+			vals.cur <- tmp.tab[,meas.name]
+			
+			# compute correlations
+			#corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+			corr <- tryCatch(
+				cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
+#				warning=function(w) 
+#				{	tlog(7,"WARNING: ",w)
+#				},
+				error=function(e)
+				{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
+					tlog(7,msg)
+					warning(msg)
+					corr <- list(estimate=NA,p.value=NA)
+					return(corr)
+				}
+			)
+			if(meas.name %in% rownames(res.tab))
+				res.tab[meas.name,c(COL_SPEAR_DUR,COL_PVAL_DUR)] <- c(corr$estimate, corr$p.value)
+			else
+			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
+				rownames(res.tab)[nrow(res.tab)] <- meas.name
 			}
-		)		
-		res.tab[meas.name,COL_SPEAR_DUR] <- corr$estimate
-		res.tab[meas.name,COL_PVAL_DUR] <- corr$p.value
-		#corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
-		corr <- tryCatch(
-			cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
-			error=function(e) 
-			{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
-				tlog(7,msg)
-				warning(msg)
-				corr <- list(estimate=NA,p.value=NA)
-				return(corr)
+			#corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+			corr <- tryCatch(
+				cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
+				error=function(e) 
+				{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
+					tlog(7,msg)
+					warning(msg)
+					corr <- list(estimate=NA,p.value=NA)
+					return(corr)
+				}
+			)		
+			if(meas.name %in% rownames(res.tab))
+				res.tab[meas.name,c(COL_SPEAR_OCC,COL_PVAL_OCC)] <- c(corr$estimate, corr$p.value)
+			else
+			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
+				rownames(res.tab)[nrow(res.tab)] <- meas.name
 			}
-		)		
-		res.tab[meas.name,COL_SPEAR_OCC] <- corr$estimate
-		res.tab[meas.name,COL_PVAL_OCC] <- corr$p.value
-		# update file
-		write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			
+			# update file
+			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+		}
 	}
 	
 	tlog(4,"Computation of rank correlation measures complete")

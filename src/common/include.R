@@ -45,6 +45,15 @@ DATA_FOLDER <- file.path("data",SERIES)
 
 
 ###############################################################################
+# plot options
+PLOT_FORMAT_PDF <- ".pdf"
+PLOT_FORMAT_PNG <- ".png"
+PLOT_FORMAT <- PLOT_FORMAT_PNG
+
+
+
+
+###############################################################################
 # load auxiliary functions
 
 source("src/common/logging.R")

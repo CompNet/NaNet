@@ -138,8 +138,10 @@ compute.stats.panels <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.panels[,COL_STATS_CHARS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Character number distribution over panels"
 		xl <- "Number of characters by panel"
 		# histogram
@@ -169,8 +171,10 @@ compute.stats.panels <- function(
 		{	data <- stats.panels.atts[[att]]
 			pal <- get.palette(ncol(stats.panels.atts[[att]]))[1:ncol(stats.panels.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over pages (att=",att)
 				xl <- "Number of characters by panel"
 				yl <- "Frequency"
@@ -230,8 +234,10 @@ compute.stats.panels <- function(
 			for(d in 1:ncol(stats.panels.atts[[att]]))
 			{	data <- stats.panels.atts[[att]][,d]
 				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=colnames(stats.panels.atts[[att]])[d])
-				#pdf(file=paste0(file,".pdf"), bg="white")
-				png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					h <- hist(
 						data,
 						breaks=0:max(data),
@@ -258,13 +264,15 @@ compute.stats.panels <- function(
 	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_positions")
 	write.csv(x=df, paste0(file, ".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		barplot(
 			height=perc,
 			main="Distribution of panel positions (%)",
 			col=MAIN_COLOR
-	)
+		)
 	dev.off()
 	
 	result <- list(stats.panels=stats.panels, stats.panels.atts=stats.panels.atts, char.panels=char.panels)
@@ -401,8 +409,10 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_SCENES]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Scene number distribution over pages"
 		xl <- "Number of scenes by page"
 		# histogram
@@ -434,8 +444,10 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_PANELS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Panel number distribution over pages"
 		xl <- "Number of panels by page"
 		# histogram
@@ -467,8 +479,10 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_CHARS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Character number distribution over pages"
 		xl <- "Number of characters by page"
 		# histogram
@@ -498,8 +512,10 @@ compute.stats.pages <- function(
 		{	data <- stats.pages.atts[[att]]
 			pal <- get.palette(ncol(stats.pages.atts[[att]]))[1:ncol(stats.pages.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over pages (att=",att)
 				xl <- "Number of characters by page"
 				yl <- "Frequency"
@@ -530,8 +546,10 @@ compute.stats.pages <- function(
 			{	data <- stats.pages.atts[[att]][,d]
 				if(any(data!=0))
 				{	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(stats.pages.atts[[att]])[d])
-					#pdf(file=paste0(file,".pdf"), bg="white")
-					png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+					if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 						h <- hist(
 							data,
 							breaks=0:max(data),
@@ -632,8 +650,10 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PANELS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Panel number distribution over scenes"
 		xl <- "Number of panels by scene"
 #		# histogram
@@ -669,8 +689,10 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_CHARS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Character number distribution over scenes"
 		xl <- "Number of characters by scene"
 		# histogram
@@ -700,8 +722,10 @@ compute.stats.scenes <- function(
 		{	data <- stats.scenes.atts[[att]]
 			pal <- get.palette(ncol(stats.scenes.atts[[att]]))[1:ncol(stats.scenes.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				ml <- paste0("Character number distribution over scenes (att=",att)
 				xl <- "Number of characters by scene"
 				yl <- "Frequency"
@@ -731,8 +755,10 @@ compute.stats.scenes <- function(
 			for(d in 1:ncol(stats.scenes.atts[[att]]))
 			{	data <- stats.scenes.atts[[att]][,d]
 				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att, val=colnames(stats.scenes.atts[[att]])[d])
-				#pdf(file=paste0(file,".pdf"), bg="white")
-				png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					h <- hist(
 						data,
 						breaks=0:max(data),
@@ -755,8 +781,10 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PAGES]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Page number distribution over scenes"
 		xl <- "Number of pages by scene"
 		# histogram
@@ -795,8 +823,10 @@ compute.stats.scenes <- function(
 	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_positions")
 	write.csv(x=df, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		barplot(
 			height=perc,
 			main="Distribution of scene positions (%)",
@@ -904,8 +934,10 @@ compute.stats.chars <- function(
 	#
 	data <- stats.chars[,COL_STATS_VOLUMES]
 	if(length(unique(data))>1)
-	{	#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			ml <- "Volume number distribution over characters"
 			xl <- "Number of volumes by character"
 #			# histogram
@@ -940,8 +972,10 @@ compute.stats.chars <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PAGES]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Page number distribution over characters"
 		xl <- "Number of pages by character"
 #		# histogram
@@ -976,8 +1010,10 @@ compute.stats.chars <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_SCENES]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Scene number distribution over characters"
 		xl <- "Number of scenes by character"
 #		# histogram
@@ -1011,8 +1047,10 @@ compute.stats.chars <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PANELS]
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		ml <- "Panel number distribution over characters"
 		xl <- "Number of panels by character"
 #		# histogram
@@ -1232,8 +1270,10 @@ compute.stats.volumes <- function(
 		
 		# density plot: chars vs. panels (by scene)
 		file <- get.path.stat.corpus(vol=v, desc="comparison_chars-scenes_vs_panels-scenes")
-		#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
 			yvals <- stats.scenes[idx.sc,COL_STATS_PANELS]
 			xlab <- "Number of characters by scene"
@@ -1273,8 +1313,10 @@ compute.stats.volumes <- function(
 			file <- get.path.stat.corpus(vol=v, desc="attr_distrib", att=atts[a])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
@@ -1322,8 +1364,10 @@ compute.stats.volumes <- function(
 	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
 		file <- get.path.stat.corpus(object=object, desc=vol.fnames[v])
-		#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			barplot(
 				height=stats.volumes[,vol.cols[v]],
 				names.arg=stats.volumes[,COL_STATS_VOLUME],
@@ -1564,8 +1608,10 @@ compute.stats.arcs <- function(
 		
 		# density plot: chars vs. panels (by scene)
 		file <- get.path.stat.corpus(arc=a, desc="comparison_chars-scenes_vs_panels-scenes")
-		#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			xvals <- stats.scenes[idx.sc,COL_STATS_CHARS]
 			yvals <- stats.scenes[idx.sc,COL_STATS_PANELS]
 			xlab <- "Number of characters by scene"
@@ -1605,8 +1651,10 @@ compute.stats.arcs <- function(
 			file <- get.path.stat.corpus(arc=a, desc="attr_distrib_arc_", att=atts[at])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
-			#pdf(file=paste0(file,".pdf"), bg="white")
-			png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[at]," (%)"),
@@ -1657,8 +1705,10 @@ compute.stats.arcs <- function(
 	{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
 		
 		file <- get.path.stat.corpus(object=object, desc=arc.fnames[a])
-		#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			barplot(
 				height=stats.arcs[,arc.cols[a]],
 				names.arg=stats.arcs[,COL_STATS_ARC],
@@ -1778,8 +1828,10 @@ compute.stats.overall <- function(
 	
 	# density plot: chars vs. panels
 	file <- get.path.stat.corpus(desc="comparison_chars-scenes_vs_panels-scenes")
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		xvals <- stats.scenes[,COL_STATS_CHARS]
 		yvals <- stats.scenes[,COL_STATS_PANELS]
 		xlab <- "Number of characters by scene"
@@ -1803,8 +1855,10 @@ compute.stats.overall <- function(
 	
 	# density plot: scenes vs. panels
 	file <- get.path.stat.corpus(desc="comparison_scenes-chars_vs_panels-chars")
-	#pdf(file=paste0(file,".pdf"), bg="white")
-	png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+		pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+	else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+		png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		xvals <- stats.chars[,COL_STATS_SCENES]
 		yvals <- stats.chars[,COL_STATS_PANELS]
 		xlab <- "Number of scenes by character"
@@ -1839,8 +1893,10 @@ compute.stats.overall <- function(
 		file <- get.path.stat.corpus(desc="attr_distrib", att=atts[a])
 		write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		#
-		#pdf(file=paste0(file,".pdf"), bg="white")
-		png(filename=paste0(file,".png"), width=800, height=800, units="px", pointsize=20, bg="white")
+		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			barplot(
 				height=perc,
 				main=paste0("Distribution of character attribute ",atts[a]," (%)"),
