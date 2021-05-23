@@ -300,7 +300,7 @@ get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, desc, att=NA, val=NA
 		folder <- STAT_CORPUS_FOLDER
 	# possibly add object
 	if(!is.na(object))
-		folder <- file.path(STAT_CORPUS_FOLDER, object)
+		folder <- file.path(folder, object)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	

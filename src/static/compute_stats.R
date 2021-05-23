@@ -45,7 +45,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
-		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+		{	res.tab <- cbind(res.tab, rep(NA, nrow(res.tab)))
 			colnames(res.tab)[ncol(res.tab)] <- meas.name
 		}
 		
@@ -104,7 +104,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
 {	object <- "nodescomp"
 	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-	tlog(4,"Computing nodal comparision measures for \"",table.file,"\"")
+	tlog(4,"Computing nodal comparison measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -123,7 +123,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
-		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+		{	res.tab <- cbind(res.tab, rep(NA, nrow(res.tab)))
 			colnames(res.tab)[ncol(res.tab)] <- meas.name
 		}
 		
@@ -181,7 +181,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	idx.filtr <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
 	for(m in 1:nrow(ms))
 	{	meas.name <- rownames(ms)[m]
-		tlog(5,"Computing measure \"",meas.name,"\"")
+		tlog(6,"Plotting measure \"",meas.name,"\"")
 		
 		mds1 <- c("freq", "prop")
 		for(md1 in mds1)
@@ -267,7 +267,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
-		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+		{	res.tab <- cbind(res.tab, rep(NA, nrow(res.tab)))
 			colnames(res.tab)[ncol(res.tab)] <- meas.name
 		}
 		
@@ -347,7 +347,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
-		{	res.tab <- cbind(meas.name, rep(NA, nrow(res.tab)))
+		{	res.tab <- cbind(res.tab, rep(NA, nrow(res.tab)))
 			colnames(res.tab)[ncol(res.tab)] <- meas.name
 		}
 		
@@ -414,6 +414,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	else
 	{	res.tab <- matrix(NA, nrow=length(names(GRAPH_MEASURES)), ncol=1)
 		rownames(res.tab) <- names(GRAPH_MEASURES)
+		colnames(res.tab) <- c("Value")
 	}
 	
 	# compute each topological and comparison measure
@@ -425,7 +426,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		
 		# possibly add row if missing
 		if(!(meas.name %in% rownames(res.tab)))
-		{	res.tab <- rbind(meas.name, NA)
+		{	res.tab <- rbind(res.tab, NA)
 			rownames(res.tab)[nrow(res.tab)] <- meas.name
 		}
 		
@@ -478,6 +479,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	else
 	{	res.tab <- matrix(NA,nrow=length(names(GRAPHCOMP_MEASURES)),ncol=1)
 		rownames(res.tab) <- names(GRAPHCOMP_MEASURES)
+		colnames(res.tab) <- c("Value")
 	}
 	
 	# compute each topological and comparison measure
@@ -489,7 +491,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		
 		# possibly add row if missing
 		if(!(meas.name %in% rownames(res.tab)))
-		{	res.tab <- rbind(meas.name, NA)
+		{	res.tab <- rbind(res.tab, NA)
 			rownames(res.tab)[nrow(res.tab)] <- meas.name
 		}
 		
@@ -557,7 +559,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		
 		# possibly add row if missing
 		if(!(meas.name %in% rownames(res.tab)))
-		{	res.tab <- rbind(meas.name, NA)
+		{	res.tab <- rbind(res.tab, rep(NA, ncol(res.tab)))
 			rownames(res.tab)[nrow(res.tab)] <- meas.name
 		}
 		

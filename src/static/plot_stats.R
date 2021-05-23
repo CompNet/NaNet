@@ -405,7 +405,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			data[[i]][is.infinite(data[[i]])] <- NA
 		}
 		# generate a plot containing each window size value as a series
-		cols <- get.palette(length(data))
+		#cols <- get.palette(length(data))
+		cols <- viridis(length(data))
 		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
@@ -472,7 +473,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			axis[[i]] <- window.sizes[idx]
 		}
 		# generate a plot representing each overlap value as a series
-		cols <- get.palette(length(data))
+		#cols <- get.palette(length(data))
+		cols <- viridis(length(data))
 		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))

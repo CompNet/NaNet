@@ -875,7 +875,7 @@ compute.stats.chars <- function(
 	char.nbr <- length(unique.chars)
 	
 	#  identify the characters in each volume
-	tlog(4,"Identify the character in each volume")
+	tlog(4,"Identify the characters in each volume")
 	volume.ids <- volume.info[,COL_VOLS_VOLUME_ID]
 	volume.nbr <- length(volume.ids)
 	char.volumes <- lapply(1:volume.nbr, function(x) c())
@@ -1420,7 +1420,7 @@ compute.stats.arcs <- function(
 	arc.nbr <- length(arc.titles)
 	
 	#  identify the characters in each arc
-	tlog(4,"Identify the character in each arc")
+	tlog(4,"Identify the characters in each arc")
 	char.arcs <- lapply(1:arc.nbr, function(x) c())
 	for(a in 1:arc.nbr)
 	{	tlog(5,"Processing arc ",a,"/",arc.nbr)
