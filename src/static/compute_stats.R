@@ -71,15 +71,17 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			hist(
-				values,
-				col=MAIN_COLOR
-			)
-		dev.off()
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+				hist(
+					values,
+					col=MAIN_COLOR
+				)
+			dev.off()
+		}
 	}
 	
 	tlog(4,"Computation of nodal topological measures complete")
@@ -149,15 +151,17 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			hist(
-				values,
-				col=MAIN_COLOR
-			)
-		dev.off()
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+				hist(
+					values,
+					col=MAIN_COLOR
+				)
+			dev.off()
+		}
 	}
 	
 	# plot the TP, FP and FN values for the main characters
@@ -206,21 +210,23 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0(md2,"_",md1,"_barplot"))
-				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					barplot(
-						data,
-						col=get.palette(3),
-						ylim=ylim,
-						xlab="Character",
-						ylab=ylab,
-						legend.text=c("TP","FP","FN"),
-						names.arg=V(g)$ShortName[idx], las=2,
-						main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
-					)
-				dev.off()
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						barplot(
+							data,
+							col=get.palette(3),
+							ylim=ylim,
+							xlab="Character",
+							ylab=ylab,
+							legend.text=c("TP","FP","FN"),
+							names.arg=V(g)$ShortName[idx], las=2,
+							main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
+						)
+					dev.off()
+				}
 			}
 		}
 	}
@@ -294,15 +300,17 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		# plot
 		if(!all(is.na(values)))
 		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				hist(
-					values,
-					col=MAIN_COLOR
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					hist(
+						values,
+						col=MAIN_COLOR
+					)
+				dev.off()
+			}
 		}
 	}
 	
@@ -373,15 +381,17 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		
 		# plot
 		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
-		if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-		else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			hist(
-				values,
-				col=MAIN_COLOR
-			)
-		dev.off()
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+				hist(
+					values,
+					col=MAIN_COLOR
+				)
+			dev.off()
+		}
 	}
 	
 	tlog(4,"Computation of link topological measures complete")

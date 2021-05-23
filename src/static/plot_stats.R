@@ -266,43 +266,47 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the boxplot plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				bp <- boxplot(x=values, 
-					outline=FALSE,
-					names=nms,
-					plot=FALSE
-				)
-				bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
-				bp$stats[5,] <- sapply(values, max) # replace top whisker by max
-				bxp(bp, 
-					outline=FALSE,
-					xlab="Overlap",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode," window.size=",window.size),
-					border=c(rep("RED",2),rep("BLUE",length(values)-2))
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					bp <- boxplot(x=values, 
+						outline=FALSE,
+						names=nms,
+						plot=FALSE
+					)
+					bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
+					bp$stats[5,] <- sapply(values, max) # replace top whisker by max
+					bxp(bp, 
+						outline=FALSE,
+						xlab="Overlap",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," window.size=",window.size),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2))
+					)
+				dev.off()
+			}
 			
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				vioplot(x=values, 
-					names=nms,
-#					outline=FALSE,
-					xlab="Overlap",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode," window.size=",window.size),
-					border=c(rep("RED",2),rep("BLUE",length(values)-2)),
-					col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					vioplot(x=values, 
+						names=nms,
+	#					outline=FALSE,
+						xlab="Overlap",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," window.size=",window.size),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2)),
+						col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
+					)
+				dev.off()
+			}
 		}
 		
 		# generate a plot for each overlap value appearing at least twice
@@ -320,43 +324,47 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# generate the boxplot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				bp <- boxplot(x=values, 
-					outline=FALSE,
-					names=nms,
-					plot=FALSE
-				)
-				bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
-				bp$stats[5,] <- sapply(values, max) # replace top whisker by max
-				bxp(bp, 
-					outline=FALSE,
-					xlab="Window size",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode," overlap=",overlap),
-					border=c(rep("RED",2),rep("BLUE",length(values)-2))
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					bp <- boxplot(x=values, 
+						outline=FALSE,
+						names=nms,
+						plot=FALSE
+					)
+					bp$stats[1,] <- sapply(values, min)	# replace bottom whisker by min
+					bp$stats[5,] <- sapply(values, max) # replace top whisker by max
+					bxp(bp, 
+						outline=FALSE,
+						xlab="Window size",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," overlap=",overlap),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2))
+					)
+				dev.off()
+			}
 			
 			# generate the violin plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				vioplot(x=values, 
-					names=nms,
-#					outline=FALSE,
-					xlab="Window size",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode," overlap=",overlap),
-					border=c(rep("RED",2),rep("BLUE",length(values)-2)),
-					col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					vioplot(x=values, 
+						names=nms,
+#						outline=FALSE,
+						xlab="Window size",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode," overlap=",overlap),
+						border=c(rep("RED",2),rep("BLUE",length(values)-2)),
+						col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
+					)
+				dev.off()
+			}
 		}
 	}
 }
@@ -415,49 +423,51 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			#warning(msg)
 		}
 		else
-		{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				# init plot
-				plot(NULL, 
-					xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
-					ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
-								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
-							else
-								ALL_MEASURES[[meas.name]]$bounds[1],
-							if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
-								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
-							else
-								ALL_MEASURES[[meas.name]]$bounds[2]),
-					xlab="Overlap",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode)
-				)
-				# draw reference lines
-				abline(h=seg.occ.vals, lty=2) # dashed
-				abline(h=seg.dur.vals, lty=3) # dotted
-				# draw series
-				for(d in 1:length(data))
-				{	lines(x=overlaps[[d]],y=data[[d]],
-						col=cols[d], lwd=2
+		{	for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# init plot
+					plot(NULL, 
+						xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
+						ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
+									min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
+								else
+									ALL_MEASURES[[meas.name]]$bounds[1],
+								if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
+									max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
+								else
+									ALL_MEASURES[[meas.name]]$bounds[2]),
+						xlab="Overlap",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode)
 					)
-				}
-				# add color legend
-				legend(
-					x="topright", 
-					fill=cols, 
-					legend=window.sizes, 
-					title="Window Size"
-				)
-				# add line legend
-				legend(
-					x="bottomright",
-					lty=c(2,3),
-					legend=c("Occurrences","Duration"),
-					title="Scene-Based"
-				)
-			dev.off()
+					# draw reference lines
+					abline(h=seg.occ.vals, lty=2) # dashed
+					abline(h=seg.dur.vals, lty=3) # dotted
+					# draw series
+					for(d in 1:length(data))
+					{	lines(x=overlaps[[d]],y=data[[d]],
+							col=cols[d], lwd=2
+						)
+					}
+					# add color legend
+					legend(
+						x="topright", 
+						fill=cols, 
+						legend=window.sizes, 
+						title="Window Size"
+					)
+					# add line legend
+					legend(
+						x="bottomright",
+						lty=c(2,3),
+						legend=c("Occurrences","Duration"),
+						title="Scene-Based"
+					)
+				dev.off()
+			}
 		}
 		
 		# retrieve the overlap data series
@@ -483,49 +493,51 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			#warning(msg)
 		}
 		else
-		{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				# init plot
-				plot(NULL, 
-					xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
-					ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
-								min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
-							else
-								ALL_MEASURES[[meas.name]]$bounds[1],
-							if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
-								max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
-							else
-								ALL_MEASURES[[meas.name]]$bounds[2]),
-					xlab="Window Size",
-					ylab=ALL_MEASURES[[meas.name]]$cname,
-					main=paste0("mode=",mode)
-				)
-				# draw reference lines
-				abline(h=seg.occ.vals, lty=2) # dashed
-				abline(h=seg.dur.vals, lty=3) # dotted
-				# draw series
-				for(d in 1:length(data))
-				{	lines(x=axis[[d]],y=data[[d]],
-						col=cols[d], lwd=2
+		{	for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# init plot
+					plot(NULL, 
+						xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
+						ylim=c(if(is.na(ALL_MEASURES[[meas.name]]$bounds[1]))
+									min(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
+								else
+									ALL_MEASURES[[meas.name]]$bounds[1],
+								if(is.na(ALL_MEASURES[[meas.name]]$bounds[2]))
+									max(c(unlist(data),seg.occ.vals,seg.dur.vals),na.rm=TRUE)
+								else
+									ALL_MEASURES[[meas.name]]$bounds[2]),
+						xlab="Window Size",
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						main=paste0("mode=",mode)
 					)
-				}
-				# add color legend
-				legend(
-					x="topright", 
-					fill=cols, 
-					legend=common.overlaps, 
-					title="Overlap"
-				)
-				# add line legend
-				legend(
-					x="bottomright",
-					lty=c(2,3),
-					legend=c("Occurrences","Duration"),
-					title="Scene-Based"
-				)
-			dev.off()
+					# draw reference lines
+					abline(h=seg.occ.vals, lty=2) # dashed
+					abline(h=seg.dur.vals, lty=3) # dotted
+					# draw series
+					for(d in 1:length(data))
+					{	lines(x=axis[[d]],y=data[[d]],
+							col=cols[d], lwd=2
+						)
+					}
+					# add color legend
+					legend(
+						x="topright", 
+						fill=cols, 
+						legend=common.overlaps, 
+						title="Overlap"
+					)
+					# add line legend
+					legend(
+						x="bottomright",
+						lty=c(2,3),
+						legend=c("Occurrences","Duration"),
+						title="Scene-Based"
+					)
+				dev.off()
+			}
 		}
 	}
 }
@@ -579,42 +591,44 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				#warning(msg)
 			}
 			else
-			{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# init plot
-					plot(NULL, 
-						xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
-						ylim=c(-1,1),
-						xlab="Overlap",
-						ylab=ylab,
-						main=paste0("mode=",mode)
-					)
-					# draw reference lines
-					abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
-					abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
-					# draw series
-					for(d in 1:length(data))
-					{	lines(x=overlaps[[d]],y=data[[d]],
-								col=cols[d], lwd=2
+			{	for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# init plot
+						plot(NULL, 
+							xlim=c(min(common.overlaps,na.rm=TRUE),max(common.overlaps,na.rm=TRUE)),
+							ylim=c(-1,1),
+							xlab="Overlap",
+							ylab=ylab,
+							main=paste0("mode=",mode)
 						)
-					}
-					# add color legend
-					legend(
-						x="topright", 
-						fill=cols, 
-						legend=window.sizes, 
-						title="Window Size"
-					)
-					# add line legend
-					legend(
-						x="bottomright",
-						lty=c(2,3),
-						legend=c("Occurrences","Duration"),
-						title="Scene-Based"
-					)
-				dev.off()
+						# draw reference lines
+						abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+						abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+						# draw series
+						for(d in 1:length(data))
+						{	lines(x=overlaps[[d]],y=data[[d]],
+									col=cols[d], lwd=2
+							)
+						}
+						# add color legend
+						legend(
+							x="topright", 
+							fill=cols, 
+							legend=window.sizes, 
+							title="Window Size"
+						)
+						# add line legend
+						legend(
+							x="bottomright",
+							lty=c(2,3),
+							legend=c("Occurrences","Duration"),
+							title="Scene-Based"
+						)
+					dev.off()
+				}
 			}
 			
 			# retrieve the overlap data series
@@ -638,42 +652,44 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 				#warning(msg)
 			}
 			else
-			{	if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# init plot
-					plot(NULL, 
-						xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
-						ylim=c(-1,1),
-						xlab="Window Size",
-						ylab=ylab,
-						main=paste0("mode=",mode)
-					)
-					# draw reference lines
-					abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
-					abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
-					# draw series
-					for(d in 1:length(data))
-					{	lines(x=axis[[d]],y=data[[d]],
-								col=cols[d], lwd=2
+			{	for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# init plot
+						plot(NULL, 
+							xlim=c(min(window.sizes,na.rm=TRUE),max(window.sizes,na.rm=TRUE)),
+							ylim=c(-1,1),
+							xlab="Window Size",
+							ylab=ylab,
+							main=paste0("mode=",mode)
 						)
-					}
-					# add color legend
-					legend(
-							x="topright", 
-							fill=cols, 
-							legend=common.overlaps, 
-							title="Overlap"
-					)
-					# add line legend
-					legend(
-							x="bottomright",
-							lty=c(2,3),
-							legend=c("Occurrences","Duration"),
-							title="Scene-Based"
-					)
-				dev.off()
+						# draw reference lines
+						abline(h=seg.vals[COL_SPEAR_OCC], lty=2) # dashed
+						abline(h=seg.vals[COL_SPEAR_DUR], lty=3) # dotted
+						# draw series
+						for(d in 1:length(data))
+						{	lines(x=axis[[d]],y=data[[d]],
+									col=cols[d], lwd=2
+							)
+						}
+						# add color legend
+						legend(
+								x="topright", 
+								fill=cols, 
+								legend=common.overlaps, 
+								title="Overlap"
+						)
+						# add line legend
+						legend(
+								x="bottomright",
+								lty=c(2,3),
+								legend=c("Occurrences","Duration"),
+								title="Scene-Based"
+						)
+					dev.off()
+				}
 			}
 		}
 	}
@@ -744,19 +760,21 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					# generate the plot
 					plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0("ranks=",substr(weights,1,3)))
 					tlog(5,"Plotting file \"",plot.file,"\"")
-					if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-					else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						barplot(
-							diff[idx],
-							col=colors,
-							ylim=c(-length(diff),length(diff)),
-							xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
-							ylab=ylab,
-							main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
-						)
-					dev.off()
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+							barplot(
+								diff[idx],
+								col=colors,
+								ylim=c(-length(diff),length(diff)),
+								xlab=paste0("Nodes ordered by decreasing ",ALL_MEASURES[[meas.name]]$cname),
+								ylab=ylab,
+								main=paste0("mode=",mode," window.size=",window.size," overlap=",overlap)
+							)
+						dev.off()
+					}
 				}
 			}
 		}
@@ -834,21 +852,23 @@ compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type=paste0(md,"_barplot"))
-				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					barplot(
-						values,
-						col=get.palette(3),
-						ylim=ylim,
-						xlab="Overlap",
-						ylab=ylab,
-						legend.text=c("TP","FP","FN"),
-						names.arg=nms,
-						main=paste0("mode=",mode," window.size=",window.size)
-					)
-				dev.off()
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						barplot(
+							values,
+							col=get.palette(3),
+							ylim=ylim,
+							xlab="Overlap",
+							ylab=ylab,
+							legend.text=c("TP","FP","FN"),
+							names.arg=nms,
+							main=paste0("mode=",mode," window.size=",window.size)
+						)
+					dev.off()
+				}
 			}
 		}
 		
@@ -879,21 +899,23 @@ compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
 				}
 				
 				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type=paste0(md,"_barplot"))
-				if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					barplot(
-						values,
-						col=get.palette(3),
-						ylim=ylim,
-						xlab="Window size",
-						ylab=ylab,
-						legend.text=c("TP","FP","FN"),
-						names.arg=nms,
-						main=paste0("mode=",mode," overlap=",overlap)
-					)
-				dev.off()
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						barplot(
+							values,
+							col=get.palette(3),
+							ylim=ylim,
+							xlab="Window size",
+							ylab=ylab,
+							legend.text=c("TP","FP","FN"),
+							names.arg=nms,
+							main=paste0("mode=",mode," overlap=",overlap)
+						)
+					dev.off()
+				}
 			}
 		}
 	}
@@ -966,31 +988,35 @@ generate.static.plots.scene <- function()
 			
 			# plot histogram
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				ml <- paste0("weights=",wmode)
-				xl <- ALL_MEASURES[[meas.name]]$cname
-				# histogram
-				h <- hist(
-					vals,
-					breaks=20, #breaks=0:max(vals),
-					col=MAIN_COLOR,
-					xlab=xl,
-					main=ml,
-					freq=FALSE
-				)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					ml <- paste0("weights=",wmode)
+					xl <- ALL_MEASURES[[meas.name]]$cname
+					# histogram
+					h <- hist(
+						vals,
+						breaks=20, #breaks=0:max(vals),
+						col=MAIN_COLOR,
+						xlab=xl,
+						main=ml,
+						freq=FALSE
+					)
+				dev.off()
+			}
 			
 			# plot complementary cumulative distribution function
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="ccdf")
-			if(PLOT_FORMAT==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(PLOT_FORMAT==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
-			dev.off()
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
+				dev.off()
+			}
 		}
 	}
 }

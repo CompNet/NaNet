@@ -48,7 +48,10 @@ DATA_FOLDER <- file.path("data",SERIES)
 # plot options
 PLOT_FORMAT_PDF <- ".pdf"
 PLOT_FORMAT_PNG <- ".png"
-PLOT_FORMAT <- PLOT_FORMAT_PNG
+PLOT_FORMAT <- c(
+	PLOT_FORMAT_PDF,
+	PLOT_FORMAT_PNG
+)
 
 
 

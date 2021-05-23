@@ -7,7 +7,6 @@
 # setwd("~/eclipse/workspaces/Networks/TrajanNet")
 # source("src/common/plot.R")
 #############################################################################################
-FORMAT <- "pdf"	# pdf png
 LAYOUT <- NA	# graph layout
 
 
@@ -461,11 +460,11 @@ custom.barplot <- function(vals, text, xlab, ylab, file, ...)
 		text[idx] <- ATT_VAL_UNK0
 	wide <- length(text) > 8
 	
-	for(fformat in FORMAT)
+	for(fformat in PLOT_FORMAT)
 	{	if(hasArg(file))
-		{	if(FORMAT==PLOT_FORMAT_PDF)
+		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(paste0(file,fformat), width=25, height=25)
-			else if(FORMAT==PLOT_FORMAT_PNG)
+			else if(fformat==PLOT_FORMAT_PNG)
 				png(paste0(file,fformat), width=1024, height=1024)
 		}
 #		par(mar=c(5,3,1,2)+0.1)	# remove the title space Bottom Left Top Right
