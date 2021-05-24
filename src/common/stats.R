@@ -35,34 +35,55 @@ stat.mode <- function(x, na.rm=FALSE)
 #############################################################################################
 # Plots the complementary cumulative distribution function of the specified data.
 #
-# data: data to plot.
+# data: data to plot. Can be a single series or a list of series.
+# main: main title of the plot.
+# xlab: label of the x-axis.
 # log: TRUE to use logarithmic scales for the axes.
+# cols: color of each series.
+# leg.title: title of the legend, or NA of none.
+# lines: line types, or NA if points.
 #############################################################################################
-plot.ccdf <- function(data, main, xlab, log=FALSE)
-{	# compute cumulative function
-	my_ecdf <- ecdf(data)
+plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=NA)
+{	# init vars
+	if(all(is.na(cols)))
+		cols <- rep(MAIN_COLOR, length(data))
+	if(!class(data)=="list")
+		data <- list(data)
+	x <- list()
+	y <- list()
 	
-	# compute complementary cumulative function
-	x <- sort(unique(data))
-	y <- 1 - my_ecdf(x) 
+	# compute ccdf
+	for(s in 1:length(data))
+	{	# compute cumulative function
+		my_ecdf <- ecdf(data[[s]])
+		
+		# compute complementary cumulative function
+		x[[s]] <- sort(unique(data[[s]]))
+		y[[s]] <- 1 - my_ecdf(x[[s]])
+	}
 	
-	# only if log scale
+	# init the plot
 	if(log)
-	{	# remove zero values
-		idx <- which(y>0)
-		x <- x[idx]
-		y <- y[idx]
+	{	# compute ranges
+		xs <- unlist(x)
+		ys <- unlist(y)
+		idx <- which(ys>0)
+		xs <- xs[idx]
+		ys <- ys[idx]
+		idx <- which(xs>0)
+		xs <- xs[idx]
+		ys <- ys[idx]
+		xlim <- range(xs)
+		ylim <- range(ys)
 		
 		# this is to plot proper powers of 10
-		expmax <- floor(log(min(y),10))
+		expmax <- floor(log(min(ylim[1]),10))
 		
 		# render the plot
 		plot(
-			x, y, 
-			col=MAIN_COLOR, 
-			xlab=xlab, 
-			ylab="Complementary Cumulative Density", 
-			main=main, 
+			NULL, 
+			xlab=xlab, ylab="Complementary Cumulative Density", main=main,
+			xlim=xlim, ylim=ylim,
 			log="xy", 
 			yaxt="n"
 		)
@@ -77,12 +98,47 @@ plot.ccdf <- function(data, main, xlab, log=FALSE)
 	else
 	{	# render the plot
 		plot(
-			x, y, 
-			col=MAIN_COLOR, 
-			xlab=xlab, 
-			ylab="Complementary Cumulative Density", 
-			main=main, 
+			NULL, 
+			xlab=xlab, ylab="Complementary Cumulative Density", main=main, 
 			las=1
+		)
+	}
+	
+	# add the series
+	for(s in 1:length(data))
+	{	x.vals <- x[[s]]
+		y.vals <- y[[s]]
+		
+		# remove zero values
+		if(log)
+		{	idx <- which(y.vals>0)
+			x.vals <- x.vals[idx]
+			y.vals <- y.vals[idx]
+		}
+		
+		# add the series
+		if(all(is.na(lines)))
+		{	points(
+				x.vals, y.vals,
+				col=cols[s]
+			)
+		}
+		else
+		{	lines(
+				x.vals, y.vals,
+				col=cols[s],
+				lty=lines[s],	# 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
+			)
+		}
+	}
+	
+	# add legend
+	if(!is.na(leg.title))
+	{	legend(
+			x="topright", 
+			fill=cols, 
+			legend=names(data),
+			title=leg.title
 		)
 	}
 }

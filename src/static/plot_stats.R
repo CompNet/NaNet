@@ -262,6 +262,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			nms <- overlaps[[i]]
 			nms <- c("SO","SD",nms)
+			names(values) <- nms
 			
 			# generate the boxplot plot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
@@ -298,7 +299,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					vioplot(x=values, 
 						names=nms,
-	#					outline=FALSE,
+#						outline=FALSE,
 						xlab="Overlap",
 						ylab=ALL_MEASURES[[meas.name]]$cname,
 						main=paste0("mode=",mode," window.size=",window.size),
@@ -307,7 +308,36 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					)
 				dev.off()
 			}
-		}
+			
+			# generate distribution plots
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="distrib")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
+			lty <- c(2, 3, rep(1,length(values)-1))
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					plot.ccdf(
+						data=values, 
+						main=paste0("mode=",mode," window.size=",window.size),
+						xlab=meas.name,
+						log=TRUE, 
+						cols=cols, 
+						lines=lty
+					)
+					legend(
+						x="topright", 
+						col=cols,
+						lty=lty,
+						lwd=2,
+						legend=names(values),
+						title="Overlap"
+					)
+				dev.off()
+			}
+	}
 		
 		# generate a plot for each overlap value appearing at least twice
 		for(overlap in common.overlaps)
@@ -320,6 +350,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			nms <- window.sizes[idx]
 			nms <- c("SO","SD",nms)
+			names(values) <- nms
 			
 			# generate the boxplot
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
@@ -362,6 +393,35 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 						main=paste0("mode=",mode," overlap=",overlap),
 						border=c(rep("RED",2),rep("BLUE",length(values)-2)),
 						col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
+					)
+				dev.off()
+			}
+			
+			# generate distribution plots
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="distrib")
+			tlog(5,"Plotting file \"",plot.file,"\"")
+			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
+			lty <- c(2, 3, rep(1,length(values)-1))
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					plot.ccdf(
+						data=values, 
+						main=paste0("mode=",mode," overlap=",overlap),
+						xlab=meas.name,
+						log=TRUE, 
+						cols=cols, 
+						lines=lty
+					)
+					legend(
+						x="topright", 
+						col=cols,
+						lty=lty,
+						lwd=2,
+						legend=names(values),
+						title="Overlap"
 					)
 				dev.off()
 			}
@@ -1033,11 +1093,11 @@ generate.static.plots.scene <- function()
 ###############################################################################
 generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Generating plots for static graphs")
-
+	
 	# deal with scene-based graph
 	tlog(2,"Generating plots for static graphs with scene-based windows")
 	generate.static.plots.scene()
-
+	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
 	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
