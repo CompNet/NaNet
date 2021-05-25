@@ -230,8 +230,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 	cmn <- names(NODECOMP_MEASURES)
 	
 	# identify common overlap values (over window sizes)
-#	tmp <- table(unlist(overlaps))
-#	common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
+	#tmp <- table(unlist(overlaps))
+	#common.overlaps <- as.integer(names(tmp)[which(tmp>1)])
 	common.overlaps <- sort(unique(unlist(overlaps)))	# finally, don't remove values occurring just once
 	
 	# process each appropriate measure
@@ -319,7 +319,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					plot.ccdf(
+					tmp <- plot.ccdf(
 						data=values, 
 						main=paste0("mode=",mode," window.size=",window.size),
 						xlab=meas.name,
@@ -327,7 +327,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 						cols=cols, 
 						lines=lty
 					)
-					legend(
+					if(tmp) legend(
 						x="topright", 
 						col=cols,
 						lty=lty,
@@ -407,7 +407,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					plot.ccdf(
+					tmp <- plot.ccdf(
 						data=values, 
 						main=paste0("mode=",mode," overlap=",overlap),
 						xlab=meas.name,
@@ -415,7 +415,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 						cols=cols, 
 						lines=lty
 					)
-					legend(
+					if(tmp) legend(
 						x="topright", 
 						col=cols,
 						lty=lty,
@@ -442,7 +442,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
 	gmn <- names(GRAPH_MEASURES)
 	cmn <- names(GRAPHCOMP_MEASURES)
-	amn <- c(cmn)
+	amn <- c(gmn, cmn)
+	
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
 		amn <- amn[!grepl(sfx, amn, fixed=TRUE)]
