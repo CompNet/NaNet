@@ -51,7 +51,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MIN)]] <- list( #eccentricity-min
 	cname="Minimal Eccentricity (or Radius)",
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
-		max(values,na.rm=TRUE)
+		min(values,na.rm=TRUE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MAX)]] <- list( #eccentricity-max
@@ -61,7 +61,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MAX)]] <- list( #eccentricity-max
 	cname="Maximal Eccentricity (or Diameter)",
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
-		min(values,na.rm=TRUE)
+		max(values,na.rm=TRUE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_ASSORT)]] <- list( #eccentricity-assortativity

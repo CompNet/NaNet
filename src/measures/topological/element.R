@@ -60,7 +60,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_MIN)]] <- list( #linkweight-min
 	bounds=c(0,NA),
 	cname="Minimal Link Weight",
 	foo=function(graph) 
-	{	max(E(graph)$weight,na.rm=TRUE)
+	{	min(E(graph)$weight,na.rm=TRUE)
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_MAX)]] <- list( #linkweight-max
@@ -68,6 +68,6 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_MAX)]] <- list( #linkweight-max
 	bounds=c(0,NA),
 	cname="Maximal Link Weight",
 	foo=function(graph) 
-	{	min(E(graph)$weight,na.rm=TRUE)
+	{	max(E(graph)$weight,na.rm=TRUE)
 	}
 )
