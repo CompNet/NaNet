@@ -42,6 +42,8 @@ stat.mode <- function(x, na.rm=FALSE)
 # cols: color of each series.
 # leg.title: title of the legend, or NA of none.
 # lines: line types, or NA if points.
+#
+# returns: TRUE iff a plot could be produced.
 #############################################################################################
 plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=NA)
 {	# init vars
@@ -75,6 +77,10 @@ plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=
 		ys <- ys[idx]
 		xlim <- range(xs)
 		ylim <- range(ys)
+		if(any(is.infinite(c(xlim, ylim))))
+		{	tlog("WARNING: nothing to plot, all values are zero or infinite")
+			return(FALSE)
+		}
 		
 		# this is to plot proper powers of 10
 		expmax <- floor(log(min(ylim[1]),10))
@@ -141,6 +147,8 @@ plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=
 			title=leg.title
 		)
 	}
+	
+	return(TRUE)
 }
 
 ## density function
