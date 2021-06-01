@@ -28,34 +28,34 @@ graph.cosine.similarityilarity <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.cosine.similarity <- function(name, graph)
+compute.cosine.similarity <- function(name, graph, reduced)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
-		if(name==paste0(MEAS_COSINE_SIM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		if(name==paste0(MEAS_COSINE_SIM, SFX_DUR) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
-		else if(name==paste0(MEAS_COSINE_SIM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_COSINE_SIM, SFX_OCC) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.cosine.similarityilarity(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
@@ -64,12 +64,13 @@ compute.cosine.similarity <- function(name, graph)
 
 
 
+# graph
 GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_DUR)]] <- list( #Cosine similarity with duration graph
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_DUR), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -78,7 +79,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Wei
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -87,7 +88,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -96,7 +97,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_OCC)]] <- list( #Cosine similari
 	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_OCC), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_OCC), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -105,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC)]] <- list( #Wei
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -114,7 +115,65 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+		return(values)
+	}
+)
+
+
+
+# graph reduced
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_DUR)]] <- list( #Cosine similarity with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Cosine Similarity with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Cosine similarity with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted Cosine Similarity with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized Cosine similarity with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted normalized Cosine Similarity with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_OCC)]] <- list( #Cosine similarity with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Cosine Similarity with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Cosine similarity with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted Cosine Similarity with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized Cosine similarity with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted normalized Cosine Similarity with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
 		return(values)
 	}
 )

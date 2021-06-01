@@ -25,34 +25,34 @@ graph.f.measure <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.f.measure <- function(name, graph)
+compute.f.measure <- function(name, graph, reduced)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
-		if(name==paste0(MEAS_FMEASURE, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		if(name==paste0(MEAS_FMEASURE, SFX_DUR) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
-		else if(name==paste0(MEAS_FMEASURE, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_FMEASURE, SFX_OCC) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.f.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
@@ -61,12 +61,13 @@ compute.f.measure <- function(name, graph)
 
 
 
+# graph
 GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_DUR)]] <- list( #F-measure with duration graph
 	type=numeric(),
 	bounds=c(0,1),
 	cname="F-measure with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_DUR), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -75,7 +76,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR)]] <- list( #Weigh
 	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -84,7 +85,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- li
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -93,7 +94,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_OCC)]] <- list( #F-measure with oc
 	bounds=c(0,1),
 	cname="F-measure with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_OCC), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_OCC), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -102,7 +103,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC)]] <- list( #Weigh
 	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
 		return(values)
 	}
 )
@@ -111,7 +112,65 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- li
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+		return(values)
+	}
+)
+
+
+
+# graph reduced
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_DUR)]] <- list( #F-measure with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="F-measure with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted F-measure with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted F-measure with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized F-measure with reduced duration graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted normalized F-measure with Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_OCC)]] <- list( #F-measure with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="F-measure with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted F-measure with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted F-measure with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+		return(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized F-measure with reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted normalized F-measure with Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
 		return(values)
 	}
 )

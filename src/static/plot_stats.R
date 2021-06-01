@@ -443,6 +443,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 	gmn <- names(GRAPH_MEASURES)
 	cmn <- names(GRAPHCOMP_MEASURES)
 	amn <- c(gmn, cmn)
+#amn <- amn[grepl(SFX_REDUCED, amn, fixed=TRUE)]
 	
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)
@@ -616,6 +617,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
 	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES), names(NODECOMP_MEASURES))
+#gmn <- names(NODEPAIR_MEASURES)
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
@@ -773,6 +775,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 	
 	# process each appropriate measure
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES))
+#mn <- names(NODEPAIR_MEASURES)	
 	for(meas.name in mn)
 	{	tlog(4,"Generating rank difference for measure ",meas.name," (mode=",mode,")")
 		
@@ -851,7 +854,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
 ###############################################################################
-compute.static.tfpn.statistics <- function(mode, window.sizes=NA, overlaps=NA)
+generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 {	object <- "graphcomp"
 	
 	# setup measure name lists
@@ -1007,8 +1010,8 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 	tlog(3,"Generating rank comparison plots for mode=",mode)
 	generate.static.plots.ranks(mode, window.sizes, overlaps)
 	
-	tlog(3,"Generating rank comparison plots for mode=",mode)
-	compute.static.tfpn.statistics(mode, window.sizes, overlaps)
+	tlog(3,"Generating comparison plots for mode=",mode)
+	generate.static.plots.tfpn(mode, window.sizes, overlaps)
 }
 
 

@@ -28,34 +28,34 @@ graph.truepositive.measure <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.truepositive <- function(name, graph)
+compute.truepositive <- function(name, graph, reduced)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
-		if(name==paste0(MEAS_TRUEPOS, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		if(name==paste0(MEAS_TRUEPOS, SFX_DUR) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR)
+		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
-		else if(name==paste0(MEAS_TRUEPOS, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_TRUEPOS, SFX_OCC) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC)
+		else if(name==paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, reduced)
 			res <- graph.truepositive.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
@@ -66,82 +66,164 @@ compute.truepositive <- function(name, graph)
 
 # nodal
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_DUR)]] <- list( #true positive compared to duration graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="True Positives relative to Scene-Based Duration Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted true positive compared to duration graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="Weighted True Positives relative to Scene-Based Duration Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized true positive compared to duration graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="Weighted normalized True Positives relative to Scene-Based Duration Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_OCC)]] <- list( #true positive compared to occurrences graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="True Positives relative to Scene-Based Occurrences Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted true positive compared to occurrences graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="Weighted True Positives relative to Scene-Based Occurrences Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized true positive compared tooccurrences graph
-		type=numeric(),
-		bounds=c(0,NA),
-		cname="Weighted normalized True Positives relative to Scene-Based Occurrences Graph",
-		foo=function(graph)
-		{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph)
-			m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
-			m[upper.tri(m,diag=F)] <- tmp
-			m <- m + t(m)
-			values <- rowSums(m)
-			return(values)
-		}
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+
+
+
+# nodal reduced
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_DUR)]] <- list( #true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_OCC)]] <- list( #true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
+)
+NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
+		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
+		m[upper.tri(m,diag=F)] <- tmp
+		m <- m + t(m)
+		values <- rowSums(m)
+		return(values)
+	}
 )
 
 
@@ -152,7 +234,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR)]] <- list( #true po
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph, reduced=FALSE)
 		sum(values)
 	}
 )
@@ -161,7 +243,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- li
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
 		sum(values)
 	}
 )
@@ -170,7 +252,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DU
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
 		sum(values)
 	}
 )
@@ -179,7 +261,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_OCC)]] <- list( #true po
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph, reduced=FALSE)
 		sum(values)
 	}
 )
@@ -188,7 +270,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- li
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
 		sum(values)
 	}
 )
@@ -197,7 +279,65 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OC
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+		sum(values)
+	}
+)
+
+
+
+# total reduced
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_DUR)]] <- list( #true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+		sum(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+		sum(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized true positive compared to reduced duration graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Reduced Scene-Based Duration Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+		sum(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_OCC)]] <- list( #true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+		sum(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+		sum(values)
+	}
+)
+GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized true positive compared to reduced occurrences graph
+	type=numeric(),
+	bounds=c(0,NA),
+	cname="Weighted normalized True Positives relative to Reduced Scene-Based Occurrences Graph",
+	foo=function(graph)
+	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
 		sum(values)
 	}
 )

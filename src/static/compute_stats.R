@@ -41,7 +41,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	tlog(5,"Computing each nodal measure")
 	for(m in 1:length(NODE_MEASURES))
 	{	meas.name <- names(NODE_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(NODE_MEASURES),")")
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
@@ -117,11 +117,15 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		colnames(res.tab) <- names(NODECOMP_MEASURES)
 	}
 	
+	# get reduced graph
+	idx.red <- which(V(g)$Frequency>2)
+	g.red <- induced_subgraph(g, v=idx.red)
+	
 	# compute each measure
 	tlog(5,"Computing each nodal measure")
 	for(m in 1:length(NODECOMP_MEASURES))
 	{	meas.name <- names(NODECOMP_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(NODECOMP_MEASURES),")")
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
@@ -137,7 +141,12 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		else
 		{	# compute values
 			measure <- NODECOMP_MEASURES[[m]]
-			values <- measure$foo(graph=g)
+			if(grepl(SFX_REDUCED, meas.name, fixed=TRUE))
+			{	values <- rep(NA,gorder(g))
+				values[idx.red] <- measure$foo(graph=g.red)
+			}
+			else
+				values <- measure$foo(graph=g)
 			if(length(values)==0)
 				values <- rep(NA,gorder(g))
 			tlog(7,"Number of values: ",length(values))
@@ -269,7 +278,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 	tlog(5,"Computing each node-pair measure")
 	for(m in 1:length(NODEPAIR_MEASURES))
 	{	meas.name <- names(NODEPAIR_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(NODEPAIR_MEASURES),")")
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
@@ -351,7 +360,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	tlog(5,"Computing each link measure")
 	for(m in 1:length(LINK_MEASURES))
 	{	meas.name <- names(LINK_MEASURES)[m]
-		tlog(6,"Computing measure ",meas.name)
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(LINK_MEASURES),")")
 		
 		# possibly add column if missing
 		if(!(meas.name %in% colnames(res.tab)))
@@ -492,6 +501,10 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		colnames(res.tab) <- c("Value")
 	}
 	
+	# get reduced graph
+	idx.red <- which(V(g)$Frequency>2)
+	g.red <- induced_subgraph(g, v=idx.red)
+	
 	# compute each topological and comparison measure
 	tlog(5,"Computing each graph comparison measure")
 	measures <- GRAPHCOMP_MEASURES
@@ -513,7 +526,10 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		else
 		{	# compute value
 			measure <- measures[[m]]
-			value <- measure$foo(graph=g)
+			if(grepl(SFX_REDUCED, meas.name, fixed=TRUE))
+				value <- measure$foo(graph=g.red)
+			else
+				value <- measure$foo(graph=g)
 			tlog(7,"Value: ",value)
 			
 			# update table
@@ -565,7 +581,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 	tlog(5,"Computing each nodal/node-pair measure")
 	for(m in 1:length(mn))
 	{	meas.name <- mn[m]
-		tlog(6,"Computing rank correlation for measure ",meas.name)
+		tlog(6,"Computing rank correlation for measure ",meas.name," (",m,"/",length(mn),")")
 		
 		# possibly add row if missing
 		if(!(meas.name %in% rownames(res.tab)))

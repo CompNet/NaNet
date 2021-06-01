@@ -56,6 +56,7 @@ SFX_GLOBAL <- "-global"
 # for comparison measures
 SFX_DUR <- "-duration"
 SFX_OCC <- "-occurrences"
+SFX_REDUCED <- "-reduced"
 SFX_TOTAL <- "-total"
 
 
