@@ -29,3 +29,6 @@ install.packages("viridis")
 # statistical tests
 install.packages("ercv")
 install.packages("poweRlaw")
+
+# strings
+install.packages("stringr")
