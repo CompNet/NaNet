@@ -81,10 +81,11 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
+# vol: concerned volume (optional).
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -92,6 +93,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
+	# possibly add volume subfolder
+	if(!is.na(vol))
+		folder <- file.path(folder, "volumes")
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
@@ -100,6 +104,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA)
 	# possibly add base name
 	if(mode=="scenes")
 		res <- 	paste0(res, "_scenes")
+	# possibly add volume name
+	if(!is.na(vol))
+		res <- 	paste0(res, "_vol",vol)
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
