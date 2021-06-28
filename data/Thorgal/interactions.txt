@@ -860,8 +860,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 16	14	1	14	9	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Bossu 16.3
 16	15	1	15	4	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
 16	15	5	15	5	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
-16	15	6	16	3	Thorgal Aegirsson	Gunnar	Lars	Votiak
-16	16	4	17	2	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Lars	Votiak
+16	15	6	16	3	Thorgal Aegirsson	Gunnar	Lars 16	Votiak
+16	16	4	17	2	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Lars 16	Votiak
 16	17	3	17	6	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Votiak
 16	17	7	17	8	Gunnar	Votiak
 16	18	1	18	7	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff	Gunnar	Votiak
@@ -2377,10 +2377,10 @@ L1	15	4	16	3	Louve	Griz
 L1	16	4	17	11	Louve	Griz
 L1	18	1	19	3	Louve	Griz
 L1	19	4	21	8	Louve	Griz	Meute de Griz L1.19
-L1	21	9	24	1	Louve	Griz	Meute de Griz L1.19	Raïssa	Mörlok	Driss
+L1	21	9	24	1	Louve	Griz	Meute de Griz L1.19	Raïssa	Mörlok	Driss L1
 L1	24	2	24	3	Aaricia Ganfalfsdottir	Loup 16.34
-L1	24	4	24	8	Louve	Griz	Meute de Griz L1.19	Raïssa	Mörlok	Driss
-L1	25	1	25	10	Louve	Griz	Meute de Griz L1.19	Mörlok	Driss	Raïssa
+L1	24	4	24	8	Louve	Griz	Meute de Griz L1.19	Raïssa	Mörlok	Driss L1
+L1	25	1	25	10	Louve	Griz	Meute de Griz L1.19	Mörlok	Driss L1	Raïssa
 L1	26	1	27	9	Louve
 L1	27	10	29	9	Louve	Raïssa
 L1	29	10	31	3	Louve	Raïssa	Griz
@@ -2748,10 +2748,10 @@ J1	33	1	34	2	Thorgal Aegirsson
 J1	34	3	34	5	Slive
 J1	35	1	35	9	Thorgal Aegirsson
 J1	36	1	36	3	Solveig
-J1	36	4	36	7	Solveig	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd J1.36
+J1	36	4	36	7	Solveig	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif J1	Sigurd J1.36
 J1	37	1	37	4	Thorgal Aegirsson	Anina
 J1	37	5	38	7	Thorgal Aegirsson	Anina	Olaf	Frère d'Anina
-J1	39	1	39	6	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif	Sigurd J1.36
+J1	39	1	39	6	Björn Gandalfson	Hiérulf-le-penseur	Vikings J1.36	Leif J1	Sigurd J1.36
 J1	40	1	40	8	Thorgal Aegirsson	Anina	Olaf	Frère d'Anina
 J1	40	9	40	9	Thorgal Aegirsson
 J1	41	1	41	4	Thorgal Aegirsson
