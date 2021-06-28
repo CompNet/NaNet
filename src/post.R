@@ -59,7 +59,27 @@ rownames(est.tab) <- data$char.info[,COL_CHAR_SHORT_NAME]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
 	g <- extract.static.graph.scenes(char.volumes=data$char.volumes, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, vol=v)
-	vals <- strength(graph=g, mode="all", weights=E(g)$Durations)
+
+#	vals <- degree(graph=g, mode="all")									# 0.55	0.25
+#	vals <- strength(graph=g, mode="all", weights=E(g)$Duration)		# 0.55	0.22
+#	vals <- strength(graph=g, mode="all", weights=E(g)$Occurrences)		# 0.56	0.24
+	#
+#	vals <- betweenness(graph=g, weights=NULL)							# 0.59	0.21
+#	vals <- betweenness(graph=g, weights=E(g)$Duration)					# 0.41	0.19
+#	vals <- betweenness(graph=g, weights=E(g)$Occurrences)				# 0.46	0.22
+	#
+#	vals <- closeness(graph=g, weights=NULL)							# 0.56	0.22
+#	vals <- closeness(graph=g, weights=E(g)$Duration)					# 0.36	0.21
+#	vals <- closeness(graph=g, weights=E(g)$Occurrences)				# 0.37	0.18
+	#
+#	vals <- harmonic_centrality(x=g, weights=NULL)						# 0.56	0.24
+#	vals <- harmonic_centrality(x=g, weights=E(g)$Duration)				# 0.34	0.15
+#	vals <- harmonic_centrality(x=g, weights=E(g)$Occurrences)			# 0.40	0.13
+	#
+#	vals <- eigen_centrality(graph=g, weights=NULL)$vector				# 0.49	0.23
+#	vals <- eigen_centrality(graph=g, weights=E(g)$Duration)$vector		# 0.53	0.27
+#	vals <- eigen_centrality(graph=g, weights=E(g)$Occurrences)$vector	# 0.53	0.28
+	
 	names(vals) <- V(g)$ShortName
 	est.tab[names(vals), v] <- vals
 }
@@ -98,7 +118,10 @@ for(v in volumes)
 	fn <- length(char.missing)
 	pre <- tp/(tp+fp)
 	rec <- tp/(tp+fn)
-	fmeas <- 2*(pre*rec)/(pre+rec)
+	if(pre==0 && rec==0)
+		fmeas <- 0
+	else
+		fmeas <- 2*pre*rec/(pre+rec)
 	tlog(4, "Pre=",pre," Rec=",rec," F=",fmeas)
 	stats[c("Precision","Recall","F-measure"),v] <- c(pre,rec,fmeas)
 	
@@ -112,3 +135,5 @@ for(v in volumes)
 	tlog(4, "Spearman: cor=",rcor$estimate," p=",rcor$p.value)
 	stats[c("Spearman's rho", "Spearman's p-value"),v] <- c(rcor$estimate,rcor$p.value)
 }
+
+print(rowMeans(stats))
