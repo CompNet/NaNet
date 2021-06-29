@@ -137,3 +137,5 @@ for(v in volumes)
 }
 
 print(rowMeans(stats))
+# TODO certains volumes aboutissent à des résultats anormalement bas
+# >> voir lesquels et pourquoi
