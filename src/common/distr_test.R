@@ -9,7 +9,7 @@ library("poweRlaw")
 
 
 #############################################################################################
-# Test the type of empirical distribution of the specified continuous data.
+# Tests the type of empirical distribution of the specified continuous data.
 #
 # data: data to test.
 #############################################################################################
@@ -28,8 +28,10 @@ test.cont.distr <- function(data)
 	lines(power.law, col="BLUE", lwd=2)
 	# bootstrap test
 	pl.bs <- bootstrap_p(power.law, no_of_sims=100, threads=8)
+	# display results
+	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
-		
+	
 	tlog(2,"Handling log-normal law")
 	# create continuous log-normal law
 	log.normal <- conlnorm$new(data)
@@ -41,6 +43,7 @@ test.cont.distr <- function(data)
 	lines(log.normal, col="GREEN", lwd=2)
 	# bootstrap test
 	ln.bs <- bootstrap_p(log.normal, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for log-normal law: ",ln.bs$p)
 	
 	tlog(2,"Handling Weibull law")
@@ -54,6 +57,7 @@ test.cont.distr <- function(data)
 	lines(weib.law, col="PURPLE", lwd=2)
 	# bootstrap test
 	el.bs <- bootstrap_p(weib.law, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for Weibull law: ",el.bs$p)
 	
 	tlog(2,"Handling exponential law")
@@ -67,6 +71,7 @@ test.cont.distr <- function(data)
 	lines(exp.law, col="ORANGE", lwd=2)
 	# bootstrap test
 	el.bs <- bootstrap_p(exp.law, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for exponential law: ",el.bs$p)
 	
 	# add legend
@@ -124,13 +129,15 @@ test.cont.distr <- function(data)
 	tlog(0,"Interpretation of the comparison test:")
 	tlog(2,"- The test statistic indicates whether the power-law (positive) or the other distribution (negative) is preferred")
 	tlog(2,"- The p-value indicates whether this sign is significant (small p)")
+	
+	return(power.law$pars)
 }
 
 
 
 
 #############################################################################################
-# Test the type of empirical distribution of the specified discrete data.
+# Tests the type of empirical distribution of the specified discrete data.
 #
 # data: data to test.
 #############################################################################################
@@ -149,6 +156,8 @@ test.disc.distr <- function(data)
 	lines(power.law, col="BLUE", lwd=2)
 	# bootstrap test
 	pl.bs <- bootstrap_p(power.law, no_of_sims=100, threads=8)
+	# display results
+	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
 	
 	tlog(2,"Handling log-normal law")
@@ -162,6 +171,7 @@ test.disc.distr <- function(data)
 	lines(log.normal, col="GREEN", lwd=2)
 	# bootstrap test
 	ln.bs <- bootstrap_p(log.normal, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for log-normal law: ",ln.bs$p)
 	
 	tlog(2,"Handling Poisson law")
@@ -175,6 +185,7 @@ test.disc.distr <- function(data)
 	lines(pois.law, col="PURPLE", lwd=2)
 	# bootstrap test
 	el.bs <- bootstrap_p(pois.law, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for exponential law: ",el.bs$p)
 	
 	tlog(2,"Handling discrete exponential law")
@@ -188,6 +199,7 @@ test.disc.distr <- function(data)
 	lines(exp.law, col="ORANGE", lwd=2)
 	# bootstrap test
 	el.bs <- bootstrap_p(exp.law, no_of_sims=100, threads=8)
+	# display results
 	tlog(4,"p-value for exponential law: ",el.bs$p)
 	
 	# add legend
@@ -246,4 +258,6 @@ test.disc.distr <- function(data)
 	tlog(2,"- The test statistic indicates whether the power-law (positive) or the other distribution (negative) is preferred")
 	tlog(2,"- The p-value indicates whether this sign is significant (small p)")
 	tlog(2,"- The one-sided value is order dependent, the two-sided one is not")
+	
+	return(power.law$pars)
 }
