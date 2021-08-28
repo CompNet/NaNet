@@ -22,7 +22,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 01	19	9	20	5	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Hiérulf-le-penseur	Slive	Sharn	Spectateurs_1.15
 01	20	6	20	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
 01	21	1	21	5	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn
-01	21	6	26	6	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn	Baalds_21
+01	21	6	26	6	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn	Baalds_1.21
 01	27	1	28	4	Thorgal Aegirsson	Slive	Sharn
 01	28	5	29	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir
 01	29	3	29	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Gandalf-le-fou
