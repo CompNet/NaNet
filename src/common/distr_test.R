@@ -5,6 +5,11 @@
 #############################################################################################
 library("poweRlaw")
 
+
+
+
+#############################################################################################
+# column names
 C_PL_EXP <- "PowerLaw_exp"
 C_PL_PVAL <- "PowerLaw_pval"
 C_POIS_PVAL <- "Poisson_pval"
@@ -19,6 +24,7 @@ C_EXPO_CPVAL <- "Exponential_cmp_pval"
 C_WEIB_PVAL <- "Weibull_pval"
 C_WEIB_CLR <- "Weibull_cmp_LR"
 C_WEIB_CPVAL <- "Weibull_cmp_pval"
+
 
 
 

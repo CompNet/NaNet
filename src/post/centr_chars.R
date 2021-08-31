@@ -1,4 +1,4 @@
-# Identificatio of the main characters in each volume. First, the script builds a ground 
+# Identification of the main characters in each volume. First, the script builds a ground 
 # truth based on textual summaries of each volume, using character occurrence as a proxy
 # for character importance. Second, it uses centrality measures to identify the main
 # characters in the graph. Third, it compares both groups.
@@ -7,7 +7,7 @@
 # 06/2021
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post.R")
+# source("src/post/centr_chars.R")
 ###############################################################################
 source("src/common/include.R")
 library("stringr")
