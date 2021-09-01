@@ -10,21 +10,22 @@ library("poweRlaw")
 
 #############################################################################################
 # column names
-C_PL_EXP <- "PowerLaw_exp"
-C_PL_PVAL <- "PowerLaw_pval"
-C_POIS_PVAL <- "Poisson_pval"
-C_POIS_CLR <- "Poisson_cmp_LR"
-C_POIS_CPVAL <- "Poisson_cmp_pval"
-C_LNORM_PVAL <- "LogNormal_pval"
-C_LNORM_CLR <- "LogNormal_cmp_LR"
-C_LNORM_CPVAL <- "LogNormal_cmp_pval"
-C_EXPO_PVAL <- "Exponential_pval"
-C_EXPO_CLR <- "Exponential_cmp_LR"
-C_EXPO_CPVAL <- "Exponential_cmp_pval"
-C_WEIB_PVAL <- "Weibull_pval"
-C_WEIB_CLR <- "Weibull_cmp_LR"
-C_WEIB_CPVAL <- "Weibull_cmp_pval"
-
+C_DISTR <- c()
+C_PL_EXP <- "PowerLaw_exp"; C_DISTR <- c(C_DISTR, C_PL_EXP)
+C_PL_PVAL <- "PowerLaw_pval"; C_DISTR <- c(C_DISTR, C_PL_PVAL)
+C_POIS_PVAL <- "Poisson_pval"; C_DISTR <- c(C_DISTR, C_POIS_PVAL)
+C_POIS_CLR <- "Poisson_cmp_LR"; C_DISTR <- c(C_DISTR, C_POIS_CLR)
+C_POIS_CPVAL <- "Poisson_cmp_pval"; C_DISTR <- c(C_DISTR, C_POIS_CPVAL)
+C_LNORM_PVAL <- "LogNormal_pval"; C_DISTR <- c(C_DISTR, C_LNORM_PVAL)
+C_LNORM_CLR <- "LogNormal_cmp_LR"; C_DISTR <- c(C_DISTR, C_LNORM_CLR)
+C_LNORM_CPVAL <- "LogNormal_cmp_pval"; C_DISTR <- c(C_DISTR, C_LNORM_CPVAL)
+C_EXPO_PVAL <- "Exponential_pval"; C_DISTR <- c(C_DISTR, C_EXPO_PVAL)
+C_EXPO_CLR <- "Exponential_cmp_LR"; C_DISTR <- c(C_DISTR, C_EXPO_CLR)
+C_EXPO_CPVAL <- "Exponential_cmp_pval"; C_DISTR <- c(C_DISTR, C_EXPO_CPVAL)
+C_WEIB_PVAL <- "Weibull_pval"; C_DISTR <- c(C_DISTR, C_WEIB_PVAL)
+C_WEIB_CLR <- "Weibull_cmp_LR"; C_DISTR <- c(C_DISTR, C_WEIB_CLR)
+C_WEIB_CPVAL <- "Weibull_cmp_pval"; C_DISTR <- c(C_DISTR, C_WEIB_CPVAL)
+C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 
 
 
@@ -97,7 +98,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	tlog(4,"p-value for exponential law: ",el.bs$p)
 	tab[C_EXPO_PVAL] <- el.bs$p
 	
-	tlog(2,"Handling Weibull law (aka stretched exponential)") # 
+	tlog(2,"Handling Weibull law (sometimes called stretched exponential)") # 
 	# create weibull law
 	weib.law <- conweibull$new(data)
 	# estimate parameters
@@ -176,6 +177,12 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	tlog(2,"- The test statistic indicates whether the power-law (positive) or the other distribution (negative) is preferred")
 	tlog(2,"- The p-value indicates whether this sign is significant (small p)")
 	tlog(2,"- The one-sided value is order-dependent, the two-sided one is not (They seem to use the latter)")
+	
+	# draw conclusion
+	tlog(0,"-------------------------------")
+	tab[C_DECISION] <- make.decision.distr(tab, threshold=0.01)
+	tlog(2,"Conclusion: ", tab[C_DECISION])
+	tlog(0,"-------------------------------")
 	
 	if(return_stats)
 		res <- tab
@@ -325,7 +332,6 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 #	print(comp.pl)
 	tlog(4,"Test statistic (reverse order): ",comp.pl$test_statistic)
 	tlog(6,"p-values: ",comp.pl$p_one_sided,", ",comp.pl$p_two_sided)
-	tlog(4,"Conclusion: ")
 	
 	tlog(0,"-------------------------------")
 	tlog(0,"Interpretation of the distribution test:")
@@ -337,9 +343,74 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	tlog(2,"- The p-value indicates whether this sign is significant (small p)")
 	tlog(2,"- The one-sided value is order-dependent, the two-sided one is not (They seem to use the latter)")
 	
+	# draw conclusion
+	tlog(0,"-------------------------------")
+	tab[C_DECISION] <- make.decision.distr(tab, threshold=0.05)
+	tlog(2,"Conclusion: ", tab[C_DECISION])
+	tlog(0,"-------------------------------")
+	
 	if(return_stats)
 		res <- tab
 	else
 		res <- power.law$pars
+	return(res)
+}
+
+
+
+
+#############################################################################################
+# Takes the statistics computed with test.disc.distr or test.cont.distr, and take a decision
+# regarding the nature of the studied distribution.
+#
+# tab: stats computed with the other methods.
+#
+# returns: string representing the final decision.
+#############################################################################################
+make.decision.distr <- function(tab, threshold=0.01)
+{	# determine which distribution fits better than the power law
+	indist <- c()
+	better <- c()
+	if(C_POIS_PVAL %in% names(tab))
+	{	if(tab[C_POIS_CPVAL]<threshold)
+		{	if(tab[C_POIS_CLR]<0)
+				better <- c(better, "Poisson")
+		}
+		else
+			indist <- c(indist, "Poisson")
+	}
+	if(C_LNORM_PVAL %in% names(tab))
+	{	if(tab[C_LNORM_CPVAL]<threshold)
+		{	if(tab[C_LNORM_CLR]<0)
+				better <- c(better, "LogNormal")
+		}
+		else
+			indist <- c(indist, "LogNormal")
+	}
+	if(C_EXPO_PVAL %in% names(tab))
+	{	if(tab[C_EXPO_CPVAL]<threshold)
+		{	if(tab[C_EXPO_CLR]<0)
+				better <- c(better, "Exponential")
+		}
+		else
+			indist <- c(indist, "Exponential")
+	}
+	if(C_WEIB_PVAL %in% names(tab))
+	{	if(tab[C_WEIB_CPVAL]<threshold)
+		{	if(tab[C_WEIB_CLR]<0)
+				better <- c(better, "Weibull")
+		}
+		else
+			indist <- c(indist, "Weibull")
+	}
+	
+	# build result string
+	if(length(better)>0)
+		res <- paste(better, collapse=", ")
+	else
+	{	if(tab[C_PL_PVAL] > threshold)
+			indist <- c("PowerLaw", indist)
+		res <- paste(indist, collapse=", ")
+	}
 	return(res)
 }

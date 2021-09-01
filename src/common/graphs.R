@@ -41,7 +41,7 @@ get.largest.component <- function(g, indices=FALSE)
 # This is usefull when you have capacities but want to compute a shortest path: igraph
 # expects a cost, and not a capacity.
 #
-# g: weigted graph.
+# g: weighted graph.
 #
 # returns: same graph, but reversed weights.
 #############################################################################################

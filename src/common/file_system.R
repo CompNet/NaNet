@@ -6,6 +6,8 @@
 
 
 ###############################################################################
+# folder containing the other character networks
+CHARNETS_FOLDER <- file.path("data","charnets")
 # folder containing the log files
 LOG_FOLDER <- "log"
 

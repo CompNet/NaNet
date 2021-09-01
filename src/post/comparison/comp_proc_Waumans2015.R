@@ -1,5 +1,21 @@
+# Computes the networks from article
+#		M. C. Waumans, T. Nicodème, and H. Bersini, 
+#		“Topology Analysis of Social Networks Extracted from Literature”, 
+#		PLoS ONE 10(6):e0126470, 2015.
+#		DOI: 10.1371/journal.pone.0126470
+#
+# Vincent Labatut
+# 08/2021
+###############################################################################
+source("src/post/comparison/comp_proc.R")
+
+
+
+
+###############################################################################
 # data folder
-folder <- "C:/Users/Vincent/Documents/Travail/Ecrits/Networks Analysis/Bost, Xavier/09. NANet/1. SNAM 2021/00 Other nets/Waumans2015_1373869/graphs"
+folder <- file.path(CHARNETS_FOLDER, "Waumans2015") 
+tlog(0,"Computing networks in folder ",folder)
 
 # file names
 files <- c(
@@ -52,91 +68,47 @@ files <- c(
 	"Les_Miserables_Gutenberg_pg135"
 )
 
-# names of the stats
-measnames <- c(
-	"n",
-	"m",
-	"Density",
-	"Avg k",
-	"Avg dist",
-	"Rand avg dist",
-	"Norm avg dist",
-	"Avg trans",
-	"Rand avg trans",
-	"Norm avg trans",
-	"Smallworldness",
-	"Max k",
-	"Exp deg power law",
-	"Degr ass",
-	"Exp trans-deg rel"
-)
-
-# init stat table
-tab <- matrix(NA, nrow=length(files), ncol=length(measnames))
-rownames(tab) <- files
-colnames(tab) <- measnames
-
-# alt function to test PL
-test.pl <- function(data)
-{	if(0 %in% data)
-		data <- data + 1
-	
-	# estimate parameters
-	power.law <- fit_power_law(data, implementation="plfit") # "plfit" "R.mle"
-	# display results
-	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$alpha)
-	tlog(4,"p-value for power law: ",power.law$KS.p)
-	
-	return(power.law$alpha)
-}
+###############################################################################
+# init stat tables
+prop.tab <- data.frame(matrix(vector(), 0, length(measnames), dimnames=list(c(), measnames)),
+				stringsAsFactors=FALSE)
+distr.tab <- matrix(vector(), 0, length(C_DISTR), dimnames=list(c(), C_DISTR))
 
 # compute all stats for all networks
-for(file in files)
-{	# read and convert graph file
+for(ff in 1:length(files))
+{	# read and convert the graph file
+	file <- files[ff]
 	f <- file.path(folder,paste0(file,".gexf"))
-	cat("Processing file",f,"\n")
+	tlog(2, "Processing file ",f," (",ff,"/",length(files),")")
 	gexf.g <- read.gexf(f)
 	g <- gexf.to.igraph(gexf.g)
 	# remove negative links
 	#g <- delete_edges(graph=g, edges=which(E(g)$weight<0))
+	#print(table(degree(g)))
 	
-	# fill stats table
-	tab[file,"n"] <- gorder(g)
-	tab[file,"m"] <- gsize(g)
-	tab[file,"Density"] <- graph.density(g)
-	tab[file,"Avg k"] <- mean(degree(g))
-	tab[file,"Avg dist"] <- mean_distance(graph=g)
-	tab[file,"Rand avg dist"] <- log(tab[file,"n"]) / log(tab[file,"Avg k"])
-	tab[file,"Norm avg dist"] <- tab[file,"Avg dist"] / tab[file,"Rand avg dist"]
-	tab[file,"Avg trans"] <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
-	tab[file,"Rand avg trans"] <- tab[file,"Avg k"] / tab[file,"n"]
-	tab[file,"Norm avg trans"] <- tab[file,"Avg trans"] / tab[file,"Rand avg trans"]
-	tab[file,"Smallworldness"] <- tab[file,"Norm avg trans"] / tab[file,"Norm avg dist"]
-	tab[file,"Max k"] <- max(degree(g))
-	tab[file,"Exp deg power law"] <- test.cont.distr(if(any(degree(g)==0)) degree(g)+1 else degree(g))
-	tab[file,"Exp deg power law"] <- test.pl(degree(g))
-	tab[file,"Degr ass"] <- assortativity_degree(graph=g, directed=FALSE)
-tab[file,"Exp trans-deg rel"] <- NA
+	# clean the network
+	g <- charnet.clean(g)
 	
 	# export graph as graphml for possible later use
 	f <- file.path(folder,paste0(file,".graphml"))
 	write.graph(graph=g, file=f, format="graphml")
+	
+	# compute topological measures
+	prop.row <- charnet.prop(g)
+	prop.tab <- rbind(prop.tab, prop.row)
+	rownames(prop.tab)[nrow(prop.tab)] <- file
+	
+	# process degree distribution
+	deg <- degree(g, mode="all")
+	distr.row <- test.disc.distr(data=deg, return_stats=TRUE, sims=100)
+	distr.tab <- rbind(distr.tab, rep(NA, ncol(distr.tab)))
+	distr.tab[nrow(distr.tab),names(distr.row)] <- distr.row
+	rownames(distr.tab)[nrow(distr.tab)] <- file
+	prop.tab[nrow(distr.tab),"Degr distrib"] <- distr.row[C_DECISION]
 }
 
-# record stats table
-tab.file <- file.path(folder,"stats.csv")
-write.table(tab, file=tab.file, sep=",", row.names=T, col.names=T)
-
-
-
-
-# try with python code
-#library("reticulate")
-#env <- import("powerlaw")
-#res <- powerlaw$Fit(deg)
-#res$alpha
-#res$D
-#res$distribution_compare('power_law', 'lognormal')
-
-#tab <- read.table("C:/Users/Vincent/Downloads/words.txt")[,1]
-#test.cont.distr(tab)
+# record stats tables
+tab.file <- file.path(folder,"_measures.csv")
+write.table(prop.tab, file=tab.file, sep=",", row.names=T, col.names=T)
+tab.file <- file.path(folder,"_degree_dist.csv")
+write.table(distr.tab, file=tab.file, sep=",", row.names=T, col.names=T)
