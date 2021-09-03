@@ -108,15 +108,17 @@ charnet.prop <- function(g)
 	# nlsLM without the zeros
 	y0 <- y[y>0]
 	x0 <- x[y>0]
+	y0 <- y0[x0>20]
+	x0 <- x0[x0>20]
 	df0 <- data.frame(x0,y0)
 	fit <- nlsLM(y0 ~ c1*x0^c2 + c3, 
 			start=list(c1=0, c2=-3, c3=0),
 			data = df0,
 			control=list(maxiter=100))
-	fit <- nlsLM(y0 ~ x0^c2, 
-			start=list(c2=-1),
-			data = df0)
-	summary(fit)
+#	fit <- nlsLM(y0 ~ x0^c2, 
+#			start=list(c2=20),
+#			data = df0)
+#	summary(fit)
 	plot(x0,y0,log="xy")
 	lines(1:200, predict(fit, list(x0=1:200)), col="GREEN")
 	
