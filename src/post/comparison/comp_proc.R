@@ -67,6 +67,90 @@ charnet.prop <- function(g)
 	tab[1,"Degr ass"] <- assortativity_degree(graph=g, directed=FALSE)
 	tab[1,"Exp trans-deg rel"] <- NA
 	
+	
+	
+	
+	
+	
+	y <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
+	x <- degree(g)
+	df <- data.frame(x,y)
+	plot(x,y)
+	
+	fit <- nlsLM(y ~ c1*x^c2 + c3, 
+			start=list(c1=0, c2=-3, c3=0),
+			data = df,
+			control=list(maxiter=100))
+	fit <- nlsLM(y ~ c1*x^c2, 
+			start=list(c1=1, c2=-1),
+			data = df)
+	fit <- nlsLM(y ~ x^c2 + c3, 
+			start=list(c2=-1, c3=0),
+			data = df)
+	fit <- nlsLM(y ~ x^c2, 
+			start=list(c2=-1),
+			data = df)
+	
+	tmp <- lm(log(y+1) ~ log(x)) 
+	fit <- nlsLM(y ~ c1*x^c2 + c3, 
+			start=list(c1=exp(tmp$coefficients[2]), c2=tmp$coefficients[1], c3=0),
+			data = df,
+			control=list(maxiter=70))
+	fit <- nlsLM(y ~ c1*x^c2, 
+			start=list(c1=exp(tmp$coefficients[2]), c2=tmp$coefficients[1]),
+			data = df)
+	
+	plot(x,y,log="xy")
+	lines(1:200, predict(fit, list(x=1:200)), col="GREEN")
+	
+	
+	
+	# nlsLM without the zeros
+	y0 <- y[y>0]
+	x0 <- x[y>0]
+	df0 <- data.frame(x0,y0)
+	fit <- nlsLM(y0 ~ c1*x0^c2 + c3, 
+			start=list(c1=0, c2=-3, c3=0),
+			data = df0,
+			control=list(maxiter=100))
+	fit <- nlsLM(y0 ~ x0^c2, 
+			start=list(c2=-1),
+			data = df0)
+	summary(fit)
+	plot(x0,y0,log="xy")
+	lines(1:200, predict(fit, list(x0=1:200)), col="GREEN")
+	
+	# same with GLM
+	powfit <- glm(y0~log(x0),family=gaussian(link=log))
+	summary(powfit)
+	plot(x0,y0,log="xy")
+	#lines(x0,fitted(powfit), col="GREEN")
+	lines(1:200,predict(powfit, list(x0=1:200), type="response"), col="GREEN")
+	
+	
+	
+	
+	# get coeff from a nlsLM fit
+	alpha <- summary(fit)$coefficients["c2","Estimate"]
+	pval <- summary(fit)$coefficients["c2","Pr(>|t|)"]
+	
+	
+	# average the values for each k
+	trans <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
+	degr <- degree(g)
+	ks <- sort(unique(degr))
+	tr.avg <- sapply(ks, function(k) mean(trans[degr==k]))
+	plot(ks,tr.avg)
+	# try fitting
+	df2 <- data.frame(ks,tr.avg)
+	powfit2 <- glm(tr.avg~log(ks),family=gaussian(link=log))
+	summary(powfit2)
+	plot(ks,tr.avg,log="xy")
+	lines(1:200,predict(powfit, list(degr=1:200), type="response"), col="GREEN")
+	# normalize to get something similar to probas
+	tr.avg <- tr.avg/sum(tr.avg)
+	data <- unlist(lapply(1:length(ks), function(i) rep(ks[i], round(tr.avg[i]*10000))))
+	
 	return(tab)
 }
 
