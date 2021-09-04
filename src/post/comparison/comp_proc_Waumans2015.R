@@ -82,6 +82,7 @@ for(ff in 1:length(files))
 	tlog(2, "Processing file ",f," (",ff,"/",length(files),")")
 	gexf.g <- read.gexf(f)
 	g <- gexf.to.igraph(gexf.g)
+	g$name <- file
 	# remove negative links
 	#g <- delete_edges(graph=g, edges=which(E(g)$weight<0))
 	#print(table(degree(g)))

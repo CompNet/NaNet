@@ -9,6 +9,7 @@
 library("igraph")
 library("rgexf")
 library("poweRlaw")
+library("minpack.lm")
 
 source("src/common/include.R")
 
@@ -32,7 +33,8 @@ measnames <- c(
 	"Max degr",
 	"Degr distrib",
 	"Degr ass",
-	"Exp trans-deg rel"
+	"Exp trans-deg rel",
+	"GoF trans-deg rel"
 )
 
 
@@ -65,95 +67,83 @@ charnet.prop <- function(g)
 	tab[1,"Max degr"] <- max(degree(g))
 	tab[1,"Degr distrib"] <- NA
 	tab[1,"Degr ass"] <- assortativity_degree(graph=g, directed=FALSE)
-	tab[1,"Exp trans-deg rel"] <- NA
-	
-	
-	
-	
-	
-	
-	y <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
-	x <- degree(g)
-	df <- data.frame(x,y)
-	plot(x,y)
-	
-	fit <- nlsLM(y ~ c1*x^c2 + c3, 
-			start=list(c1=0, c2=-3, c3=0),
-			data = df,
-			control=list(maxiter=100))
-	fit <- nlsLM(y ~ c1*x^c2, 
-			start=list(c1=1, c2=-1),
-			data = df)
-	fit <- nlsLM(y ~ x^c2 + c3, 
-			start=list(c2=-1, c3=0),
-			data = df)
-	fit <- nlsLM(y ~ x^c2, 
-			start=list(c2=-1),
-			data = df)
-	
-	tmp <- lm(log(y+1) ~ log(x)) 
-	fit <- nlsLM(y ~ c1*x^c2 + c3, 
-			start=list(c1=exp(tmp$coefficients[2]), c2=tmp$coefficients[1], c3=0),
-			data = df,
-			control=list(maxiter=70))
-	fit <- nlsLM(y ~ c1*x^c2, 
-			start=list(c1=exp(tmp$coefficients[2]), c2=tmp$coefficients[1]),
-			data = df)
-	
-	plot(x,y,log="xy")
-	lines(1:200, predict(fit, list(x=1:200)), col="GREEN")
-	
-	
-	
-	# nlsLM without the zeros
-	y0 <- y[y>0]
-	x0 <- x[y>0]
-	y0 <- y0[x0>20]
-	x0 <- x0[x0>20]
-	df0 <- data.frame(x0,y0)
-	fit <- nlsLM(y0 ~ c1*x0^c2 + c3, 
-			start=list(c1=0, c2=-3, c3=0),
-			data = df0,
-			control=list(maxiter=100))
-#	fit <- nlsLM(y0 ~ x0^c2, 
-#			start=list(c2=20),
-#			data = df0)
-#	summary(fit)
-	plot(x0,y0,log="xy")
-	lines(1:200, predict(fit, list(x0=1:200)), col="GREEN")
-	
-	# same with GLM
-	powfit <- glm(y0~log(x0),family=gaussian(link=log))
-	summary(powfit)
-	plot(x0,y0,log="xy")
-	#lines(x0,fitted(powfit), col="GREEN")
-	lines(1:200,predict(powfit, list(x0=1:200), type="response"), col="GREEN")
-	
-	
-	
-	
-	# get coeff from a nlsLM fit
-	alpha <- summary(fit)$coefficients["c2","Estimate"]
-	pval <- summary(fit)$coefficients["c2","Pr(>|t|)"]
-	
-	
-	# average the values for each k
-	trans <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
-	degr <- degree(g)
-	ks <- sort(unique(degr))
-	tr.avg <- sapply(ks, function(k) mean(trans[degr==k]))
-	plot(ks,tr.avg)
-	# try fitting
-	df2 <- data.frame(ks,tr.avg)
-	powfit2 <- glm(tr.avg~log(ks),family=gaussian(link=log))
-	summary(powfit2)
-	plot(ks,tr.avg,log="xy")
-	lines(1:200,predict(powfit, list(degr=1:200), type="response"), col="GREEN")
-	# normalize to get something similar to probas
-	tr.avg <- tr.avg/sum(tr.avg)
-	data <- unlist(lapply(1:length(ks), function(i) rep(ks[i], round(tr.avg[i]*10000))))
+	tmp <- trans_degr_rel(g)
+	tab[1,"Exp trans-deg rel"] <- tmp$exponent
+	tab[1,"GoF trans-deg rel"] <- tmp$gof
 	
 	return(tab)
+}
+
+
+
+
+###############################################################################
+# Estimates the exponent of the power law relation between the degree and the
+# local transitivity.
+#
+# g: graph to compute.
+#
+# returns: result of the estimation and goodness of fit.
+###############################################################################
+trans_degr_rel <- function(g)
+{	# NOTE: not clear whether the transitivity values should be
+	# averaged by degree first.
+	
+	# compute the values
+	tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
+	deg.vals <- degree(g)
+	# filter out zero transitivity
+	filt.tra <- tra.vals[tra.vals>0]
+	filt.deg <- deg.vals[tra.vals>0]
+	
+	# make a few tries
+	best.exp <- NA
+	best.gof <- .Machine$integer.max
+	for(i in 1:4)
+	{	threshold <- quantile(deg.vals)[i]
+		
+		# only keep the right tail?
+		cut.tra <- filt.tra[filt.deg>=threshold]
+		cut.deg <- filt.deg[filt.deg>=threshold]
+		# build data frame
+		df <- data.frame(cut.deg, cut.tra)
+		
+		# fit model
+		fit <- nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
+				start=list(c1=0, c2=-3, c3=0),
+				data = df,
+				control=list(maxiter=75))
+		
+		# retrieve estimated exponent
+		exponent <- summary(fit)$coefficients["c2","Estimate"]
+		gof <- summary(fit)$sigma
+		#gof <- cor(y,predict(fit)) # by curiosity
+		
+		# plot for future visualization
+		plot.file <- file.path(folder, paste0(g$name,"_deg_trans_thre=",threshold,".pdf"))
+		pdf(file=plot.file, width=15, height=15)
+			plot(
+				x=filt.deg, y=filt.tra, 
+				main=paste0("Exponent: ",exponent," -- GoF: ",gof),
+				xlab="Local Transitivity",
+				ylab="Degree",
+				log="xy",
+				xlim=c(1,max(deg.vals)*1.1),
+				ylim=c(0.0001,1)
+			)
+			x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
+			lines(x, predict(fit, list(cut.deg=x)), col="GREEN")
+		dev.off()
+		
+		# keep best fit
+		if(gof<best.gof)
+		{	best.exp <- exponent
+			best.gof <- gof
+		}
+	}
+	
+	result <- list(exponent=best.exp, gof=best.gof)
+	return(result)
 }
 
 
