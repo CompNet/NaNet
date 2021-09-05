@@ -25,6 +25,8 @@ C_EXPO_CPVAL <- "Exponential_cmp_pval"; C_DISTR <- c(C_DISTR, C_EXPO_CPVAL)
 C_WEIB_PVAL <- "Weibull_pval"; C_DISTR <- c(C_DISTR, C_WEIB_PVAL)
 C_WEIB_CLR <- "Weibull_cmp_LR"; C_DISTR <- c(C_DISTR, C_WEIB_CLR)
 C_WEIB_CPVAL <- "Weibull_cmp_pval"; C_DISTR <- c(C_DISTR, C_WEIB_CPVAL)
+C_TRUNC_CLR <- "TruncPL_cmp_LR"; C_DISTR <- c(C_DISTR, C_TRUNC_CLR)
+C_TRUNC_CPVAL <- "TruncPL_cmp_pval"; C_DISTR <- c(C_DISTR, C_TRUNC_CPVAL)
 C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 
 
@@ -35,17 +37,19 @@ C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 # data: data to test.
 # return_stats: whether or not to return all the computed stats.
 # sims: number of bootstrap simulations.
+# plot.file: base name of the plot file, or NA if not plot desired.
 #
 # returns: either the p-value obtained for the PL fit, or all the results obtained when comparing
 #          the PL to other laws.
 #############################################################################################
-test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
+test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 {	tlog(0,"Test data distribution")
 	cols <- c(
 		C_PL_EXP, C_PL_PVAL, 
 		C_LNORM_PVAL, C_LNORM_CLR, C_LNORM_CPVAL, 
 		C_EXPO_PVAL, C_EXPO_CLR, C_EXPO_CPVAL,
-		C_WEIB_PVAL, C_WEIB_CLR, C_WEIB_CPVAL, 
+		C_WEIB_PVAL, C_WEIB_CLR, C_WEIB_CPVAL,
+		C_TRUNC_CLR, C_TRUNC_CPVAL 
 	)
 	tab <- rep(NA,length(cols))
 	names(tab) <- cols
@@ -58,8 +62,28 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	power.law$setXmin(est)
 #	print(est)
 	# plot model
-	plot(power.law, col="RED")
-	lines(power.law, col="BLUE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		plot.file <- paste0(plot.file,".pdf")
+		pdf(plot.file, width=15, height=15)
+		plot(power.law, 
+			col="BLACK",
+			xlab="Degree", ylab="Probability Density"
+		)
+		lines(power.law, col="BLUE", lwd=2)
+#		# ccdf
+#		y <- 1 - c(0, dist_data_cdf(power.law))
+#		x <- seq(from=min(data), to=max(data), by=(max(data)-min(data))/(length(y)-1))
+#		plot(x[-length(x)], y[-length(y)], 
+#			col="BLACK",
+#			xlab="Degree", ylab="Complementary Cumulative Density",
+#			log="xy"
+#		)
+#		x <- seq(from=power.law$xmin, to=max(data), by=(max(data)-power.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(power.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="BLUE", lwd=2)
+	}
 	# bootstrap test
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)
 	# display results
@@ -75,8 +99,15 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	est <- estimate_xmin(log.normal)
 	log.normal$setXmin(est)
 #	print(est)
-	# plot model
-	lines(log.normal, col="GREEN", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(log.normal, col="GREEN", lwd=2)
+#		# ccdf
+#		x <- seq(from=log.normal$xmin, to=max(data), by=(max(data)-log.normal$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(log.normal, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="GREEN", lwd=2)
+	}
 	# bootstrap test
 	ln.bs <- bootstrap_p(log.normal, no_of_sims=sims, threads=8)
 	# display results
@@ -90,8 +121,15 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	est <- estimate_xmin(exp.law)
 	exp.law$setXmin(est)
 #	print(est)
-	# plot model
-	lines(exp.law, col="ORANGE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(exp.law, col="ORANGE", lwd=2)
+#		# ccdf
+#		x <- seq(from=exp.law$xmin, to=max(data), by=(max(data)-exp.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(exp.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="ORANGE", lwd=2)
+	}
 	# bootstrap test
 	el.bs <- bootstrap_p(exp.law, no_of_sims=sims, threads=8)
 	# display results
@@ -105,20 +143,22 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	est <- estimate_xmin(weib.law)
 	weib.law$setXmin(est)
 #	print(est)
-	# plot model
-	lines(weib.law, col="PURPLE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(weib.law, col="PURPLE", lwd=2)
+#		# ccdf
+#		x <- seq(from=weib.law$xmin, to=max(data), by=(max(data)-weib.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(weib.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="PURPLE", lwd=2)
+	}
 	# bootstrap test
 	weib.bs <- bootstrap_p(weib.law, no_of_sims=sims, threads=8)
 	# display results
 	tlog(4,"p-value for Weibull law: ",weib.bs$p)
 	tab[C_WEIB_PVAL] <- weib.bs$p
 	
-	# add legend
-	legend(
-		x="bottomleft",
-		legend=c("Power law", "Log-normal law", "Exponential law", "Weibull law"),
-		fill=c("BLUE", "GREEN", "ORANGE", "PURPLE")
-	)
+	################
 	
 	# compare power and log-normal laws
 	tlog(2,"Comparing power and log-normal laws")
@@ -168,6 +208,11 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	tlog(4,"Test statistic (reverse order): ",comp.wl$test_statistic)
 	tlog(6,"p-values: ",comp.wl$p_one_sided,", ",comp.wl$p_two_sided)
 	
+	# compare power law and truncated power law
+	tmp <- test_pl_expcutoff(data)
+	tab[C_TRUNC_CLR] <- tmp$stat
+	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+	
 	tlog(0,"-------------------------------")
 	tlog(0,"Interpretation of the distribution test:")
 	tlog(0,"  h_0: original data could have been drawn from the fitted distribution")
@@ -183,6 +228,16 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 	tab[C_DECISION] <- make.decision.distr(tab, threshold=0.01)
 	tlog(2,"Conclusion: ", tab[C_DECISION])
 	tlog(0,"-------------------------------")
+	
+	# add legend to plot
+	legend(
+		x="bottomleft",
+		legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Weibull law"),
+		fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
+	)
+	# and close plot file
+	if(!is.na(plot.file))
+		dev.off()
 	
 	if(return_stats)
 		res <- tab
@@ -200,17 +255,19 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000)
 # data: data to test.
 # return_stats: whether or not to return all the computed stats.
 # sims: number of bootstrap simulations.
+# plot.file: base name of the plot file, or NA if not plot desired.
 #
 # returns: either the p-value obtained for the PL fit, or all the results obtained when comparing
 #          the PL to other laws.
 #############################################################################################
-test.disc.distr <- function(data, return_stats=FALSE, sims=100)
+test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 {	tlog(0,"Test data distribution")
 	cols <- c(
 		C_PL_EXP, C_PL_PVAL, 
 		C_LNORM_PVAL, C_LNORM_CLR, C_LNORM_CPVAL, 
 		C_EXPO_PVAL, C_EXPO_CLR, C_EXPO_CPVAL, 
-		C_POIS_PVAL, C_POIS_CLR, C_POIS_CPVAL 
+		C_POIS_PVAL, C_POIS_CLR, C_POIS_CPVAL,
+		C_TRUNC_CLR, C_TRUNC_CPVAL
 	)
 	tab <- rep(NA,length(cols))
 	names(tab) <- cols
@@ -222,9 +279,28 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	est <- estimate_xmin(power.law)
 	power.law$setXmin(est)
 #	print(est)
-	# plot model
-	plot(power.law, col="RED")
-	lines(power.law, col="BLUE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		plot.file <- paste0(plot.file,".pdf")
+		pdf(plot.file, width=15, height=15)
+		plot(power.law, 
+			col="BLACK",
+			xlab="Degree", ylab="Probability Density"
+		)
+		lines(power.law, col="BLUE", lwd=2)
+#		# ccdf
+#		y <- 1 - c(0, dist_data_cdf(power.law))
+#		x <- seq(from=min(data), to=max(data), by=(max(data)-min(data))/(length(y)-1))
+#		plot(x[-length(x)], y[-length(y)], 
+#			col="BLACK",
+#			xlab="Degree", ylab="Complementary Cumulative Density",
+#			log="xy"
+#		)
+#		x <- seq(from=power.law$xmin, to=max(data), by=(max(data)-power.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(power.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="BLUE", lwd=2)
+	}
 	# bootstrap test
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)
 	# display results
@@ -240,8 +316,15 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	est <- estimate_xmin(log.normal)
 	log.normal$setXmin(est)
 #	print(est)
-	# plot model
-	lines(log.normal, col="GREEN", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(log.normal, col="GREEN", lwd=2)
+#		# ccdf
+#		x <- seq(from=log.normal$xmin, to=max(data), by=(max(data)-log.normal$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(log.normal, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="GREEN", lwd=2)
+	}
 	# bootstrap test
 	ln.bs <- bootstrap_p(log.normal, no_of_sims=sims, threads=8)
 	# display results
@@ -255,8 +338,15 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	est <- estimate_xmin(exp.law)
 	exp.law$setXmin(est)
 #	print(est)
-	# plot model
-	lines(exp.law, col="ORANGE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(exp.law, col="ORANGE", lwd=2)
+#		# ccdf
+#		x <- seq(from=exp.law$xmin, to=max(data), by=(max(data)-exp.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(exp.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="ORANGE", lwd=2)
+	}
 	# bootstrap test
 	el.bs <- bootstrap_p(exp.law, no_of_sims=sims, threads=8)
 	# display results
@@ -270,20 +360,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	est <- estimate_xmin(pois.law)
 	pois.law$setXmin(est)
 #	print(est)
-	# plot model
-	lines(pois.law, col="PURPLE", lwd=2)
+	# possibly plot model
+	if(!is.na(plot.file))
+	{	# pdf
+		lines(pois.law, col="PURPLE", lwd=2)
+#		# ccdf
+#		x <- seq(from=pois.law$xmin, to=max(data), by=(max(data)-pois.law$xmin)/100)
+#		y <- 1 - c(0, dist_cdf(pois.law, x[-length(x)]))
+#		lines(x[-length(x)], y[-length(y)], col="PURPLE", lwd=2)
+	}
 	# bootstrap test
 	pois.bs <- bootstrap_p(pois.law, no_of_sims=sims, threads=8)
 	# display results
 	tlog(4,"p-value for exponential law: ",pois.bs$p)
 	tab[C_POIS_PVAL] <- pois.bs$p
 	
-	# add legend
-	legend(
-		x="bottomleft",
-		legend=c("Power law", "Log-normal law", "Exponential law", "Poisson law"),
-		fill=c("BLUE", "GREEN", "ORANGE", "PURPLE")
-	)
+	################
 	
 	# compare power and log-normal laws
 	tlog(2,"Comparing power and log-normal laws")
@@ -333,6 +425,11 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	tlog(4,"Test statistic (reverse order): ",comp.pl$test_statistic)
 	tlog(6,"p-values: ",comp.pl$p_one_sided,", ",comp.pl$p_two_sided)
 	
+	# compare power law and truncated power law
+	tmp <- test_pl_expcutoff(data)
+	tab[C_TRUNC_CLR] <- tmp$stat
+	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+	
 	tlog(0,"-------------------------------")
 	tlog(0,"Interpretation of the distribution test:")
 	tlog(0,"  h_0: original data could have been drawn from the fitted distribution")
@@ -349,10 +446,63 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100)
 	tlog(2,"Conclusion: ", tab[C_DECISION])
 	tlog(0,"-------------------------------")
 	
+	# add legend to plot
+	legend(
+		x="bottomleft",
+		legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Poisson law"),
+		fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
+	)
+	# and close plot file
+	if(!is.na(plot.file))
+		dev.off()
+	
 	if(return_stats)
 		res <- tab
 	else
 		res <- power.law$pars
+	return(res)
+}
+
+
+
+
+#############################################################################################
+# Uses the Python library powerlaw to hand the power law with exponential cutoff, which is
+# not supported by the R library poweRlaw.
+#
+# data: data to test.
+#
+# returns: ????????????????????????
+#############################################################################################
+test_pl_expcutoff <- function(data)
+{	tlog(2,"Handling power law within the Python library")
+	
+	# import necessary tools
+	library("reticulate")
+	pl <- import("powerlaw")
+	
+	# fit power law (and other distributions)
+	fit = pl$Fit(deg, discrete=TRUE)
+	# display results
+	tlog(4,"Parameters: x_min=",fit$truncated_power_law$xmin," exp=",fit$truncated_power_law$alpha)
+	
+	# add to plot
+	x <- seq(from=fit$truncated_power_law$xmin, to=max(data), by=(max(data)-fit$truncated_power_law$xmin)/100)
+#	y <- x^(-fit$truncated_power_law$alpha) * exp(-fit$truncated_power_law$Lambda*x)
+	y <- fit$truncated_power_law$pdf(x)
+	lines(x, y, col="RED", lwd=2)
+	
+	# compare to other distributions
+	tmp <- fit$distribution_compare("power_law", "lognormal")
+	tlog(4,"Compare with log-normal distribution: test stat=",tmp[[1]]," p=",tmp[[2]])
+	tmp <- fit$distribution_compare("power_law", "exponential")
+	tlog(4,"Compare with exponential distribution: test stat=",tmp[[1]]," p=",tmp[[2]])
+	tmp <- fit$distribution_compare("power_law", "stretched_exponential")
+	tlog(4,"Compare with stretched exponential distribution: test stat=",tmp[[1]]," p=",tmp[[2]])
+	tmp <- fit$distribution_compare("power_law", "truncated_power_law")
+	tlog(4,"Compare with truncated power law: test stat=",tmp[[1]]," p=",tmp[[2]])
+	
+	res <- list(stat=res[[1]], pvalue=tmp[[2]])
 	return(res)
 }
 

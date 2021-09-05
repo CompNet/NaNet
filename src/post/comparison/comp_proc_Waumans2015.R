@@ -78,7 +78,8 @@ distr.tab <- matrix(vector(), 0, length(C_DISTR), dimnames=list(c(), C_DISTR))
 for(ff in 1:length(files))
 {	# read and convert the graph file
 	file <- files[ff]
-	f <- file.path(folder,paste0(file,".gexf"))
+	base.filename <- file.path(folder,file)
+	f <- paste0(base.filename,".gexf")
 	tlog(2, "Processing file ",f," (",ff,"/",length(files),")")
 	gexf.g <- read.gexf(f)
 	g <- gexf.to.igraph(gexf.g)
@@ -91,7 +92,7 @@ for(ff in 1:length(files))
 	g <- charnet.clean(g)
 	
 	# export graph as graphml for possible later use
-	f <- file.path(folder,paste0(file,".graphml"))
+	f <- paste0(base.filename,".graphml")
 	write.graph(graph=g, file=f, format="graphml")
 	
 	# compute topological measures
@@ -101,7 +102,7 @@ for(ff in 1:length(files))
 	
 	# process degree distribution
 	deg <- degree(g, mode="all")
-	distr.row <- test.disc.distr(data=deg, return_stats=TRUE, sims=100)
+	distr.row <- test.disc.distr(data=deg, return_stats=TRUE, sims=100, plot.file=paste0(base.filename,"_deg_distrib"))
 	distr.tab <- rbind(distr.tab, rep(NA, ncol(distr.tab)))
 	distr.tab[nrow(distr.tab),names(distr.row)] <- distr.row
 	rownames(distr.tab)[nrow(distr.tab)] <- file
