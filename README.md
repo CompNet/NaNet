@@ -10,3 +10,4 @@ Must find a better name:
 * Networks of the Ninth Art: N9A
 * ?
 
+install: requires to compile pli C code
