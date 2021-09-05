@@ -2,6 +2,8 @@
 # Defines functions used to log messages.
 # 
 # 05/2016 Vincent Labatut
+#
+# source("src/common/logging.R")
 #############################################################################################
 
 

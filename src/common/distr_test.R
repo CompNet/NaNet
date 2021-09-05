@@ -3,7 +3,38 @@
 # 
 # 05/2021 Vincent Labatut
 #############################################################################################
+# Installation of pli: The C code must be compiled. 
+# On a Windows system:
+#  1) download install MinGW and MSYS (using installer)
+#  2) add to path (D:\MinGW\bin, D:\MinGW\msys\1.0\bin)
+#  3) open terminal, go to C code folder
+#  4) compile simple C file: gcc discpowerexp.c -o discpowerexp.exe
+#  5) move resulting file to res/pli folder
+#  6) edit path variable in R file discpowerexp.R
+#  7) download and install GSL http://gnuwin32.sourceforge.net/packages/gsl.htm
+#  8) add to path (D:\MinGW\GSL\bin, D:\MinGW\GSL\include, D:\MinGW\GSL\lib)
+#  9) edit both makefiles to reflect above paths
+#  9) open terminal, go to C code folder
+# 10) compile GSL-dependent code: mingw32-make -f Makefile
+# 11) move both compiled files like before
+# 12) edit path variables in both R files (discpowerexp.R & zeta.R)
+########################################################
 library("poweRlaw")
+
+source("src/pli/discexp.R")
+source("src/pli/disclnorm.R")
+source("src/pli/discpowerexp.R")
+source("src/pli/discweib.R")
+source("src/pli/exp.R")								# continuous distribution >> not needed
+source("src/pli/lnorm.R")							# continuous distribution >> not needed
+source("src/pli/pareto.R")							# continuous distribution >> not needed
+source("src/pli/poisson.R")
+source("src/pli/powerexp.R")						# continuous distribution >> not needed
+source("src/pli/powerexp-exponential-integral.R")	# continuous distribution >> not needed
+source("src/pli/power-law-test.R")
+source("src/pli/weibull.R")							# continuous distribution >> not needed
+source("src/pli/yule.R")
+source("src/pli/zeta.R")
 
 
 
@@ -27,6 +58,8 @@ C_WEIB_CLR <- "Weibull_cmp_LR"; C_DISTR <- c(C_DISTR, C_WEIB_CLR)
 C_WEIB_CPVAL <- "Weibull_cmp_pval"; C_DISTR <- c(C_DISTR, C_WEIB_CPVAL)
 C_TRUNC_CLR <- "TruncPL_cmp_LR"; C_DISTR <- c(C_DISTR, C_TRUNC_CLR)
 C_TRUNC_CPVAL <- "TruncPL_cmp_pval"; C_DISTR <- c(C_DISTR, C_TRUNC_CPVAL)
+C_YUSIM_CLR <- "YuleSimon_cmp_LR"; C_DISTR <- c(C_DISTR, C_YUSIM_CLR)
+C_YUSIM_CPVAL <- "YuleSimon_cmp_pval"; C_DISTR <- c(C_DISTR, C_YUSIM_CPVAL)
 C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 
 
@@ -46,21 +79,19 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 {	tlog(0,"Test data distribution")
 	cols <- c(
 		C_PL_EXP, C_PL_PVAL, 
-		C_LNORM_PVAL, C_LNORM_CLR, C_LNORM_CPVAL, 
-		C_EXPO_PVAL, C_EXPO_CLR, C_EXPO_CPVAL,
-		C_WEIB_PVAL, C_WEIB_CLR, C_WEIB_CPVAL,
+		C_LNORM_CLR, C_LNORM_CPVAL, 
+		C_EXPO_CLR, C_EXPO_CPVAL,
+		C_WEIB_CLR, C_WEIB_CPVAL,
 		C_TRUNC_CLR, C_TRUNC_CPVAL 
 	)
 	tab <- rep(NA,length(cols))
 	names(tab) <- cols
 	
-	tlog(2,"Handling power law")
-	# create continuous power law distribution
-	power.law <- conpl$new(data)
-	# estimate parameters
-	est <- estimate_xmin(power.law)
+	################## continuous power law
+	tlog(2,"Handling continuous power law")
+	power.law <- conpl$new(data)		# create the model
+	est <- estimate_xmin(power.law)		# estimate parameters
 	power.law$setXmin(est)
-#	print(est)
 	# plot model
 	# possibly plot model
 	if(!is.na(plot.file))
@@ -84,21 +115,21 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(power.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="BLUE", lwd=2)
 	}
-	# bootstrap test
-	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)
-	# display results
+	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
 	tab[C_PL_EXP] <- power.law$pars
 	tab[C_PL_PVAL] <- pl.bs$p
+	# alternative, with library pli
+	power.law2 <- pareto.fit(data=data, threshold=power.law$xmin, method="ml")
+	tlog(4,"Alt. exp=",power.law2$exponent)
 	
-	tlog(2,"Handling log-normal law")
-	# create continuous log-normal law
-	log.normal <- conlnorm$new(data)
-	# estimate parameters
-	est <- estimate_xmin(log.normal)
-	log.normal$setXmin(est)
-#	print(est)
+	################## continuous log-normal law
+	tlog(2,"Handling continuous log-normal law")
+	log.normal <- conlnorm$new(data)		# create the model
+	log.normal$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(log.normal)		# estimate parameters
+	log.normal$setPars(est)
 	# possibly plot model
 	if(!is.na(plot.file))
 	{	# pdf
@@ -108,19 +139,21 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(log.normal, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="GREEN", lwd=2)
 	}
-	# bootstrap test
-	ln.bs <- bootstrap_p(log.normal, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for log-normal law: ",ln.bs$p)
-	tab[C_LNORM_PVAL] <- ln.bs$p
+	comp.ln <- compare_distributions(power.law, log.normal)
+	tlog(4,"Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided)
+	tab[C_LNORM_CLR] <- comp.ln$test_statistic
+	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	# alternative, with library pli
+	log.normal2 <- lnorm.fit(x=data, threshold=power.law$xmin)
+	comp.ln2 <- vuong(pareto.lnorm.llr(x=data, pareto.d=power.law2, lnorm.d=log.normal2))
+	tlog(4,"Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided)
 	
-	tlog(2,"Handling exponential law")
-	# create exponential law
-	exp.law <- conexp$new(data)
-	# estimate parameters
-	est <- estimate_xmin(exp.law)
-	exp.law$setXmin(est)
-#	print(est)
+	################## continuous exponential law
+	tlog(2,"Handling continuous exponential law")
+	exp.law <- conexp$new(data)				# create the model
+	exp.law$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(exp.law)			# estimate parameters
+	exp.law$setPars(est)
 	# possibly plot model
 	if(!is.na(plot.file))
 	{	# pdf
@@ -130,19 +163,21 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(exp.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="ORANGE", lwd=2)
 	}
-	# bootstrap test
-	el.bs <- bootstrap_p(exp.law, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for exponential law: ",el.bs$p)
-	tab[C_EXPO_PVAL] <- el.bs$p
+	comp.el <- compare_distributions(power.law, exp.law)
+	tlog(4,"Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided)
+	tab[C_EXPO_CLR] <- comp.el$test_statistic
+	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
+	# alternative, with library pli
+	exp.law2 <- exp.fit(x=data, threshold=power.law$xmin)
+	comp.el2 <- vuong(pareto.exp.llr(x=data, pareto.d=power.law2, exp.d=exp.law2))
+	tlog(4,"Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided)
 	
-	tlog(2,"Handling Weibull law (sometimes called stretched exponential)") # 
-	# create weibull law
-	weib.law <- conweibull$new(data)
-	# estimate parameters
-	est <- estimate_xmin(weib.law)
-	weib.law$setXmin(est)
-#	print(est)
+	################## continuous weibull distribution
+	tlog(2,"Handling continuous Weibull law (sometimes called stretched exponential)") # 
+	weib.law <- conweibull$new(data)		# create the model
+	weib.law$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(weib.law)			# estimate parameters
+	weib.law$setPars(est)
 	# possibly plot model
 	if(!is.na(plot.file))
 	{	# pdf
@@ -152,66 +187,32 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(weib.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="PURPLE", lwd=2)
 	}
-	# bootstrap test
-	weib.bs <- bootstrap_p(weib.law, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for Weibull law: ",weib.bs$p)
-	tab[C_WEIB_PVAL] <- weib.bs$p
+	weib.el <- compare_distributions(power.law, weib.law)
+	tlog(4,"Test statistic: ",weib.el$test_statistic, " p-value: ", weib.el$p_two_sided)
+	tab[C_WEIB_CLR] <- weib.el$test_statistic
+	tab[C_WEIB_CPVAL] <- weib.el$p_two_sided
+	# alternative, with library pli
+	weib.law2 <- weibull.fit(x=data, threshold=power.law$xmin)
+	weib.el2 <- vuong(pareto.weibull.llr(x=data, pareto.d=power.law2, weibull.d=weib.law2))
+	tlog(4,"Alt. Test statistic: ",weib.el2$loglike.ratio, " p-value: ", weib.el2$p.two.sided)
+	
+	################## continuous truncated power law
+	tlog(2,"Handling continuous truncated power law")
+	# using Python
+#	tmp <- test_pl_expcutoff(data, discrete=FALSE)
+#	tab[C_TRUNC_CLR] <- tmp$stat
+#	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+	if(!is.na(plot.file))					# possibly plot model
+	{	# TODO
+	}
+	# only possibility is library pli
+	trunc.law2 <- powerexp.fit(data=data,threshold=power.law$xmin)
+	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+	tlog(4,"Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value)
+	tab[C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+	tab[C_TRUNC_CPVAL] <- comp.tl2$p_value
 	
 	################
-	
-	# compare power and log-normal laws
-	tlog(2,"Comparing power and log-normal laws")
-	log.normal$setXmin(power.law$getXmin())
-	est <- estimate_pars(log.normal)
-	log.normal$setPars(est)
-	comp.ln <- compare_distributions(power.law, log.normal)
-#	print(comp.ln)
-	tlog(4,"Test statistic: ",comp.ln$test_statistic)
-	tlog(6,"p-values: ",comp.ln$p_one_sided,", ",comp.ln$p_two_sided)
-	tab[C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
-	comp.ln <- compare_distributions(log.normal, power.law)
-#	print(comp.ln)
-	tlog(4,"Test statistic (reverse order): ",comp.ln$test_statistic)
-	tlog(6,"p-values: ",comp.ln$p_one_sided,", ",comp.ln$p_two_sided)
-	
-	# compare power and exponential laws
-	tlog(2,"Comparing power and exponential laws")
-	exp.law$setXmin(power.law$getXmin())
-	est <- estimate_pars(exp.law)
-	exp.law$setPars(est)
-	comp.el <- compare_distributions(power.law, exp.law)
-#	print(comp.el)
-	tlog(4,"Test statistic: ",comp.el$test_statistic)
-	tlog(6,"p-values: ",comp.el$p_one_sided,", ",comp.el$p_two_sided)
-	tab[C_EXPO_CLR] <- comp.el$test_statistic
-	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
-	comp.el <- compare_distributions(exp.law, power.law)
-#	print(comp.el)
-	tlog(4,"Test statistic (reverse order): ",comp.el$test_statistic)
-	tlog(6,"p-values: ",comp.el$p_one_sided,", ",comp.el$p_two_sided)
-	
-	# compare power and Weibull laws
-	tlog(2,"Comparing power and Weibull laws")
-	weib.law$setXmin(power.law$getXmin())
-	est <- estimate_pars(weib.law)
-	weib.law$setPars(est)
-	comp.wl <- compare_distributions(power.law, weib.law)
-#	print(comp.wl)
-	tlog(4,"Test statistic: ",comp.wl$test_statistic)
-	tlog(6,"p-values: ",comp.wl$p_one_sided,", ",comp.wl$p_two_sided)
-	tab[C_WEIB_CLR] <- comp.wl$test_statistic
-	tab[C_WEIB_CPVAL] <- comp.wl$p_two_sided
-	comp.wl <- compare_distributions(weib.law, power.law)
-#	print(comp.wl)
-	tlog(4,"Test statistic (reverse order): ",comp.wl$test_statistic)
-	tlog(6,"p-values: ",comp.wl$p_one_sided,", ",comp.wl$p_two_sided)
-	
-	# compare power law and truncated power law
-	tmp <- test_pl_expcutoff(data)
-	tab[C_TRUNC_CLR] <- tmp$stat
-	tab[C_TRUNC_CPVAL] <- tmp$pvalue
 	
 	tlog(0,"-------------------------------")
 	tlog(0,"Interpretation of the distribution test:")
@@ -264,23 +265,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 {	tlog(0,"Test data distribution")
 	cols <- c(
 		C_PL_EXP, C_PL_PVAL, 
-		C_LNORM_PVAL, C_LNORM_CLR, C_LNORM_CPVAL, 
-		C_EXPO_PVAL, C_EXPO_CLR, C_EXPO_CPVAL, 
-		C_POIS_PVAL, C_POIS_CLR, C_POIS_CPVAL,
-		C_TRUNC_CLR, C_TRUNC_CPVAL
+		C_LNORM_CLR, C_LNORM_CPVAL, 
+		C_EXPO_CLR, C_EXPO_CPVAL, 
+		C_POIS_CLR, C_POIS_CPVAL,
+		C_WEIB_CLR, C_WEIB_CPVAL,
+		C_TRUNC_CLR, C_TRUNC_CPVAL,
+		C_YUSIM_CLR, C_YUSIM_CPVAL
 	)
 	tab <- rep(NA,length(cols))
 	names(tab) <- cols
 	
+	################## discrete power law
 	tlog(2,"Handling power law")
-	# create discrete power law distribution
-	power.law <- displ$new(data)
-	# estimate parameters
-	est <- estimate_xmin(power.law)
+	power.law <- displ$new(data)		# create the model
+	est <- estimate_xmin(power.law)		# estimate parameters
 	power.law$setXmin(est)
-#	print(est)
-	# possibly plot model
-	if(!is.na(plot.file))
+	if(!is.na(plot.file))				# possibly plot model
 	{	# pdf
 		plot.file <- paste0(plot.file,".pdf")
 		pdf(plot.file, width=15, height=15)
@@ -301,23 +301,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(power.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="BLUE", lwd=2)
 	}
-	# bootstrap test
-	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)
-	# display results
+	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
 	tab[C_PL_EXP] <- power.law$pars
 	tab[C_PL_PVAL] <- pl.bs$p
+	# alternative, with library pli
+	power.law2 <- zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct")
+	tlog(4,"Alt. exp=",power.law2$exponent)
 	
+	################## discrete log-normal law
 	tlog(2,"Handling log-normal law")
-	# create discrete log-normal law
-	log.normal <- dislnorm$new(data)
-	# estimate parameters
-	est <- estimate_xmin(log.normal)
-	log.normal$setXmin(est)
-#	print(est)
-	# possibly plot model
-	if(!is.na(plot.file))
+	log.normal <- dislnorm$new(data)		# create the model
+	log.normal$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(log.normal)		# estimate parameters
+	log.normal$setPars(est)
+	if(!is.na(plot.file))					# possibly plot model
 	{	# pdf
 		lines(log.normal, col="GREEN", lwd=2)
 #		# ccdf
@@ -325,21 +324,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(log.normal, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="GREEN", lwd=2)
 	}
-	# bootstrap test
-	ln.bs <- bootstrap_p(log.normal, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for log-normal law: ",ln.bs$p)
-	tab[C_LNORM_PVAL] <- ln.bs$p
+	comp.ln <- compare_distributions(power.law, log.normal)
+	tlog(4,"Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided)
+	tab[C_LNORM_CLR] <- comp.ln$test_statistic
+	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	# alternative, with library pli
+	log.normal2 <- fit.lnorm.disc(x=data, threshold=power.law$xmin)
+	comp.ln2 <- vuong(zeta.lnorm.llr(x=data, zeta.d=power.law2, lnorm.d=log.normal2))
+	tlog(4,"Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided)
 	
+	################## discrete exponential law
 	tlog(2,"Handling discrete exponential law")
-	# create discrete exponential law
-	exp.law <- disexp$new(data)
-	# estimate parameters
-	est <- estimate_xmin(exp.law)
-	exp.law$setXmin(est)
-#	print(est)
-	# possibly plot model
-	if(!is.na(plot.file))
+	exp.law <- disexp$new(data)				# create the model
+	exp.law$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(exp.law)			# estimate parameters
+	exp.law$setPars(est)
+	if(!is.na(plot.file))					# possibly plot model
 	{	# pdf
 		lines(exp.law, col="ORANGE", lwd=2)
 #		# ccdf
@@ -347,21 +347,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(exp.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="ORANGE", lwd=2)
 	}
-	# bootstrap test
-	el.bs <- bootstrap_p(exp.law, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for exponential law: ",el.bs$p)
-	tab[C_EXPO_PVAL] <- el.bs$p
+	comp.el <- compare_distributions(power.law, exp.law)
+	tlog(4,"Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided)
+	tab[C_EXPO_CLR] <- comp.el$test_statistic
+	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
+	# alternative, with library pli
+	exp.law2 <- discexp.fit(x=data, threshold=power.law$xmin)
+	comp.el2 <- vuong(zeta.exp.llr(x=data, zeta.d=power.law2, exp.d=exp.law2))
+	tlog(4,"Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided)
 	
+	################## poisson law
 	tlog(2,"Handling Poisson law")
-	# create poisson law
-	pois.law <- dispois$new(data)
-	# estimate parameters
-	est <- estimate_xmin(pois.law)
-	pois.law$setXmin(est)
-#	print(est)
-	# possibly plot model
-	if(!is.na(plot.file))
+	pois.law <- dispois$new(data)			# create model
+	pois.law$setXmin(power.law$getXmin())	# set min x based on power law
+	est <- estimate_pars(pois.law)			# estimate parameters
+	pois.law$setPars(est)
+	if(!is.na(plot.file))					# possibly plot model
 	{	# pdf
 		lines(pois.law, col="PURPLE", lwd=2)
 #		# ccdf
@@ -369,66 +370,56 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 #		y <- 1 - c(0, dist_cdf(pois.law, x[-length(x)]))
 #		lines(x[-length(x)], y[-length(y)], col="PURPLE", lwd=2)
 	}
-	# bootstrap test
-	pois.bs <- bootstrap_p(pois.law, no_of_sims=sims, threads=8)
-	# display results
-	tlog(4,"p-value for exponential law: ",pois.bs$p)
-	tab[C_POIS_PVAL] <- pois.bs$p
-	
-	################
-	
-	# compare power and log-normal laws
-	tlog(2,"Comparing power and log-normal laws")
-	log.normal$setXmin(power.law$getXmin())
-	est <- estimate_pars(log.normal)
-	log.normal$setPars(est)
-	comp.ln <- compare_distributions(power.law, log.normal)
-#	print(comp.ln)
-	tlog(4,"Test statistic: ",comp.ln$test_statistic)
-	tlog(6,"p-values: ",comp.ln$p_one_sided,", ",comp.ln$p_two_sided)
-	tab[C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
-	comp.ln <- compare_distributions(log.normal, power.law)
-#	print(comp.ln)
-	tlog(4,"Test statistic (reverse order): ",comp.ln$test_statistic)
-	tlog(6,"p-values: ",comp.ln$p_one_sided,", ",comp.ln$p_two_sided)
-	
-	# compare power and exponential laws
-	tlog(2,"Comparing power and exponential laws")
-	exp.law$setXmin(power.law$getXmin())
-	est <- estimate_pars(exp.law)
-	exp.law$setPars(est)
-	comp.el <- compare_distributions(power.law, exp.law)
-#	print(comp.el)
-	tlog(4,"Test statistic: ",comp.el$test_statistic)
-	tlog(6,"p-values: ",comp.el$p_one_sided,", ",comp.el$p_two_sided)
-	tab[C_EXPO_CLR] <- comp.el$test_statistic
-	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
-	comp.el <- compare_distributions(exp.law, power.law)
-#	print(comp.el)
-	tlog(4,"Test statistic (reverse order): ",comp.el$test_statistic)
-	tlog(6,"p-values: ",comp.el$p_one_sided,", ",comp.el$p_two_sided)
-	
-	# compare power and poisson laws
-	tlog(2,"Comparing power and poisson laws")
-	pois.law$setXmin(power.law$getXmin())
-	est <- estimate_pars(pois.law)
-	pois.law$setPars(est)
 	comp.pl <- compare_distributions(power.law, pois.law)
-#	print(comp.pl)
-	tlog(4,"Test statistic: ",comp.pl$test_statistic)
-	tlog(6,"p-values: ",comp.pl$p_one_sided,", ",comp.pl$p_two_sided)
+	tlog(4,"Test statistic: ",comp.pl$test_statistic, " p-value: ", comp.pl$p_two_sided)
 	tab[C_POIS_CLR] <- comp.pl$test_statistic
 	tab[C_POIS_CPVAL] <- comp.pl$p_two_sided
-	comp.pl <- compare_distributions(pois.law, power.law)
-#	print(comp.pl)
-	tlog(4,"Test statistic (reverse order): ",comp.pl$test_statistic)
-	tlog(6,"p-values: ",comp.pl$p_one_sided,", ",comp.pl$p_two_sided)
+	# alternative, with library pli
+	pois.law2 <- pois.tail.fit(x=data, threshold=power.law$xmin)
+	comp.pl2 <- vuong(zeta.poisson.llr(x=data, zeta.d=power.law2, pois.d=pois.law2))
+	tlog(4,"Alt. Test statistic: ",comp.pl2$loglike.ratio, " p-value: ", comp.pl2$p.two.sided)
 	
-	# compare power law and truncated power law
-	tmp <- test_pl_expcutoff(data)
-	tab[C_TRUNC_CLR] <- tmp$stat
-	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+	################## discrete weibull distribution
+	tlog(2,"Handling discrete Weibull law")
+	if(!is.na(plot.file))					# possibly plot model
+	{	# TODO
+	}
+	# only possibility is library pli
+	weib.law2 <- discweib.fit(x=data, threshold=power.law$xmin)
+	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
+	tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
+	tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
+	tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+	
+	################## discrete truncated power law
+	tlog(2,"Handling discrete truncated power law")
+	# using Python
+#	tmp <- test_pl_expcutoff(data, discrete=TRUE)
+#	tab[C_TRUNC_CLR] <- tmp$stat
+#	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+	if(!is.na(plot.file))					# possibly plot model
+	{	# TODO
+	}
+	# only possibility is library pli
+	trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
+	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+	tlog(4,"Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value)
+	tab[C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+	tab[C_TRUNC_CPVAL] <- comp.tl2$p_value
+	
+	################## yule-simon distribution
+	tlog(2,"Handling Yule-Simon distribution")
+	if(!is.na(plot.file))					# possibly plot model
+	{	# TODO
+	}
+	# only possibility is library pli
+	yusim.law2 <- yule.fit(x=data, threshold=power.law$xmin)
+	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
+	tlog(4,"Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided)
+	tab[C_TRUNC_CLR] <- comp.ys2$loglike.ratio
+	tab[C_TRUNC_CPVAL] <- comp.ys2$p.two.sided
+	
+	################
 	
 	tlog(0,"-------------------------------")
 	tlog(0,"Interpretation of the distribution test:")
@@ -471,10 +462,11 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 # not supported by the R library poweRlaw.
 #
 # data: data to test.
+# discrete: whether the data is discrete (TRUE) or continuous (FALSE).
 #
-# returns: ????????????????????????
+# returns: stat and p-value.
 #############################################################################################
-test_pl_expcutoff <- function(data)
+test_pl_expcutoff <- function(data, discrete=TRUE)
 {	tlog(2,"Handling power law within the Python library")
 	
 	# import necessary tools
@@ -482,7 +474,7 @@ test_pl_expcutoff <- function(data)
 	pl <- import("powerlaw")
 	
 	# fit power law (and other distributions)
-	fit = pl$Fit(deg, discrete=TRUE)
+	fit = pl$Fit(data, discrete=discrete)
 	# display results
 	tlog(4,"Parameters: x_min=",fit$truncated_power_law$xmin," exp=",fit$truncated_power_law$alpha)
 	

@@ -61,8 +61,7 @@ PLOT_FORMAT <- c(
 
 source("src/common/logging.R")
 source("src/common/colors.R")
-source("src/common/distr_test_pli.R")
-#source("src/common/distr_test_poweRlaw.R")
+source("src/common/distr_test.R")
 source("src/common/graph_misc.R")
 source("src/common/graph_rewiring.R")
 source("src/common/stats.R")
