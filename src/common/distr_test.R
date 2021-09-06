@@ -418,8 +418,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	yusim.law2 <- yule.fit(x=data, threshold=power.law$xmin)
 	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
 	tlog(4,"Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided)
-	tab[C_TRUNC_CLR] <- comp.ys2$loglike.ratio
-	tab[C_TRUNC_CPVAL] <- comp.ys2$p.two.sided
+	tab[C_YUSIM_CLR] <- comp.ys2$loglike.ratio
+	tab[C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
 	
 	################
 	
@@ -563,11 +563,11 @@ make.decision.distr <- function(tab, threshold=0.01)
 	power <- tab[C_PL_PVAL] > threshold
 	truncated <- tab[C_TRUNC_CPVAL]<threshold && tab[C_TRUNC_CLR]<0
 	# other functions
-	poisson <- tab[C_POIS_CPVAL]<threshold && tab[C_POIS_CLR]<0 && tab[C_POIS_CLR]<tab[C_TRUNC_CLR] 
-	lognormal <- tab[C_LNORM_CPVAL]<threshold && tab[C_LNORM_CLR]<0 && tab[C_LNORM_CLR]<tab[C_TRUNC_CLR] 
-	exponential <- tab[C_EXPO_CPVAL]<threshold && tab[C_EXPO_CLR]<0 && tab[C_EXPO_CLR]<tab[C_TRUNC_CLR] 
-	weibull <- tab[C_WEIB_CPVAL]<threshold && tab[C_WEIB_CLR]<0 && tab[C_WEIB_CLR]<tab[C_TRUNC_CLR] 
-	yule.simon <- tab[C_YUSIM_CPVAL]<threshold && tab[C_YUSIM_CLR]<0 && tab[C_YUSIM_CLR]<tab[C_TRUNC_CLR]
+	poisson <- !is.na(tab[C_POIS_CPVAL]) && tab[C_POIS_CPVAL]<threshold && !is.na(tab[C_POIS_CLR]) && tab[C_POIS_CLR]<0 && tab[C_POIS_CLR]<tab[C_TRUNC_CLR] 
+	lognormal <- !is.na(tab[C_LNORM_CPVAL]) && tab[C_LNORM_CPVAL]<threshold && !is.na(tab[C_LNORM_CLR]) && tab[C_LNORM_CLR]<0 && tab[C_LNORM_CLR]<tab[C_TRUNC_CLR] 
+	exponential <- !is.na(tab[C_EXPO_CPVAL]) && tab[C_EXPO_CPVAL]<threshold && !is.na(tab[C_EXPO_CLR]) && tab[C_EXPO_CLR]<0 && tab[C_EXPO_CLR]<tab[C_TRUNC_CLR] 
+	weibull <- !is.na(tab[C_WEIB_CPVAL]) && tab[C_WEIB_CPVAL]<threshold && !is.na(tab[C_WEIB_CLR]) && tab[C_WEIB_CLR]<0 && tab[C_WEIB_CLR]<tab[C_TRUNC_CLR] 
+	yule.simon <- !is.na(tab[C_YUSIM_CPVAL]) && tab[C_YUSIM_CPVAL]<threshold && !is.na(tab[C_YUSIM_CLR]) && tab[C_YUSIM_CLR]<0 && tab[C_YUSIM_CLR]<tab[C_TRUNC_CLR]
 	
 	if(power)
 	{	if(poisson || lognormal || exponential || weibull || yule.simon)
