@@ -113,7 +113,7 @@ randomize.network <- function(g, iterations)
 	n <- vcount(g)
 	m <- ecount(g)
 	iter <- m*iterations
-	comp.nb <- no.clusters(graph=g) # complexity=O(m+n) cf igraph C source code comments
+	comp.nb <- no.clusters(graph=g)
 	# maximal number of rewiring attempts per iteration
 	max.attempts <- max(5,round(n*m/(n*(n-1.0))))
 	# actual number of successful rewirings
@@ -147,8 +147,7 @@ randomize.network <- function(g, iterations)
 				
 				# check if some of the 2 new links already exist
 				if(!are.connected(g,a,d) & !are.connected(g,c,b))
-				{	
-					# check if the rewiring is going to split the network
+				{	# check if the rewiring is going to split the network
 					rewire <- !is.splitting.network(g,comp.nb,a,b,c,d)
 					if(rewire)
 					{	g <- delete.edges(graph=g, edges=es)

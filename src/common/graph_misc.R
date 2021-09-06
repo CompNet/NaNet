@@ -107,7 +107,7 @@ reverse.weights <- function(w)
 #
 # returns: vector of of named values.
 #############################################################################################
-compute.smallworldness <- function(g, theoretical=FALSE, iterations)
+compute.smallworldness <- function(g, theoretical=FALSE, iterations=10)
 {	res <- c()
 	
 	# compute topological measuers on the original graph
@@ -130,10 +130,30 @@ compute.smallworldness <- function(g, theoretical=FALSE, iterations)
 		g_r <- randomize.network(g, iterations)
 		l_r <- mean_distance(graph=g_r)
 		c_r <- transitivity(graph=g_r, type="localaverage", weights=NA, isolates="zero")
+		
 		# latticed graph
-		g_l <- latticize.network(g, iterations)
+		tolerance <- 0.005
+		i <- 0
+		c_l <- 0
+		go.on <- TRUE
+		g2 <- g
+		# we may perform several attempts to improve transitivity
+		while(i<3 || go.on)
+		{	# latticize the network (the more iterations, the closer to a lattice)
+			g2 <- latticize.network(g=g2, iterations)
+			
+			# compute transitivity
+			cur.res <- transitivity(graph=g_l, type="localaverage", weights=NA, isolates="zero")
+			# compare with current best 
+			go.on <- cur.res-c_l > tolerance
+			if(cur.res>c_l)
+			{	c_l <- cur.res
+				g_l <- g2
+			}
+			tlog(6,"i=",i," current=",cur.res," best=",c_l,"\n",sep="")
+			i <- i + 1
+		}
 		l_l <- mean_distance(graph=g_l)
-		c_l <- transitivity(graph=g_l, type="localaverage", weights=NA, isolates="zero")
 	}
 	
 	# sigma measure
@@ -149,9 +169,9 @@ compute.smallworldness <- function(g, theoretical=FALSE, iterations)
 	res["swi_c"] <- (c-c_r)/(c_l-c_r)
 	res["swi"] <- res["swi_l"] * res["swi_c"]
 	# phi measure
-	res["Phi_c"] <- (c_l-c)/(c_l-c_r)
-	res["Phi_l"] <- (l-l_r)/(l_l-l_r)
+	res["Phi_c"] <- min(1,max(0,(c_l-c)/(c_l-c_r)))
+	res["Phi_l"] <- min(1,max(0,(l-l_r)/(l_l-l_r)))
 	res["Phi"] <- 1 - sqrt((res["Phi_l"]^2 + res["Phi_c"]^2)/2)
-
+	
 	return(res)
 }
