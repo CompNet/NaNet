@@ -387,11 +387,18 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	{	# TODO
 	}
 	# only possibility is library pli
-	weib.law2 <- discweib.fit(x=data, threshold=power.law$xmin)
-	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
-	tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
-	tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
-	tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+	weib.law2 <- tryCatch(
+					{discweib.fit(x=data, threshold=power.law$xmin)},
+					error=function(e) NA
+				)
+	if(!is.na(weib.law2))
+	{	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
+		tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
+		tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
+		tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+	}
+	else
+		tlog(4,"ERROR: could not fit the Weibull law")
 	
 	################## discrete truncated power law
 	tlog(2,"Handling discrete truncated power law")
