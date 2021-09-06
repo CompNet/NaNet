@@ -5,8 +5,8 @@
 #############################################################################################
 # Installation of pli: The C code must be compiled. 
 # On a Windows system:
-#  1) download install MinGW and MSYS (using installer)
-#  2) add to path (D:\MinGW\bin, D:\MinGW\msys\1.0\bin)
+#  1) download and install MinGW and MSYS using the installer https://sourceforge.net/projects/mingw/files/Installer/
+#  2) add to path (C:\MinGW\bin, C:\MinGW\msys\1.0\bin)
 #  3) open terminal, go to C code folder
 #  4) compile simple C file: gcc discpowerexp.c -o discpowerexp.exe
 #  5) move resulting file to res/pli folder
@@ -18,6 +18,8 @@
 # 10) compile GSL-dependent code: mingw32-make -f Makefile
 # 11) move both compiled files like before
 # 12) edit path variables in both R files (discpowerexp.R & zeta.R)
+#
+# Sys.getenv("PATH")
 ########################################################
 library("poweRlaw")
 
@@ -385,11 +387,18 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	{	# TODO
 	}
 	# only possibility is library pli
-	weib.law2 <- discweib.fit(x=data, threshold=power.law$xmin)
-	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
-	tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
-	tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
-	tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+	weib.law2 <- tryCatch(
+					{discweib.fit(x=data, threshold=power.law$xmin)},
+					error=function(e) NA
+				)
+	if(!is.na(weib.law2))
+	{	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
+		tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
+		tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
+		tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+	}
+	else
+		tlog(4,"ERROR: could not fit the Weibull law")
 	
 	################## discrete truncated power law
 	tlog(2,"Handling discrete truncated power law")
@@ -416,8 +425,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	yusim.law2 <- yule.fit(x=data, threshold=power.law$xmin)
 	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
 	tlog(4,"Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided)
-	tab[C_TRUNC_CLR] <- comp.ys2$loglike.ratio
-	tab[C_TRUNC_CPVAL] <- comp.ys2$p.two.sided
+	tab[C_YUSIM_CLR] <- comp.ys2$loglike.ratio
+	tab[C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
 	
 	################
 	
@@ -509,50 +518,80 @@ test_pl_expcutoff <- function(data, discrete=TRUE)
 #
 # returns: string representing the final decision.
 #############################################################################################
+#make.decision.distr <- function(tab, threshold=0.01)
+#{	# determine which distribution fits better than the power law
+#	indist <- c()
+#	better <- c()
+#	if(C_POIS_PVAL %in% names(tab))
+#	{	if(tab[C_POIS_CPVAL]<threshold)
+#		{	if(tab[C_POIS_CLR]<0)
+#				better <- c(better, "Poisson")
+#		}
+#		else
+#			indist <- c(indist, "Poisson")
+#	}
+#	if(C_LNORM_PVAL %in% names(tab))
+#	{	if(tab[C_LNORM_CPVAL]<threshold)
+#		{	if(tab[C_LNORM_CLR]<0)
+#				better <- c(better, "LogNormal")
+#		}
+#		else
+#			indist <- c(indist, "LogNormal")
+#	}
+#	if(C_EXPO_PVAL %in% names(tab))
+#	{	if(tab[C_EXPO_CPVAL]<threshold)
+#		{	if(tab[C_EXPO_CLR]<0)
+#				better <- c(better, "Exponential")
+#		}
+#		else
+#			indist <- c(indist, "Exponential")
+#	}
+#	if(C_WEIB_PVAL %in% names(tab))
+#	{	if(tab[C_WEIB_CPVAL]<threshold)
+#		{	if(tab[C_WEIB_CLR]<0)
+#				better <- c(better, "Weibull")
+#		}
+#		else
+#			indist <- c(indist, "Weibull")
+#	}
+#	
+#	# build result string
+#	if(length(better)>0)
+#		res <- paste(better, collapse=", ")
+#	else
+#	{	if(tab[C_PL_PVAL] > threshold)
+#			indist <- c("PowerLaw", indist)
+#		res <- paste(indist, collapse=", ")
+#	}
+#	return(res)
+#}
 make.decision.distr <- function(tab, threshold=0.01)
-{	# determine which distribution fits better than the power law
-	indist <- c()
-	better <- c()
-	if(C_POIS_PVAL %in% names(tab))
-	{	if(tab[C_POIS_CPVAL]<threshold)
-		{	if(tab[C_POIS_CLR]<0)
-				better <- c(better, "Poisson")
-		}
+{	# power laws
+	power <- tab[C_PL_PVAL] > threshold
+	truncated <- tab[C_TRUNC_CPVAL]<threshold && tab[C_TRUNC_CLR]<0
+	# other functions
+	poisson <- !is.na(tab[C_POIS_CPVAL]) && tab[C_POIS_CPVAL]<threshold && !is.na(tab[C_POIS_CLR]) && tab[C_POIS_CLR]<0 && tab[C_POIS_CLR]<tab[C_TRUNC_CLR] 
+	lognormal <- !is.na(tab[C_LNORM_CPVAL]) && tab[C_LNORM_CPVAL]<threshold && !is.na(tab[C_LNORM_CLR]) && tab[C_LNORM_CLR]<0 && tab[C_LNORM_CLR]<tab[C_TRUNC_CLR] 
+	exponential <- !is.na(tab[C_EXPO_CPVAL]) && tab[C_EXPO_CPVAL]<threshold && !is.na(tab[C_EXPO_CLR]) && tab[C_EXPO_CLR]<0 && tab[C_EXPO_CLR]<tab[C_TRUNC_CLR] 
+	weibull <- !is.na(tab[C_WEIB_CPVAL]) && tab[C_WEIB_CPVAL]<threshold && !is.na(tab[C_WEIB_CLR]) && tab[C_WEIB_CLR]<0 && tab[C_WEIB_CLR]<tab[C_TRUNC_CLR] 
+	yule.simon <- !is.na(tab[C_YUSIM_CPVAL]) && tab[C_YUSIM_CPVAL]<threshold && !is.na(tab[C_YUSIM_CLR]) && tab[C_YUSIM_CLR]<0 && tab[C_YUSIM_CLR]<tab[C_TRUNC_CLR]
+	
+	if(power)
+	{	if(poisson || lognormal || exponential || weibull || yule.simon)
+			res <- "Moderate"
+		else if(truncated)
+			res <- "Truncated"
 		else
-			indist <- c(indist, "Poisson")
+			res <- "Good"
 	}
-	if(C_LNORM_PVAL %in% names(tab))
-	{	if(tab[C_LNORM_CPVAL]<threshold)
-		{	if(tab[C_LNORM_CLR]<0)
-				better <- c(better, "LogNormal")
-		}
+	else
+	{	if(poisson || lognormal || exponential || weibull || yule.simon)
+			res <- "None"
+		else if(truncated)
+			res <- "Truncated"
 		else
-			indist <- c(indist, "LogNormal")
-	}
-	if(C_EXPO_PVAL %in% names(tab))
-	{	if(tab[C_EXPO_CPVAL]<threshold)
-		{	if(tab[C_EXPO_CLR]<0)
-				better <- c(better, "Exponential")
-		}
-		else
-			indist <- c(indist, "Exponential")
-	}
-	if(C_WEIB_PVAL %in% names(tab))
-	{	if(tab[C_WEIB_CPVAL]<threshold)
-		{	if(tab[C_WEIB_CLR]<0)
-				better <- c(better, "Weibull")
-		}
-		else
-			indist <- c(indist, "Weibull")
+			res <- "No fit"
 	}
 	
-	# build result string
-	if(length(better)>0)
-		res <- paste(better, collapse=", ")
-	else
-	{	if(tab[C_PL_PVAL] > threshold)
-			indist <- c("PowerLaw", indist)
-		res <- paste(indist, collapse=", ")
-	}
 	return(res)
 }
