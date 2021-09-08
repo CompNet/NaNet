@@ -34,3 +34,7 @@ install.packages("poweRlaw")
 
 # strings
 install.packages("stringr")
+
+# various fast functions (including binary search)
+#install.packages("Rfast") # not used
+install.packages("data.table")

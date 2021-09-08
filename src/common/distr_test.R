@@ -79,15 +79,8 @@ C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 #############################################################################################
 test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 {	tlog(0,"Test data distribution")
-	cols <- c(
-		C_PL_EXP, C_PL_PVAL, 
-		C_LNORM_CLR, C_LNORM_CPVAL, 
-		C_EXPO_CLR, C_EXPO_CPVAL,
-		C_WEIB_CLR, C_WEIB_CPVAL,
-		C_TRUNC_CLR, C_TRUNC_CPVAL 
-	)
-	tab <- rep(NA,length(cols))
-	names(tab) <- cols
+	tab <- data.frame(matrix(NA, nrow=1, ncol=length(C_DISTR), dimnames=list(c(), C_DISTR)), 
+			stringsAsFactors=FALSE)
 	
 	################## continuous power law
 	tlog(2,"Handling continuous power law")
@@ -120,8 +113,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
-	tab[C_PL_EXP] <- power.law$pars
-	tab[C_PL_PVAL] <- pl.bs$p
+	tab[1,C_PL_EXP] <- power.law$pars
+	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
 	power.law2 <- pareto.fit(data=data, threshold=power.law$xmin, method="ml")
 	tlog(4,"Alt. exp=",power.law2$exponent)
@@ -143,8 +136,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	}
 	comp.ln <- compare_distributions(power.law, log.normal)
 	tlog(4,"Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided)
-	tab[C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
+	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
 	# alternative, with library pli
 	log.normal2 <- lnorm.fit(x=data, threshold=power.law$xmin)
 	comp.ln2 <- vuong(pareto.lnorm.llr(x=data, pareto.d=power.law2, lnorm.d=log.normal2))
@@ -167,8 +160,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	}
 	comp.el <- compare_distributions(power.law, exp.law)
 	tlog(4,"Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided)
-	tab[C_EXPO_CLR] <- comp.el$test_statistic
-	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
+	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
+	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
 	# alternative, with library pli
 	exp.law2 <- exp.fit(x=data, threshold=power.law$xmin)
 	comp.el2 <- vuong(pareto.exp.llr(x=data, pareto.d=power.law2, exp.d=exp.law2))
@@ -191,8 +184,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	}
 	weib.el <- compare_distributions(power.law, weib.law)
 	tlog(4,"Test statistic: ",weib.el$test_statistic, " p-value: ", weib.el$p_two_sided)
-	tab[C_WEIB_CLR] <- weib.el$test_statistic
-	tab[C_WEIB_CPVAL] <- weib.el$p_two_sided
+	tab[1,C_WEIB_CLR] <- weib.el$test_statistic
+	tab[1,C_WEIB_CPVAL] <- weib.el$p_two_sided
 	# alternative, with library pli
 	weib.law2 <- weibull.fit(x=data, threshold=power.law$xmin)
 	weib.el2 <- vuong(pareto.weibull.llr(x=data, pareto.d=power.law2, weibull.d=weib.law2))
@@ -202,8 +195,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	tlog(2,"Handling continuous truncated power law")
 	# using Python
 #	tmp <- test_pl_expcutoff(data, discrete=FALSE)
-#	tab[C_TRUNC_CLR] <- tmp$stat
-#	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+#	tab[1,C_TRUNC_CLR] <- tmp$stat
+#	tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
 	if(!is.na(plot.file))					# possibly plot model
 	{	# TODO
 	}
@@ -211,8 +204,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	trunc.law2 <- powerexp.fit(data=data,threshold=power.law$xmin)
 	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 	tlog(4,"Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value)
-	tab[C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-	tab[C_TRUNC_CPVAL] <- comp.tl2$p_value
+	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+	tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
 	
 	################
 	
@@ -228,8 +221,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	
 	# draw conclusion
 	tlog(0,"-------------------------------")
-	tab[C_DECISION] <- make.decision.distr(tab, threshold=0.01)
-	tlog(2,"Conclusion: ", tab[C_DECISION])
+	tab[1,C_DECISION] <- make.decision.distr(tab, threshold=0.01)
+	tlog(2,"Conclusion: ", tab[1,C_DECISION])
 	tlog(0,"-------------------------------")
 	
 	# add legend to plot
@@ -265,17 +258,8 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #############################################################################################
 test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 {	tlog(0,"Test data distribution")
-	cols <- c(
-		C_PL_EXP, C_PL_PVAL, 
-		C_LNORM_CLR, C_LNORM_CPVAL, 
-		C_EXPO_CLR, C_EXPO_CPVAL, 
-		C_POIS_CLR, C_POIS_CPVAL,
-		C_WEIB_CLR, C_WEIB_CPVAL,
-		C_TRUNC_CLR, C_TRUNC_CPVAL,
-		C_YUSIM_CLR, C_YUSIM_CPVAL
-	)
-	tab <- rep(NA,length(cols))
-	names(tab) <- cols
+	tab <- data.frame(matrix(NA, nrow=1, ncol=length(C_DISTR), dimnames=list(c(), C_DISTR)), 
+			stringsAsFactors=FALSE)
 	
 	################## discrete power law
 	tlog(2,"Handling power law")
@@ -306,8 +290,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	tlog(4,"Parameters: x_min=",power.law$xmin," exp=",power.law$pars)
 	tlog(4,"p-value for power law: ",pl.bs$p)
-	tab[C_PL_EXP] <- power.law$pars
-	tab[C_PL_PVAL] <- pl.bs$p
+	tab[1,C_PL_EXP] <- power.law$pars
+	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
 	power.law2 <- zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct")
 	tlog(4,"Alt. exp=",power.law2$exponent)
@@ -328,8 +312,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	}
 	comp.ln <- compare_distributions(power.law, log.normal)
 	tlog(4,"Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided)
-	tab[C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
+	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
 	# alternative, with library pli
 	log.normal2 <- fit.lnorm.disc(x=data, threshold=power.law$xmin)
 	comp.ln2 <- vuong(zeta.lnorm.llr(x=data, zeta.d=power.law2, lnorm.d=log.normal2))
@@ -351,8 +335,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	}
 	comp.el <- compare_distributions(power.law, exp.law)
 	tlog(4,"Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided)
-	tab[C_EXPO_CLR] <- comp.el$test_statistic
-	tab[C_EXPO_CPVAL] <- comp.el$p_two_sided
+	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
+	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
 	# alternative, with library pli
 	exp.law2 <- discexp.fit(x=data, threshold=power.law$xmin)
 	comp.el2 <- vuong(zeta.exp.llr(x=data, zeta.d=power.law2, exp.d=exp.law2))
@@ -374,8 +358,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	}
 	comp.pl <- compare_distributions(power.law, pois.law)
 	tlog(4,"Test statistic: ",comp.pl$test_statistic, " p-value: ", comp.pl$p_two_sided)
-	tab[C_POIS_CLR] <- comp.pl$test_statistic
-	tab[C_POIS_CPVAL] <- comp.pl$p_two_sided
+	tab[1,C_POIS_CLR] <- comp.pl$test_statistic
+	tab[1,C_POIS_CPVAL] <- comp.pl$p_two_sided
 	# alternative, with library pli
 	pois.law2 <- pois.tail.fit(x=data, threshold=power.law$xmin)
 	comp.pl2 <- vuong(zeta.poisson.llr(x=data, zeta.d=power.law2, pois.d=pois.law2))
@@ -391,11 +375,11 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 					{discweib.fit(x=data, threshold=power.law$xmin)},
 					error=function(e) NA
 				)
-	if(!is.na(weib.law2))
+	if(!all(is.na(weib.law2)))
 	{	comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
 		tlog(4,"Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided)
-		tab[C_WEIB_CLR] <- comp.wl2$loglike.ratio
-		tab[C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+		tab[1,C_WEIB_CLR] <- comp.wl2$loglike.ratio
+		tab[1,C_WEIB_CPVAL] <- comp.wl2$p.two.sided
 	}
 	else
 		tlog(4,"ERROR: could not fit the Weibull law")
@@ -404,8 +388,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	tlog(2,"Handling discrete truncated power law")
 	# using Python
 #	tmp <- test_pl_expcutoff(data, discrete=TRUE)
-#	tab[C_TRUNC_CLR] <- tmp$stat
-#	tab[C_TRUNC_CPVAL] <- tmp$pvalue
+#	tab[1,C_TRUNC_CLR] <- tmp$stat
+#	tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
 	if(!is.na(plot.file))					# possibly plot model
 	{	# TODO
 	}
@@ -413,8 +397,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
 	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 	tlog(4,"Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value)
-	tab[C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-	tab[C_TRUNC_CPVAL] <- comp.tl2$p_value
+	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+	tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
 	
 	################## yule-simon distribution
 	tlog(2,"Handling Yule-Simon distribution")
@@ -425,8 +409,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	yusim.law2 <- yule.fit(x=data, threshold=power.law$xmin)
 	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
 	tlog(4,"Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided)
-	tab[C_YUSIM_CLR] <- comp.ys2$loglike.ratio
-	tab[C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
+	tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
+	tab[1,C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
 	
 	################
 	
@@ -442,8 +426,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	
 	# draw conclusion
 	tlog(0,"-------------------------------")
-	tab[C_DECISION] <- make.decision.distr(tab, threshold=0.05)
-	tlog(2,"Conclusion: ", tab[C_DECISION])
+	tab[1,C_DECISION] <- make.decision.distr(tab, threshold=0.05)
+	tlog(2,"Conclusion: ", tab[1,C_DECISION])
 	tlog(0,"-------------------------------")
 	
 	# add legend to plot
@@ -523,32 +507,32 @@ test_pl_expcutoff <- function(data, discrete=TRUE)
 #	indist <- c()
 #	better <- c()
 #	if(C_POIS_PVAL %in% names(tab))
-#	{	if(tab[C_POIS_CPVAL]<threshold)
-#		{	if(tab[C_POIS_CLR]<0)
+#	{	if(tab[1,C_POIS_CPVAL]<threshold)
+#		{	if(tab[1,C_POIS_CLR]<0)
 #				better <- c(better, "Poisson")
 #		}
 #		else
 #			indist <- c(indist, "Poisson")
 #	}
 #	if(C_LNORM_PVAL %in% names(tab))
-#	{	if(tab[C_LNORM_CPVAL]<threshold)
-#		{	if(tab[C_LNORM_CLR]<0)
+#	{	if(tab[1,C_LNORM_CPVAL]<threshold)
+#		{	if(tab[1,C_LNORM_CLR]<0)
 #				better <- c(better, "LogNormal")
 #		}
 #		else
 #			indist <- c(indist, "LogNormal")
 #	}
 #	if(C_EXPO_PVAL %in% names(tab))
-#	{	if(tab[C_EXPO_CPVAL]<threshold)
-#		{	if(tab[C_EXPO_CLR]<0)
+#	{	if(tab[1,C_EXPO_CPVAL]<threshold)
+#		{	if(tab[1,C_EXPO_CLR]<0)
 #				better <- c(better, "Exponential")
 #		}
 #		else
 #			indist <- c(indist, "Exponential")
 #	}
 #	if(C_WEIB_PVAL %in% names(tab))
-#	{	if(tab[C_WEIB_CPVAL]<threshold)
-#		{	if(tab[C_WEIB_CLR]<0)
+#	{	if(tab[1,C_WEIB_CPVAL]<threshold)
+#		{	if(tab[1,C_WEIB_CLR]<0)
 #				better <- c(better, "Weibull")
 #		}
 #		else
@@ -559,7 +543,7 @@ test_pl_expcutoff <- function(data, discrete=TRUE)
 #	if(length(better)>0)
 #		res <- paste(better, collapse=", ")
 #	else
-#	{	if(tab[C_PL_PVAL] > threshold)
+#	{	if(tab[1,C_PL_PVAL] > threshold)
 #			indist <- c("PowerLaw", indist)
 #		res <- paste(indist, collapse=", ")
 #	}
@@ -567,14 +551,14 @@ test_pl_expcutoff <- function(data, discrete=TRUE)
 #}
 make.decision.distr <- function(tab, threshold=0.01)
 {	# power laws
-	power <- tab[C_PL_PVAL] > threshold
-	truncated <- tab[C_TRUNC_CPVAL]<threshold && tab[C_TRUNC_CLR]<0
+	power <- tab[1,C_PL_PVAL] > threshold
+	truncated <- tab[1,C_TRUNC_CPVAL]<threshold && tab[1,C_TRUNC_CLR]<0
 	# other functions
-	poisson <- !is.na(tab[C_POIS_CPVAL]) && tab[C_POIS_CPVAL]<threshold && !is.na(tab[C_POIS_CLR]) && tab[C_POIS_CLR]<0 && tab[C_POIS_CLR]<tab[C_TRUNC_CLR] 
-	lognormal <- !is.na(tab[C_LNORM_CPVAL]) && tab[C_LNORM_CPVAL]<threshold && !is.na(tab[C_LNORM_CLR]) && tab[C_LNORM_CLR]<0 && tab[C_LNORM_CLR]<tab[C_TRUNC_CLR] 
-	exponential <- !is.na(tab[C_EXPO_CPVAL]) && tab[C_EXPO_CPVAL]<threshold && !is.na(tab[C_EXPO_CLR]) && tab[C_EXPO_CLR]<0 && tab[C_EXPO_CLR]<tab[C_TRUNC_CLR] 
-	weibull <- !is.na(tab[C_WEIB_CPVAL]) && tab[C_WEIB_CPVAL]<threshold && !is.na(tab[C_WEIB_CLR]) && tab[C_WEIB_CLR]<0 && tab[C_WEIB_CLR]<tab[C_TRUNC_CLR] 
-	yule.simon <- !is.na(tab[C_YUSIM_CPVAL]) && tab[C_YUSIM_CPVAL]<threshold && !is.na(tab[C_YUSIM_CLR]) && tab[C_YUSIM_CLR]<0 && tab[C_YUSIM_CLR]<tab[C_TRUNC_CLR]
+	poisson <- !is.na(tab[1,C_POIS_CPVAL]) && tab[1,C_POIS_CPVAL]<threshold && !is.na(tab[1,C_POIS_CLR]) && tab[1,C_POIS_CLR]<0 && tab[1,C_POIS_CLR]<tab[1,C_TRUNC_CLR] 
+	lognormal <- !is.na(tab[1,C_LNORM_CPVAL]) && tab[1,C_LNORM_CPVAL]<threshold && !is.na(tab[1,C_LNORM_CLR]) && tab[1,C_LNORM_CLR]<0 && tab[1,C_LNORM_CLR]<tab[1,C_TRUNC_CLR] 
+	exponential <- !is.na(tab[1,C_EXPO_CPVAL]) && tab[1,C_EXPO_CPVAL]<threshold && !is.na(tab[1,C_EXPO_CLR]) && tab[1,C_EXPO_CLR]<0 && tab[1,C_EXPO_CLR]<tab[1,C_TRUNC_CLR] 
+	weibull <- !is.na(tab[1,C_WEIB_CPVAL]) && tab[1,C_WEIB_CPVAL]<threshold && !is.na(tab[1,C_WEIB_CLR]) && tab[1,C_WEIB_CLR]<0 && tab[1,C_WEIB_CLR]<tab[1,C_TRUNC_CLR] 
+	yule.simon <- !is.na(tab[1,C_YUSIM_CPVAL]) && tab[1,C_YUSIM_CPVAL]<threshold && !is.na(tab[1,C_YUSIM_CLR]) && tab[1,C_YUSIM_CLR]<0 && tab[1,C_YUSIM_CLR]<tab[1,C_TRUNC_CLR]
 	
 	if(power)
 	{	if(poisson || lognormal || exponential || weibull || yule.simon)

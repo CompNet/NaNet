@@ -6,6 +6,9 @@
 #
 # Vincent Labatut
 # 08/2021
+#
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# source("src/post/comparison/comp_proc_Waumans2015.R")
 ###############################################################################
 source("src/post/comparison/comp_proc.R")
 
@@ -70,9 +73,7 @@ files <- c(
 
 ###############################################################################
 # init stat tables
-prop.tab <- data.frame(matrix(vector(), 0, length(measnames), dimnames=list(c(), measnames)),
-				stringsAsFactors=FALSE)
-distr.tab <- matrix(vector(), 0, length(C_DISTR), dimnames=list(c(), C_DISTR))
+tabs <- charnet.init.tables(files)
 
 # compute all stats for all networks
 for(ff in 1:length(files))
@@ -96,21 +97,5 @@ for(ff in 1:length(files))
 	write.graph(graph=g, file=f, format="graphml")
 	
 	# compute topological measures
-	prop.row <- charnet.prop(g)
-	prop.tab <- rbind(prop.tab, prop.row)
-	rownames(prop.tab)[nrow(prop.tab)] <- file
-	
-	# process degree distribution
-	deg <- degree(g, mode="all")
-	distr.row <- test.disc.distr(data=deg, return_stats=TRUE, sims=100, plot.file=paste0(base.filename,"_deg_distrib"))
-	distr.tab <- rbind(distr.tab, rep(NA, ncol(distr.tab)))
-	distr.tab[nrow(distr.tab),names(distr.row)] <- distr.row
-	rownames(distr.tab)[nrow(distr.tab)] <- file
-	prop.tab[nrow(distr.tab),"Degr distrib"] <- distr.row[C_DECISION]
+	tabs <- charnet.prop(g, tabs)
 }
-
-# record stats tables
-tab.file <- file.path(folder,"_measures.csv")
-write.table(prop.tab, file=tab.file, sep=",", row.names=T, col.names=T)
-tab.file <- file.path(folder,"_degree_dist.csv")
-write.table(distr.tab, file=tab.file, sep=",", row.names=T, col.names=T)

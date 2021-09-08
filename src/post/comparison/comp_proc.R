@@ -18,24 +18,49 @@ source("src/common/include.R")
 
 ###############################################################################
 # names of the stats
-measnames <- c(
-	"Node nbr",
-	"Edge nbr",
-	"Density",
-	"Avg degr",
-	"Avg dist",
-	"Rand avg dist",
-	"Norm avg dist",
-	"Avg trans",
-	"Rand avg trans",
-	"Norm avg trans",
-	"Smallworldness",
-	"Max degr",
-	"Degr distrib",
-	"Degr ass",
-	"Exp trans-deg rel",
-	"GoF trans-deg rel"
-)
+C_MEAS <- c()
+C_MEAS_NODE_NBR <- "Node nbr"; C_MEAS <- c(C_MEAS, C_MEAS_NODE_NBR)
+C_MEAS_EDGE_NBR <- "Edge nbr"; C_MEAS <- c(C_MEAS, C_MEAS_EDGE_NBR)
+C_MEAS_DENSITY <- "Density"; C_MEAS <- c(C_MEAS, C_MEAS_DENSITY)
+C_MEAS_DEG_AVG <- "Avg degr"; C_MEAS <- c(C_MEAS, C_MEAS_DEG_AVG)
+C_MEAS_DIST_AVG <- "Avg dist"; C_MEAS <- c(C_MEAS, C_MEAS_DIST_AVG)
+C_MEAS_TRANS_AVG <- "Avg trans"; C_MEAS <- c(C_MEAS, C_MEAS_TRANS_AVG)
+C_MEAS_SWI <- "SWI"; C_MEAS <- c(C_MEAS, C_MEAS_SWI)
+C_MEAS_DEG_MAX <- "Max Degr"; C_MEAS <- c(C_MEAS, C_MEAS_DEG_MAX)
+C_MEAS_DEG_DISTRIB <- "Degr Distrib"; C_MEAS <- c(C_MEAS, C_MEAS_DEG_DISTRIB)
+C_MEAS_DEG_ASSORT <- "Degr Ass"; C_MEAS <- c(C_MEAS, C_MEAS_DEG_ASSORT)
+C_MEAS_TRANS_DEG_EXP <- "Exp Trans-Deg rel"; C_MEAS <- c(C_MEAS, C_MEAS_TRANS_DEG_EXP)
+C_MEAS_TRANS_DEG_GOF <- "GoF Trans-Deg rel"; C_MEAS <- c(C_MEAS, C_MEAS_TRANS_DEG_GOF)
+
+
+
+
+###############################################################################
+# Initializes the tables used to store the statistics.
+# 
+# files: list of network names.
+#
+# returns: a list of empty tables.
+###############################################################################
+charnet.init.tables <- function(files)
+{	# general properties
+	prop.tab <- data.frame(
+			matrix(NA, length(files), length(C_MEAS), dimnames=list(files, C_MEAS)), 
+			stringsAsFactors=FALSE)
+	
+	# small word table
+	sw.tab <- data.frame(
+			matrix(NA, length(files), length(C_SW), dimnames=list(files, C_SW)), 
+			stringsAsFactors=FALSE)
+	
+	# degree distribution table
+	distr.tab <- data.frame(
+			matrix(NA, length(files), length(C_DISTR), dimnames=list(files, C_DISTR)), 
+			stringsAsFactors=FALSE)
+
+	tabs <- list(prop.tab=prop.tab, sw.tab=sw.tab, distr.tab=distr.tab)
+	return(tabs)
+}
 
 
 
@@ -44,34 +69,53 @@ measnames <- c(
 # Computes the standard topological properties of the specified network.
 #
 # g: network to process.
+# tabs: list of tables to complete.
 #
-# returns: table containing the computed values.
+# returns: tables containing the computed values.
 ###############################################################################
-charnet.prop <- function(g)
-{	# init stat table
-	tab <- matrix(NA, nrow=1, ncol=length(measnames))
-	colnames(tab) <- measnames
+charnet.prop <- function(g, tabs)
+{	prop.tab <- tabs$prop.tab
+	sw.tab <- tabs$sw.tab
+	distr.tab <- tabs$distr.tab
+	#
+	file <- g$name
+	deg <- degree(g, mode="all")
 	
-	# fill stats table
-	tab[1,"Node nbr"] <- gorder(g)
-	tab[1,"Edge nbr"] <- gsize(g)
-	tab[1,"Density"] <- graph.density(g)
-	tab[1,"Avg degr"] <- mean(degree(g))
-	tab[1,"Avg dist"] <- mean_distance(graph=g)
-	tab[1,"Rand avg dist"] <- log(tab[1,"Node nbr"]) / log(tab[1,"Avg degr"])
-	tab[1,"Norm avg dist"] <- tab[1,"Avg dist"] / tab[1,"Rand avg dist"]
-	tab[1,"Avg trans"] <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
-	tab[1,"Rand avg trans"] <- tab[1,"Avg degr"] / tab[1,"Node nbr"]
-	tab[1,"Norm avg trans"] <- tab[1,"Avg trans"] / tab[1,"Rand avg trans"]
-	tab[1,"Smallworldness"] <- tab[1,"Norm avg trans"] / tab[1,"Norm avg dist"]
-	tab[1,"Max degr"] <- max(degree(g))
-	tab[1,"Degr distrib"] <- NA
-	tab[1,"Degr ass"] <- assortativity_degree(graph=g, directed=FALSE)
+	# general measures
+	prop.tab[file,C_MEAS_NODE_NBR] <- gorder(g)
+	prop.tab[file,C_MEAS_EDGE_NBR] <- gsize(g)
+	prop.tab[file,C_MEAS_DENSITY] <- graph.density(g)
+	prop.tab[file,C_MEAS_DEG_AVG] <- mean(deg)
+	prop.tab[file,C_MEAS_DIST_AVG] <- mean_distance(graph=g)
+	prop.tab[file,C_MEAS_TRANS_AVG] <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
+	prop.tab[file,C_MEAS_DEG_MAX] <- max(deg)
+	prop.tab[file,C_MEAS_DEG_ASSORT] <- assortativity_degree(graph=g, directed=FALSE)
+	
+	# relation between degree and transitivity
 	tmp <- trans_degr_rel(g)
-	tab[1,"Exp trans-deg rel"] <- tmp$exponent
-	tab[1,"GoF trans-deg rel"] <- tmp$gof
+	prop.tab[file,C_MEAS_TRANS_DEG_EXP] <- tmp$exponent
+	prop.tab[file,C_MEAS_TRANS_DEG_GOF] <- tmp$gof
 	
-	return(tab)
+	# small world index
+	tmp <- compute.smallworldness(g, theoretical=FALSE, iterations=10)
+	sw.tab[file,C_SW] <- tmp[C_SW]
+	prop.tab[file,C_MEAS_SWI] <- tmp[C_SWI]
+	
+	# degree distribution
+	tmp <- test.disc.distr(data=deg, return_stats=TRUE, sims=100, plot.file=paste0(base.filename,"_deg_distrib"))
+	distr.tab[file,C_DISTR] <- tmp[1,C_DISTR]
+	prop.tab[file,C_MEAS_DEG_DISTRIB] <- tmp[1,C_DECISION]
+	
+	# record tables
+	tab.file <- file.path(folder,"_measures.csv")
+	write.table(prop.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	tab.file <- file.path(folder,"_small_world.csv")
+	write.table(sw.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	tab.file <- file.path(folder,"_degree_dist.csv")
+	write.table(distr.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	
+	tabs <- list(prop.tab=prop.tab, sw.tab=sw.tab, distr.tab=distr.tab)
+	return(tabs)
 }
 
 

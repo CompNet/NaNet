@@ -104,14 +104,14 @@ is.splitting.network <- function(g, comp.nb, a, b, c, d)
 # (estimated) Complexity: O(m+n) (* iterations * attempts)
 #
 # g: network to be rewired.
-# iterations: number of times a link is rewired (approximately).
+# iterations: number of times an edge is rewired (approximately).
 #
 # returns: the rewired network.
 ###########################################################################
 randomize.network <- function(g, iterations)
 {	# init
-	n <- vcount(g)
-	m <- ecount(g)
+	n <- gorder(g)
+	m <- gsize(g)
 	iter <- m*iterations
 	comp.nb <- no.clusters(graph=g)
 	# maximal number of rewiring attempts per iteration
@@ -182,7 +182,9 @@ randomize.network <- function(g, iterations)
 # returns: the rewired network.
 ###########################################################################
 latticize.network <- function(g, iterations)
-{	# init
+{	DEBUG <- TRUE
+	
+	# init
 	n <- vcount(g)
 	m <- ecount(g)
 	iter <- m*iterations
@@ -193,9 +195,17 @@ latticize.network <- function(g, iterations)
 	max.attempts <- round(n*m/(n*(n-1.0)/2))
 	# actual number of successful rewirings
 	eff <- 0
+
+	if(DEBUG)
+	{	trans <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
+		tlog(2, "Original graph: \tn: ",n,"\tm: ",m, "\tTransitivity: ",trans)
+		transs <- trans
+		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
+	}
 	
 	for(it in 1:iter)
-	{	att <- 0
+	{	if(DEBUG) tlog(4, "Iteration ",it,"/",iter)
+		att <- 0
 		rewire <- FALSE
 		
 		# while not rewired
@@ -240,9 +250,150 @@ latticize.network <- function(g, iterations)
 			# increment the number of attempts
 			att <- att + 1
 		}
+		if(DEBUG) 
+		{	trans <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
+			tlog(6, "m: ",gsize(g)," Transitivity: ",trans)
+			transs <- c(transs, trans)
+		}
+	}
+	
+	if(DEBUG) 
+	{	tlog(4, paste(transs,collapse=", ")) 
+#		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
 	}
 		
-	return(g)
+#	return(g)
+}
+
+
+
+
+###########################################################################
+# Custom version of function latticize.network, but faster.
+#
+# g: network to process.
+# iterations: number of times a link is rewired (approximately).
+#
+# returns: the rewired network.
+###########################################################################
+latticize.network.alt <- function(g, iterations)
+{	DEBUG <- TRUE
+	
+	# init
+	n <- gorder(g)
+	m <- gsize(g)
+	if(DEBUG)
+	{	trans <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
+		tlog(2, "Original graph: \tn: ",n,"\tm: ",m, "\tTransitivity: ",trans)
+		transs <- trans
+		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
+	}
+	
+	# randomly select pairs of edges
+	el0 <- as_edgelist(g, names=FALSE)
+		
+	# repeat as many times as specified
+	for(j in 1:iterations)
+	{	if(DEBUG) tlog(4, "Iteration ",j,"/",iterations)
+		
+		# randomize the edges
+		smpl <- sample(m)
+		el0 <- el0[smpl,]
+		smpl1 <- smpl[1:(m %/% 2)]
+		smpl2 <- smpl[((m %/% 2)+1):(2*(m %/% 2))]
+		
+		# split the list of edges
+		el1 <- el0[smpl1,]
+		el2 <- el0[smpl2,]
+		
+		# init list of untouched edges
+		if(nrow(el)>(nrow(el1)+nrow(el2)))
+			el0 <- el[nrow(el),]
+		else
+			el0 <- matrix(vector(), nrow=0, ncol=2)
+		if(DEBUG) tlog(6, "Split:\tel0: ",nrow(el0),"\tel1: ",nrow(el1),"\tel2: ",nrow(el2))
+		
+		# check that vertices are different
+		flag <- sapply(1:nrow(el1), function(i) length(intersect(el1[i,], el2[i,]))==0)
+		if(DEBUG) tlog(6, "Different vertices: ",length(which(flag)),"/",nrow(el1))
+		el0 <- rbind(el0, el1[!flag,], el2[!flag,])
+		el1 <- el1[flag,,drop=FALSE]
+		el2 <- el2[flag,,drop=FALSE]
+		if(DEBUG) tlog(8, "After filtering:\tel0: ",nrow(el0),"\tel1: ",nrow(el1),"\tel2: ",nrow(el2))
+		
+		# some edges left
+		if(nrow(el1)>0)
+		{	# switch vertices for half the edges in the first part
+			idx <- which(runif(nrow(el1), min=0, max=1)<0.5)
+			if(DEBUG) tlog(6, "Switched edges: ",length(idx),"/",nrow(el1))
+			el1b <- el1
+			el1b[idx,] <- cbind(el1[idx,2], el1[idx,1])
+			
+			# build new edges by mixing both parts
+			nel1 <- cbind(el1b[,1], el2[,2])
+			nel1 <- t(apply(nel1, 1, sort))
+			nel2 <- cbind(el2[,1], el1b[,2])
+			nel2 <- t(apply(nel2, 1, sort))
+			
+			# check that edges are not already present
+			# identify existing edges
+			dt <- as.data.table(el)
+			setkey(dt, "V1", "V2")
+			dt1 <- as.data.table(nel1)
+			setkey(dt1, "V1", "V2")
+			idx1 <- dt1[dt, nomatch=0, which=TRUE]
+			dt2 <- as.data.table(nel2)
+			setkey(dt2, "V1", "V2")
+			idx2 <- dt2[dt, nomatch=0, which=TRUE]
+			idx <- union(idx1, idx2)
+			if(DEBUG) tlog(6, "Non-Existing edges:\tel1: ",nrow(el1)-length(idx1),"/",nrow(el1), "\tel2: ",nrow(el2)-length(idx2),"/",nrow(el2),"\t overall:",nrow(el1)-length(idx),"/",nrow(el1))
+			# udpate tables
+			el0 <- rbind(el0, el1[idx,], el2[idx,])
+			el1 <- el1[-idx,,drop=FALSE]
+			el2 <- el2[-idx,,drop=FALSE]
+			nel1 <- nel1[-idx,,drop=FALSE]
+			nel2 <- nel2[-idx,,drop=FALSE]
+			if(DEBUG) tlog(8, "After filtering:\tel0: ",nrow(el0),"\tel1: ",nrow(el1),"\tel2: ",nrow(el2))
+			
+			# some edges left
+			if(nrow(el1)>0)
+			{	# check lattice condition
+				flag <- abs(el1[,1]-el1[,2])+abs(el2[,1]-el2[,2]) >= abs(nel1[,1]-nel1[,2])+abs(nel2[,1]-nel2[,2])
+				if(DEBUG) tlog(6, "Lattice condition: ",length(which(flag)),"/",nrow(el1))
+				el0 <- rbind(el0, el1[!flag,,drop=FALSE], el2[!flag,,drop=FALSE])
+				el1 <- el1[flag,,drop=FALSE]
+				el2 <- el2[flag,,drop=FALSE]
+				nel1 <- nel1[flag,,drop=FALSE]
+				nel2 <- nel2[flag,,drop=FALSE]
+				if(DEBUG) tlog(8, "After filtering:\tel0: ",nrow(el0),"\tel1: ",nrow(el1),"\tel2: ",nrow(el2))
+				
+				# apply the rewiring
+				if(nrow(el1)>0)
+					el0 <- rbind(el0, nel1, nel2)
+				
+				# update graph and transitivity
+				if(DEBUG) 
+				{	g2 <- delete.edges(g, E(g))
+					g2 <- add_edges(g2, edges=c(t(el0)))
+					trans <- transitivity(graph=g2, type="localaverage", weights=NA, isolates="zero")
+					tlog(6, "End of iteration: edges: ",nrow(el0),"\tTransitivity: ",trans)
+					transs <- c(transs, trans)
+#					image(as.matrix.csr(as_adjacency_matrix(g2,type="both",names=FALSE,sparse=FALSE)))
+				}
+			}
+		}
+	}
+	
+#	# create final graph
+#	g <- delete.edges(g, E(g))
+#	g <- add_edges(g, edges=c(t(el0)))
+	if(DEBUG) 
+	{	tlog(2, "Transitivity: ",paste(transs, collapse=", "))
+#		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
+	}
+image(as.matrix.csr(as_adjacency_matrix(g2,type="both",names=FALSE,sparse=FALSE)))
+	
+#	return(g)
 }
 
 

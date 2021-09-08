@@ -17,6 +17,9 @@ library("ggExtra")
 library("viridis")
 library("poweRlaw")
 library("qgraph")
+#library("Rfast")	# not used
+library("data.table")
+
 
 
 
@@ -64,6 +67,7 @@ source("src/common/colors.R")
 source("src/common/distr_test.R")
 source("src/common/graph_misc.R")
 source("src/common/graph_rewiring.R")
+source("src/common/graph_smallworldness.R")
 source("src/common/stats.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
