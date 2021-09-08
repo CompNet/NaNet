@@ -5,10 +5,10 @@
 # Vincent Labatut
 # 06/2014
 #
-# setwd("~/eclipse/workspaces/Networks/SystProp")
-# setwd("D:/eclipse/workspaces/Networks/SystProp")
+# setwd("~/eclipse/workspaces/Networks/NaNet")
+# setwd("D:/eclipse/workspaces/Networks/NaNet")
 #
-# source("tools/rewire-network.R")
+# source("src/common/graph_rewiring.R")
 ###########################################################################
 
 
@@ -200,7 +200,7 @@ latticize.network <- function(g, iterations)
 	{	trans <- transitivity(graph=g, type="localaverage", weights=NA, isolates="zero")
 		tlog(2, "Original graph: \tn: ",n,"\tm: ",m, "\tTransitivity: ",trans)
 		transs <- trans
-		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
+#		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
 	}
 	
 	for(it in 1:iter)
@@ -262,7 +262,7 @@ latticize.network <- function(g, iterations)
 #		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
 	}
 		
-#	return(g)
+	return(g)
 }
 
 
@@ -378,22 +378,21 @@ latticize.network.alt <- function(g, iterations)
 					trans <- transitivity(graph=g2, type="localaverage", weights=NA, isolates="zero")
 					tlog(6, "End of iteration: edges: ",nrow(el0),"\tTransitivity: ",trans)
 					transs <- c(transs, trans)
-#					image(as.matrix.csr(as_adjacency_matrix(g2,type="both",names=FALSE,sparse=FALSE)))
+					#image(as.matrix.csr(as_adjacency_matrix(g2,type="both",names=FALSE,sparse=FALSE)))
 				}
 			}
 		}
 	}
 	
-#	# create final graph
-#	g <- delete.edges(g, E(g))
-#	g <- add_edges(g, edges=c(t(el0)))
+	# create final graph
+	g <- delete.edges(g, E(g))
+	g <- add_edges(g, edges=c(t(el0)))
 	if(DEBUG) 
 	{	tlog(2, "Transitivity: ",paste(transs, collapse=", "))
 #		image(as.matrix.csr(as_adjacency_matrix(g,type="both",names=FALSE,sparse=FALSE)))
 	}
-image(as.matrix.csr(as_adjacency_matrix(g2,type="both",names=FALSE,sparse=FALSE)))
 	
-#	return(g)
+	return(g)
 }
 
 
