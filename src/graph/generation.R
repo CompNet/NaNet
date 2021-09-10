@@ -126,6 +126,16 @@ generate.transitive.graph <- function(degrees)
 #g <- ba.game(100, directed=FALSE)
 #is.connected(g)
 #degrees <- degree(g)
+	
 
+	tt <- table(degrees)
+	if(!("1" %in% names(tt)))
+		tt["1"] <- 0
+	var <- matrix(vector(), nrow=0, ncol=3*(length(tt)-1)+2)
+	colnames(var) <- c("m", names(tt), paste("r",names(tt)[2:length(tt)],sep=""), paste("b",names(tt)[2:length(tt)],sep=""))
+	cst <- c()
+	
+	
+	
 	return(g)
 }
