@@ -8,7 +8,7 @@
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("D:/eclipse/workspaces/Networks/NaNet")
 #
-# source("src/common/graph_rewiring.R")
+# source("src/graph_rewiring.R")
 ###########################################################################
 
 
@@ -180,6 +180,8 @@ randomize.network <- function(g, iterations)
 # iterations: number of times a link is rewired (approximately).
 #
 # returns: the rewired network.
+#
+# source("src/common/graph/rewiring.R")
 ###########################################################################
 latticize.network <- function(g, iterations)
 {	DEBUG <- TRUE

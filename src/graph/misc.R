@@ -2,7 +2,12 @@
 # Functions used to handle various graph-related tasks.
 # 
 # 05/2021 Vincent Labatut
+#
+# source("src/graph/misc.R")
 #############################################################################################
+source("src/graph/generation.R")
+source("src/graph/rewiring.R")
+source("src/graph/smallworldness.R")
 
 
 

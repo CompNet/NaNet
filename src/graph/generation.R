@@ -7,7 +7,7 @@
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("D:/eclipse/workspaces/Networks/NaNet")
 #
-# source("src/common/graph_generation.R")
+# source("src/graph/generation.R")
 ###########################################################################
 
 
@@ -28,18 +28,30 @@ generate.transitive.graph <- function(degrees)
 {	DEBUG <- TRUE
 	if(DEBUG) tlog(2,"Generating a lattice-like graph:\tn: ",length(degrees),"\tm: ",sum(degrees)/2)
 	
-	# separate leaves
-	idx <- which(degrees==1)
-	n.leaves <- length(idx)
-	tmp <- degrees[-idx]
-	if(DEBUG) tlog(4,"Found ",n.leaves," leaves, remaining ",length(tmp)," vertices")
-
 	# init edges list
 	el <- matrix(vector(), nrow=0, ncol=2)
 	
+	# separate vertices with k<4
+	n.sep <- c()
+	tmp <- degrees
+	for(k in 1:3)
+	{	idx <- which(tmp==k)
+		n.sep <- c(n.sep, length(idx))
+		tmp <- tmp[-idx]
+		if(DEBUG) tlog(4,"Found ",n.sep[k]," vertices of degree ",k,", remaining ",length(tmp)," vertices")
+	}
+	
+	# computing number of ring vertices
+	m.avail <- sum(degrees)/2 - n.sep[1] - 2*n.sep[2] - 3*n.sep[3]
+	n.ring <- m.avail / 2
+	if(DEBUG) tlog(4,"Available links: ",m.avail," ring vertices: ",n.ring)
+	
+	
+	if(<length(tmp)*2)
+	
 	# create a ring as a base
 	g <- make_ring(n=length(tmp), directed=FALSE, circular=TRUE)
-	g <- add_vertices(g, n.leaves)
+	g <- add_vertices(g, n1)
 	deg <- sort(tmp, decreasing=TRUE) - 2
 	
 	# not enough edges to have a ring?
@@ -49,13 +61,13 @@ generate.transitive.graph <- function(degrees)
 	if(DEBUG) tlog(4, "Adding leaves to the largest hubs")
 	i <- 1
 	last <- length(deg)
-	while(n.leaves!=0)
-	{	nc <- min(deg[i], n.leaves)
-		if(DEBUG) tlog(6, "Using vertex ",i,": deg ",deg[i]," -> ",deg[i]-nc," (",n.leaves-nc," left)")
+	while(n1!=0)
+	{	nc <- min(deg[i], n1)
+		if(DEBUG) tlog(6, "Using vertex ",i,": deg ",deg[i]," -> ",deg[i]-nc," (",n1-nc," left)")
 		deg[i] <- deg[i] - nc
 		el <- rbind(el, cbind(rep(i,(nc+1)),last:(last+nc)))
 		last <- last + nc
-		n.leaves <- n.leaves - nc
+		n1 <- n1 - nc
 		i <- i + 1
 	}
 	if(DEBUG) tlog(4,"Defined ",nrow(el)," edges attached to leaves")
@@ -111,6 +123,9 @@ generate.transitive.graph <- function(degrees)
 #  	- les k1 sont attachés aux hubs
 # - pour les stubs restants, ont connecte les noeuds quasi-consécutifs 
 
+#g <- ba.game(100, directed=FALSE)
+#is.connected(g)
+#degrees <- degree(g)
 
 	return(g)
 }

@@ -3,7 +3,7 @@
 # 
 # 06/2014 Vincent Labatut
 #
-# source("src/common/graph_smallworldness.R")
+# source("src/graph/smallworldness.R")
 #############################################################################################
 
 

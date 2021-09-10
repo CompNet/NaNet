@@ -65,15 +65,13 @@ PLOT_FORMAT <- c(
 source("src/common/logging.R")
 source("src/common/colors.R")
 source("src/common/distr_test.R")
-source("src/common/graph_misc.R")
-source("src/common/graph_generation.R")
-source("src/common/graph_rewiring.R")
-source("src/common/graph_smallworldness.R")
 source("src/common/stats.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
 source("src/common/plot_graphs.R")
 source("src/common/topo_measures.R")
+
+source("src/graph/misc.R")
 
 source("src/corpus/read_data.R")
 source("src/corpus/compute_stats.R")
