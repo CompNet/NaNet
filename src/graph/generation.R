@@ -127,14 +127,24 @@ generate.transitive.graph <- function(degrees)
 #is.connected(g)
 #degrees <- degree(g)
 	
-
+	# init the linear equation matrices
 	tt <- table(degrees)
 	if(!("1" %in% names(tt)))
 		tt["1"] <- 0
-	var <- matrix(vector(), nrow=0, ncol=3*(length(tt)-1)+2)
-	colnames(var) <- c("m", names(tt), paste("r",names(tt)[2:length(tt)],sep=""), paste("b",names(tt)[2:length(tt)],sep=""))
-	cst <- c()
-	
+	var <- matrix(0, nrow=1, ncol=2*(length(tt)-1))
+	colnames(var) <- c(paste("r",names(tt)[2:length(tt)],sep=""), paste("b",names(tt)[2:length(tt)],sep=""))
+	cst <- ecount(g)
+	for(k in names(tt))
+	{	if(k!="1")
+		{	var <- rbind(var, rep(0, ncol(var)))
+			var[nrow(var), paste0("r",k)] <- 1
+			var[nrow(var), paste0("b",k)] <- 1
+			cst <- c(cst, tt[k])
+			var[1, paste0("b",k)] <- as.integer(k)-1
+			if(k!="2" && k!="3")
+				var[1, paste0("r",k)] <- as.integer(k)/2
+		}
+	}
 	
 	
 	return(g)
