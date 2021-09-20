@@ -47,7 +47,6 @@ generate.transitive.graph <- function(degrees)
 	if(DEBUG) tlog(4,"Available links: ",m.avail," ring vertices: ",n.ring)
 	
 	
-	if(<length(tmp)*2)
 	
 	# create a ring as a base
 	g <- make_ring(n=length(tmp), directed=FALSE, circular=TRUE)
@@ -145,6 +144,41 @@ generate.transitive.graph <- function(degrees)
 				var[1, paste0("r",k)] <- as.integer(k)/2
 		}
 	}
+	#print(cbind(var, cst))
+	
+	
+	
+	# integer programming
+	library("lpSolve")
+	tt <- table(degrees)
+	if("1" %in% names(tt))
+	{	n1 <- tt["1"]
+		tt <- tt[names(tt)!="1"]
+	}
+	else
+		n1 <- 0
+	f.con <- matrix(0, nrow=1, ncol=2*length(tt))
+	colnames(f.con) <- c(paste("r",names(tt),sep=""), paste("b",names(tt),sep=""))
+	f.rhs <- gsize(g)
+	for(k in names(tt))
+	{	f.con <- rbind(f.con, rep(0, ncol(f.con)))
+		f.con[nrow(f.con), paste0("r",k)] <- 1
+		f.con[nrow(f.con), paste0("b",k)] <- 1
+		f.rhs <- c(f.rhs, tt[k])
+		f.con[1, paste0("b",k)] <- as.integer(k)-1
+		if(k!="2" && k!="3")
+			f.con[1, paste0("r",k)] <- as.integer(k)/2
+	}
+	f.con[1,] <- 2*f.con[1,]
+	f.rhs[1] <- 2*f.rhs[1]
+	f.con <- rbind(f.con, rep(1, ncol(f.con)))
+	f.rhs <- c(f.rhs, gorder(g)-n1)
+	f.dir <- rep("=",length(f.rhs))
+	#print(cbind(f.con, f.rhs))
+	f.obj <- c(rep(1,length(tt)), rep(0,length(tt))) 
+	res <- lp(direction="max", 
+			objective.=f.obj, const.mat=f.con, const.dir=f.dir, const.rhs=f.rhs, 
+			int.vec=length(f.rhs), all.bin=FALSE, all.int=TRUE)
 	
 	
 	return(g)
