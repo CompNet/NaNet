@@ -14,6 +14,61 @@
 
 
 ###########################################################################
+# Generates a tree with the specified degree sequence. This is adapted from
+# the Networkx function:
+#		https://networkx.org/documentation/stable/_modules/networkx/generators/degree_seq.html#degree_sequence_tree
+# See also the algorithm described here by Brian M. Scott:
+# 		https://math.stackexchange.com/a/1948759/122368
+#
+# deg.seq: desired degree sequence.
+#
+# returns: the generated graph, or NA if the degree sequence does not allow
+#		   generating a graph.
+###########################################################################
+generate.tree <- function(deg.seq)
+{	#deg.seq <- c(4,3,2,1,1,1,1,1)
+	#deg.seq <- c(4,3,3,2,1,1,1,1,1,1)
+	deg.sum = sum(deg.seq)
+	n <- length(deg.seq)
+	m <- deg.sum / 2
+	
+	# check that the degree sequence is fine
+	if(deg.sum %% 2 != 0)
+		tlog(2,"WARNING: sum of degrees must be even")
+	else if(m != (n-1))
+		tlog(2,"WARNING: sum of degrees should be ",2*(n-1),", not",2*m)
+	
+	# init graph
+	g <- make_empty_graph(n, directed=FALSE)
+	# remove leaves and sort remaining degrees
+	deg.sort <- sort(deg.seq[deg.seq>1], decreasing=TRUE)
+	
+	# make path graph as backbone
+	path.len <- length(deg.sort) + 2
+	el <- cbind(1:(path.len-1), 2:path.len)
+	g <- add_edges(graph=g, edges=c(t(el)))
+	
+	# add the leaves
+	lst <- path.len
+	for(u in 2:(path.len-1))
+	{	n.edges <- deg.sort[length(deg.sort)] - 2
+		deg.sort <- deg.sort[-length(deg.sort)]
+		if(n.edges>0)
+		{	el <- cbind(rep(u,n.edges), (lst+1):(lst+n.edges))
+			g <- add_edges(graph=g, edges=c(t(el)))
+			lst <- lst + n.edges
+		}
+	}
+plot(g)
+	# in case we added one too many
+	if(gorder(g) > n)
+		g <- delete_vertices(g, 1)
+}
+
+
+
+
+###########################################################################
 # Generates a connected undirected lattice-like graph respecting the specified 
 # degree sequence, with maximal transitivity (i.e. clustering coefficient). 
 # 
@@ -149,17 +204,17 @@ generate.transitive.graph <- function(degrees)
 	
 	
 	# integer programming
+degrees <- c(7, 5, 5, 5, 5, 5, 5, 4, 4, 3, 1, 1)
 	library("lpSolve")
 	tt <- table(degrees)
 	if("1" %in% names(tt))
 	{	n1 <- tt["1"]
 		tt <- tt[names(tt)!="1"]
-	}
-	else
-		n1 <- 0
+	}else
+	{	n1 <- 0}
 	f.con <- matrix(0, nrow=1, ncol=2*length(tt))
 	colnames(f.con) <- c(paste("r",names(tt),sep=""), paste("b",names(tt),sep=""))
-	f.rhs <- gsize(g)
+	f.rhs <- sum(degrees)/2
 	for(k in names(tt))
 	{	f.con <- rbind(f.con, rep(0, ncol(f.con)))
 		f.con[nrow(f.con), paste0("r",k)] <- 1
@@ -172,14 +227,34 @@ generate.transitive.graph <- function(degrees)
 	f.con[1,] <- 2*f.con[1,]
 	f.rhs[1] <- 2*f.rhs[1]
 	f.con <- rbind(f.con, rep(1, ncol(f.con)))
-	f.rhs <- c(f.rhs, gorder(g)-n1)
+	f.rhs <- c(f.rhs, length(degrees)-n1)
 	f.dir <- rep("=",length(f.rhs))
-	#print(cbind(f.con, f.rhs))
+	#print(cbind(f.con, f.dir, f.rhs))
 	f.obj <- c(rep(1,length(tt)), rep(0,length(tt))) 
 	res <- lp(direction="max", 
-			objective.=f.obj, const.mat=f.con, const.dir=f.dir, const.rhs=f.rhs, 
+			objective.in=f.obj, const.mat=f.con, const.dir=f.dir, const.rhs=f.rhs, 
 			int.vec=length(f.rhs), all.bin=FALSE, all.int=TRUE)
 	
+	# f.con %*% matrix(c(0, 2, 6, 1, 1, 0, 0, 0),ncol=1)
+	if(res$status==0)
+	{	n.ring <- res$objval
+		sol.vals <- res$solution
+	}
+	else
+	{	# no solution
+		# TODO
+	}
 	
+	# build the ring
+		# 1) keep only r>3
+		# 2) build k=4 ring
+		# 3) connect the r2 and r3 nodes
+		# 4) add edges between r>3 nodes
+		# possibly switch 3 & 4 ?
+	# remaining stubs = branches
+	# should be only one branch on the hug, right? (no)
+		# 1) put one minimal tree on every remaining stub but the one on the hub
+		# 2) build a tree with the remaining b nodes a connect to hub
+
 	return(g)
 }
