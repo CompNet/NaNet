@@ -13,20 +13,25 @@
 # scene as the time unit, without overlap. Nodes are characters, and links
 # represents them (inter-)acting during the same scene.
 #
-# char.volumes: characters present in each volume.
+# volume.info: table describing all the volumes constituting the BD series.
 # char.info: table describing all the characters occurring in the BD series.
 # page.info: table describing all the pages constituting the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
 #			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
 #           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
-# vol: volume of interest (optional).
+# stats.scenes: scene statistics, only needed if ret.seq is TRUE.
+# vol: volume of interest (optional, and ignored if ret.seq is TRUE).
+# ret.set: whether to return the full sequence of incremental graphs (longer).
 #
 # returns: the corresponding static graph. It contains several edge weigths:
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
+#		   If ret.set==TRUE, then the function returns a list of graphs.
 ###############################################################################
-extract.static.graph.scenes <- function(char.volumes, char.info, page.info, inter.df, vol=NA)
+extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter.df, stats.scenes, vol=NA, ret.seq=FALSE)
 {	tlog(2,"Extracting the scene-based static graph")
+	g <- make_empty_graph(0,directed=FALSE)
+	res <- list()
 	
 	# init the dataframe
 	static.df <- data.frame(
@@ -40,7 +45,17 @@ extract.static.graph.scenes <- function(char.volumes, char.info, page.info, inte
 	
 	# possibly filter interactions
 	if(is.na(vol))
+	{	# possibly order interactions by story order (not publication order)
+#		if(ret.seq)
+#		{	pg.starts <- page.info[,COL_PAGES_START_PANEL_ID]
+#			pg.ends <- page.info[,COL_PAGES_START_PANEL_ID] + page.info[,COL_PAGES_PANELS] - 1
+#			page.ids <- future_sapply(1:nrow(inter.df), function(r) which(pg.starts<=inter.df[r,COL_INTER_START_PANEL_ID] & pg.ends>=inter.df[r,COL_INTER_START_PANEL_ID]))
+#			vol.ranks <- volume.info[page.info[page.ids, COL_PAGES_VOLUME_ID], COL_VOLS_RANK]
+#			inter.df <- inter.df[order(vol.ranks, inter.df[,COL_INTER_START_PANEL_ID]),]
+#		}
+		# get interactions numbers
 		is <- 1:nrow(inter.df)
+	}
 	else
 	{	idx.pg <- which(page.info[,COL_PAGES_VOLUME]==vol)
 		start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
@@ -50,7 +65,7 @@ extract.static.graph.scenes <- function(char.volumes, char.info, page.info, inte
 		#is <- which(stats.scenes[,COL_STATS_VOLUME]==vol)
 		is <- which(inter.df[,COL_INTER_START_PANEL_ID] %in% idx.pn)
 	}
-	
+		
 	# build the edgelist by considering each line (i.e. interaction) in the dataframe
 	for(i in is)
 	{	# get the characters
@@ -72,6 +87,18 @@ extract.static.graph.scenes <- function(char.volumes, char.info, page.info, inte
 			static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
 			static.df[index, COL_INTER_DURATION] <- static.df[index, COL_INTER_DURATION] + length
 		}
+		
+		# if graph sequence required
+		if(ret.seq)
+		{	tlog(4,"Adding the graph to the sequence (",i,"/",length(is),")")
+			static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
+			idx <- which(char.info[,COL_CHAR_NAME] %in% c(cbind(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR])))
+			g1 <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info[idx,])
+			if(gsize(g1)!=gsize(g) || gorder(g1)!=gorder(g))
+			{	g <- g1
+				res[[length(res)+1]] <- g
+			}
+		}
 	}
 	
 	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
@@ -80,12 +107,23 @@ extract.static.graph.scenes <- function(char.volumes, char.info, page.info, inte
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", vol=vol)
-	write_graph(graph=g, file=graph.file, format="graphml")
+#	graph.file <- get.path.graph.file(mode="scenes", vol=vol)
+#	write_graph(graph=g, file=graph.file, format="graphml")
 	#plot(g, layout=layout_with_fr(g))
 	
-	tlog(2,"Extraction of the scene-based static graph completed")
-	return(g)
+	# set up result variable
+	if(ret.seq)
+	{	if(gsize(g1)!=gsize(g) || gorder(g1)!=gorder(g))
+			res[[length(res)+1]] <- g
+		msg <- paste0("returning a series of ",length(res)," graphs")
+	}
+	else
+	{	res <- g
+		msg <- "returning a single graph"
+	}
+	
+	tlog(2,"Extraction of the scene-based static graph completed, ",msg)
+	return(res)
 }
 
 
@@ -278,7 +316,9 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
 	# extract the scene-based static graph
-	g <- extract.static.graph.scenes(data$volume.info, data$char.info, data$page.info, data$inter.df)
+	g <- extract.static.graph.scenes(
+			volume.info=data$volume.info, char.info=data$char.info, 
+			page.info=data$page.info, inter.df=data$inter.df)
 	
 	# extract the panel window-based static graphs
 	future_sapply(1:length(panel.window.sizes), function(i)

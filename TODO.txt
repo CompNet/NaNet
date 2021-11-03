@@ -77,5 +77,6 @@ VOLUMES/ARCS
 - Visualization: red for 1 vol/arc of interest, grey for the rest >> allows studying story evolution
 
 - Extract networks using volume-based windows?
+  >> study small world property over dynamic cumulative network, taking volumes in (story) chronological order 
 
 - plot attributes on network

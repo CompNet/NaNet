@@ -17,6 +17,7 @@ COL_VOLS_TITLE <- "Title"
 COL_VOLS_VOLUME <- "Volume"
 COL_VOLS_VOLUME_ID <- "VolumeId"
 COL_VOLS_YEAR <- "Year"
+COL_VOLS_RANK <- "Rank"
 
 
 ###############################################################################

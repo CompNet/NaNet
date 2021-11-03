@@ -58,7 +58,7 @@ colnames(est.tab) <- volumes
 rownames(est.tab) <- data$char.info[,COL_CHAR_SHORT_NAME]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
-	g <- extract.static.graph.scenes(char.volumes=data$char.volumes, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, vol=v)
+	g <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, vol=v)
 
 #	vals <- degree(graph=g, mode="all")									# 0.55	0.25
 #	vals <- strength(graph=g, mode="all", weights=E(g)$Duration)		# 0.55	0.22
