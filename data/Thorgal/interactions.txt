@@ -4125,17 +4125,17 @@ K8	47	1	48	2	Kriss aînée / Kriss de Valnor
 36	21	7	21	7	Thorgal Aegirsson	Petrov	Yénhäas_36.21	Aniel
 36	21	8	21	8	Thorgal Aegirsson	Petrov	Aniel
 36	22	1	22	1	Thorgal Aegirsson	Petrov	Aniel
-36	22	2	22	2	Thorgal Aegirsson	Petrov	Aniel	Arménos	Maïïa
-36	22	3	22	8	Thorgal Aegirsson	Petrov	Aniel	Arménos	Maïïa
-36	23	1	24	7	Thorgal Aegirsson	Petrov	Arménos
-36	25	1	25	7	Thorgal Aegirsson	Petrov	Arménos
+36	22	2	22	2	Thorgal Aegirsson	Petrov	Aniel	Armenos	Maïïa
+36	22	3	22	8	Thorgal Aegirsson	Petrov	Aniel	Armenos	Maïïa
+36	23	1	24	7	Thorgal Aegirsson	Petrov	Armenos
+36	25	1	25	7	Thorgal Aegirsson	Petrov	Armenos
 36	26	1	26	1	Yénhäas_36.26
-36	26	2	26	3	Thorgal Aegirsson	Petrov	Arménos
+36	26	2	26	3	Thorgal Aegirsson	Petrov	Armenos
 36	26	4	26	6	Thorgal Aegirsson	Yénhäas_36.26
-36	27	1	27	1	Thorgal Aegirsson	Petrov	Arménos
+36	27	1	27	1	Thorgal Aegirsson	Petrov	Armenos
 36	27	2	27	6	Thorgal Aegirsson	Yénhäas_36.26
-36	27	7	27	7	Thorgal Aegirsson	Petrov	Arménos
-36	28	1	30	9	Thorgal Aegirsson	Petrov	Aniel	Arménos	Maïïa
+36	27	7	27	7	Thorgal Aegirsson	Petrov	Armenos
+36	28	1	30	9	Thorgal Aegirsson	Petrov	Aniel	Armenos	Maïïa
 36	31	1	31	1	Thorgal Aegirsson	Petrov	Aniel
 36	31	2	31	5	Thorgal Aegirsson	Petrov	Aniel	Yénhäas_36.31
 36	31	6	32	2	Thorgal Aegirsson	Petrov	Aniel
@@ -4295,7 +4295,7 @@ J7	48	6	48	8	Mehdi	Thorgal Aegirsson	Rylynn	Troy
 37	18	1	18	3	Thorgal Aegirsson	Ivarr-le-Glacé	Servante_37.15	Gardes_37.15	Cybèle	Knut
 37	18	4	19	4	Thorgal Aegirsson	Ivarr-le-Glacé	Servante_37.15	Gardes_37.15	Cybèle
 37	19	5	19	9	Thorgal Aegirsson	Ivarr-le-Glacé	Gardes_37.15
-37	20	1	20	8	Thorgal Aegirsson	Ivarr-le-Glacé	Soldats_37.20	Cybèle	Sevantes_37.20
+37	20	1	20	8	Thorgal Aegirsson	Ivarr-le-Glacé	Soldats_37.20	Cybèle	Servantes_37.20
 37	21	1	25	7	Thorgal Aegirsson	Ivarr-le-Glacé	Cybèle	Thorfill	Vikings_37.21.1	Vikings_37.21.2	Vikings_37.21.3
 37	26	1	26	8	Vikings_37.21.1	Yngvi l'anachorète
 37	27	1	27	10	Thorgal Aegirsson	Vikings_37.21.2
