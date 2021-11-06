@@ -215,11 +215,16 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 		{	# TODO
 		}
 		# only possibility is library pli
-		trunc.law2 <- powerexp.fit(data=data,threshold=power.law$xmin)
-		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		trunc.law2 <- tryCatch(expr=powerexp.fit(data=data,threshold=power.law$xmin), error=function(e) NA)
+		if(is.na(trunc.law2))
+		{	msg <- "ERROR while applyinf powerexp";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+			msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+			tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		}
 	}
 	
 	################
@@ -592,7 +597,7 @@ test_pl_expcutoff <- function(data, discrete=TRUE)
 make.decision.distr <- function(tab, threshold=0.01)
 {	# power laws
 	power <- tab[1,C_PL_PVAL] > threshold
-	truncated <- tab[1,C_TRUNC_CPVAL]<threshold && tab[1,C_TRUNC_CLR]<0
+	truncated <- !is.na(tab[1,C_TRUNC_CPVAL]) && tab[1,C_TRUNC_CPVAL]<threshold && tab[1,C_TRUNC_CLR]<0
 	# other functions
 	poisson <- !is.na(tab[1,C_POIS_CPVAL]) && tab[1,C_POIS_CPVAL]<threshold && !is.na(tab[1,C_POIS_CLR]) && tab[1,C_POIS_CLR]<0 && tab[1,C_POIS_CLR]<tab[1,C_TRUNC_CLR] 
 	lognormal <- !is.na(tab[1,C_LNORM_CPVAL]) && tab[1,C_LNORM_CPVAL]<threshold && !is.na(tab[1,C_LNORM_CLR]) && tab[1,C_LNORM_CLR]<0 && tab[1,C_LNORM_CLR]<tab[1,C_TRUNC_CLR] 
