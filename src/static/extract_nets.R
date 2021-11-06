@@ -107,8 +107,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-#	graph.file <- get.path.graph.file(mode="scenes", vol=vol)
-#	write_graph(graph=g, file=graph.file, format="graphml")
+	graph.file <- get.path.graph.file(mode="scenes", vol=vol)
+	write_graph(graph=g, file=graph.file, format="graphml")
 	#plot(g, layout=layout_with_fr(g))
 	
 	# set up result variable
@@ -319,6 +319,23 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	g <- extract.static.graph.scenes(
 			volume.info=data$volume.info, char.info=data$char.info, 
 			page.info=data$page.info, inter.df=data$inter.df)
+	
+	# extract the filtered version
+	crit <- degree(g)<=1 | V(g)$Frequency<=3
+	idx.remove <- which(crit)
+	idx.keep <- which(!crit)
+	g.filtr <- delete_vertices(graph=g, v=idx.remove)
+	tmp <- get.largest.component(g.filtr, indices=TRUE)
+	idx.cmp <- idx.keep[tmp$indices]
+	g.cmp <- tmp$comp
+	# write to file
+	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
+	write_graph(graph=g.cmp, file=graph.file, format="graphml")
+	# update main file
+	V(g)$Filtered <- rep(TRUE,gorder(g))
+	V(g)$Filtered[idx.cmp] <- FALSE
+	graph.file <- get.path.graph.file(mode="scenes")
+	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	# extract the panel window-based static graphs
 	future_sapply(1:length(panel.window.sizes), function(i)

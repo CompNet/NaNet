@@ -69,16 +69,16 @@ page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 netw
 
 ###############################################################################
 # extract static networks
-#extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
-#plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 
 
 ###############################################################################
 # compute graph stats
-#compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
 generate.static.plots(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 

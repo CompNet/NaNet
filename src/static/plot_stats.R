@@ -162,7 +162,7 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 	{	overlap <- overlaps[j]
 		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
 		tlog(6,"Loading file \"",table.file,"\" (",j,"/",length(overlaps),")")
-		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
 		res[[j]] <- values
 	}
@@ -189,7 +189,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
 		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
-		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
 		res[[i]] <- values
 	}
@@ -204,12 +204,13 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 # object: either "nodes", "nodepairs" or "links" (not "graph").
 # measure: name of the concerned topological measure.
 # weights: either "occurrences" or "duration".
+# filtered: whether to use the filter version of the graph.
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(object, measure, weights)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights)
-	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE))
+load.static.nodelink.stats.scenes <- function(object, measure, weights, filtered)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, filtered=filtered)
+	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
 	return(res)
 }
@@ -246,8 +247,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			object <- "nodescomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
 		seg.vals <- list()
 		seg.vals[[1]] <- seg.occ.vals
 		seg.vals[[2]] <- seg.dur.vals
@@ -785,9 +786,9 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 			object <- "nodepairs"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences")
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
 		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
 		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
 		
 		for(weights in c("duration","occurrences"))
@@ -1019,9 +1020,11 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # Generates the plots related to the topological measures obtained on the
 # scene-based graph, for both types of weights (occurrences, durations).
 # The stats must have been computed beforehand.
+#
+# filtered: whether to use the filtered version of the graph.
 ###############################################################################
-generate.static.plots.scene <- function()
-{	tlog(3,"Generating plots for the scene-based graphs")
+generate.static.plots.scene <- function(filtered=FALSE)
+{	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	
@@ -1046,12 +1049,13 @@ generate.static.plots.scene <- function()
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode)
+			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode, filtered=filtered)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			
 			# plot histogram
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="histo")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="histo")
+			# TODO why is this the "comparison" folder? shouldn't it be stats or plots?
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1072,7 +1076,7 @@ generate.static.plots.scene <- function()
 			}
 			
 			# plot complementary cumulative distribution function
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, plot.type="ccdf")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="ccdf")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1081,6 +1085,9 @@ generate.static.plots.scene <- function()
 						plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
 					dev.off()
 			}
+			
+			# test the type of distribution
+			
 		}
 	}
 }
@@ -1100,7 +1107,8 @@ generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.windo
 	
 	# deal with scene-based graph
 	tlog(2,"Generating plots for static graphs with scene-based windows")
-	generate.static.plots.scene()
+	for(filtered in c(FALSE, TRUE))
+		generate.static.plots.scene(filtered)
 	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")

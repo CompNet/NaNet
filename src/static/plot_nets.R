@@ -25,19 +25,16 @@ plot.static.graph.scenes <- function(data)
 		setup.graph.layout(g, NET_SCENES_FOLDER)
 	
 	# get filtered graph
-	idx.filtr <- which(V(g)$Frequency>2)
-	g.filtr <- induced_subgraph(g, v=idx.filtr)
-	tmp <- get.largest.component(g.filtr, indices=TRUE)
-	idx.cmp <- idx.filtr[tmp$indices]
-	g.cmp <- tmp$comp
-	el <- get.edgelist(g.cmp, names=FALSE)
-	ww <- rep(1, gsize(g.cmp))
+	idx.filtr <- which(!V(g)$Filtered)
+	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+	el <- get.edgelist(g.filtr, names=FALSE)
+	ww <- rep(1, gsize(g.filtr))
 	#ww <- E(cmp)$weight
-	lay.cmp <<- qgraph.layout.fruchtermanreingold(
+	lay.filtr <<- qgraph.layout.fruchtermanreingold(
 		edgelist=el, 
-		vcount=gorder(g.cmp), 
+		vcount=gorder(g.filtr), 
 		weight=ww, 
-		area=10*(gorder(g.cmp)^2),repulse.rad=(gorder(g.cmp)^3.0)
+		area=10*(gorder(g.filtr)^2),repulse.rad=(gorder(g.filtr)^3.0)
 	)
 	
 	# set up vertex size
@@ -79,9 +76,9 @@ plot.static.graph.scenes <- function(data)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(graph.file,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			plot(g.filtr, 
-				layout=lay.cmp, #LAYOUT[idx.cmp,],
-				vertex.size=vsizes[idx.cmp], vertex.color="LIGHTGREY"[idx.cmp], 
-				vertex.label=vlabs[idx.cmp], vertex.label.cex=vlabsize[idx.cmp],
+				layout=LAYOUT[idx.filtr,],	# lay.filtr
+				vertex.size=vsizes[idx.filtr], vertex.color="LIGHTGREY"[idx.filtr], 
+				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsize[idx.filtr],
 				vertex.label.family="sans",
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color="BLACK"
@@ -120,10 +117,10 @@ plot.static.graph.scenes <- function(data)
 				pdf(file=paste0(graph.file,"_vol",v,"_filtered",PLOT_FORMAT_PDF), bg="white")
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(graph.file,"_vol",v,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				plot(g.cmp, 
-					layout=lay.cmp, #LAYOUT[idx.cmp,], 
-					vertex.size=vsizes[idx.cmp], vertex.color=cols[idx.cmp], 
-					vertex.label=vlabs[idx.cmp], vertex.label.cex=vlabsize[idx.cmp],
+				plot(g.filtr, 
+					layout=LAYOUT[idx.filtr,],	# lay.filtr,  
+					vertex.size=vsizes[idx.filtr], vertex.color=cols[idx.filtr], 
+					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsize[idx.filtr],
 					vertex.label.family="sans",
 					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 					vertex.label.color="BLACK",
@@ -165,10 +162,10 @@ plot.static.graph.scenes <- function(data)
 				pdf(file=paste0(graph.file,"_arc",a,"_filtered",PLOT_FORMAT_PDF), bg="white")
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(graph.file,"_arc",a,"_filtered",PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				plot(g.cmp, 
-					layout=lay.cmp, #LAYOUT[idx.cmp,], 
-					vertex.size=vsizes[idx.cmp], vertex.color=cols[idx.cmp], 
-					vertex.label=vlabs[idx.cmp], vertex.label.cex=vlabsize[idx.cmp],
+				plot(g.filtr, 
+					layout=LAYOUT[idx.filtr,], #lay.filtr, 
+					vertex.size=vsizes[idx.filtr], vertex.color=cols[idx.filtr], 
+					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsize[idx.filtr],
 					vertex.label.family="sans",
 					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 					vertex.label.color="BLACK",

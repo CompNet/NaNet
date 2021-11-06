@@ -21,16 +21,19 @@ LAYOUT <- NA	# graph layout
 # folder: where to record the layout.
 #############################################################
 setup.graph.layout <- function(g, folder)
-{	# try to read the layout if the file exists
+{	reset.flag <- FALSE
+	
+	# try to read the layout if the file exists
 	lay.file <- file.path(folder,"all_layout.txt")
 	if(file.exists(lay.file))
 	{	cat("Loading layout file \"",lay.file,"\"\n",sep="")
 		LAYOUT <<- as.matrix(read.table(file=lay.file))
+		reset.flag <- gorder(g)!=nrow(LAYOUT)
 	}
 	
 	# otherwise, compute the layout
-	else
-	{	cat("Layout file \"",lay.file,"\" not found: computing and recording it\n",sep="")
+	if(!file.exists(lay.file) || reset.flag)
+	{	cat("Layout file \"",lay.file,"\" not found or obsolete: computing and recording it\n",sep="")
 		
 		# use a  predefined layout
 #		LAYOUT <<- layout_with_dh(g)		# very long
@@ -485,7 +488,8 @@ custom.barplot <- function(vals, text, xlab, ylab, file, ...)
 			)
 		}
 		else
-		{	barcols <- CAT_COLORS[(1:nrow(vals)-1) %% length(CAT_COLORS)+1]
+		{	cols <- get.palette(values=nrow(vals))
+			barcols <- cols[(1:nrow(vals)-1) %% length(cols)+1]
 			barplot(
 				height=vals,				# data
 				names.arg=text,				# bar names

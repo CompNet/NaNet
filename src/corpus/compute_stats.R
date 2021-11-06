@@ -969,10 +969,10 @@ compute.stats.chars <- function(
 				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				ml <- "Volume number distribution over characters"
-				xl <- "Number of volumes by character"
-#				# histogram
-#				h <- hist(
+					ml <- "Volume number distribution over characters"
+					xl <- "Number of volumes by character"
+#					# histogram
+#					h <- hist(
 #						data,
 #						breaks=0:max(data),
 ##						col=MAIN_COLOR,
@@ -980,20 +980,21 @@ compute.stats.chars <- function(
 ##						main=ml,
 ##						freq=FALSE,
 #						plot=FALSE
-#				)
-#				# scatterplot
-#				x <- h$breaks[2:length(h$breaks)]
-#				y <- h$counts
-#				idx <- which(y>0)
-#				x <- x[idx]
-#				y <- y[idx]
-#				plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
-				# complementary cumulative distribution function
-				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
-			dev.off()
+#					)
+#					# scatterplot
+#					x <- h$breaks[2:length(h$breaks)]
+#					y <- h$counts
+#					idx <- which(y>0)
+#					x <- x[idx]
+#					y <- y[idx]
+#					plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
+					# complementary cumulative distribution function
+					plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				dev.off()
 		}
-#		# check distribution
-#		test.disc.distr(data)
+		# check distribution
+#		distr.stats <- test.disc.distr(data+1, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
 	
 	# distributions of page numbers
@@ -1114,7 +1115,43 @@ compute.stats.chars <- function(
 	}
 #	# check distribution
 #	test.disc.distr(data)
-
+	
+	# behavior of character filtering (trying to identify extras)
+	thresholds <- seq(0, 10)	#max(char.info[,COL_CHAR_FREQ]))
+	char.nums <- sapply(thresholds, function(t) c(table(factor(char.info[char.info[,COL_CHAR_FREQ]>=t,COL_CHAR_NAMED], levels=c("TRUE","FALSE")))))
+	# generate barplots
+	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_filtering_by_occurences")
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+			cols <- get.palette(values=2)
+			barplot(
+				height=char.nums,						# data
+				names.arg=thresholds,					# bar names
+				beside=FALSE,							# grouped bars
+				col=cols,								# bar colors
+				main=NA,								# no main title
+				xlab="Minimal number of occurrences",	# x-axis label
+				ylab="Number of characters",			# y-axis label
+				las=0,									# x label orientation
+			)
+			text2 <- 
+			legend(
+				x="topright",
+				fill=cols,
+				legend=c("Named","Unnamed")
+			)
+		dev.off()
+	}
+	# record as CSV
+	thresholds <- seq(0, 10)	#max(char.info[,COL_CHAR_FREQ]))
+	char.nums <- sapply(thresholds, function(t) c(table(factor(char.info[char.info[,COL_CHAR_FREQ]>=t,COL_CHAR_NAMED], levels=c("TRUE","FALSE")))))
+	tab <- cbind(thresholds, t(char.nums))
+	colnames(tab) <- c("Min occurrences","Named","Unnamed")
+	write.csv(x=tab, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	
 	result <- list(stats.chars=stats.chars, char.volumes=char.volumes)
 	return(result)
 }
@@ -1421,7 +1458,49 @@ compute.stats.volumes <- function(
 		}
 	}
 	
-	# TODO plot all volume distributions on the same plot?
+	# distributions of character numbers
+	vals <- table(stats.volumes[, COL_STATS_CHARS])
+	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
+	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_VOLUMES, "Proportion")
+	file <- get.path.stat.corpus(object=object, desc="volumes_distrib_char_nbr")
+	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	data <- stats.volumes[,COL_STATS_CHARS]
+	if(length(unique(data))>1)
+	{	for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					ml <- "Character number distribution over volumes"
+					xl <- "Number of characters by volume"
+#					# histogram
+#					h <- hist(
+#						data,
+#						breaks=0:max(data),
+			##						col=MAIN_COLOR,
+			##						xlab=xl,
+			##						main=ml,
+			##						freq=FALSE,
+#						plot=FALSE
+#					)
+#					# scatterplot
+#					x <- h$breaks[2:length(h$breaks)]
+#					y <- h$counts
+#					idx <- which(y>0)
+#					x <- x[idx]
+#					y <- y[idx]
+#					plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
+					# complementary cumulative distribution function
+					plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				dev.off()
+		}
+		# check distribution
+#		distr.stats <- test.disc.distr(data, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+	}
+	
+	# TODO plot the distributions obtained for all volumes on the same plot? (using lines)
 
 	result <- list(stats.volumes=stats.volumes, stats.volumes.atts=stats.volumes.atts)
 	return(result)

@@ -31,15 +31,15 @@ GRAPH_MEASURES[[MEAS_DENSITY]] <- list( #density
 )
 
 # link weights
-NODEPAIR_MEASURES[[MEAS_LINKWEIGHT]] <- list( #linkweight
+LINK_MEASURES[[MEAS_LINKWEIGHT]] <- list( #linkweight
 	type=integer(),
 	bounds=c(0,NA),
 	cname="Link Weights",
 	foo=function(graph) 
-	{	#E(graph)$weight
-		values <- as_adjacency_matrix(graph=graph, type="upper", attr="weight", names=FALSE)
-		values <- values[upper.tri(values,diag=FALSE)]
-		return(values)
+	{	#values <- as_adjacency_matrix(graph=graph, type="upper", attr="weight", names=FALSE)
+		#values <- values[upper.tri(values,diag=FALSE)]
+		#return(values)
+		E(graph)$weight
 	}
 )
 GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_AVG)]] <- list( #linkweight-average

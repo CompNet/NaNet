@@ -86,10 +86,11 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # vol: concerned volume (optional).
+# filtered: whether this concerns the filtered version of the graph.
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -111,6 +112,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA)
 	# possibly add volume name
 	if(!is.na(vol))
 		res <- 	paste0(res, "_vol",vol)
+	# possible add filtered suffix
+	if(filtered)
+		res <- paste0(res, "_filtered")
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
@@ -137,10 +141,11 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA)
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# filtered: whether this concerns the filtered version of the graph.
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA)
+get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -148,6 +153,9 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
+	# possible add filtered suffix
+	if(filtered)
+		folder <- paste0(folder, "_filtered")
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -191,11 +199,12 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# filtered: whether this concerns the filtered version of the graph.
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, plot.type=NA)
+get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, filtered=FALSE, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -203,6 +212,9 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
+	# possible add filtered suffix
+	if(filtered)
+		folder <- paste0(folder, "_filtered")
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -247,11 +259,12 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # weights: value for this parameters, either "duration" or "occurrences".
+# filtered: whether this concerns the filtered version of the graph.
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, plot.type=NA)
+get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, filtered=FALSE, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER
@@ -259,6 +272,9 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 		folder <- COMP_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- COMP_SCENES_FOLDER
+	# possible add filtered suffix
+	if(filtered)
+		folder <- paste0(folder, "_filtered")
 	# add object folder
 	folder <- file.path(folder, object)
 	# possibly add measure folder
