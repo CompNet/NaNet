@@ -203,19 +203,24 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	
 	################## continuous truncated power law
 	msg <- "Handling continuous truncated power law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
-	# using Python
-#	tmp <- test_pl_expcutoff(data, discrete=FALSE)
-#	tab[1,C_TRUNC_CLR] <- tmp$stat
-#	tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
-	if(!is.na(plot.file))					# possibly plot model
-	{	# TODO
+	if(any(data<0))
+	{	msg <- "Impossible: data contain negative value(s)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
-	# only possibility is library pli
-	trunc.law2 <- powerexp.fit(data=data,threshold=power.law$xmin)
-	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-	tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	else
+	{	# using Python
+#		tmp <- test_pl_expcutoff(data, discrete=FALSE)
+#		tab[1,C_TRUNC_CLR] <- tmp$stat
+#		tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
+		if(!is.na(plot.file))					# possibly plot model
+		{	# TODO
+		}
+		# only possibility is library pli
+		trunc.law2 <- powerexp.fit(data=data,threshold=power.law$xmin)
+		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	}
 	
 	################
 	
@@ -411,19 +416,24 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	
 	################## discrete truncated power law
 	msg <- "Handling discrete truncated power law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
-	# using Python
-#	tmp <- test_pl_expcutoff(data, discrete=TRUE)
-#	tab[1,C_TRUNC_CLR] <- tmp$stat
-#	tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
-	if(!is.na(plot.file))					# possibly plot model
-	{	# TODO
+	if(any(data<0))
+	{	msg <- "Impossible: data contain negative value(s)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
-	# only possibility is library pli
-	trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
-	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-	tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	else
+	{	# using Python
+#		tmp <- test_pl_expcutoff(data, discrete=TRUE)
+#		tab[1,C_TRUNC_CLR] <- tmp$stat
+#		tab[1,C_TRUNC_CPVAL] <- tmp$pvalue
+		if(!is.na(plot.file))					# possibly plot model
+		{	# TODO
+		}
+		# only possibility is library pli
+		trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
+		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	}
 	
 	################## yule-simon distribution
 	msg <- "Handling Yule-Simon distribution";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
