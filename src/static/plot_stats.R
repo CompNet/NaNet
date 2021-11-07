@@ -1052,6 +1052,7 @@ generate.static.plots.scene <- function(filtered=FALSE)
 			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode, filtered=filtered)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
+			#vals <- vals[vals>0]	# remove the zeroes?
 			
 			# plot histogram
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="histo")
@@ -1087,7 +1088,11 @@ generate.static.plots.scene <- function(filtered=FALSE)
 			}
 			
 			# test the type of distribution
-			
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="disttest")
+			if(all(vals%%1==0))
+				test.disc.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
+			else
+				test.cont.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
 		}
 	}
 }

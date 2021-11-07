@@ -143,8 +143,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
 extract.static.graph.panel.window <- function(char.info, inter.df, window.size=10, overlap=2)
-{	tlog(2,"Extracting the panel window-based static graph")
-	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
+{	tlog(2,"Extracting the panel window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
@@ -207,7 +206,7 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
-	tlog(2,"Extraction of the panel window-based static graph completed")
+	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
 	return(g)
 }
 
@@ -229,8 +228,7 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
 extract.static.graph.page.window <- function(char.info, inter.df, page.info, window.size=2, overlap=1)
-{	tlog(2,"Extracting the page window-based static graph")
-	tlog(3,"For parameters window.size=",window.size," and overlap=",overlap)
+{	tlog(2,"Extracting the page window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
 	if(overlap>=window.size)
@@ -297,7 +295,7 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
-	tlog(2,"Extraction of the page window-based static graph completed")
+	tlog(2,"Extraction of the page window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
 	return(g)
 }
 
