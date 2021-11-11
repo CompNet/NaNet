@@ -92,7 +92,7 @@ charnet.prop <- function(g, tabs)
 	prop.tab[file,C_MEAS_DEG_ASSORT] <- assortativity_degree(graph=g, directed=FALSE)
 	
 	# relation between degree and transitivity
-	tmp <- trans_degr_rel(g)
+	tmp <- transitivity.vs.degree(g, weight=FALSE, filename=file.path(folder, g$name))
 	prop.tab[file,C_MEAS_TRANS_DEG_EXP] <- tmp$exponent
 	prop.tab[file,C_MEAS_TRANS_DEG_GOF] <- tmp$gof
 	
@@ -116,78 +116,6 @@ charnet.prop <- function(g, tabs)
 	
 	tabs <- list(prop.tab=prop.tab, sw.tab=sw.tab, distr.tab=distr.tab)
 	return(tabs)
-}
-
-
-
-
-###############################################################################
-# Estimates the exponent of the power law relation between the degree and the
-# local transitivity.
-#
-# g: graph to compute.
-#
-# returns: result of the estimation and goodness of fit.
-###############################################################################
-trans_degr_rel <- function(g)
-{	# NOTE: not clear whether the transitivity values should be
-	# averaged by degree first.
-	
-	# compute the values
-	tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
-	deg.vals <- degree(g)
-	# filter out zero transitivity
-	filt.tra <- tra.vals[tra.vals>0]
-	filt.deg <- deg.vals[tra.vals>0]
-	
-	# make a few tries
-	best.exp <- NA
-	best.gof <- .Machine$integer.max
-	for(i in 1:4)
-	{	threshold <- quantile(deg.vals)[i]
-		
-		# only keep the right tail?
-		cut.tra <- filt.tra[filt.deg>=threshold]
-		cut.deg <- filt.deg[filt.deg>=threshold]
-		# build data frame
-		df <- data.frame(cut.deg, cut.tra)
-		
-		# fit model
-		fit <- nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
-				start=list(c1=0, c2=-3, c3=0),
-				data = df,
-				control=list(maxiter=75))
-		
-		# retrieve estimated exponent
-		exponent <- summary(fit)$coefficients["c2","Estimate"]
-		gof <- summary(fit)$sigma
-		#gof <- cor(y,predict(fit)) # by curiosity
-		
-		# plot for future visualization
-		plot.file <- file.path(folder, paste0(g$name,"_deg_trans_thre=",threshold,".pdf"))
-		pdf(file=plot.file, width=15, height=15)
-			plot(
-				x=filt.deg, y=filt.tra, 
-				main=paste0("Exponent: ",exponent," -- GoF: ",gof),
-				xlab="Local Transitivity",
-				ylab="Degree",
-				log="xy",
-				xlim=c(1,max(deg.vals)*1.1),
-				ylim=c(0.0001,1)
-			)
-			x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
-			lines(x, predict(fit, list(cut.deg=x)), col="GREEN")
-		dev.off()
-		
-		# keep best fit
-		if(gof<best.gof)
-		{	best.exp <- exponent
-			best.gof <- gof
-		}
-	}
-	
-	result <- list(exponent=best.exp, gof=best.gof)
-	return(result)
 }
 
 

@@ -31,9 +31,12 @@ install.packages("viridis")
 # statistical tests
 install.packages("ercv")
 install.packages("poweRlaw")
+# nonlinear regression
+install.packages("minpack.lm")
 
 # strings
 install.packages("stringr")
+install.packages("latex2exp")	# insert latex code in plot texts
 
 # various fast functions (including binary search)
 #install.packages("Rfast") # not used

@@ -1095,6 +1095,48 @@ generate.static.plots.scene <- function(filtered=FALSE)
 				test.cont.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
 		}
 	}
+	
+	# compute and plot additional stuff
+	# read the graph
+	graph.file <- get.path.graph.file(mode="scenes")
+	g <- read_graph(file=graph.file, format="graphml")
+	if(filtered)
+		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+	g.dur <- g; E(g.dur)$weight <- E(g)$Duration
+	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
+	
+	# degree vs. neighbors' degree
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=filtered)
+	neigh.degree.vs.degree(g, weights=FALSE, filename)
+	for(wmode in wmodes)
+	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, filtered=filtered)
+		if(wmode=="duration")
+			neigh.degree.vs.degree(g.dur, weights=TRUE, filename)
+		else if(wmode=="occurrences")
+			neigh.degree.vs.degree(g.occ, weights=TRUE, filename)
+	}
+	
+	# degree vs. transitivity
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=filtered)
+	transitivity.vs.degree(g, weights=FALSE, filename)
+	for(wmode in wmodes)
+	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, filtered=filtered)
+		if(wmode=="duration")
+			transitivity.vs.degree(g.dur, weights=TRUE, filename)
+		else if(wmode=="occurrences")
+			transitivity.vs.degree(g.occ, weights=TRUE, filename)
+	}
+	
+	# hop plots
+	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", filtered=filtered)
+	hop.plot(g, weights=FALSE, filename)
+	for(wmode in wmodes)
+	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, filtered=filtered)
+		if(wmode=="duration")
+			hop.plot(g.dur, weights=TRUE, filename)
+		else if(wmode=="occurrences")
+			hop.plot(g.occ, weights=TRUE, filename)
+	}
 }
 
 

@@ -19,6 +19,8 @@ library("poweRlaw")
 library("qgraph")
 #library("Rfast")	# not used
 library("data.table")
+library("latex2exp")
+library("minpack.lm")	# nonlinear regression
 
 
 

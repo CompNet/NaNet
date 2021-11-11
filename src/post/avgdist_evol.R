@@ -30,8 +30,8 @@ for(fformat in PLOT_FORMAT)
 		png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			# init plot
 			plot(x=g.orders, y=dist.vals, 
-				xlab="Number of vertices",
-				ylab="Average distance",
+				xlab=TeX("Number of vertices $n$"),
+				ylab=TeX("Average distance $<d>$"),
 				col="RED",
 				type="l"
 			)

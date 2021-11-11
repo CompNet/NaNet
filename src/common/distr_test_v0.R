@@ -71,7 +71,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 		pdf(plot.file, width=15, height=15)
 		plot(power.law, 
 			col="BLACK",
-			xlab="Degree", ylab="Probability Density"
+			xlab=TeX("Degree $k$"), ylab="Probability Density"
 		)
 		lines(power.law, col="BLUE", lwd=2)
 #		# ccdf
@@ -79,7 +79,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #		x <- seq(from=min(data), to=max(data), by=(max(data)-min(data))/(length(y)-1))
 #		plot(x[-length(x)], y[-length(y)], 
 #			col="BLACK",
-#			xlab="Degree", ylab="Complementary Cumulative Density",
+#			xlab=TeX("Degree $k$"), ylab="Complementary Cumulative Density",
 #			log="xy"
 #		)
 #		x <- seq(from=power.law$xmin, to=max(data), by=(max(data)-power.law$xmin)/100)
@@ -288,7 +288,7 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 		pdf(plot.file, width=15, height=15)
 		plot(power.law, 
 			col="BLACK",
-			xlab="Degree", ylab="Probability Density"
+			xlab=TeX("Degree $k$"), ylab="Probability Density"
 		)
 		lines(power.law, col="BLUE", lwd=2)
 #		# ccdf
@@ -296,7 +296,7 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 #		x <- seq(from=min(data), to=max(data), by=(max(data)-min(data))/(length(y)-1))
 #		plot(x[-length(x)], y[-length(y)], 
 #			col="BLACK",
-#			xlab="Degree", ylab="Complementary Cumulative Density",
+#			xlab=TeX("Degree $k$"), ylab="Complementary Cumulative Density",
 #			log="xy"
 #		)
 #		x <- seq(from=power.law$xmin, to=max(data), by=(max(data)-power.law$xmin)/100)
