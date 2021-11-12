@@ -334,6 +334,11 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	V(g)$Filtered[idx.cmp] <- FALSE
 	graph.file <- get.path.graph.file(mode="scenes")
 	write_graph(graph=g, file=graph.file, format="graphml")
+	# add col to char info
+	char.info <- data$char.info
+	char.info <- cbind(char.info, V(g)$Filtered)
+	colnames(char.info)[ncol(char.info)] <- COL_CHAR_FILTERED
+	data$char.info <- char.info
 	
 	# extract the panel window-based static graphs
 	future_sapply(1:length(panel.window.sizes), function(i)

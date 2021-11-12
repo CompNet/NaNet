@@ -53,6 +53,7 @@ COL_CHAR_FREQ <- "Frequency"		# number of scenes
 COL_CHAR_SHORT_NAME <- "ShortName"	# short version of the name, for important characters only
 COL_CHAR_NAMED <- "Named"			# whether the character has a proper name
 COL_CHAR_SEX <- "Sex"				# sex of the character
+COL_CHAR_FILTERED <- "Filtered"		# important character (FALSE) or extra (TRUE)
 
 
 ###############################################################################
