@@ -58,6 +58,7 @@ C_EXPO_CPVAL <- "Exponential_cmp_pval"; C_DISTR <- c(C_DISTR, C_EXPO_CPVAL)
 C_WEIB_PVAL <- "Weibull_pval"; C_DISTR <- c(C_DISTR, C_WEIB_PVAL)
 C_WEIB_CLR <- "Weibull_cmp_LR"; C_DISTR <- c(C_DISTR, C_WEIB_CLR)
 C_WEIB_CPVAL <- "Weibull_cmp_pval"; C_DISTR <- c(C_DISTR, C_WEIB_CPVAL)
+C_TRUNC_EXP <- "TruncPL_exp"; C_DISTR <- c(C_DISTR, C_TRUNC_EXP)
 C_TRUNC_CLR <- "TruncPL_cmp_LR"; C_DISTR <- c(C_DISTR, C_TRUNC_CLR)
 C_TRUNC_CPVAL <- "TruncPL_cmp_pval"; C_DISTR <- c(C_DISTR, C_TRUNC_CPVAL)
 C_YUSIM_CLR <- "YuleSimon_cmp_LR"; C_DISTR <- c(C_DISTR, C_YUSIM_CLR)
@@ -218,7 +219,9 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	{	msg <- "ERROR while applying powerexp";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
-	{	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+	{	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
+		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
 		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
@@ -421,6 +424,8 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	}
 	# only possibility is library pli
 	trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
+	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
 	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio

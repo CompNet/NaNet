@@ -127,8 +127,8 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	}
 	
 	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(res)$Filtered))
-	idx.filtr <- which(!V(res)$Filtered)
+	g.filtr <- delete_vertices(g, v=which(V(g)$Filtered))
+	idx.filtr <- which(!V(g)$Filtered)
 	
 	# compute each measure
 	tlog(5,"Computing each nodal measure")
@@ -523,8 +523,8 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	}
 	
 	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(res)$Filtered))
-	#idx.filtr <- which(!V(res)$Filtered)
+	g.filtr <- delete_vertices(g, v=which(V(g)$Filtered))
+	#idx.filtr <- which(!V(g)$Filtered)
 	
 	# compute each topological and comparison measure
 	tlog(5,"Computing each graph comparison measure")
