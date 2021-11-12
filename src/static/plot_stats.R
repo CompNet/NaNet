@@ -298,15 +298,20 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					vioplot(x=values, 
-						names=nms,
-#						outline=FALSE,
-						xlab="Overlap",
-						ylab=ALL_MEASURES[[meas.name]]$cname,
-						main=paste0("mode=",mode," window.size=",window.size),
-						border=c(rep("RED",2),rep("BLUE",length(values)-2)),
-						col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
-					)
+					# check if there's a single value
+					if(all(sapply(values, function(vect) all(vect[!is.na(vect)]==unique(vect[!is.na(vect)])[1]))))
+						plot(NULL,xlim=0:1,ylim=0:1,xlab=NA,ylab=NA)	# empty plot if only one unique value
+					# regular case
+					else
+						vioplot(x=values2, 
+							names=nms,
+#							outline=FALSE,
+							xlab="Overlap",
+							ylab=ALL_MEASURES[[meas.name]]$cname,
+							main=paste0("mode=",mode," window.size=",window.size),
+							border=c(rep("RED",2),rep("BLUE",length(values)-2)),
+							col=c(rep("PINK",2),rep("LIGHTBLUE",length(values)-2))
+						)
 				dev.off()
 			}
 			

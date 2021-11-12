@@ -7,7 +7,7 @@
 #############################################################################################
 source("src/graph/generation.R")
 source("src/graph/rewiring.R")
-source("src/graph/topomeas.R.R")
+source("src/graph/topomeas.R")
 source("src/graph/smallworldness.R")
 
 
