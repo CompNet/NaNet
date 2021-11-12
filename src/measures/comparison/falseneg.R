@@ -28,34 +28,34 @@ graph.falsenegative.measure <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.falsenegative <- function(name, graph, reduced)
+compute.falsenegative <- function(name, graph, filtered)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
-		if(name==paste0(MEAS_FALSENEG, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		if(name==paste0(MEAS_FALSENEG, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
-		else if(name==paste0(MEAS_FALSENEG, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_FALSENEG, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.falsenegative.measure(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
@@ -70,7 +70,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_DUR)]] <- list( #false negative com
 	bounds=c(0,NA),
 	cname="False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_DUR), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_DUR), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -83,7 +83,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR)]] <- list( #Weight
 	bounds=c(0,NA),
 	cname="Weighted False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -96,7 +96,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- lis
 	bounds=c(0,NA),
 	cname="Weighted normalized False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -109,7 +109,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_OCC)]] <- list( #false negative com
 	bounds=c(0,NA),
 	cname="False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_OCC), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_OCC), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -122,7 +122,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC)]] <- list( #Weight
 	bounds=c(0,NA),
 	cname="Weighted False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -135,7 +135,7 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- lis
 	bounds=c(0,NA),
 	cname="Weighted normalized False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -146,13 +146,13 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- lis
 
 
 
-# nodal reduced
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_DUR)]] <- list( #false negative compared to reduced duration graph
+# nodal filtered
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_DUR)]] <- list( #false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -160,12 +160,12 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_DUR)]] <- list( #false
 		return(values)
 	}
 )
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted false negative compared to reduced duration graph
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="Weighted False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -173,12 +173,12 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- 
 		return(values)
 	}
 )
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized false negative compared to reduced duration graph
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="Weighted normalized False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -186,12 +186,12 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_
 		return(values)
 	}
 )
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_OCC)]] <- list( #false negative compared to reduced occurrences graph
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_OCC)]] <- list( #false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -199,12 +199,12 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_OCC)]] <- list( #false
 		return(values)
 	}
 )
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted false negative compared to reduced occurrences graph
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="Weighted False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -212,12 +212,12 @@ NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- 
 		return(values)
 	}
 )
-NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized false negative compared to reduced occurrences graph
+NODECOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="Weighted normalized False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
+	{	tmp <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
 		m <- matrix(0, nrow=gorder(graph), ncol=gorder(graph))
 		m[upper.tri(m,diag=F)] <- tmp
 		m <- m + t(m)
@@ -234,7 +234,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR)]] <- list( #false 
 	bounds=c(0,NA),
 	cname="False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_DUR), graph, filtered=FALSE)
 		sum(values)
 	}
 )
@@ -243,7 +243,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- l
 	bounds=c(0,NA),
 	cname="Weighted False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
 		sum(values)
 	}
 )
@@ -252,7 +252,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_D
 	bounds=c(0,NA),
 	cname="Weighted normalized False Negatives relative to Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
 		sum(values)
 	}
 )
@@ -261,7 +261,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_OCC)]] <- list( #false 
 	bounds=c(0,NA),
 	cname="False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_OCC), graph, filtered=FALSE)
 		sum(values)
 	}
 )
@@ -270,7 +270,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- l
 	bounds=c(0,NA),
 	cname="Weighted False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
 		sum(values)
 	}
 )
@@ -279,65 +279,65 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_O
 	bounds=c(0,NA),
 	cname="Weighted normalized False Negatives relative to Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
 		sum(values)
 	}
 )
 
 
 
-# total reduced
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_DUR)]] <- list( #false negative compared to reduced duration graph
+# total filtered
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_DUR)]] <- list( #false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
 		sum(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted false negative compared to reduced duration graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="Weighted False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
 		sum(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized false negative compared to reduced duration graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized false negative compared to filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized False Negatives relative to Reduced Scene-Based Duration Graph",
+	cname="Weighted normalized False Negatives relative to Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
 		sum(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_OCC)]] <- list( #false negative compared to reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_OCC)]] <- list( #false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
 		sum(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted false negative compared to reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="Weighted False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
 		sum(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized false negative compared to reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized false negative compared to filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized False Negatives relative to Reduced Scene-Based Occurrences Graph",
+	cname="Weighted normalized False Negatives relative to Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.falsenegative(paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
 		sum(values)
 	}
 )

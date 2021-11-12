@@ -28,34 +28,34 @@ graph.euclidean.distance <- function(graph1, graph2, weighted, normalized)
 	return(res)
 }
 # cache function
-compute.euclidean.distance <- function(name, graph, reduced)
+compute.euclidean.distance <- function(name, graph, filtered)
 {	if(length(cache[[name]])>0)
 		res <- cache[[name]]
 	else
 	{	# durations
-		if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
-		{	ref <- get.ref.graph(SFX_DUR, reduced)
+		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_DUR) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+		{	ref <- get.ref.graph(SFX_DUR, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		# occurrences
-		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=FALSE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE, normalized=FALSE)
 		}
-		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-		{	ref <- get.ref.graph(SFX_OCC, reduced)
+		else if(name==paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_OCC) || name==paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+		{	ref <- get.ref.graph(SFX_OCC, filtered)
 			res <- graph.euclidean.distance(graph1=graph, graph2=ref, weighted=TRUE, normalized=TRUE)
 		}
 		cache[[name]] <<- res
@@ -70,7 +70,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_DUR)]] <- list( #Euclidean d
 	bounds=c(0,NA),
 	cname="Euclidean Distance with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_DUR), graph, filtered=FALSE)
 		return(values)
 	}
 )
@@ -79,7 +79,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_DUR)]] <- list( 
 	bounds=c(0,NA),
 	cname="Weighted Euclidean Distance with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
 		return(values)
 	}
 )
@@ -88,7 +88,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_DUR)]]
 	bounds=c(0,NA),
 	cname="Weighted normalized Euclidean Distance with Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
 		return(values)
 	}
 )
@@ -97,7 +97,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_OCC)]] <- list( #Euclidean d
 	bounds=c(0,NA),
 	cname="Euclidean Distance with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_OCC), graph, filtered=FALSE)
 		return(values)
 	}
 )
@@ -106,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_OCC)]] <- list( 
 	bounds=c(0,NA),
 	cname="Weighted Euclidean Distance with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
 		return(values)
 	}
 )
@@ -115,65 +115,65 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_OCC)]]
 	bounds=c(0,NA),
 	cname="Weighted normalized Euclidean Distance with Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=FALSE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
 		return(values)
 	}
 )
 
 
 
-# graph reduced
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_DUR)]] <- list( #Euclidean distance with reduced duration graph
+# graph filtered
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_DUR)]] <- list( #Euclidean distance with filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Euclidean Distance with Reduced Scene-Based Duration Graph",
+	cname="Euclidean Distance with Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
 		return(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Euclidean distance with reduced duration graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighted Euclidean distance with filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted Euclidean Distance with Reduced Scene-Based Duration Graph",
+	cname="Weighted Euclidean Distance with Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
 		return(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized Euclidean distance with reduced duration graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list( #Weighted normalized Euclidean distance with filtered duration graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized Euclidean Distance with Reduced Scene-Based Duration Graph",
+	cname="Weighted normalized Euclidean Distance with Filtered Scene-Based Duration Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
 		return(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_OCC)]] <- list( #Euclidean distance with reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_OCC)]] <- list( #Euclidean distance with filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Euclidean Distance with Reduced Scene-Based Occurrences Graph",
+	cname="Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
 		return(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Euclidean distance with reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighted Euclidean distance with filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted Euclidean Distance with Reduced Scene-Based Occurrences Graph",
+	cname="Weighted Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
 		return(values)
 	}
 )
-GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized Euclidean distance with reduced occurrences graph
+GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list( #Weighted normalized Euclidean distance with filtered occurrences graph
 	type=numeric(),
 	bounds=c(0,NA),
-	cname="Weighted normalized Euclidean Distance with Reduced Scene-Based Occurrences Graph",
+	cname="Weighted normalized Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	foo=function(graph)
-	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_REDUCED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, reduced=TRUE)
+	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
 		return(values)
 	}
 )

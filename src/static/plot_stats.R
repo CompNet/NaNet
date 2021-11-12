@@ -444,7 +444,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 	gmn <- names(GRAPH_MEASURES)
 	cmn <- names(GRAPHCOMP_MEASURES)
 	amn <- c(gmn, cmn)
-#amn <- amn[grepl(SFX_REDUCED, amn, fixed=TRUE)]
+#amn <- amn[grepl(SFX_FILTERED, amn, fixed=TRUE)]
 	
 	black.sfx <- c(SFX_STDEV) # remove all measures containing this suffix
 	for(sfx in black.sfx)

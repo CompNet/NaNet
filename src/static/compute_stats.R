@@ -126,9 +126,9 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		rownames(res.tab) <- V(g)$name
 	}
 	
-	# get reduced graph
-	idx.red <- which(V(g)$Frequency>2)
-	g.red <- induced_subgraph(g, v=idx.red)
+	# get filtered graph
+	g.filtr <- delete_vertices(g, v=which(V(res)$Filtered))
+	idx.filtr <- which(!V(res)$Filtered)
 	
 	# compute each measure
 	tlog(5,"Computing each nodal measure")
@@ -150,9 +150,9 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		else
 		{	# compute values
 			measure <- NODECOMP_MEASURES[[m]]
-			if(grepl(SFX_REDUCED, meas.name, fixed=TRUE))
+			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
 			{	values <- rep(NA,gorder(g))
-				values[idx.red] <- measure$foo(graph=g.red)
+				values[idx.filtr] <- measure$foo(graph=g.filtr)
 			}
 			else
 				values <- measure$foo(graph=g)
@@ -522,9 +522,9 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		colnames(res.tab) <- c("Value")
 	}
 	
-	# get reduced graph
-	idx.red <- which(V(g)$Frequency>2)
-	g.red <- induced_subgraph(g, v=idx.red)
+	# get filtered graph
+	g.filtr <- delete_vertices(g, v=which(V(res)$Filtered))
+	#idx.filtr <- which(!V(res)$Filtered)
 	
 	# compute each topological and comparison measure
 	tlog(5,"Computing each graph comparison measure")
@@ -547,8 +547,8 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 #		else
 		{	# compute value
 			measure <- measures[[m]]
-			if(grepl(SFX_REDUCED, meas.name, fixed=TRUE))
-				value <- measure$foo(graph=g.red)
+			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
+				value <- measure$foo(graph=g.filtr)
 			else
 				value <- measure$foo(graph=g)
 			tlog(7,"Value: ",value)
