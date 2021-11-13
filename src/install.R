@@ -38,6 +38,9 @@ install.packages("minpack.lm")
 install.packages("stringr")
 install.packages("latex2exp")	# insert latex code in plot texts
 
+# polynomials
+install.packages("polynom")
+
 # various fast functions (including binary search)
 #install.packages("Rfast") # not used
 install.packages("data.table")
