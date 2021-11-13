@@ -7,7 +7,8 @@
 
 # list used to cache certain (costly to compute) intermediary results
 cache <- list()
-
+# whether to force computation even if value already recorded
+FORCE <- TRUE
 
 
 ###############################################################################
@@ -55,7 +56,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# check if already computed
-		if(!all(is.na(res.tab[,meas.name])))
+		if(!all(is.na(res.tab[,meas.name])) && !FORCE)
 		{	tlog(7,"Measure already computed, using the existing values")
 			values <- res.tab[,meas.name]
 		}
@@ -143,7 +144,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 		
 		# check if already computed
-		if(!all(is.na(res.tab[,meas.name])))
+		if(!all(is.na(res.tab[,meas.name])) && !FORCE)
 		{	tlog(7,"Measure already computed, using the existing values")
 			values <- res.tab[,meas.name]
 		}
@@ -302,7 +303,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 		
 		# check if already computed
-		if(!all(is.na(res.tab[,meas.name])))
+		if(!all(is.na(res.tab[,meas.name])) && !FORCE)
 		{	tlog(7,"Measure already computed, using the existing values")
 			values <- res.tab[,meas.name]
 		}
@@ -389,7 +390,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# check if already computed
-		if(!all(is.na(res.tab[,meas.name])))
+		if(!all(is.na(res.tab[,meas.name])) && !FORCE)
 		{	tlog(7,"Measure already computed, using the existing values")
 			values <- res.tab[,meas.name]
 		}
@@ -471,11 +472,11 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 		}
 		
 		# check if already computed
-#		if(!is.na(res.tab[meas.name,1]))
-#		{	tlog(7,"Measure already computed, using the existing values")
-#			value <- res.tab[meas.name,1]
-#		}
-#		else
+		if(!is.na(res.tab[meas.name,1]) && !FORCE)
+		{	tlog(7,"Measure already computed, using the existing values")
+			value <- res.tab[meas.name,1]
+		}
+		else
 		{	# compute value
 			measure <- measures[[m]]
 			value <- measure$foo(graph=g)
@@ -540,11 +541,11 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		}
 		
 		# check if already computed
-#		if(!is.na(res.tab[meas.name,1]))
-#		{	tlog(7,"Measure already computed, using the existing values")
-#			value <- res.tab[meas.name,1]
-#		}
-#		else
+		if(!is.na(res.tab[meas.name,1]) && !FORCE)
+		{	tlog(7,"Measure already computed, using the existing values")
+			value <- res.tab[meas.name,1]
+		}
+		else
 		{	# compute value
 			measure <- measures[[m]]
 			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
@@ -611,7 +612,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 		}
 		
 		# check if already computed
-#		if(!all(is.na(res.tab[meas.name,])))
+#		if(!all(is.na(res.tab[meas.name,])) && !FORCE)
 #		{	tlog(7,"Measure already computed, using the existing values")
 #			#value <- res.tab[meas.name,1]
 #		}

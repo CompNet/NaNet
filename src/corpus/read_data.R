@@ -218,7 +218,7 @@ read.inter.table <- function(volume.info, page.info)
 			{	if(length(chars)==0)
 					msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
 				else #if(length(chars)==1)
-					msg <- paste0("WARNING there is less than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
+					msg <- paste0("WARNING there is fewer than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
 				tlog(3,msg)
 				#warning(msg)
 			}

@@ -1,501 +1,501 @@
 Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
-1	3	1	4	3	Thorgal Aegirsson	Gandalf-le-fou
-1	4	4	4	4	Thorgal Aegirsson
-1	4	5	5	1	Gandalf-le-fou	Aaricia Ganfalfsdottir	Equipage_1.4
-1	5	2	5	2	Aaricia Ganfalfsdottir
-1	5	3	5	3	Thorgal Aegirsson
-1	5	4	5	4	Aaricia Ganfalfsdottir
-1	5	5	6	5	Thorgal Aegirsson
-1	6	6	8	7	Thorgal Aegirsson	Slive	Sharn
-1	9	1	9	5	Thorgal Aegirsson	Slive	Sharn
-1	10	1	10	5	Thorgal Aegirsson	Slive
-1	10	6	11	1	Thorgal Aegirsson
-1	11	2	12	4	Thorgal Aegirsson	Gardien géant_1.11
-1	12	5	12	7	Thorgal Aegirsson
-1	12	8	13	6	Thorgal Aegirsson	Gardien nain_1.12
-1	13	7	14	2	Thorgal Aegirsson	Gardien nain_1.12	Sharn
-1	14	3	14	4	Thorgal Aegirsson	Sharn
-1	14	5	14	6	Thorgal Aegirsson	Slive	Sharn
-1	15	1	16	4	Gandalf-le-fou	Hiérulf-le-penseur	Spectateurs_1.15
-1	16	5	18	5	Vieillard / Thorgal Aegirsson	Gandalf-le-fou	Hiérulf-le-penseur	Spectateurs_1.15
-1	18	6	19	8	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Hiérulf-le-penseur	Spectateurs_1.15
-1	19	9	20	5	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Hiérulf-le-penseur	Slive	Sharn	Spectateurs_1.15
-1	20	6	20	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-1	21	1	21	5	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn
-1	21	6	26	6	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn	Baalds_1.21
-1	27	1	28	4	Thorgal Aegirsson	Slive	Sharn
-1	28	5	29	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-1	29	3	29	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Gandalf-le-fou
-1	29	7	31	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Gandalf-le-fou	Slive	Sharn
-1	32	1	32	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Slive	Sharn
-1	32	5	32	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-1	33	1	33	2	Thorgal Aegirsson
-1	33	3	35	4	Thorgal Aegirsson	Loups_1.33
-1	36	1	36	2	Thorgal Aegirsson
-1	36	3	36	3	Thorgal Aegirsson	Ragnhild
-1	36	4	39	9	Thorgal Aegirsson	Ragnhild	Ingrid
-1	40	1	41	5	Thorgal Aegirsson	Skadia
-1	41	6	42	5	Thorgal Aegirsson	Skadia	Ragnhild	Ingrid
-1	42	6	44	6	Thorgal Aegirsson	Skadia
-1	45	1	46	8	Thorgal Aegirsson	Skadia
-1	47	1	47	6	Thorgal Aegirsson	Skadia
-1	48	1	48	8	Thorgal Aegirsson
-2	3	1	3	3	Aaricia Ganfalfsdottir	Solveig
-2	4	1	4	4	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4
-2	4	5	6	6	Aaricia Ganfalfsdottir	Solveig
-2	7	1	7	4	Akwila	Aaricia Ganfalfsdottir
-2	7	5	8	6	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4
-2	8	7	8	8	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
-2	9	1	9	1
-2	9	2	9	3	Akwila	Equipage_2.9
-2	9	4	9	4	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
-2	10	1	10	6	Thorgal Aegirsson
-2	10	7	10	9	Thorgal Aegirsson	Akwila	Equipage_2.9
-2	11	1	14	3	Thorgal Aegirsson	Björn Gandalfson	Jorund-le-taureau	Vikings_2.10
-2	14	4	18	1	Jorund-le-taureau	Vikings_2.10	Akwila	Equipage_2.9
-2	18	2	18	3	Akwila	Equipage_2.9
-2	18	4	18	4
-2	19	1	22	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-2	23	1	25	4	Thorgal Aegirsson	Björn Gandalfson
-2	25	5	25	7	Thorgal Aegirsson
-2	26	1	26	2
-2	26	3	27	4	Garn	Kisha
-2	27	5	27	6	Kisha
-2	27	7	28	2	Thorgal Aegirsson	Kisha
-2	28	3	28	5	Thorgal Aegirsson	Garn	Kisha
-2	28	6	29	5	Thorgal Aegirsson	Garn	Kisha	Vieillard_2.28
-2	29	6	30	1	Thorgal Aegirsson	Garn	Kisha	Vieillard_2.28	Clan_2.29
-2	30	2	32	6	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson
-2	33	1	33	3	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33
-2	34	1	34	3	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33	Slugs_2.34
-2	34	4	36	4	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33	Slugs_2.34	Akwila
-2	37	1	38	4	Thorgal Aegirsson	Vieillard_2.28	Slugs_2.33	Slugs_2.34	Akwila
-2	38	5	38	5	Thorgal Aegirsson	Slugs_2.38
-2	39	1	39	5	Thorgal Aegirsson	Slugs_2.38	Jorund-le-taureau	Vikings_2.10
-2	40	1	42	1	Thorgal Aegirsson	Jorund-le-taureau	Vikings_2.10	Slugs_2.40
-2	42	2	43	6	Thorgal Aegirsson
-2	44	1	44	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-2	45	1	47	8	Thorgal Aegirsson	Slive
-2	48	1	48	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jorund-le-taureau	Vikings_2.10
-3	3	1	3	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-3	3	5	4	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin
-3	4	7	4	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin
-3	5	1	8	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	Villageois_3.5
-3	8	5	10	1	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	Villageois_3.5	3 bienveillants	2 gardes_3.8.1	2 gardes_3.8.2
-3	10	2	10	6	Thorgal Aegirsson	Villageois_3.5	Jadawin
-3	11	1	11	2	Thorgal Aegirsson
-3	11	3	11	4	Thorgal Aegirsson	Garde_3.11
-3	11	5	13	5	Thorgal Aegirsson
-3	13	6	14	6	Thorgal Aegirsson	Jadawin	3 bienveillants
-3	15	1	15	6	Thorgal Aegirsson	Jadawin
-3	15	7	16	1	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-3	16	2	16	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	2 gardes_3.8.1
-3	16	6	16	6	Thorgal Aegirsson	Jadawin
-3	17	1	17	2	Thorgal Aegirsson	Jadawin	2 gardes_3.8.2
-3	17	3	17	4	Thorgal Aegirsson
-3	17	5	17	6	Thorgal Aegirsson	Jadawin	2 gardes_3.8.2
-3	18	1	18	6	Thorgal Aegirsson
-3	18	7	18	8	Jadawin	2 gardes_3.8.2	3 bienveillants
-3	19	1	20	2	Jadawin	6 gardes_3.19	3 bienveillants	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19	Aaricia Ganfalfsdottir
-3	20	3	20	6	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
-3	21	1	21	6	Masque / Thorgal Aegirsson	Sigurd_3.19
-3	21	7	23	2	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
-3	23	3	24	2	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
-3	24	3	24	6	Masque / Thorgal Aegirsson	Sigurd_3.19
-3	25	1	25	3	Masque / Thorgal Aegirsson
-3	25	4	25	6	Masque / Thorgal Aegirsson	Volsung de Nichor
-3	26	1	26	4	Masque / Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	Aaricia Ganfalfsdottir	3 bienveillants
-3	26	5	26	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	Aaricia Ganfalfsdottir	3 bienveillants	Villageois_3.5
-3	27	1	27	3	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	3 bienveillants	Gardes_3.26
-3	28	1	29	5	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
-3	29	6	30	2	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
-3	30	3	33	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Gardienne des clés
-3	34	1	34	6	Thorgal Aegirsson	Gardienne des clés
-3	34	7	34	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
-3	35	1	37	5	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	3 bienveillants
-3	38	1	38	5	Thorgal Aegirsson	Volsung de Nichor	3 bienveillants
-3	38	6	39	2	Thorgal Aegirsson	3 bienveillants
-3	39	3	39	7	Thorgal Aegirsson
-3	40	1	40	6	Thorgal Aegirsson	Gardienne des clés
-3	41	1	41	5	Thorgal Aegirsson
-3	41	6	43	4	Thorgal Aegirsson
-3	43	5	45	5	Thorgal Aegirsson	3 bienveillants
-3	45	6	46	2	Thorgal Aegirsson
-3	46	3	46	7	Thorgal Aegirsson	Jadawin	Aaricia Ganfalfsdottir
-3	47	1	48	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-4	3	1	3	4	Thorgal Aegirsson	Caleb	Villageois_4.3
-4	3	5	4	1	Thorgal Aegirsson	Caleb	Villageois_4.3	Enfants_4.3	Shaniah
-4	4	2	4	4	Thorgal Aegirsson	Caleb	Shaniah
-4	4	5	4	5	Thorgal Aegirsson	Caleb
-4	4	6	4	6	Thorgal Aegirsson	Caleb	Aaricia Ganfalfsdottir	Femmes_4.4
-4	5	1	5	3	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-4	5	4	5	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Caleb	Villageois_4.5
-4	5	7	7	1	Thorgal Aegirsson
-4	7	2	8	7	Thorgal Aegirsson	Shaniah
-4	9	1	9	3	Thorgal Aegirsson
-4	9	4	9	7	Shaniah	Galathorn
-4	10	1	10	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-4	10	5	11	4	Thorgal Aegirsson	Caleb
-4	11	5	11	6	Thorgal Aegirsson	Caleb	Enfant_4.11
-4	11	7	13	4	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
-4	13	5	13	7	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah	Aaricia Ganfalfsdottir
-4	14	1	14	4	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
-4	14	5	14	6	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
-4	15	1	15	3	Thorgal Aegirsson	Guerrier_4.11.1	Guerrier_4.11.2
-4	15	4	15	5	Thorgal Aegirsson	Guerrier_4.11.2
-4	16	1	16	2	Thorgal Aegirsson	Guerrier_4.11.2	Ewing
-4	16	3	16	6	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah	Thorgal Aegirsson
-4	17	1	17	4	Thorgal Aegirsson	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing
-4	18	1	20	7	Thorgal Aegirsson	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18	Kheela
-4	21	1	21	5	Thorgal Aegirsson	Kheela
-4	21	6	22	2	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
-4	22	3	22	3	Thorgal Aegirsson
-4	22	4	22	5	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
-4	22	6	22	6	Thorgal Aegirsson	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
-4	23	1	23	5	Thorgal Aegirsson	Ewing
-4	23	6	24	6	Thorgal Aegirsson	Ewing	3 guerriers_4.23	Véronar
-4	24	7	24	7
-4	25	1	25	2	Ewing	Véronar	Capitaine_4.25
-4	25	3	25	4	Ewing	Véronar	Capitaine_4.25	Officier_4.25
-4	25	5	25	5	Officier_4.25	Batteur_4.25
-4	26	1	28	6	Batteur_4.25	Galériens_4.26	Thorgal Aegirsson	Garde_4.26.1	Garde_4.26.2
-4	28	6	28	7	Batteur_4.25	Galériens_4.26	Thorgal Aegirsson	Garde_4.26.1	Garde_4.26.2	Soldats_4.28
-4	29	1	30	5	Thorgal Aegirsson	Ewing
-4	30	6	30	7	Thorgal Aegirsson	Ewing	Véronar	4 soldats_4.30
-4	31	1	32	6	Thorgal Aegirsson	Ewing	Véronar	Soldats_4.31	Esclave brune_4.18
-4	32	7	33	3	Véronar	Capitaine_4.25	Vikings_4.33	Jorund-le-taureau
-4	34	1	34	2	Véronar	Capitaine_4.25	Thorgal Aegirsson	Ewing	Soldats_4.31
-4	34	3	34	8	Thorgal Aegirsson	Ewing	Soldats_4.31
-4	35	1	35	1	Thorgal Aegirsson	Ewing
-4	35	2	35	2	Thorgal Aegirsson	Ewing	Batteur_4.25
-4	35	3	35	5	Thorgal Aegirsson	Ewing	Galériens_4.26	Garde_4.26.1
-4	36	1	36	3	Thorgal Aegirsson	Ewing	Galériens_4.26	Garde_4.26.2
-4	36	4	36	6	Thorgal Aegirsson	Ewing	Galériens_4.26
-4	36	7	36	7	Véronar	Soldats_4.36
-4	37	1	37	2	Jorund-le-taureau	Vikings_4.33
-4	37	3	37	7	Véronar	Soldats_4.36
-4	38	1	38	4	Véronar	Soldats_4.36	Jorund-le-taureau	Vikings_4.33
-4	39	1	39	6	Véronar	Thorgal Aegirsson
-4	39	7	39	8	Thorgal Aegirsson	Jorund-le-taureau
-4	40	1	40	6	Thorgal Aegirsson	Jorund-le-taureau	Vikings_4.33
-4	41	1	41	4	Thorgal Aegirsson	Jorund-le-taureau
-4	42	1	43	2	Thorgal Aegirsson
-4	43	3	43	6	Thorgal Aegirsson	Ewing
-4	44	1	44	2	Ewing	Mercenaires_4.44
-4	44	3	48	2	Thorgal Aegirsson	Ewing	Shaniah
-4	48	3	48	7	Thorgal Aegirsson	Shaniah
-5	3	1	4	2	Wargan	Foule_5.3
-5	4	3	4	3	Wargan	Clients_5.4	Client roux_5.4
-5	4	4	5	1	Wargan	Aubergiste_5.4
-5	5	2	5	4	Wargan	Aubergiste_5.4	Client roux_5.4	Clients_5.4
-5	5	5	5	5	Thorgal Aegirsson	Shaniah	Aubergiste_5.4	Wargan
-5	5	6	5	7	Thorgal Aegirsson	Shaniah	Client roux_5.4	Aubergiste_5.4	Wargan
-5	6	1	6	5	Thorgal Aegirsson	Shaniah	Aubergiste_5.4	Wargan	Client roux_5.4	Clients_5.4
-5	6	6	6	7	Wargan	Aubergiste_5.4
-5	6	6	6	7	Thorgal Aegirsson	Shaniah	Client roux_5.4	Clients_5.4
-5	7	1	7	5	Thorgal Aegirsson	Shaniah	Wargan
-5	7	6	8	5	Thorgal Aegirsson	Shaniah	Wargan	Votiak
-5	8	6	9	4	Thorgal Aegirsson	Shaniah	Wargan	Client roux_5.4	Clients_5.4
-5	9	5	9	5	Thorgal Aegirsson	Shaniah	Wargan
-5	9	6	9	6	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
-5	10	1	10	4	Thorgal Aegirsson	Shaniah	Wargan	Galathorn	Clients_5.4
-5	10	5	10	6	Thorgal Aegirsson	Shaniah	Wargan
-5	11	1	11	4	Thorgal Aegirsson	Shaniah	Wargan
-5	11	5	15	7	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
-5	16	1	17	7	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
-5	18	1	18	5	Thorgal Aegirsson
-5	19	1	19	4	Thorgal Aegirsson	Serpent_5.19
-5	19	5	19	5	Thorgal Aegirsson
-5	19	6	20	8	Thorgal Aegirsson	Shaniah
-5	21	1	21	5	Thorgal Aegirsson	Shaniah
-5	21	6	25	4	Thorgal Aegirsson	Shaniah
-5	26	1	26	2	Thorgal Aegirsson	Shaniah
-5	26	3	27	6	Thorgal Aegirsson	Shaniah	Gardienne des clés
-5	28	1	28	4	Thorgal Aegirsson	Shaniah	4 éphèbes_5.28
-5	28	4	28	6	Thorgal Aegirsson	Shaniah	Prisonnière_5.28
-5	28	6	29	3	Thorgal Aegirsson	Shaniah	Chevalier_5.28
-5	29	4	29	5	Thorgal Aegirsson	Shaniah
-5	29	6	31	4	Thorgal Aegirsson	Shaniah	Aaricia / Monstre_5.29
-5	31	5	34	4	Thorgal Aegirsson	Shaniah
-5	34	5	35	1	Thorgal Aegirsson	Shaniah	Ange_4.34
-5	35	2	35	3	Thorgal Aegirsson	Shaniah	Ange_4.34	Ange_4.35
-5	36	1	40	11	Thorgal Aegirsson	Shaniah	La faucheuse
-5	41	1	42	7	Thorgal Aegirsson	Shaniah
-5	43	1	43	7	Thorgal Aegirsson	Shaniah	Gardienne des clés
-5	44	1	46	6	Thorgal Aegirsson	Shaniah
-5	46	7	47	6	Thorgal Aegirsson
-5	48	1	48	5	Thorgal Aegirsson	Wargan	Galathorn
-6	3	1	5	8	Shardar-le-puissant	Zorn	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
-6	6	1	6	3	Shardar-le-puissant	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
-6	6	4	6	4	Shardar-le-puissant	2 gardes_6.3	Spectateurs_6.4	Aaricia Ganfalfsdottir
-6	6	5	6	5	Shardar-le-puissant	Cour_6.6
-6	7	1	7	1	Shardar-le-puissant	Scientifiques_6.77
-6	7	2	7	4	Shardar-le-puissant
-6	7	5	7	5	Shardar-le-puissant	Helgith
-6	8	1	8	7	Shardar-le-puissant	Helgith	Jolan Thorgalsson
-6	9	1	9	1	Shardar-le-puissant	Helgith	Vikings_6.9.1	Jolan Thorgalsson
-6	9	2	9	2	Shardar-le-puissant	Helgith	Jorund-le-taureau	Jolan Thorgalsson
-6	9	3	9	4	Shardar-le-puissant	Helgith	Vikings_6.9.2	Jolan Thorgalsson
-6	9	5	9	6	Shardar-le-puissant	Helgith	Galathorn	Jolan Thorgalsson
-6	10	1	10	2	Shardar-le-puissant	Helgith	Barons_6.10	Jolan Thorgalsson
-6	10	3	10	3	Shardar-le-puissant	Helgith	Thorgal Aegirsson	Jolan Thorgalsson
-6	10	4	10	5	Shardar-le-puissant	Helgith	Jolan Thorgalsson
-6	11	1	11	1	Thorgal Aegirsson
-6	11	2	11	3	Thorgal Aegirsson	Cavaliers_6.11
-6	11	4	11	5	Thorgal Aegirsson
-6	12	1	12	4	Shardar-le-puissant	Helgith	Aaricia Ganfalfsdottir
-6	12	5	12	5	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	12	6	12	7	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.12
-6	13	1	13	5	Shardar-le-puissant	Aaricia Ganfalfsdottir	Vikings_6.9.1
-6	14	1	14	6	Jorund-le-taureau	Wargan	Vikings_6.9.1
-6	15	1	15	1	Shardar-le-puissant	Soldats_6.15
-6	15	2	15	5	Jorund-le-taureau	Wargan	Vikings_6.9.1
-6	15	6	16	5	Jorund-le-taureau	Vikings_6.9.1
-6	16	6	17	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	17	3	18	6	Gardes_6.17	Patrouille_6.17	Thorgal Aegirsson
-6	19	1	19	2	Garde_6.19	Capitaine_6.19	Thorgal Aegirsson
-6	19	3	19	6	Garde_6.19	Thorgal Aegirsson
-6	20	1	20	2	Thorgal Aegirsson	2 gardes_6.20
-6	20	3	20	4	Thorgal Aegirsson	Groupe_6.20
-6	20	5	20	5	Thorgal Aegirsson
-6	20	6	21	2	Thorgal Aegirsson	Falster	Capitaine_6.20	Sbire_6.20
-6	21	3	21	5	Thorgal Aegirsson	Jolan Thorgalsson
-6	21	6	22	2	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.21
-6	22	3	22	6	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.21	Helgith
-6	22	7	23	1	Thorgal Aegirsson	Jolan Thorgalsson
-6	23	2	23	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	23	3	23	6	Shardar-le-puissant	Aaricia Ganfalfsdottir	Falster	Sbire_6.20
-6	23	7	24	2	Shardar-le-puissant	Aaricia Ganfalfsdottir	Sbire_6.20
-6	24	3	24	4	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	24	5	24	5	Aaricia Ganfalfsdottir
-6	24	6	26	4	Aaricia Ganfalfsdottir	Thorgal Aegirsson
-6	26	5	26	8	Aaricia Ganfalfsdottir	Shardar-le-puissant	Helgith	Thorgal Aegirsson
-6	27	1	28	6	Thorgal Aegirsson
-6	29	1	29	4	Thorgal Aegirsson	Courtisane_6.29
-6	29	5	30	5	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
-6	30	6	30	6	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
-6	31	1	33	1	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
-6	33	2	34	4	Thorgal Aegirsson	Galathorn	Vikings_6.29	Shardar-le-puissant
-6	34	5	34	7	Thorgal Aegirsson	Galathorn	Vikings_6.29
-6	35	1	35	3	Thorgal Aegirsson
-6	35	4	35	4	Thorgal Aegirsson	Shardar-le-puissant
-6	35	5	36	2	Thorgal Aegirsson
-6	36	3	37	6	Thorgal Aegirsson	Garde_6.36
-6	37	7	39	4	Thorgal Aegirsson
-6	39	5	40	7	Thorgal Aegirsson	Helgith
-6	40	8	41	8	Thorgal Aegirsson
-6	42	1	43	6	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	43	7	44	6	Thorgal Aegirsson
-6	44	7	44	7	Thorgal Aegirsson	Jolan Thorgalsson
-6	44	8	45	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
-6	45	3	46	7	Shardar-le-puissant	Aaricia Ganfalfsdottir	Thorgal Aegirsson
-6	46	8	46	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-6	47	1	47	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Galathorn
-6	48	1	48	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Galathorn
-7	3	1	3	1	Vikings_7.3
-7	3	2	3	2	Vikings_7.3
-7	4	1	12	2	Leif Haraldson	Gandalf-le-fou	Vikings_7.4
-7	12	3	12	7	Leif Haraldson	Gandalf-le-fou	Vikings_7.4	Thorgal Aegirsson
-7	13	1	14	2	Nidhogg	Ivaldir
-7	14	3	14	4	Ivaldir	Nains_7.14	Tjahzi
-7	14	5	14	5	Tjahzi
-7	15	1	15	1	Tjahzi
-7	15	2	15	2	Tjahzi
-7	15	3	15	3	Tjahzi
-7	15	4	15	4	Tjahzi
-7	15	5	15	5	Tjahzi
-7	15	6	15	6	Tjahzi
-7	15	7	15	7	Tjahzi
-7	15	8	15	8	Tjahzi
-7	15	9	15	9	Tjahzi
-7	15	10	15	10	Tjahzi
-7	16	1	16	2	Tjahzi	Vikings_7.16
-7	16	3	18	7	Tjahzi	Thorgal Aegirsson
-7	19	1	19	1	Tjahzi	Thorgal Aegirsson
-7	19	2	19	4	Tjahzi	Thorgal Aegirsson
-7	19	5	19	6	Leif Haraldson	Vikings_7.19
-7	19	7	19	7	Leif Haraldson
-7	20	1	20	1	Leif Haraldson	Thorgal Aegirsson
-7	20	2	20	4	Tjahzi	Thorgal Aegirsson
-7	20	5	23	4	Tjahzi	Thorgal Aegirsson	Hjalmgunnar
-7	23	5	24	2	Tjahzi	Thorgal Aegirsson	Hjalmgunnar	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
-7	24	3	25	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
-7	25	3	26	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1
-7	26	3	26	5	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
-7	26	6	27	3	Tjahzi	Thorgal Aegirsson
-7	27	4	28	4	Tjahzi	Thorgal Aegirsson	Nidhogg
-7	28	5	28	5	Tjahzi	Thorgal Aegirsson	Nidhogg	Frigg
-7	28	6	29	5	Tjahzi	Thorgal Aegirsson	Nidhogg
-7	30	1	30	1	Ivaldir	Nidhogg	Nains_7.30
-7	30	2	30	5	Ivaldir	Nidhogg	Nains_7.30	Tjahzi
-7	31	1	31	2	Ivaldir	Nains_7.30
-7	31	3	31	4	Tjahzi	Thorgal Aegirsson
-7	31	5	32	2	Tjahzi	Thorgal Aegirsson	Frigg
-7	32	3	32	6	Thorgal Aegirsson	Enfants_7.32
-7	33	1	33	2
-7	33	3	33	6	Thorgal Aegirsson
-7	34	1	35	5	Thorgal Aegirsson
-7	35	6	35	6	Thorgal Aegirsson
-7	35	7	37	6	Thorgal Aegirsson	Xargos
-7	37	7	37	7	Thorgal Aegirsson	Xargos
-7	38	1	38	6	Thorgal Aegirsson	Xargos
-7	38	7	38	7
-7	39	1	39	3	Xargos	Astronautes_7.39.1
-7	39	4	40	7	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
-7	41	1	43	7	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
-7	44	1	44	5	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
-7	44	6	44	6	Xargos
-7	45	1	45	4	Thorgal Aegirsson	Xargos
-7	45	5	47	7	Thorgal Aegirsson	Xargos
-7	48	1	48	7	Thorgal Aegirsson	Leif Haraldson
-8	3	1	3	1	Jolan Thorgalsson	Muff
-8	3	2	4	7	Jolan Thorgalsson	Thorgal Aegirsson	Muff
-8	5	1	5	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	6	1	6	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	6	5	9	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	9	6	9	6	Aaricia Ganfalfsdottir
-8	9	7	10	5	Aaricia Ganfalfsdottir	Muff
-8	10	6	11	7	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
-8	12	1	13	6	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
-8	13	7	13	7	Aaricia Ganfalfsdottir	Muff
-8	14	1	14	1	Aaricia Ganfalfsdottir
-8	14	2	14	2	Aaricia Ganfalfsdottir	Muff
-8	14	3	14	4	Aaricia Ganfalfsdottir	Muff
-8	14	5	16	5	Aaricia Ganfalfsdottir	Muff	Alinoë	Jolan Thorgalsson
-8	16	6	16	7	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
-8	17	1	17	5	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
-8	17	6	18	3	Aaricia Ganfalfsdottir
-8	18	4	19	3	Aaricia Ganfalfsdottir	Alinoë
-8	19	4	19	6	Aaricia Ganfalfsdottir
-8	20	1	20	6	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
-8	20	7	20	7	Aaricia Ganfalfsdottir	Muff
-8	21	1	21	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	21	5	22	1	Aaricia Ganfalfsdottir
-8	22	2	23	1	Aaricia Ganfalfsdottir	Alinoë
-8	23	2	23	6	Aaricia Ganfalfsdottir
-8	23	7	25	3	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	25	4	25	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Alinoë
-8	26	1	26	1	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
-8	26	2	26	2	Leif Haraldson	Thorgal Aegirsson	Gandalf-le-fou
-8	26	3	27	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	27	5	27	6	Jolan Thorgalsson	Alinoë
-8	27	7	27	7	Aaricia Ganfalfsdottir
-8	28	1	28	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	28	5	29	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Alinoë
-8	29	6	29	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	29	7	30	2	Aaricia Ganfalfsdottir
-8	30	3	30	4	Aaricia Ganfalfsdottir	Alinoë
-8	30	5	30	6	Aaricia Ganfalfsdottir	Alinoë	Muff
-8	31	1	31	3	Aaricia Ganfalfsdottir
-8	31	4	32	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	33	1	34	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	34	6	35	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
-8	36	1	36	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	36	6	36	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	36	7	36	7	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	37	1	37	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	38	1	38	4	Aaricia Ganfalfsdottir
-8	38	5	39	1	Aaricia Ganfalfsdottir	Chèvre_8.38
-8	39	2	40	4	Aaricia Ganfalfsdottir	Alinoë
-8	40	5	40	5	Jolan Thorgalsson
-8	41	1	42	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
-8	42	7	44	1	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Alinoë
-8	44	2	44	5	Jolan Thorgalsson
-8	44	6	45	1	Jolan Thorgalsson	Alinoë
-8	45	2	45	2	Jolan Thorgalsson
-8	45	3	46	4	Jolan Thorgalsson	Alinoë
-8	46	5	46	6	Jolan Thorgalsson
-8	46	7	47	7	Thorgal Aegirsson	Jolan Thorgalsson
-8	48	1	48	2	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
-8	48	3	48	7	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
-9	3	1	3	2	Sigwald-le-Brûlé
-9	3	3	4	4	Sigwald-le-Brûlé	Kriss de Valnor
-9	4	5	4	6	Sigwald-le-Brûlé	Kriss de Valnor	Garde_9.4
-9	5	1	5	4	Sigwald-le-Brûlé	Kriss de Valnor	4 gardes_9.5
-9	5	5	5	5	Sigwald-le-Brûlé	Kriss de Valnor
-9	5	6	6	4	Sigwald-le-Brûlé	Kriss de Valnor	4 gardes_9.5	Prêtre_9.5
-9	6	5	6	6	Sigwald-le-Brûlé	Kriss de Valnor
-9	6	7	7	6	Thorgal Aegirsson
-9	7	7	8	9	Thorgal Aegirsson	Tjall le Fougueux
-9	9	1	9	6	Thorgal Aegirsson	Tjall le Fougueux
-9	10	1	12	7	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
-9	13	1	14	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
-9	14	4	16	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
-9	16	5	16	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
-9	16	6	16	7	Thorgal Aegirsson	Tjall le Fougueux
-9	17	1	18	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Maraudeur_9.17.1	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4
-9	18	4	18	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
-9	18	5	18	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
-9	18	6	18	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
-9	18	7	18	7	Thorgal Aegirsson	Tjall le Fougueux
-9	18	8	19	4	Thorgal Aegirsson	Sigwald-le-Brûlé
-9	19	5	19	8	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé
-9	20	1	20	3	Maraudeur_9.20
-9	20	4	20	5	Maraudeur_9.20	Kriss de Valnor
-9	20	6	21	4	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor
-9	21	5	21	5	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.1	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	21	6	21	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	22	1	22	2	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	22	3	22	4	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	22	5	22	5	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.4	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	22	6	22	6	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre	Maraudeur_9.17.4	Maraudeur_9.21.7	Maraudeur_9.21.8
-9	22	7	22	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre	Maraudeur_9.17.4
-9	23	1	23	3	Kriss de Valnor	Sigwald-le-Brûlé	Maraudeur_9.17.4
-9	23	4	23	4	Kriss de Valnor	Sigwald-le-Brûlé	Maraudeur_9.17.4	Thorgal Aegirsson
-9	23	5	23	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre
-9	24	1	24	6	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre
-9	25	1	26	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Spectateurs_9.25
-9	26	7	26	10	Tjall le Fougueux	Kriss de Valnor
-9	27	1	27	5	Tjall le Fougueux	Kriss de Valnor	Thorgal Aegirsson
-9	27	6	28	13	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Spectateurs_9.25	Kriss de Valnor
-9	28	14	28	15	Tjall le Fougueux	Argun Pied d'Arbre
-9	29	1	29	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	29	5	29	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	1	30	1	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	2	30	2	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	3	30	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	4	30	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	5	30	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	6	30	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	7	30	7	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	8	30	8	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	9	30	9	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	10	30	10	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	11	30	11	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	30	12	30	12	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
-9	31	1	31	2	Thorgal Aegirsson	Tjall le Fougueux
-9	31	3	31	4	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.1	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7
-9	31	5	32	1	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.1	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1
-9	32	2	32	2	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
-9	32	3	32	3	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
-9	32	4	32	5	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
-9	32	6	32	9	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor
-9	33	1	34	1	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
-9	34	2	34	3	Roi d'Umbria	Reine d'Umbria
-9	34	4	34	5	Thorgal Aegirsson	Argun Pied d'Arbre
-9	34	6	34	6	Thorgal Aegirsson	Archer jumeau vert_9.29.1
-9	34	7	35	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
-9	35	6	35	6	Spectateurs_9.29	Sigwald-le-Brûlé
-9	35	7	35	7	Roi d'Umbria	Reine d'Umbria
-9	36	1	36	11	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers rouges_9.29.4	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
-9	37	1	37	1	Spectateurs_9.29	Sigwald-le-Brûlé
-9	37	2	37	2	Thorgal Aegirsson	Kriss de Valnor
-9	37	3	37	3	Archer jumeau vert_9.29.1	Argun Pied d'Arbre
-9	37	4	38	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
-9	38	6	39	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
-9	39	6	39	6	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
-9	39	7	40	6	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux	Kriss de Valnor	Roi d'Umbria	Reine d'Umbria	Convives_9.39
-9	40	7	40	9	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux	Kriss de Valnor	Roi d'Umbria	Reine d'Umbria	Convives_9.39	Sigwald-le-Brûlé
-9	41	1	41	3	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
-9	41	4	42	2	Thorgal Aegirsson	Tjall le Fougueux
-9	42	3	43	6	Thorgal Aegirsson	Tjall le Fougueux	Calédoniens_9.42	Prêtre_9.5	Erwan
-9	43	7	45	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor
-9	45	7	46	5	Thorgal Aegirsson	Tjall le Fougueux	Calédoniens_9.42	Prêtre_9.5	Kriss de Valnor	Erwan
-9	46	6	47	4	Thorgal Aegirsson	Calédoniens_9.42	Prêtre_9.5	Erwan
-9	47	5	47	6	Calédoniens_9.42	Prêtre_9.5	Erwan
-9	48	1	48	5	Tjall le Fougueux	Kriss de Valnor
-9	48	6	48	6	Thorgal Aegirsson	Argun Pied d'Arbre
-9	48	7	48	8	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
+01	3	1	4	3	Thorgal Aegirsson	Gandalf-le-fou
+01	4	4	4	4	Thorgal Aegirsson
+01	4	5	5	1	Gandalf-le-fou	Aaricia Ganfalfsdottir	Equipage_1.4
+01	5	2	5	2	Aaricia Ganfalfsdottir
+01	5	3	5	3	Thorgal Aegirsson
+01	5	4	5	4	Aaricia Ganfalfsdottir
+01	5	5	6	5	Thorgal Aegirsson
+01	6	6	8	7	Thorgal Aegirsson	Slive	Sharn
+01	9	1	9	5	Thorgal Aegirsson	Slive	Sharn
+01	10	1	10	5	Thorgal Aegirsson	Slive
+01	10	6	11	1	Thorgal Aegirsson
+01	11	2	12	4	Thorgal Aegirsson	Gardien géant_1.11
+01	12	5	12	7	Thorgal Aegirsson
+01	12	8	13	6	Thorgal Aegirsson	Gardien nain_1.12
+01	13	7	14	2	Thorgal Aegirsson	Gardien nain_1.12	Sharn
+01	14	3	14	4	Thorgal Aegirsson	Sharn
+01	14	5	14	6	Thorgal Aegirsson	Slive	Sharn
+01	15	1	16	4	Gandalf-le-fou	Hiérulf-le-penseur	Spectateurs_1.15
+01	16	5	18	5	Vieillard / Thorgal Aegirsson	Gandalf-le-fou	Hiérulf-le-penseur	Spectateurs_1.15
+01	18	6	19	8	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Hiérulf-le-penseur	Spectateurs_1.15
+01	19	9	20	5	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Ganfalfsdottir	Hiérulf-le-penseur	Slive	Sharn	Spectateurs_1.15
+01	20	6	20	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+01	21	1	21	5	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn
+01	21	6	26	6	Thorgal Aegirsson	Gandalf-le-fou	Slive	Sharn	Baalds_1.21
+01	27	1	28	4	Thorgal Aegirsson	Slive	Sharn
+01	28	5	29	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+01	29	3	29	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Gandalf-le-fou
+01	29	7	31	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Gandalf-le-fou	Slive	Sharn
+01	32	1	32	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Slive	Sharn
+01	32	5	32	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+01	33	1	33	2	Thorgal Aegirsson
+01	33	3	35	4	Thorgal Aegirsson	Loups_1.33
+01	36	1	36	2	Thorgal Aegirsson
+01	36	3	36	3	Thorgal Aegirsson	Ragnhild
+01	36	4	39	9	Thorgal Aegirsson	Ragnhild	Ingrid
+01	40	1	41	5	Thorgal Aegirsson	Skadia
+01	41	6	42	5	Thorgal Aegirsson	Skadia	Ragnhild	Ingrid
+01	42	6	44	6	Thorgal Aegirsson	Skadia
+01	45	1	46	8	Thorgal Aegirsson	Skadia
+01	47	1	47	6	Thorgal Aegirsson	Skadia
+01	48	1	48	8	Thorgal Aegirsson
+02	3	1	3	3	Aaricia Ganfalfsdottir	Solveig
+02	4	1	4	4	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4
+02	4	5	6	6	Aaricia Ganfalfsdottir	Solveig
+02	7	1	7	4	Akwila	Aaricia Ganfalfsdottir
+02	7	5	8	6	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4
+02	8	7	8	8	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
+02	9	1	9	1
+02	9	2	9	3	Akwila	Equipage_2.9
+02	9	4	9	4	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
+02	10	1	10	6	Thorgal Aegirsson
+02	10	7	10	9	Thorgal Aegirsson	Akwila	Equipage_2.9
+02	11	1	14	3	Thorgal Aegirsson	Björn Gandalfson	Jorund-le-taureau	Vikings_2.10
+02	14	4	18	1	Jorund-le-taureau	Vikings_2.10	Akwila	Equipage_2.9
+02	18	2	18	3	Akwila	Equipage_2.9
+02	18	4	18	4
+02	19	1	22	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+02	23	1	25	4	Thorgal Aegirsson	Björn Gandalfson
+02	25	5	25	7	Thorgal Aegirsson
+02	26	1	26	2
+02	26	3	27	4	Garn	Kisha
+02	27	5	27	6	Kisha
+02	27	7	28	2	Thorgal Aegirsson	Kisha
+02	28	3	28	5	Thorgal Aegirsson	Garn	Kisha
+02	28	6	29	5	Thorgal Aegirsson	Garn	Kisha	Vieillard_2.28
+02	29	6	30	1	Thorgal Aegirsson	Garn	Kisha	Vieillard_2.28	Clan_2.29
+02	30	2	32	6	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson
+02	33	1	33	3	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33
+02	34	1	34	3	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33	Slugs_2.34
+02	34	4	36	4	Thorgal Aegirsson	Vieillard_2.28	Björn Gandalfson	Slugs_2.33	Slugs_2.34	Akwila
+02	37	1	38	4	Thorgal Aegirsson	Vieillard_2.28	Slugs_2.33	Slugs_2.34	Akwila
+02	38	5	38	5	Thorgal Aegirsson	Slugs_2.38
+02	39	1	39	5	Thorgal Aegirsson	Slugs_2.38	Jorund-le-taureau	Vikings_2.10
+02	40	1	42	1	Thorgal Aegirsson	Jorund-le-taureau	Vikings_2.10	Slugs_2.40
+02	42	2	43	6	Thorgal Aegirsson
+02	44	1	44	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+02	45	1	47	8	Thorgal Aegirsson	Slive
+02	48	1	48	2	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jorund-le-taureau	Vikings_2.10
+03	3	1	3	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+03	3	5	4	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin
+03	4	7	4	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin
+03	5	1	8	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	Villageois_3.5
+03	8	5	10	1	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	Villageois_3.5	3 bienveillants	2 gardes_3.8.1	2 gardes_3.8.2
+03	10	2	10	6	Thorgal Aegirsson	Villageois_3.5	Jadawin
+03	11	1	11	2	Thorgal Aegirsson
+03	11	3	11	4	Thorgal Aegirsson	Garde_3.11
+03	11	5	13	5	Thorgal Aegirsson
+03	13	6	14	6	Thorgal Aegirsson	Jadawin	3 bienveillants
+03	15	1	15	6	Thorgal Aegirsson	Jadawin
+03	15	7	16	1	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+03	16	2	16	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jadawin	2 gardes_3.8.1
+03	16	6	16	6	Thorgal Aegirsson	Jadawin
+03	17	1	17	2	Thorgal Aegirsson	Jadawin	2 gardes_3.8.2
+03	17	3	17	4	Thorgal Aegirsson
+03	17	5	17	6	Thorgal Aegirsson	Jadawin	2 gardes_3.8.2
+03	18	1	18	6	Thorgal Aegirsson
+03	18	7	18	8	Jadawin	2 gardes_3.8.2	3 bienveillants
+03	19	1	20	2	Jadawin	6 gardes_3.19	3 bienveillants	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19	Aaricia Ganfalfsdottir
+03	20	3	20	6	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
+03	21	1	21	6	Masque / Thorgal Aegirsson	Sigurd_3.19
+03	21	7	23	2	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
+03	23	3	24	2	Masque / Thorgal Aegirsson	Franc_3.19	Karshan d'Urizen	Turban_3.19	Volsung de Nichor	Sarasin_3.19	Africain_3.19	Sigurd_3.19	Japonais_3.19	Chinois_3.19
+03	24	3	24	6	Masque / Thorgal Aegirsson	Sigurd_3.19
+03	25	1	25	3	Masque / Thorgal Aegirsson
+03	25	4	25	6	Masque / Thorgal Aegirsson	Volsung de Nichor
+03	26	1	26	4	Masque / Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	Aaricia Ganfalfsdottir	3 bienveillants
+03	26	5	26	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	Aaricia Ganfalfsdottir	3 bienveillants	Villageois_3.5
+03	27	1	27	3	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Jadawin	3 bienveillants	Gardes_3.26
+03	28	1	29	5	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
+03	29	6	30	2	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
+03	30	3	33	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	Gardienne des clés
+03	34	1	34	6	Thorgal Aegirsson	Gardienne des clés
+03	34	7	34	7	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen
+03	35	1	37	5	Thorgal Aegirsson	Volsung de Nichor	Karshan d'Urizen	3 bienveillants
+03	38	1	38	5	Thorgal Aegirsson	Volsung de Nichor	3 bienveillants
+03	38	6	39	2	Thorgal Aegirsson	3 bienveillants
+03	39	3	39	7	Thorgal Aegirsson
+03	40	1	40	6	Thorgal Aegirsson	Gardienne des clés
+03	41	1	41	5	Thorgal Aegirsson
+03	41	6	43	4	Thorgal Aegirsson
+03	43	5	45	5	Thorgal Aegirsson	3 bienveillants
+03	45	6	46	2	Thorgal Aegirsson
+03	46	3	46	7	Thorgal Aegirsson	Jadawin	Aaricia Ganfalfsdottir
+03	47	1	48	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+04	3	1	3	4	Thorgal Aegirsson	Caleb	Villageois_4.3
+04	3	5	4	1	Thorgal Aegirsson	Caleb	Villageois_4.3	Enfants_4.3	Shaniah
+04	4	2	4	4	Thorgal Aegirsson	Caleb	Shaniah
+04	4	5	4	5	Thorgal Aegirsson	Caleb
+04	4	6	4	6	Thorgal Aegirsson	Caleb	Aaricia Ganfalfsdottir	Femmes_4.4
+04	5	1	5	3	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+04	5	4	5	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Caleb	Villageois_4.5
+04	5	7	7	1	Thorgal Aegirsson
+04	7	2	8	7	Thorgal Aegirsson	Shaniah
+04	9	1	9	3	Thorgal Aegirsson
+04	9	4	9	7	Shaniah	Galathorn
+04	10	1	10	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+04	10	5	11	4	Thorgal Aegirsson	Caleb
+04	11	5	11	6	Thorgal Aegirsson	Caleb	Enfant_4.11
+04	11	7	13	4	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
+04	13	5	13	7	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah	Aaricia Ganfalfsdottir
+04	14	1	14	4	Thorgal Aegirsson	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
+04	14	5	14	6	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah
+04	15	1	15	3	Thorgal Aegirsson	Guerrier_4.11.1	Guerrier_4.11.2
+04	15	4	15	5	Thorgal Aegirsson	Guerrier_4.11.2
+04	16	1	16	2	Thorgal Aegirsson	Guerrier_4.11.2	Ewing
+04	16	3	16	6	Caleb	Enfant_4.11	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Villageois_4.5	Shaniah	Thorgal Aegirsson
+04	17	1	17	4	Thorgal Aegirsson	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing
+04	18	1	20	7	Thorgal Aegirsson	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18	Kheela
+04	21	1	21	5	Thorgal Aegirsson	Kheela
+04	21	6	22	2	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
+04	22	3	22	3	Thorgal Aegirsson
+04	22	4	22	5	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
+04	22	6	22	6	Thorgal Aegirsson	Véronar	Guerrier_4.11.1	Guerrier_4.11.2	2 guerriers_4.11.3	Ewing	Esclave blonde_4.18	Esclave brune_4.18
+04	23	1	23	5	Thorgal Aegirsson	Ewing
+04	23	6	24	6	Thorgal Aegirsson	Ewing	3 guerriers_4.23	Véronar
+04	24	7	24	7
+04	25	1	25	2	Ewing	Véronar	Capitaine_4.25
+04	25	3	25	4	Ewing	Véronar	Capitaine_4.25	Officier_4.25
+04	25	5	25	5	Officier_4.25	Batteur_4.25
+04	26	1	28	6	Batteur_4.25	Galériens_4.26	Thorgal Aegirsson	Garde_4.26.1	Garde_4.26.2
+04	28	6	28	7	Batteur_4.25	Galériens_4.26	Thorgal Aegirsson	Garde_4.26.1	Garde_4.26.2	Soldats_4.28
+04	29	1	30	5	Thorgal Aegirsson	Ewing
+04	30	6	30	7	Thorgal Aegirsson	Ewing	Véronar	4 soldats_4.30
+04	31	1	32	6	Thorgal Aegirsson	Ewing	Véronar	Soldats_4.31	Esclave brune_4.18
+04	32	7	33	3	Véronar	Capitaine_4.25	Vikings_4.33	Jorund-le-taureau
+04	34	1	34	2	Véronar	Capitaine_4.25	Thorgal Aegirsson	Ewing	Soldats_4.31
+04	34	3	34	8	Thorgal Aegirsson	Ewing	Soldats_4.31
+04	35	1	35	1	Thorgal Aegirsson	Ewing
+04	35	2	35	2	Thorgal Aegirsson	Ewing	Batteur_4.25
+04	35	3	35	5	Thorgal Aegirsson	Ewing	Galériens_4.26	Garde_4.26.1
+04	36	1	36	3	Thorgal Aegirsson	Ewing	Galériens_4.26	Garde_4.26.2
+04	36	4	36	6	Thorgal Aegirsson	Ewing	Galériens_4.26
+04	36	7	36	7	Véronar	Soldats_4.36
+04	37	1	37	2	Jorund-le-taureau	Vikings_4.33
+04	37	3	37	7	Véronar	Soldats_4.36
+04	38	1	38	4	Véronar	Soldats_4.36	Jorund-le-taureau	Vikings_4.33
+04	39	1	39	6	Véronar	Thorgal Aegirsson
+04	39	7	39	8	Thorgal Aegirsson	Jorund-le-taureau
+04	40	1	40	6	Thorgal Aegirsson	Jorund-le-taureau	Vikings_4.33
+04	41	1	41	4	Thorgal Aegirsson	Jorund-le-taureau
+04	42	1	43	2	Thorgal Aegirsson
+04	43	3	43	6	Thorgal Aegirsson	Ewing
+04	44	1	44	2	Ewing	Mercenaires_4.44
+04	44	3	48	2	Thorgal Aegirsson	Ewing	Shaniah
+04	48	3	48	7	Thorgal Aegirsson	Shaniah
+05	3	1	4	2	Wargan	Foule_5.3
+05	4	3	4	3	Wargan	Clients_5.4	Client roux_5.4
+05	4	4	5	1	Wargan	Aubergiste_5.4
+05	5	2	5	4	Wargan	Aubergiste_5.4	Client roux_5.4	Clients_5.4
+05	5	5	5	5	Thorgal Aegirsson	Shaniah	Aubergiste_5.4	Wargan
+05	5	6	5	7	Thorgal Aegirsson	Shaniah	Client roux_5.4	Aubergiste_5.4	Wargan
+05	6	1	6	5	Thorgal Aegirsson	Shaniah	Aubergiste_5.4	Wargan	Client roux_5.4	Clients_5.4
+05	6	6	6	7	Wargan	Aubergiste_5.4
+05	6	6	6	7	Thorgal Aegirsson	Shaniah	Client roux_5.4	Clients_5.4
+05	7	1	7	5	Thorgal Aegirsson	Shaniah	Wargan
+05	7	6	8	5	Thorgal Aegirsson	Shaniah	Wargan	Votiak
+05	8	6	9	4	Thorgal Aegirsson	Shaniah	Wargan	Client roux_5.4	Clients_5.4
+05	9	5	9	5	Thorgal Aegirsson	Shaniah	Wargan
+05	9	6	9	6	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
+05	10	1	10	4	Thorgal Aegirsson	Shaniah	Wargan	Galathorn	Clients_5.4
+05	10	5	10	6	Thorgal Aegirsson	Shaniah	Wargan
+05	11	1	11	4	Thorgal Aegirsson	Shaniah	Wargan
+05	11	5	15	7	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
+05	16	1	17	7	Thorgal Aegirsson	Shaniah	Wargan	Galathorn
+05	18	1	18	5	Thorgal Aegirsson
+05	19	1	19	4	Thorgal Aegirsson	Serpent_5.19
+05	19	5	19	5	Thorgal Aegirsson
+05	19	6	20	8	Thorgal Aegirsson	Shaniah
+05	21	1	21	5	Thorgal Aegirsson	Shaniah
+05	21	6	25	4	Thorgal Aegirsson	Shaniah
+05	26	1	26	2	Thorgal Aegirsson	Shaniah
+05	26	3	27	6	Thorgal Aegirsson	Shaniah	Gardienne des clés
+05	28	1	28	4	Thorgal Aegirsson	Shaniah	4 éphèbes_5.28
+05	28	4	28	6	Thorgal Aegirsson	Shaniah	Prisonnière_5.28
+05	28	6	29	3	Thorgal Aegirsson	Shaniah	Chevalier_5.28
+05	29	4	29	5	Thorgal Aegirsson	Shaniah
+05	29	6	31	4	Thorgal Aegirsson	Shaniah	Aaricia / Monstre_5.29
+05	31	5	34	4	Thorgal Aegirsson	Shaniah
+05	34	5	35	1	Thorgal Aegirsson	Shaniah	Ange_4.34
+05	35	2	35	3	Thorgal Aegirsson	Shaniah	Ange_4.34	Ange_4.35
+05	36	1	40	11	Thorgal Aegirsson	Shaniah	La faucheuse
+05	41	1	42	7	Thorgal Aegirsson	Shaniah
+05	43	1	43	7	Thorgal Aegirsson	Shaniah	Gardienne des clés
+05	44	1	46	6	Thorgal Aegirsson	Shaniah
+05	46	7	47	6	Thorgal Aegirsson
+05	48	1	48	5	Thorgal Aegirsson	Wargan	Galathorn
+06	3	1	5	8	Shardar-le-puissant	Zorn	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
+06	6	1	6	3	Shardar-le-puissant	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
+06	6	4	6	4	Shardar-le-puissant	2 gardes_6.3	Spectateurs_6.4	Aaricia Ganfalfsdottir
+06	6	5	6	5	Shardar-le-puissant	Cour_6.6
+06	7	1	7	1	Shardar-le-puissant	Scientifiques_6.77
+06	7	2	7	4	Shardar-le-puissant
+06	7	5	7	5	Shardar-le-puissant	Helgith
+06	8	1	8	7	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	9	1	9	1	Shardar-le-puissant	Helgith	Vikings_6.9.1	Jolan Thorgalsson
+06	9	2	9	2	Shardar-le-puissant	Helgith	Jorund-le-taureau	Jolan Thorgalsson
+06	9	3	9	4	Shardar-le-puissant	Helgith	Vikings_6.9.2	Jolan Thorgalsson
+06	9	5	9	6	Shardar-le-puissant	Helgith	Galathorn	Jolan Thorgalsson
+06	10	1	10	2	Shardar-le-puissant	Helgith	Barons_6.10	Jolan Thorgalsson
+06	10	3	10	3	Shardar-le-puissant	Helgith	Thorgal Aegirsson	Jolan Thorgalsson
+06	10	4	10	5	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	11	1	11	1	Thorgal Aegirsson
+06	11	2	11	3	Thorgal Aegirsson	Cavaliers_6.11
+06	11	4	11	5	Thorgal Aegirsson
+06	12	1	12	4	Shardar-le-puissant	Helgith	Aaricia Ganfalfsdottir
+06	12	5	12	5	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	12	6	12	7	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.12
+06	13	1	13	5	Shardar-le-puissant	Aaricia Ganfalfsdottir	Vikings_6.9.1
+06	14	1	14	6	Jorund-le-taureau	Wargan	Vikings_6.9.1
+06	15	1	15	1	Shardar-le-puissant	Soldats_6.15
+06	15	2	15	5	Jorund-le-taureau	Wargan	Vikings_6.9.1
+06	15	6	16	5	Jorund-le-taureau	Vikings_6.9.1
+06	16	6	17	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	17	3	18	6	Gardes_6.17	Patrouille_6.17	Thorgal Aegirsson
+06	19	1	19	2	Garde_6.19	Capitaine_6.19	Thorgal Aegirsson
+06	19	3	19	6	Garde_6.19	Thorgal Aegirsson
+06	20	1	20	2	Thorgal Aegirsson	2 gardes_6.20
+06	20	3	20	4	Thorgal Aegirsson	Groupe_6.20
+06	20	5	20	5	Thorgal Aegirsson
+06	20	6	21	2	Thorgal Aegirsson	Falster	Capitaine_6.20	Sbire_6.20
+06	21	3	21	5	Thorgal Aegirsson	Jolan Thorgalsson
+06	21	6	22	2	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.21
+06	22	3	22	6	Shardar-le-puissant	Aaricia Ganfalfsdottir	Courtisans_6.21	Helgith
+06	22	7	23	1	Thorgal Aegirsson	Jolan Thorgalsson
+06	23	2	23	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	23	3	23	6	Shardar-le-puissant	Aaricia Ganfalfsdottir	Falster	Sbire_6.20
+06	23	7	24	2	Shardar-le-puissant	Aaricia Ganfalfsdottir	Sbire_6.20
+06	24	3	24	4	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	24	5	24	5	Aaricia Ganfalfsdottir
+06	24	6	26	4	Aaricia Ganfalfsdottir	Thorgal Aegirsson
+06	26	5	26	8	Aaricia Ganfalfsdottir	Shardar-le-puissant	Helgith	Thorgal Aegirsson
+06	27	1	28	6	Thorgal Aegirsson
+06	29	1	29	4	Thorgal Aegirsson	Courtisane_6.29
+06	29	5	30	5	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
+06	30	6	30	6	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
+06	31	1	33	1	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
+06	33	2	34	4	Thorgal Aegirsson	Galathorn	Vikings_6.29	Shardar-le-puissant
+06	34	5	34	7	Thorgal Aegirsson	Galathorn	Vikings_6.29
+06	35	1	35	3	Thorgal Aegirsson
+06	35	4	35	4	Thorgal Aegirsson	Shardar-le-puissant
+06	35	5	36	2	Thorgal Aegirsson
+06	36	3	37	6	Thorgal Aegirsson	Garde_6.36
+06	37	7	39	4	Thorgal Aegirsson
+06	39	5	40	7	Thorgal Aegirsson	Helgith
+06	40	8	41	8	Thorgal Aegirsson
+06	42	1	43	6	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	43	7	44	6	Thorgal Aegirsson
+06	44	7	44	7	Thorgal Aegirsson	Jolan Thorgalsson
+06	44	8	45	2	Shardar-le-puissant	Aaricia Ganfalfsdottir
+06	45	3	46	7	Shardar-le-puissant	Aaricia Ganfalfsdottir	Thorgal Aegirsson
+06	46	8	46	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir
+06	47	1	47	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Galathorn
+06	48	1	48	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Galathorn
+07	3	1	3	1	Vikings_7.3
+07	3	2	3	2	Vikings_7.3
+07	4	1	12	2	Leif Haraldson	Gandalf-le-fou	Vikings_7.4
+07	12	3	12	7	Leif Haraldson	Gandalf-le-fou	Vikings_7.4	Thorgal Aegirsson
+07	13	1	14	2	Nidhogg	Ivaldir
+07	14	3	14	4	Ivaldir	Nains_7.14	Tjahzi
+07	14	5	14	5	Tjahzi
+07	15	1	15	1	Tjahzi
+07	15	2	15	2	Tjahzi
+07	15	3	15	3	Tjahzi
+07	15	4	15	4	Tjahzi
+07	15	5	15	5	Tjahzi
+07	15	6	15	6	Tjahzi
+07	15	7	15	7	Tjahzi
+07	15	8	15	8	Tjahzi
+07	15	9	15	9	Tjahzi
+07	15	10	15	10	Tjahzi
+07	16	1	16	2	Tjahzi	Vikings_7.16
+07	16	3	18	7	Tjahzi	Thorgal Aegirsson
+07	19	1	19	1	Tjahzi	Thorgal Aegirsson
+07	19	2	19	4	Tjahzi	Thorgal Aegirsson
+07	19	5	19	6	Leif Haraldson	Vikings_7.19
+07	19	7	19	7	Leif Haraldson
+07	20	1	20	1	Leif Haraldson	Thorgal Aegirsson
+07	20	2	20	4	Tjahzi	Thorgal Aegirsson
+07	20	5	23	4	Tjahzi	Thorgal Aegirsson	Hjalmgunnar
+07	23	5	24	2	Tjahzi	Thorgal Aegirsson	Hjalmgunnar	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
+07	24	3	25	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
+07	25	3	26	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1
+07	26	3	26	5	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
+07	26	6	27	3	Tjahzi	Thorgal Aegirsson
+07	27	4	28	4	Tjahzi	Thorgal Aegirsson	Nidhogg
+07	28	5	28	5	Tjahzi	Thorgal Aegirsson	Nidhogg	Frigg
+07	28	6	29	5	Tjahzi	Thorgal Aegirsson	Nidhogg
+07	30	1	30	1	Ivaldir	Nidhogg	Nains_7.30
+07	30	2	30	5	Ivaldir	Nidhogg	Nains_7.30	Tjahzi
+07	31	1	31	2	Ivaldir	Nains_7.30
+07	31	3	31	4	Tjahzi	Thorgal Aegirsson
+07	31	5	32	2	Tjahzi	Thorgal Aegirsson	Frigg
+07	32	3	32	6	Thorgal Aegirsson	Enfants_7.32
+07	33	1	33	2
+07	33	3	33	6	Thorgal Aegirsson
+07	34	1	35	5	Thorgal Aegirsson
+07	35	6	35	6	Thorgal Aegirsson
+07	35	7	37	6	Thorgal Aegirsson	Xargos
+07	37	7	37	7	Thorgal Aegirsson	Xargos
+07	38	1	38	6	Thorgal Aegirsson	Xargos
+07	38	7	38	7
+07	39	1	39	3	Xargos	Astronautes_7.39.1
+07	39	4	40	7	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
+07	41	1	43	7	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
+07	44	1	44	5	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
+07	44	6	44	6	Xargos
+07	45	1	45	4	Thorgal Aegirsson	Xargos
+07	45	5	47	7	Thorgal Aegirsson	Xargos
+07	48	1	48	7	Thorgal Aegirsson	Leif Haraldson
+08	3	1	3	1	Jolan Thorgalsson	Muff
+08	3	2	4	7	Jolan Thorgalsson	Thorgal Aegirsson	Muff
+08	5	1	5	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	6	1	6	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	6	5	9	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	9	6	9	6	Aaricia Ganfalfsdottir
+08	9	7	10	5	Aaricia Ganfalfsdottir	Muff
+08	10	6	11	7	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
+08	12	1	13	6	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
+08	13	7	13	7	Aaricia Ganfalfsdottir	Muff
+08	14	1	14	1	Aaricia Ganfalfsdottir
+08	14	2	14	2	Aaricia Ganfalfsdottir	Muff
+08	14	3	14	4	Aaricia Ganfalfsdottir	Muff
+08	14	5	16	5	Aaricia Ganfalfsdottir	Muff	Alinoë	Jolan Thorgalsson
+08	16	6	16	7	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
+08	17	1	17	5	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
+08	17	6	18	3	Aaricia Ganfalfsdottir
+08	18	4	19	3	Aaricia Ganfalfsdottir	Alinoë
+08	19	4	19	6	Aaricia Ganfalfsdottir
+08	20	1	20	6	Aaricia Ganfalfsdottir	Muff	Jolan Thorgalsson
+08	20	7	20	7	Aaricia Ganfalfsdottir	Muff
+08	21	1	21	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	21	5	22	1	Aaricia Ganfalfsdottir
+08	22	2	23	1	Aaricia Ganfalfsdottir	Alinoë
+08	23	2	23	6	Aaricia Ganfalfsdottir
+08	23	7	25	3	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	25	4	25	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Alinoë
+08	26	1	26	1	Xargos	Astronautes_7.39.1	Astronautes_7.39.2	Varth	Haynée
+08	26	2	26	2	Leif Haraldson	Thorgal Aegirsson	Gandalf-le-fou
+08	26	3	27	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	27	5	27	6	Jolan Thorgalsson	Alinoë
+08	27	7	27	7	Aaricia Ganfalfsdottir
+08	28	1	28	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	28	5	29	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Alinoë
+08	29	6	29	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	29	7	30	2	Aaricia Ganfalfsdottir
+08	30	3	30	4	Aaricia Ganfalfsdottir	Alinoë
+08	30	5	30	6	Aaricia Ganfalfsdottir	Alinoë	Muff
+08	31	1	31	3	Aaricia Ganfalfsdottir
+08	31	4	32	4	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	33	1	34	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	34	6	35	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff
+08	36	1	36	5	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	36	6	36	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	36	7	36	7	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	37	1	37	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	38	1	38	4	Aaricia Ganfalfsdottir
+08	38	5	39	1	Aaricia Ganfalfsdottir	Chèvre_8.38
+08	39	2	40	4	Aaricia Ganfalfsdottir	Alinoë
+08	40	5	40	5	Jolan Thorgalsson
+08	41	1	42	6	Aaricia Ganfalfsdottir	Jolan Thorgalsson
+08	42	7	44	1	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Alinoë
+08	44	2	44	5	Jolan Thorgalsson
+08	44	6	45	1	Jolan Thorgalsson	Alinoë
+08	45	2	45	2	Jolan Thorgalsson
+08	45	3	46	4	Jolan Thorgalsson	Alinoë
+08	46	5	46	6	Jolan Thorgalsson
+08	46	7	47	7	Thorgal Aegirsson	Jolan Thorgalsson
+08	48	1	48	2	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
+08	48	3	48	7	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Muff
+09	3	1	3	2	Sigwald-le-Brûlé
+09	3	3	4	4	Sigwald-le-Brûlé	Kriss de Valnor
+09	4	5	4	6	Sigwald-le-Brûlé	Kriss de Valnor	Garde_9.4
+09	5	1	5	4	Sigwald-le-Brûlé	Kriss de Valnor	4 gardes_9.5
+09	5	5	5	5	Sigwald-le-Brûlé	Kriss de Valnor
+09	5	6	6	4	Sigwald-le-Brûlé	Kriss de Valnor	4 gardes_9.5	Prêtre_9.5
+09	6	5	6	6	Sigwald-le-Brûlé	Kriss de Valnor
+09	6	7	7	6	Thorgal Aegirsson
+09	7	7	8	9	Thorgal Aegirsson	Tjall le Fougueux
+09	9	1	9	6	Thorgal Aegirsson	Tjall le Fougueux
+09	10	1	12	7	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
+09	13	1	14	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
+09	14	4	16	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
+09	16	5	16	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Sigwald-le-Brûlé	Kriss de Valnor
+09	16	6	16	7	Thorgal Aegirsson	Tjall le Fougueux
+09	17	1	18	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Maraudeur_9.17.1	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4
+09	18	4	18	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
+09	18	5	18	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
+09	18	6	18	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre
+09	18	7	18	7	Thorgal Aegirsson	Tjall le Fougueux
+09	18	8	19	4	Thorgal Aegirsson	Sigwald-le-Brûlé
+09	19	5	19	8	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé
+09	20	1	20	3	Maraudeur_9.20
+09	20	4	20	5	Maraudeur_9.20	Kriss de Valnor
+09	20	6	21	4	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor
+09	21	5	21	5	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.1	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	21	6	21	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.2	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	22	1	22	2	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.3	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	22	3	22	4	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.4	Maraudeur_9.21.5	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	22	5	22	5	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Maraudeur_9.17.4	Maraudeur_9.21.6	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	22	6	22	6	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre	Maraudeur_9.17.4	Maraudeur_9.21.7	Maraudeur_9.21.8
+09	22	7	22	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre	Maraudeur_9.17.4
+09	23	1	23	3	Kriss de Valnor	Sigwald-le-Brûlé	Maraudeur_9.17.4
+09	23	4	23	4	Kriss de Valnor	Sigwald-le-Brûlé	Maraudeur_9.17.4	Thorgal Aegirsson
+09	23	5	23	7	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre
+09	24	1	24	6	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor	Argun Pied d'Arbre
+09	25	1	26	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Spectateurs_9.25
+09	26	7	26	10	Tjall le Fougueux	Kriss de Valnor
+09	27	1	27	5	Tjall le Fougueux	Kriss de Valnor	Thorgal Aegirsson
+09	27	6	28	13	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Spectateurs_9.25	Kriss de Valnor
+09	28	14	28	15	Tjall le Fougueux	Argun Pied d'Arbre
+09	29	1	29	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	29	5	29	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	1	30	1	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	2	30	2	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	3	30	3	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	4	30	4	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	5	30	5	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	6	30	6	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	7	30	7	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	8	30	8	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	9	30	9	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	10	30	10	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	11	30	11	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	30	12	30	12	Thorgal Aegirsson	Tjall le Fougueux	Argun Pied d'Arbre	Kriss de Valnor	Spectateurs_9.29	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Archers_9.29	Roi d'Umbria	Reine d'Umbria	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Sigwald-le-Brûlé
+09	31	1	31	2	Thorgal Aegirsson	Tjall le Fougueux
+09	31	3	31	4	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.1	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7
+09	31	5	32	1	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.1	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1
+09	32	2	32	2	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.2	Guerrier_9.21.3	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
+09	32	3	32	3	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.4	Guerrier_9.21.5	Guerrier_9.21.6	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
+09	32	4	32	5	Thorgal Aegirsson	Tjall le Fougueux	Guerrier_9.21.7	Archer jumeau vert_9.29.1	Sigwald-le-Brûlé	Kriss de Valnor
+09	32	6	32	9	Thorgal Aegirsson	Tjall le Fougueux	Sigwald-le-Brûlé	Kriss de Valnor
+09	33	1	34	1	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
+09	34	2	34	3	Roi d'Umbria	Reine d'Umbria
+09	34	4	34	5	Thorgal Aegirsson	Argun Pied d'Arbre
+09	34	6	34	6	Thorgal Aegirsson	Archer jumeau vert_9.29.1
+09	34	7	35	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers bruns_9.29.2	2 archers mauves_9.29.3	2 archers rouges_9.29.4	2 archers blancs_9.29.5	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
+09	35	6	35	6	Spectateurs_9.29	Sigwald-le-Brûlé
+09	35	7	35	7	Roi d'Umbria	Reine d'Umbria
+09	36	1	36	11	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	2 archers verts_9.29.1	2 archers rouges_9.29.4	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
+09	37	1	37	1	Spectateurs_9.29	Sigwald-le-Brûlé
+09	37	2	37	2	Thorgal Aegirsson	Kriss de Valnor
+09	37	3	37	3	Archer jumeau vert_9.29.1	Argun Pied d'Arbre
+09	37	4	38	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Archer jumeau marron_9.29.2	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
+09	38	6	39	5	Thorgal Aegirsson	Kriss de Valnor	Argun Pied d'Arbre	Tjall le Fougueux	Archer jumeau vert_9.29.1	Roi d'Umbria	Reine d'Umbria	Spectateurs_9.29	Sigwald-le-Brûlé
+09	39	6	39	6	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
+09	39	7	40	6	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux	Kriss de Valnor	Roi d'Umbria	Reine d'Umbria	Convives_9.39
+09	40	7	40	9	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux	Kriss de Valnor	Roi d'Umbria	Reine d'Umbria	Convives_9.39	Sigwald-le-Brûlé
+09	41	1	41	3	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
+09	41	4	42	2	Thorgal Aegirsson	Tjall le Fougueux
+09	42	3	43	6	Thorgal Aegirsson	Tjall le Fougueux	Calédoniens_9.42	Prêtre_9.5	Erwan
+09	43	7	45	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor
+09	45	7	46	5	Thorgal Aegirsson	Tjall le Fougueux	Calédoniens_9.42	Prêtre_9.5	Kriss de Valnor	Erwan
+09	46	6	47	4	Thorgal Aegirsson	Calédoniens_9.42	Prêtre_9.5	Erwan
+09	47	5	47	6	Calédoniens_9.42	Prêtre_9.5	Erwan
+09	48	1	48	5	Tjall le Fougueux	Kriss de Valnor
+09	48	6	48	6	Thorgal Aegirsson	Argun Pied d'Arbre
+09	48	7	48	8	Thorgal Aegirsson	Argun Pied d'Arbre	Tjall le Fougueux
 10	3	1	3	1	3 bandits_10.3	Bandit bleu_10.3
 10	3	2	4	2	4 bandits_10.3	Argun Pied d'Arbre	Jolan Thorgalsson	Muff
 10	4	3	5	2	Aaricia Ganfalfsdottir	Thorgal Aegirsson	Tjall le Fougueux
@@ -4579,15 +4579,15 @@ J9	48	6	48	6	Seck	Isoline
 39	14	1	14	2	Villageois_39_12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
 39	14	3	14	10	Villageois_39_12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
 39	15	1	15	5	Villageois_39_12	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
-39	15	5	15	7	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
+39	15	5	15	8	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
 39	16	1	17	4	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
 39	17	5	17	7	Thorgal Aegirsson	Jolan Thorgalsson
 39	17	8	18	1	Thorgal Aegirsson	Jolan Thorgalsson	Servante_39_17
 39	18	2	21	2	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Prétendants_39_12	Aakon	Arisön	Gardes_39_18
 39	21	3	22	3	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39_18
 39	22	4	26	8	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39_18	Garde_39_22
-39	22	8	22	9	Akwila	Prisonniers_39_23	Arisön
-39	23	1	23	3	Thorgal Aegirsson	Arisön
+39	23	8	23	9	Akwila	Prisonniers_39_23	Arisön
+39	24	1	24	3	Thorgal Aegirsson	Arisön
 39	27	1	27	8	Thorgal Aegirsson	Jolan Thorgalsson
 39	28	1	28	1	Aaricia Ganfalfsdottir
 39	28	1	28	9	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
