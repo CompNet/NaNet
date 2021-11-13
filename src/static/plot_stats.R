@@ -250,8 +250,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
 		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
 		seg.vals <- list()
-		seg.vals[[1]] <- seg.occ.vals
-		seg.vals[[2]] <- seg.dur.vals
+		seg.vals[[1]] <- seg.occ.vals[!is.na(seg.occ.vals)]
+		seg.vals[[2]] <- seg.dur.vals[!is.na(seg.dur.vals)]
 	
 		# generate a plot for each window size value
 		for(i in 1:length(window.sizes))
@@ -259,6 +259,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			window.size <- window.sizes[i]
 			tlog(5,"Dealing with window.size=",window.size)
 			values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
 			nms <- overlaps[[i]]
@@ -325,25 +326,25 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						tmp <- plot.ccdf(
-							data=values, 
-							main=paste0("mode=",mode," window.size=",window.size),
-							xlab=meas.name,
-							log=TRUE, 
-							cols=cols, 
-							lines=lty
-						)
-						if(tmp) legend(
-							x="topright", 
-							col=cols,
-							lty=lty,
-							lwd=2,
-							legend=names(values),
-							title="Overlap"
-						)
-					dev.off()
+					tmp <- plot.ccdf(
+						data=values, 
+						main=paste0("mode=",mode," window.size=",window.size),
+						xlab=meas.name,
+						log=TRUE, 
+						cols=cols, 
+						lines=lty
+					)
+					if(tmp) legend(
+						x="topright", 
+						col=cols,
+						lty=lty,
+						lwd=2,
+						legend=names(values),
+						title="Overlap"
+					)
+				dev.off()
 			}
-	}
+		}
 		
 		# generate a plot for each overlap value appearing at least twice
 		for(overlap in common.overlaps)
@@ -352,6 +353,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
 			values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
 			nms <- window.sizes[idx]
