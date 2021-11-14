@@ -85,12 +85,13 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
+# arc: concerned narrative arc (optional).
 # vol: concerned volume (optional).
 # filtered: whether this concerns the filtered version of the graph.
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA, filtered=FALSE)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -98,6 +99,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA, filter
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
+	# possibly add arc subfolder
+	if(!is.na(arc))
+		folder <- file.path(folder, "arcs")
 	# possibly add volume subfolder
 	if(!is.na(vol))
 		folder <- file.path(folder, "volumes")
@@ -109,6 +113,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA, filter
 	# possibly add base name
 	if(mode=="scenes")
 		res <- 	paste0(res, "_scenes")
+	# possibly add arc number
+	if(!is.na(arc))
+		res <- 	paste0(res, "_arc",arc)
 	# possibly add volume name
 	if(!is.na(vol))
 		res <- 	paste0(res, "_vol",vol)
@@ -141,11 +148,13 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, vol=NA, filter
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
+get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -156,6 +165,12 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 	# possible add filtered suffix
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
+	# possibly add arc subfolder
+	if(!is.na(arc))
+		folder <- file.path(folder, "arcs", arc)
+	# possibly add volume subfolder
+	if(!is.na(vol))
+		folder <- file.path(folder, "volumes", vol)
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -199,12 +214,14 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, filtered=FALSE, plot.type=NA)
+get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -215,6 +232,12 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 	# possible add filtered suffix
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
+	# possibly add arc subfolder
+	if(!is.na(arc))
+		folder <- file.path(folder, "arcs", arc)
+	# possibly add volume subfolder
+	if(!is.na(vol))
+		folder <- file.path(folder, "volumes", vol)
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -249,7 +272,7 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 
 
 ###############################################################################
-# Returns the full path for a file containing a plot some network(s) topological
+# Returns the full path for a file containing a plot of some network(s) topological
 # measures with one of the references. File extension is not included and must 
 # be added a posteriori.
 # 
@@ -259,12 +282,14 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # weights: value for this parameters, either "duration" or "occurrences".
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, filtered=FALSE, plot.type=NA)
+get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER
@@ -275,6 +300,12 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 	# possible add filtered suffix
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
+	# possibly add arc subfolder
+	if(!is.na(arc))
+		folder <- file.path(folder, "arcs", arc)
+	# possibly add volume subfolder
+	if(!is.na(vol))
+		folder <- file.path(folder, "volumes", vol)
 	# add object folder
 	folder <- file.path(folder, object)
 	# possibly add measure folder

@@ -60,11 +60,13 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 # object: either "graph" or "graphcomp".
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, ignored if arc is specified).
 #
 # returns: the value corresponding to the specified parameters.
 ###############################################################################
-load.static.graph.stats.scenes <- function(object, weights, measure)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights)
+load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -132,11 +134,13 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 #
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, ignored if arc is specified).
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.corr.scenes <- function(weights, measure)
-{	table.file <- get.path.stat.table(object="corr", mode="scenes", weights=weights)
+load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA)
+{	table.file <- get.path.stat.table(object="corr", mode="scenes", weights=weights, arc=arc, vol=vol)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -204,12 +208,14 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 # object: either "nodes", "nodepairs" or "links" (not "graph").
 # measure: name of the concerned topological measure.
 # weights: either "occurrences" or "duration".
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, ignored if arc is specified).
 # filtered: whether to use the filter version of the graph.
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(object, measure, weights, filtered)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, filtered=filtered)
+load.static.nodelink.stats.scenes <- function(object, measure, weights, arc=NA, vol=NA, filtered)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
 	return(res)
@@ -1028,19 +1034,21 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # scene-based graph, for both types of weights (occurrences, durations).
 # The stats must have been computed beforehand.
 #
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to use the filtered version of the graph.
 ###############################################################################
-generate.static.plots.scene <- function(filtered=FALSE)
+generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 {	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	
-	# list measures to process
+	# list measures to plot
 	nmn <- names(NODE_MEASURES)
 	lmn <- names(LINK_MEASURES)
 	npmn <- names(NODEPAIR_MEASURES)
 	
-	# process each measure
+	# plot each measure
 	for(meas.name in c(nmn,lmn))
 	{	tlog(4,"Generating plots for measure ",meas.name)
 		
@@ -1056,13 +1064,13 @@ generate.static.plots.scene <- function(filtered=FALSE)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode, filtered=filtered)
+			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
 			
 			# plot histogram
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="histo")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
 			# TODO why is this the "comparison" folder? shouldn't it be stats or plots?
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -1084,7 +1092,7 @@ generate.static.plots.scene <- function(filtered=FALSE)
 			}
 			
 			# plot complementary cumulative distribution function
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="ccdf")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="ccdf")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1095,7 +1103,7 @@ generate.static.plots.scene <- function(filtered=FALSE)
 			}
 			
 			# test the type of distribution
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, filtered=filtered, plot.type="disttest")
+			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
 			if(all(vals%%1==0))
 				test.disc.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
 			else
@@ -1113,10 +1121,10 @@ generate.static.plots.scene <- function(filtered=FALSE)
 	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 	
 	# degree vs. neighbors' degree
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
 	neigh.degree.vs.degree(g, weights=FALSE, filename)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, filtered=filtered)
+	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			neigh.degree.vs.degree(g.dur, weights=TRUE, filename)
 		else if(wmode=="occurrences")
@@ -1124,10 +1132,10 @@ generate.static.plots.scene <- function(filtered=FALSE)
 	}
 	
 	# degree vs. transitivity
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
 	transitivity.vs.degree(g, weights=FALSE, filename)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, filtered=filtered)
+	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			transitivity.vs.degree(g.dur, weights=TRUE, filename)
 		else if(wmode=="occurrences")
@@ -1135,10 +1143,10 @@ generate.static.plots.scene <- function(filtered=FALSE)
 	}
 	
 	# hop plots
-	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", arc=arc, vol=vol, filtered=filtered)
 	hop.plot(g, weights=FALSE, filename)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, filtered=filtered)
+	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			hop.plot(g.dur, weights=TRUE, filename)
 		else if(wmode=="occurrences")
@@ -1151,18 +1159,35 @@ generate.static.plots.scene <- function(filtered=FALSE)
 # Main function for the generation of plots describing static graphs.
 # The statistics must have been previously computed.
 #
+# data: preprocessed data.
 # panel.window.sizes: values for this parameter
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
 # page.window.sizes: same for page-based windows instead of panel-based.
 # page.overlaps: same.
 ###############################################################################
-generate.static.plots <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Generating plots for static graphs")
 	
 	# deal with scene-based graph
 	tlog(2,"Generating plots for static graphs with scene-based windows")
 	for(filtered in c(FALSE, TRUE))
 		generate.static.plots.scene(filtered)
+	# same for each narrative arc
+	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	for(arc in 1:length(arc.titles))
+	{	for(filtered in c(FALSE, TRUE))
+			generate.static.plots.scene(arc=arc, filtered)
+	}
+	# same for each volume
+	volume.nbr <- nrow(data$volume.info)
+	for(v in 1:volume.nbr)
+	{	vol <- data$volume.info[v, COL_VOLS_VOLUME]
+		for(filtered in c(FALSE, TRUE))
+			generate.static.plots.scene(vol=vol, filtered)
+	}
+	
+	# evolution plots
+	# TODO
 	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")

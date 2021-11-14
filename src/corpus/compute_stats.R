@@ -37,7 +37,13 @@ compute.stats.panels <- function(
 			page.info[2:nrow(page.info),COL_PAGES_START_PANEL_ID]-1,
 			page.info[nrow(page.info),COL_PAGES_START_PANEL_ID]+page.info[nrow(page.info),COL_PAGES_PANELS]
 	)
-			
+	
+	# volume name
+	if(!is.na(cur.vol))
+		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+	else
+		vname <- NA
+	
 	# compute stats
 	tlog(3,"Computing panel stats")
 	
@@ -122,7 +128,7 @@ compute.stats.panels <- function(
 	}
 	
 	# record stats
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.panels, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -134,7 +140,7 @@ compute.stats.panels <- function(
 	vals <- table(stats.panels[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PANELS, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.panels[,COL_STATS_CHARS]
@@ -172,7 +178,7 @@ compute.stats.panels <- function(
 	{	for(att in atts)
 		{	data <- stats.panels.atts[[att]]
 			pal <- get.palette(ncol(stats.panels.atts[[att]]))[1:ncol(stats.panels.atts[[att]])]
-			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -237,7 +243,7 @@ compute.stats.panels <- function(
 			# separate plot for each value
 			for(d in 1:ncol(stats.panels.atts[[att]]))
 			{	data <- stats.panels.atts[[att]][,d]
-				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=colnames(stats.panels.atts[[att]])[d])
+				file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=colnames(stats.panels.atts[[att]])[d])
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -267,7 +273,7 @@ compute.stats.panels <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="panels_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_positions")
 	write.csv(x=df, paste0(file, ".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	for(fformat in PLOT_FORMAT)
@@ -316,6 +322,12 @@ compute.stats.pages <- function(
 	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
+	
+	# volume name
+	if(!is.na(cur.vol))
+		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+	else
+		vname <- NA
 	
 	# compute stats
 	page.ids <- sort(unique(stats.panels[,COL_STATS_PAGE_ID]))
@@ -401,7 +413,7 @@ compute.stats.pages <- function(
 	}
 	
 	# record stats
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.pages, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -413,7 +425,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_PAGES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_scene_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_SCENES]
@@ -450,7 +462,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_PANELS]
@@ -487,7 +499,7 @@ compute.stats.pages <- function(
 	vals <- table(stats.pages[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_PAGES, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_CHARS]
@@ -525,7 +537,7 @@ compute.stats.pages <- function(
 	{	for(att in atts)
 		{	data <- stats.pages.atts[[att]]
 			pal <- get.palette(ncol(stats.pages.atts[[att]]))[1:ncol(stats.pages.atts[[att]])]
-			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -561,7 +573,7 @@ compute.stats.pages <- function(
 			for(d in 1:ncol(stats.pages.atts[[att]]))
 			{	data <- stats.pages.atts[[att]][,d]
 				if(any(data!=0))
-				{	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(stats.pages.atts[[att]])[d])
+				{	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(stats.pages.atts[[att]])[d])
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
 							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -618,6 +630,12 @@ compute.stats.scenes <- function(
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
 	
+	# volume name
+	if(!is.na(cur.vol))
+		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+	else
+		vname <- NA
+	
 	# compute stats
 	tlog(3,"Computing scene stats")
 	scene.nbr <- nrow(stats.scenes)
@@ -652,7 +670,7 @@ compute.stats.scenes <- function(
 	}
 	
 	# record scene stats
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.scenes, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	if(att.nbr>0)
@@ -664,7 +682,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_SCENES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PANELS]
@@ -705,7 +723,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_CHARS, COL_STATS_SCENES, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_CHARS]
@@ -743,7 +761,7 @@ compute.stats.scenes <- function(
 	{	for(att in atts)
 		{	data <- stats.scenes.atts[[att]]
 			pal <- get.palette(ncol(stats.scenes.atts[[att]]))[1:ncol(stats.scenes.atts[[att]])]
-			file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -778,7 +796,7 @@ compute.stats.scenes <- function(
 			# separate plot for each value
 			for(d in 1:ncol(stats.scenes.atts[[att]]))
 			{	data <- stats.scenes.atts[[att]][,d]
-				file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att, val=colnames(stats.scenes.atts[[att]])[d])
+				file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att, val=colnames(stats.scenes.atts[[att]])[d])
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -803,7 +821,7 @@ compute.stats.scenes <- function(
 	vals <- table(stats.scenes[,COL_STATS_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_PAGES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_page_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PAGES]
@@ -848,7 +866,7 @@ compute.stats.scenes <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="scenes_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_positions")
 	write.csv(x=df, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	for(fformat in PLOT_FORMAT)
@@ -898,6 +916,12 @@ compute.stats.chars <- function(
 	# vertex attributes
 	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
 	att.nbr <- length(atts)
+	
+	# volume name
+	if(!is.na(cur.vol))
+		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+	else
+		vname <- NA
 	
 	# compute stats
 	tlog(3,"Computing character stats")
@@ -951,7 +975,7 @@ compute.stats.chars <- function(
 	}
 	
 	# record stats
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="characters")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="characters")
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.chars, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
@@ -959,7 +983,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_VOLUMES])
 	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(vals) <- c(COL_STATS_VOLUMES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_volume_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_volume_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_VOLUMES]
@@ -1001,7 +1025,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PAGES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_page_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PAGES]
@@ -1041,7 +1065,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_scene_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_SCENES]
@@ -1080,7 +1104,7 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_panel_nbr")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PANELS]
@@ -1120,7 +1144,7 @@ compute.stats.chars <- function(
 	thresholds <- seq(0, 10)	#max(char.info[,COL_CHAR_FREQ]))
 	char.nums <- sapply(thresholds, function(t) c(table(factor(char.info[char.info[,COL_CHAR_FREQ]>=t,COL_CHAR_NAMED], levels=c("TRUE","FALSE")))))
 	# generate barplots
-	file <- get.path.stat.corpus(object=object, vol=cur.vol, arc=cur.arc, desc="chars_filtering_by_occurences")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_filtering_by_occurences")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1224,7 +1248,8 @@ compute.stats.volumes <- function(
 	# compute the stats for each volume
 	tlog(4,"Processing each volume separately")
 	for(v in 1:volume.nbr)
-	{	tlog(5,"Processing volume id ",v,"/",nrow(volume.info))
+	{	vname <- volume.info[v,COL_VOLS_VOLUME]
+		tlog(5,"Processing volume ",vname," ",v,"/",nrow(volume.info))
 		
 		# corresponding pages
 		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
@@ -1344,7 +1369,7 @@ compute.stats.volumes <- function(
 		}
 		
 		# density plot: chars vs. panels (by scene)
-		file <- get.path.stat.corpus(vol=v, desc="comparison_chars-scenes_vs_panels-scenes")
+		file <- get.path.stat.corpus(vol=vname, desc="comparison_chars-scenes_vs_panels-scenes")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1387,7 +1412,7 @@ compute.stats.volumes <- function(
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- get.path.stat.corpus(vol=v, desc="attr_distrib", att=atts[a])
+			file <- get.path.stat.corpus(vol=vname, desc="attr_distrib", att=atts[a])
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			for(fformat in PLOT_FORMAT)

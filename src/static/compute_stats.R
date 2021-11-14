@@ -20,14 +20,16 @@ FORCE <- TRUE
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 #
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
+compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -76,7 +78,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, plot.type="histo")
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -265,14 +267,16 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 #
 # returns: an n(n-1)/2 x k table containing all computed values, where n(n-1)/2 is the 
 # 	       number of pairs of nodes and k the number of measures.
 ###############################################################################
-compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
+compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -324,7 +328,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# plot
 		if(!all(is.na(values)))
-		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, plot.type="histo")
+		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -354,14 +358,16 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 #
 # returns: an mxk table containing all computed values, where m is the number of
 #          links and k the number of measures.
 ###############################################################################
-compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
+compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -410,7 +416,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, plot.type="histo")
+		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -439,13 +445,15 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
+compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "graph"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing graph topological measures")
 	
 	# read or create the table containing the computed values
@@ -577,13 +585,15 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 #
 # returns: a kx4 table containing all computed values, where k is the number of measures,
 #		   and the columns correspond to Spearman's correlation and the associated p-value,
 #          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
-compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA)
-{	table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
+{	table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES), names(NODECOMP_MEASURES)) # not links, as their number can vary from one graph to the other
@@ -628,11 +638,11 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				object <- "links"
 			
 			# retrieve reference values
-			vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
-			vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
+			vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", arc=arc, vol=vol, filtered=FALSE)
+			vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", arc=arc, vol=vol, filtered=FALSE)
 			
 			# retrieve tested values
-			tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+			tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
 			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
 			vals.cur <- tmp.tab[,meas.name]
 			
@@ -694,9 +704,11 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 ###############################################################################
-compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap)
+compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
+{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol)
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -715,7 +727,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.correlations(mode, window.size, overlap, weights)
+	compute.static.correlations(mode, window.size, overlap, weights, arc, vol)
 	
 	tlog(3,"Computation of all rank correlation measures complete")
 }
@@ -730,10 +742,12 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# arc: the narrative arc to plot (optional).
+# vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 ###############################################################################
-compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, filtered=FALSE)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, filtered=filtered)
+compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered)
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -752,12 +766,12 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.node.statistics(g, mode, window.size, overlap, weights, filtered)
-	if(!filtered) compute.static.nodecomp.statistics(g, mode, window.size, overlap, weights)
-	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights, filtered)
-	compute.static.link.statistics(g, mode, window.size, overlap, weights, filtered)
-	compute.static.graph.statistics(g, mode, window.size, overlap, weights, filtered)
-	if(!filtered) compute.static.graphcomp.statistics(g, mode, window.size, overlap, weights)
+	compute.static.node.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
+	if(!filtered && is.na(arc) && is.na(vol)) compute.static.nodecomp.statistics(g, mode, window.size, overlap, weights)
+	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
+	compute.static.link.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
+	compute.static.graph.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
+	if(!filtered && is.na(arc) && is.na(vol)) compute.static.graphcomp.statistics(g, mode, window.size, overlap, weights)
 	
 	tlog(3,"Computation of all topological measures complete")
 }
@@ -768,12 +782,13 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 # Main function for the computation of statistics describing static graphs.
 # The graphs must have been previously extracted.
 #
+# data: preprocessed data.
 # panel.window.sizes: values for this parameter.
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
 # page.window.sizes: same for page-based windows instead of panel-based.
 # page.overlaps: same.
 ###############################################################################
-compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Computing statistics for static graphs")
 	
 	# statistics for the scene-based graph
@@ -783,14 +798,35 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 	}
 	for(weights in c("occurrences","duration"))
 		compute.all.static.corrs(mode="scenes", weights=weights)
+	# same for each narrative arc
+	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	for(arc in 1:length(arc.titles))
+	{	for(weights in c("occurrences","duration"))
+		{	for(filtered in c(FALSE,TRUE))
+				compute.all.static.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered)
+		}
+		for(weights in c("occurrences","duration"))
+			compute.all.static.corrs(mode="scenes", weights=weights, arc=arc)
+	}
+	# same for each volume
+	volume.nbr <- nrow(data$volume.info)
+	for(v in 1:volume.nbr)
+	{	vol <- data$volume.info[v, COL_VOLS_VOLUME]
+		for(weights in c("occurrences","duration"))
+		{	for(filtered in c(FALSE,TRUE))
+				compute.all.static.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered)
+		}
+		for(weights in c("occurrences","duration"))
+			compute.all.static.corrs(mode="scenes", weights=weights, vol=vol)
+	}
 	
 	# statistics for the panel window-based static graphs
 	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
 	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
-		{	compute.all.static.statistics(mode="panel.window", window.size, overlap, filtered=FALSE)
-			compute.all.static.corrs(mode="panel.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE)
+			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
 		}
 	}#)
 	
@@ -799,8 +835,8 @@ compute.static.statistics <- function(panel.window.sizes, panel.overlaps, page.w
 	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-		{	compute.all.static.statistics(mode="page.window", window.size, overlap, filtered=FALSE)
-			compute.all.static.corrs(mode="page.window", window.size, overlap)
+		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE)
+			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
 		}
 	}#)
 	
