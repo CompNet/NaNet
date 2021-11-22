@@ -1105,9 +1105,9 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			# test the type of distribution
 			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
 			if(all(vals%%1==0))
-				test.disc.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
+				test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
 			else
-				test.cont.distr(data=vals, return_stats=TRUE, sims=100, plot.file=plot.file)
+				test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
 		}
 	}
 	
@@ -1171,31 +1171,31 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 	# deal with scene-based graph
 	tlog(2,"Generating plots for static graphs with scene-based windows")
 	for(filtered in c(FALSE, TRUE))
-		generate.static.plots.scene(filtered)
+		generate.static.plots.scene(filtered=filtered)
 	# same for each narrative arc
 	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
 	for(arc in 1:length(arc.titles))
 	{	for(filtered in c(FALSE, TRUE))
-			generate.static.plots.scene(arc=arc, filtered)
+			generate.static.plots.scene(arc=arc, filtered=filtered)
 	}
 	# same for each volume
 	volume.nbr <- nrow(data$volume.info)
 	for(v in 1:volume.nbr)
 	{	vol <- data$volume.info[v, COL_VOLS_VOLUME]
 		for(filtered in c(FALSE, TRUE))
-			generate.static.plots.scene(vol=vol, filtered)
+			generate.static.plots.scene(vol=vol, filtered=filtered)
 	}
 	
 	# evolution plots
 	# TODO
 	
-	# panel-based windows
-	tlog(2,"Generating plots for static graphs with panel-based windows")
-	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
-	
-	# page-based windows
-	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+#	# panel-based windows
+#	tlog(2,"Generating plots for static graphs with panel-based windows")
+#	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+#	
+#	# page-based windows
+#	tlog(2,"Generating plots for static graphs with page-based windows")
+#	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
 	
 	tlog(1,"Generation of plots for static graphs complete")	
 }

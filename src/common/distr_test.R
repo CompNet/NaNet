@@ -71,6 +71,7 @@ C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 # Tests the type of empirical distribution of the specified continuous data.
 #
 # data: data to test.
+# xlab: label of the x-axis of the generated plot (name of the plotted quantity).
 # return_stats: whether or not to return all the computed stats.
 # sims: number of bootstrap simulations.
 # plot.file: base name of the plot file, or NA if not plot desired.
@@ -78,7 +79,7 @@ C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 # returns: either the p-value obtained for the PL fit, or all the results obtained when comparing
 #          the PL to other laws.
 #############################################################################################
-test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
+test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.file=NA)
 {	# init
 	tab <- data.frame(matrix(NA, nrow=1, ncol=length(C_DISTR), dimnames=list(c(), C_DISTR)), 
 			stringsAsFactors=FALSE)
@@ -88,20 +89,30 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	{	msg <- "Translating all values, in order to avoid zero/negative values";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 		data <- data - min(data) + 1
 	}
+print(data)	
 	
 	################## continuous power law
 	msg <- "Handling continuous power law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 	power.law <- conpl$new(data)		# create the model
 	est <- estimate_xmin(power.law)		# estimate parameters
-	power.law$setXmin(est)
-	# plot model
+	tmp <- tryCatch(expr={power.law$setXmin(est);1}, 
+			error=function(e) NA)
+	if(is.na(tmp) || is.na(power.law$xmin))
+	{	msg <- "ERROR could not fit the continuous power law at all";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		if(return_stats)
+			res <- tab
+		else
+			res <- power.law$pars
+		return(res)
+	}
 	# possibly plot model
 	if(!is.na(plot.file))
 	{	# pdf
 		pdf(paste0(plot.file,".pdf"), width=15, height=15)
+print(power.law)		
 		plot(power.law, 
 			col="BLACK",
-			xlab=TeX("Degree $k$"), ylab="Probability Density"
+			xlab=xlab, ylab="Probability Density"
 		)
 		lines(power.law, col="BLUE", lwd=2)
 #		# ccdf
@@ -122,8 +133,14 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	tab[1,C_PL_EXP] <- power.law$pars
 	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
-	power.law2 <- pareto.fit(data=data, threshold=power.law$xmin, method="ml")
-	msg <- paste0("Alt. exp=",power.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	power.law2 <- tryCatch(expr=pareto.fit(data=data, threshold=power.law$xmin, method="ml"), 
+			error=function(e) NA)
+	if(all(is.na(power.law2)))
+	{	msg <- "ERROR while applying pareto.fit (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Alt. exp=",power.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## continuous log-normal law
 	msg <- "Handling continuous log-normal law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -145,9 +162,16 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
 	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
 	# alternative, with library pli
-	log.normal2 <- lnorm.fit(x=data, threshold=power.law$xmin)
-	comp.ln2 <- vuong(pareto.lnorm.llr(x=data, pareto.d=power.law2, lnorm.d=log.normal2))
-	msg <- paste0("Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	log.normal2 <- tryCatch(expr=lnorm.fit(x=data, threshold=power.law$xmin), 
+			error=function(e) NA)
+	if(all(is.na(log.normal2)))
+	{	msg <- "ERROR while applying lnorm.fit (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.ln2 <- vuong(pareto.lnorm.llr(x=data, pareto.d=power.law2, lnorm.d=log.normal2))
+		msg <- paste0("Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+
 	
 	################## continuous exponential law
 	msg <- "Handling continuous exponential law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -169,9 +193,15 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
 	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
 	# alternative, with library pli
-	exp.law2 <- exp.fit(x=data, threshold=power.law$xmin)
-	comp.el2 <- vuong(pareto.exp.llr(x=data, pareto.d=power.law2, exp.d=exp.law2))
-	msg <- paste0("Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	exp.law2 <- tryCatch(expr=exp.fit(x=data, threshold=power.law$xmin), 
+		error=function(e) NA)
+	if(all(is.na(exp.law2)))
+	{	msg <- "ERROR while applying exp.fit (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.el2 <- vuong(pareto.exp.llr(x=data, pareto.d=power.law2, exp.d=exp.law2))
+		msg <- paste0("Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## continuous weibull distribution
 	msg <- "Handling continuous Weibull law (sometimes called stretched exponential)";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -183,7 +213,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 	{	msg <- "ERROR while applying estimate_pars";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
-	{	 weib.law$setPars(est)
+	{	weib.law$setPars(est)
 		# possibly plot model
 		if(!is.na(plot.file))
 		{	# pdf
@@ -193,14 +223,30 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 #			y <- 1 - c(0, dist_cdf(weib.law, x[-length(x)]))
 #			lines(x[-length(x)], y[-length(y)], col="PURPLE", lwd=2)
 		}
-		weib.el <- compare_distributions(power.law, weib.law)
-		msg <- paste0("Test statistic: ",weib.el$test_statistic, " p-value: ", weib.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_WEIB_CLR] <- weib.el$test_statistic
-		tab[1,C_WEIB_CPVAL] <- weib.el$p_two_sided
-		# alternative, with library pli
-		weib.law2 <- weibull.fit(x=data, threshold=power.law$xmin)
-		weib.el2 <- vuong(pareto.weibull.llr(x=data, pareto.d=power.law2, weibull.d=weib.law2))
+		weib.el <- tryCatch(expr=compare_distributions(power.law, weib.law),
+				error=function(e) NA)
+		if(all(is.na(weib.el)))
+		{	msg <- "ERROR while applying comparing to the power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	msg <- paste0("Test statistic: ",weib.el$test_statistic, " p-value: ", weib.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_WEIB_CLR] <- weib.el$test_statistic
+			tab[1,C_WEIB_CPVAL] <- weib.el$p_two_sided
+		}
+	}
+	# alternative, with library pli
+	weib.law2 <- tryCatch(expr=weibull.fit(x=data, threshold=power.law$xmin), 
+			error=function(e) NA)
+	if(all(is.na(weib.law2)))
+	{	msg <- "ERROR while applying weibull.fit";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	weib.el2 <- vuong(pareto.weibull.llr(x=data, pareto.d=power.law2, weibull.d=weib.law2))
 		msg <- paste0("Alt. Test statistic: ",weib.el2$loglike.ratio, " p-value: ", weib.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		if(is.na(tab[1,C_WEIB_CLR]))
+			tab[1,C_WEIB_CLR] <- weib.el2$loglike.ratio
+		if(is.na(tab[1,C_WEIB_CPVAL]))
+			tab[1,C_WEIB_CPVAL] <- weib.el2$p.two.sided
 	}
 	
 	################## continuous truncated power law
@@ -274,6 +320,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 # Tests the type of empirical distribution of the specified discrete data.
 #
 # data: data to test.
+# xlab: label of the x-axis of the generated plot (name of the plotted quantity).
 # return_stats: whether or not to return all the computed stats.
 # sims: number of bootstrap simulations.
 # plot.file: base name of the plot file, or NA if not plot desired.
@@ -281,7 +328,7 @@ test.cont.distr <- function(data, return_stats=FALSE, sims=1000, plot.file=NA)
 # returns: either the p-value obtained for the PL fit, or all the results obtained when comparing
 #          the PL to other laws.
 #############################################################################################
-test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
+test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.file=NA)
 {	# init
 	tab <- data.frame(matrix(NA, nrow=1, ncol=length(C_DISTR), dimnames=list(c(), C_DISTR)), 
 			stringsAsFactors=FALSE)
@@ -296,13 +343,22 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	msg <- "Handling power law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 	power.law <- displ$new(data)		# create the model
 	est <- estimate_xmin(power.law)		# estimate parameters
-	power.law$setXmin(est)
+	tmp <- tryCatch(expr={power.law$setXmin(est);1}, 
+			error=function(e) NA)
+	if(is.na(tmp))
+	{	msg <- "ERROR could not fit the discrete power law at all";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		if(return_stats)
+			res <- tab
+		else
+			res <- power.law$pars
+		return(res)
+	}
 	if(!is.na(plot.file))				# possibly plot model
 	{	# pdf
 		pdf(paste0(plot.file,".pdf"), width=15, height=15)
 		plot(power.law, 
 			col="BLACK",
-			xlab=TeX("Degree $k$"), ylab="Probability Density"
+			xlab=xlab, ylab="Probability Density"
 		)
 		lines(power.law, col="BLUE", lwd=2)
 #		# ccdf
@@ -323,8 +379,14 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	tab[1,C_PL_EXP] <- power.law$pars
 	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
-	power.law2 <- zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct")
-	msg <- paste0("Alt. exp=",power.law2$exponent);tlog(4,msg);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	power.law2 <- tryCatch(expr=zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct"), 
+			error=function(e) NA)
+	if(all(is.na(power.law2)))
+	{	msg <- "ERROR could not fit the discrete power law (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Alt. exp=",power.law2$exponent);tlog(4,msg);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## discrete log-normal law
 	msg <- "Handling log-normal law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -345,9 +407,15 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
 	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
 	# alternative, with library pli
-	log.normal2 <- fit.lnorm.disc(x=data, threshold=power.law$xmin)
-	comp.ln2 <- vuong(zeta.lnorm.llr(x=data, zeta.d=power.law2, lnorm.d=log.normal2))
-	msg <- paste0("Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	log.normal2 <- tryCatch(expr=fit.lnorm.disc(x=data, threshold=power.law$xmin), 
+			error=function(e) NA)
+	if(all(is.na(log.normal2)) || all(is.na(power.law2)))
+	{	msg <- "ERROR could not fit the log-normal law (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.ln2 <- vuong(zeta.lnorm.llr(x=data, zeta.d=power.law2, lnorm.d=log.normal2))
+		msg <- paste0("Alt. Test statistic: ",comp.ln2$loglike.ratio, " p-value: ", comp.ln2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## discrete exponential law
 	msg <- "Handling discrete exponential law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -368,9 +436,15 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
 	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
 	# alternative, with library pli
-	exp.law2 <- discexp.fit(x=data, threshold=power.law$xmin)
-	comp.el2 <- vuong(zeta.exp.llr(x=data, zeta.d=power.law2, exp.d=exp.law2))
-	msg <- paste0("Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	exp.law2 <- tryCatch(expr=discexp.fit(x=data, threshold=power.law$xmin), 
+		error=function(e) NA)
+	if(all(is.na(exp.law2)) || all(is.na(power.law2)))
+	{	msg <- "ERROR could not fit the discrete exponential law (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.el2 <- vuong(zeta.exp.llr(x=data, zeta.d=power.law2, exp.d=exp.law2))
+		msg <- paste0("Alt. Test statistic: ",comp.el2$loglike.ratio, " p-value: ", comp.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## poisson law
 	msg <- "Handling Poisson law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -391,9 +465,15 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	tab[1,C_POIS_CLR] <- comp.pl$test_statistic
 	tab[1,C_POIS_CPVAL] <- comp.pl$p_two_sided
 	# alternative, with library pli
-	pois.law2 <- pois.tail.fit(x=data, threshold=power.law$xmin)
-	comp.pl2 <- vuong(zeta.poisson.llr(x=data, zeta.d=power.law2, pois.d=pois.law2))
-	msg <- paste0("Alt. Test statistic: ",comp.pl2$loglike.ratio, " p-value: ", comp.pl2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	pois.law2 <- tryCatch(expr=pois.tail.fit(x=data, threshold=power.law$xmin), 
+			error=function(e) NA)
+	if(all(is.na(pois.law2)) || all(is.na(power.law2)))
+	{	msg <- "ERROR could not fit the Poisson law (for alt. test statistic)";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.pl2 <- vuong(zeta.poisson.llr(x=data, zeta.d=power.law2, pois.d=pois.law2))
+		msg <- paste0("Alt. Test statistic: ",comp.pl2$loglike.ratio, " p-value: ", comp.pl2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
 	
 	################## discrete weibull distribution
 	msg <- "Handling discrete Weibull law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -403,7 +483,7 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	# only possibility is library pli
 	weib.law2 <- tryCatch(expr=discweib.fit(x=data, threshold=power.law$xmin),
 					error=function(e) NA)
-	if(all(is.na(weib.law2)))
+	if(all(is.na(weib.law2)) || all(is.na(power.law2)))
 	{	msg <- paste0("ERROR: could not fit the Weibull law");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -423,13 +503,19 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	{	# TODO
 	}
 	# only possibility is library pli
-	trunc.law2 <- discpowerexp.fit(x=data,threshold=power.law$xmin)
-	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
-	comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-	tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	trunc.law2 <- tryCatch(expr=discpowerexp.fit(x=data,threshold=power.law$xmin),
+			error=function(e) NA)
+	if(all(is.na(trunc.law2)) || all(is.na(power.law2)))
+	{	msg <- paste0("ERROR: could not fit the discrete truncated power law");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
+		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
+		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+	}
 	
 	################## yule-simon distribution
 	msg <- "Handling Yule-Simon distribution";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -437,11 +523,17 @@ test.disc.distr <- function(data, return_stats=FALSE, sims=100, plot.file=NA)
 	{	# TODO
 	}
 	# only possibility is library pli
-	yusim.law2 <- yule.fit(x=data, threshold=power.law$xmin)
-	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
-	msg <- paste0("Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
-	tab[1,C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
+	yusim.law2 <- tryCatch(expr=yule.fit(x=data, threshold=power.law$xmin),
+			error=function(e) NA)
+	if(all(is.na(yusim.law2)) || all(is.na(power.law2)))
+	{	msg <- paste0("ERROR: could not fit the Yule-Simon distribution");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
+		msg <- paste0("Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
+		tab[1,C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
+	}
 	
 	################
 	
@@ -595,9 +687,11 @@ make.decision.distr <- function(tab, threshold=0.01)
 	exponential <- !is.na(tab[1,C_EXPO_CPVAL]) && tab[1,C_EXPO_CPVAL]<threshold && !is.na(tab[1,C_EXPO_CLR]) && tab[1,C_EXPO_CLR]<0 && tab[1,C_EXPO_CLR]<tab[1,C_TRUNC_CLR] 
 	weibull <- !is.na(tab[1,C_WEIB_CPVAL]) && tab[1,C_WEIB_CPVAL]<threshold && !is.na(tab[1,C_WEIB_CLR]) && tab[1,C_WEIB_CLR]<0 && tab[1,C_WEIB_CLR]<tab[1,C_TRUNC_CLR] 
 	yule.simon <- !is.na(tab[1,C_YUSIM_CPVAL]) && tab[1,C_YUSIM_CPVAL]<threshold && !is.na(tab[1,C_YUSIM_CLR]) && tab[1,C_YUSIM_CLR]<0 && tab[1,C_YUSIM_CLR]<tab[1,C_TRUNC_CLR]
+	flags <- c(poisson, lognormal, exponential, weibull, yule.simon)
+print(flags)	
 	
 	if(power)
-	{	if(poisson || lognormal || exponential || weibull || yule.simon)
+	{	if(any(!is.na(flags) & flags))
 			res <- "Moderate"
 		else if(truncated)
 			res <- "Truncated"
@@ -605,7 +699,7 @@ make.decision.distr <- function(tab, threshold=0.01)
 			res <- "Good"
 	}
 	else
-	{	if(poisson || lognormal || exponential || weibull || yule.simon)
+	{	if(any(!is.na(flags) & flags))
 			res <- "None"
 		else if(truncated)
 			res <- "Truncated"

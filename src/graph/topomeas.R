@@ -22,18 +22,6 @@
 transitivity.vs.degree <- function(g, weights=FALSE, filename)
 {	# NOTE: not clear whether the transitivity values should be averaged by degree first.
 	
-	# init misc
-	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
-	if(weights)
-		base.name <- paste0(filename,"_trans_vs_strength")
-	else
-		base.name <- paste0(filename,"_trans_vs_degree")
-	
-	# init result table
-	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
-	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF")
-	
 	# compute the values
 	tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
 	if(weights)
@@ -50,6 +38,18 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 	filt.deg <- deg.vals[tra.vals>0]
 	avg.tra <- sapply(1:max(filt.deg), function(d) mean(filt.tra[filt.deg==d]))
 			
+	# init misc
+	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
+	if(weights)
+		base.name <- paste0(filename,"_trans_vs_strength")
+	else
+		base.name <- paste0(filename,"_trans_vs_degree")
+	
+	# init result table
+	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
+	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
+	colnames(tab) <- c("Exponent","GoF")
+	
 	# make a few tries
 	best.exp <- NA
 	best.gof <- .Machine$integer.max
@@ -63,56 +63,69 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 		df <- data.frame(cut.deg, cut.tra)
 		
 		# fit model
-		fit <- nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
-				start=list(c1=0, c2=-3, c3=0),
-				data = df,
-				control=list(maxiter=75))
-		
-		# retrieve estimated exponent
-		exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
-		gof <- tab[i,"GoF"] <- summary(fit)$sigma
-		#gof <- cor(cut.tra,predict(fit)) # by curiosity
-		
-		# plot for future visualization
-		plot.file <- paste0(base.name,"_thre=",threshold)
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				# data
-				plot(
-					x=filt.deg, y=filt.tra, 
-					main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
-					xlab=TeX(xlab),
-					ylab=TeX("Local Transitivity $C(u)$"),
-					log="xy",
-					col="PINK",
-					xlim=c(1,max(deg.vals)*1.1)
-					#ylim=c(0.0001,1)
-				)
-				# mean
-				idx <- which(avg.tra>0)
-				lines(
-					x=idx, y=avg.tra[idx],
-					col="BLACK"
-				)
-				# fitted line
-				x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
-				lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
-				# legend
-				legend(
-					x="topright",
-					lty=1:2, col="BLACK",
-					legend=c("Mean","Fit")
-				)
-			dev.off()
+		val1 <- 0; val2 <- -3; val3 <- 0; fit <- NA; iter <- 0
+		while(is.na(fit) && iter<5)
+		{	fit <- tryCatch(
+						expr=nnlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
+							start=list(c1=0, c2=-3, c3=0),
+							data = df,
+							control=list(maxiter=75)),
+						error=function(e) NA)
+			if(is.na(fit))
+			{	iter <- iter + 1
+				val1 <- runif(1,-5,5)
+				val2 <- runif(1,-5,5)
+				val3 <- runif(1,-5,5)
+			}
 		}
 		
-		# keep best fit
-		if(gof<best.gof)
-		{	best.exp <- exponent
-			best.gof <- gof
+		if(!is.na(fit))
+		{	# retrieve estimated exponent
+			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
+			gof <- tab[i,"GoF"] <- summary(fit)$sigma
+			#gof <- cor(cut.tra,predict(fit)) # by curiosity
+			
+			# plot for future visualization
+			plot.file <- paste0(base.name,"_thre=",threshold)
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# data
+					plot(
+						x=filt.deg, y=filt.tra, 
+						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
+						xlab=TeX(xlab),
+						ylab=TeX("Local Transitivity $C(u)$"),
+						log="xy",
+						col="PINK",
+						xlim=c(1,max(deg.vals)*1.1)
+						#ylim=c(0.0001,1)
+					)
+					# mean
+					idx <- which(avg.tra>0)
+					lines(
+						x=idx, y=avg.tra[idx],
+						col="BLACK"
+					)
+					# fitted line
+					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
+					lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
+					# legend
+					legend(
+						x="topright",
+						lty=1:2, col="BLACK",
+						legend=c("Mean","Fit")
+					)
+				dev.off()
+			}
+			
+			# keep best fit
+			if(gof<best.gof)
+			{	best.exp <- exponent
+				best.gof <- gof
+			}
 		}
 	}
 	
@@ -139,16 +152,10 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 ###############################################################################
 neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 {	# init misc
-	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 	if(weights)
 		base.name <- paste0(filename,"_neideg_vs_strength")
 	else
 		base.name <- paste0(filename,"_neideg_vs_degree")
-	
-	# init result table
-	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
-	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF")
 	
 	# compute the values
 	if(weights)
@@ -169,6 +176,12 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	filt.nei <- tmp$knn[idx]
 	filt.deg <- deg.vals[idx]
 	
+	# init result table
+	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
+	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
+	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
+	colnames(tab) <- c("Exponent","GoF")
+	
 	# make a few tries
 	best.exp <- NA
 	best.gof <- .Machine$integer.max
@@ -182,55 +195,68 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 		df <- data.frame(cut.deg, cut.nei)
 		
 		# fit model
-		fit <- nlsLM(cut.nei ~ c1*cut.deg^c2 + c3, 
-				start=list(c1=0, c2=-3, c3=0),
-				data = df,
-				control=list(maxiter=75))
-		
-		# retrieve estimated exponent
-		exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
-		gof <- tab[i,"GoF"] <- summary(fit)$sigma
-		#gof <- cor(cut.nei,predict(fit)) # by curiosity
-		
-		# plot for future visualization
-		plot.file <- paste0(base.name,"_thre=",threshold)
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				# points
-				plot(
-					x=filt.deg, y=filt.nei, 
-					main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
-					xlab=TeX(xlab), 
-					ylab=TeX(ylab),
-					log="xy", 
-					las=1, col="PINK",
-					xlim=c(1,max(deg.vals)*1.1)
-				)
-				# mean
-				idx <- which(!is.nan(tmp$knnk) & tmp$knnk>0)
-				lines(
-					x=idx, y=tmp$knnk[idx],
-					col="BLACK"
-				)
-				# fitted line
-				x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
-				lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
-				# legend
-				legend(
-					x="topright",
-					lty=1:2, col="BLACK",
-					legend=c("Mean","Fit")
-				)
-			dev.off()
+		val1 <- 0; val2 <- -3; val3 <- 0; fit <- NA; iter <- 0
+		while(is.na(fit) && iter<5)
+		{	fit <- tryCatch(
+				expr=nlsLM(cut.nei ~ c1*cut.deg^c2 + c3, 
+					start=list(c1=0, c2=-3, c3=0),
+					data = df,
+					control=list(maxiter=75)),
+				error=function(e) NA)
+			if(is.na(fit))
+			{	iter <- iter + 1
+				val1 <- runif(1,-5,5)
+				val2 <- runif(1,-5,5)
+				val3 <- runif(1,-5,5)
+			}
 		}
 		
-		# keep best fit
-		if(gof<best.gof)
-		{	best.exp <- exponent
-			best.gof <- gof
+		if(!is.na(fit))
+		{	# retrieve estimated exponent
+			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
+			gof <- tab[i,"GoF"] <- summary(fit)$sigma
+			#gof <- cor(cut.nei,predict(fit)) # by curiosity
+			
+			# plot for future visualization
+			plot.file <- paste0(base.name,"_thre=",threshold)
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# points
+					plot(
+						x=filt.deg, y=filt.nei, 
+						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
+						xlab=TeX(xlab), 
+						ylab=TeX(ylab),
+						log="xy", 
+						las=1, col="PINK",
+						xlim=c(1,max(deg.vals)*1.1)
+					)
+					# mean
+					idx <- which(!is.nan(tmp$knnk) & tmp$knnk>0)
+					lines(
+						x=idx, y=tmp$knnk[idx],
+						col="BLACK"
+					)
+					# fitted line
+					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
+					lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
+					# legend
+					legend(
+						x="topright",
+						lty=1:2, col="BLACK",
+						legend=c("Mean","Fit")
+					)
+				dev.off()
+			}
+			
+			# keep best fit
+			if(gof<best.gof)
+			{	best.exp <- exponent
+				best.gof <- gof
+			}
 		}
 	}
 	

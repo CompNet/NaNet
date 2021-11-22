@@ -84,6 +84,13 @@ generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.size
 
 
 
+# TODO
+# export current position to graphml file, then adjust manually with gephi 
+# write script to quickly test how manually positioned vertices are rendered by igraph (esp. regarding labels)
+# export position to layout file
+
+
+
 
 ###############################################################################
 # stop logging

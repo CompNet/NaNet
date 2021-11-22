@@ -33,6 +33,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 {	tlog(2,"Extracting the scene-based static graph")
 	g <- make_empty_graph(0,directed=FALSE)
 	res <- list()
+	vname <- NA
 	
 	# init the dataframe
 	static.df <- data.frame(
@@ -50,8 +51,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		#arc.nbr <- length(arc.titles)
 		idx.vol <- which(volume.info[,COL_VOLS_ARC]==arc.titles[arc])
 		idx.pn <- c()
-		for(v in idx.pg)
-		{	idx.pg <- which(page.info[,COL_PAGES_VOLUME]==v)
+		for(v in idx.vol)
+		{	idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
 			start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
 			end.pn <- page.info[idx.pg[length(idx.pg)],COL_PAGES_START_PANEL_ID]
 			idx.pn <- c(idx.pn, seq(start.pn, end.pn))
@@ -59,7 +60,9 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		is <- which(inter.df[,COL_INTER_START_PANEL_ID] %in% idx.pn)
 	}
 	else if(!is.na(vol))
-	{	start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
+	{	vname <- volume.info[vol,COL_VOLS_VOLUME]
+		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==vol)
+		start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
 		#end.pn <- page.info[idx.pg[length(idx.pg)]+1,COL_PAGES_START_PANEL_ID] - 1
 		end.pn <- page.info[idx.pg[length(idx.pg)],COL_PAGES_START_PANEL_ID]
 		idx.pn <- seq(start.pn, end.pn)
@@ -120,7 +123,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol)
+	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	#plot(g, layout=layout_with_fr(g))
 	
@@ -388,7 +391,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=v, filtered=TRUE)
+		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.info[v,COL_VOLS_VOLUME], filtered=TRUE)
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	
