@@ -89,7 +89,6 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	{	msg <- "Translating all values, in order to avoid zero/negative values";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 		data <- data - min(data) + 1
 	}
-print(data)	
 	
 	################## continuous power law
 	msg <- "Handling continuous power law";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
@@ -109,7 +108,6 @@ print(data)
 	if(!is.na(plot.file))
 	{	# pdf
 		pdf(paste0(plot.file,".pdf"), width=15, height=15)
-print(power.law)		
 		plot(power.law, 
 			col="BLACK",
 			xlab=xlab, ylab="Probability Density"
@@ -688,7 +686,6 @@ make.decision.distr <- function(tab, threshold=0.01)
 	weibull <- !is.na(tab[1,C_WEIB_CPVAL]) && tab[1,C_WEIB_CPVAL]<threshold && !is.na(tab[1,C_WEIB_CLR]) && tab[1,C_WEIB_CLR]<0 && tab[1,C_WEIB_CLR]<tab[1,C_TRUNC_CLR] 
 	yule.simon <- !is.na(tab[1,C_YUSIM_CPVAL]) && tab[1,C_YUSIM_CPVAL]<threshold && !is.na(tab[1,C_YUSIM_CLR]) && tab[1,C_YUSIM_CLR]<0 && tab[1,C_YUSIM_CLR]<tab[1,C_TRUNC_CLR]
 	flags <- c(poisson, lognormal, exponential, weibull, yule.simon)
-print(flags)	
 	
 	if(power)
 	{	if(any(!is.na(flags) & flags))
