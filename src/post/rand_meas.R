@@ -27,7 +27,7 @@ source("src/common/include.R")
 # returns: the stat table.
 ###############################################################################
 load.randmeas.stats <- function(filtered=FALSE)
-{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=FALSE, plot.type="model_stats.csv")
+{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=filtered, plot.type="model_stats.csv")
 	if(file.exists(tab.file))
 		res <- read.csv(tab.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE, row.names=1)
 	else
@@ -168,8 +168,6 @@ rand.bipartite.graph.measures <- function(g, filtered=FALSE, iters=10)
 	}
 	
 	# fill result table
-print(res)
-print(apply(lst.top[[1]],2,mean))
 	res[cn,"RandBipartite_FALSE"] <- apply(lst.top[[1]],2,mean)
 	res[cn,"RandBipartite_TRUE"] <- apply(lst.top[[2]],2,mean)
 	# record the table
@@ -322,7 +320,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 ###############################################################################
 # build bipartite graphs from raw data
 tlog(0,"Dealing with Newman's bipartite model")
-iters <- 100
+iters <- 10
 lst.g <- load.as.bipartite()
 
 # compute measures for projections
