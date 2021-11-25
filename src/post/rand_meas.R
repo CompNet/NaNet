@@ -20,6 +20,46 @@ source("src/common/include.R")
 
 
 ###############################################################################
+# Loads the stat table for the functions in this script.
+#
+# filtered: whether we are dealing with the filtered network.
+#
+# returns: the stat table.
+###############################################################################
+load.randmeas.stats <- function(filtered=FALSE)
+{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=FALSE, plot.type="model_stats.csv")
+	if(file.exists(tab.file))
+		res <- read.csv(tab.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE, row.names=1)
+	else
+	{	# init result table
+		rn <- c("AvgDegree","MaxDegree","DegAssort","AvgDistance","MaxDistance","AvgLocalTrans")
+		cn <- c("RandBipartite_FALSE","RandBipartite_TRUE","RandErdosRenyi","RandConfig","Lattice")
+		res <- matrix(NA, nrow=length(rn), ncol=length(cn))
+		rownames(res) <- rn
+		colnames(res) <- cn
+		record.randmeas.stats(tab=res, filtered=filtered)
+	}
+	return(res)
+}
+
+
+
+
+###############################################################################
+# Records the stat table for the functions in this script.
+#
+# tab: the stat table.
+# filtered: whether we are dealing with the filtered network.
+###############################################################################
+record.randmeas.stats <- function(tab, filtered=FALSE)
+{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=filtered, plot.type="model_stats.csv")
+	write.csv(x=tab, file=tab.file, row.names=TRUE)
+}
+
+
+
+
+###############################################################################
 # Reads the raw data and builds a bipartite graph. The first dimension (FALSE)
 # is Characters, whereas the second (TRUE) is Scenes.
 #
@@ -81,13 +121,16 @@ load.as.bipartite <- function()
 # to the projections of the specified bipartite network.
 #
 # g: bipartite network.
+# filtered: whether the graph is filtered.
 # iters: number of generated networks used to perform the estimation.
 # 
-# returns: matrix containing the measures for each projection of the network
-#          (character vs. scenes).
+# returns: stats table.
 ###############################################################################
-rand.graph.measures <- function(g, iters=10)
-{	# init result table
+rand.bipartite.graph.measures <- function(g, filtered=FALSE, iters=10)
+{	# load stats table
+	res <- load.randmeas.stats(filtered=filtered)
+	
+	# init stat list
 	cn <- c("AvgDegree","MaxDegree","DegAssort","AvgDistance","MaxDistance","AvgLocalTrans")
 	lst.top <- list()
 	for(i in 1:2)
@@ -118,17 +161,20 @@ rand.graph.measures <- function(g, iters=10)
 			lst.top[[i]][iter,"MaxDegree"] <- max(degree(lst.graph[[i]], mode="all"))
 			lst.top[[i]][iter,"DegAssort"] <- assortativity_degree(lst.graph[[i]], directed=FALSE)
 			lst.top[[i]][iter,"AvgDistance"] <- mean_distance(graph=lst.graph[[i]], directed=FALSE)
-			lst.top[[i]][iter,"MaxDistance"] <- max(distances(graph=lst.graph[[i]], mode="all"))
+			tmp <- distances(graph=lst.graph[[i]], mode="all")
+			lst.top[[i]][iter,"MaxDistance"] <- max(tmp[!is.infinite(tmp)])
 			lst.top[[i]][iter,"AvgLocalTrans"] <- transitivity(graph=lst.graph[[i]], type="localaverage", isolates="zero")
 		}
 	}
 	
 	# fill result table
-	res <- cbind(
-			apply(lst.top[[1]],2,mean),
-			apply(lst.top[[2]],2,mean)
-		)
-	colnames(res) <- c(FALSE, TRUE)
+print(res)
+print(apply(lst.top[[1]],2,mean))
+	res[cn,"RandBipartite_FALSE"] <- apply(lst.top[[1]],2,mean)
+	res[cn,"RandBipartite_TRUE"] <- apply(lst.top[[2]],2,mean)
+	# record the table
+	record.randmeas.stats(tab=res, filtered=filtered)
+	
 	return(res)
 }
 
@@ -183,10 +229,13 @@ make.lattice <- function(n, m)
 #
 # filtered: whether to process the natural or filtered network.
 #
-# returns: vector containing the measures.
+# returns: stats table.
 ###############################################################################
 lattice.graph.measures <- function(filtered=FALSE)
-{	# load the original network 
+{	# load stats table
+	res <- load.randmeas.stats(filtered=filtered)
+	
+	# load the original network 
 	graph.file <- get.path.graph.file(mode="scenes")
 	g <- read_graph(file=graph.file, format="graphml")
 	if(filtered)
@@ -194,17 +243,75 @@ lattice.graph.measures <- function(filtered=FALSE)
 	# build lattice
 	g <- make.lattice(n=gorder(g), m=gsize(g)) 
 	
-	# init result table
-	cn <- c("AvgDegree","MaxDegree","DegAssort","AvgDistance","MaxDistance","AvgLocalTrans")
-	res <- matrix(NA,nrow=length(cn),ncol=1)
-	rownames(res) <- cn
+	# update stat table
+	res["AvgDegree","Lattice"] <- mean(degree(g, mode="all"))
+	res["MaxDegree","Lattice"] <- max(degree(g, mode="all"))
+	res["DegAssort","Lattice"] <- assortativity_degree(g, directed=FALSE)
+	res["AvgDistance","Lattice"] <- mean_distance(graph=g, directed=FALSE)
+	tmp <- distances(graph=g, mode="all")
+	res["MaxDistance","Lattice"] <- max(tmp[!is.infinite(tmp)])
+	res["AvgLocalTrans","Lattice"] <- transitivity(graph=g, type="localaverage", isolates="zero")
 	
-	res["AvgDegree",1] <- mean(degree(g, mode="all"))
-	res["MaxDegree",1] <- max(degree(g, mode="all"))
-	res["DegAssort",1] <- assortativity_degree(g, directed=FALSE)
-	res["AvgDistance",1] <- mean_distance(graph=g, directed=FALSE)
-	res["MaxDistance",1] <- max(distances(graph=g, mode="all"))
-	res["AvgLocalTrans",1] <- transitivity(graph=g, type="localaverage", isolates="zero")
+	# record the table
+	record.randmeas.stats(tab=res, filtered=filtered)
+	
+	return(res)
+}
+
+
+
+
+###############################################################################
+# Compute the topological measures in the Erdos-Rényi or Configuration random models.
+#
+# filtered: whether the graph is filtered.
+# iters: number of generated networks used to perform the estimation.
+# model: either Erdos-Rényi ("RandErdosRenyi") or Configuration ("RandConfig").
+#
+# returns: stat table.
+###############################################################################
+rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="RandErdosRenyi")
+{	# load stats table
+	res <- load.randmeas.stats(filtered=filtered)
+	
+	# load the original network 
+	graph.file <- get.path.graph.file(mode="scenes")
+	g <- read_graph(file=graph.file, format="graphml")
+	if(filtered)
+		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+	
+	# compute degree
+	dd <- degree(g, mode="all")
+	n <- gorder(g)
+	m <- gsize(g)
+	
+	# init iter stat table
+	cn <- c("AvgDegree","MaxDegree","DegAssort","AvgDistance","MaxDistance","AvgLocalTrans")
+	tab <- matrix(NA, nrow=iters, ncol=length(cn))
+	rownames(tab) <- 1:iters
+	colnames(tab) <- cn
+	
+	# generate simulation data
+	for(iter in 1:iters)
+	{	tlog(2,"Processing iteration ",iter,"/",iters)
+		if(model=="RandErdosRenyi")
+			rg <- sample_gnm(n=n, m=m, directed=FALSE, loops=FALSE)
+		else if(model=="RandConfig")
+			rg <- sample_degseq(out.deg=dd)
+		
+		tab[iter,"AvgDegree"] <- mean(degree(rg, mode="all"))
+		tab[iter,"MaxDegree"] <- max(degree(rg, mode="all"))
+		tab[iter,"DegAssort"] <- assortativity_degree(rg, directed=FALSE)
+		tab[iter,"AvgDistance"] <- mean_distance(graph=rg, directed=FALSE)
+		tmp <- distances(graph=rg, mode="all")
+		tab[iter,"MaxDistance"] <- max(tmp[!is.infinite(tmp)])
+		tab[iter,"AvgLocalTrans"] <- transitivity(graph=rg, type="localaverage", isolates="zero")
+	}
+
+	# fill result table
+	res[cn,model] <- apply(tab,2,mean)
+	# record the table
+	record.randmeas.stats(tab=res, filtered=filtered)
 	
 	return(res)
 }
@@ -214,33 +321,58 @@ lattice.graph.measures <- function(filtered=FALSE)
 
 ###############################################################################
 # build bipartite graphs from raw data
+tlog(0,"Dealing with Newman's bipartite model")
 iters <- 100
 lst.g <- load.as.bipartite()
 
-# compute measures for natural graph
-tab <- rand.graph.measures(g=lst.g$natural, iters=iters)
-tlog(0,"Measures for the natural network:");print(tab)
-file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=FALSE, plot.type="random_model")
-write.csv(x=tab, file=paste0(file,".csv"), row.names=TRUE)
+# compute measures for projections
+tab <- rand.bipartite.graph.measures(g=lst.g$natural, filtered=FALSE, iters=iters)
+tlog(2,"Measures for the natural network:");print(tab)
 
 # compute measures for filtered graph
-tab.filtr <- rand.graph.measures(g=lst.g$filtered, iters=iters)
-tlog(0,"Measures for the filtered network:");print(tab.filtr)
-file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=TRUE, plot.type="random_model")
-write.csv(x=tab.filtr, file=paste0(file,".csv"), row.names=TRUE)
+tab.filtr <- rand.bipartite.graph.measures(g=lst.g$filtered, filtered=TRUE, iters=iters)
+tlog(2,"Measures for the filtered network:");print(tab.filtr)
 
 
 
 
 ###############################################################################
+# process ER model
+tlog(0,"Dealing with the Erdos-Rényi model")
+
+# process natural network
+tab <- rand.igraphmodel.graph.measures(filtered=FALSE, iters=iters, model="RandErdosRenyi")
+tlog(2,"Measures for the natural network:");print(tab)
+
+# process filtered network
+tab.filtr <- rand.igraphmodel.graph.measures(filtered=TRUE, iters=iters, model="RandErdosRenyi")
+tlog(2,"Measures for the filtered network:");print(tab.filtr)
+
+
+
+
+###############################################################################
+# process configuration model
+tlog(0,"Dealing with the Configuration model")
+
+# process natural network
+tab <- rand.igraphmodel.graph.measures(filtered=FALSE, iters=iters, model="RandConfig")
+tlog(2,"Measures for the natural network:");print(tab)
+
+# process filtered network
+tab.filtr <- rand.igraphmodel.graph.measures(filtered=TRUE, iters=iters, model="RandConfig")
+tlog(2,"Measures for the filtered network:");print(tab.filtr)
+
+
+
+
+###############################################################################
+tlog(0,"Dealing with the lattice")
+
 # process natural network
 tab <- lattice.graph.measures(filtered=FALSE)
-tlog(0,"Measures for the natural network:");print(tab)
-file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=FALSE, plot.type="quasi_lattice")
-write.csv(x=tab, file=paste0(file,".csv"), row.names=TRUE)
+tlog(2,"Measures for the natural network:");print(tab)
 
 # process filtered network
 tab.filtr <- lattice.graph.measures(filtered=TRUE)
-tlog(0,"Measures for the natural network:");print(tab.filtr)
-file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=FALSE, plot.type="quasi_lattice")
-write.csv(x=tab.filtr, file=paste0(file,".csv"), row.names=TRUE)
+tlog(2,"Measures for the natural network:");print(tab.filtr)

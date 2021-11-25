@@ -221,7 +221,7 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
+get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -260,7 +260,8 @@ get.path.topomeas.plot <- function(object, mode, meas.name, window.size=NA, over
 	if(!is.na(object))
 		res <- 	paste0(res, "_", object)
 	# add measure
-	res <- paste0(res, "_meas=",meas.name)
+	if(!is.na(meas.name))
+		res <- paste0(res, "_meas=",meas.name)
 	# possibly add plot type
 	if(!is.na(plot.type))
 		res <- paste0(res, "_", plot.type)
