@@ -59,7 +59,7 @@ rownames(est.tab) <- data$char.info[,COL_CHAR_SHORT_NAME]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
 	#g <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, vol=v)
-	graph.file <- get.path.graph.file(mode="scenes", vol=v)
+	graph.file <- get.path.graph.file(mode="scenes", vol=v, ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	
 #	vals <- degree(graph=g, mode="all")									# 0.55	0.25

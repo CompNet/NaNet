@@ -710,7 +710,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # vol: the volume to plot (optional, and ignored if arc is specified).
 ###############################################################################
 compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol)
+{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, ext=".graphml")
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -749,7 +749,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # filtered: whether to consider the filtered version of the graph.
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered)
+{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, ext=".graphml")
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file

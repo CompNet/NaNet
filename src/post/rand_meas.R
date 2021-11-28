@@ -103,7 +103,7 @@ load.as.bipartite <- function()
 	bg <- delete_vertices(graph=bg, v=which(degree(bg, mode="all")<1))
 	
 	# filtered version
-	graph.file <- get.path.graph.file(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	idx <- match(V(g)[V(g)$Filtered]$name, V(bg)$Name)
 	bg.filtr <- delete_vertices(graph=bg, v=idx)
@@ -234,7 +234,7 @@ lattice.graph.measures <- function(filtered=FALSE)
 	res <- load.randmeas.stats(filtered=filtered)
 	
 	# load the original network 
-	graph.file <- get.path.graph.file(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -273,7 +273,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 	res <- load.randmeas.stats(filtered=filtered)
 	
 	# load the original network 
-	graph.file <- get.path.graph.file(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -320,7 +320,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 ###############################################################################
 # build bipartite graphs from raw data
 tlog(0,"Dealing with Newman's bipartite model")
-iters <- 10
+iters <- 100
 lst.g <- load.as.bipartite()
 
 # compute measures for projections

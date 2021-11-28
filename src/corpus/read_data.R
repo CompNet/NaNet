@@ -29,6 +29,10 @@ read.volume.table <- function(page.info)
 	volume.info <- cbind(1:nrow(volume.info), volume.info)
 	colnames(volume.info)[1] <- COL_VOLS_VOLUME_ID
 	
+	# clean text columns
+	for(col in c(COL_VOLS_SERIES, COL_VOLS_TITLE, COL_VOLS_ARC))
+		volume.info[,col] <- fix.encoding(strings=volume.info[,col])
+	
 	tlog(2,"Reading of the volume file completed")
 	return(volume.info)
 }
@@ -129,6 +133,7 @@ read.inter.table <- function(volume.info, page.info)
 	con <- file(INTER_FILE, open="r")
 		temp <- readLines(con)
 	close(con)
+	temp <- fix.encoding(strings=temp)
 	lines <- strsplit(temp, split='\t', fixed=TRUE)
 	tlog(2,"Reading of the interaction file completed")
 	
@@ -303,6 +308,8 @@ read.char.table <- function(char.scenes)
 		
 		# read the proper table
 		char.info <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+		for(col in c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME))
+			char.info[,col] <- fix.encoding(strings=char.info[,col])
 		table.chars <- char.info[,COL_CHAR_NAME]
 		table.chars <- sort(table.chars)
 		
@@ -341,6 +348,7 @@ read.char.table <- function(char.scenes)
 		{	#cat(paste(pb.chars,collapse="\n"))
 			msg <- paste0("ERROR: The following names are missing from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
 			tlog(3,msg)
+			print(scene.chars)
 			stop(msg)
 		}
 		

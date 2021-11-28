@@ -88,10 +88,12 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # arc: concerned narrative arc (optional).
 # vol: concerned volume (optional).
 # filtered: whether this concerns the filtered version of the graph.
+# subfold: additional subfolder (optional).
+# ext: file extension added at the end of the path.
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=FALSE)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=FALSE, subfold=NA, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -99,12 +101,18 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
+	# possible add filtered suffix
+	if(filtered)
+		folder <- paste0(folder, "_filtered")
 	# possibly add arc subfolder
 	if(!is.na(arc))
 		folder <- file.path(folder, "arcs")
 	# possibly add volume subfolder
 	if(!is.na(vol))
 		folder <- file.path(folder, "volumes")
+	# possibly add extra subfolder
+	if(!is.na(subfold))
+		folder <- file.path(folder, subfold)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
@@ -119,9 +127,6 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 	# possibly add volume name
 	if(!is.na(vol))
 		res <- 	paste0(res, "_vol",vol)
-	# possible add filtered suffix
-	if(filtered)
-		res <- paste0(res, "_filtered")
 	# possibly add window size
 	if(!is.na(window.size))
 		res <- paste0(res, "_ws=",window.size)
@@ -130,7 +135,8 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 		res <- paste0(res, "_ol=",overlap)
 	
 	# add extension
-	res <- paste0(res, ".graphml")
+	if(!is.na(ext))
+		res <- paste0(res, ext)
 	
 	return(res)
 }

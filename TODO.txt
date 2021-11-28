@@ -26,6 +26,7 @@ Stats part:
   - Plots combining the different assortativities / centralizations? 
     (for comparison purposes. not sure of the interest)
   - Some boxes are missing in boxplots (when the corresponding violins are there)
+    >> probably just because violin works on "only equal values" cases, not boxplots
   
 - Segmentation task: 
   - requires dynamic nets

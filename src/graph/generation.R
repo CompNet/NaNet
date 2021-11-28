@@ -1,6 +1,6 @@
 ###########################################################################
 # Models to generate various types of graphs.
-
+# 
 # Vincent Labatut
 # 09/2021
 #

@@ -25,7 +25,7 @@ install.packages("ggplot2")
 install.packages("ggExtra")
 # violin plots
 install.packages("vioplot")
-# palette
+# colors
 install.packages("viridis")
 
 # statistical tests

@@ -123,7 +123,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname)
+	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	#plot(g, layout=layout_with_fr(g))
 	
@@ -219,7 +219,7 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap)
+	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap, ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -308,7 +308,7 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 	# write to file
-	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap)
+	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap, ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -343,12 +343,12 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	idx.cmp <- idx.keep[tmp$indices]
 	g.cmp <- tmp$comp
 	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
+	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=".graphml")
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	# update main file
 	V(g)$Filtered <- rep(TRUE,gorder(g))
 	V(g)$Filtered[idx.cmp] <- FALSE
-	graph.file <- get.path.graph.file(mode="scenes")
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	# add col to char info
 	char.info <- data$char.info
@@ -372,7 +372,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE)
+		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE, ext=".graphml")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	
@@ -391,7 +391,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.info[v,COL_VOLS_VOLUME], filtered=TRUE)
+		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.info[v,COL_VOLS_VOLUME], filtered=TRUE, ext=".graphml")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	

@@ -40,12 +40,12 @@ compute.stats.panels <- function(
 	
 	# volume name
 	if(!is.na(cur.vol))
-		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+		vname <- volume.info[1, COL_VOLS_VOLUME]
 	else
 		vname <- NA
 	
 	# compute stats
-	tlog(3,"Computing panel stats")
+	tlog(3,"Computing panel stats (cur.vol=",cur.vol," vname=",vname,")")
 	
 	# list of concerned panel ids
 	panel.ids <- c()
@@ -325,7 +325,7 @@ compute.stats.pages <- function(
 	
 	# volume name
 	if(!is.na(cur.vol))
-		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+		vname <- volume.info[1, COL_VOLS_VOLUME]
 	else
 		vname <- NA
 	
@@ -632,7 +632,7 @@ compute.stats.scenes <- function(
 	
 	# volume name
 	if(!is.na(cur.vol))
-		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+		vname <- volume.info[1, COL_VOLS_VOLUME]
 	else
 		vname <- NA
 	
@@ -919,7 +919,7 @@ compute.stats.chars <- function(
 	
 	# volume name
 	if(!is.na(cur.vol))
-		vname <- volume.info[cur.vol, COL_VOLS_VOLUME]
+		vname <- volume.info[1, COL_VOLS_VOLUME]
 	else
 		vname <- NA
 	
@@ -1249,7 +1249,7 @@ compute.stats.volumes <- function(
 	tlog(4,"Processing each volume separately")
 	for(v in 1:volume.nbr)
 	{	vname <- volume.info[v,COL_VOLS_VOLUME]
-		tlog(5,"Processing volume ",vname," ",v,"/",nrow(volume.info))
+		tlog(5,"Processing volume ",vname," (",v,"/",nrow(volume.info),")")
 		
 		# corresponding pages
 		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
@@ -1301,7 +1301,7 @@ compute.stats.volumes <- function(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.scenes, 
 				vol.char.scenes,
-				v, NA
+				cur.vol=v, cur.arc=NA
 		)
 		vol.stats.panels <- tmp$stats.panels
 		vol.stats.panels.atts <- tmp$stats.panels.atts
@@ -1311,7 +1311,7 @@ compute.stats.volumes <- function(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.scenes, vol.stats.panels, 
 				vol.char.scenes, vol.char.panels,
-				v, NA
+				cur.vol=v, cur.arc=NA
 		)
 		vol.stats.pages <- tmp$stats.pages
 		vol.stats.pages.atts <- tmp$stats.pages.atts
@@ -1321,7 +1321,7 @@ compute.stats.volumes <- function(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.pages, vol.stats.scenes, vol.stats.panels, 
 				vol.char.pages, vol.char.scenes, vol.char.panels,
-				v, NA
+				cur.vol=v, cur.arc=NA
 		)
 		vol.stats.scenes <- tmp$stats.scenes
 		vol.stats.scenes.atts <- tmp$stats.scenes.atts
@@ -1330,7 +1330,7 @@ compute.stats.volumes <- function(
 				vol.volume.info, vol.page.info, vol.char.info, 
 				vol.stats.pages, vol.stats.scenes, vol.stats.panels, 
 				vol.char.pages, vol.char.scenes, vol.char.panels,
-				v, NA
+				cur.vol=v, cur.arc=NA
 		)
 		vol.stats.chars <- tmp$stats.chars
 		vol.char.volumes <- tmp$char.volumes
@@ -1680,7 +1680,7 @@ compute.stats.arcs <- function(
 				arc.volume.info, arc.page.info, arc.char.info, 
 				arc.stats.scenes, 
 				arc.char.scenes,
-				NA, a
+				cur.vol=NA, cur.arc=a
 		)
 		arc.stats.panels <- tmp$stats.panels
 		arc.stats.panels.atts <- tmp$stats.panels.atts
@@ -1690,7 +1690,7 @@ compute.stats.arcs <- function(
 				arc.volume.info, arc.page.info, arc.char.info, 
 				arc.stats.scenes, arc.stats.panels, 
 				arc.char.scenes, arc.char.panels,
-				NA, a
+				cur.vol=NA, cur.arc=a
 		)
 		arc.stats.pages <- tmp$stats.pages
 		arc.stats.pages.atts <- tmp$stats.pages.atts
@@ -1700,7 +1700,7 @@ compute.stats.arcs <- function(
 				arc.volume.info, arc.page.info, arc.char.info, 
 				arc.stats.pages, arc.stats.scenes, arc.stats.panels, 
 				arc.char.pages, arc.char.scenes, arc.char.panels,
-				NA, a
+				cur.vol=NA, cur.arc=a
 		)
 		arc.stats.scenes <- tmp$stats.scenes
 		arc.stats.scenes.atts <- tmp$stats.scenes.atts
@@ -1709,7 +1709,7 @@ compute.stats.arcs <- function(
 				arc.volume.info, arc.page.info, arc.char.info, 
 				arc.stats.pages, arc.stats.scenes, arc.stats.panels, 
 				arc.char.pages, arc.char.scenes, arc.char.panels,
-				NA, a
+				cur.vol=NA, cur.arc=a
 		)
 		arc.stats.chars <- tmp$stats.chars
 		arc.char.volumes <- tmp$char.volumes
@@ -2096,7 +2096,7 @@ compute.stats <- function(data)
 			volume.info, page.info, char.info, 
 			stats.scenes, 
 			char.scenes,
-			NA, NA
+			cur.vol=NA, cur.arc=NA
 	)
 	stats.panels <- tmp$stats.panels
 	stats.panels.atts <- tmp$stats.panels.atts
@@ -2107,7 +2107,7 @@ compute.stats <- function(data)
 			volume.info, page.info, char.info, 
 			stats.scenes, stats.panels, 
 			char.scenes, char.panels,
-			NA, NA
+			cur.vol=NA, cur.arc=NA
 	)
 	stats.pages <- tmp$stats.pages
 	stats.pages.atts <- tmp$stats.pages.atts
@@ -2118,7 +2118,7 @@ compute.stats <- function(data)
 			volume.info, page.info, char.info, 
 			stats.pages, stats.scenes, stats.panels, 
 			char.pages, char.scenes, char.panels,
-			NA, NA
+			cur.vol=NA, cur.arc=NA
 	)
 	stats.scenes <- tmp$stats.scenes
 	stats.scenes.atts <- tmp$stats.scenes.atts
@@ -2128,7 +2128,7 @@ compute.stats <- function(data)
 			volume.info, page.info, char.info, 
 			stats.pages, stats.scenes, stats.panels, 
 			char.pages, char.scenes, char.panels,
-			NA, NA
+			cur.vol=NA, cur.arc=NA
 	)
 	stats.chars <- tmp$stats.chars
 	char.volumes <- tmp$char.volumes
