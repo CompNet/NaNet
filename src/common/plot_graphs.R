@@ -25,7 +25,7 @@ setup.graph.layout <- function(g, folder)
 	lay.file <- file.path(folder,"all_layout.txt")
 	if(file.exists(lay.file))
 	{	cat("Loading layout file \"",lay.file,"\"\n",sep="")
-		LAYOUT <<- as.matrix(read.table(file=lay.file))
+		LAYOUT <<- as.matrix(read.table(file=lay.file, header=TRUE, row.names=1))
 		reset.flag <- gorder(g)!=nrow(LAYOUT)
 	}
 	
@@ -54,12 +54,16 @@ setup.graph.layout <- function(g, folder)
 				area=8*(gorder(g)^2),repulse.rad=(gorder(g)^3.1)
 		)
 		
+		colnames(LAYOUT) <- c("x", "y")
+		if("name" %in% vertex_attr_names(g))
+			rownames(LAYOUT) <- V(g)$name
+		
 		# old code used to manually refine the layout
 #		tkplot(g, layout=LAYOUT)
 #		LAYOUT <<- tk_coords(3)
 		
 		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		write.table(x=LAYOUT,file=lay.file)
+		write.table(x=LAYOUT, file=lay.file, row.names=TRUE, col.names=TRUE)
 	}
 }
 
