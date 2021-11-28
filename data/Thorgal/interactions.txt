@@ -1,7 +1,7 @@
 Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 01	3	1	4	3	Thorgal Aegirsson	Gandalf-le-fou
 01	4	4	4	4	Thorgal Aegirsson
-01	4	5	5	1	Gandalf-le-fou	Aaricia Ganfalfsdottir	Equipage_1.4
+01	4	5	5	1	Gandalf-le-fou	Aaricia Ganfalfsdottir	Équipage_1.4
 01	5	2	5	2	Aaricia Ganfalfsdottir
 01	5	3	5	3	Thorgal Aegirsson
 01	5	4	5	4	Aaricia Ganfalfsdottir
@@ -47,13 +47,13 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 02	7	5	8	6	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4
 02	8	7	8	8	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
 02	9	1	9	1
-02	9	2	9	3	Akwila	Equipage_2.9
+02	9	2	9	3	Akwila	Équipage_2.9
 02	9	4	9	4	Ivar	Björn Gandalfson	Thorgal Aegirsson	Gandalf-le-fou	Vikings_2.4	Solveig
 02	10	1	10	6	Thorgal Aegirsson
-02	10	7	10	9	Thorgal Aegirsson	Akwila	Equipage_2.9
+02	10	7	10	9	Thorgal Aegirsson	Akwila	Équipage_2.9
 02	11	1	14	3	Thorgal Aegirsson	Björn Gandalfson	Jorund-le-taureau	Vikings_2.10
-02	14	4	18	1	Jorund-le-taureau	Vikings_2.10	Akwila	Equipage_2.9
-02	18	2	18	3	Akwila	Equipage_2.9
+02	14	4	18	1	Jorund-le-taureau	Vikings_2.10	Akwila	Équipage_2.9
+02	18	2	18	3	Akwila	Équipage_2.9
 02	18	4	18	4
 02	19	1	22	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir
 02	23	1	25	4	Thorgal Aegirsson	Björn Gandalfson
@@ -518,9 +518,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 10	14	1	14	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir
 10	14	7	14	7	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor
 10	15	1	17	2	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir
-10	17	3	17	3	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Equipage_10.17
-10	18	1	18	5	Jolan Thorgalsson	Argun Pied d'Arbre	Equipage_10.18
-10	18	6	18	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Equipage_10.17
+10	17	3	17	3	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Équipage_10.17
+10	18	1	18	5	Jolan Thorgalsson	Argun Pied d'Arbre	Équipage_10.18
+10	18	6	18	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Équipage_10.17
 10	19	1	20	3	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19
 10	20	4	21	2	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir
 10	21	3	21	4	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Variay
@@ -549,22 +549,22 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 10	28	3	28	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Variay
 10	29	1	29	3	Variay
 10	29	4	30	3	Tanatloc / Xargos	Variay	Servantes_10.29
-10	30	4	31	3	Jolan Thorgalsson	Argun Pied d'Arbre	Equipage_10.18
+10	30	4	31	3	Jolan Thorgalsson	Argun Pied d'Arbre	Équipage_10.18
 10	31	4	32	4	Jolan Thorgalsson	Argun Pied d'Arbre	Muff
 10	32	5	32	5	Jolan Thorgalsson	Argun Pied d'Arbre	Muff	Guide_10.32
 10	32	6	33	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir
 10	33	7	33	8	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19
-10	34	1	34	4	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Equipage_10.17
-10	34	5	34	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Equipage_10.17	Vaisseau ennemi_10.34.1	Vaisseau ennemi_10.34.2
+10	34	1	34	4	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Équipage_10.17
+10	34	5	34	6	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Équipage_10.17	Vaisseau ennemi_10.34.1	Vaisseau ennemi_10.34.2
 10	35	1	35	5	Jolan Thorgalsson	Argun Pied d'Arbre	Muff	Guide_10.32	3 guerriers_10.35
 10	36	1	36	2	Jolan Thorgalsson	Argun Pied d'Arbre	Muff	Guide_10.32	3 guerriers_10.35	Villageois_10.36
-10	37	1	37	5	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Equipage_10.17	Vaisseau ennemi_10.34.1	Vaisseau ennemi_10.34.2
-10	38	1	42	1	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Equipage_10.17	Vaisseau ennemi_10.34.1
+10	37	1	37	5	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Équipage_10.17	Vaisseau ennemi_10.34.1	Vaisseau ennemi_10.34.2
+10	38	1	42	1	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Capitaine_10.19	Équipage_10.17	Vaisseau ennemi_10.34.1
 10	42	2	42	3	Thorgal Aegirsson	Aaricia Ganfalfsdottir
 10	42	4	42	4	Tjall le Fougueux	Kriss de Valnor
-10	42	5	42	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Capitaine_10.19	Equipage_10.17
+10	42	5	42	7	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Capitaine_10.19	Équipage_10.17
 10	42	8	42	8	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Capitaine_10.19	Vaisseau ennemi_10.42.1	Vaisseau ennemi_10.42.2	Vaisseau ennemi_10.42.3
-10	43	1	43	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor	Capitaine_10.19	Equipage_10.17	Vaisseau ennemi_10.42.1	Vaisseau ennemi_10.42.2	Vaisseau ennemi_10.42.3
+10	43	1	43	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor	Capitaine_10.19	Équipage_10.17	Vaisseau ennemi_10.42.1	Vaisseau ennemi_10.42.2	Vaisseau ennemi_10.42.3
 10	44	1	44	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor
 10	45	1	45	3	Jolan Thorgalsson	Argun Pied d'Arbre
 10	45	4	46	5	Jolan Thorgalsson	Argun Pied d'Arbre	Variay	Servante_10.45
@@ -590,8 +590,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 11	19	1	20	3	Tjall le Fougueux	Kriss de Valnor
 11	20	4	23	2	Jolan Thorgalsson	Variay	Tanatloc / Xargos
 11	23	3	23	7	Jolan Thorgalsson	Variay
-11	24	1	24	2	Equipage_11.24	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4	Guerrier_11.24.5	Guerrier_11.24.6
-11	25	1	25	4	Equipage_11.24	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4	Guerrier_11.24.5	Guerrier_11.24.6
+11	24	1	24	2	Équipage_11.24	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4	Guerrier_11.24.5	Guerrier_11.24.6
+11	25	1	25	4	Équipage_11.24	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4	Guerrier_11.24.5	Guerrier_11.24.6
 11	25	5	26	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4	Guerrier_11.24.5	Guerrier_11.24.6
 11	26	5	26	5	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor	Guerrier_11.24.1	Guerrier_11.24.2	Guerrier_11.24.3	Guerrier_11.24.4
 11	26	6	26	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Tjall le Fougueux	Kriss de Valnor	Guerrier_11.24.1	Guerrier_11.24.2
@@ -629,7 +629,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 11	45	1	46	5	Variay	Hurukan / Jolan Thorgalsson	Xinjins_11.45
 11	47	1	47	6	Aaricia Ganfalfsdottir	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor
 11	47	7	48	5	Aaricia Ganfalfsdottir	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor
-12	3	1	3	1	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Equipage_10.17
+12	3	1	3	1	Thorgal Aegirsson	Tjall le Fougueux	Kriss de Valnor	Aaricia Ganfalfsdottir	Équipage_10.17
 12	3	2	3	2	Ogotaï / Varth	Chaams_12.3
 12	3	3	3	3	Jolan Thorgalsson	Argun Pied d'Arbre	Muff	Variay
 12	3	4	3	4	Jolan Thorgalsson	Tanatloc / Xargos
@@ -738,13 +738,13 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 13	43	8	43	8	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Kriss de Valnor
 13	44	1	44	7	Kriss de Valnor
 13	45	1	45	2	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson
-13	45	3	46	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Varay	Muff	Bé-ki	Man-gé	Equipage_13.45
+13	45	3	46	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Variay	Muff	Bé-ki	Man-gé	Équipage_13.45
 13	47	1	47	5	Kriss de Valnor
-13	47	6	47	6	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Varay	Muff	Bé-ki	Man-gé	Equipage_13.45
-13	47	7	47	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Varay	Muff	Bé-ki	Man-gé	Equipage_13.45	Equipage_13.47
-13	48	1	48	5	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Varay	Muff	Bé-ki	Man-gé	Equipage_13.45	Equipage_13.47
+13	47	6	47	6	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Variay	Muff	Bé-ki	Man-gé	Équipage_13.45
+13	47	7	47	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Variay	Muff	Bé-ki	Man-gé	Équipage_13.45	Équipage_13.47
+13	48	1	48	5	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Variay	Muff	Bé-ki	Man-gé	Équipage_13.45	Équipage_13.47
 13	48	6	48	6
-13	48	7	48	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Varay	Muff	Bé-ki	Man-gé	Equipage_13.45	Equipage_13.47
+13	48	7	48	7	Thorgal Aegirsson	Argun Pied d'Arbre	Jolan Thorgalsson	Aaricia Ganfalfsdottir	Variay	Muff	Bé-ki	Man-gé	Équipage_13.45	Équipage_13.47
 14	3	1	3	4	Aaricia Ganfalfsdottir
 14	3	5	3	5	Aaricia Ganfalfsdottir	Vikings_14.3
 14	4	1	4	5	Aaricia Ganfalfsdottir
@@ -846,8 +846,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 16	3	1	3	4	Orwald	Votiak	Wor-le-magnifique	Villageois_16.3	Soldats_16.3
 16	3	5	5	4	Orwald	Votiak	Wor-le-magnifique	Villageois_16.3	Soldats_16.3	Fils Bossu
 16	5	5	5	8	Orwald	Votiak	Wor-le-magnifique	Soldats_16.3	Fils Bossu
-16	6	1	6	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Einar	Equipage_16.6
-16	6	5	10	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Einar	Equipage_16.6	Vikings_16.6	Wor-le-magnifique
+16	6	1	6	4	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Einar	Équipage_16.6
+16	6	5	10	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Jolan Thorgalsson	Muff	Einar	Équipage_16.6	Vikings_16.6	Wor-le-magnifique
 16	11	1	11	2	Vikings_16.6	Wor-le-magnifique	Orwald
 16	11	3	11	3
 16	11	4	11	4	Fils Bossu
@@ -1218,11 +1218,11 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 20	40	5	40	6	Jolan Thorgalsson	Garde_20.40
 20	40	7	41	1	Jolan Thorgalsson
 20	41	2	41	3	Louve	Aaricia Ganfalfsdottir	Kriss de Valnor	Jolan Thorgalsson	Garde_20.41.1	Garde_20.41.2
-20	41	4	41	5	Louve	Aaricia Ganfalfsdottir	Kriss de Valnor	Jolan Thorgalsson	Garde_20.41.1	Garde_20.41.2	Equipage_20.41
+20	41	4	41	5	Louve	Aaricia Ganfalfsdottir	Kriss de Valnor	Jolan Thorgalsson	Garde_20.41.1	Garde_20.41.2	Équipage_20.41
 20	41	6	42	2	Kriss de Valnor	Jolan Thorgalsson	Garde_20.41.1	Garde_20.41.2
 20	42	3	42	4	Kriss de Valnor	Jolan Thorgalsson	Garde_20.41.1
 20	42	5	42	6	Kriss de Valnor	Jolan Thorgalsson
-20	42	7	42	9	Kriss de Valnor	Jolan Thorgalsson	Vikings_20.40	Equipage_20.41	Gunnar_20.37
+20	42	7	42	9	Kriss de Valnor	Jolan Thorgalsson	Vikings_20.40	Équipage_20.41	Gunnar_20.37
 20	43	1	43	6	Jolan Thorgalsson	Vikings_20.40	Gunnar_20.37	Esclavagiste byzantin_20.32
 20	44	1	44	4	Jolan Thorgalsson	Vikings_20.40	Gunnar_20.37	Esclavagiste byzantin_20.32	Darek le Svéar	Lehla
 20	44	5	44	6	Jolan Thorgalsson	Darek le Svéar	Lehla
@@ -1306,9 +1306,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 21	48	5	48	8	Jolan Thorgalsson	Darek le Svéar	Lehla	Muff	Aaricia Ganfalfsdottir	Louve
 21	48	9	48	9
 22	3	1	4	1	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Fillette_22.3
-22	4	2	4	4	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Fillette_22.3	Dragov	Equipage_22.4
-22	5	1	5	4	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Dragov	Equipage_22.4
-22	5	5	6	7	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Dragov	Equipage_22.4	Galathorn
+22	4	2	4	4	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Fillette_22.3	Dragov	Équipage_22.4
+22	5	1	5	4	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Dragov	Équipage_22.4
+22	5	5	6	7	Shaïgan / Thorgal Aegirsson	Kriss de Valnor	Dragov	Équipage_22.4	Galathorn
 22	6	8	6	8	Kriss de Valnor	Dragov
 22	7	1	7	3	Dragov	Galathorn	Garde_22.7
 22	7	4	7	6	Dragov	Galathorn
@@ -1748,7 +1748,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 27	33	1	33	5	Thorgal Aegirsson	Héraclius	Ileniya
 27	33	6	33	8	Thorgal Aegirsson	Héraclius	Ileniya	Nobles_27.33	Esclaves_27.33	Soldats_27.33
 27	33	9	33	10	Héraclius	Ileniya	Nobles_27.33	Esclaves_27.33	Soldats_27.33	Gouverneur provincial	Tibrus
-27	34	1	34	5	Maître de céréominie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.34	Thorgal Aegirsson	Héraclius
+27	34	1	34	5	Maître de cérémonie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.34	Thorgal Aegirsson	Héraclius
 27	35	1	35	1	Nobles_27.31	Empereur romain	Gouverneur provincial	Conducteurs_27.35
 27	35	2	35	2	Nobles_27.31	Empereur romain	Gouverneur provincial
 27	35	3	35	3	Nobles_27.31	Empereur romain	Gouverneur provincial	Lutteurs_27.35
@@ -1758,16 +1758,16 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 27	36	3	36	6	Héraclius	Ileniya	Participants_27.36	Gouverneur provincial
 27	36	7	36	7	Thorgal Aegirsson
 27	37	1	37	14	Thorgal Aegirsson	Héraclius
-27	38	1	38	1	Maître de céréominie_27.34
+27	38	1	38	1	Maître de cérémonie_27.34
 27	38	2	38	2	Thorgal Aegirsson	Héraclius	Participants_27.38
 27	38	3	38	3	Héraclius	Participants_27.38
 27	38	4	38	6	Ileniya	Participants_27.38
 27	38	7	39	3	Thorgal Aegirsson	Empereur romain
-27	39	4	41	10	Maître de céréominie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39
+27	39	4	41	10	Maître de cérémonie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39
 27	41	11	41	11	Empereur romain	Gouverneur provincial
 27	42	1	42	9	Thorgal Aegirsson	Héraclius	Gouverneur provincial
-27	43	1	45	8	Maître de céréominie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39
-27	45	9	46	3	Maître de céréominie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39	Ileniya
+27	43	1	45	8	Maître de cérémonie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39
+27	45	9	46	3	Maître de cérémonie_27.34	Nobles_27.34	Empereur romain	Gouverneur provincial	Participants_27.39	Thorgal Aegirsson	Héraclius	Archers_27.39	Arbitres_27.39	Ileniya
 27	46	4	46	7	Ileniya	Soldats_27.46
 27	47	1	47	3	Gouverneur provincial	Tibrus	Soldats_27.47
 27	47	4	47	6	Gouverneur provincial	Tibrus	Soldats_27.47	Thraces_27.47
@@ -2261,7 +2261,7 @@ K1	55	2	55	4	Opale d'Alhard	Kriss de Valnor
 K1	55	5	55	7	Kriss de Valnor	Sigwald-le-Brûlé
 K1	56	1	56	4	Kriss de Valnor	Walyries_K1.3	Ottar	Freyja
 K1	56	5	56	5	Freyja
-33	3	1	5	8	Lars Druknar	Vättern	Equipage_33.3
+33	3	1	5	8	Lars Druknar	Vättern	Équipage_33.3
 33	6	1	6	1
 33	6	2	6	4	Manthor de Valnor	Vylnia	Vigrid	Jolan Thorgalsson	Arlac d'Auxaterra	Draye	Ingvild	Xia
 33	6	5	7	2	Manthor de Valnor	Jolan Thorgalsson	Arlac d'Auxaterra	Draye	Ingvild	Xia
@@ -2388,7 +2388,7 @@ L1	31	4	31	5	Raïssa
 L1	31	6	32	6	Louve
 L1	32	7	33	1	Louve
 L1	33	2	33	6	Louve	Avrenim
-L1	33	7	34	5	Louve	Ephèbes_L1.33
+L1	33	7	34	5	Louve	Éphèbes_L1.33
 L1	34	6	34	6	Avrenim
 L1	35	1	35	3	Aaricia Ganfalfsdottir	Villageois_L1.35
 L1	35	4	36	7	Aaricia Ganfalfsdottir	Lundgen
@@ -2625,10 +2625,10 @@ K3	47	4	48	7	Gouverneur / Draye	Escorte_K3.24	Soldats_K3.44	Vassaux_K3.44	Kriss 
 L2	3	1	3	4
 L2	4	1	4	4	Louve yang / Louve
 L2	4	5	5	10	Louve yang / Louve	Fenrir
-L2	6	1	6	1	Louve yin / Louve	Enfants_L2.6	Ephèbes_L2.6
+L2	6	1	6	1	Louve yin / Louve	Enfants_L2.6	Éphèbes_L2.6
 L2	6	2	7	2	Louve yin / Louve	Enfants_L2.6
 L2	7	3	7	7	Louve yin / Louve	Hicham yin / Hicham
-L2	7	8	7	8	Louve yin / Louve	Hicham yin / Hicham	Enfants_L2.6	Ephèbes_L2.6
+L2	7	8	7	8	Louve yin / Louve	Hicham yin / Hicham	Enfants_L2.6	Éphèbes_L2.6
 L2	8	1	8	2	Hicham yin / Hicham	Driss Ibn Fadlân	Viking_L2.8
 L2	8	3	8	3	Louve yin / Louve	Hicham yin / Hicham
 L2	8	4	8	4	Hicham yin / Hicham	Driss Ibn Fadlân	Caravane_L2.8
@@ -2817,7 +2817,7 @@ L3	36	7	36	9	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön
 L3	37	1	37	5	Louve yin / Louve	Louve yang / Louve	Avrenim
 L3	38	1	38	7	Louve yang / Louve
 L3	39	1	39	7	Louve yin / Louve	Louve yang / Louve	Avrenim	Dragon_L3.39
-L3	40	1	41	7	Louve yin / Louve	Louve yang / Louve	Avrenim	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön	Ephèbes_L3.40	Dragon_L3.39
+L3	40	1	41	7	Louve yin / Louve	Louve yang / Louve	Avrenim	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön	Éphèbes_L3.40	Dragon_L3.39
 L3	41	8	41	8	Louve yin / Louve	Louve yang / Louve	Azzalepstön
 L3	42	1	42	3	Louve	Azzalepstön
 L3	42	4	42	7	Louve	Azzalepstön	Avrenim
@@ -2846,10 +2846,10 @@ K4	9	1	9	1	Gouverneur / Draye	Escorte_K3.24	Gouverneur / Ingvild	Gouverneur / Xi
 K4	9	2	9	4	Gouverneur / Draye	Escorte_K3.24	Soldats_K4.9
 K4	9	5	9	5	Armée de Sologhonn_K4.9
 K4	10	1	10	3	Taljar Sologhonn / Jolan Thorgalsson	Gouverneur / Ingvild	Gouverneur / Xia
-K4	10	4	10	6	Francus d'Auxaterra	Capitaine du duc_K4.10	Armée du duc_K4.10	Evêque_K4.10
+K4	10	4	10	6	Francus d'Auxaterra	Capitaine du duc_K4.10	Armée du duc_K4.10	Évêque_K4.10
 K4	11	1	11	3	Capitaine du duc_K4.10	Armée du duc_K4.10
 K4	11	4	12	3	Taljar Sologhonn / Jolan Thorgalsson	Armée de Sologhonn_K4.9	Armée du duc_K4.10
-K4	12	4	13	4	Francus d'Auxaterra	Evêque_K4.10	Capitaine_K4.12	Soldats_K4.9
+K4	12	4	13	4	Francus d'Auxaterra	Évêque_K4.10	Capitaine_K4.12	Soldats_K4.9
 K4	13	5	14	3	Taljar Sologhonn / Jolan Thorgalsson	Armée du duc_K4.10	Gouverneur / Ingvild	Gouverneur / Xia
 K4	14	4	15	4	Taljar Sologhonn / Jolan Thorgalsson	Hungfold	Gouverneur / Ingvild	Gouverneur / Xia
 K4	15	5	15	5	Villageois_K4.15	Hungfold
@@ -3091,8 +3091,8 @@ J2	16	5	16	6	Thorgal Aegirsson
 J2	17	1	18	7	Thorgal Aegirsson	Mimir
 J2	18	8	19	8	Thorgal Aegirsson	Mimir	Skuld
 J2	20	1	20	5	Thorgal Aegirsson	Skuld
-J2	20	6	21	4	Thorgal Aegirsson	Mimir	Skuld	Nixes
-J2	21	5	22	4	Thorgal Aegirsson	Nixes
+J2	20	6	21	4	Thorgal Aegirsson	Mimir	Skuld	Nixes_J2.20
+J2	21	5	22	4	Thorgal Aegirsson	Nixes_J2.20
 J2	22	5	23	5	Thorgal Aegirsson	Urd
 J2	23	6	23	7	Thorgal Aegirsson
 J2	23	8	24	7	Thorgal Aegirsson	Gunn
@@ -3213,8 +3213,8 @@ K5	4	3	5	11	Kriss de Valnor	Armée_K5.3	Ottar	Brünhild	Freyja
 K5	6	1	6	6	Kriss de Valnor	Duhedos
 K5	6	7	6	7	Kriss de Valnor	Duhedos	Soldat_K5.6
 K5	7	1	7	6	Kriss de Valnor	Jolan Thorgalsson
-K5	8	1	8	7	Gwenda d'Auxaterra	Evêque_K5.8	Bourreau_K5.8	Prisonnier_K5.8
-K5	9	1	9	3	Gwenda d'Auxaterra	Evêque_K5.8	Bourreau_K5.8
+K5	8	1	8	7	Gwenda d'Auxaterra	Évêque_K5.8	Bourreau_K5.8	Prisonnier_K5.8
+K5	9	1	9	3	Gwenda d'Auxaterra	Évêque_K5.8	Bourreau_K5.8
 K5	9	4	10	4	Kriss de Valnor	Jolan Thorgalsson
 K5	10	5	11	6	Arlac d'Auxaterra	Soldats_K5.10
 K5	11	7	12	3	Kriss de Valnor	Jolan Thorgalsson
@@ -3291,8 +3291,8 @@ K5	44	1	44	3	Taljar Sologhonn / Jolan Thorgalsson	Ingvild	Hungfold	Armée de Tal
 K5	44	4	44	8	Armée de Magnus_K5.17	Capitaine_K5.39
 K5	44	9	44	11	Taljar Sologhonn / Jolan Thorgalsson	Ingvild	Hungfold
 K5	44	12	44	12	Kriss de Valnor	Commandant_K5.43	Soldat_K5.44
-K5	45	1	45	9	Kriss de Valnor	Commandant_K5.43	Soldat_K5.44	Magnus	Evêque_K5.45	Soldat_K5.45
-K5	45	10	46	4	Kriss de Valnor	Commandant_K5.43	Soldat_K5.44	Magnus	Evêque_K5.45
+K5	45	1	45	9	Kriss de Valnor	Commandant_K5.43	Soldat_K5.44	Magnus	Évêque_K5.45	Soldat_K5.45
+K5	45	10	46	4	Kriss de Valnor	Commandant_K5.43	Soldat_K5.44	Magnus	Évêque_K5.45
 K5	46	5	46	5
 K5	46	6	46	6	Hungfold
 K5	46	7	46	7	Capitaine_K5.39
@@ -3387,8 +3387,8 @@ J3	9	1	9	3	Villageois_J3.9	Lanfeustsön	Thorgal Aegirsson
 J3	9	4	10	7	Villageois_J3.10	Guerriers_J3.9	Runa	Thorgal Aegirsson	Lanfeustsön	Fural
 J3	10	8	16	2	Villageois_J3.10	Guerriers_J3.9	Runa	Thorgal Aegirsson	Lanfeustsön	Gandalf-le-fou	Hiérulf-le-penseur	Aaricia Ganfalfsdottir	Björn Gandalfson	Fural
 J3	16	3	16	6	Villageois_J3.10	Thorgal Aegirsson	Lanfeustsön	Gandalf-le-fou	Hiérulf-le-penseur	Aaricia Ganfalfsdottir	Björn Gandalfson	Fural
-J3	17	1	17	4	Villageois_J3.17	Lanfeustsön	Equipage_J3.17	Sigurd Danysön
-J3	17	5	17	6	Villageois_J3.17	Lanfeustsön	Equipage_J3.17	Sigurd Danysön	Gandalf-le-fou	Hiérulf-le-penseur
+J3	17	1	17	4	Villageois_J3.17	Lanfeustsön	Équipage_J3.17	Sigurd Danysön
+J3	17	5	17	6	Villageois_J3.17	Lanfeustsön	Équipage_J3.17	Sigurd Danysön	Gandalf-le-fou	Hiérulf-le-penseur
 J3	18	1	18	1	Aaricia Ganfalfsdottir
 J3	18	2	19	10	Aaricia Ganfalfsdottir	Thorgal Aegirsson
 J3	20	1	20	5	Vikings_J3.20	Sigurd Danysön	Spectateurs_J3.20
@@ -3602,7 +3602,7 @@ L6	9	1	9	1	Nidhogg
 L6	9	2	9	2	Alf'Lolth	Alfe noir / Vigrid	Gardes_L5.47
 L6	9	3	9	4	Louve	Guenon / Yasmina	Tjahzi
 L6	9	5	9	5	Géant_L6.9
-L6	9	6	9	6	Etre de glace_L6.9
+L6	9	6	9	6	Étre de glace_L6.9
 L6	9	7	9	7	Démon de lave_L6.9
 L6	9	8	9	8	Louve	Guenon / Yasmina	Tjahzi
 L6	10	1	10	1	Nains_L6.10	Garde alfe noir_L6.10
@@ -3808,9 +3808,9 @@ L7	46	2	46	2	Nidhogg / Vigrid	Aaricia Ganfalfsdottir
 L7	46	3	48	7	Nidhogg / Vigrid	Aaricia Ganfalfsdottir
 L7	48	8	48	8	Nidhogg	Volsung de Nichor
 J5	3	1	3	4	Thorgal Aegirsson	Fural
-J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois J.4
+J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois_J.4
 J5	4	2	4	2	Aaricia Ganfalfsdottir	Solveig
-J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois J.4	Aaricia Ganfalfsdottir	Solveig
+J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois_J.4	Aaricia Ganfalfsdottir	Solveig
 J5	5	7	5	7	Aaricia Ganfalfsdottir	Solveig
 J5	6	1	6	2	Skald
 J5	6	3	6	7	Thorgal Aegirsson	Skald	Fural
@@ -4552,72 +4552,72 @@ J9	48	6	48	6	Seck	Isoline
 39	3	1	3	2	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
 39	3	3	4	2	Thorgal Aegirsson	Jolan Thorgalsson
 39	4	3	4	8	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
-39	5	1	7	2	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Monstre désarticulé_39_5
+39	5	1	7	2	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Monstre désarticulé_39.5
 39	7	3	7	5	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
 39	7	6	7	8	Thorgal Aegirsson	Jolan Thorgalsson
 39	8	1	8	4	Louve	Ava
 39	8	5	8	9	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön
 39	9	1	9	2	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön
-39	9	3	9	3	Arisön	Equipage_39_9
-39	9	4	9	6	Arisön	Equipage_39_9	Monstre désarticulé_39_5
-39	9	7	9	7	Arisön	Monstre désarticulé_39_5
+39	9	3	9	3	Arisön	Équipage_39.9
+39	9	4	9	6	Arisön	Équipage_39.9	Monstre désarticulé_39.5
+39	9	7	9	7	Arisön	Monstre désarticulé_39.5
 39	9	8	9	8	Thorgal Aegirsson	Louve
 39	10	1	10	4	Ava
 39	10	5	10	6	Ava	Arisön
 39	10	7	10	9	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön
 39	11	1	11	1	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön
-39	11	2	11	5	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön	2 hommes_39_11
+39	11	2	11	5	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Arisön	2 hommes_39.11
 39	11	6	11	8	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
 39	12	1	12	3	Thorgal Aegirsson	Aaricia Ganfalfsdottir
-39	12	4	12	4	Jolan Thorgalsson	Villageoise_39_12
-39	12	5	12	9	Jolan Thorgalsson	Villageoise_39_12	Guenon / Yasmina	Louve	Gilli	Ava	Kyrstell	Elkie	Villageois_39_12
-39	13	1	13	1	Elkie	2 marchands_39_13	2 soldats_39_13
-39	13	2	13	2	Elkie	2 marchands_39_13	Villageois_39_12
+39	12	4	12	4	Jolan Thorgalsson	Villageoise_39.12
+39	12	5	12	9	Jolan Thorgalsson	Villageoise_39.12	Guenon / Yasmina	Louve	Gilli	Ava	Kyrstell	Elkie	Villageois_39.12
+39	13	1	13	1	Elkie	2 marchands_39.13	2 soldats_39.13
+39	13	2	13	2	Elkie	2 marchands_39.13	Villageois_39.12
 39	13	3	13	4	Louve	Elkie
 39	13	5	13	7	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava	Aaricia Ganfalfsdottir
-39	13	8	13	9	Villageois_39_12
-39	14	1	14	2	Villageois_39_12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
-39	14	3	14	10	Villageois_39_12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
-39	15	1	15	5	Villageois_39_12	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
-39	15	5	15	8	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
-39	16	1	17	4	Hommes d'Aniel_39_15	Thorgal Aegirsson	Jolan Thorgalsson
+39	13	8	13	9	Villageois_39.12
+39	14	1	14	2	Villageois_39.12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
+39	14	3	14	10	Villageois_39.12	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Ganfalfsdottir
+39	15	1	15	5	Villageois_39.12	Hommes d'Aniel_39.15	Thorgal Aegirsson	Jolan Thorgalsson
+39	15	5	15	8	Hommes d'Aniel_39.15	Thorgal Aegirsson	Jolan Thorgalsson
+39	16	1	17	4	Hommes d'Aniel_39.15	Thorgal Aegirsson	Jolan Thorgalsson
 39	17	5	17	7	Thorgal Aegirsson	Jolan Thorgalsson
-39	17	8	18	1	Thorgal Aegirsson	Jolan Thorgalsson	Servante_39_17
-39	18	2	21	2	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Prétendants_39_12	Aakon	Arisön	Gardes_39_18
-39	21	3	22	3	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39_18
-39	22	4	26	8	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39_18	Garde_39_22
-39	23	8	23	9	Akwila	Prisonniers_39_23	Arisön
+39	17	8	18	1	Thorgal Aegirsson	Jolan Thorgalsson	Servante_39.17
+39	18	2	21	2	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Prétendants_39.12	Aakon	Arisön	Gardes_39.18
+39	21	3	22	3	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39.18
+39	22	4	26	8	Kriss de Valnor	Aniel	Thorgal Aegirsson	Jolan Thorgalsson	Aakon	Arisön	Gardes_39.18	Garde_39.22
+39	23	8	23	9	Akwila	Prisonniers_39.23	Arisön
 39	24	1	24	3	Thorgal Aegirsson	Arisön
 39	27	1	27	8	Thorgal Aegirsson	Jolan Thorgalsson
 39	28	1	28	1	Aaricia Ganfalfsdottir
 39	28	1	28	9	Thorgal Aegirsson	Jolan Thorgalsson	Guenon / Yasmina	Louve	Gilli	Ava
-39	28	2	28	9	Kriss de Valnor	Hommes d'Aniel_39_28	Freyr
+39	28	2	28	9	Kriss de Valnor	Hommes d'Aniel_39.28	Freyr
 39	29	1	30	8	Kriss de Valnor	Arisön	Thorgal Aegirsson
-39	31	1	31	6	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Freyr
-39	32	1	33	8	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Skraëlings_39_31	Guerriers de Oddmar_39_31	Freyr
-39	34	1	34	3	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Guerriers de Oddmar_39_31	Oddmar	Freyr
-39	34	5	34	6	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Oddmar
+39	31	1	31	6	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Freyr
+39	32	1	33	8	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Skraëlings_39.31	Guerriers de Oddmar_39.31	Freyr
+39	34	1	34	3	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Guerriers de Oddmar_39.31	Oddmar	Freyr
+39	34	4	34	6	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Oddmar
 39	34	7	34	7	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Oddmar	Greim
-39	35	1	35	7	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Guerriers de Oddmar_39_31	Oddmar	Freyr
-39	36	1	36	9	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Skraëlings_39_38	Freyr
-39	37	1	37	4	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Freyr
+39	35	1	35	7	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Guerriers de Oddmar_39.31	Oddmar	Freyr
+39	36	1	36	9	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Skraëlings_39.38	Freyr
+39	37	1	37	4	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Freyr
 39	37	5	37	6	Jolan Thorgalsson
-39	37	7	38	5	Jolan Thorgalsson	Endormie_39_38
+39	37	7	38	5	Jolan Thorgalsson	Endormie_39.38
 39	38	6	38	9	Jolan Thorgalsson	Thorgal Aegirsson	Kriss de Valnor
 39	39	1	39	2	Thorgal Aegirsson	Kriss de Valnor	Arisön
 39	39	3	39	5	Thorgal Aegirsson	Jolan Thorgalsson
-39	39	6	41	4	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39_28	Freyr
-39	41	5	41	6	Kriss de Valnor	Arisön	Hommes d'Aniel_39_28	Freyr
+39	39	6	41	4	Kriss de Valnor	Arisön	Thorgal Aegirsson	Jolan Thorgalsson	Hommes d'Aniel_39.28	Freyr
+39	41	5	41	6	Kriss de Valnor	Arisön	Hommes d'Aniel_39.28	Freyr
 39	41	7	42	6	Thorgal Aegirsson	Jolan Thorgalsson
-39	43	1	43	7	Thorgal Aegirsson	Jolan Thorgalsson	Atlantes_39_43	Endormie_39_38	Slive
-39	44	1	44	7	Kriss de Valnor	Arisön	Hommes d'Aniel_39_28	Freyr
-39	44	8	44	10	Kriss de Valnor	Arisön	Hommes d'Aniel_39_28	Freyr	Skraëlings_39_44
+39	43	1	43	7	Thorgal Aegirsson	Jolan Thorgalsson	Atlantes_39.43	Endormie_39.38	Slive
+39	44	1	44	7	Kriss de Valnor	Arisön	Hommes d'Aniel_39.28	Freyr
+39	44	8	44	10	Kriss de Valnor	Arisön	Hommes d'Aniel_39.28	Freyr	Skraëlings_39.44
 39	45	1	45	2	Thorgal Aegirsson
 39	45	3	45	5	Thorgal Aegirsson
 39	45	6	45	6	Thorgal Aegirsson
-39	45	7	46	5	Thorgal Aegirsson	Jolan Thorgalsson	Atlantes_39_43	Endormie_39_38	Slive
-39	46	6	48	2	Thorgal Aegirsson	Jolan Thorgalsson	Endormie_39_38
+39	45	7	46	5	Thorgal Aegirsson	Jolan Thorgalsson	Atlantes_39.43	Endormie_39.38	Slive
+39	46	6	48	2	Thorgal Aegirsson	Jolan Thorgalsson	Endormie_39.38
 39	48	3	48	5	Thorgal Aegirsson	Jolan Thorgalsson
-39	48	6	48	8	Thorgal Aegirsson	Atlantes_39_48
+39	48	6	48	8	Thorgal Aegirsson	Atlantes_39.48
 39	49	1	50	1	Thorgal Aegirsson
 39	50	2	50	2	Thorgal Aegirsson	Neokóra
