@@ -37,10 +37,12 @@ plot.static.graph.scenes.all <- function(data)
 #tab <- tab[idx,]
 ##tmp <- cbind(tab, LAYOUT)
 ##apply(tmp, 2, range)
+#tab[,2] <- (tab[,2] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
 #tab[,1] <- (tab[,1] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
-#tab[,2] <- (tab[,2] - min(tab[,2])) / (max(tab[,2]) - min(tab[,2])) * (max(LAYOUT[,2])-min(LAYOUT[,2]))+min(LAYOUT[,2])
 #LAYOUT <- tab
-	
+#lay.file <- file.path(NET_SCENES_FOLDER, "all_layout.txt")
+#write.table(x=LAYOUT,file=lay.file)
+
 	# get filtered graph
 	idx.filtr <- which(!V(g)$Filtered)
 	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -63,13 +65,7 @@ plot.static.graph.scenes.all <- function(data)
 	vsizes <- lame.normalize(nbtw,exp=2) * 10000 + 750
 #V(g)$size <- vsizes
 #write_graph(graph=g, file=graph.file, format="graphml")
-	
-	# set up vertex colors
-	vcols <- rep("LIGHTGREY",gorder(g))
-	col.char.nbr <- 5 
-	col.char.idx <- order(btw,decreasing=TRUE)[1:col.char.nbr]
-	vcols[col.char.idx] <- get.palette(col.char.nbr)
-	
+		
 	# set up vertex labels
 	vlabs <- rep(NA, gorder(g))
 	if("Named" %in% vertex_attr_names(g))
@@ -87,55 +83,111 @@ plot.static.graph.scenes.all <- function(data)
 	nww <- (ww - min(ww)) / (max(ww) - min(ww))
 	ewidths <- lame.normalize(nww,exp=1) * 75 + 0.5
 	
-	# set up edge colors
-	el <- as_edgelist(graph=g, names=FALSE)
-	ecols <- sapply(1:nrow(el), function(r) combine.colors(col1=vcols[el[r,1]], col2=vcols[el[r,2]]))
-	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
-	
 	# get filtered edges
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
-	# plot whole unfiltered graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE)
-	tlog(4,"Plotting the whole unfiltered graph in file ",graph.file)
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
-			plot(g, 
-				layout=LAYOUT,
-				vertex.size=vsizes, vertex.color=vcols,
-				vertex.label=vlabs, vertex.label.cex=vlabsizes,
-				vertex.label.family="sans",
-				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
-				vertex.label.color="BLACK",
-				edge.color=ecols, edge.width=ewidths, 
-				rescale=FALSE, #axe=TRUE, 
-				xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
-			)
-		dev.off()
-	}
-	# plot whole filtered graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
-	tlog(4,"Plotting the whole filtered graph in file ",graph.file)
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
-			plot(g.filtr, 
-				layout=LAYOUT[idx.filtr,],	# lay.filtr
-				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
-				vertex.label.family="sans",
-				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
-				vertex.label.color="BLACK",
-				edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
-				rescale=FALSE, #axe=TRUE, 
-				xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
-			)
-		dev.off()
+	# get vertex attributes
+	attrs <- vertex_attr_names(graph=g)
+	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_FREQ, COL_CHAR_SHORT_NAME, COL_CHAR_NAMED, COL_CHAR_FILTERED, "id", "name"))
+	attrs <- c(attrs, NA)
+	
+	# process each attribute
+	for(a in 1:length(attrs))
+	{	# get attribute name
+		attr <- attrs[a]
+		if(is.na(attr))
+			tlog(4,"Plotting without attribute (",a,"/",length(attrs),")")
+		else
+			tlog(4,"Plotting attribute ",attr," (",a,"/",length(attrs),")")
+		
+		# set up vertex colors
+		if(is.na(attr))
+		{	vcols <- rep("LIGHTGREY",gorder(g))
+			col.char.nbr <- 5 
+			col.char.idx <- order(btw,decreasing=TRUE)[1:col.char.nbr]
+			vcols[col.char.idx] <- get.palette(col.char.nbr)
+		}
+		else
+		{	vals <- vertex_attr(graph=g, name=attr)
+			uvals <- sort(unique(vals))
+			col.nbr <- length(uvals)
+			pal <- get.palette(col.nbr)
+			names(pal) <- uvals
+			vcols <- pal[vals]
+		}
+		
+		# set up edge colors
+		el <- as_edgelist(graph=g, names=FALSE)
+		ecols <- sapply(1:nrow(el), function(r) combine.colors(col1=vcols[el[r,1]], col2=vcols[el[r,2]]))
+		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
+		
+		# plot whole unfiltered graph
+		graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE)
+		if(!is.na(attr))
+			graph.file <- paste0(graph.file, "_attr=", attr)
+		tlog(6,"Plotting the whole unfiltered graph in file ",graph.file)
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+				plot(g, 
+					layout=LAYOUT,
+					vertex.size=vsizes, vertex.color=vcols,
+					vertex.label=vlabs, vertex.label.cex=vlabsizes,
+					vertex.label.family="sans",
+					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
+					vertex.label.color="BLACK",
+					edge.color=ecols, edge.width=ewidths, 
+					rescale=FALSE, #axe=TRUE, 
+					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
+				)
+				if(!is.na(attr))
+				{	legend(
+						title=attr,				# title of the legend box
+						x="bottomleft",			# position
+						legend=uvals,			# text of the legend
+						fill=pal,				# color of the nodes
+						bty="n",				# no box around the legend
+						cex=2.5					# size of the text in the legend
+					)
+				}
+			dev.off()
+		}
+		
+		# plot whole filtered graph
+		graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
+		if(!is.na(attr))
+			graph.file <- paste0(graph.file, "_attr=", attr)
+		tlog(6,"Plotting the whole filtered graph in file ",graph.file)
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+				plot(g.filtr, 
+					layout=LAYOUT[idx.filtr,],	# lay.filtr
+					vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
+					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+					vertex.label.family="sans",
+					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
+					vertex.label.color="BLACK",
+					edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
+					rescale=FALSE, #axe=TRUE, 
+					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
+				)
+				if(!is.na(attr))
+				{	legend(
+						title=attr,				# title of the legend box
+						x="bottomleft",			# position
+						legend=uvals,			# text of the legend
+						fill=pal,				# color of the nodes
+						bty="n",				# no box around the legend
+						cex=2.5					# size of the text in the legend
+					)
+				}
+			dev.off()
+		}
 	}
 	
 	# plot each volume separately (full graph but different vertex colors)

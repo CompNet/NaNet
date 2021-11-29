@@ -1059,7 +1059,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		else if(meas.name %in% npmn)
 			object <- "nodepairs"
 		
-		# process each type of weights
+		# process each type of weight
 		for(wmode in wmodes)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
@@ -1102,12 +1102,14 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 					dev.off()
 			}
 			
-			# test the type of distribution
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
-			if(all(vals%%1==0))
-				test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
-			else
-				test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+			# test the type of distribution (very slow, doing it only for the whole graph)
+			if(is.na(arc) && is.na(vol))
+			{	plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
+				if(all(vals%%1==0))
+					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+				else
+					test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+			}
 		}
 	}
 	
@@ -1187,7 +1189,7 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 	}
 	
 	# evolution plots
-	# TODO
+	# TODO (for vols, for arcs)
 	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
