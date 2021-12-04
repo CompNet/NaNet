@@ -70,6 +70,3 @@ VOLUMES/ARCS
   - 1 field = List of volumes (cannot use that with Gephi)
 - Or compute a priori the most widespread volume represented in a community?
 - Or do the same thing with narrative arcs instead?
-- Visualization: red for 1 vol/arc of interest, grey for the rest >> allows studying story evolution
-
-- plot attributes on network

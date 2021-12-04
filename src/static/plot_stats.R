@@ -62,11 +62,12 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 # measure: name of the concerned topological measure.
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, ignored if arc is specified).
+# filtered: whether to use the filter version of the graph.
 #
 # returns: the value corresponding to the specified parameters.
 ###############################################################################
-load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol)
+load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -206,15 +207,15 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 # Loads a series corresponding to the scene-based graph.
 #
 # object: either "nodes", "nodepairs" or "links" (not "graph").
-# measure: name of the concerned topological measure.
 # weights: either "occurrences" or "duration".
+# measure: name of the concerned topological measure.
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, ignored if arc is specified).
 # filtered: whether to use the filter version of the graph.
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(object, measure, weights, arc=NA, vol=NA, filtered)
+load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
 {	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
@@ -253,8 +254,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			object <- "nodescomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered=FALSE)
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered=FALSE)
 		seg.vals <- list()
 		seg.vals[[1]] <- seg.occ.vals[!is.na(seg.occ.vals)]
 		seg.vals[[2]] <- seg.dur.vals[!is.na(seg.dur.vals)]
@@ -310,7 +311,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 						plot(NULL,xlim=0:1,ylim=0:1,xlab=NA,ylab=NA)	# empty plot if only one unique value
 					# regular case
 					else
-						vioplot(x=values2, 
+						vioplot(x=values, 
 							names=nms,
 #							outline=FALSE,
 							xlab="Overlap",
@@ -799,9 +800,9 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 			object <- "nodepairs"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered=FALSE)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered=FALSE)
 		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", filtered=FALSE)
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered=FALSE)
 		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
 		
 		for(weights in c("duration","occurrences"))
@@ -1013,19 +1014,19 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 generate.static.plots.all <- function(mode, window.sizes, overlaps)
 {	
 	tlog(3,"Generating single plots for mode=",mode)
-	generate.static.plots.single(mode, window.sizes, overlaps)
+	generate.static.plots.single(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
 	tlog(3,"Generating multiple plots for mode=",mode)
-	generate.static.plots.multiple(mode, window.sizes, overlaps)
+	generate.static.plots.multiple(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
 	tlog(3,"Generating correlation plots for mode=",mode)
-	generate.static.plots.corr(mode, window.sizes, overlaps)
+	generate.static.plots.corr(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
-	generate.static.plots.ranks(mode, window.sizes, overlaps)
+	generate.static.plots.ranks(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
 	tlog(3,"Generating comparison plots for mode=",mode)
-	generate.static.plots.tfpn(mode, window.sizes, overlaps)
+	generate.static.plots.tfpn(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 }
 
 
@@ -1064,7 +1065,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered)
+			vals <- load.static.nodelink.stats.scenes(object=object, weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filtered)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
@@ -1158,6 +1159,72 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 
 
 ###############################################################################
+# Generates the plots showing the evolution of measures over arcs or volumes.
+#
+# data: preprocessed data.
+# arcs: TRUE to process arcs, FALSE to process volumes.
+# filtered: whether to use the filter version of the graph.
+###############################################################################
+generate.static.plots.evol <- function(data, arcs, filtered)
+{	# init arc/vol-dependent variables
+	if(arcs)
+	{	emode <- "arc"
+		items <- unique(data$volume.info[,COL_VOLS_ARC])
+	}
+	else
+	{	emode <- "volume"
+		items <- data$volume.info[,COL_VOLS_VOLUME]
+	}
+	
+	# init other variables
+	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
+	mode <- "scenes"
+	wmodes <- c("occurrences","duration")
+	
+	# list measures to plot
+	gmn <- names(GRAPH_MEASURES)
+	
+	# plot each measure
+	for(meas.name in gmn)
+	{	tlog(4,"Generating ",emode,"-based evolution plots for measure ",meas.name)
+		object <- "graph"
+		
+		# process each type of weight
+		for(wmode in wmodes)
+		{	tlog(4,"Dealing with weights=",wmode)
+			
+			# load pre-computed values (scene-based graph)
+			vals <- rep(NA, length(items))
+			for(i in 1:length(items))
+			{	vals[i] <- load.static.graph.stats.scenes(object=object, weights=wmode, measure=meas.name, 
+							arc=if(arcs) i else NA, vol=if(arcs) NA else items[i], 
+							filtered=filtered)
+			}
+			
+			# generate barplots
+			file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filtered, plot.type="evolution")
+			tlog(4,"Generating file ",file)
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					barplot(
+						height=vals,
+						names.arg=if(arcs) 1:length(items) else items,
+						ylab=ALL_MEASURES[[meas.name]]$cname,
+						xlab=if(arcs) "Narrative Arcs" else "Volumes",
+						main=paste0("Evolution of ",ALL_MEASURES[[meas.name]]$cname," by ",if(arcs) "arc" else "volume"),
+						col=MAIN_COLOR
+					)
+				dev.off()
+			}
+		}
+	}
+}
+
+
+###############################################################################
 # Main function for the generation of plots describing static graphs.
 # The statistics must have been previously computed.
 #
@@ -1187,10 +1254,12 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 		for(filtered in c(FALSE, TRUE))
 			generate.static.plots.scene(vol=vol, filtered=filtered)
 	}
-	
 	# evolution plots
-	# TODO (for vols, for arcs)
-	
+	for(flag in c(TRUE,FALSE))
+	{	for(filtered in c(FALSE, TRUE))
+			generate.static.plots.evol(data=data, arcs=flag, filtered=filtered)
+	}
+
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
 	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)

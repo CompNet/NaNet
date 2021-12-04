@@ -239,11 +239,17 @@ get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, o
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
 	# possibly add arc subfolder
-	if(!is.na(arc))
-		folder <- file.path(folder, "arcs", arc)
+	if(!is.na(arc) && (!is.logical(arc) || arc))
+	{	folder <- file.path(folder, "arcs")
+		if(!is.logical(arc))
+			folder <- file.path(folder, arc)
+	}
 	# possibly add volume subfolder
-	if(!is.na(vol))
-		folder <- file.path(folder, "volumes", vol)
+	if(!is.na(vol) && (!is.logical(vol) || vol))
+	{	folder <- file.path(folder, "volumes")
+		if(!is.logical(vol))
+			folder <- file.path(folder, vol)
+	}
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))

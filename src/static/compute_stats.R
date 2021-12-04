@@ -640,12 +640,12 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				object <- "links"
 			
 			# retrieve reference values
-			vals.dur <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="duration", arc=arc, vol=vol, filtered=FALSE)
-			vals.occ <- load.static.nodelink.stats.scenes(object=object, measure=meas.name, weights="occurrences", arc=arc, vol=vol, filtered=FALSE)
+			vals.dur <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, arc=arc, vol=vol, filtered=FALSE)
+			vals.occ <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered=FALSE)
 			
 			# retrieve tested values
 			tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
-			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE))
+			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE, row.names=1))
 			vals.cur <- tmp.tab[,meas.name]
 			
 			# compute correlations
@@ -729,7 +729,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.correlations(mode, window.size, overlap, weights, arc, vol)
+	compute.static.correlations(mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
 	
 	tlog(3,"Computation of all rank correlation measures complete")
 }
@@ -768,12 +768,12 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.node.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
-	if(!filtered && is.na(arc) && is.na(vol)) compute.static.nodecomp.statistics(g, mode, window.size, overlap, weights)
-	compute.static.nodepair.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
-	compute.static.link.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
-	compute.static.graph.statistics(g, mode, window.size, overlap, weights, arc, vol, filtered)
-	if(!filtered && is.na(arc) && is.na(vol)) compute.static.graphcomp.statistics(g, mode, window.size, overlap, weights)
+	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	if(!filtered && is.na(arc) && is.na(vol)) compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	if(!filtered && is.na(arc) && is.na(vol)) compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
 	
 	tlog(3,"Computation of all topological measures complete")
 }
