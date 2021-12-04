@@ -631,8 +631,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 ###############################################################################
 generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 {	# setup measure name lists
-	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES), names(NODECOMP_MEASURES))
-#gmn <- names(NODEPAIR_MEASURES)
+	gmn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES)) #, names(NODECOMP_MEASURES))
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))

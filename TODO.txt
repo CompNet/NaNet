@@ -70,3 +70,6 @@ VOLUMES/ARCS
   - 1 field = List of volumes (cannot use that with Gephi)
 - Or compute a priori the most widespread volume represented in a community?
 - Or do the same thing with narrative arcs instead?
+
+
+dm:>=2021-11-28 | dc:>=2021-11-28 D:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file:

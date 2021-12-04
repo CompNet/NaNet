@@ -597,8 +597,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
-	if(!is.na(arc) && !is.na(vol))
-		mn <- c(mn, names(NODECOMP_MEASURES))
+#	if(!is.na(arc) && !is.na(vol))
+#		mn <- c(mn, names(NODECOMP_MEASURES))
 	cn <- c(COL_SPEAR_DUR, COL_PVAL_DUR, COL_SPEAR_OCC, COL_PVAL_OCC) 
 	
 	# read or create the table containing the computed values
