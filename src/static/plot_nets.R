@@ -84,6 +84,7 @@ plot.static.graph.scenes.all <- function(data)
 	ewidths <- lame.normalize(nww,exp=1) * 75 + 0.5
 	
 	# get filtered edges
+	el <- as_edgelist(graph=g, names=FALSE)
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# get vertex attributes
@@ -385,7 +386,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
-		plot(g, 
+			plot(g, 
 				layout=LAYOUT,
 				vertex.size=vsizes, vertex.color=vcols,
 				vertex.frame.color=vfcols,
@@ -396,7 +397,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 				edge.color=ecols, edge.width=ewidths, 
 				rescale=FALSE, #axe=TRUE, 
 				xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
-		)
+			)
 		dev.off()
 	}
 	
@@ -408,7 +409,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
-		plot(g.filtr, 
+			plot(g.filtr, 
 				layout=LAYOUT[idx.filtr,],	# lay.filtr
 				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
 				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
@@ -418,7 +419,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 				edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
 				rescale=FALSE, frame=TRUE, #axe=TRUE, 
 				xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
-		)
+			)
 		dev.off()
 	}
 	
