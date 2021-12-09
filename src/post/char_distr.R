@@ -7,6 +7,7 @@
 # source("src/post/char_distr.R")
 ###############################################################################
 source("src/common/include.R")
+start.rec.log(text="CharDistr")
 
 
 
@@ -53,3 +54,6 @@ for(count in counts)
 		dev.off()
 	}
 }
+
+# end logging
+end.rec.log()
