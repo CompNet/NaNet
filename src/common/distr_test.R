@@ -45,6 +45,7 @@ source("src/pli/zeta.R")
 # column names
 C_DISTR <- c()
 C_PL_EXP <- "PowerLaw_exp"; C_DISTR <- c(C_DISTR, C_PL_EXP)
+C_PL_XMIN <- "PowerLaw_xmin"; C_DISTR <- c(C_DISTR, C_PL_XMIN)
 C_PL_PVAL <- "PowerLaw_pval"; C_DISTR <- c(C_DISTR, C_PL_PVAL)
 C_POIS_PVAL <- "Poisson_pval"; C_DISTR <- c(C_DISTR, C_POIS_PVAL)
 C_POIS_CLR <- "Poisson_cmp_LR"; C_DISTR <- c(C_DISTR, C_POIS_CLR)
@@ -129,6 +130,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_PL_EXP] <- power.law$pars
+	tab[1,C_PL_XMIN] <- power.law$xmin
 	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
 	power.law2 <- tryCatch(expr=pareto.fit(data=data, threshold=power.law$xmin, method="ml"), 
@@ -375,6 +377,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_PL_EXP] <- power.law$pars
+	tab[1,C_PL_XMIN] <- power.law$xmin
 	tab[1,C_PL_PVAL] <- pl.bs$p
 	# alternative, with library pli
 	power.law2 <- tryCatch(expr=zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct"), 

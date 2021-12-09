@@ -326,6 +326,8 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
 # page.window.sizes: same for page-based windows instead of panel-based.
 # page.overlaps: same.
+#
+# returns: the updated data.
 ###############################################################################
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
@@ -335,10 +337,18 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 			page.info=data$page.info, inter.df=data$inter.df)
 	
 	# extract the filtered version
+	tlog(1,"Filtering extras from the graph")
+	tlog(2,"Counts for criteria deg>1 vs. freq>3")
+	tt <- table(degree(g)>1, V(g)$Frequency>3)
+	print(rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt))))
+	# filtering by freq and occ
 	crit <- degree(g)<=1 | V(g)$Frequency<=3
 	idx.remove <- which(crit)
 	idx.keep <- which(!crit)
 	g.filtr <- delete_vertices(graph=g, v=idx.remove)
+	tlog(2,"Named characters among those meeting the criteria: ",length(which(V(g.filtr)$Named)))
+	# keeping the giant comp
+	tlog(2,"Component sizes in the network of characters meeting the criteria: ",paste(components(graph=g.filtr, mode="weak")$csize,collapse=", "))
 	tmp <- get.largest.component(g.filtr, indices=TRUE)
 	idx.cmp <- idx.keep[tmp$indices]
 	g.cmp <- tmp$comp
@@ -362,7 +372,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	for(a in 1:arc.nbr)
 	{	tlog(2,"Extracting graph for narrative arc ",a,"/",arc.nbr)
 		
-		# extract the full scene-based static graph
+		# extract the unfiltered scene-based static graph for the arc
 		g <- extract.static.graph.scenes(
 				volume.info=data$volume.info, char.info=data$char.info, 
 				page.info=data$page.info, inter.df=data$inter.df,
@@ -381,7 +391,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	for(v in 1:volume.nbr)
 	{	tlog(2,"Extracting graph for volume id ",v,"/",nrow(data$volume.info))
 		
-		# extract the full scene-based static graph
+		# extract the unfiltered scene-based static graph for the volume
 		g <- extract.static.graph.scenes(
 				volume.info=data$volume.info, char.info=data$char.info, 
 				page.info=data$page.info, inter.df=data$inter.df,
@@ -416,4 +426,5 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	})
 	
 	tlog(1,"Extraction of the static graphs complete")
+	return(data)
 }

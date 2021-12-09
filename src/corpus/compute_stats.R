@@ -903,6 +903,7 @@ compute.stats.scenes <- function(
 # char.panels: characters present in each panel.
 # cur.vol: NA (regular mode) or Id of the volume specifically processed.
 # cur.arc: NA (regular mode) or Id of the arc specifically processed.
+# filtered: whether to process only the filtered characters.
 #
 # returns: a list containing the table with overall character stats (stats.chars) and
 #		   the list of characters for each volume.
@@ -911,10 +912,11 @@ compute.stats.chars <- function(
 		volume.info, page.info, char.info, 
 		stats.pages, stats.scenes, stats.panels,
 		char.pages, char.scenes, char.panels,
-		cur.vol=NA, cur.arc=NA)
+		cur.vol=NA, cur.arc=NA,
+		filtered=FALSE)
 {	object <- "characters"
 	# vertex attributes
-	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ))
+	atts <- setdiff(colnames(char.info), c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, COL_CHAR_FREQ, COL_CHAR_FILTERED, COL_CHAR_NAMED))
 	att.nbr <- length(atts)
 	
 	# volume name
@@ -924,12 +926,17 @@ compute.stats.chars <- function(
 		vname <- NA
 	
 	# compute stats
-	tlog(3,"Computing character stats")
+	tlog(3,"Computing ",if(filtered) "filtered" else "all"," character stats")
 	unique.chars <- sort(unique(unlist(char.scenes)))
+	if(filtered)
+	{	idx.rm <- which(char.info[,COL_CHAR_FILTERED])
+		idx.kp <- which(!char.info[,COL_CHAR_FILTERED])
+		unique.chars <- setdiff(unique.chars, char.info[idx.rm ,COL_CHAR_NAME])
+	}
 	char.nbr <- length(unique.chars)
 	
 	#  identify the characters in each volume
-	tlog(4,"Identify the characters in each volume")
+	tlog(4,"Identify the",if(filtered) " filtered" else ""," characters in each volume")
 	volume.ids <- volume.info[,COL_VOLS_VOLUME_ID]
 	volume.nbr <- length(volume.ids)
 	char.volumes <- lapply(1:volume.nbr, function(x) c())
@@ -962,9 +969,9 @@ compute.stats.chars <- function(
 	)
 	
 	# compute the stats for each character
-	tlog(4,"Processing each character separately")
+	tlog(4,"Processing each",if(filtered) " filtered" else ""," character separately")
 	for(c in 1:char.nbr)
-	{	tlog(5,"Processing character \"",unique.chars[c],"\" (",c,"/",char.nbr,")")
+	{	tlog(5,"Processing",if(filtered) " filtered" else ""," character \"",unique.chars[c],"\" (",c,"/",char.nbr,")")
 		
 		# update overall stat table
 		stats.chars[c, COL_STATS_CHAR] <- unique.chars[c]
@@ -975,7 +982,7 @@ compute.stats.chars <- function(
 	}
 	
 	# record stats
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="characters")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc=paste0("characters", if(filtered) "_filtered" else ""))
 	tlog(4,"Recording in ",file)
 	write.csv(x=stats.chars, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
@@ -983,18 +990,19 @@ compute.stats.chars <- function(
 	vals <- table(stats.chars[,COL_STATS_VOLUMES])
 	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(vals) <- c(COL_STATS_VOLUMES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_volume_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc=paste0("chars", if(filtered) "_filtered" else "","_distrib_volume_nbr"))
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_VOLUMES]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	if(length(unique(data))>1)
 	{	for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					ml <- "Volume number distribution over characters"
-					xl <- "Number of volumes by character"
+					ml <- paste0("Volume number distribution over",if(filtered) " filtered" else ""," characters")
+					xl <- paste0("Number of volumes by",if(filtered) " filtered" else ""," character")
 #					# histogram
 #					h <- hist(
 #						data,
@@ -1017,25 +1025,25 @@ compute.stats.chars <- function(
 				dev.off()
 		}
 		# check distribution
-#		distr.stats <- test.disc.distr(data+1, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+#		tmp <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, sims=100, plot.file=paste0(file,"_disttest"))
 	}
 	
 	# distributions of page numbers
 	vals <- table(stats.chars[,COL_STATS_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PAGES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc=paste0("chars", if(filtered) "_filtered" else "","_distrib_page_nbr"))
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PAGES]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			ml <- "Page number distribution over characters"
-			xl <- "Number of pages by character"
+			ml <- paste0("Page number distribution over",if(filtered) " filtered" else ""," characters")
+			xl <- paste0("Number of pages by",if(filtered) " filtered" else ""," character")
 #			# histogram
 #			h <- hist(
 #					data,
@@ -1058,24 +1066,25 @@ compute.stats.chars <- function(
 				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 		dev.off()
 	}
-#	# check distribution
-#	test.disc.distr(data)
+	# check distribution
+#	tmp <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, sims=100, plot.file=paste0(file,"_disttest"))
 	
 	# distributions of scene numbers
 	vals <- table(stats.chars[,COL_STATS_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_SCENES, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc=paste0("chars", if(filtered) "_filtered" else "","_distrib_scene_nbr"))
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_SCENES]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			ml <- "Scene number distribution over characters"
-			xl <- "Number of scenes by character"
+			ml <- paste0("Scene number distribution over",if(filtered) " filtered" else ""," characters")
+			xl <- paste0("Number of scenes by",if(filtered) " filtered" else ""," character")
 #			# histogram
 #			h <- hist(
 #					data,
@@ -1097,24 +1106,25 @@ compute.stats.chars <- function(
 				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 		dev.off()
 	}
-#	# check distribution
-#	test.disc.distr(data)
+	# check distribution
+#	tmp <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, sims=100, plot.file=paste0(file,"_disttest"))
 	
 	# distributions of panel numbers
 	vals <- table(stats.chars[,COL_STATS_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_STATS_PANELS, COL_STATS_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc=paste0("chars", if(filtered) "_filtered" else "","_distrib_panel_nbr"))
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.chars[,COL_STATS_PANELS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			ml <- "Panel number distribution over characters"
-			xl <- "Number of panels by character"
+			ml <- paste0("Panel number distribution over",if(filtered) " filtered" else ""," characters")
+			xl <- paste0("Number of panels by",if(filtered) " filtered" else ""," character")
 #			# histogram
 #			h <- hist(
 #					data,
@@ -1137,8 +1147,8 @@ compute.stats.chars <- function(
 				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
 		dev.off()
 	}
-#	# check distribution
-#	test.disc.distr(data)
+	# check distribution
+#	tmp <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, sims=100, plot.file=paste0(file,"_disttest"))
 	
 	# behavior of character filtering (trying to identify extras)
 	thresholds <- seq(0, 10)	#max(char.info[,COL_CHAR_FREQ]))
@@ -2128,10 +2138,20 @@ compute.stats <- function(data)
 			volume.info, page.info, char.info, 
 			stats.pages, stats.scenes, stats.panels, 
 			char.pages, char.scenes, char.panels,
-			cur.vol=NA, cur.arc=NA
+			cur.vol=NA, cur.arc=NA,
+			filtered=FALSE
 	)
 	stats.chars <- tmp$stats.chars
 	char.volumes <- tmp$char.volumes
+	# possibly process filtered characters
+	if(COL_CHAR_FILTERED %in% colnames(char.info))
+		tmp <- compute.stats.chars(
+				volume.info, page.info, char.info, 
+				stats.pages, stats.scenes, stats.panels, 
+				char.pages, char.scenes, char.panels,
+				cur.vol=NA, cur.arc=NA,
+				filtered=TRUE
+		)
 	
 	# compute volume stats
 	tmp <- compute.stats.volumes(

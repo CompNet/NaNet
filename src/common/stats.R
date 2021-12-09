@@ -40,7 +40,7 @@ stat.mode <- function(x, na.rm=FALSE)
 # xlab: label of the x-axis.
 # log: TRUE to use logarithmic scales for the axes.
 # cols: color of each series.
-# leg.title: title of the legend, or NA of none.
+# leg.title: title of the legend, or NA if none.
 # lines: line types, or NA if points.
 #
 # returns: TRUE iff a plot could be produced.

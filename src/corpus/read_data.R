@@ -413,6 +413,15 @@ read.raw.data <- function()
 	# read the file describing the characters
 	char.info <- read.char.table(char.scenes)
 	
+	# identify filtered characters
+#	idx.freq <- char.info[,COL_CHAR_FREQ]>3
+#	tt <- table(unlist(inter.df))
+#	idx.cooc <- tt[char.info[,COL_CHAR_NAME]]>1
+#	idx <- which(idx.freq & idx.cooc)
+#	char.info[,COL_CHAR_FILTERED] <- rep(TRUE,nrow(char.info))
+#	char.info[idx,COL_CHAR_FILTERED] <- FALSE
+	# cannot select the giant component without the graph >> do that later
+	
 	# build result and return
 	result <- list(
 		volume.info=volume.info, page.info=page.info, char.info=char.info, 
