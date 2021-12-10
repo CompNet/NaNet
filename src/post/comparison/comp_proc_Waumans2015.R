@@ -10,6 +10,8 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/comparison/comp_proc_Waumans2015.R")
 ###############################################################################
+library("rgexf")
+
 source("src/post/comparison/comp_proc.R")
 
 

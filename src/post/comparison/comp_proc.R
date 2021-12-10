@@ -7,7 +7,6 @@
 # source("src/post/comparison/comp_proc.R")
 ###############################################################################
 library("igraph")
-library("rgexf")
 library("poweRlaw")
 library("minpack.lm")
 
@@ -176,6 +175,3 @@ charnet.clean <- function(g)
 	
 	return(g)
 }
-
-
-
