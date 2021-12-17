@@ -148,3 +148,29 @@ for(ff in 1:length(files))
 	# compute topological measures
 	tabs <- charnet.prop(g, tabs)
 }
+
+# compute number of occurrence by character for selected narratives 
+# Saga of the Meta-barrons: 8 volumes
+	file <- "1992-2003.Meta-Baron-adj.csv"
+	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+# Words of Aldebaran: 5 volumes
+	file <- "1994.Betelgeuse-adj.csv"
+	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+# Akira: 3 volumes
+	file <- "1982.Akira-adj.csv" #,"1982.Akira2-adj.csv","1982.Akira3-adj.csv")
+	tt1 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira1-adj.csv"), header=TRUE, row.names=1))
+	tt2 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira2-adj.csv"), header=TRUE, row.names=1))
+	tt3 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira3-adj.csv"), header=TRUE, row.names=1))
+	rn <- sort(union(rownames(tt1), union(rownames(tt2), rownames(tt3))))
+	tt <- matrix(0, nrow=length(rn), ncol=ncol(tt1)+ncol(tt2)+ncol(tt3))
+	rownames(tt) <- rn
+	tt[match(rownames(tt1),rn),1:ncol(tt1)] <- tt1
+	tt[match(rownames(tt2),rn),(ncol(tt1)+1):(ncol(tt1)+ncol(tt2))] <- tt2
+	tt[match(rownames(tt3),rn),(ncol(tt1)+ncol(tt2)+1):(ncol(tt1)+ncol(tt2)+ncol(tt3))] <- tt3
+	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+# Gunnm: 7 volumesfile <- "1992-2003.Meta-Baron-adj.csv"
+	file <- "1990.Gunnm-adj.csv"
+	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
