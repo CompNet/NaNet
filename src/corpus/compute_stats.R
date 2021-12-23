@@ -144,6 +144,7 @@ compute.stats.panels <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.panels[,COL_STATS_CHARS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -176,9 +177,10 @@ compute.stats.panels <- function(
 	# distribution of character numbers (by attribute)
 	if(att.nbr>0)
 	{	for(att in atts)
-		{	data <- stats.panels.atts[[att]]
-			pal <- get.palette(ncol(stats.panels.atts[[att]]))[1:ncol(stats.panels.atts[[att]])]
+		{	pal <- get.palette(ncol(stats.panels.atts[[att]]))[1:ncol(stats.panels.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
+			data <- stats.panels.atts[[att]]
+			write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -429,6 +431,7 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_SCENES]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -466,6 +469,7 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_PANELS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -503,6 +507,7 @@ compute.stats.pages <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.pages[,COL_STATS_CHARS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -535,9 +540,10 @@ compute.stats.pages <- function(
 	# distribution of character numbers (by attribute)
 	if(att.nbr>0)
 	{	for(att in atts)
-		{	data <- stats.pages.atts[[att]]
-			pal <- get.palette(ncol(stats.pages.atts[[att]]))[1:ncol(stats.pages.atts[[att]])]
+		{	pal <- get.palette(ncol(stats.pages.atts[[att]]))[1:ncol(stats.pages.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
+			data <- stats.pages.atts[[att]]
+			write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -686,6 +692,7 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PANELS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -727,6 +734,7 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_CHARS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -759,9 +767,10 @@ compute.stats.scenes <- function(
 	# distribution of character numbers (by attribute)
 	if(att.nbr>0)
 	{	for(att in atts)
-		{	data <- stats.scenes.atts[[att]]
-			pal <- get.palette(ncol(stats.scenes.atts[[att]]))[1:ncol(stats.scenes.atts[[att]])]
+		{	pal <- get.palette(ncol(stats.scenes.atts[[att]]))[1:ncol(stats.scenes.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
+			data <- stats.scenes.atts[[att]]
+			write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -825,6 +834,7 @@ compute.stats.scenes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.scenes[,COL_STATS_PAGES]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1450,6 +1460,10 @@ compute.stats.volumes <- function(
 	{	for(att in atts)
 			write.csv(x=stats.volumes.atts[[att]], file=paste0(file,"_att=",att,".csv"), row.names=FALSE)#, col.names=TRUE)
 	}
+	# record the volumes for each character (for latter use)
+	con <- file(paste0(file,"_chars.csv"))
+	sapply(char.volumes, function(lst) writeLines(lst, con))
+	close(con)
 	
 	# evolution of the stats by volume
 	vol.cols <- c(
@@ -1501,6 +1515,7 @@ compute.stats.volumes <- function(
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- stats.volumes[,COL_STATS_CHARS]
+	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
 	if(length(unique(data))>1)
 	{	for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -1513,10 +1528,10 @@ compute.stats.volumes <- function(
 #					h <- hist(
 #						data,
 #						breaks=0:max(data),
-			##						col=MAIN_COLOR,
-			##						xlab=xl,
-			##						main=ml,
-			##						freq=FALSE,
+##						col=MAIN_COLOR,
+##						xlab=xl,
+##						main=ml,
+##						freq=FALSE,
 #						plot=FALSE
 #					)
 #					# scatterplot
