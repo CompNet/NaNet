@@ -1461,8 +1461,8 @@ compute.stats.volumes <- function(
 			write.csv(x=stats.volumes.atts[[att]], file=paste0(file,"_att=",att,".csv"), row.names=FALSE)#, col.names=TRUE)
 	}
 	# record the volumes for each character (for latter use)
-	con <- file(paste0(file,"_chars.csv"))
-	sapply(char.volumes, function(lst) writeLines(lst, con))
+	con <- file(paste0(file,"_chars.txt"), open="wt")
+	sapply(char.volumes, function(lst) writeLines(paste(lst,collapse=","), con))
 	close(con)
 	
 	# evolution of the stats by volume

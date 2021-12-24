@@ -12,10 +12,15 @@ start.rec.log(text="CharDistr")
 
 
 
+###############################################################################
+# distribution plots
+tlog(0,"Producing distribution plots")
+
 # loop params
 object <- "characters"
 counts <- c("scene","volume","page","panel")
 
+# process each count type
 for(count in counts)
 {	tlog(2,"Dealing with ",count)
 	
@@ -55,6 +60,39 @@ for(count in counts)
 		dev.off()
 	}
 }
+
+
+
+
+###############################################################################
+# additional stats
+
+# load list of char by volume
+file <- get.path.stat.corpus(object="volumes", desc="volumes")
+con <- file(paste0(file,"_chars.txt"),open="r")
+lines <- readLines(con) 
+close(con)
+
+# read the graph
+graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+g <- read_graph(file=graph.file, format="graphml")
+# clean names
+V(g)$name <- fix.encoding(strings=V(g)$name)
+V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+# get the main characters
+main.chars <- V(g)$name[!V(g)$Filtered]
+
+# compute char by vol
+char.nbr <- rep(0,2)
+for(line in lines)
+{	chars <- strsplit(line,split=",",fixed=TRUE)[[1]]
+	char.nbr[1] <- char.nbr[1] + length(chars)
+	char.nbr[2] <- char.nbr[2] + length(setdiff(chars,main.chars))
+}
+char.nbr <- char.nbr / length(lines)
+tlog(0,"Char by volume: ",char.nbr[1]," (unfiltered) vs. ",char.nbr[2]," (filtered)")
+
+
 
 # end logging
 end.rec.log()

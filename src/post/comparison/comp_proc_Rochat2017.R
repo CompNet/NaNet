@@ -149,16 +149,25 @@ for(ff in 1:length(files))
 	tabs <- charnet.prop(g, tabs)
 }
 
-# compute number of occurrence by character for selected narratives 
+# compute number of occurrences by character for selected narratives 
 # Saga of the Meta-barrons: 8 volumes
 	file <- "1992-2003.Meta-Baron-adj.csv"
 	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+	cat(file,"\tNumber of occurrences (here: pages) by character:",sum(tt)/nrow(tt),"\n")
+	pg <- 62	# the data seem to indicate 9 volumes instead of 8 (?)
+	vol.nbr <- ncol(tt)/pg
+	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
+	cat(file,"\tNumber of characters by volume:",sum(cc)/vol.nbr,"\n")
 # Words of Aldebaran: 5 volumes
+	vol.nbr <- 5
 	file <- "1994.Betelgeuse-adj.csv"
 	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+	cat(file,"\tNumber of occurrences (here: pages) by character:",sum(tt)/nrow(tt),"\n")
+	pg <- ncol(tt)/vol.nbr
+	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
+	cat(file,"\tNumber of characters by volume:",sum(cc)/vol.nbr,"\n")
 # Akira: 3 volumes
+	vol.nbr <- 3
 	file <- "1982.Akira-adj.csv" #,"1982.Akira2-adj.csv","1982.Akira3-adj.csv")
 	tt1 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira1-adj.csv"), header=TRUE, row.names=1))
 	tt2 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira2-adj.csv"), header=TRUE, row.names=1))
@@ -169,8 +178,14 @@ for(ff in 1:length(files))
 	tt[match(rownames(tt1),rn),1:ncol(tt1)] <- tt1
 	tt[match(rownames(tt2),rn),(ncol(tt1)+1):(ncol(tt1)+ncol(tt2))] <- tt2
 	tt[match(rownames(tt3),rn),(ncol(tt1)+ncol(tt2)+1):(ncol(tt1)+ncol(tt2)+ncol(tt3))] <- tt3
-	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
-# Gunnm: 7 volumesfile <- "1992-2003.Meta-Baron-adj.csv"
+	cat(file,"\tNumber of occurrences (here: pages) by character:",sum(tt)/nrow(tt),"\n")
+	cc1 <- length(which(rowSums(tt1)>0))
+	cc2 <- length(which(rowSums(tt2)>0))
+	cc3 <- length(which(rowSums(tt3)>0))
+	cat(file,"\tNumber of characters by volume:",(cc1+cc2+cc3)/vol.nbr,"\n")
+# Gunnm: 7 volumes
 	file <- "1990.Gunnm-adj.csv"
 	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	cat(file,"\tNumber of occurrences by character:",sum(tt)/nrow(tt),"\n")
+	cat(file,"\tNumber of occurrences (here: pages) by character:",sum(tt)/nrow(tt),"\n")
+
+# TODO pour les mangas, il faut considérer aussi les chapitres
