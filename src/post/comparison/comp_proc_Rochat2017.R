@@ -150,62 +150,109 @@ for(ff in 1:length(files))
 }
 
 # compute number of occurrences by character for selected narratives 
-# Saga of the Meta-barrons: 8 volumes
-	# notes: according to external sources, each volume is 62-page long
-	# however, there are 558 columns in the file (8*62=496, 9*62=558)
-	# morever, starting column 511, the matrix is empty
-	# assumption: pages 496--510 correspond to the short story "Le tatouage des Castaka" in "La Maison des Ancêtres"
-	# we ignore it here, but not in the network extraction phase (above source code)
-	vol.nbr <- 8
-	file <- "1992-2003.Meta-Baron-adj.csv"
-	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	tt <- tt[,1:496]	# we ignore the short story
-	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
-	pg <- ncol(tt)/vol.nbr
-	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
-	cat(file,"\tNumber of characters by volume:",sum(cc)/vol.nbr,"\n")
-# Worlds of Aldebaran: 5 volumes
-	vol.nbr <- 5
-	file <- "1994.Betelgeuse-adj.csv"
-	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
-	pg <- ncol(tt)/vol.nbr
-	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
-	cat(file,"\tNumber of characters by volume:",sum(cc)/vol.nbr,"\n")
-# Akira: 3 volumes
-	# note: we know that these volumes contain the following (original) chapters:
-	# vol.1+2: correspond to vol.1 in the English version, so c1--18 - vol.3: half of vol.2 in the English version, so c19--33
-	# but we could not find the number of pages in each chapter
-	vol.nbr <- 3
-	file <- "1982.Akira-adj.csv" #,"1982.Akira2-adj.csv","1982.Akira3-adj.csv")
-	tt1 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira1-adj.csv"), header=TRUE, row.names=1))
-	tt2 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira2-adj.csv"), header=TRUE, row.names=1))
-	tt3 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira3-adj.csv"), header=TRUE, row.names=1))
-	rn <- sort(union(rownames(tt1), union(rownames(tt2), rownames(tt3))))
-	tt <- matrix(0, nrow=length(rn), ncol=ncol(tt1)+ncol(tt2)+ncol(tt3))
-	rownames(tt) <- rn
-	tt[match(rownames(tt1),rn),1:ncol(tt1)] <- tt1
-	tt[match(rownames(tt2),rn),(ncol(tt1)+1):(ncol(tt1)+ncol(tt2))] <- tt2
-	tt[match(rownames(tt3),rn),(ncol(tt1)+ncol(tt2)+1):(ncol(tt1)+ncol(tt2)+ncol(tt3))] <- tt3
-	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
-	cc1 <- length(which(rowSums(tt1)>0))
-	cc2 <- length(which(rowSums(tt2)>0))
-	cc3 <- length(which(rowSums(tt3)>0))
-	cat(file,"\tNumber of characters by volume:",(cc1+cc2+cc3)/vol.nbr,"\n")
-# Gunnm: 7 volumes
-	# note: the number of pages in the CSV file (1023) does not match the expected number according to external sources (1475)
-	# considering there are only 5 volumes would be a better fit (1037 pages). 
-	# these 7 volumes are supposed to contain the following chapters:
-	# vol.1: c1--6 - vol.2: 7--11 - vol.3: 12--17 - vol.4: 18--22 - vol.5: 23--29 - vol.6: 30--35 - vol.7: 36--41
-	# manual verification shows that some pages are missing, and that there are only 6 volumes (and the 6th is not complete)
-	file <- "1990.Gunnm-adj.csv"
-	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
-	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
-	chaps <- c(1, 26, 50, 78, 130, 177, 198, 223, 248, 309, 373, 393, 413, 447, 469, 510, 549, 568, 635, 656, 685, 705, 749, 766, 792, 835, 876, 890, 917, 956, 961, 1002, 1023)	# we manually identified the chapters. there are fewer than indicated in the article (only 32 chapters instead of 41)
-	cat(file,"\tNumber of pages by chapter:",mean(chaps[2:length(chaps)]-chaps[1:(length(chaps)-1)]),"\n")
-	vols <- c(1, 198, 393, 568, 749, 956, 1023)
-	cat(file,"\tNumber of pages by volume:",mean(vols[2:length(vols)]-vols[1:(length(vols)-1)]),"\n")
-	cc <- sapply(1:(length(chaps)-1), function(c) length(which(rowSums(tt[,chaps[c]:(chaps[c+1]-1)])>0)))
-	cat(file,"\tNumber of characters by chapter:",mean(cc),"\n")
-	vv <- sapply(1:(length(vols)-1), function(v) length(which(rowSums(tt[,vols[v]:(vols[v+1]-1)])>0)))
-	cat(file,"\tNumber of characters by volume:",mean(vv),"\n")
+## Saga of the Meta-barrons: 8 volumes
+#	# notes: according to external sources, each volume is 62-page long
+#	# however, there are 558 columns in the file (8*62=496, 9*62=558)
+#	# morever, starting column 511, the matrix is empty
+#	# assumption: pages 496--510 correspond to the short story "Le tatouage des Castaka" in "La Maison des Ancêtres"
+#	# we ignore it here, but not in the network extraction phase (above source code)
+#	vol.nbr <- 8
+#	file <- "1992-2003.Meta-Baron-adj.csv"
+#	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+#	tt <- tt[,1:496]	# we ignore the short story
+#	rm.idx <- which(rowSums(tt)==0)
+#	cat(file,"\tDetected ",length(rm.idx),"/",nrow(tt)," characters not occurring at all: deleting them",sep="")
+#	tt <- tt[-rm.idx,]
+#	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
+#	cat(file,"\tNumber of characters by page:",sum(tt)/ncol(tt),"\n")
+#	pg <- ncol(tt)/vol.nbr
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:vol.nbr, function (v) sum(row[(1+(v-1)*pg):(v*pg)]))>0)))
+#	cat(file,"\tNumber of volumes by character:",mean(vv),"\n")
+#	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
+#	cat(file,"\tNumber of characters by volume:",mean(cc),"\n")
+## Worlds of Aldebaran: 5 volumes
+#	vol.nbr <- 5
+#	file <- "1994.Betelgeuse-adj.csv"
+#	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+#	rm.idx <- which(rowSums(tt)==0)
+#	cat(file,"\tDetected ",length(rm.idx),"/",nrow(tt)," characters not occurring at all: deleting them",sep="")
+#	#tt <- tt[-rm.idx,]
+#	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
+#	cat(file,"\tNumber of characters by page:",sum(tt)/ncol(tt),"\n")
+#	pg <- ncol(tt)/vol.nbr
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:vol.nbr, function (v) sum(row[(1+(v-1)*pg):(v*pg)]))>0)))
+#	cat(file,"\tNumber of volumes by character:",mean(vv),"\n")
+#	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,(1+(v-1)*pg):(v*pg)])>0)))
+#	cat(file,"\tNumber of characters by volume:",sum(cc)/vol.nbr,"\n")
+## Akira: 3 volumes
+#	# note: we know that these volumes contain the following (original) chapters:
+#	# vol.1+2: correspond to vol.1 in the English version, so c1--18 - vol.3: half of vol.2 in the English version, so c19--33
+#	# but we could not find the number of pages in each chapter
+#	vol.nbr <- 3
+#	file <- "1982.Akira-adj.csv" #,"1982.Akira2-adj.csv","1982.Akira3-adj.csv")
+#	tt1 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira1-adj.csv"), header=TRUE, row.names=1))
+#	tt2 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira2-adj.csv"), header=TRUE, row.names=1))
+#	tt3 <- as.matrix(read.csv(file=file.path(folder,"1982.Akira3-adj.csv"), header=TRUE, row.names=1))
+#	rn <- sort(union(rownames(tt1), union(rownames(tt2), rownames(tt3))))
+#	tt <- matrix(0, nrow=length(rn), ncol=ncol(tt1)+ncol(tt2)+ncol(tt3))
+#	colnames(tt) <- c(colnames(tt1),colnames(tt2),colnames(tt3))
+#	colnames(tt) <- 1:ncol(tt)
+#	rownames(tt) <- rn
+#	tt[match(rownames(tt1),rn),1:ncol(tt1)] <- tt1
+#	tt[match(rownames(tt2),rn),(ncol(tt1)+1):(ncol(tt1)+ncol(tt2))] <- tt2
+#	tt[match(rownames(tt3),rn),(ncol(tt1)+ncol(tt2)+1):(ncol(tt1)+ncol(tt2)+ncol(tt3))] <- tt3
+#	write.csv(x=tt, file=file.path(folder,"1982.Akira-adj_combined.csv"), row.names=TRUE)#, col.names=TRUE)
+#	rm.idx <- which(rowSums(tt)==0)
+#	cat(file,"\tDetected ",length(rm.idx),"/",nrow(tt)," characters not occurring at all: deleting them",sep="")
+#	tt <- tt[-rm.idx,]
+#	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
+#	cat(file,"\tNumber of characters by page:",sum(tt)/ncol(tt),"\n")
+#	vols <- c(1, 181, 363, 546)
+#	cat(file,"\tNumber of pages by volume:",mean(vols[2:length(vols)]-vols[1:(length(vols)-1)]),"\n")
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:vol.nbr, function (v) sum(row[vols[v]:(vols[v+1]-1)]))>0)))
+#	cat(file,"\tNumber of volumes by character:",mean(vv),"\n")
+#	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,vols[v]:(vols[v+1]-1)])>0)))
+#	cat(file,"\tNumber of characters by volume:",mean(cc),"\n")
+#	chaps <- c(1, 30, 55, 74, 92, 105, 125, 143, 162,			# vol.1FR: c1--9
+#			181, 206, 223, 241, 262, 280, 299, 318, 335,		# vol.2FR: c10--18
+#			363, 389, 403, 422, 440, 455, 470, 491, 508, 527, 	# vol.3FR: c19--28
+#			546													# last page
+#	)	# we manually identified the chapters using https://mangadex.org/chapter/56355233-2dc4-4f95-83e9-56c9354b7618/2 as a reference
+#	cat(file,"\tNumber of pages by chapter:",mean(chaps[2:length(chaps)]-chaps[1:(length(chaps)-1)]),"\n")
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:(length(chaps)-1), function (c) sum(row[chaps[c]:(chaps[c+1]-1)]))>0)))
+#	cat(file,"\tNumber of chapters by character:",mean(vv),"\n")
+#	cc <- sapply(1:(length(chaps)-1), function(c) length(which(rowSums(tt[,chaps[c]:(chaps[c+1]-1)])>0)))
+#	cat(file,"\tNumber of characters by chapter:",mean(cc),"\n")
+## Gunnm: 7 volumes
+#	# note: the number of pages in the CSV file (1023) does not match the expected number according to external sources (1475)
+#	# considering there are only 5 volumes would be a better fit (1037 pages). 
+#	# these 7 volumes are supposed to contain the following chapters:
+#	# vol.1: c1--6 - vol.2: 7--11 - vol.3: 12--17 - vol.4: 18--22 - vol.5: 23--29 - vol.6: 30--35 - vol.7: 36--41
+#	# manual verification shows that some chapters are missing, and that there are only 6 volumes (and the 6th is not complete)
+#	vol.nbr <- 6
+#	file <- "1990.Gunnm-adj.csv"
+#	tt <- read.csv(file=file.path(folder,file), header=TRUE, row.names=1)
+#	rm.idx <- which(rowSums(tt)==0)
+#	cat(file,"\tDetected ",length(rm.idx),"/",nrow(tt)," characters not occurring at all: deleting them",sep="")
+#	tt <- tt[-rm.idx,]
+#	cat(file,"\tNumber of pages by character:",sum(tt)/nrow(tt),"\n")
+#	cat(file,"\tNumber of characters by page:",sum(tt)/ncol(tt),"\n")
+#	vols <- c(1, 198, 393, 568, 749, 956, 1024)
+#	cat(file,"\tNumber of pages by volume:",mean(vols[2:length(vols)]-vols[1:(length(vols)-1)]),"\n")
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:vol.nbr, function (v) sum(row[vols[v]:(vols[v+1]-1)]))>0)))
+#	cat(file,"\tNumber of volumes by character:",mean(vv),"\n")
+#	cc <- sapply(1:vol.nbr, function(v) length(which(rowSums(tt[,vols[v]:(vols[v+1]-1)])>0)))
+#	cat(file,"\tNumber of characters by volume:",mean(cc),"\n")
+#	chaps <- c(1, 26, 50, 78, 130, 177, 		# vol.1: c1--6
+#			198, 223, 248, 309, 373, 			# vol.2: c7--11
+#			393, 413, 447, 469, 510, 549, 		# vol.3: c12--17
+#			568, 635, 656, 685, 705, 			# vol.4: c18--22
+#			749, 766, 792, 835, 876, 890, 917, 	# vol.5: c23--29
+#			956, 961, 1002, 					# vol.6: c30--32 (incomplete: should be c30--35)
+#			1024								# last page
+#	)	# we manually identified the chapters using a digital version of the manga. There are fewer chapters than indicated in the article (only 32 chapters instead of 41, volume 7 missing)
+#	cat(file,"\tNumber of pages by chapter:",mean(chaps[2:length(chaps)]-chaps[1:(length(chaps)-1)]),"\n")
+#	vv <- apply(tt, 1, function(row) length(which(sapply(1:(length(chaps)-1), function (c) sum(row[chaps[c]:(chaps[c+1]-1)]))>0)))
+#	cat(file,"\tNumber of chapters by character:",mean(vv),"\n")
+#	cc <- sapply(1:(length(chaps)-1), function(c) length(which(rowSums(tt[,chaps[c]:(chaps[c+1]-1)])>0)))
+#	cat(file,"\tNumber of characters by chapter:",mean(cc),"\n")
