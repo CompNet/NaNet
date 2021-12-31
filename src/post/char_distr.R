@@ -70,7 +70,7 @@ for(count in counts)
 # load list of char by volume
 file <- get.path.stat.corpus(object="volumes", desc="volumes")
 con <- file(paste0(file,"_chars.txt"),open="r")
-lines <- readLines(con) 
+	lines <- readLines(con) 
 close(con)
 
 # read the graph

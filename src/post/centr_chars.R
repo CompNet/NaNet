@@ -25,7 +25,7 @@ volumes <- data$volume.info[,COL_PAGES_VOLUME]
 lines <- c()
 for(v in volumes)
 {	con <- file(file.path(folder, paste0(v,".txt")), "r")
-	lines <- c(lines, tolower(paste(readLines(con), collapse=" ")))
+		lines <- c(lines, tolower(paste(readLines(con), collapse=" ")))
 	close(con)
 }
 

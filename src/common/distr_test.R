@@ -291,15 +291,16 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	msg <- paste0("Conclusion: ", tab[1,C_DECISION]);tlog(0,msg);msgs <- c(msgs, msg)
 	msg <- "-------------------------------";tlog(0,msg);msgs <- c(msgs, msg)
 	
-	# add legend to plot
-	legend(
-		x="bottomleft",
-		legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Weibull law"),
-		fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
-	)
-	# and close plot file
 	if(!is.na(plot.file))
+	{	# add legend to plot
+		legend(
+			x="bottomleft",
+			legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Weibull law"),
+			fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
+		)
+		# and close plot file
 		dev.off()
+	}
 	
 	# record log as a separate file
 	conx <- file(paste0(plot.file,"_log.txt"))
@@ -554,15 +555,16 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	msg <- paste0("Conclusion: ", tab[1,C_DECISION]);tlog(0,msg);msgs <- c(msgs, msg)
 	msg <- "-------------------------------";tlog(0,msg);msgs <- c(msgs, msg)
 	
-	# add legend to plot
-	legend(
-		x="bottomleft",
-		legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Poisson law"),
-		fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
-	)
-	# and close plot file
 	if(!is.na(plot.file))
+	{	# add legend to plot
+		legend(
+			x="bottomleft",
+			legend=c("Power law", "Truncated Power Law", "Log-normal law", "Exponential law", "Poisson law"),
+			fill=c("BLUE", "RED", "GREEN", "ORANGE", "PURPLE")
+		)
+		# and close plot file
 		dev.off()
+	}
 	
 	# record log as a separate file
 	conx <- file(paste0(plot.file,"_log.txt"))
