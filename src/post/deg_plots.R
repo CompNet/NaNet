@@ -1,0 +1,118 @@
+# Ad hoc plots regarding character degree.
+# 
+# Vincent Labatut
+# 12/2021
+#
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# source("src/post/deg_plot.R")
+###############################################################################
+source("src/common/include.R")
+start.rec.log(text="DegDistr")
+
+
+
+
+###############################################################################
+# note: result of Clauset et al.'s method (already computed elsewhere)
+laws <- c()
+# unfiltered 
+laws["Unfiltered-degree"] <- "good"
+laws["Unfiltered-strength-occurrences"] <- "no fit"
+laws["Unfiltered-strength-duration"] <- "no fit"
+# filtered 
+laws["Filtered-degree"] <- "no fit"
+laws["Filtered-strength-occurrences"] <- "no fit"
+laws["Filtered-strength-duration"] <- "truncated"
+
+
+
+
+###############################################################################
+# distribution plots
+tlog(0,"Producing distribution plots")
+
+# loop params
+meass <- c("degree","strength")
+
+# process each measure
+for(meas in meass)
+{	tlog(2,"Dealing with measure ",meas)
+	wts <- NA
+	if(meas=="strength")
+		wts <- c("duration","occurrences")
+	
+	for(wt in wts)
+	{	if(!is.na(wt)) 
+			tlog(4,"Dealing with weight ",wt)
+		
+		# load precomputed data
+		data <- list()
+		# unfiltered
+		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=FALSE)
+		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
+		data[[1]] <- tab[,meas]
+		data[[1]] <- data[[1]][data[[1]]>0]	# remove isolates
+#		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="disttest_noisolates")
+#		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
+		# filtered
+		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=TRUE)
+		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
+		data[[2]] <- tab[,meas]
+		data[[2]] <- data[[2]][data[[2]]>1]	# remove isolates
+		names(data) <- c("Unfiltered","Filtered")
+#		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, plot.type="disttest_noisolates")
+#		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
+		
+		# set params
+		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="both_distrib")
+		pal <- get.palette(length(data))
+		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
+		if(!is.na(wt))
+			ml <- paste0(ml," (",wt,")")
+		xl <- paste0(ALL_MEASURES[[meas]]$cname)
+		if(!is.na(wt))
+			xl <- paste0(xl," (",wt,")")
+	
+		# check distribution
+		pl <- list()
+		for(i in 1:length(data))
+		{	power.law <- displ$new(data[[i]])
+			est <- estimate_xmin(power.law)
+			tmp <- power.law$setXmin(est)
+			if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
+				pl[[i]] <- discpowerexp.fit(x=data[[i]],threshold=power.law$xmin)
+			else if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="good")
+				pl[[i]] <- power.law
+			else
+				pl[[i]] <- NA
+		}
+		print(pl)
+		
+		# plot distributions
+		for(fformat in PLOT_FORMAT)
+		{	if(fformat==PLOT_FORMAT_PDF)
+				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+			else if(fformat==PLOT_FORMAT_PNG)
+				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+			par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+			plot.ccdf(data=data, main=NA, xlab=xl, log=TRUE, cols=pal, leg.title="Characters")
+			for(i in 1:2)
+			{	if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
+				{	x <- seq(pl[[2]]$threshold,max(data[[2]]))
+					y <- 1 - cumsum(ddiscpowerexp(x=x,exponent=pl[[2]]$exponent,rate=pl[[2]]$rate,threshold=pl[[2]]$threshold))
+					lines(x, y, col="BLACK", lty=2)
+				}
+				else if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="good")
+					lines(pl[[i]], col="BLACK", lty=2)
+			}
+			dev.off()
+		}
+	}
+}
+
+
+
+
+###############################################################################
+# end logging
+end.rec.log()

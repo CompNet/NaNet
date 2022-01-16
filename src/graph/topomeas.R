@@ -20,39 +20,37 @@
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
 transitivity.vs.degree <- function(g, weights=FALSE, filename)
-{	# NOTE: not clear whether the transitivity values should be averaged by degree first.
+{	# NOTE: not clear whether the transitivity values should be averaged by degree first
+	# some papers seem to do it, some other do not...
 	
 	# compute the values
 	tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
 	if(weights)
 	{	deg.vals <- strength(g, mode="all")
 		xlab <- "Strength $s$"
+		base.name <- paste0(filename,"_trans_vs_strength")
 	}
 	else
 	{	deg.vals <- degree(g, mode="all")
 		xlab <- "Degree $k$"
+		base.name <- paste0(filename,"_trans_vs_degree")
 	}
 	
 	# filter out zero transitivity
 	filt.tra <- tra.vals[tra.vals>0]
 	filt.deg <- deg.vals[tra.vals>0]
 	avg.tra <- sapply(1:max(filt.deg), function(d) mean(filt.tra[filt.deg==d]))
-			
-	# init misc
-	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
-	if(weights)
-		base.name <- paste0(filename,"_trans_vs_strength")
-	else
-		base.name <- paste0(filename,"_trans_vs_degree")
 	
 	# init result table
+	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF")
+	colnames(tab) <- c("Exponent","GoF","pseudoR2")
 	
 	# make a few tries
 	best.exp <- NA
-	best.gof <- .Machine$integer.max
+	best.gof <- NA
+	best.r2 <- .Machine$integer.max
 	for(i in 1:length(thresholds))
 	{	threshold <- thresholds[i]
 		
@@ -62,15 +60,24 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 		# build data frame
 		df <- data.frame(cut.deg, cut.tra)
 		
+		# init parameters using a linear regression
+		fit <- lm(log(cut.tra) ~ log(cut.deg))
+		#summary(fit)
+		params <- fit$coefficients
+		val1 <- exp(params[1]); names(val1) <- NULL
+		val2 <- params[2]; names(val2) <- NULL
+		val3 <- 0
+		
 		# fit model
-		val1 <- 0; val2 <- -3; val3 <- 0; fit <- NA; iter <- 0
+		fit <- NA
+		iter <- 0
 		while(is.na(fit) && iter<5)
 		{	fit <- tryCatch(
-						expr=nnlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
-							start=list(c1=0, c2=-3, c3=0),
-							data = df,
-							control=list(maxiter=75)),
-						error=function(e) NA)
+				expr=nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
+					start=list(c1=val1, c2=val2, c3=val3),
+					data = df,
+					control=list(maxiter=75)),
+				error=function(e) NA)
 			if(is.na(fit))
 			{	iter <- iter + 1
 				val1 <- runif(1,-5,5)
@@ -82,8 +89,9 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 		if(!is.na(fit))
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
+			r2 <- tab[i,"pseudoR2"] <- cor(cut.tra,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
 			gof <- tab[i,"GoF"] <- summary(fit)$sigma
-			#gof <- cor(cut.tra,predict(fit)) # by curiosity
+			#plot(fit) # plot residuals
 			
 			# plot for future visualization
 			plot.file <- paste0(base.name,"_thre=",threshold)
@@ -93,9 +101,10 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 					# data
+					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 					plot(
 						x=filt.deg, y=filt.tra, 
-						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
+						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2),
 						xlab=TeX(xlab),
 						ylab=TeX("Local Transitivity $C(u)$"),
 						log="xy",
@@ -107,7 +116,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 					idx <- which(avg.tra>0)
 					lines(
 						x=idx, y=avg.tra[idx],
-						col="BLACK"
+						col="RED"
 					)
 					# fitted line
 					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
@@ -115,16 +124,17 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 					# legend
 					legend(
 						x="topright",
-						lty=1:2, col="BLACK",
+						lty=1:2, col=c("RED","BLACK"),
 						legend=c("Mean","Fit")
 					)
 				dev.off()
 			}
 			
 			# keep best fit
-			if(gof<best.gof)
+			if(gof<best.r2)
 			{	best.exp <- exponent
 				best.gof <- gof
+				best.r2 <- r2
 			}
 		}
 	}
@@ -133,7 +143,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 	tab.file <- paste0(base.name,".csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
 	
-	result <- list(exponent=best.exp, gof=best.gof)
+	result <- list(exponent=best.exp, gof=best.gof, r2=best.r2)
 	return(result)
 }
 
@@ -151,24 +161,20 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
 neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
-{	# init misc
-	if(weights)
-		base.name <- paste0(filename,"_neideg_vs_strength")
-	else
-		base.name <- paste0(filename,"_neideg_vs_degree")
-	
-	# compute the values
+{	# compute the values
 	if(weights)
 	{	deg.vals <- strength(graph=g, mode="all")
 		tmp <- igraph::knn(graph=g)#, mode="all", neighbor.degree.mode="all")
 		xlab <- "Strength $s$"
 		ylab <- "Neighbors' average Strength $<s_{nn}>$"
+		base.name <- paste0(filename,"_neideg_vs_strength")
 	}
 	else
 	{	deg.vals <- degree(graph=g, mode="all")
 		tmp <- igraph::knn(graph=g, weights=NULL)#, mode="all", neighbor.degree.mode="all")
 		xlab <- "Degree $k$"
 		ylab <- "Neighbors' average Degree $<k_{nn}>$"
+		base.name <- paste0(filename,"_neideg_vs_degree")
 	}
 	
 	# filter out zero degree and NaN
@@ -180,11 +186,12 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF")
+	colnames(tab) <- c("Exponent","GoF","pseudoR2")
 	
 	# make a few tries
 	best.exp <- NA
-	best.gof <- .Machine$integer.max
+	best.gof <- NA
+	best.r2 <- .Machine$integer.max
 	for(i in 1:length(thresholds))
 	{	threshold <- thresholds[i]
 		
@@ -194,12 +201,21 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 		# build data frame
 		df <- data.frame(cut.deg, cut.nei)
 		
+		# init parameters using a linear regression
+		fit <- lm(log(cut.nei) ~ log(cut.deg))
+		#summary(fit)
+		params <- fit$coefficients
+		val1 <- exp(params[1]); names(val1) <- NULL
+		val2 <- params[2]; names(val2) <- NULL
+		val3 <- 0
+		
 		# fit model
-		val1 <- 0; val2 <- -3; val3 <- 0; fit <- NA; iter <- 0
+		fit <- NA
+		iter <- 0
 		while(is.na(fit) && iter<5)
 		{	fit <- tryCatch(
 				expr=nlsLM(cut.nei ~ c1*cut.deg^c2 + c3, 
-					start=list(c1=0, c2=-3, c3=0),
+					start=list(c1=val1, c2=val2, c3=val3),
 					data = df,
 					control=list(maxiter=75)),
 				error=function(e) NA)
@@ -214,9 +230,10 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 		if(!is.na(fit))
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
+			r2 <- tab[i,"pseudoR2"] <- cor(cut.nei,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
 			gof <- tab[i,"GoF"] <- summary(fit)$sigma
-			#gof <- cor(cut.nei,predict(fit)) # by curiosity
-			
+			#plot(fit) # plot residuals
+		
 			# plot for future visualization
 			plot.file <- paste0(base.name,"_thre=",threshold)
 			for(fformat in PLOT_FORMAT)
@@ -224,10 +241,11 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 					# points
 					plot(
 						x=filt.deg, y=filt.nei, 
-						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- GoF: ",gof),
+						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2),
 						xlab=TeX(xlab), 
 						ylab=TeX(ylab),
 						log="xy", 
@@ -238,7 +256,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 					idx <- which(!is.nan(tmp$knnk) & tmp$knnk>0)
 					lines(
 						x=idx, y=tmp$knnk[idx],
-						col="BLACK"
+						col="RED"
 					)
 					# fitted line
 					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
@@ -246,16 +264,17 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 					# legend
 					legend(
 						x="topright",
-						lty=1:2, col="BLACK",
+						lty=1:2, col=c("RED","BLACK"),
 						legend=c("Mean","Fit")
 					)
 				dev.off()
 			}
 			
 			# keep best fit
-			if(gof<best.gof)
+			if(r2<best.r2)
 			{	best.exp <- exponent
 				best.gof <- gof
+				best.r2 <- r2
 			}
 		}
 	}
@@ -264,7 +283,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	tab.file <- paste0(base.name,".csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
 	
-	result <- list(exponent=best.exp, gof=best.gof)
+	result <- list(exponent=best.exp, gof=best.gof, r2=best.r2)
 	return(result)
 }
 
@@ -272,7 +291,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 
 
 ###############################################################################
-# Creates the hop-plot of the specified graph, i.e. proportion of node
+# Creates the hop-plot of the specified graph, i.e. proportion of nodes
 # within a distance as a function of this distance (for each node).
 # For more details, see:
 #		R. Pastor-Satorras and A. Vespignani, 

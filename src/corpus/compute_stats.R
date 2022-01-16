@@ -1546,8 +1546,8 @@ compute.stats.volumes <- function(
 				dev.off()
 		}
 		# check distribution
-#		distr.stats <- test.disc.distr(data, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+		distr.stats <- test.disc.distr(data, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
 	
 	# TODO plot the distributions obtained for all volumes on the same plot? (using lines)

@@ -9,7 +9,7 @@
 #  2) add to path (C:\MinGW\bin, C:\MinGW\msys\1.0\bin)
 #  3) open terminal, go to C code folder
 #  4) compile simple C file: gcc discpowerexp.c -o discpowerexp.exe
-#  5) move resulting file to res/pli folder
+#  5) move resulting executable file to res/pli folder
 #  6) edit path variable in R file discpowerexp.R
 #  7) download and install GSL http://gnuwin32.sourceforge.net/packages/gsl.htm
 #  8) add to path (D:\MinGW\GSL\bin, D:\MinGW\GSL\include, D:\MinGW\GSL\lib)
@@ -27,14 +27,14 @@ source("src/pli/discexp.R")
 source("src/pli/disclnorm.R")
 source("src/pli/discpowerexp.R")
 source("src/pli/discweib.R")
-source("src/pli/exp.R")								# continuous distribution >> not needed
-source("src/pli/lnorm.R")							# continuous distribution >> not needed
-source("src/pli/pareto.R")							# continuous distribution >> not needed
+source("src/pli/exp.R")
+source("src/pli/lnorm.R")
+source("src/pli/pareto.R")
 source("src/pli/poisson.R")
-source("src/pli/powerexp.R")						# continuous distribution >> not needed
-source("src/pli/powerexp-exponential-integral.R")	# continuous distribution >> not needed
+source("src/pli/powerexp.R")
+source("src/pli/powerexp-exponential-integral.R")
 source("src/pli/power-law-test.R")
-source("src/pli/weibull.R")							# continuous distribution >> not needed
+source("src/pli/weibull.R")
 source("src/pli/yule.R")
 source("src/pli/zeta.R")
 
@@ -86,7 +86,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 			stringsAsFactors=FALSE)
 	msgs <- c()
 	msg <- "Test data distribution";tlog(0,msg);msgs <- c(msgs, msg)
-	if(any(data==0))	# just to avoid zeroes or negative values, which prevents fitting certain distributions
+	if(any(data==0))	# just to avoid zeroes or negative values, which prevent fitting certain distributions
 	{	msg <- "Translating all values, in order to avoid zero/negative values";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 		data <- data - min(data) + 1
 	}
@@ -265,7 +265,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	{	msg <- "ERROR while applying powerexp";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
-	{	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	{	msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
 		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
@@ -335,7 +335,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 			stringsAsFactors=FALSE)
 	msgs <- c()
 	msg <- "Test data distribution";tlog(0,msg);msgs <- c(msgs, msg)
-	if(any(data==0))	# just to avoid zeroes or negative values, which prevents fitting certain distributions
+	if(any(data==0))	# just to avoid zeroes or negative values, which prevent fitting certain distributions
 	{	msg <- "Translating all values, in order to avoid zero/negative values";tlog(2,msg);msgs <- c(msgs, paste0("..",msg))
 		data <- data - min(data) + 1
 	}
@@ -511,7 +511,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	{	msg <- paste0("ERROR: could not fit the discrete truncated power law");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
-	{	msg <- paste0("Parameters: x_min=",trunc.law2$xmin," exp=",trunc.law2$exponent);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	{	msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
 		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
 		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))

@@ -13,6 +13,31 @@ start.rec.log(text="CharDistr")
 
 
 ###############################################################################
+# note: result of Clauset et al.'s method (already computed elsewhere)
+laws <- c()
+# unfiltered 
+#	volumes/char = none
+laws["Unfiltered-characters-volume"] <- "none"
+# 	pages/char = good
+laws["Unfiltered-characters-page"] <- "good"
+#	scenes/char = good
+laws["Unfiltered-characters-scene"] <- "good"
+#	panels/char = good
+laws["Unfiltered-characters-panel"] <- "good"
+# filtered 
+#	volumes/char = truncated
+laws["Filtered-characters-volume"] <- "truncated"
+#	pages/char = good
+laws["Filtered-characters-page"] <- "good"
+#	scenes/char = good
+laws["Filtered-characters-scene"] <- "good"
+#	panels/char = good
+laws["Filtered-characters-panel"] <- "good"
+
+
+
+
+###############################################################################
 # distribution plots
 tlog(0,"Producing distribution plots")
 
@@ -44,8 +69,12 @@ for(count in counts)
 	{	power.law <- displ$new(data[[i]])
 		est <- estimate_xmin(power.law)
 		tmp <- power.law$setXmin(est)
-		pl[[i]] <- power.law
+		if(laws[paste0(names(data)[i],"-",object,"-",count)]=="truncated")
+			pl[[i]] <- discpowerexp.fit(x=data[[i]],threshold=power.law$xmin)
+		if(laws[paste0(names(data)[i],"-",object,"-",count)]=="good")
+			pl[[i]] <- power.law
 	}
+	print(pl)
 	
 	# plot distributions
 	for(fformat in PLOT_FORMAT)
@@ -56,7 +85,14 @@ for(count in counts)
 		par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 		plot.ccdf(data=data, main=NA, xlab=xl, log=TRUE, cols=pal, leg.title="Characters")
 		for(i in 1:2)
-			lines(pl[[i]], col="BLACK", lty=2)
+		{	if(laws[paste0(names(data)[i],"-",object,"-",count)]=="truncated")
+			{	x <- seq(pl[[2]]$threshold,max(data[[2]]))
+				y <- 1 - cumsum(ddiscpowerexp(x=x,exponent=pl[[2]]$exponent,rate=pl[[2]]$rate,threshold=pl[[2]]$threshold))
+				lines(x, y, col="BLACK", lty=2)
+			}
+			if(laws[paste0(names(data)[i],"-",object,"-",count)]=="good")
+				lines(pl[[i]], col="BLACK", lty=2)
+		}
 		dev.off()
 	}
 }
@@ -67,7 +103,7 @@ for(count in counts)
 ###############################################################################
 # additional stats
 
-# load list of char by volume
+# load list of chars by volume
 file <- get.path.stat.corpus(object="volumes", desc="volumes")
 con <- file(paste0(file,"_chars.txt"),open="r")
 	lines <- readLines(con) 
@@ -83,16 +119,29 @@ V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 main.chars <- V(g)$name[!V(g)$Filtered]
 
 # compute char by vol
-char.nbr <- rep(0,2)
+char.unfilt.nbrs <- c()
+char.filt.nbrs <- c()
 for(line in lines)
 {	chars <- strsplit(line,split=",",fixed=TRUE)[[1]]
-	char.nbr[1] <- char.nbr[1] + length(chars)
-	char.nbr[2] <- char.nbr[2] + length(setdiff(chars,main.chars))
+	char.unfilt.nbrs <- c(char.unfilt.nbrs, length(chars))
+	char.filt.nbrs <- c(char.filt.nbrs, length(setdiff(chars,main.chars)))
 }
 char.nbr <- char.nbr / length(lines)
-tlog(0,"Char by volume: ",char.nbr[1]," (unfiltered) vs. ",char.nbr[2]," (filtered)")
+tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")
+
+# test distributions
+file <- get.path.stat.corpus(object="volumes", desc="volumes_distrib_char_nbr_distrtest")
+test.disc.distr(data=char.unfilt.nbrs, 			# good
+		xlab="Number of characters by volume", return_stats=TRUE, 
+		plot.file=file)
+file <- get.path.stat.corpus(object="volumes", desc="volumes_distrib_char_filtered_nbr_distrtest")
+test.disc.distr(data=char.filt.nbrs, 			# good
+		xlab="Number of characters by volume", return_stats=TRUE, 
+		plot.file=file)
 
 
 
+
+###############################################################################
 # end logging
 end.rec.log()
