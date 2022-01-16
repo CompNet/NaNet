@@ -45,11 +45,11 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF","pseudoR2")
+	colnames(tab) <- c("Exponent","sigma","pseudoR2")
 	
 	# make a few tries
 	best.exp <- NA
-	best.gof <- NA
+	best.sigma <- NA
 	best.r2 <- .Machine$integer.max
 	for(i in 1:length(thresholds))
 	{	threshold <- thresholds[i]
@@ -90,7 +90,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
 			r2 <- tab[i,"pseudoR2"] <- cor(cut.tra,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
-			gof <- tab[i,"GoF"] <- summary(fit)$sigma
+			sigma <- tab[i,"sigma"] <- summary(fit)$sigma	# square root of the estimated variance of the random error
 			#plot(fit) # plot residuals
 			
 			# plot for future visualization
@@ -131,9 +131,9 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 			}
 			
 			# keep best fit
-			if(gof<best.r2)
+			if(r2>best.r2)
 			{	best.exp <- exponent
-				best.gof <- gof
+				best.sigma <- sigma
 				best.r2 <- r2
 			}
 		}
@@ -143,7 +143,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 	tab.file <- paste0(base.name,".csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
 	
-	result <- list(exponent=best.exp, gof=best.gof, r2=best.r2)
+	result <- list(exponent=best.exp, sigma=best.sigma, r2=best.r2)
 	return(result)
 }
 
@@ -186,11 +186,11 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","GoF","pseudoR2")
+	colnames(tab) <- c("Exponent","sigma","pseudoR2")
 	
 	# make a few tries
 	best.exp <- NA
-	best.gof <- NA
+	best.sigma <- NA
 	best.r2 <- .Machine$integer.max
 	for(i in 1:length(thresholds))
 	{	threshold <- thresholds[i]
@@ -231,7 +231,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
 			r2 <- tab[i,"pseudoR2"] <- cor(cut.nei,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
-			gof <- tab[i,"GoF"] <- summary(fit)$sigma
+			sigma <- tab[i,"sigma"] <- summary(fit)$sigma	# square root of the estimated variance of the random error
 			#plot(fit) # plot residuals
 		
 			# plot for future visualization
@@ -273,7 +273,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 			# keep best fit
 			if(r2<best.r2)
 			{	best.exp <- exponent
-				best.gof <- gof
+				best.sigma <- sigma
 				best.r2 <- r2
 			}
 		}
@@ -283,7 +283,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	tab.file <- paste0(base.name,".csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
 	
-	result <- list(exponent=best.exp, gof=best.gof, r2=best.r2)
+	result <- list(exponent=best.exp, sigma=best.sigma, r2=best.r2)
 	return(result)
 }
 
