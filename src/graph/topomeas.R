@@ -43,9 +43,10 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 	
 	# init result table
 	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
-	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
+	cn <- c("Exponent","sigma","pseudoR2")
+	tab <- matrix(NA, nrow=length(thresholds), ncol=length(cn))
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","sigma","pseudoR2")
+	colnames(tab) <- cn
 	
 	# make a few tries
 	best.exp <- NA
@@ -71,14 +72,14 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 		# fit model
 		fit <- NA
 		iter <- 0
-		while(is.na(fit) && iter<5)
+		while(all(is.na(fit)) && iter<5)
 		{	fit <- tryCatch(
-				expr=nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
-					start=list(c1=val1, c2=val2, c3=val3),
+				expr=nlsLM(cut.tra ~ c1*cut.deg^c2,		# nlsLM(cut.tra ~ c1*cut.deg^c2 + c3, 
+					start=list(c1=val1, c2=val2),		# start=list(c1=val1, c2=val2, c3=val3),
 					data = df,
 					control=list(maxiter=75)),
 				error=function(e) NA)
-			if(is.na(fit))
+			if(all(is.na(fit)))
 			{	iter <- iter + 1
 				val1 <- runif(1,-5,5)
 				val2 <- runif(1,-5,5)
@@ -86,7 +87,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 			}
 		}
 		
-		if(!is.na(fit))
+		if(!all(is.na(fit)))
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
 			r2 <- tab[i,"pseudoR2"] <- cor(cut.tra,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
@@ -184,9 +185,10 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 	
 	# init result table
 	thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
-	tab <- matrix(NA, nrow=length(thresholds), ncol=2)
+	cn <- c("Exponent","sigma","pseudoR2")
+	tab <- matrix(NA, nrow=length(thresholds), ncol=length(cn))
 	rownames(tab) <- c("100%","Top 75%","Top 50%","Top 25%", "Top 15%", "Top 10%", "Top 5%")
-	colnames(tab) <- c("Exponent","sigma","pseudoR2")
+	colnames(tab) <- cn
 	
 	# make a few tries
 	best.exp <- NA
@@ -212,14 +214,14 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 		# fit model
 		fit <- NA
 		iter <- 0
-		while(is.na(fit) && iter<5)
+		while(all(is.na(fit)) && iter<5)
 		{	fit <- tryCatch(
-				expr=nlsLM(cut.nei ~ c1*cut.deg^c2 + c3, 
-					start=list(c1=val1, c2=val2, c3=val3),
+				expr=nlsLM(cut.nei ~ c1*cut.deg^c2,	# expr=nlsLM(cut.nei ~ c1*cut.deg^c2 + c3, 
+					start=list(c1=val1, c2=val2),	# start=list(c1=val1, c2=val2, c3=val3),
 					data = df,
 					control=list(maxiter=75)),
 				error=function(e) NA)
-			if(is.na(fit))
+			if(all(is.na(fit)))
 			{	iter <- iter + 1
 				val1 <- runif(1,-5,5)
 				val2 <- runif(1,-5,5)
@@ -227,7 +229,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 			}
 		}
 		
-		if(!is.na(fit))
+		if(!all(is.na(fit)))
 		{	# retrieve estimated exponent
 			exponent <- tab[i,"Exponent"] <- summary(fit)$coefficients["c2","Estimate"]
 			r2 <- tab[i,"pseudoR2"] <- cor(cut.nei,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173

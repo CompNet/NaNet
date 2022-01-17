@@ -31,8 +31,20 @@ laws["Filtered-strength-duration"] <- "truncated"
 # distribution plots
 tlog(0,"Producing distribution plots")
 
+# retrieve the graph and the (un)filtered characters
+graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+g <- read_graph(file=graph.file, format="graphml")
+V(g)$name <- fix.encoding(strings=V(g)$name)
+V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+idx.keep <- which(!V(g)$Filtered)
+
 # loop params
 meass <- c("degree","strength")
+
+# load numbers of occurrences of characters
+file <-  get.path.stat.corpus(object="characters", desc="chars_distrib_scene_nbr_rawvals.csv")
+sce.nbr <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE))[,1]
+#TODO load g
 
 # process each measure
 for(meas in meass)
@@ -51,14 +63,16 @@ for(meas in meass)
 		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[1]] <- tab[,meas]
-		data[[1]] <- data[[1]][data[[1]]>0]	# remove isolates
+		unfilt.idx <- data[[1]] > 0
+		data[[1]] <- data[[1]][unfilt.idx]	# remove isolates
 #		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="disttest_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
 		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=TRUE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[2]] <- tab[,meas]
-		data[[2]] <- data[[2]][data[[2]]>1]	# remove isolates
+		filt.idx <- data[[2]] > 1
+		data[[2]] <- data[[2]][filt.idx]	# remove isolates
 		names(data) <- c("Unfiltered","Filtered")
 #		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, plot.type="disttest_noisolates")
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
@@ -107,6 +121,14 @@ for(meas in meass)
 			}
 			dev.off()
 		}
+		
+		# correlation between degree and number of occurrences
+		kend.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="kendall")
+		spear.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="spearman")
+		tlog(6,"Correlation between unfiltered degree and scene numbers: Kendall=",kend.cor," Spearman=",spear.cor)
+		kend.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="kendall")
+		spear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="spearman")
+		tlog(6,"Correlation between filtered degree and scene numbers: Kendall=",kend.cor," Spearman=",spear.cor)
 	}
 }
 
