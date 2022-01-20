@@ -1042,6 +1042,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 {	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
+	col <- get.palette(2)[if(filtered) 2 else 1]
 	
 	# list measures to plot
 	nmn <- names(NODE_MEASURES)
@@ -1083,7 +1084,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 						h <- hist(
 							vals,
 							breaks=20, #breaks=0:max(vals),
-							col=MAIN_COLOR,
+							col=col,
 							xlab=xl,
 							main=ml,
 							freq=FALSE
@@ -1102,14 +1103,14 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 					dev.off()
 			}
 			
-#			# test the type of distribution (very slow, doing it only for the whole graph)
-#			if(is.na(arc) && is.na(vol))
-#			{	plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
-#				if(all(vals%%1==0))
-#					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
-#				else
-#					test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
-#			}
+			# test the type of distribution (very slow, doing it only for the whole graph)
+			if(is.na(arc) && is.na(vol))
+			{	plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
+				if(all(vals%%1==0))
+					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+				else
+					test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+			}
 		}
 	}
 	
@@ -1179,6 +1180,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
+	col <- get.palette(2)[if(filtered) 2 else 1]
 	
 	# list measures to plot
 	gmn <- names(GRAPH_MEASURES)
@@ -1214,7 +1216,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 						ylab=ALL_MEASURES[[meas.name]]$cname,
 						xlab=if(arcs) "Narrative Arcs" else "Volumes",
 						main=paste0("Evolution of ",ALL_MEASURES[[meas.name]]$cname," by ",if(arcs) "arc" else "volume"),
-						col=MAIN_COLOR
+						col=col
 					)
 				dev.off()
 			}
