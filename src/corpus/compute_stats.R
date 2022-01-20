@@ -1170,7 +1170,7 @@ compute.stats.chars <- function(
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			cols <- get.palette(values=2)
+			cols <- get.palette(values=4)[3:4]
 			barplot(
 				height=char.nums,						# data
 				names.arg=thresholds,					# bar names

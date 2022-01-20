@@ -1039,7 +1039,7 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # filtered: whether to use the filtered version of the graph.
 ###############################################################################
 generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
-{	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
+{	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	col <- get.palette(2)[if(filtered) 2 else 1]
@@ -1125,35 +1125,35 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	
 	# degree vs. neighbors' degree
 	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
-	neigh.degree.vs.degree(g, weights=FALSE, filename)
+	neigh.degree.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
-			neigh.degree.vs.degree(g.dur, weights=TRUE, filename)
+			neigh.degree.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
-			neigh.degree.vs.degree(g.occ, weights=TRUE, filename)
+			neigh.degree.vs.degree(g.occ, weights=TRUE, filename, col)
 	}
 	
 	# degree vs. transitivity
 	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
-	transitivity.vs.degree(g, weights=FALSE, filename)
+	transitivity.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
-			transitivity.vs.degree(g.dur, weights=TRUE, filename)
+			transitivity.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
-			transitivity.vs.degree(g.occ, weights=TRUE, filename)
+			transitivity.vs.degree(g.occ, weights=TRUE, filename, col)
 	}
 	
 	# hop plots
 	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", arc=arc, vol=vol, filtered=filtered)
-	hop.plot(g, weights=FALSE, filename)
+	hop.plot(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
-			hop.plot(g.dur, weights=TRUE, filename)
+			hop.plot(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
-			hop.plot(g.occ, weights=TRUE, filename)
+			hop.plot(g.occ, weights=TRUE, filename, col)
 	}
 }
 
@@ -1177,7 +1177,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	}
 	
 	# init other variables
-	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "complete"," scene-based graphs")
+	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	col <- get.palette(2)[if(filtered) 2 else 1]
