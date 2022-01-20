@@ -16,12 +16,15 @@
 # g: graph to compute.
 # weights: whether to use weights (if any).
 # filename: path and base name of the generated files.
+# col: main color used in the plot.
 #
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
-transitivity.vs.degree <- function(g, weights=FALSE, filename)
+transitivity.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 {	# NOTE: not clear whether the transitivity values should be averaged by degree first
 	# some papers seem to do it, some other do not...
+	
+	col.sec <- combine.colors(col, "WHITE", transparency=20)
 	
 	# compute the values
 	tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
@@ -109,7 +112,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 						xlab=TeX(xlab),
 						ylab=TeX("Local Transitivity $C(u)$"),
 						log="xy",
-						col="PINK",
+						col=col.sec,
 						xlim=c(1,max(deg.vals)*1.1)
 						#ylim=c(0.0001,1)
 					)
@@ -117,7 +120,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 					idx <- which(avg.tra>0)
 					lines(
 						x=idx, y=avg.tra[idx],
-						col="RED"
+						col=col
 					)
 					# fitted line
 					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
@@ -125,7 +128,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 					# legend
 					legend(
 						x="topright",
-						lty=1:2, col=c("RED","BLACK"),
+						lty=1:2, col=c(col,"BLACK"),
 						legend=c("Mean","Fit")
 					)
 				dev.off()
@@ -158,11 +161,14 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename)
 # g: graph to compute.
 # weights: whether to use weights (if any).
 # filename: path and base name of the generated files.
+# col: main color used in the plot.
 #
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
-neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
-{	# compute the values
+neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
+{	col.sec <- combine.colors(col, "WHITE", transparency=20)
+	
+	# compute the values
 	if(weights)
 	{	deg.vals <- strength(graph=g, mode="all")
 		tmp <- igraph::knn(graph=g)#, mode="all", neighbor.degree.mode="all")
@@ -251,14 +257,14 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 						xlab=TeX(xlab), 
 						ylab=TeX(ylab),
 						log="xy", 
-						las=1, col="PINK",
+						las=1, col=col.sec,
 						xlim=c(1,max(deg.vals)*1.1)
 					)
 					# mean
 					idx <- which(!is.nan(tmp$knnk) & tmp$knnk>0)
 					lines(
 						x=idx, y=tmp$knnk[idx],
-						col="RED"
+						col=col
 					)
 					# fitted line
 					x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
@@ -266,7 +272,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 					# legend
 					legend(
 						x="topright",
-						lty=1:2, col=c("RED","BLACK"),
+						lty=1:2, col=c(col,"BLACK"),
 						legend=c("Mean","Fit")
 					)
 				dev.off()
@@ -306,11 +312,13 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename)
 # g: graph to compute.
 # weights: whether to use weights (if any) to compute distances.
 # filename: path and base name of the generated files.
+# col: main color used in the plot.
 #
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
-hop.plot <- function(g, weights=FALSE, filename)
+hop.plot <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 {	base.file <- paste0(filename,"_neisize_vs_distance")
+	col.sec <- combine.colors(col, "WHITE", transparency=20)
 	
 	# compute required distances
 	n <- gorder(g)
@@ -345,7 +353,7 @@ hop.plot <- function(g, weights=FALSE, filename)
 				xlab=TeX(xlab), 
 				ylab=TeX("Proportion of vertices"),
 				log="y", yaxt="n",
-				col="PINK"
+				col=col.sec
 			)
 			for(u in 1:n)
 				points(x=dist.vals, y=hp.vals[u,], col="PINK")
@@ -360,7 +368,7 @@ hop.plot <- function(g, weights=FALSE, filename)
 			# mean
 			lines(
 				x=dist.vals, y=hp.avg,
-				col="BLACK"
+				col=col
 			)
 		dev.off()
 	}
