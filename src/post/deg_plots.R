@@ -1,4 +1,4 @@
-# Ad hoc plots regarding character degree.
+# Ad hoc plots regarding character degree and strength.
 # 
 # Vincent Labatut
 # 12/2021
@@ -29,7 +29,7 @@ laws["Filtered-strength-duration"] <- "truncated"
 
 ###############################################################################
 # distribution plots
-tlog(0,"Producing distribution plots")
+tlog(0,"Producing degree & strength distribution plots")
 
 # retrieve the graph and the (un)filtered characters
 graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
@@ -44,7 +44,6 @@ meass <- c("degree","strength")
 # load numbers of occurrences of characters
 file <-  get.path.stat.corpus(object="characters", desc="chars_distrib_scene_nbr_rawvals.csv")
 sce.nbr <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE))[,1]
-#TODO load g
 
 # process each measure
 for(meas in meass)
