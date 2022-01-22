@@ -11,6 +11,9 @@ source("src/common/include.R")
 
 
 
+###############################################################################
+# plots unfiltered and filtered figures as separate files
+
 # load full graph to get filtered characters
 graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
@@ -73,7 +76,7 @@ for(i in 1:2)
 					x=x, y=y, 
 					xlab=TeX(paste0("Number of ",natures[i]," vertices $n$")),
 					ylab=TeX("Average distance $<d>$"),
-					col=pal[i],
+					las=1, col=pal[i],
 					type="l"
 				)
 				# plot fitted line
@@ -82,4 +85,95 @@ for(i in 1:2)
 				lines(x0, predict(fit, list(x=x0)), col="BLACK", lty=2)
 			dev.off()
 	}
+}
+
+
+
+
+###############################################################################
+# same thing, but plots both unfiltered and filtered figures in the same file
+plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name="avgdist", filtered=FALSE, plot.type="evolution_publication_lines_both")
+
+# process all formats
+for(fformat in PLOT_FORMAT)
+{	if(fformat==PLOT_FORMAT_PDF)
+		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+	else if(fformat==PLOT_FORMAT_PNG)
+		png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+	
+	# setup unfiltered series
+	x <- g.orders[[1]]
+	y <- dist.vals[[1]]
+		
+	# fit a logarithmic relation
+	fit <- lm(y ~ log(x))
+	params <- fit$coefficients
+	val1 <- params[1]; names(val1) <- NULL
+	val2 <- params[2]; names(val2) <- NULL
+		
+	# perform NL regression
+	df <- data.frame(x, y)
+	fit <- nlsLM(y ~ c1*log(x) + c2, 
+		start=list(c1=val1, c2=val2),
+		data = df,
+		control=list(maxiter=200))
+		
+	# plot the distance as the graph order
+	par(
+		mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
+		fig=c(0,1,0,1),		# set coordinate space of the original plot
+		mgp=c(3,1,0)		# distance between axis ticks and values
+	)
+	# points
+	plot(
+		x=x, y=y, 
+		xlab=TeX(paste0("Number of vertices $n$")),
+		ylab=TeX("Average distance $<d>$"),
+		las=1, col=pal[1],
+		type="l"
+	)
+	# plot fitted line
+	threshold <- min(x)
+	x0 <- seq(from=threshold, to=max(x), by=(max(x)-threshold)/100)
+	lines(x0, predict(fit, list(x=x0)), col="BLACK", lty=2)
+	
+	#####
+	# setup filtered series
+	x <- g.orders[[2]]
+	y <- dist.vals[[2]]
+	
+	# fit a logarithmic relation
+	fit <- lm(y ~ log(x))
+	params <- fit$coefficients
+	val1 <- params[1]; names(val1) <- NULL
+	val2 <- params[2]; names(val2) <- NULL
+	
+	# perform NL regression
+	df <- data.frame(x, y)
+	fit <- nlsLM(y ~ c1*log(x) + c2, 
+		start=list(c1=val1, c2=val2),
+		data = df,
+		control=list(maxiter=200))
+	
+	# plot the distance as the graph order
+	par(
+		fig=c(0.33,0.98, 0.05, 0.70), 
+		new=T,
+		mgp=c(3,0.5,0)
+	)
+	# points
+	plot(
+		x=x, y=y, 
+		xlab=NA, ylab=NA,
+		las=1, col=pal[2],
+		type="l",
+		cex.lab=0.75, cex.axis=0.75, cex=0.75
+	)
+	# plot fitted line
+	threshold <- min(x)
+	x0 <- seq(from=threshold, to=max(x), by=(max(x)-threshold)/100)
+	lines(x0, predict(fit, list(x=x0)), col="BLACK", lty=2)
+	
+	# close file
+	dev.off()
 }

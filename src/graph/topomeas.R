@@ -101,16 +101,20 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 			plot.file <- paste0(base.name,"_thre=",threshold)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# data
+				{	pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+					main.title <- NA
+				}
+				else if(fformat==PLOT_FORMAT_PNG)
+				{	png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					main.title <- paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2)
+				}
+					# data
 					plot(
 						x=filt.deg, y=filt.tra, 
-						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2),
+						main=main.title,
 						xlab=TeX(xlab),
-						ylab=TeX("Local Transitivity $C(u)$"),
+						ylab=TeX("Local Transitivity $C(v)$"),
 						log="xy",
 						col=col.sec,
 						xlim=c(1,max(deg.vals)*1.1)
@@ -246,14 +250,18 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 			plot.file <- paste0(base.name,"_thre=",threshold)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+				{	pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+					main.title <- NA
+				}
+				else if(fformat==PLOT_FORMAT_PNG)
+				{	png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					main.title <- paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2)
+				}
 					# points
 					plot(
 						x=filt.deg, y=filt.nei, 
-						main=paste0("[",rownames(tab)[i],"] Exponent: ",exponent," -- pseudoR2: ",r2),
+						main=main.title,
 						xlab=TeX(xlab), 
 						ylab=TeX(ylab),
 						log="xy", 

@@ -74,3 +74,11 @@ VOLUMES/ARCS
 Everything queries
 dm:<2021-12-04T14:44 | dc:<2021-12-04T14:44 D:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file:
 C:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file: !ext:pdf;graphml;png;csv;txt
+
+-------------------------------
+Clean code:
+- separate the "window" part from the "scene" part
+- move "filt"/"unfilt" in "scenes"
+- nothing from "scene" in "comparison"
+- in the logs, print the filenames of the plots and csv (including post scripts)
+ 
