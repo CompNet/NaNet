@@ -30,7 +30,7 @@ g.filt <- delete_vertices(g, V(g)$Filtered)
 
 # plot settings
 xlab <- "Number of edges"
-ylab <- "Proportion of vertices"
+ylab <- "Largest component size (proportion of vertices)"
 
 # compute both types of weights
 tlog(0, "Compute values and plot basic figures")
@@ -48,7 +48,6 @@ for(wt in wts)
 	{	# remove the edge of smallest weight
 		weights <- get.edge.attribute(g0,wt)
 		idx <- which.min(weights)
-		cat()
 		g0 <- delete_edges(graph=g0, edges=idx)
 		
 		# compute the size of the giant component
@@ -208,9 +207,6 @@ for(filtered in c(FALSE,TRUE))
 		dev.off()
 	}
 }
-
-
-
 
 # all in the same figure
 plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=FALSE, plot.type="comp_vs_edges_both")
