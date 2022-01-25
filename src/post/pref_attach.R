@@ -34,64 +34,97 @@ data <- read.raw.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
 
-# init lists
-g.orders <- list()
-dist.vals <- list()
 
-# identify the new edges
-# update the degrees from the previous graph
+gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 
-# init count variables
-max.deg <- max(igraph::degree(g,mode="all"))
-deg.counts <- rep(0,max.deg)
-deg.norms <- rep(0,max.deg)
 
-# process each graph in the sequence
-tlog(0,"Process each graph in the sequence")
-prev.deg <- rep(0, gorder(g))
-names(prev.deg) <- V(g)$name
-prev.deg[V(gs[[1]])$name] <- igraph::degree(gs[[1]],mode="all")
-for(i in 2:length(gs))
-{	tlog(2,"Process graph #",i,"/",length(gs))
+# loop over t0
+t0s <- round(seq(from=length(gs)*0.20, to=length(gs)*0.80, by=length(gs)*0.01))
+expos <- c()
+for(t0 in t0s)
+{	# set up periods
+#	t0 <- round(length(gs)*0.30)
+	t1 <- t0+10 #round(length(gs)*0.40)
+	dt <- round(length(gs)*0.30)
+	t2 <- min(t1+dt, length(gs))
 	
-	# update degrees
-	deg <- rep(0, gorder(g))
-	names(deg) <- V(g)$name
-	deg[V(gs[[i]])$name] <- igraph::degree(gs[[i]],mode="all")
+	# retrieve vertex sets
+	v0 <- V(gs[[t0]])$name
+	v1 <- V(gs[[t1]])$name
+	v2 <- V(gs[[t2]])$name
+	# new vertices in the [t1,t1+dt] period
+	dv <- setdiff(v2, v1)
+	# their neighbors
+	nei <- names(unlist(unname(adjacent_vertices(graph=gs[[t2]], v=dv, mode="all"))))
+	# keep only vertices existing at t0
+	nei <- nei[nei %in% v0]
+	idx <- match(nei, v0)
 	
-	# identify growing vertices
-	idx <- which(prev.deg!=0 & prev.deg<deg)
-	# update their counts
-	for(v in idx)
-	{	d <- prev.deg[v]
-		deg.counts[d] <- deg.counts[d] + 1
-	}
+	# compute degree changes
+	deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+	tt <- table(deg0[idx])
+	deg.vals <- as.integer(names(tt))
+	cum.vals <- cumsum(tt/length(idx))
 	
-	# update all norms
-	tt <- table(prev.deg[prev.deg>0])
-	idx <- as.integer(names(tt))
-	deg.norms[idx] <- deg.norms[idx] + tt
+	# plot
+	#plot(x=deg.vals, y=cum.vals, log="xy", xlab=TeX(xlab), ylab=TeX(ylab))
 	
-	# next iteration
-	prev.deg <- deg
+	# keep tail
+	thresholds <- quantile(deg.vals, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
+	threshold <- thresholds[1]	# exp=???
+	cut.cum <- cum.vals[deg.vals>=threshold]
+	cut.deg <- deg.vals[deg.vals>=threshold]
+	
+	# init parameters using a linear regression
+	fit <- lm(log(cut.cum) ~ log(cut.deg))
+	print(summary(fit))
+	params <- fit$coefficients
+	val1 <- exp(params[1]); names(val1) <- NULL
+	val2 <- params[2]; names(val2) <- NULL
+	val3 <- 0
+	
+	# perform NL regression
+	df <- data.frame(cut.deg, cut.cum)
+	fit <- nlsLM(cut.cum ~ c1*cut.deg^c2, 
+			start=list(c1=val1, c2=val2),
+			data = df,
+			control=list(maxiter=200))
+	print(summary(fit))
+	
+	# store PL exponent
+	exponent <- summary(fit)$coefficients["c2","Estimate"]
+	expos <- c(expos, exponent)
 }
+
+plot(
+	x=t0s, y=expos,
+	ylim=0:1,
+	xlab="Scene", ylab="Exponent",
+	las=1, col=pal[1],
+	type="l", #type="o", pch=20
+)
 
 # plot results
 plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach")
-pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+#pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
 	fig=c(0,1,0,1),		# set coordinate space of the original plot
 	mgp=c(3,1,0)		# distance between axis ticks and values
 )
+# plot cumulative values
 plot(
-	x=1:length(deg.counts), 
-	y=cumsum(deg.counts/deg.norms),
-	xlab=xlab, ylab=ylab,
+	x=deg.vals, 
+	y=cum.vals,
+	xlab=TeX(xlab), ylab=TeX(ylab),
 	col=pal[1], 
 	log="xy", 
 	las=1
 )
+# fitted line
+threshold <- min(cut.deg)
+x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
+lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
 
 
 
