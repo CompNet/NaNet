@@ -271,7 +271,3 @@ for(fformat in PLOT_FORMAT)
 ###############################################################################
 # end logging
 end.rec.log()
-
-# TODO
-# produire les plots de chaque nouvelle suppression ?
-# >> besoin de séparer la fonction de plot proprement dite

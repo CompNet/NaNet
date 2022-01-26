@@ -1,4 +1,4 @@
-# Ad hoc plots regarding edge weights.
+# Ad hoc plots regarding the distribution of edge weights.
 # 
 # Vincent Labatut
 # 01/2022

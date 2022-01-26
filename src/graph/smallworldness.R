@@ -80,7 +80,7 @@ compute.smallworldness <- function(g, theoretical=FALSE, iterations=10)
 {	res <- c()
 	tlog(10,"Computing small-worldness measures")
 	
-	# compute topological measuers on the original graph
+	# compute topological measures on the original graph
 	l <- mean_distance(graph=g)
 	res[C_SW_DIST_OBS] <- l
 	tlog(12,"Average distance: ",l)
