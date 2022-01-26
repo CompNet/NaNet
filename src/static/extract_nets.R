@@ -13,6 +13,10 @@
 # scene as the time unit, without overlap. Nodes are characters, and links
 # represents them (inter-)acting during the same scene.
 #
+# Depending on the parameters, the function extracts the network corresponding
+# to the whole series, or a specific narrative arc or volumes. It can also output
+# a sequence of cumulative graphs (each one corresponding to a scene).
+#
 # volume.info: table describing all the volumes constituting the BD series.
 # char.info: table describing all the characters occurring in the BD series.
 # page.info: table describing all the pages constituting the BD series.

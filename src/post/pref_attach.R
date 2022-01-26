@@ -16,10 +16,8 @@
 #	Physical Review E, vol. 64, no. 2, p. 25102, 2001.
 #	DOI: 10.1103/PhysRevE.64.025102
 # 
-# Note: I got results that conflict with the theory (exp<1 for pi, should be
-# 1<exp<2), so I assume my implementation is incorrect. Could not find the 
-# bug, though. Could not find the right results when applying my code to
-# actual BA networks. It works on the example of Olesen et al., though.
+# Note: I got results unstable results when studying the evolution of
+# the estimated exponent. Not sure why (could be NLS).
 #
 # Vincent Labatut
 # 01/2022
@@ -54,17 +52,239 @@ tlog(0,"Extract the sequence of scene-related cumulative graphs")
 data <- read.raw.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
-#gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+
+
+
+
+################################################################################
+# focus on the middle of the period for unfiltered net
+t0 <- round(length(gs)*0.5)
+t1 <- t0+1 #round(length(gs)*0.40)
+dt <- round(length(gs)*0.2)
+t2 <- min(t1+dt, length(gs))
+
+# retrieve vertex sets
+v0 <- V(gs[[t0]])$name
+v1 <- V(gs[[t1]])$name
+v2 <- V(gs[[t2]])$name
+# new vertices in the [t1,t1+dt] period
+dv <- union(setdiff(v1, v0), setdiff(v2, v1))
+# their neighbors
+nei <- names(unlist(unname(adjacent_vertices(graph=gs[[t2]], v=dv, mode="all"))))
+# keep only vertices existing at t0
+nei <- nei[nei %in% v0]
+idx <- match(nei, v0)
+norm <- length(idx)
+
+# compute cumulative distribution
+deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+tt <- table(deg0[idx])
+deg.vals <- as.integer(names(tt))
+norms <- sapply(deg.vals, function(d) length(which(deg0==d)))
+#vals <- tt/norm									# Barabasi's version
+#vals <- tt/norm*gorder(gs[[t0]])/norms				# Newman's version
+vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+cum.vals <- cumsum(vals)
+	
+## compute degree changes (alt, but equivalent to above block)
+#tt <- table(idx)
+#idx <- as.integer(names(tt))
+## compute degree and merge same degree values
+#deg0 <- igraph::degree(graph=gs[[t0]], v=idx, mode="all")
+#deg.vals <- sort(unique(deg0))
+#vals <- sapply(deg.vals, function(d) sum(tt[which(deg0==d)]))
+## compute the cumulative values
+#cum.vals <- cumsum(vals/norm)
+	
+## compute degree changes (alt 2, slightly different from above block, distinguish all vertices as Olesen et al. do)
+#tt <- table(factor(nei, levels=v0))
+## compute degree
+#deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+#ord.idx <- order(deg0)
+#deg.vals <- deg0[ord.idx]
+#vals <- tt[ord.idx]/norm
+## compute the cumulative values
+#cum.vals <- cumsum(vals)
+## clean values
+#idx <- which(cum.vals>0 & deg.vals>0)
+#deg.vals <- deg.vals[idx]
+#cum.vals <- cum.vals[idx]
+
+# plot
+#plot(x=deg.vals, y=cum.vals, log="xy", xlab=TeX(xlab), ylab=TeX(ylab))
+
+# try with various thresholds
+thresholds <- quantile(deg.vals, probs=c(1,0.75,0.50,0.25))
+threshold <- thresholds[2]	# exp=1+1.17
+
+# only keep the left tail
+cut.cum <- cum.vals[deg.vals<=threshold]
+cut.deg <- deg.vals[deg.vals<=threshold]
+
+# init parameters using a linear regression
+fit <- lm(log(cut.cum) ~ log(cut.deg))
+print(summary(fit))
+params <- fit$coefficients
+val1 <- exp(params[1]); names(val1) <- NULL
+val2 <- params[2]; names(val2) <- NULL
+val3 <- 0
+
+# perform NL regression
+df <- data.frame(cut.deg, cut.cum)
+fit <-nlsLM(cut.cum ~ c1*cut.deg^c2, 
+			start=list(c1=val1, c2=val2),
+			data=df,
+			control=list(maxiter=200))
+print(summary(fit))
+	
+# plot results
+plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach")
+tlog(2,"Plot in file ",plot.file)
+pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+par(
+	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
+	fig=c(0,1,0,1),		# set coordinate space of the original plot
+	mgp=c(3,1,0)		# distance between axis ticks and values
+)
+# plot cumulative values
+plot(
+	x=deg.vals, y=cum.vals,		# cumulative plot
+#		x=deg.vals, y=vals,			# non-cumulative plot
+	xlab=TeX(xlab), ylab=TeX(ylab),
+	col=pal[1], 
+	log="xy", 
+	las=1
+)
+# fitted line
+threshold <- max(deg.vals)
+x <- seq(from=min(deg.vals), to=threshold, by=(threshold-min(deg.vals))/100)
+y <- predict(fit, list(cut.deg=x))
+idx <- which(y>0 & y<=1)
+lines(x[idx], y[idx], col="BLACK", lty=2)
+
+
+
+
+################################################################################
+# same thing for filtered net
+t0 <- round(length(gs.filt)*0.5)
+t1 <- t0+1 #round(length(gs)*0.40)
+dt <- round(length(gs.filt)*0.2)
+t2 <- min(t1+dt, length(gs.filt))
+
+# retrieve vertex sets
+v0 <- V(gs.filt[[t0]])$name
+v1 <- V(gs.filt[[t1]])$name
+v2 <- V(gs.filt[[t2]])$name
+# new vertices in the [t1,t1+dt] period
+dv <- union(setdiff(v1, v0), setdiff(v2, v1))
+# their neighbors
+nei <- names(unlist(unname(adjacent_vertices(graph=gs.filt[[t2]], v=dv, mode="all"))))
+# keep only vertices existing at t0
+nei <- nei[nei %in% v0]
+idx <- match(nei, v0)
+norm <- length(idx)
+
+# compute cumulative distribution
+deg0 <- igraph::degree(graph=gs.filt[[t0]], mode="all")
+tt <- table(deg0[idx])
+deg.vals <- as.integer(names(tt))
+norms <- sapply(deg.vals, function(d) length(which(deg0==d)))
+#vals <- tt/norm									# Barabasi's version
+#vals <- tt/norm*gorder(gs.filt[[t0]])/norms				# Newman's version
+vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+cum.vals <- cumsum(vals)
+	
+## compute degree changes (alt, but equivalent to above block)
+#tt <- table(idx)
+#idx <- as.integer(names(tt))
+## compute degree and merge same degree values
+#deg0 <- igraph::degree(graph=gs.filt[[t0]], v=idx, mode="all")
+#deg.vals <- sort(unique(deg0))
+#vals <- sapply(deg.vals, function(d) sum(tt[which(deg0==d)]))
+## compute the cumulative values
+#cum.vals <- cumsum(vals/norm)
+	
+## compute degree changes (alt 2, slightly different from above block, distinguish all vertices as Olesen et al. do)
+#tt <- table(factor(nei, levels=v0))
+## compute degree
+#deg0 <- igraph::degree(graph=gs.filt[[t0]], mode="all")
+#ord.idx <- order(deg0)
+#deg.vals <- deg0[ord.idx]
+#vals <- tt[ord.idx]/norm
+## compute the cumulative values
+#cum.vals <- cumsum(vals)
+## clean values
+#idx <- which(cum.vals>0 & deg.vals>0)
+#deg.vals <- deg.vals[idx]
+#cum.vals <- cum.vals[idx]
+
+# plot
+#plot(x=deg.vals, y=cum.vals, log="xy", xlab=TeX(xlab), ylab=TeX(ylab))
+
+# try with various thresholds
+thresholds <- quantile(deg.vals, probs=c(1,0.75,0.50,0.25))
+threshold <- thresholds[2]	# exp=1+0.65
+
+# only keep the left tail
+cut.cum <- cum.vals[deg.vals<=threshold]
+cut.deg <- deg.vals[deg.vals<=threshold]
+
+# init parameters using a linear regression
+fit <- lm(log(cut.cum) ~ log(cut.deg))
+print(summary(fit))
+params <- fit$coefficients
+val1 <- exp(params[1]); names(val1) <- NULL
+val2 <- params[2]; names(val2) <- NULL
+val3 <- 0
+
+# perform NL regression
+df <- data.frame(cut.deg, cut.cum)
+fit <-nlsLM(cut.cum ~ c1*cut.deg^c2, 
+			start=list(c1=val1, c2=val2),
+			data=df,
+			control=list(maxiter=200))
+print(summary(fit))
+	
+# plot results
+par(
+	fig=c(0.45,0.98, 0.05, 0.62), 
+	new=T,
+	mgp=c(3,0.5,0)
+)
+# plot cumulative values
+plot(
+	x=deg.vals, y=cum.vals,		# cumulative plot
+#	x=deg.vals, y=vals,			# non-cumulative plot
+	xlab=NA, ylab=NA,
+	col=pal[2], 
+	log="xy", 
+	las=1
+)
+# fitted line
+threshold <- max(deg.vals)
+x <- seq(from=min(deg.vals), to=threshold, by=(threshold-min(deg.vals))/100)
+y <- predict(fit, list(cut.deg=x))
+idx <- which(y>0 & y<=1)
+lines(x[idx], y[idx], col="BLACK", lty=2)
+dev.off()
+
+
+
+
+###############################################################################
+# try to plot the evolution of the exponent (very unstable, not sure why)
 
 # loop over t0
-t0s <- round(seq(from=length(gs)*0.20, to=length(gs)*0.80, by=length(gs)*0.10))
+t0s <- round(seq(from=length(gs)*0.50, to=length(gs)*0.80, by=length(gs)*0.05))
 expos <- c()
 for(t0 in t0s)
 {	# set up periods
-#	t0 <- round(length(gs)*0.5)
 	t1 <- t0+1 #round(length(gs)*0.40)
-	dt <- round(length(gs)*0.1)
+	dt <- round(length(gs)*0.2)
 	t2 <- min(t1+dt, length(gs))
+	tlog(4,"Processing t0=",t0," vs. period [",t1,";",t2,"]")
 	
 	# retrieve vertex sets
 	v0 <- V(gs[[t0]])$name
@@ -83,95 +303,76 @@ for(t0 in t0s)
 	deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
 	tt <- table(deg0[idx])
 	deg.vals <- as.integer(names(tt))
-	cum.vals <- cumsum(tt/norm)										# Barabasi's version
-#	norms <- sapply(deg.vals, function(d) length(which(deg0==d)))	# Newman's version
-#	cum.vals <- cumsum(tt/norm*gorder(gs[[t0]])/norms)				# Newman's version (cont)
+	norms <- sapply(deg.vals, function(d) length(which(deg0==d)))
+	vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+	cum.vals <- cumsum(vals)
 	
-#	# compute degree changes (alt, but equivalent to above block)
-#	tt <- table(idx)
-#	idx <- as.integer(names(tt))
-#	# compute degree and merge same degree values
-#	deg0 <- igraph::degree(graph=gs[[t0]], v=idx, mode="all")
-#	deg.vals <- sort(unique(deg0))
-#	vals <- sapply(deg.vals, function(d) sum(tt[which(deg0==d)]))
-#	# compute the cumulative values
-#	cum.vals <- cumsum(vals/norm)
+	# make a few tries
+	thresholds <- quantile(deg.vals, probs=c(1,0.75,0.50,0.25))
+	best.exp <- NA
+	best.r2 <- 0
+	for(i in 1:length(thresholds))
+	{	threshold <- thresholds[i]
+		tlog(6,"Threshold=",thresholds[i]," (",i,"/",length(thresholds),")")
+		
+		# only keep the left tail
+		cut.cum <- cum.vals[deg.vals<=threshold]
+		cut.deg <- deg.vals[deg.vals<=threshold]
+		# build data frame
+		df <- data.frame(cut.deg, cut.cum)
 	
-#	# compute degree changes (alt 2, slightly different from above block, distinguish all vertices)
-#	tt <- table(factor(nei, levels=v0))
-#	# compute degree
-#	deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
-#	ord.idx <- order(deg0)
-#	deg.vals <- deg0[ord.idx]
-#	vals <- tt[ord.idx]/norm
-#	# compute the cumulative values
-#	cum.vals <- cumsum(vals)
-#	# clean values
-#	idx <- which(cum.vals>0 & deg.vals>0)
-#	deg.vals <- deg.vals[idx]
-#	cum.vals <- cum.vals[idx]
-	
-	# plot
-	#plot(x=deg.vals, y=cum.vals, log="xy", xlab=TeX(xlab), ylab=TeX(ylab))
-	
-	# keep tail
-	thresholds <- quantile(deg.vals, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
-	threshold <- thresholds[1]	# exp=???
-	cut.cum <- cum.vals[deg.vals>=threshold]
-	cut.deg <- deg.vals[deg.vals>=threshold]
-	
-	# init parameters using a linear regression
-	fit <- lm(log(cut.cum) ~ log(cut.deg))
-	print(summary(fit))
-	params <- fit$coefficients
-	val1 <- exp(params[1]); names(val1) <- NULL
-	val2 <- params[2]; names(val2) <- NULL
-	val3 <- 0
-	summary(fit)
-	
-	# perform NL regression
-	df <- data.frame(cut.deg, cut.cum)
-	fit <- nlsLM(cut.cum ~ c1*cut.deg^c2, 
-			start=list(c1=val1, c2=val2),
-			data=df,
-			control=list(maxiter=200))
-	print(summary(fit))
+		# init parameters using a linear regression
+		fit <- lm(log(cut.cum) ~ log(cut.deg))
+		#print(summary(fit))
+		params <- fit$coefficients
+		val1 <- exp(params[1]); names(val1) <- NULL
+		val2 <- params[2]; names(val2) <- NULL
+		val3 <- 0
+		
+		# perform NL regression
+		fit <- NA
+		iter <- 0
+		while(all(is.na(fit)) && iter<5)
+		{	fit <- tryCatch(
+					expr=nlsLM(cut.cum ~ c1*cut.deg^c2, 
+							start=list(c1=val1, c2=val2),
+							data=df,
+							control=list(maxiter=200)),
+					error=function(e) NA)
+			if(all(is.na(fit)))
+			{	iter <- iter + 1
+				val1 <- runif(1,-5,5)
+				val2 <- runif(1,-5,5)
+				val3 <- runif(1,-5,5)
+			}
+		}
+		
+		if(!all(is.na(fit)))
+		{	# retrieve estimated exponent and GoF
+			exponent <- summary(fit)$coefficients["c2","Estimate"]
+			r2 <- cor(cut.cum,predict(fit))^2 # according to https://stats.stackexchange.com/a/472444/26173
+			tlog(8,"exp=",exponent," -- pseudoR2=",r2)
+			
+			# keep best fit
+			if(r2>best.r2)
+			{	best.exp <- exponent
+				best.r2 <- r2
+			}
+		}
+	}
 	
 	# store PL exponent
-	exponent <- summary(fit)$coefficients["c2","Estimate"]
-	expos <- c(expos, exponent)
-
-#	# plot results
-#	plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach")
-#	#pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-#	par(
-#		mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
-#		fig=c(0,1,0,1),		# set coordinate space of the original plot
-#		mgp=c(3,1,0)		# distance between axis ticks and values
-#	)
-	# plot cumulative values
-	plot(
-		x=deg.vals, y=cum.vals,		# cumulative plot
-#		x=deg.vals, y=tt/norm,		# non-cumulative plot
-		xlab=TeX(xlab), ylab=TeX(ylab),
-		col=pal[1], 
-		log="xy", 
-		las=1
-	)
-	# fitted line
-	threshold <- min(cut.deg)
-	x <- seq(from=threshold, to=max(deg.vals), by=(max(deg.vals)-threshold)/100)
-	lines(x, predict(fit, list(cut.deg=x)), col="BLACK", lty=2)
+	tlog(5,"best: exp=",best.exp," -- pseudoR2=",best.r2)
+	expos <- c(expos, best.exp)
 }
-
+# plot evolution of exponent
 plot(
-	x=t0s, y=expos,
-	ylim=c(0,2),
-	xlab="Scene", ylab="Exponent",
+	x=t0s, y=expos-1,
+	ylim=c(0,3),
+	xlab="Scene", ylab=TeX("Exponent $\\alpha$"),
 	las=1, col=pal[1],
 	type="l", #type="o", pch=20
 )
-
 
 
 
@@ -186,7 +387,6 @@ end.rec.log()
 
 ################################################################################
 ## checking with the data of Olesen et al.
-## >> that seems ok
 #degs <- c(1,1,2,2,2,3,3,3,4,5,5,5,6,6)
 #deg.vals <- sort(unique(degs))
 #pis <- c(0,0.11,0,0,0.11,0.11,0,0.11,0,0.11,0.22,0.11,0,0.11)
@@ -209,24 +409,33 @@ end.rec.log()
 
 ################################################################################
 ## checking with the Barabasi-Albert model
-## >> not getting the expected result (exp < 1)
-## I even observe a preferrential attachment towards *low* degree vertices!
-#gs <- list()
-#g <- barabasi.game(n=101, m=3, directed=FALSE)
-#V(g)$name <- as.character(1:gorder(g))
-#gs[[1]] <- g
-#for(i in 2:1000)
-#{	size <- gorder(gs[[i-1]]) + 5
-#	g <- barabasi.game(n=size, m=3, directed=FALSE, start.graph=gs[[i-1]])
-#	V(g)$name <- as.character(1:gorder(g))
-#	gs[[i]] <- g
-#}
 ################################################################################
+## igraph BA model
 #gs <- list()
-#gs[[1]] <- barabasi.game(n=100, m=3, directed=FALSE)
+#gs[[1]] <- barabasi.game(n=1000, m=3, directed=FALSE)
 #V(gs[[1]])$name <- paste0("V",1:gorder(gs[[1]]))
-#gs[[2]] <- barabasi.game(n=101, m=3, directed=FALSE, start.graph=gs[[1]])
+#gs[[2]] <- barabasi.game(n=1001, m=3, directed=FALSE, start.graph=gs[[1]])
 #V(gs[[2]])$name <- paste0("V",1:gorder(gs[[2]]))
-#gs[[3]] <- barabasi.game(n=130, m=3, directed=FALSE, start.graph=gs[[2]])
+#gs[[3]] <- barabasi.game(n=1030, m=3, directed=FALSE, start.graph=gs[[2]])
+#V(gs[[3]])$name <- paste0("V",1:gorder(gs[[3]]))
+#t0 <- 1; t1 <- 2; t2 <- 3
+################################################################################
+## custom BA model, just for verification
+#build.ba <- function(dn, m, g)
+#{	for(i in 1:dn)
+#	{	ps <- degree(g)/sum(degree(g))
+#		u <- sample(x=1:gorder(g),size=m,prob=ps)
+#		g <- add.vertices(graph=g, nv=1, attr=list(name=paste0("V",gorder(g)+1)))
+#		edges <- c(rbind(rep(gorder(g),length(u)),u))
+#		g <- add.edges(graph=g, edges=edges)
+#	}
+#	return(g)
+#}
+#gs <- list()
+#gs[[1]] <- barabasi.game(n=1000, m=3, directed=FALSE)
+#V(gs[[1]])$name <- paste0("V",1:gorder(gs[[1]]))
+#gs[[2]] <- build.ba(dn=1, m=3, g=gs[[1]])
+#V(gs[[2]])$name <- paste0("V",1:gorder(gs[[2]]))
+#gs[[3]] <- build.ba(dn=30, m=3, g=gs[[2]])
 #V(gs[[3]])$name <- paste0("V",1:gorder(gs[[3]]))
 #t0 <- 1; t1 <- 2; t2 <- 3
