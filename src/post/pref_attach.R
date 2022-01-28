@@ -16,8 +16,24 @@
 #	Physical Review E, vol. 64, no. 2, p. 25102, 2001.
 #	DOI: 10.1103/PhysRevE.64.025102
 # 
-# Note: I got results unstable results when studying the evolution of
-# the estimated exponent. Not sure why (could be NLS).
+# Note: I am not completely sure of this implementation, because I
+# am not sure I understood correctly the description of this method. 
+# According to Jeong et al.'s paper : 
+#   "Consider all nodes existing in the system at time T0, called “T0 nodes”. 
+#   Next select a group of “T1 nodes”, added between [T1, T1+ΔT], where 
+#   ΔT << T1 and T1 > T0. When a T1 node joins the system we record the 
+#   degree k of the T0 node to which the new node links. The histogram 
+#   providing the number of links acquired by the T0 nodes with exactly 
+#   k degree, after normalization, gives [...] the Π(k) preferential 
+#   attachment function. As we are forced to use relatively short ΔT 
+#   intervals, even for large networks with hundreds of thousands of nodes 
+#   Π(k) has significant fluctuations, particularly for large k. To reduce 
+#   the noise level, instead of Π(k) we study the cumulative function."
+# My issue was the normalization bit. I experimented with two alternatives,
+# and kept the one that gives results with the Barabasi-Albert which are
+# consistent with the theory. The selected normalization was found in 
+# Newman's paper.
+# 
 #
 # Vincent Labatut
 # 01/2022
@@ -37,8 +53,6 @@ tlog(0,"Starting to produce the preferential attachment plots")
 
 # plot parameters
 pal <- get.palette(2)
-xlab <- "Degree $k$"
-ylab <- "Attachment probability"
 
 # load full graph to get filtered characters
 graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
@@ -58,6 +72,18 @@ gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.nam
 
 
 ################################################################################
+modes <- c("all", "external", "internal")
+
+# axis labels
+xlab <- c()
+xlab["all"] <- "Degree $k$"
+xlab["external"] <- "Degree $k$"
+xlab["internal"] <- "Degree product $k_1 k_2$"
+ylab <- c()
+ylab["all"] <- "Attachment probability $\\kappa(k)$"
+ylab["external"] <- "Attachment probability $\\kappa(k)$"
+ylab["internal"] <- "Attachment probability $\\kappa(k_1 k_2)$"
+
 # focus on the middle of the period for unfiltered net
 t0 <- round(length(gs)*0.5)
 t1 <- t0+1 #round(length(gs)*0.40)
@@ -65,11 +91,11 @@ dt <- round(length(gs)*0.2)
 t2 <- min(t1+dt, length(gs))
 
 # retrieve vertex sets
-v0 <- V(gs[[t0]])$name
-v1 <- V(gs[[t1]])$name
-v2 <- V(gs[[t2]])$name
+v0 <- V(gs[[t0]])$name		# point of reference
+v1 <- V(gs[[t1-1]])$name	# moment right before the start of the interval
+v2 <- V(gs[[t2]])$name		# end of the interval
 # new vertices in the [t1,t1+dt] period
-dv <- union(setdiff(v1, v0), setdiff(v2, v1))
+dv <- setdiff(v2, v1)
 # their neighbors
 nei <- names(unlist(unname(adjacent_vertices(graph=gs[[t2]], v=dv, mode="all"))))
 # keep only vertices existing at t0
@@ -139,18 +165,18 @@ fit <-nlsLM(cut.cum ~ c1*cut.deg^c2,
 print(summary(fit))
 	
 # plot results
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach")
+plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach_both_external")
 tlog(2,"Plot in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
 	fig=c(0,1,0,1),		# set coordinate space of the original plot
-	mgp=c(3,1,0)		# distance between axis ticks and values
+	mgp=c(3,0.8,0)		# distance between axis ticks and values
 )
 # plot cumulative values
 plot(
 	x=deg.vals, y=cum.vals,		# cumulative plot
-#		x=deg.vals, y=vals,			# non-cumulative plot
+#	x=deg.vals, y=vals,			# non-cumulative plot
 	xlab=TeX(xlab), ylab=TeX(ylab),
 	col=pal[1], 
 	log="xy", 
@@ -174,11 +200,11 @@ dt <- round(length(gs.filt)*0.2)
 t2 <- min(t1+dt, length(gs.filt))
 
 # retrieve vertex sets
-v0 <- V(gs.filt[[t0]])$name
-v1 <- V(gs.filt[[t1]])$name
-v2 <- V(gs.filt[[t2]])$name
+v0 <- V(gs.filt[[t0]])$name		# point of reference
+v1 <- V(gs.filt[[t1-1]])$name	# moment right before the start of the interval
+v2 <- V(gs.filt[[t2]])$name		# end of the interval
 # new vertices in the [t1,t1+dt] period
-dv <- union(setdiff(v1, v0), setdiff(v2, v1))
+dv <- setdiff(v2, v1)
 # their neighbors
 nei <- names(unlist(unname(adjacent_vertices(graph=gs.filt[[t2]], v=dv, mode="all"))))
 # keep only vertices existing at t0
@@ -287,11 +313,11 @@ for(t0 in t0s)
 	tlog(4,"Processing t0=",t0," vs. period [",t1,";",t2,"]")
 	
 	# retrieve vertex sets
-	v0 <- V(gs[[t0]])$name
-	v1 <- V(gs[[t1]])$name
-	v2 <- V(gs[[t2]])$name
+	v0 <- V(gs[[t0]])$name		# point of reference
+	v1 <- V(gs[[t1-1]])$name	# moment right before the start of the interval
+	v2 <- V(gs[[t2]])$name		# end of the interval
 	# new vertices in the [t1,t1+dt] period
-	dv <- union(setdiff(v1, v0), setdiff(v2, v1))
+	dv <- setdiff(v2, v1)
 	# their neighbors
 	nei <- names(unlist(unname(adjacent_vertices(graph=gs[[t2]], v=dv, mode="all"))))
 	# keep only vertices existing at t0
@@ -377,14 +403,6 @@ plot(
 
 
 
-###############################################################################
-# end logging
-end.rec.log()
-
-
-
-
-
 ################################################################################
 ## checking with the data of Olesen et al.
 #degs <- c(1,1,2,2,2,3,3,3,4,5,5,5,6,6)
@@ -439,3 +457,191 @@ end.rec.log()
 #gs[[3]] <- build.ba(dn=30, m=3, g=gs[[2]])
 #V(gs[[3]])$name <- paste0("V",1:gorder(gs[[3]]))
 #t0 <- 1; t1 <- 2; t2 <- 3
+
+
+
+
+################################################################################
+# internal edges
+################################################################################
+xlab <- "Degree product $k_1 k_2$"
+ylab <- "Attachment probability $\\kappa(k_1 k_2)$"
+
+# focus on the middle of the period for unfiltered net
+t0 <- round(length(gs)*0.5)
+t1 <- t0+1 #round(length(gs)*0.40)
+dt <- round(length(gs)*0.2)
+t2 <- min(t1+dt, length(gs))
+
+# retrieve vertex sets
+v0 <- V(gs[[t0]])$name		# point of reference
+v1 <- V(gs[[t1-1]])$name	# moment right before the start of the interval
+v2 <- V(gs[[t2]])$name		# end of the interval
+# new vertices in the [t1,t1+dt] period
+dv <- setdiff(v2, v1)
+# remove old edges
+dg <- difference(big=gs[[t2]], small=gs[[t1-1]])
+# remove new vertices
+dg <- delete_vertices(graph=dg, v=dv)
+# get the remaining edges
+el <- as_edgelist(dg, names=TRUE)
+idx <- cbind(match(el[,1], V(gs[[t0]])$name), match(el[,2], V(gs[[t0]])$name))
+norm <- nrow(idx)
+
+# compute cumulative distribution
+deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+tt <- table(deg0[idx[,1]]*deg0[idx[,2]])
+deg.vals <- as.integer(names(tt))
+# normalization term
+pairs <- t(combn(gorder(gs[[t0]]),2))
+exist <- sapply(1:nrow(pairs), function(i) length(which(idx[,1]==pairs[i,1] & idx[,2]==pairs[i,2]))>0)
+pairs <- pairs[!exist,]
+ttn <- table(deg0[pairs[,1]]*deg0[pairs[,2]])
+norms <- ttn[names(tt)]
+#vals <- tt/norm									# Barabasi's version
+#vals <- tt/norm*gorder(gs[[t0]])/norms				# Newman's version
+vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+cum.vals <- cumsum(vals)
+
+# try with various thresholds
+thresholds <- quantile(deg.vals, probs=c(1,0.75,0.5,0.4,0.25))
+threshold <- thresholds[4]	# exp=1+1.36
+
+# only keep the left tail
+cut.cum <- cum.vals[deg.vals<=threshold]
+cut.deg <- deg.vals[deg.vals<=threshold]
+
+# init parameters using a linear regression
+fit <- lm(log(cut.cum) ~ log(cut.deg))
+print(summary(fit))
+params <- fit$coefficients
+val1 <- exp(params[1]); names(val1) <- NULL
+val2 <- params[2]; names(val2) <- NULL
+val3 <- 0
+
+# perform NL regression
+df <- data.frame(cut.deg, cut.cum)
+fit <-nlsLM(cut.cum ~ c1*cut.deg^c2, 
+		start=list(c1=val1, c2=val2),
+		data=df,
+		control=list(maxiter=200))
+print(summary(fit))
+
+# plot results
+plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="pref_attach_both_internal")
+tlog(2,"Plot in file ",plot.file)
+pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+par(
+	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
+	fig=c(0,1,0,1),		# set coordinate space of the original plot
+	mgp=c(3,0.8	,0)		# distance between axis ticks and values
+)
+# plot cumulative values
+plot(
+	x=deg.vals, y=cum.vals,		# cumulative plot
+#	x=deg.vals, y=vals,			# non-cumulative plot
+	xlab=TeX(xlab), ylab=TeX(ylab),
+	col=pal[1], 
+	log="xy", 
+	las=1
+)
+# fitted line
+threshold <- max(deg.vals)
+x <- seq(from=min(deg.vals), to=threshold, by=(threshold-min(deg.vals))/100)
+y <- predict(fit, list(cut.deg=x))
+idx <- which(y>0 & y<=1)
+lines(x[idx], y[idx], col="BLACK", lty=2)
+
+
+
+
+################################################################################
+# same thing for filtered net
+t0 <- round(length(gs.filt)*0.5)
+t1 <- t0+1 #round(length(gs)*0.40)
+dt <- round(length(gs.filt)*0.2)
+t2 <- min(t1+dt, length(gs.filt))
+
+# retrieve vertex sets
+v0 <- V(gs.filt[[t0]])$name		# point of reference
+v1 <- V(gs.filt[[t1-1]])$name	# moment right before the start of the interval
+v2 <- V(gs.filt[[t2]])$name		# end of the interval
+# new vertices in the [t1,t1+dt] period
+dv <- setdiff(v2, v1)
+# remove old edges
+dg <- difference(big=gs.filt[[t2]], small=gs.filt[[t1-1]])
+# remove new vertices
+dg <- delete_vertices(graph=dg, v=dv)
+# get the remaining edges
+el <- as_edgelist(dg, names=TRUE)
+idx <- cbind(match(el[,1], V(gs.filt[[t0]])$name), match(el[,2], V(gs.filt[[t0]])$name))
+norm <- nrow(idx)
+
+# compute cumulative distribution
+deg0 <- igraph::degree(graph=gs.filt[[t0]], mode="all")
+tt <- table(deg0[idx[,1]]*deg0[idx[,2]])
+deg.vals <- as.integer(names(tt))
+# normalization term
+pairs <- t(combn(gorder(gs.filt[[t0]]),2))
+exist <- sapply(1:nrow(pairs), function(i) length(which(idx[,1]==pairs[i,1] & idx[,2]==pairs[i,2]))>0)
+pairs <- pairs[!exist,]
+ttn <- table(deg0[pairs[,1]]*deg0[pairs[,2]])
+norms <- ttn[names(tt)]
+#vals <- tt/norm									# Barabasi's version
+#vals <- tt/norm*gorder(gs.filt[[t0]])/norms		# Newman's version
+vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+cum.vals <- cumsum(vals)
+
+# try with various thresholds
+thresholds <- quantile(deg.vals, probs=c(1,0.75,0.5,0.4,0.25))
+threshold <- thresholds[3]	# exp=1+0.29
+
+# only keep the left tail
+cut.cum <- cum.vals[deg.vals<=threshold]
+cut.deg <- deg.vals[deg.vals<=threshold]
+
+# init parameters using a linear regression
+fit <- lm(log(cut.cum) ~ log(cut.deg))
+print(summary(fit))
+params <- fit$coefficients
+val1 <- exp(params[1]); names(val1) <- NULL
+val2 <- params[2]; names(val2) <- NULL
+val3 <- 0
+
+# perform NL regression
+df <- data.frame(cut.deg, cut.cum)
+fit <-nlsLM(cut.cum ~ c1*cut.deg^c2, 
+			start=list(c1=val1, c2=val2),
+			data=df,
+			control=list(maxiter=200))
+print(summary(fit))
+	
+# plot results
+par(
+	fig=c(0.43,0.96, 0.05, 0.62), 
+	new=T,
+	mgp=c(3,0.5,0)
+)
+# plot cumulative values
+plot(
+	x=deg.vals, y=cum.vals,		# cumulative plot
+#	x=deg.vals, y=vals,			# non-cumulative plot
+	xlab=NA, ylab=NA,
+	col=pal[2], 
+	log="xy", 
+	las=1
+)
+# fitted line
+threshold <- max(deg.vals)
+x <- seq(from=min(deg.vals), to=threshold, by=(threshold-min(deg.vals))/100)
+y <- predict(fit, list(cut.deg=x))
+idx <- which(y>0 & y<=1)
+lines(x[idx], y[idx], col="BLACK", lty=2)
+dev.off()
+
+
+
+
+###############################################################################
+# end logging
+end.rec.log()
