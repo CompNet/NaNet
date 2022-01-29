@@ -11,7 +11,7 @@
 ###############################################################################
 # Extracts a static graph based on a list of pairwise interactions, using the
 # scene as the time unit, without overlap. Nodes are characters, and links
-# represents them (inter-)acting during the same scene.
+# represent them (inter-)acting during the same scene.
 #
 # Depending on the parameters, the function extracts the network corresponding
 # to the whole series, or a specific narrative arc or volumes. It can also output
@@ -26,7 +26,7 @@
 # stats.scenes: scene statistics, only needed if ret.seq is TRUE.
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
-# ret.set: whether to return the full sequence of incremental graphs (longer).
+# ret.set: whether to return the full sequence of incremental graphs (longer computation).
 #
 # returns: the corresponding static graph. It contains several edge weigths:
 #		   - Occurrences: number of interactions between the concerned nodes.
