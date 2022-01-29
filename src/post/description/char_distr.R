@@ -1,10 +1,11 @@
-# Ad hoc plots regarding character stats in the corpus.
+# Additional plots regarding character stats in the corpus
+# (raw data, not the networks).
 # 
 # Vincent Labatut
 # 12/2021
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/char_distr.R")
+# source("src/post/description/char_distr.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="CharDistr")

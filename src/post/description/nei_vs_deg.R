@@ -1,11 +1,12 @@
-# Ad hoc plots regarding power-law relationship between:
-# neighbors' average degree and degree.
+# Additional plots regarding power-law relationship between the
+# the average degree of the neighbors of a vertex, and the 
+# degree of this vertex. This allows studying degree assortativity.
 # 
 # Vincent Labatut
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/nei_vs_deg.R")
+# source("src/post/description/nei_vs_deg.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="NeighVsDeg")
@@ -99,7 +100,9 @@ legend(
 
 
 ###############################################################################
-## rewire network
+## one can compare this to a randomly rewired network
+
+## rewire the network
 #rand.g <- (rewire(g, with=keeping_degseq(niter=vcount(g)*100)))
 #
 ## compute values

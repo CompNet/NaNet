@@ -1,10 +1,11 @@
 # Studies how the average distance evolves as a function of the number of vertices.
+# The script considers each scene separately, by order of publication or history.
 # 
 # Vincent Labatut
 # 11/2021
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/avgdist_evol.R")
+# source("src/post/description/avgdist_evol.R")
 ###############################################################################
 source("src/common/include.R")
 

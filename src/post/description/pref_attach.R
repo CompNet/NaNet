@@ -1,4 +1,4 @@
-# Compute and plots the preferential attachment descriptor from:
+# Computes and plots the preferential attachment descriptor from:
 #	H. Jeong, Z. Neda, and A.-L. Barabási, 
 #	“Measuring preferential attachment for evolving networks,” 
 #	Europhysics Letters, vol. 61, no. 4, pp. 567–572, 2003.

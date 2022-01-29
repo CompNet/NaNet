@@ -1,11 +1,17 @@
-# Ad hoc plots regarding the evolution of the giant component size
-# as a function of the number of edges.
+# Additional plots regarding the evolution of the giant component size
+# as a function of the number of edges. We remove edges by order
+# of increasing weight (using both types of weights: durations vs.
+# occurrences). The process is the same as in the following paper:
+#	P. M. Gleiser, 
+#	“How to become a superhero,” 
+#	Journal of Statistical Mechanics, vol. 2007, no. 9, p. P09020, 2007.
+#	DOI: 10.1088/1742-5468/2007/09/P09020
 # 
 # Vincent Labatut
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/comp_vs_edges.R")
+# source("src/post/description/comp_vs_edges.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="CompVsEdges")

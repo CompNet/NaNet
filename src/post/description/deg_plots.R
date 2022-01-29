@@ -1,10 +1,10 @@
-# Ad hoc plots regarding character degree and strength.
+# Additional distribution plots regarding character degree and strength.
 # 
 # Vincent Labatut
 # 12/2021
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/deg_plot.R")
+# source("src/post/description/deg_plot.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="DegDistr")

@@ -1,14 +1,15 @@
-# Ad hoc plots regarding the evolution of the giant component size
-# as a function of the number of vertices.
+# Additional plots regarding the evolution of the giant component size
+# as a function of the number of vertices. We remove each vertex
+# one by one, by order of decreasing degree (in the remaining graph).
 # 
 # Vincent Labatut
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/comp_vs_vertices.R")
+# source("src/post/description/comp_vs_vertices.R")
 ###############################################################################
 source("src/common/include.R")
-start.rec.log(text="CompVsVert")
+start.rec.log(text="CompVsVertices")
 
 
 

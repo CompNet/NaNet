@@ -1,11 +1,12 @@
-# Ad hoc plots regarding power-law relationship between
-# average cluster coefficient and degree.
+# Additional plots regarding the power-law relationship between
+# local transitivity and the degree of a vertex. This allows
+# studying the hierarchical structure of a network.
 # 
 # Vincent Labatut
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/trans_vs_deg.R")
+# source("src/post/description/trans_vs_deg.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="TransVsDeg")
@@ -98,7 +99,7 @@ legend(
 
 
 ################################################################################
-## rewire network
+## rewire network (to compare with a random network)
 #rand.g <- (rewire(g, with=keeping_degseq(niter=vcount(g)*100)))
 #
 ## compute values

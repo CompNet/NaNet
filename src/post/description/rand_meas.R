@@ -1,18 +1,19 @@
-# Values of certain topological measure, estimated for a null model
+# Computes certain topological measures, estimated for a null model
 # that takes into account the bipartite nature of the graph. Could not
 # get usable results through Newman's formula (Cf. rand_meas_archive.R 
-# for details), using simulation instead.
+# for details), so using simulation instead.
 #
 # Model taken from the following paper:
-# 	M. E. J. Newman, S. H. Strogatz, and D. J. Watts, 
-# 	“Random graphs with arbitrary degree distributions and their applications,” 
+#	M. E. J. Newman, S. H. Strogatz, and D. J. Watts, 
+#	“Random graphs with arbitrary degree distributions and their applications,” 
 #	Physical Review E, 6402(2):26118, 2001.
+#	DOI: 10.1103/PhysRevE.64.026118
 #
 # Vincent Labatut
 # 11/2021
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/rand_meas.R.R")
+# source("src/post/description/rand_meas.R.R")
 ###############################################################################
 source("src/common/include.R")
 

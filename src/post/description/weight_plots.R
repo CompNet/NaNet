@@ -1,10 +1,10 @@
-# Ad hoc plots regarding the distribution of edge weights.
+# Additional plots regarding the distribution of edge weights.
 # 
 # Vincent Labatut
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/weight_plot.R")
+# source("src/post/description/weight_plot.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="WeightDistr")
