@@ -44,6 +44,7 @@ COL_INTER_START_PANEL_ID <- "StartPanelId"
 COL_INTER_END_PANEL_ID <- "EndPanelId"
 COL_INTER_OCCURRENCES <- "Occurrences"
 COL_INTER_DURATION <- "Duration"
+COL_INTER_SCENE_ID <- "SceneId"
 
 
 ###############################################################################

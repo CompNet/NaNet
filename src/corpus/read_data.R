@@ -135,21 +135,24 @@ read.inter.table <- function(volume.info, page.info)
 	close(con)
 	temp <- fix.encoding(strings=temp)
 	lines <- strsplit(temp, split='\t', fixed=TRUE)
-	tlog(2,"Reading of the interaction file completed")
+	tlog(2,"Reading of the interaction file completed (",length(lines)," lines)")
 	
 	# extract the edge list
 	tlog(2,"Converting interactions to dataframe")
 	inter.df <- data.frame(
 			From=character(), To=character(),
 			Start=integer(), End=integer(), 
+			Scene=integer(),
 			stringsAsFactors=FALSE)
 	Encoding(inter.df$From) <- "UTF-8"
 	Encoding(inter.df$To) <- "UTF-8"
-	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_START_PANEL_ID, COL_INTER_END_PANEL_ID)
+	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_START_PANEL_ID, COL_INTER_END_PANEL_ID, COL_INTER_SCENE_ID)
 	colnames(inter.df) <- cn
 	prev.end.panel.id <- NA
 	for(l in 2:length(lines))
 	{	line <- lines[[l]]
+		scene.id <- l - 1
+		
 		# get volume
 		volume <- line[1]
 		volume.id <- which(volume.info[,COL_VOLS_VOLUME]==volume)
@@ -243,9 +246,11 @@ read.inter.table <- function(volume.info, page.info)
 				{	chars.mat <- t(combn(x=chars,m=2))
 				
 					# add scene to data frame
-					tmp.df <- data.frame(From=(chars.mat[,1]), To=chars.mat[,2], 
-							Start=as.integer(rep(start.panel.id,nrow(chars.mat))), End=as.integer(rep(end.panel.id,nrow(chars.mat))),
-							stringsAsFactors=FALSE)
+					tmp.df <- data.frame(
+								From=(chars.mat[,1]), To=chars.mat[,2], 
+								Start=as.integer(rep(start.panel.id,nrow(chars.mat))), End=as.integer(rep(end.panel.id,nrow(chars.mat))),
+								Scene=scene.id,
+								stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
 					inter.df <- rbind(inter.df, tmp.df)
 				}

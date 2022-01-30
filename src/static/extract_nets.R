@@ -35,7 +35,6 @@
 ###############################################################################
 extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter.df, stats.scenes, arc=NA, vol=NA, ret.seq=FALSE)
 {	tlog(2,"Extracting the scene-based static graph")
-	g <- make_empty_graph(0,directed=FALSE)
 	res <- list()
 	vname <- NA
 	
@@ -87,14 +86,21 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	}
 	
 	# build the edgelist by considering each line (i.e. interaction) in the dataframe
+	prev.scene <- NA
 	for(i in is)
-	{	# get the characters
+	{	# get the current scene id
+		cur.scene <- inter.df[i,COL_INTER_SCENE_ID]
+		
+		# get the characters
 		from.char <- inter.df[i,COL_INTER_FROM_CHAR]
 		to.char <- inter.df[i,COL_INTER_TO_CHAR]
+		
 		# get the corresponding row in the new (integrated) dataframe
 		index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+		
 		# compute the number of panels in the sequence
 		length <- inter.df[i,COL_INTER_END_PANEL_ID] - inter.df[i,COL_INTER_START_PANEL_ID] + 1
+		
 		# update the integrated dataframe
 		if(length(index)==0)
 		{	# insert the couple of characters (never met before)
@@ -110,15 +116,23 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		
 		# if graph sequence required
 		if(ret.seq)
-		{	tlog(4,"Adding the graph to the sequence (",i,"/",length(is),")")
+		{	# possibly copy previous graph
+			if(!is.na(prev.scene) && cur.scene>(prev.scene+1))
+			{	for(s in (prev.scene+1):(cur.scene-1))
+				{	g <- res[[s-1]]
+					g <- set_graph_attr(graph=g, name="Scene", value=s)
+					res[[s]] <- g
+				}
+			}
+			# build and add current graph
 			static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
 			idx <- which(char.info[,COL_CHAR_NAME] %in% c(cbind(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR])))
-			g1 <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info[idx,])
-			if(gsize(g1)!=gsize(g) || gorder(g1)!=gorder(g))
-			{	g <- g1
-				res[[length(res)+1]] <- g
-			}
+			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info[idx,])
+			g$Scene <- cur.scene
+			res[[cur.scene]] <- g
 		}
+		
+		prev.scene <- cur.scene
 	}
 	
 	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
@@ -133,9 +147,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	
 	# set up result variable
 	if(ret.seq)
-	{	if(gsize(g1)!=gsize(g) || gorder(g1)!=gorder(g))
-			res[[length(res)+1]] <- g
-		msg <- paste0("returning a series of ",length(res)," graphs")
+	{	msg <- paste0("returning a series of ",length(res)," graphs")
 	}
 	else
 	{	res <- g
@@ -145,6 +157,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	tlog(2,"Extraction of the scene-based static graph completed, ",msg)
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -229,6 +243,8 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
 	return(g)
 }
+
+
 
 
 ###############################################################################
