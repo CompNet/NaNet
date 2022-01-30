@@ -66,9 +66,11 @@ for(i in 2:length(gs))
 }
 int.gs[[2]] <- simplify(graph=int.g)
 
-# TODO : pb l'extraction de graphe ne se fait pas par scène, mais par interaction
-# x  corriger la fonction pour procéder par scène ? ou bien faire un post ? 
-# >> vérifier l'impact sur l'évol de l'avg dist et sur le pref attach
+# TODO
+# - att pref : réviser encore les valeurs filtrées
+# - avg dist : modifier le script (véruf liste pas vide) et relancer, vérifier
+# - ajouter la vérif partout où on utilise les filtrés 
+#
 
 # TODO 
 # - regarder rochat

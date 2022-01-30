@@ -60,13 +60,15 @@ g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0)
+	error("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
 data <- read.raw.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs.unf <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
-gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+gs.filt <- future_lapply(gs.unf, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 # build the list for latter use
 gsl <- list()
 gsl[[1]] <- gs.unf
@@ -81,12 +83,12 @@ modes <- c("all", "external", "internal")
 # NLS thresholds (set manually)
 thres <- matrix(0, nrow=length(modes), ncol=length(filts))
 rownames(thres) <- modes
-thres["all",1] <- 0.8
-thres["all",2] <- 0.6
-thres["external",1] <- 0.75
-thres["external",2] <- 0.75
-thres["internal",1] <- 0.4
-thres["internal",2] <- 0.5
+thres["all",1] <- 0.65
+thres["all",2] <- 0.70
+thres["external",1] <- 0.60
+thres["external",2] <- 0.60
+thres["internal",1] <- 0.80
+thres["internal",2] <- 0.80
 
 # axis labels
 xlab <- c()
@@ -132,6 +134,7 @@ for(mode in modes)
 			nei <- nei[nei %in% v0]
 			idx <- match(nei, v0)
 			norm <- length(idx)
+			tlog(6,"Total number of new edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
 			tt <- table(deg0[idx])
@@ -146,6 +149,7 @@ for(mode in modes)
 			nei <- nei[nei %in% v0]
 			idx <- match(nei, v0)
 			norm <- length(idx)
+			tlog(6,"Number of new external edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
 			tt <- table(deg0[idx])
@@ -189,6 +193,7 @@ for(mode in modes)
 			el <- as_edgelist(dg, names=TRUE)
 			idx <- cbind(match(el[,1], V(gs[[t0]])$name), match(el[,2], V(gs[[t0]])$name))
 			norm <- nrow(idx)
+			tlog(6,"Number of new internal edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
 			tt <- table(deg0[idx[,1]]*deg0[idx[,2]])
@@ -212,13 +217,14 @@ for(mode in modes)
 		
 		# try with various thresholds
 		#thresholds <- quantile(deg.vals, probs=c(1,0.75,0.50,0.25))
-		threshold <- quantile(deg.vals, thres[mode,f]) #, probs=0.6)
-		#		 unfiltered      all 1 + 0.97
-		#		   filtered      all 1 + 0.41
-		#		 unfiltered external 1 + 1.17
-		#		   filtered external 1 + 0.65
-		#		 unfiltered internal 1 + 1.36
-		#		   filtered internal 1 + 0.29
+		threshold <- quantile(deg.vals, probs=1.00)
+#		threshold <- quantile(deg.vals, thres[mode,f]) #, probs=0.6)
+		#		 unfiltered      all 1 + 0.98
+		#		   filtered      all 1 + 0.63
+		#		 unfiltered external 1 + 0.99
+		#		   filtered external 1 + 0.99
+		#		 unfiltered internal 1 + 0.37
+		#		   filtered internal 1 + 0.37
 				
 		# only keep the left tail
 		cut.cum <- cum.vals[deg.vals<=threshold]
