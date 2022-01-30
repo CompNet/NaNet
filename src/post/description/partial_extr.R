@@ -68,13 +68,13 @@ int.gs[[2]] <- simplify(graph=int.g)
 
 # TODO
 # - att pref : réviser encore les valeurs filtrées
-# - avg dist : modifier le script (véruf liste pas vide) et relancer, vérifier
-# - ajouter la vérif partout où on utilise les filtrés 
+#   >> voir si la correc change qq ch à kappa, sinon même pas la peine de le mettre en annexe (si pas les exposants)
+# - avg dist : modifier le script (vérif liste pas vide) et relancer, vérifier
+# - ajouter la vérif partout où on utilise les filtrés
 #
 
 # TODO 
 # - regarder rochat
-# - voir si la correc change qq ch à kappa, sinon même pas la peine de le mettre en annexe (si pas les exposants)
 # - barplot : utiliser deux variantes de rouge pr montrer que c du non-filtré
 
 ###############################################################################
