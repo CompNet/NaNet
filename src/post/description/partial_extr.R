@@ -32,44 +32,25 @@ if(length(filt.names)==0) error("Empty list of filtered characters")
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
 data <- read.raw.data()
-# compute the sequence of scene-based graphs (possibly one for each scene)
-gs.unf <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
-gs.filt <- future_lapply(gs.unf, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
-# build the list for latter use
-gsl <- list()
-gsl[[1]] <- gs.unf
-gsl[[2]] <- gs.filt
 
-
-
-
-################################################################################
-# integrate the networks over the narrative
-gs <- gsl[[1]]
-
+# compute split scene
 split.vol <- "23"	# The Cage
-int.gs <- list()
-int.g <- gs[[1]]
-tlog(0,"Integrate graphs, processing each graph of the sequence")
-for(i in 2:length(gs))
-{	tlog(2,"Processing graph ",i,"/",length(gs))
-	g <- gs[[i]]
-	s <- g$Scene
-	
-	# check if we reached the new part
-	if(data$stats.scenes[s,COL_STATS_VOLUME]==split.vol)
-	{	tlog(4,"Splitting here (scene #",s,"/",nrow(data$stats.scenes),")")
-		int.gs[[1]] <- simplify(graph=int.g)
-		int.g <- g
-	}
-	else
-		int.g <- union(int.g, g, byname=TRUE)
-}
-int.gs[[2]] <- simplify(graph=int.g)
+idx <- which(data$stats.scenes[,COL_STATS_VOLUME]==split.vol)[1]
+idx <- which(data$inter.df[,"SceneId"]==idx)[1]
 
-# TODO 
-# - regarder rochat
-# - barplot : utiliser deux variantes de rouge pr montrer que c du non-filtré
+# extract first network
+idx1 <- 1:(idx-1)
+g1 <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df[idx1,], stats.scenes=data$stats.scenes[idx1,])
+
+# extract second network
+idx2 <- idx:nrow(data$inter.df)
+g2 <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df[idx2,], stats.scenes=data$stats.scenes[idx2,])
+
+# plot the graphs
+
+
+
+
 
 ###############################################################################
 # end logging

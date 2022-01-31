@@ -135,22 +135,22 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		prev.scene <- cur.scene
 	}
 	
-	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
-	#print(static.df)
-	
-	# init the graph
-	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
-	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
-	write_graph(graph=g, file=graph.file, format="graphml")
-	#plot(g, layout=layout_with_fr(g))
-	
 	# set up result variable
 	if(ret.seq)
 	{	msg <- paste0("returning a series of ",length(res)," graphs")
 	}
 	else
-	{	res <- g
+	{	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
+		#print(static.df)
+		
+		# init the graph
+		g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
+		# write to file
+		graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
+		write_graph(graph=g, file=graph.file, format="graphml")
+		#plot(g, layout=layout_with_fr(g))
+		
+		res <- g
 		msg <- "returning a single graph"
 	}
 	
