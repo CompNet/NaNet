@@ -60,8 +60,7 @@ g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 filt.names <- V(g)$name[V(g)$Filtered]
-if(length(filt.names)==0)
-	error("Empty list of filtered characters")
+if(length(filt.names)==0) error("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
@@ -84,11 +83,11 @@ modes <- c("all", "external", "internal")
 thres <- matrix(0, nrow=length(modes), ncol=length(filts))
 rownames(thres) <- modes
 thres["all",1] <- 0.65
-thres["all",2] <- 0.70
+thres["all",2] <- 0.58
 thres["external",1] <- 0.60
-thres["external",2] <- 0.60
-thres["internal",1] <- 0.80
-thres["internal",2] <- 0.80
+thres["external",2] <- 0.57
+thres["internal",1] <- 0.50
+thres["internal",2] <- 0.55
 
 # axis labels
 xlab <- c()
@@ -137,6 +136,7 @@ for(mode in modes)
 			tlog(6,"Total number of new edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+			#if(min(deg0)==0) deg0 <- deg0 + 1
 			tt <- table(deg0[idx])
 			deg.vals <- as.integer(names(tt))
 			# compute normalization term
@@ -152,6 +152,7 @@ for(mode in modes)
 			tlog(6,"Number of new external edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+			#if(min(deg0)==0) deg0 <- deg0 + 1
 			tt <- table(deg0[idx])
 			deg.vals <- as.integer(names(tt))
 			# compute normalization term
@@ -196,6 +197,7 @@ for(mode in modes)
 			tlog(6,"Number of new internal edges: ",norm)
 			# compute vals
 			deg0 <- igraph::degree(graph=gs[[t0]], mode="all")
+			#if(min(deg0)==0) deg0 <- deg0 + 1
 			tt <- table(deg0[idx[,1]]*deg0[idx[,2]])
 			deg.vals <- as.integer(names(tt))
 			# compute normalization term
@@ -206,10 +208,15 @@ for(mode in modes)
 			norms <- ttn[names(tt)]
 		}
 		
+		# remove zero degree
+		norms <- norms[deg.vals>0]
+		tt <- tt[deg.vals>0]
+		deg.vals <- deg.vals[deg.vals>0]
+		
 		# compute cumulative distribution
-		#vals <- tt/norm									# Barabasi's version
 		#vals <- tt/norm*gorder(gs[[t0]])/norms				# Newman's version
-		vals <- tt/norms/sum(tt/norms)						# alt Barabasi's version
+		#vals <- tt/norm									# Barabasi's version?
+		vals <- tt/norms/sum(tt/norms)						# or is this Barabasi's version?
 		cum.vals <- cumsum(vals)
 		
 		####################################
@@ -217,14 +224,14 @@ for(mode in modes)
 		
 		# try with various thresholds
 		#thresholds <- quantile(deg.vals, probs=c(1,0.75,0.50,0.25))
-		threshold <- quantile(deg.vals, probs=1.00)
-#		threshold <- quantile(deg.vals, thres[mode,f]) #, probs=0.6)
+#		threshold <- quantile(deg.vals, probs=0.55)
+		threshold <- quantile(deg.vals, thres[mode,f]) #, probs=0.6)
 		#		 unfiltered      all 1 + 0.98
-		#		   filtered      all 1 + 0.63
+		#		   filtered      all 1 + 0.72
 		#		 unfiltered external 1 + 0.99
-		#		   filtered external 1 + 0.99
-		#		 unfiltered internal 1 + 0.37
-		#		   filtered internal 1 + 0.37
+		#		   filtered external 1 + 0.93
+		#		 unfiltered internal 1 + 0.43
+		#		   filtered internal 1 + 0.45
 				
 		# only keep the left tail
 		cut.cum <- cum.vals[deg.vals<=threshold]
@@ -267,11 +274,20 @@ for(mode in modes)
 		}
 		else
 		{	# plot parameters
-			par(
-				fig=c(0.45,0.98, 0.05, 0.62), 
-				new=T,
-				mgp=c(3,0.5,0)
-			)
+			if(mode=="internal")
+			{	par(
+					fig=c(0.08, 0.59, 0.47, 0.98), 
+					new=T,
+					mgp=c(3,0.5,0)
+				)
+			}
+			else
+			{	par(
+					fig=c(0.50, 0.98, 0.05, 0.57), 
+					new=T,
+					mgp=c(3,0.5,0)
+				)
+			}
 			# labels
 			xl <- NA
 			yl <- NA

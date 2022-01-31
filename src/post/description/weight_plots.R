@@ -29,11 +29,15 @@ laws["Filtered-linkweight-duration"] <- "good"
 # distribution plots
 tlog(0,"Producing weight distribution plots")
 
-# retrieve the graph and the (un)filtered characters
+# retrieve the graph
 graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+
+# get filtered characters
+filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0) error("Empty list of filtered characters")
 idx.keep <- which(!V(g)$Filtered)
 
 # load numbers of occurrences of characters

@@ -131,6 +131,8 @@ legend(
 # add the plot for the filtered net, as an inset
 
 # filter the characters
+filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0) error("Empty list of filtered characters")
 g <- delete_vertices(g, V(g)$Filtered)
 
 # compute values

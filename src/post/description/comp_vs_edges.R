@@ -32,6 +32,8 @@ V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 
 # filter the characters
 tlog(0, "Filtering characters")
+filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0) error("Empty list of filtered characters")
 g.filt <- delete_vertices(g, V(g)$Filtered)
 
 # plot settings

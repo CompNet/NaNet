@@ -27,6 +27,7 @@ g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0) error("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
@@ -65,13 +66,6 @@ for(i in 2:length(gs))
 		int.g <- union(int.g, g, byname=TRUE)
 }
 int.gs[[2]] <- simplify(graph=int.g)
-
-# TODO
-# - att pref : réviser encore les valeurs filtrées
-#   >> voir si la correc change qq ch à kappa, sinon même pas la peine de le mettre en annexe (si pas les exposants)
-# - avg dist : modifier le script (vérif liste pas vide) et relancer, vérifier
-# - ajouter la vérif partout où on utilise les filtrés
-#
 
 # TODO 
 # - regarder rochat

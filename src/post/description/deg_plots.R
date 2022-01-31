@@ -31,11 +31,15 @@ laws["Filtered-strength-duration"] <- "truncated"
 # distribution plots
 tlog(0,"Producing degree & strength distribution plots")
 
-# retrieve the graph and the (un)filtered characters
+# retrieve the graph
 graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+
+# get filtered characters
+filt.names <- V(g)$name[V(g)$Filtered]
+if(length(filt.names)==0) error("Empty list of filtered characters")
 idx.keep <- which(!V(g)$Filtered)
 
 # loop params
