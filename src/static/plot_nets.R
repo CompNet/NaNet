@@ -92,7 +92,7 @@ plot.static.graph.scenes.all <- function(data)
 	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_FREQ, COL_CHAR_SHORT_NAME, COL_CHAR_NAMED, COL_CHAR_FILTERED, "id", "name"))
 	attrs <- c(attrs, NA)
 	
-	# process each attribute
+	# process each attribute (and also without any attribute)
 	for(a in 1:length(attrs))
 	{	# get attribute name
 		attr <- attrs[a]
@@ -379,13 +379,13 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# plot unfiltered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE)
-	tlog(4,"Plotting the selected unfiltered graph in file ",graph.file)
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE)
+	tlog(4,"Plotting the selected unfiltered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g, 
 				layout=LAYOUT,
 				vertex.size=vsizes, vertex.color=vcols,
@@ -402,13 +402,13 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	}
 	
 	# plot filtered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE)
-	tlog(4,"Plotting the selected filtered graph in file ",graph.file)
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE)
+	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr, 
 				layout=LAYOUT[idx.filtr,],	# lay.filtr
 				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
