@@ -16,8 +16,8 @@ CAT_COLORS_8 <- c(							# basic color brewer palette, see http://colorbrewer2.o
 	rgb(228,26,28,maxColorValue=255),		# red
 	rgb(55,126,184,maxColorValue=255),		# blue
 	rgb(77,175,74,maxColorValue=255),		# green
-	rgb(255,127,0,maxColorValue=255),		# orange
 	rgb(152,78,163,maxColorValue=255),		# purple
+	rgb(255,127,0,maxColorValue=255),		# orange
 	rgb(247,129,191,maxColorValue=255),		# pink
 	rgb(166,86,40,maxColorValue=255),		# brown
 	rgb(255,255,51,maxColorValue=255)		# yellow

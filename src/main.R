@@ -79,7 +79,7 @@ plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, 
 
 ###############################################################################
 # compute graph stats
-compute.static.statistics(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#compute.static.statistics(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
 generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 

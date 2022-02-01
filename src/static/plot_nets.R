@@ -9,25 +9,25 @@
 
 
 ###############################################################################
-# Plots the static graph extracted from all the scenes.
+# Computes the graphical parameters used when plotting the specified network.
 #
-# data: list of dataframes containing everything computed beforehand.
+# g: graph to plot (by default, the full graph).
+#
+# returns: list of graphical parameters used later to plot the graph.
 ###############################################################################
-plot.static.graph.scenes.all <- function(data)
-{	tlog(2,"Plotting the scene-based static graph")
-	
-	# read the graph
+compute.graphical.params <- function(g=NA)
+{	# read the graph
 	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g0 <- read_graph(file=graph.file, format="graphml")
 	# clean names
-	V(g)$name <- fix.encoding(strings=V(g)$name)
-	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+	V(g0)$name <- fix.encoding(strings=V(g0)$name)
+	V(g0)$ShortName <- fix.encoding(strings=V(g0)$ShortName)
 	
 	# set up layout
 	if(any(is.na(LAYOUT)))
-		setup.graph.layout(g, NET_SCENES_FOLDER)
-#V(g)$x <- LAYOUT[,1]
-#V(g)$y <- LAYOUT[,2]
+		setup.graph.layout(g0, NET_SCENES_FOLDER)
+#V(g0)$x <- LAYOUT[,1]
+#V(g0)$y <- LAYOUT[,2]
 	
 # this piece of script was once used to manually fine tune vertex positions with gephi
 #gg <- read.graph("D:/Users/Vincent/Downloads/Web/Untitled.graphml",format="graphml")
@@ -42,19 +42,10 @@ plot.static.graph.scenes.all <- function(data)
 #LAYOUT <- tab
 #lay.file <- file.path(NET_SCENES_FOLDER, "all_layout.txt")
 #write.table(x=LAYOUT,file=lay.file)
-
-	# get filtered graph
-	idx.filtr <- which(!V(g)$Filtered)
-	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
-	el <- get.edgelist(g.filtr, names=FALSE)
-	ww <- rep(1, gsize(g.filtr))
-	#ww <- E(cmp)$weight
-	lay.filtr <<- qgraph.layout.fruchtermanreingold(
-		edgelist=el, 
-		vcount=gorder(g.filtr), 
-		weight=ww, 
-		area=10*(gorder(g.filtr)^2),repulse.rad=(gorder(g.filtr)^3.0)
-	)
+	
+	# possibly use the default graph
+	if(all(is.na(g)))
+		g <- g0
 	
 	# set up vertex sizes
 	E(g)$weight <- E(g)$Duration
@@ -83,6 +74,54 @@ plot.static.graph.scenes.all <- function(data)
 	nww <- (ww - min(ww)) / (max(ww) - min(ww))
 	ewidths <- lame.normalize(nww,exp=1) * 75 + 0.5
 	
+	# return result
+	res <- list(vsizes=vsizes,
+		vlabs=vlabs, vlabsizes=vlabsizes,
+		nww=nww, ewidths=ewidths
+	)
+	return(res)
+}	
+	
+
+	
+	
+###############################################################################
+# Plots the static graph extracted from all the scenes. Both the unfiltered and
+# filtered versions.
+#
+# data: list of dataframes containing everything computed beforehand.
+###############################################################################
+plot.static.graph.scenes.all <- function(data)
+{	tlog(2,"Plotting the scene-based static graph")
+	
+	# read the graph
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	g <- read_graph(file=graph.file, format="graphml")
+	# clean names
+	V(g)$name <- fix.encoding(strings=V(g)$name)
+	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+	
+	# compute graphical parameters
+	tmp <- compute.graphical.params()
+	vsizes <- tmp$vsizes
+	vlabs <- tmp$vlabs
+	vlabsizes <- tmp$vlabsizes
+	nww <- tmp$nww
+	ewidths <- tmp$ewidths
+
+	# get filtered graph
+	idx.filtr <- which(!V(g)$Filtered)
+	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+	el <- get.edgelist(g.filtr, names=FALSE)
+	ww <- rep(1, gsize(g.filtr))
+	#ww <- E(cmp)$weight
+	lay.filtr <<- qgraph.layout.fruchtermanreingold(
+		edgelist=el, 
+		vcount=gorder(g.filtr), 
+		weight=ww, 
+		area=10*(gorder(g.filtr)^2),repulse.rad=(gorder(g.filtr)^3.0)
+	)
+	
 	# get filtered edges
 	el <- as_edgelist(graph=g, names=FALSE)
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
@@ -92,7 +131,7 @@ plot.static.graph.scenes.all <- function(data)
 	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_FREQ, COL_CHAR_SHORT_NAME, COL_CHAR_NAMED, COL_CHAR_FILTERED, "id", "name"))
 	attrs <- c(attrs, NA)
 	
-	# process each attribute (and also without any attribute)
+	# plot the graph alone, and also depending on each vertex attribute
 	for(a in 1:length(attrs))
 	{	# get attribute name
 		attr <- attrs[a]
@@ -105,7 +144,7 @@ plot.static.graph.scenes.all <- function(data)
 		if(is.na(attr))
 		{	vcols <- rep("LIGHTGREY",gorder(g))
 			col.char.nbr <- 5 
-			col.char.idx <- order(btw,decreasing=TRUE)[1:col.char.nbr]
+			col.char.idx <- order(vsizes,decreasing=TRUE)[1:col.char.nbr]
 			vcols[col.char.idx] <- get.palette(col.char.nbr)
 		}
 		else
