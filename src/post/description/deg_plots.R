@@ -39,7 +39,7 @@ V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 
 # get filtered characters
 filt.names <- V(g)$name[V(g)$Filtered]
-if(length(filt.names)==0) error("Empty list of filtered characters")
+if(length(filt.names)==0) stop("Empty list of filtered characters")
 idx.keep <- which(!V(g)$Filtered)
 
 # loop params

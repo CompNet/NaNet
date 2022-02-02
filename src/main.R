@@ -70,7 +70,7 @@ data <- compute.stats(data)
 
 ###############################################################################
 # extract static networks
-data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
 plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
@@ -81,7 +81,7 @@ plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, 
 # compute graph stats
 #compute.static.statistics(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
-generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 

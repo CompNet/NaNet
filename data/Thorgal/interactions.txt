@@ -1466,7 +1466,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 23	48	6	48	6	Thorgal Aegirsson	Aaricia Ganfalfsdottir	Darek le Svéar	Lehla	Jolan Thorgalsson	Louve	Muff
 24	3	1	4	2	Kaléos	Poursuivants_24.3
 24	4	3	4	5	Poursuivants_24.3
-24	5	1	6	4	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Ganfalfsdottir	Darek le Svéar	Louve	Lehla	Muff
+24	5	1	6	4	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Ganfalfsdottir	Darek le Svéar	Louve	Lehla
 24	6	5	8	6	Thorgal Aegirsson	Louve
 24	8	7	10	5	Thorgal Aegirsson	Louve
 24	10	6	11	6	Maïka	Dracon	Villageois_24.11

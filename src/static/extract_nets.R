@@ -27,13 +27,14 @@
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
 # ret.set: whether to return the full sequence of incremental graphs (longer computation).
+# record: whether to record the produced graph (only if ret.set is FALSE).
 #
 # returns: the corresponding static graph. It contains several edge weigths:
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
 #		   If ret.set==TRUE, then the function returns a list of graphs.
 ###############################################################################
-extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter.df, stats.scenes, arc=NA, vol=NA, ret.seq=FALSE)
+extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter.df, stats.scenes, arc=NA, vol=NA, ret.seq=FALSE, record=TRUE)
 {	tlog(2,"Extracting the scene-based static graph")
 	res <- list()
 	vname <- NA
@@ -138,6 +139,14 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	# set up result variable
 	if(ret.seq)
 	{	msg <- paste0("returning a series of ",length(res)," graphs")
+		# write to file
+		if(record)
+		{	for(s in 1:length(res))
+			{	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext="_scene.graphml")
+				write_graph(graph=g, file=graph.file, format="graphml")
+				
+			}
+		}
 	}
 	else
 	{	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
@@ -146,10 +155,11 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		# init the graph
 		g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info)
 		# write to file
-		graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
-		write_graph(graph=g, file=graph.file, format="graphml")
+		if(record)
+		{	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
+			write_graph(graph=g, file=graph.file, format="graphml")
+		}
 		#plot(g, layout=layout_with_fr(g))
-		
 		res <- g
 		msg <- "returning a single graph"
 	}

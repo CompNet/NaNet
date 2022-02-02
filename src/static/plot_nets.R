@@ -398,6 +398,10 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	vfcols <- rep(make.color.transparent("BLACK",80),gorder(g))
 	vcols[idx.con] <- rep("LIGHTGREY",length(idx.con))
 	vfcols[idx.con] <- rep("BLACK",length(idx.con))
+	# main characters	
+	col.char.nbr <- 5 
+	col.char.idx <- order(btw,decreasing=TRUE)[1:col.char.nbr]
+	vcols[col.char.idx] <- get.palette(col.char.nbr)
 	
 	# set up vertex labels
 	vlabs <- rep(NA, gorder(g))

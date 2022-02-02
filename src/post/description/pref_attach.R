@@ -60,7 +60,7 @@ g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 filt.names <- V(g)$name[V(g)$Filtered]
-if(length(filt.names)==0) error("Empty list of filtered characters")
+if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")

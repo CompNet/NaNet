@@ -118,7 +118,7 @@ V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 # get the main characters
 filt.names <- V(g)$name[V(g)$Filtered]
-if(length(filt.names)==0) error("Empty list of filtered characters")
+if(length(filt.names)==0) stop("Empty list of filtered characters")
 main.chars <- V(g)$name[!V(g)$Filtered]
 
 # compute char by vol
