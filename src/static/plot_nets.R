@@ -69,13 +69,20 @@ compute.graphical.params <- function(g=NA)
 	vlabs[idx] <- sapply(idx, function(i) if(V(g)$ShortName[i]=="") V(g)$name[i] else V(g)$ShortName[i])
 	vlabsizes <- vsizes*0.0004
 	
+	# set up vertex colors
+	vcols <- rep("LIGHTGREY",gorder(g))
+	col.char.nbr <- 5 
+	col.char.idx <- order(vsizes,decreasing=TRUE)[1:col.char.nbr]
+	vcols[col.char.idx] <- get.palette(col.char.nbr)
+	
 	# set up edge widths
 	ww <- E(g)$weight
 	nww <- (ww - min(ww)) / (max(ww) - min(ww))
 	ewidths <- lame.normalize(nww,exp=1) * 75 + 0.5
 	
 	# return result
-	res <- list(vsizes=vsizes,
+	res <- list(
+		vsizes=vsizes, vcols=vcols,
 		vlabs=vlabs, vlabsizes=vlabsizes,
 		nww=nww, ewidths=ewidths
 	)
@@ -366,6 +373,10 @@ plot.static.graph.scenes.all <- function(data)
 plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 {	tlog(2,"Plotting the scene-based static graph for ",if(is.na(arc)) paste0("vol=",vol) else paste0("arc=",arc))
 	
+	# get default colors
+	tmp <- compute.graphical.params()
+	vs0 <- tmp$vsizes
+	
 	# read unfiltered graph
 	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE, ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
@@ -373,7 +384,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	V(g)$name <- fix.encoding(strings=V(g)$name)
 	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 	idx.con <- which(degree(g,mode="all")>0)
-			
+		
 	# set up layout
 	if(any(is.na(LAYOUT)))
 		setup.graph.layout(g, NET_SCENES_FOLDER)
@@ -398,9 +409,9 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	vfcols <- rep(make.color.transparent("BLACK",80),gorder(g))
 	vcols[idx.con] <- rep("LIGHTGREY",length(idx.con))
 	vfcols[idx.con] <- rep("BLACK",length(idx.con))
-	# main characters	
+	# main characters
 	col.char.nbr <- 5 
-	col.char.idx <- order(btw,decreasing=TRUE)[1:col.char.nbr]
+	col.char.idx <- order(vs0,decreasing=TRUE)[1:col.char.nbr]
 	vcols[col.char.idx] <- get.palette(col.char.nbr)
 	
 	# set up vertex labels
@@ -415,8 +426,12 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	
 	# set up edge colors
 	el <- as_edgelist(graph=g, names=FALSE)
-	ecols <- rep("GRAY",gsize(g))
-	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],60))
+	# all grey
+	#ecols <- rep("GRAY",gsize(g))
+	#ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],60))
+	# using vertex color
+	ecols <- sapply(1:nrow(el), function(r) combine.colors(col1=vcols[el[r,1]], col2=vcols[el[r,2]]))
+	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
 	
 	# get filtered edges
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
