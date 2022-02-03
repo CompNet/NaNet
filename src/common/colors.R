@@ -154,6 +154,7 @@ get.palette <- function(values)
 # col1: first color.
 # col2: second color.
 # transparency: alpha level of the first color (percent).
+#				0 means pure 1st color, 100 is pure 2nd color.
 #
 # returns: color resulting from the combination.
 #############################################################
@@ -185,6 +186,7 @@ combine.colors <- function(col1, col2, transparency=50)
 #
 # color: original color.
 # transparency: alpha level (percent).
+#				100 means completely transparent.
 #
 # returns: partially transparent color.
 #############################################################
