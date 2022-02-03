@@ -401,7 +401,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	E(g)$weight <- E(g)$Duration
 	btw <- betweenness(graph=g, directed=FALSE, weights=reverse.weights(E(g)$weight), normalized=FALSE)
 	nbtw <- (btw - min(btw)) / (max(btw) - min(btw))
-	vsizes <- lame.normalize(nbtw,exp=3) * 10000 + 750
+	vsizes <- lame.normalize(nbtw,exp=3) * 1000 + 3750
 	vsizes[idx.con] <- vsizes[idx.con] + 1000
 	
 	# set up vertex colors
