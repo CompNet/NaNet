@@ -1,6 +1,7 @@
 # Extracts the narrative as two networks, in order to produce two distinct
 # graphical reprensentations and highlight changes in the global structure
-# of the interpersonal relationships.
+# of the interpersonal relationships. That did not produce anything 
+# interesting.
 #
 # Vincent Labatut
 # 01/2022
