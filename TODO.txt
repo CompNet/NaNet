@@ -87,5 +87,4 @@ Clean code:
 - nothing from "scene" in "comparison"
 - in the logs, systematically print the filenames of the plots and csv (including post scripts)
 
-TODO
-- 2nd batch of plots : filtered + use color
+use nbr of occurrences (scenes) to plot vertex size?

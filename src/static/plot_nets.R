@@ -122,7 +122,7 @@ plot.static.graph.scenes.all <- function(data)
 	el <- get.edgelist(g.filtr, names=FALSE)
 	ww <- rep(1, gsize(g.filtr))
 	#ww <- E(cmp)$weight
-	lay.filtr <<- qgraph.layout.fruchtermanreingold(
+	lay.filtr <<- qgraph.layout.fruchtermanreingold(	# actually not used anymore
 		edgelist=el, 
 		vcount=gorder(g.filtr), 
 		weight=ww, 
@@ -130,8 +130,11 @@ plot.static.graph.scenes.all <- function(data)
 	)
 	
 	# get filtered edges
-	el <- as_edgelist(graph=g, names=FALSE)
-	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
+	el <- as_edgelist(graph=g.filtr, names=TRUE)
+	idx.efiltr <- get.edge.ids(g, c(t(el)))
+	#does not work
+	#el <- as_edgelist(graph=g, names=FALSE)
+	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
@@ -166,7 +169,7 @@ plot.static.graph.scenes.all <- function(data)
 		# set up edge colors
 		el <- as_edgelist(graph=g, names=FALSE)
 		ecols <- sapply(1:nrow(el), function(r) combine.colors(col1=vcols[el[r,1]], col2=vcols[el[r,2]]))
-		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
+		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
 		
 		# plot whole unfiltered graph
 		graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE)
@@ -251,7 +254,8 @@ plot.static.graph.scenes.all <- function(data)
 		vcols[idx] <- "RED"
 		ecols <- rep("LIGHTGREY",gsize(g))
 		ecols[idx.e] <- "RED"
-		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-80*lame.normalize(nww[i],exp=3)))
+		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
+		
 		# unfiltered graph
 		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=FALSE, subfold="fulledges")
 		for(fformat in PLOT_FORMAT)
@@ -310,7 +314,7 @@ plot.static.graph.scenes.all <- function(data)
 		vcols[idx] <- "RED"
 		ecols <- rep("LIGHTGREY",gsize(g))
 		ecols[idx.e] <- "RED"
-		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-80*lame.normalize(nww[i],exp=3)))
+		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
 		# unfiltered graph
 		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=FALSE, subfold="fulledges")
 		for(fformat in PLOT_FORMAT)
@@ -401,8 +405,8 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	E(g)$weight <- E(g)$Duration
 	btw <- betweenness(graph=g, directed=FALSE, weights=reverse.weights(E(g)$weight), normalized=FALSE)
 	nbtw <- (btw - min(btw)) / (max(btw) - min(btw))
-	vsizes <- lame.normalize(nbtw,exp=3) * 1000 + 3750
-	vsizes[idx.con] <- vsizes[idx.con] + 1000
+	vsizes <- lame.normalize(nbtw,exp=3) * 6000 + 750
+	vsizes[idx.con] <- vsizes[idx.con] + 2000
 	
 	# set up vertex colors
 	vcols <- rep(make.color.transparent("LIGHTGREY",80),gorder(g))
@@ -417,7 +421,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	# set up vertex labels
 	vlabs <- rep(NA, gorder(g))
 	vlabs[idx.con] <- sapply(idx.con, function(i) if(V(g)$ShortName[i]=="") V(g)$name[i] else V(g)$ShortName[i])
-	vlabsizes <- vsizes*0.0004
+	vlabsizes <- vsizes*0.0003
 	
 	# set up edge widths
 	ww <- E(g)$weight
@@ -431,10 +435,14 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	#ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],60))
 	# using vertex color
 	ecols <- sapply(1:nrow(el), function(r) combine.colors(col1=vcols[el[r,1]], col2=vcols[el[r,2]]))
-	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
+	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],80*(1-lame.normalize(nww[i],exp=3))))
 	
 	# get filtered edges
-	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
+	el <- as_edgelist(graph=g.filtr, names=TRUE)
+	idx.efiltr <- get.edge.ids(g, c(t(el)))
+	#does not work
+	#el <- as_edgelist(graph=g, names=FALSE)
+	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# plot unfiltered graph
 	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE)
@@ -475,8 +483,41 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color="BLACK",
 				edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
-				rescale=FALSE, frame=TRUE, #axe=TRUE, 
+				rescale=FALSE, #frame=TRUE, #axe=TRUE, 
 				xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
+			)
+		dev.off()
+	}
+	
+	# plot filtered graph with custom layout
+	#ww <- E(g.filtr)$Duration
+	ww <- rep(1, gsize(g.filtr))
+	el <- get.edgelist(g.filtr, names=FALSE)
+	lay.filtr <<- qgraph.layout.fruchtermanreingold(	# actually not used anymore
+		edgelist=el, 
+		vcount=gorder(g.filtr), 
+		weight=ww, 
+		area=10*(gorder(g.filtr)^2), repulse.rad=(gorder(g.filtr)^3.1)
+	)
+	lay.filtr <- lay.filtr*100
+	
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE, subfold="layout")
+	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+			plot(g.filtr, 
+				layout=lay.filtr,
+				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
+				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+				vertex.label.family="sans",
+				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
+				vertex.label.color="BLACK",
+				edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
+				rescale=FALSE, #frame=TRUE, axe=TRUE, 
+				xlim=range(lay.filtr[,1]), ylim=range(lay.filtr[,2])
 			)
 		dev.off()
 	}
