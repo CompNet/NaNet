@@ -140,4 +140,5 @@ for(meas in meass)
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()

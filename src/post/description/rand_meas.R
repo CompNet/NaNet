@@ -16,6 +16,7 @@
 # source("src/post/description/rand_meas.R.R")
 ###############################################################################
 source("src/common/include.R")
+start.rec.log(text="RandMeas")
 
 
 
@@ -375,3 +376,10 @@ tlog(2,"Measures for the natural network:");print(tab)
 # process filtered network
 tab.filtr <- lattice.graph.measures(filtered=TRUE)
 tlog(2,"Measures for the natural network:");print(tab.filtr)
+
+
+
+###############################################################################
+# end logging
+tlog(0,"Process complete")
+end.rec.log()

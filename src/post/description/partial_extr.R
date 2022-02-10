@@ -134,4 +134,5 @@ for(i in 1:length(gs))
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()

@@ -109,4 +109,5 @@ for(wt in wts)
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()

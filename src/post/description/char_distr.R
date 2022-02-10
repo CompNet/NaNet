@@ -147,4 +147,5 @@ test.disc.distr(data=char.filt.nbrs, 			# good
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()

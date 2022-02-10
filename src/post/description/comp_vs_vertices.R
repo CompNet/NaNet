@@ -273,4 +273,5 @@ for(fformat in PLOT_FORMAT)
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()

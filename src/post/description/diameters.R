@@ -199,4 +199,5 @@ for(pp in 1:length(diam.paths))
 
 ###############################################################################
 # end logging
+tlog(0,"Process complete")
 end.rec.log()
