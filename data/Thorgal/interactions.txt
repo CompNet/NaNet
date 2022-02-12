@@ -3602,7 +3602,7 @@ L6	9	1	9	1	Nidhogg
 L6	9	2	9	2	Alf'Lolth	Alfe noir / Vigrid	Gardes_L5.47
 L6	9	3	9	4	Louve	Guenon / Yasmina	Tjahzi
 L6	9	5	9	5	Géant_L6.9
-L6	9	6	9	6	Étre de glace_L6.9
+L6	9	6	9	6	Être de glace_L6.9
 L6	9	7	9	7	Démon de lave_L6.9
 L6	9	8	9	8	Louve	Guenon / Yasmina	Tjahzi
 L6	10	1	10	1	Nains_L6.10	Garde alfe noir_L6.10
