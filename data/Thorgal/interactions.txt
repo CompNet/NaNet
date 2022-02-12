@@ -318,10 +318,10 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 07	20	1	20	1	Leif Haraldson	Thorgal Aegirsson
 07	20	2	20	4	Tjahzi	Thorgal Aegirsson
 07	20	5	23	4	Tjahzi	Thorgal Aegirsson	Hjalmgunnar
-07	23	5	24	2	Tjahzi	Thorgal Aegirsson	Hjalmgunnar	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
-07	24	3	25	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
-07	25	3	26	2	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1
-07	26	3	26	5	Tjahzi	Thorgal Aegirsson	Chat aîlé de Frigg_7.23.1	Chat aîlé de Frigg_7.23.2
+07	23	5	24	2	Tjahzi	Thorgal Aegirsson	Hjalmgunnar	Chat ailé de Frigg_7.23.1	Chat ailé de Frigg_7.23.2
+07	24	3	25	2	Tjahzi	Thorgal Aegirsson	Chat ailé de Frigg_7.23.1	Chat ailé de Frigg_7.23.2
+07	25	3	26	2	Tjahzi	Thorgal Aegirsson	Chat ailé de Frigg_7.23.1
+07	26	3	26	5	Tjahzi	Thorgal Aegirsson	Chat ailé de Frigg_7.23.1	Chat ailé de Frigg_7.23.2
 07	26	6	27	3	Tjahzi	Thorgal Aegirsson
 07	27	4	28	4	Tjahzi	Thorgal Aegirsson	Nidhogg
 07	28	5	28	5	Tjahzi	Thorgal Aegirsson	Nidhogg	Frigg
