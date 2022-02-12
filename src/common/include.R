@@ -21,7 +21,7 @@ library("qgraph")
 library("data.table")
 library("latex2exp")
 library("minpack.lm")	# nonlinear regression
-
+library("sfsmisc")		# plot log axes
 
 
 

@@ -117,10 +117,11 @@ for(centr.name in centr.names)
 		plot(
 			x=occ.vals.unf, y=centr.vals.unf, 
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			log="xy", 
+			log="xy", yaxt = "n",
 			las=1, col=col,
 			xlim=c(1,max(occ.vals.unf)*1.1)
 		)
+		if(centr.name=="closeness") eaxis(2, cex.axis=0.8) else eaxis(2, n.axp=1)
 		# mean
 #		idx <- which(!is.nan(avg.occ.vals.unf) & avg.occ.vals.unf>0)
 #		lines(	
@@ -180,11 +181,12 @@ for(centr.name in centr.names)
 		plot(
 			x=occ.vals.flt, y=centr.vals.flt, 
 			xlab=NA, ylab=NA,
-			log="xy", 
+			log="xy", yaxt = "n", 
 			las=1, col=col,
 			xlim=c(1,max(occ.vals.flt)*1.1),
 			cex.lab=0.75, cex.axis=0.75, cex=0.75
 		)
+		if(centr.name=="closeness") eaxis(2, cex.axis=0.75) else eaxis(2, n.axp=1, cex.axis=0.75)
 #		# mean
 #		idx <- which(!is.nan(avg.occ.vals.flt) & avg.occ.vals.flt>0)
 #		lines(	
