@@ -179,7 +179,7 @@ for(centr.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		par(
 			fig=inlay.coords[paste0(centr.name,"_",occ.name),], 
-			new=T,
+			new=TRUE,
 			mgp=c(3,0.5,0)
 		)
 		# points
