@@ -72,10 +72,13 @@ for(centr.name in centr.names)
 		occ.vals.flt <- as.matrix(read.csv(file=file))
 		
 		#### handle unfiltered data
+		tlog(6,"Dealing with the unfiltered data")
+		tlog(8,"Spearman correlation before cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
 		# filter out zero values and NaN
 		idx <- which(!is.nan(occ.vals.unf) & occ.vals.unf>0 & !is.nan(centr.vals.unf) & centr.vals.unf>0)
 		centr.vals.unf <- centr.vals.unf[idx]
 		occ.vals.unf <- occ.vals.unf[idx]
+		tlog(8,"Spearman correlation after cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
 		avg.occ.vals.unf <- sapply(1:max(occ.vals.unf), function(d) mean(centr.vals.unf[occ.vals.unf==d]))
 
 #		# keep tail
@@ -106,7 +109,7 @@ for(centr.name in centr.names)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
 		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=paste0("occ_",occ.name,"_vs_",centr.name), filtered=FALSE)
-		tlog(6, "Plotting in file ",plot.file)
+		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(
 			mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
@@ -140,10 +143,13 @@ for(centr.name in centr.names)
 #		)
 		
 		#### handle filtered data
+		tlog(6,"Dealing with the filtered data")
+		tlog(8,"Spearman correlation before cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
 		# filter out zero values and NaN
 		idx <- which(!is.nan(occ.vals.flt) & occ.vals.flt>0 & !is.nan(centr.vals.flt) & centr.vals.flt>0)
 		centr.vals.flt <- centr.vals.flt[idx]
 		occ.vals.flt <- occ.vals.flt[idx]
+		tlog(8,"Spearman correlation after cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
 		avg.occ.vals.flt <- sapply(1:max(occ.vals.flt), function(d) mean(centr.vals.flt[occ.vals.flt==d]))
 		
 #		# keep tail
@@ -207,8 +213,28 @@ for(centr.name in centr.names)
 		
 		# close file
 		dev.off()
+		
+		tlog(4, "Done with mode ",occ.name)
 	}
+	tlog(2, "Done with centrality ",centr.name)
 }
+tlog(0, "Done with the loop")
+
+
+
+
+###############################################################################
+# check the outliers according to Eigencentrality
+tlog(0,"Checking the outliers according to the Eigenvector centrality:")
+centr.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure="eigenvector", filtered=FALSE)
+filtered <- V(g)$Filtered
+idx <- order(centr.vals.unf, decreasing=FALSE)
+tlog(2,"List of characters by decreasing Eigenvector centrality:")
+print(cbind(V(g)$name[idx], filtered[idx], centr.vals.unf[idx]))
+tlog(2,"Number of characters with a quasi-zero Eigencentrality: ",length(which(centr.vals.unf<1e-10)))
+tlog(2,"Rank of the unfiltered characters: ")
+ranks <- rank(centr.vals.unf)[!filtered]
+print(cbind(V(g)$name[!filtered][order(ranks)], ranks[order(ranks)]))
 
 
 
