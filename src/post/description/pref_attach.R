@@ -277,14 +277,14 @@ for(mode in modes)
 			if(mode=="internal")
 			{	par(
 					fig=c(0.08, 0.59, 0.47, 0.98), 
-					new=T,
+					new=TRUE,
 					mgp=c(3,0.5,0)
 				)
 			}
 			else
 			{	par(
 					fig=c(0.50, 0.98, 0.05, 0.57), 
-					new=T,
+					new=TRUE,
 					mgp=c(3,0.5,0)
 				)
 			}

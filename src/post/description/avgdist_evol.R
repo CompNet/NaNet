@@ -160,7 +160,7 @@ for(fformat in PLOT_FORMAT)
 	# plot the distance as the graph order
 	par(
 		fig=c(0.33,0.98, 0.05, 0.70), 
-		new=T,
+		new=TRUE,
 		mgp=c(3,0.5,0)
 	)
 	# points

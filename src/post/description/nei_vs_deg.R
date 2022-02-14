@@ -173,7 +173,7 @@ col <- pal[2]
 col.sec <- combine.colors(col, "WHITE", transparency=20)
 par(
 	fig=c(0.57,0.98, 0.05, 0.46), 
-	new=T,
+	new=TRUE,
 	mgp=c(3,0.5,0)
 )
 # points
