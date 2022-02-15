@@ -29,6 +29,12 @@ V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 # measure names
 centr.names <- c("degree", "betweenness", "closeness", "eigenvector")
 
+# correlation matrices
+corr.mat.unf.raw <- matrix(1, nrow=length(centr.names), ncol=length(centr.names), dimnames=list(centr.names,centr.names))
+corr.mat.unf.clean <- matrix(1, nrow=length(centr.names), ncol=length(centr.names), dimnames=list(centr.names,centr.names))
+corr.mat.flt.raw <- matrix(1, nrow=length(centr.names), ncol=length(centr.names), dimnames=list(centr.names,centr.names))
+corr.mat.flt.clean <- matrix(1, nrow=length(centr.names), ncol=length(centr.names), dimnames=list(centr.names,centr.names))
+
 # inlay position
 inlay.coords <- matrix(nrow=length(centr.names)*length(centr.names), ncol=4)
 rownames(inlay.coords) <- apply(expand.grid(centr.names,centr.names), 1, function(row) paste(row, collapse="_"))
@@ -63,10 +69,15 @@ for(centr1.name in centr.names)
 		centr2.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr2.name, filtered=TRUE)
 		
 		#### handle unfiltered data
+		tlog(6,"Dealing with the unfiltered data")
+		corr.mat.unf.raw[centr1.name,centr2.name] <- cor(centr1.vals.unf, centr2.vals.unf, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.raw[centr1.name,centr2.name])
 		# filter out zero values and NaN
 		idx <- which(!is.nan(centr2.vals.unf) & centr2.vals.unf>0 & !is.nan(centr1.vals.unf) & centr1.vals.unf>0)
 		centr1.vals.unf <- centr1.vals.unf[idx]
 		centr2.vals.unf <- centr2.vals.unf[idx]
+		corr.mat.unf.clean[centr1.name,centr2.name] <- cor(centr1.vals.unf, centr2.vals.unf, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.clean[centr1.name,centr2.name])
 		avg.centr2.vals.unf <- sapply(1:max(centr2.vals.unf), function(d) mean(centr1.vals.unf[centr2.vals.unf==d]))
 
 #		# keep tail
@@ -97,7 +108,7 @@ for(centr1.name in centr.names)
 		xlab <- NODE_MEASURES[[centr2.name]]$cname
 		ylab <- NODE_MEASURES[[centr1.name]]$cname
 		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=paste0("centr_",centr2.name,"_vs_",centr1.name), filtered=FALSE)
-		tlog(6, "Plotting in file ",plot.file)
+		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(
 			mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
@@ -131,10 +142,15 @@ for(centr1.name in centr.names)
 #		)
 		
 		#### handle filtered data
+		tlog(6,"Dealing with the filtered data")
+		corr.mat.flt.raw[centr1.name,centr2.name] <- cor(centr1.vals.flt, centr2.vals.flt, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.flt.raw[centr1.name,centr2.name])
 		# filter out zero values and NaN
 		idx <- which(!is.nan(centr2.vals.flt) & centr2.vals.flt>0 & !is.nan(centr1.vals.flt) & centr1.vals.flt>0)
 		centr1.vals.flt <- centr1.vals.flt[idx]
 		centr2.vals.flt <- centr2.vals.flt[idx]
+		corr.mat.flt.clean[centr1.name,centr2.name] <- cor(centr1.vals.flt, centr2.vals.flt, method="spearman")
+		tlog(8,"Spearman correlation after cleaning: ", corr.mat.flt.clean[centr1.name,centr2.name])
 		avg.centr2.vals.flt <- sapply(1:max(centr2.vals.flt), function(d) mean(centr1.vals.flt[centr2.vals.flt==d]))
 		
 #		# keep tail
@@ -200,6 +216,17 @@ for(centr1.name in centr.names)
 		dev.off()
 	}
 }
+
+# display correlation matrices
+tlog(0, "Spearman correlation matrices:")
+tlog(2, "Raw unfiltered data:")
+print(corr.mat.unf.raw)
+tlog(2, "Clean unfiltered data:")
+print(corr.mat.unf.clean)
+tlog(2, "Raw filtered data:")
+print(corr.mat.flt.raw)
+tlog(2, "Clean filtered data:")
+print(corr.mat.flt.clean)
 
 
 

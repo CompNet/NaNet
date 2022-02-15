@@ -31,6 +31,12 @@ centr.names <- c("degree", "betweenness", "closeness", "eigenvector")
 occ.proper.names <- c("panel"="Panel", "scene"="Scene", "page"="Page", "volume"="Volume")
 occ.names <- names(occ.proper.names)
 
+# correlation matrices
+corr.mat.unf.raw <- matrix(1, nrow=length(centr.names), ncol=length(occ.names), dimnames=list(centr.names,occ.names))
+corr.mat.unf.clean <- matrix(1, nrow=length(centr.names), ncol=length(occ.names), dimnames=list(centr.names,occ.names))
+corr.mat.flt.raw <- matrix(1, nrow=length(centr.names), ncol=length(occ.names), dimnames=list(centr.names,occ.names))
+corr.mat.flt.clean <- matrix(1, nrow=length(centr.names), ncol=length(occ.names), dimnames=list(centr.names,occ.names))
+
 # inlay position
 inlay.coords <- matrix(nrow=length(centr.names)*length(occ.names), ncol=4)
 rownames(inlay.coords) <- apply(expand.grid(centr.names,occ.names), 1, function(row) paste(row, collapse="_"))
@@ -73,12 +79,14 @@ for(centr.name in centr.names)
 		
 		#### handle unfiltered data
 		tlog(6,"Dealing with the unfiltered data")
-		tlog(8,"Spearman correlation before cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
+		corr.mat.unf.raw[centr.name,occ.name] <- cor(centr.vals.unf, occ.vals.unf, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.raw[centr.name,occ.name])
 		# filter out zero values and NaN
 		idx <- which(!is.nan(occ.vals.unf) & occ.vals.unf>0 & !is.nan(centr.vals.unf) & centr.vals.unf>0)
 		centr.vals.unf <- centr.vals.unf[idx]
 		occ.vals.unf <- occ.vals.unf[idx]
-		tlog(8,"Spearman correlation after cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
+		corr.mat.unf.clean[centr.name,occ.name] <- cor(centr.vals.unf, occ.vals.unf, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.clean[centr.name,occ.name])
 		avg.occ.vals.unf <- sapply(1:max(occ.vals.unf), function(d) mean(centr.vals.unf[occ.vals.unf==d]))
 
 #		# keep tail
@@ -144,12 +152,14 @@ for(centr.name in centr.names)
 		
 		#### handle filtered data
 		tlog(6,"Dealing with the filtered data")
-		tlog(8,"Spearman correlation before cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
+		corr.mat.flt.raw[centr.name,occ.name] <- cor(centr.vals.flt, occ.vals.flt, method="spearman")
+		tlog(8,"Spearman correlation before cleaning: ", corr.mat.flt.raw[centr.name,occ.name])
 		# filter out zero values and NaN
 		idx <- which(!is.nan(occ.vals.flt) & occ.vals.flt>0 & !is.nan(centr.vals.flt) & centr.vals.flt>0)
 		centr.vals.flt <- centr.vals.flt[idx]
 		occ.vals.flt <- occ.vals.flt[idx]
-		tlog(8,"Spearman correlation after cleaning: ", cor(centr.vals.unf, occ.vals.unf, method="spearman"))
+		corr.mat.flt.clean[centr.name,occ.name] <- cor(centr.vals.flt, occ.vals.flt, method="spearman")
+		tlog(8,"Spearman correlation after cleaning: ", corr.mat.flt.clean[centr.name,occ.name])
 		avg.occ.vals.flt <- sapply(1:max(occ.vals.flt), function(d) mean(centr.vals.flt[occ.vals.flt==d]))
 		
 #		# keep tail
@@ -219,6 +229,17 @@ for(centr.name in centr.names)
 	tlog(2, "Done with centrality ",centr.name)
 }
 tlog(0, "Done with the loop")
+
+# display correlation matrices
+tlog(0, "Spearman correlation matrices:")
+tlog(2, "Raw unfiltered data:")
+print(corr.mat.unf.raw)
+tlog(2, "Clean unfiltered data:")
+print(corr.mat.unf.clean)
+tlog(2, "Raw filtered data:")
+print(corr.mat.flt.raw)
+tlog(2, "Clean filtered data:")
+print(corr.mat.flt.clean)
 
 
 
