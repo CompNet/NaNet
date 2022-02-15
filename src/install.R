@@ -23,6 +23,7 @@ install.packages("doParallel")
 # various plots
 install.packages("ggplot2")
 install.packages("ggExtra")
+install.packages("sfsmisc")
 # violin plots
 install.packages("vioplot")
 # colors
@@ -44,3 +45,6 @@ install.packages("polynom")
 # various fast functions (including binary search)
 #install.packages("Rfast") # not used
 install.packages("data.table")
+
+# clustering
+install.packages("cluster")
