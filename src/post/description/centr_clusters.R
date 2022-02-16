@@ -1,4 +1,5 @@
 # Cluster analysis of the centrality measures.
+# Did not yield anything interesting, not time to dig further.
 # 
 # Vincent Labatut
 # 02/2022
@@ -39,31 +40,54 @@ for(centr.name in centr.names)
 # filter NA values
 vals.unf <- vals.unf[apply(vals.unf, 1, function(row) all(!is.na(row))),]
 vals.flt <- vals.flt[apply(vals.flt, 1, function(row) all(!is.na(row))),]
+# or set them to zero?
+#idx <- which(is.na(vals.unf), arr.ind=TRUE)
+#vals.unf[idx[,1],idx[,2]] <- 0
+#idx <- which(is.na(vals.flt), arr.ind=TRUE)
+#vals.flt[idx[,1],idx[,2]] <- 0
 
 # standardize the data
 vals.unf.sc <- scale(vals.unf)
 vals.flt.sc <- scale(vals.flt)
 
 # apply k-means
+dd <- as.matrix(dist(vals.unf.sc))
 sils <- rep(NA,klim-1)
+best.sil <- -1
+best.membership <- NA
+best.k <- NA
 for(k in 2:klim)
 {	membership <- kmeans(x=vals.unf.sc, centers=k)$cluster
-	dd <- as.matrix(dist(vals.unf.sc))
 	tmp <- silhouette(x=membership, dist=dd)
 	sil <- summary(tmp)$avg.width
 	sils[k-1] <- sil
+	if(sil>best.sil)
+	{	best.sil <- sil
+		best.membership <- membership
+		best.k <- k
+	}
 }
+tmp <- silhouette(x=best.membership, dist=dd)
+#res <- hclust(d=dd)	# dataset is too large
 
-sapply(1:k, function(c) colMeans(vals.unf[membership==c,]))
-scatterplot3d(log(vals.unf[,1]+1), log(vals.unf[,2]+1), log(vals.unf[,3]+1), color=membership, log="xyz")
+# plot silhouette values
+plot(2:klim, sils, ylim=0:1, xlab="Number of clusters (k)", ylab="Average Silhouette Width", col="RED")
+# plot silhouette profiles
+plot(tmp, border=NA, main="Silhouette plot", col=CAT_COLORS_8[1:best.k])
 
-plot(2:klim, sils, ylim=0:1, xlab="Number of clusters (k)", ylab="Average Silhouette Width")
-plot(tmp, border=NA, main="Silhouette plot")#, col=COLORS_12[1:k])
+# display the average centrality measures for each cluster
+print(sapply(1:best.k, function(c) colMeans(vals.unf.sc[best.membership==c,])))
+print(sapply(1:best.k, function(c) colMeans(vals.unf[best.membership==c,])))
+
+# 3D plot of the first 3 centrality measures
+# scatterplot3d(log(vals.unf[,1]+1), log(vals.unf[,2]+1), log(vals.unf[,3]+1), color=membership, log="xyz")
+
+# 2D plot of a projection
 fit <- cmdscale(dd, eig=FALSE, k=2)
 fit <- PCA(X=vals.unf.sc, ncp=2)
 # https://www.r-bloggers.com/2021/05/principal-component-analysis-pca-in-r/
+plot(fit-min(fit), col=CAT_COLORS_8[best.membership], log="xy")
 
-#res <- hclust(d=dd)
 
 
 
