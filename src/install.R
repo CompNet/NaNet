@@ -28,6 +28,7 @@ install.packages("sfsmisc")
 install.packages("vioplot")
 # colors
 install.packages("viridis")
+install.packages("SDMTools")
 
 # statistical tests
 install.packages("ercv")

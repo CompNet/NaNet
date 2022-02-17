@@ -23,6 +23,7 @@ library("latex2exp")
 library("minpack.lm")	# nonlinear regression
 library("sfsmisc")		# plot log axes
 library("cluster")		# silhouette measure
+library("SDMTools")
 
 
 

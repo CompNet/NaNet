@@ -138,7 +138,7 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
-	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_FREQ, COL_CHAR_SHORT_NAME, COL_CHAR_NAMED, COL_CHAR_FILTERED, "id", "name"))
+	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, "id", "name")) # COL_CHAR_FREQ, COL_CHAR_NAMED, COL_CHAR_FILTERED
 	attrs <- c(attrs, NA)
 	
 	# plot the graph alone, and also depending on each vertex attribute
@@ -157,13 +157,27 @@ plot.static.graph.scenes.all <- function(data)
 			col.char.idx <- order(vsizes,decreasing=TRUE)[1:col.char.nbr]
 			vcols[col.char.idx] <- get.palette(col.char.nbr)
 		}
+		# numeric attribute
+		else if(attr==COL_CHAR_FREQ)
+		{	rvals <- vertex_attr(graph=g, name=attr)
+			#vals <- rvals									# linear scale
+			vals <- log(rvals+1)
+			fine <- 500 									# granularity of the color gradient
+			pal <- viridis									# extreme colors of the gradient
+			#pal <- colorRampPalette(c("YELLOW","RED"))		# extreme colors of the gradient
+			finite <- !is.infinite(vals)
+			vcols[finite] <- pal(fine)[as.numeric(cut(vals[finite],breaks=fine))]
+			vcols[!finite] <- "#575757"						# infinite values are grey
+		}
+		# categorical attribute
 		else
 		{	vals <- vertex_attr(graph=g, name=attr)
 			uvals <- sort(unique(vals))
 			col.nbr <- length(uvals)
 			pal <- get.palette(col.nbr)
 			names(pal) <- uvals
-			vcols <- pal[vals]
+			vcols <- pal[as.character(vals)]
+			names(vcols) <- V(g)$name
 		}
 		
 		# set up edge colors
@@ -193,50 +207,79 @@ plot.static.graph.scenes.all <- function(data)
 					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
 				)
 				if(!is.na(attr))
-				{	legend(
-						title=attr,				# title of the legend box
-						x="bottomleft",			# position
-						legend=uvals,			# text of the legend
-						fill=pal,				# color of the nodes
-						bty="n",				# no box around the legend
-						cex=2.5					# size of the text in the legend
-					)
+				{	# numeric attribute
+					if(attr==COL_CHAR_FREQ)
+					{	# size
+						width <- 100
+						height <- 600
+						# colors
+						lvals <- log(1:fine+1)
+						lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+						lcols <- pal(fine)[lvals]
+						# position
+						x1 <- min(LAYOUT[,1])
+						x2 <- x1 + width
+						y2 <- min(LAYOUT[,2])
+						y1 <- y2 + height
+						leg.loc <- cbind(x=c(x1, x2, x2, x1), y=c(y1, y1, y2, y2))
+						# draw
+						legend.gradient(
+							pnts=leg.loc,			# position
+							cols=lcols,				# color gradient
+							limits=sprintf("%.2f", range(rvals[finite],na.rm=TRUE)),
+							title=attr,				# title of the legend box
+							cex=2.5					# size of the text in the legend
+						)
+					}
+					# categorical attribute
+					else
+					{	legend(
+							title=attr,				# title of the legend box
+							x="bottomleft",			# position
+							legend=uvals,			# text of the legend
+							fill=pal,				# color of the nodes
+							bty="n",				# no box around the legend
+							cex=2.5					# size of the text in the legend
+						)
+					}
 				}
 			dev.off()
 		}
 		
 		# plot whole filtered graph
-		graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
-		if(!is.na(attr))
-			graph.file <- paste0(graph.file, "_attr=", attr)
-		tlog(6,"Plotting the whole filtered graph in file ",graph.file)
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
-				plot(g.filtr, 
-					layout=LAYOUT[idx.filtr,],	# lay.filtr
-					vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
-					vertex.label.family="sans",
-					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
-					vertex.label.color="BLACK",
-					edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
-					rescale=FALSE, #axe=TRUE, 
-					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
-				)
-				if(!is.na(attr))
-				{	legend(
-						title=attr,				# title of the legend box
-						x="bottomleft",			# position
-						legend=uvals,			# text of the legend
-						fill=pal,				# color of the nodes
-						bty="n",				# no box around the legend
-						cex=2.5					# size of the text in the legend
+		if(att!=COL_CHAR_FILTERED)
+		{	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
+			if(!is.na(attr))
+				graph.file <- paste0(graph.file, "_attr=", attr)
+			tlog(6,"Plotting the whole filtered graph in file ",graph.file)
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+					plot(g.filtr, 
+						layout=LAYOUT[idx.filtr,],	# lay.filtr
+						vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
+						vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+						vertex.label.family="sans",
+						vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
+						vertex.label.color="BLACK",
+						edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
+						rescale=FALSE, #axe=TRUE, 
+						xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
 					)
-				}
-			dev.off()
+					if(!is.na(attr))
+					{	legend(
+							title=attr,				# title of the legend box
+							x="bottomleft",			# position
+							legend=uvals,			# text of the legend
+							fill=pal,				# color of the nodes
+							bty="n",				# no box around the legend
+							cex=2.5					# size of the text in the legend
+						)
+					}
+				dev.off()
+			}
 		}
 	}
 	
