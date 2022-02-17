@@ -7,7 +7,7 @@
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("D:/eclipse/workspaces/Networks/NaNet")
 #
-# source("src/graph/generation.R")
+# source("src/graphs/generation.R")
 ###########################################################################
 
 

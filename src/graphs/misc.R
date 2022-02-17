@@ -3,12 +3,12 @@
 # 
 # 05/2021 Vincent Labatut
 #
-# source("src/graph/misc.R")
+# source("src/graphs/misc.R")
 #############################################################################################
-source("src/graph/generation.R")
-source("src/graph/rewiring.R")
-source("src/graph/topomeas.R")
-source("src/graph/smallworldness.R")
+source("src/graphs/generation.R")
+source("src/graphs/rewiring.R")
+source("src/graphs/topomeas.R")
+source("src/graphs/smallworldness.R")
 
 
 

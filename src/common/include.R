@@ -74,7 +74,7 @@ source("src/common/table_cols.R")
 source("src/common/plot_graphs.R")
 source("src/common/topo_measures.R")
 
-source("src/graph/misc.R")
+source("src/graphs/misc.R")
 
 source("src/corpus/read_data.R")
 source("src/corpus/compute_stats.R")

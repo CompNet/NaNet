@@ -8,7 +8,7 @@
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("D:/eclipse/workspaces/Networks/NaNet")
 #
-# source("src/graph_rewiring.R")
+# source("src/graphs/rewiring.R")
 ###########################################################################
 
 
