@@ -247,7 +247,7 @@ plot.static.graph.scenes.all <- function(data)
 		}
 		
 		# plot whole filtered graph
-		if(att!=COL_CHAR_FILTERED)
+		if(attr!=COL_CHAR_FILTERED)
 		{	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
 			if(!is.na(attr))
 				graph.file <- paste0(graph.file, "_attr=", attr)
@@ -269,14 +269,41 @@ plot.static.graph.scenes.all <- function(data)
 						xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2])
 					)
 					if(!is.na(attr))
-					{	legend(
-							title=attr,				# title of the legend box
-							x="bottomleft",			# position
-							legend=uvals,			# text of the legend
-							fill=pal,				# color of the nodes
-							bty="n",				# no box around the legend
-							cex=2.5					# size of the text in the legend
-						)
+					{	# numeric attribute
+						if(attr==COL_CHAR_FREQ)
+						{	# size
+							width <- 100
+							height <- 600
+							# colors
+							lvals <- log(1:fine+1)
+							lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+							lcols <- pal(fine)[lvals]
+							# position
+							x1 <- min(LAYOUT[,1])
+							x2 <- x1 + width
+							y2 <- min(LAYOUT[,2])
+							y1 <- y2 + height
+							leg.loc <- cbind(x=c(x1, x2, x2, x1), y=c(y1, y1, y2, y2))
+							# draw
+							legend.gradient(
+								pnts=leg.loc,			# position
+								cols=lcols,				# color gradient
+								limits=sprintf("%.2f", range(rvals[intersect(idx.filtr,finite)],na.rm=TRUE)),
+								title=attr,				# title of the legend box
+								cex=2.5					# size of the text in the legend
+							)
+						}
+						# categorical attribute
+						else
+						{	legend(
+								title=attr,				# title of the legend box
+								x="bottomleft",			# position
+								legend=uvals,			# text of the legend
+								fill=pal,				# color of the nodes
+								bty="n",				# no box around the legend
+								cex=2.5					# size of the text in the legend
+							)
+						}
 					}
 				dev.off()
 			}
