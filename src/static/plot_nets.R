@@ -247,7 +247,7 @@ plot.static.graph.scenes.all <- function(data)
 		}
 		
 		# plot whole filtered graph
-		if(attr!=COL_CHAR_FILTERED)
+		if(is.na(attr) || attr!=COL_CHAR_FILTERED)
 		{	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
 			if(!is.na(attr))
 				graph.file <- paste0(graph.file, "_attr=", attr)
