@@ -115,7 +115,7 @@ plot.static.graph.scenes.all <- function(data)
 	vlabsizes <- tmp$vlabsizes
 	nww <- tmp$nww
 	ewidths <- tmp$ewidths
-
+	
 	# get filtered graph
 	idx.filtr <- which(!V(g)$Filtered)
 	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -174,7 +174,10 @@ plot.static.graph.scenes.all <- function(data)
 		{	vals <- vertex_attr(graph=g, name=attr)
 			uvals <- sort(unique(vals))
 			col.nbr <- length(uvals)
-			pal <- get.palette(col.nbr)
+			if(attr=="Sex")
+				pal <- SEX_COLORS_4[uvals]
+			else
+				pal <- get.palette(col.nbr)
 			names(pal) <- uvals
 			vcols <- pal[as.character(vals)]
 			names(vcols) <- V(g)$name
@@ -273,15 +276,17 @@ plot.static.graph.scenes.all <- function(data)
 						if(attr==COL_CHAR_FREQ)
 						{	# size
 							width <- 100
-							height <- 600
+							height <- 400
 							# colors
 							lvals <- log(1:fine+1)
 							lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
 							lcols <- pal(fine)[lvals]
 							# position
-							x1 <- min(LAYOUT[,1])
+							#x1 <- min(LAYOUT[,1])
+							#y2 <- min(LAYOUT[,2])
+							x1 <- 600					# specific position for filtered graph 
+							y2 <- -1350
 							x2 <- x1 + width
-							y2 <- min(LAYOUT[,2])
 							y1 <- y2 + height
 							leg.loc <- cbind(x=c(x1, x2, x2, x1), y=c(y1, y1, y2, y2))
 							# draw
@@ -297,7 +302,8 @@ plot.static.graph.scenes.all <- function(data)
 						else
 						{	legend(
 								title=attr,				# title of the legend box
-								x="bottomleft",			# position
+								#x="bottomleft",			# position
+								x=600, y=-900,		# adjusted for the filtered version of the graph 
 								legend=uvals,			# text of the legend
 								fill=pal,				# color of the nodes
 								bty="n",				# no box around the legend
