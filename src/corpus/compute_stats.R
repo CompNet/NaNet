@@ -170,7 +170,7 @@ compute.stats.panels <- function(
 #			y <- y[idx]
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	
@@ -457,7 +457,7 @@ compute.stats.pages <- function(
 #			y <- y[idx]
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	
@@ -495,7 +495,7 @@ compute.stats.pages <- function(
 #			y <- y[idx]
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	
@@ -533,7 +533,7 @@ compute.stats.pages <- function(
 #			y <- y[idx]
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	
@@ -720,7 +720,7 @@ compute.stats.scenes <- function(
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
 			# complementary cumulative distribution function
-			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 #	# check distribution
@@ -760,7 +760,7 @@ compute.stats.scenes <- function(
 #			y <- y[idx]
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	
@@ -861,7 +861,7 @@ compute.stats.scenes <- function(
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 			# complementary cumulative distribution function
 			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 #	# check distribution
@@ -1031,7 +1031,7 @@ compute.stats.chars <- function(
 #					y <- y[idx]
 #					plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 					# complementary cumulative distribution function
-					plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+					plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 				dev.off()
 		}
 		# check distribution
@@ -1073,7 +1073,7 @@ compute.stats.chars <- function(
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 			# complementary cumulative distribution function
 			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	# check distribution
@@ -1113,7 +1113,7 @@ compute.stats.chars <- function(
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 			# complementary cumulative distribution function
 			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	# check distribution
@@ -1154,7 +1154,7 @@ compute.stats.chars <- function(
 #			plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 			# complementary cumulative distribution function
 			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 		dev.off()
 	}
 	# check distribution
@@ -1546,7 +1546,7 @@ compute.stats.volumes <- function(
 #					y <- y[idx]
 #					plot(x, y, col=MAIN_COLOR, xlab=xl, ylab="Density", main=ml, log="xy")
 					# complementary cumulative distribution function
-					plot.ccdf(data=data, main=ml, xlab=xl, log=TRUE)
+					plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE)
 				dev.off()
 		}
 		# check distribution

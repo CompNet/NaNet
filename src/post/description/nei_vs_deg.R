@@ -1,4 +1,4 @@
-# Additional plots regarding power-law relationship between the
+# Additional plots regarding the power-law relationship between the
 # the average degree of the neighbors of a vertex, and the 
 # degree of this vertex. This allows studying degree assortativity.
 # 

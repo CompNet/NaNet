@@ -1,6 +1,6 @@
 # Computes certain topological measures, estimated for a null model
 # that takes into account the bipartite nature of the graph. Could not
-# get usable results through Newman's formula (Cf. rand_meas_archive.R 
+# get usable results through Newman's formula (cf. rand_meas_archive.R 
 # for details), so using simulation instead.
 #
 # Model taken from the following paper:

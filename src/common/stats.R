@@ -37,15 +37,18 @@ stat.mode <- function(x, na.rm=FALSE)
 #
 # data: data to plot. Can be a single series or a list of series.
 # main: main title of the plot.
-# xlab: label of the x-axis.
+# xlab: label of the x-axis, or NA for no label.
+# ylab: label of the y-axis, or "default" for default, or NA for no label at all.
 # log: TRUE to use logarithmic scales for the axes.
 # cols: color of each series.
 # leg.title: title of the legend, or NA if none.
+# leg.pos: position of the legend (by default, "topright").
 # lines: line types, or NA if points.
+# cex.axis: size of the axis ticks text.
 #
 # returns: TRUE iff a plot could be produced.
 #############################################################################################
-plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=NA)
+plot.ccdf <- function(data, main, xlab=NA, ylab="default", log=FALSE, cols=NA, leg.title=NA, leg.pos="topright", lines=NA, cex.axis=1, ...)
 {	# init vars
 	if(all(is.na(cols)))
 		cols <- rep(MAIN_COLOR, length(data))
@@ -53,6 +56,8 @@ plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=
 		data <- list(data)
 	x <- list()
 	y <- list()
+	if(!is.na(ylab) && ylab=="default")
+		ylab <- "Complementary Cumulative Density"
 	
 	# compute ccdf
 	for(s in 1:length(data))
@@ -83,30 +88,52 @@ plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=
 		}
 		
 		# this is to plot proper powers of 10
-		expmax <- floor(log(min(ylim[1]),10))
+		xexpmax <- floor(log(min(xlim[1]),10))
+		yexpmax <- floor(log(min(ylim[1]),10))
 		
 		# render the plot
 		plot(
 			NULL, 
-			xlab=xlab, ylab="Complementary Cumulative Density", main=main,
+			xlab=xlab, ylab=ylab, main=main,
 			xlim=xlim, ylim=ylim,
 			log="xy", 
-			yaxt="n"
+			xaxt="n", yaxt="n",
+			cex.axis=cex.axis,
+			...
 		)
+		# render the x-axis
+		if(xlim[2]/xlim[1]<100)
+			axis(side=1)
+		else
+		{	eaxis(
+				side=1, 
+				n.axp=1,
+				cex.axis=cex.axis
+			)
+#			axis(
+#				side=1,
+#				at=10^(xexpmax:0), 
+#				label=parse(text=paste("10^", xexpmax:0, sep="")), 
+#				cex.axis=cex.axis
+#			)
+		}
 		# render the y-axis
 		axis(
 			side=2, 
-			at=10^(expmax:0), 
-			label=parse(text=paste("10^", expmax:0, sep="")), 
-			las=1
+			at=10^(yexpmax:0), 
+			label=parse(text=paste("10^", yexpmax:0, sep="")), 
+			las=1,
+			cex.axis=cex.axis
 		)
 	}
 	else
 	{	# render the plot
 		plot(
 			NULL, 
-			xlab=xlab, ylab="Complementary Cumulative Density", main=main, 
-			las=1
+			xlab=xlab, ylab=ylab, main=main, 
+			las=1,
+			cex.axis=cex.axis,
+			...
 		)
 	}
 	
@@ -141,7 +168,7 @@ plot.ccdf <- function(data, main, xlab, log=FALSE, cols=NA, leg.title=NA, lines=
 	# add legend
 	if(!is.na(leg.title))
 	{	legend(
-			x="topright", 
+			x=leg.pos, 
 			fill=cols, 
 			legend=names(data),
 			title=leg.title

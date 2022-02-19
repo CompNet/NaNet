@@ -336,7 +336,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 					tmp <- plot.ccdf(
 						data=values, 
 						main=paste0("mode=",mode," window.size=",window.size),
-						xlab=meas.name,
+						xlab=meas.name, ylab="default",
 						log=TRUE, 
 						cols=cols, 
 						lines=lty
@@ -425,7 +425,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 						tmp <- plot.ccdf(
 							data=values, 
 							main=paste0("mode=",mode," overlap=",overlap),
-							xlab=meas.name,
+							xlab=meas.name, ylab="default",
 							log=TRUE, 
 							cols=cols, 
 							lines=lty
@@ -1099,7 +1099,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						plot.ccdf(data=vals, main=ml, xlab=xl, log=TRUE)
+						plot.ccdf(data=vals, main=ml, xlab=xl, ylab="default", log=TRUE)
 					dev.off()
 			}
 			

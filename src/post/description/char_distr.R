@@ -84,7 +84,7 @@ for(count in counts)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-		plot.ccdf(data=data, main=NA, xlab=xl, log=TRUE, cols=pal, leg.title="Characters")
+		plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg.title="Characters")
 		for(i in 1:2)
 		{	if(laws[paste0(names(data)[i],"-",object,"-",count)]=="truncated")
 			{	x <- seq(pl[[2]]$threshold,max(data[[2]]))
