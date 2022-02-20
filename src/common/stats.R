@@ -34,7 +34,9 @@ stat.mode <- function(x, na.rm=FALSE)
 
 #############################################################################################
 # Plots the complementary cumulative distribution function of the specified data.
-#
+# 
+# Note: it is normal if the series do not start from zero.
+# 
 # data: data to plot. Can be a single series or a list of series.
 # main: main title of the plot.
 # xlab: label of the x-axis, or NA for no label.
@@ -62,32 +64,32 @@ plot.ccdf <- function(data, main, xlab=NA, ylab="default", log=FALSE, cols=NA, l
 	# compute ccdf
 	for(s in 1:length(data))
 	{	# compute cumulative function
-		my_ecdf <- ecdf(data[[s]])
+		ecdf.foo <- ecdf(data[[s]])
 		
 		# compute complementary cumulative function
 		x[[s]] <- sort(unique(data[[s]]))
-		y[[s]] <- 1 - my_ecdf(x[[s]])
+		y[[s]] <- 1 - ecdf.foo(x[[s]])
+	}
+	
+	# compute ranges
+	xs <- unlist(x)
+	ys <- unlist(y)
+	idx <- which(ys>0)
+	xs <- xs[idx]
+	ys <- ys[idx]
+	idx <- which(xs>0)
+	xs <- xs[idx]
+	ys <- ys[idx]
+	xlim <- range(xs)
+	ylim <- range(ys)
+	if(any(is.infinite(c(xlim, ylim))))
+	{	tlog("WARNING: nothing to plot, all values are zero or infinite")
+		return(FALSE)
 	}
 	
 	# init the plot
 	if(log)
-	{	# compute ranges
-		xs <- unlist(x)
-		ys <- unlist(y)
-		idx <- which(ys>0)
-		xs <- xs[idx]
-		ys <- ys[idx]
-		idx <- which(xs>0)
-		xs <- xs[idx]
-		ys <- ys[idx]
-		xlim <- range(xs)
-		ylim <- range(ys)
-		if(any(is.infinite(c(xlim, ylim))))
-		{	tlog("WARNING: nothing to plot, all values are zero or infinite")
-			return(FALSE)
-		}
-		
-		# this is to plot proper powers of 10
+	{	# this is to plot proper powers of 10
 		xexpmax <- floor(log(min(xlim[1]),10))
 		yexpmax <- floor(log(min(ylim[1]),10))
 		
@@ -131,6 +133,7 @@ plot.ccdf <- function(data, main, xlab=NA, ylab="default", log=FALSE, cols=NA, l
 		plot(
 			NULL, 
 			xlab=xlab, ylab=ylab, main=main, 
+			xlim=xlim, ylim=ylim,
 			las=1,
 			cex.axis=cex.axis,
 			...
@@ -142,7 +145,7 @@ plot.ccdf <- function(data, main, xlab=NA, ylab="default", log=FALSE, cols=NA, l
 	{	x.vals <- x[[s]]
 		y.vals <- y[[s]]
 		
-		# remove zero values
+		# possibly remove zero values
 		if(log)
 		{	idx <- which(y.vals>0)
 			x.vals <- x.vals[idx]

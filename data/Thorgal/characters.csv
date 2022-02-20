@@ -36,7 +36,7 @@ Name,ShortName,Sex,Named
 2 jeunes vikings_J1.10,,Male,FALSE
 2 mages rouges_34.3,,Male,FALSE
 2 marchands_39.13,,Male,FALSE
-2 nixes_14.4,,Unknown,FALSE
+2 nixes_14.4,,Male,FALSE
 2 nobles_28.6,,Male,FALSE
 2 servantes_11.6,,Female,FALSE
 2 serviteurs Arlac d'Auxaterra_31.10,,Male,FALSE
@@ -894,7 +894,7 @@ Möntrok,,Male,TRUE
 Mörlok,,Male,TRUE
 Mortel_29.17,,Male,FALSE
 Moulaki,,Male,TRUE
-Muff,,Unknown,TRUE
+Muff,,Male,TRUE
 Muninn,,Unknown,TRUE
 Mygg,,Female,TRUE
 Myrms_36.16,,Female,FALSE
@@ -919,7 +919,7 @@ Neokóra,,Unknown,TRUE
 Nidhogg,,Male,TRUE
 Nigürd Holgersön Ratatösk,Nigürd,Male,TRUE
 Nils,,Male,TRUE
-Nixe_14.10,,Unknown,FALSE
+Nixe_14.10,,Male,FALSE
 Nixe_J1.41,,Female,FALSE
 Nixes_J2.20,,Unknown,FALSE
 Nobles_27.14,,Mixed,FALSE
