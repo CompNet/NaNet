@@ -24,19 +24,23 @@ g <- read_graph(file=graph.file, format="graphml")
 # clean names
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-males <- which(V(g)$Sex=="Male" | V(g)$Sex=="Mixed")
-females <- which(V(g)$Sex=="Female" | V(g)$Sex=="Mixed")
+males.unf <- which(V(g)$Sex=="Male" | V(g)$Sex=="Mixed")
+females.unf <- which(V(g)$Sex=="Female" | V(g)$Sex=="Mixed")
+kept <- which(!V(g)$Filtered)
+males.flt <- match(intersect(males.unf, kept), kept)
+females.flt <- match(intersect(females.unf, kept), kept)
 
 # measure names
-meas.names <- c("degree", "betweenness", "closeness", "eigenvector")
+meas.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, MEAS_TRANSITIVITY)
 
 # inlay position
 inlay.coords <- matrix(nrow=length(meas.names), ncol=4)
 rownames(inlay.coords) <- meas.names
-inlay.coords["betweenness",] <- c(0.06, 0.71, 0.05, 0.70)
-inlay.coords["closeness",] <- c(0.06, 0.71, 0.05, 0.70)
-inlay.coords["degree",] <- c(0.06, 0.59, 0.05, 0.58)
-inlay.coords["eigenvector",] <- c(0.06, 0.86, 0.05, 0.85)
+inlay.coords[MEAS_BETWEENNESS,] <- c(0.06, 0.71, 0.05, 0.70)
+inlay.coords[MEAS_CLOSENESS,] <- c(0.06, 0.71, 0.05, 0.70)
+inlay.coords[MEAS_DEGREE,] <- c(0.06, 0.59, 0.05, 0.58)
+inlay.coords[MEAS_EIGENCNTR,] <- c(0.06, 0.86, 0.05, 0.85)
+inlay.coords[MEAS_TRANSITIVITY,] <- c(0.06, 0.71, 0.05, 0.70)
 
 # process each measure
 for(m in 1:length(meas.names))
@@ -47,17 +51,39 @@ for(m in 1:length(meas.names))
 	tlog(4,"Loading pre-computed unfiltered values")
 	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=FALSE)
 	data.unf <- list()
-	data.unf[["Males"]] <- vals[males]
-	data.unf[["Females"]] <- vals[females]
+	data.unf[["Males"]] <- vals[males.unf]
+	data.unf[["Females"]] <- vals[females.unf]
 	tlog(6,"Average ",meas.name,": ",mean(data.unf[["Males"]],na.rm=TRUE)," (males) vs. ",mean(data.unf[["Females"]],na.rm=TRUE)," (females)")
-
+	if(meas.name %in% c(MEAS_DEGREE, MEAS_BETWEENNESS))
+	{	#tmp <- chisq.test(x=data.unf[["Males"]], y=data.unf[["Females"]])
+		tmp <- permTS(x=data.unf[["Males"]], y=data.unf[["Females"]], method="exact.mc", control=permControl(nmc=10^4-1))
+		tlog(6,"Comparing the distributions with the permutation test: D=",tmp$statistic," p=",tmp$p.value)
+		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
+	}
+	else
+	{	tmp <- ks.test(data.unf[["Males"]],data.unf[["Females"]])
+		tlog(6,"Comparing the distributions with the KS test: D=",tmp$statistic," p=",tmp$p.value)
+		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
+	}
+	
 	# load precomputed data for filtered net
 	tlog(4,"Loading pre-computed filtered values")
 	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=TRUE)
 	data.flt <- list()
-	data.flt[["Males"]] <- vals[males]
-	data.flt[["Females"]] <- vals[females]
-	tlog(6,"Average ",meas.name,": ",mean(data.unf[["Males"]],na.rm=TRUE)," (males) vs. ",mean(data.unf[["Females"]],na.rm=TRUE)," (females)")
+	data.flt[["Males"]] <- vals[males.flt]
+	data.flt[["Females"]] <- vals[females.flt]
+	tlog(6,"Average ",meas.name,": ",mean(data.flt[["Males"]],na.rm=TRUE)," (males) vs. ",mean(data.flt[["Females"]],na.rm=TRUE)," (females)")
+	if(meas.name %in% c(MEAS_DEGREE, MEAS_BETWEENNESS))
+	{	#tmp <- chisq.test(x=data.unf[["Males"]], y=data.unf[["Females"]])
+		tmp <- permTS(x=data.flt[["Males"]], y=data.flt[["Females"]], method="exact.mc", control=permControl(nmc=10^4-1))
+		tlog(6,"Comparing the distributions with the permutation test: D=",tmp$statistic," p=",tmp$p.value)
+		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
+	}
+	else
+	{	tmp <- ks.test(data.flt[["Males"]],data.flt[["Females"]])
+		tlog(6,"Comparing the distributions with the KS test: D=",tmp$statistic," p=",tmp$p.value)
+		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
+	}
 	
 	# set params
 	plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=paste0(meas.name,"_sex_both"), filtered=FALSE)
@@ -98,7 +124,7 @@ for(m in 1:length(meas.names))
 				main=NA, xlab=xl, ylab="default", 
 				log=TRUE, 
 				cols=pal[1:2], 
-				leg.title=if(meas.name=="eigenvector") NA else "Sex"
+				leg.title=if(meas.name==MEAS_EIGENCNTR) NA else "Sex"
 		)
 #		for(i in 1:2)
 #		{	if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
@@ -121,7 +147,7 @@ for(m in 1:length(meas.names))
 				main=NA, xlab=NA, ylab=NA, 
 				log=TRUE, 
 				cols=pal[1:2], 
-				leg.title=if(meas.name=="eigenvector") "Sex" else NA, leg.pos="bottomleft",
+				leg.title=if(meas.name==MEAS_EIGENCNTR) "Sex" else NA, leg.pos="bottomleft",
 				cex.lab=0.75, cex.axis=0.75, cex=0.75)
 		
 		# close plot file

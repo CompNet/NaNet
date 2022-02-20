@@ -26,7 +26,7 @@ V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 kept <- which(!V(g)$Filtered)
 
 # measure names
-centr.names <- c("degree", "betweenness", "closeness", "eigenvector")
+centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 
 # get centrality values
 tlog(0, "Read centrality values")

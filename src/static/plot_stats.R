@@ -1124,7 +1124,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 	
 	# degree vs. neighbors' degree
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
 	neigh.degree.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
@@ -1135,7 +1135,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# degree vs. transitivity
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
 	transitivity.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
@@ -1146,7 +1146,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# hop plots
-	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name=MEAS_DISTANCE, arc=arc, vol=vol, filtered=filtered)
 	hop.plot(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
 	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)

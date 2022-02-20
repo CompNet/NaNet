@@ -24,6 +24,7 @@ library("minpack.lm")	# nonlinear regression
 library("sfsmisc")		# plot log axes
 library("cluster")		# silhouette measure
 library("SDMTools")
+library("perm")			# permutation test
 
 
 

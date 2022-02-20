@@ -27,7 +27,7 @@ V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 
 # measure names
-centr.names <- c("degree", "betweenness", "closeness", "eigenvector")
+centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 
 # correlation matrices
 corr.mat.unf.raw <- matrix(1, nrow=length(centr.names), ncol=length(centr.names), dimnames=list(centr.names,centr.names))
@@ -38,18 +38,18 @@ corr.mat.flt.clean <- matrix(1, nrow=length(centr.names), ncol=length(centr.name
 # inlay position
 inlay.coords <- matrix(nrow=length(centr.names)*length(centr.names), ncol=4)
 rownames(inlay.coords) <- apply(expand.grid(centr.names,centr.names), 1, function(row) paste(row, collapse="_"))
-inlay.coords["closeness_betweenness",] <- c(0.06, 0.46, 0.57, 0.97)
-inlay.coords["degree_betweenness",] <- c(0.06, 0.54, 0.49, 0.97)
-inlay.coords["eigenvector_betweenness",] <- c(0.27, 0.97, 0.05, 0.75)
-inlay.coords["betweenness_closeness",] <- c(0.59, 0.97, 0.05, 0.43)
-inlay.coords["degree_closeness",] <- c(0.06, 0.54, 0.49, 0.97)
-inlay.coords["eigenvector_closeness",] <- c(0.41, 0.97, 0.05, 0.61)
-inlay.coords["betweenness_degree",] <- c(0.49, 0.97, 0.05, 0.53)
-inlay.coords["closeness_degree",] <- c(0.49, 0.97, 0.05, 0.51)
-inlay.coords["eigenvector_degree",] <- c(0.27, 0.97, 0.05, 0.75)
-inlay.coords["betweenness_eigenvector",] <- c(0.06, 0.73, 0.30, 0.97)
-inlay.coords["closeness_eigenvector",] <- c(0.06, 0.62, 0.41, 0.97)
-inlay.coords["degree_eigenvector",] <- c(0.06, 0.73, 0.30, 0.97)
+inlay.coords[paste0(MEAS_CLOSENESS,"_",MEAS_BETWEENNESS),] <- c(0.06, 0.46, 0.57, 0.97)
+inlay.coords[paste0(MEAS_DEGREE,"_",MEAS_BETWEENNESS),] <- c(0.06, 0.54, 0.49, 0.97)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_",MEAS_BETWEENNESS),] <- c(0.27, 0.97, 0.05, 0.75)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_",MEAS_CLOSENESS),] <- c(0.59, 0.97, 0.05, 0.43)
+inlay.coords[paste0(MEAS_DEGREE,"_",MEAS_CLOSENESS),] <- c(0.06, 0.54, 0.49, 0.97)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_",MEAS_CLOSENESS),] <- c(0.41, 0.97, 0.05, 0.61)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_",MEAS_DEGREE),] <- c(0.49, 0.97, 0.05, 0.53)
+inlay.coords[paste0(MEAS_CLOSENESS,"_",MEAS_DEGREE),] <- c(0.49, 0.97, 0.05, 0.51)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_",MEAS_DEGREE),] <- c(0.27, 0.97, 0.05, 0.75)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_",MEAS_EIGENCNTR),] <- c(0.06, 0.73, 0.30, 0.97)
+inlay.coords[paste0(MEAS_CLOSENESS,"_",MEAS_EIGENCNTR),] <- c(0.06, 0.62, 0.41, 0.97)
+inlay.coords[paste0(MEAS_DEGREE,"_",MEAS_EIGENCNTR),] <- c(0.06, 0.73, 0.30, 0.97)
 
 # loop over first measures
 tlog(0, "Loop over measures")

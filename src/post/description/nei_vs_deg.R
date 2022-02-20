@@ -62,7 +62,7 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="degree", filtered=FALSE, plot.type="neideg_vs_degree_both")
+plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="neideg_vs_degree_both")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right

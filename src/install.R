@@ -33,6 +33,7 @@ install.packages("SDMTools")
 # statistical tests
 install.packages("ercv")
 install.packages("poweRlaw")
+install.packages("perm")	# permutation test
 # nonlinear regression
 install.packages("minpack.lm")
 

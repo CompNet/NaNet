@@ -45,7 +45,7 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 idx.keep <- which(!V(g)$Filtered)
 
 # loop params
-meass <- c("degree","strength")
+meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
 
 # load numbers of occurrences of characters
 file <-  get.path.stat.corpus(object="characters", desc="chars_distrib_scene_nbr_rawvals.csv")

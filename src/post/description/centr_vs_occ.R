@@ -27,7 +27,7 @@ V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 
 # measure names
-centr.names <- c("degree", "betweenness", "closeness", "eigenvector")
+centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 occ.proper.names <- c("panel"="Panel", "scene"="Scene", "page"="Page", "volume"="Volume")
 occ.names <- names(occ.proper.names)
 
@@ -40,22 +40,22 @@ corr.mat.flt.clean <- matrix(1, nrow=length(centr.names), ncol=length(occ.names)
 # inlay position
 inlay.coords <- matrix(nrow=length(centr.names)*length(occ.names), ncol=4)
 rownames(inlay.coords) <- apply(expand.grid(centr.names,occ.names), 1, function(row) paste(row, collapse="_"))
-inlay.coords["betweenness_page",] <- c(0.53, 0.97, 0.05, 0.49)
-inlay.coords["closeness_page",] <- c(0.51, 0.97, 0.05, 0.51)
-inlay.coords["degree_page",] <- c(0.52, 0.97, 0.05, 0.52)
-inlay.coords["eigenvector_page",] <- c(0.32, 0.97, 0.05, 0.70)
-inlay.coords["betweenness_panel",] <- c(0.57, 0.97, 0.05, 0.45)
-inlay.coords["closeness_panel",] <- c(0.55, 0.97, 0.05, 0.47)
-inlay.coords["degree_panel",] <- c(0.06, 0.49, 0.54, 0.97)
-inlay.coords["eigenvector_panel",] <- c(0.39, 0.97, 0.05, 0.63)
-inlay.coords["betweenness_scene",] <- c(0.49, 0.97, 0.05, 0.53)
-inlay.coords["closeness_scene",] <- c(0.48, 0.97, 0.05, 0.52)
-inlay.coords["degree_scene",] <- c(0.49, 0.97, 0.05, 0.53)
-inlay.coords["eigenvector_scene",] <- c(0.34, 0.97, 0.05, 0.68)
-inlay.coords["betweenness_volume",] <- c(0.45, 0.97, 0.05, 0.57)
-inlay.coords["closeness_volume",] <- c(0.47, 0.97, 0.05, 0.55)
-inlay.coords["degree_volume",] <- c(0.47, 0.97, 0.05, 0.55)
-inlay.coords["eigenvector_volume",] <- c(0.27, 0.97, 0.05, 0.75)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_page"),] <- c(0.53, 0.97, 0.05, 0.49)
+inlay.coords[paste0(MEAS_CLOSENESS,"_page"),] <- c(0.51, 0.97, 0.05, 0.51)
+inlay.coords[paste0(MEAS_DEGREE,"_page"),] <- c(0.52, 0.97, 0.05, 0.52)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_page"),] <- c(0.32, 0.97, 0.05, 0.70)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_panel"),] <- c(0.57, 0.97, 0.05, 0.45)
+inlay.coords[paste0(MEAS_CLOSENESS,"_panel"),] <- c(0.55, 0.97, 0.05, 0.47)
+inlay.coords[paste0(MEAS_DEGREE,"_panel"),] <- c(0.06, 0.49, 0.54, 0.97)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_panel"),] <- c(0.39, 0.97, 0.05, 0.63)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_scene"),] <- c(0.49, 0.97, 0.05, 0.53)
+inlay.coords[paste0(MEAS_CLOSENESS,"_scene"),] <- c(0.48, 0.97, 0.05, 0.52)
+inlay.coords[paste0(MEAS_DEGREE,"_scene"),] <- c(0.49, 0.97, 0.05, 0.53)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_scene"),] <- c(0.34, 0.97, 0.05, 0.68)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_volume"),] <- c(0.45, 0.97, 0.05, 0.57)
+inlay.coords[paste0(MEAS_CLOSENESS,"_volume"),] <- c(0.47, 0.97, 0.05, 0.55)
+inlay.coords[paste0(MEAS_DEGREE,"_volume"),] <- c(0.47, 0.97, 0.05, 0.55)
+inlay.coords[paste0(MEAS_EIGENCNTR,"_volume"),] <- c(0.27, 0.97, 0.05, 0.75)
 
 # loop over measures
 tlog(0, "Loop over measures")
@@ -132,7 +132,7 @@ for(centr.name in centr.names)
 			las=1, col=col,
 			xlim=c(1,max(occ.vals.unf)*1.1)
 		)
-		if(centr.name=="closeness") eaxis(2, cex.axis=0.8) else eaxis(2, n.axp=1)
+		if(centr.name==MEAS_CLOSENESS) eaxis(2, cex.axis=0.8) else eaxis(2, n.axp=1)
 		# mean
 #		idx <- which(!is.nan(avg.occ.vals.unf) & avg.occ.vals.unf>0)
 #		lines(	
@@ -202,7 +202,7 @@ for(centr.name in centr.names)
 			xlim=c(1,max(occ.vals.flt)*1.1),
 			cex.lab=0.75, cex.axis=0.75, cex=0.75
 		)
-		if(centr.name=="closeness") eaxis(2, cex.axis=0.75) else eaxis(2, n.axp=1, cex.axis=0.75)
+		if(centr.name==MEAS_CLOSENESS) eaxis(2, cex.axis=0.75) else eaxis(2, n.axp=1, cex.axis=0.75)
 #		# mean
 #		idx <- which(!is.nan(avg.occ.vals.flt) & avg.occ.vals.flt>0)
 #		lines(	
