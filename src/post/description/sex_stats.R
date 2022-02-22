@@ -60,7 +60,7 @@ tlog(6,"Same expressed as percents")
 print(tt/sum(tt)*100)
 # filtered graph
 tlog(4,"In the filtered graph:")
-idx <- which(el[,1] %in% kept | el[,1] %in% kept)
+idx <- which(el[,1] %in% kept & el[,2] %in% kept)
 el.str <- t(apply(el.sex[idx,], 1, sort))
 tlog(6,"Numbers of edges by sex")
 tt <- table(el.str[,1], el.str[,2])
@@ -150,7 +150,8 @@ tt <- table(sc.ov.sexes)
 print(tt)
 tlog(4,"Same expressed as percents")
 print(tt/sum(tt)*100)
-# note: no sense in doing Bechdel for filtered chars, as it requires ignoring certain characters actively taking part in the scene
+# NOTE: no sense in doing Bechdel for filtered chars, as it requires 
+# ignoring certain characters actively taking part in the scene
 
 # sex-specific density
 tlog(2,"Sex-specific density")
@@ -165,9 +166,9 @@ tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
 # filtered data
 tlog(4,"Filtered network:")
-gm <- delete_vertices(g, V(g)$Sex!="Male" & !V(g)$Filtered)
+gm <- delete_vertices(gm, V(g)$Filtered)
 dens.mal <- edge_density(tmp)
-gf <- delete_vertices(g, V(g)$Sex!="Female" & !V(g)$Filtered)
+gf <- delete_vertices(gf, V(g)$Filtered)
 dens.fem <- edge_density(tmp)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
@@ -183,10 +184,27 @@ gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Unfiltered network: ",ass.unf)
 # filtered net
-gs <- delete_vertices(g, !V(g)$Filtered & V(g)$Sex!="Female" & V(g)$Sex!="Male")
+gs <- delete_vertices(gs, V(g)$Filtered)
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Filtered network: ",ass.unf)
 
+
+
+
+###############################################################################
+tlog(0,"Triangles by sex")
+# unfiltered net
+gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
+tris <- triangles(graph=gs)$Sex
+col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
+tlog(0,"Unfiltered network:")
+table(col.tris)
+# filtered net
+gs <- delete_vertices(gs, V(g)$Filtered)
+tris <- triangles(graph=gs)$Sex
+col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
+tlog(0,"Unfiltered network:")
+table(col.tris)
 
 
 
