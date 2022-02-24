@@ -85,3 +85,5 @@ source("src/static/extract_nets.R")
 source("src/static/compute_stats.R")
 source("src/static/plot_nets.R")
 source("src/static/plot_stats.R")
+
+source("src/dynamic/narr_smooth.R")
