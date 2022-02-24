@@ -30,10 +30,11 @@
 # stats.chars: list of characters with their attributes.
 # char.scenes: which character appears in which scene.
 # stats.scenes: allows retrieving scene durations.
+# scene.mat: characters x scenes matrix
 #
 # returns: sum of interaction scores.
 ###############################################################################
-ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes, stats.scenes)
+ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes, stats.scenes, scene.mat)
 {	# targeted period
 	scenes <- t0:t1
 	# name of the concerned characters
@@ -43,16 +44,20 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	vals <- rep(0, length(scenes))
 	
 	# identify scenes involving one of our characters (i or j)
-	chars.org <- char.scenes[t0:t1]
-	chars.org.lgt <- sapply(chars.org, length)
-	chars.dif <- lapply(chars.org, function(cc) setdiff(cc,ij.names))
-	chars.dif.lgt <- sapply(chars.dif, length)
-	idx <- which(chars.org.lgt > chars.dif.lgt)
+	idx <- which(scene.mat[i,scenes] | scene.mat[j,scenes])
+	
+#	chars.org <- char.scenes[t0:t1]
+#	chars.org.lgt <- sapply(chars.org, length)
+#	chars.dif <- lapply(chars.org, function(cc) setdiff(cc,ij.names))
+#	chars.dif.lgt <- sapply(chars.dif, length)
+#	idx <- which(chars.org.lgt > chars.dif.lgt)
 	
 	# update interaction weights for each scene involving one char (i or j)
 	if(length(idx)>0)
-		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
-	#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
+	{	vals[idx] <- apply(scene.mat[,scenes[idx],drop=FALSE], 2, function(col) length(which(col)))*stats.scenes[scenes[idx], COL_STATS_PANELS]
+#		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
+		#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
+	}
 	
 	# wrap up
 	res <- sum(vals)
@@ -221,7 +226,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 					updt.per <- future_sapply(ids.per, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- prev.sc.ids[k]
-								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes)
+								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes, scene.mat)
 							})
 					#print(cbind(rem.sc.ids[ids.per],prev.sc.ids[ids.per],narr.per[ids.per],updt.per))
 					narr.per[ids.per] <- narr.per[ids.per] - updt.per
@@ -247,7 +252,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 					updt.ant <- future_sapply(ids.ant, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- next.sc.ids[k]
-								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes)
+								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes, scene.mat)
 							})
 					#print(cbind(rem.sc.ids[ids.ant],next.sc.ids[ids.ant],narr.ant[ids.ant],updt.ant))
 					narr.ant[ids.ant] <- narr.ant[ids.ant] - updt.ant
