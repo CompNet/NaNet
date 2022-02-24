@@ -9,8 +9,8 @@
 library("igraph")
 library("CINNA")
 #library("foreach")
-library("future.apply")
-library("doParallel")
+library("future.apply")	# parallel processing
+library("doParallel")	# parallel processing
 library("vioplot")
 library("ggplot2")
 library("ggExtra")
