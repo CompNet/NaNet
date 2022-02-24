@@ -97,10 +97,33 @@ ns.normalization <- function(x, mu=0.01)
 # 
 # returns: a sequence of graphs corresponding to a dynamic graph.
 ###############################################################################
-ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
+ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered=FALSE)
 {	tlog(2, "Extracting a dynamic network using narrative smoothing")
 	
-	# TODO shouldn't we remove scenes with zero or one characters?
+	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
+	
+	# possible filter the characters
+	if(filtered)
+	{	# read the graph
+		graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+		g <- read_graph(file=graph.file, format="graphml")
+		V(g)$name <- fix.encoding(strings=V(g)$name)
+		V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+		kept <- which(!V(g)$Filtered)
+		
+		# remove from tables and list
+		stats.chars <- stats.chars[kept,]
+		char.scenes <- future_lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_STATS_CHAR]))
+	}
+	
+	# init char x scene matrix
+	scene.mat <- matrix(FALSE, 
+			nrow=nrow(stats.chars), ncol=length(char.scenes), 
+			dimnames=list(stats.chars[,COL_STATS_CHAR], c()))
+	for(s in 1:length(char.scenes))
+	{	chars <- char.scenes[[s]]
+		scene.mat[chars,s] <- rep(TRUE,length(chars))
+	}
 	
 	# init the list of graphs
 	res <- list()
@@ -117,20 +140,24 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 	# 						   1491 1492      1494                                    1505      1507
 	
 	# loop over the characters for the first end point
+	tlog.start.loop(2,nrow(stats.chars)-1,"Looping over characters (first character)")
 	for(i in 1:(nrow(stats.chars)-1))
 	{	i.name <- stats.chars[i,COL_STATS_CHAR]
-		tlog(4, "Processing character #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),")")
+		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),")")
 		
 		# scenes where char i appears
-		i.sc.ids <- which(future_sapply(char.scenes, function(chars) i.name %in% chars))
+		#i.sc.ids <- which(future_sapply(char.scenes, function(chars) i.name %in% chars))
+		i.sc.ids <- which(scene.mat[i.name,])
 		
 		# loop over the remaining characters for the second end point
+		tlog.start.loop(4,(i+1):nrow(stats.chars),"Looping over characters (second character)")
 		for(j in (i+1):nrow(stats.chars))
 		{	j.name <- stats.chars[j,COL_STATS_CHAR]
-			tlog(6, "Processing character #j=",j.name," (",j,"/",nrow(stats.chars),")")
+			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),") -- #j=",j.name," (",j,"/",nrow(stats.chars),")")
 			
-			# scenes where char i appears
-			j.sc.ids <- which(future_sapply(char.scenes, function(chars) j.name %in% chars))
+			# scenes where char j appears
+			#j.sc.ids <- which(future_sapply(char.scenes, function(chars) j.name %in% chars))
+			j.sc.ids <- which(scene.mat[j.name,])
 			
 			# scenes where both chars appear
 			ij.sc.ids <- intersect(i.sc.ids, j.sc.ids)
@@ -243,7 +270,9 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 				}
 			}
 		}
+		tlog.end.loop(4,"Finished the second character loop")
 	}
+	tlog.end.loop(6,"Finished the first character loop")
 	
 	return(res)
 }
