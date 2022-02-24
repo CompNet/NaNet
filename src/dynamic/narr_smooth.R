@@ -52,7 +52,7 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	# update interaction weights for each scene involving one char (i or j)
 	if(length(idx)>0)
 		vals[idx] <- future_sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
-	print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
+	#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
 	
 	# wrap up
 	res <- sum(vals)
@@ -187,16 +187,18 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 							return(res)
 						})
 				ids.per <- which(!is.na(prev.sc.ids))
-				narr.per[ids.per] <- ij.weights[prev.sc.ids[ids.per]]
-				#print(cbind(rem.sc.ids,prev.sc.ids,narr.per))
-				# update with intermediary scenes involving only one of the characters
-				updt.per <- future_sapply(ids.per, function(k)
-						{	t <- rem.sc.ids[k]
-							theta <- prev.sc.ids[k]
-							ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes)
-						})
-				#print(cbind(rem.sc.ids[ids.per],prev.sc.ids[ids.per],narr.per[ids.per],updt.per))
-				narr.per[ids.per] <- narr.per[ids.per] - updt.per
+				if(length(ids.per)>0)
+				{	narr.per[ids.per] <- ij.weights[prev.sc.ids[ids.per]]
+					#print(cbind(rem.sc.ids,prev.sc.ids,narr.per))
+					# update with intermediary scenes involving only one of the characters
+					updt.per <- future_sapply(ids.per, function(k)
+							{	t <- rem.sc.ids[k]
+								theta <- prev.sc.ids[k]
+								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes)
+							})
+					#print(cbind(rem.sc.ids[ids.per],prev.sc.ids[ids.per],narr.per[ids.per],updt.per))
+					narr.per[ids.per] <- narr.per[ids.per] - updt.per
+				}
 				
 				# compute the narrative anticipation for the other scenes
 				tlog(10, "Computing narrative anticipation")
@@ -211,17 +213,19 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 							return(res)
 						})
 				ids.ant <- which(!is.na(next.sc.ids))
-				narr.ant[ids.ant] <- ij.weights[next.sc.ids[ids.ant]]
-				#print(cbind(rem.sc.ids,next.sc.ids,narr.ant))
-				# update with intermediary scenes involving only one of the characters
-				updt.ant <- future_sapply(ids.ant, function(k)
-						{	t <- rem.sc.ids[k]
-							theta <- next.sc.ids[k]
-							ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes)
-						})
-				#print(cbind(rem.sc.ids[ids.ant],next.sc.ids[ids.ant],narr.ant[ids.ant],updt.ant))
-				narr.ant[ids.ant] <- narr.ant[ids.ant] - updt.ant
-	
+				if(length(ids.ant)>0)
+				{	narr.ant[ids.ant] <- ij.weights[next.sc.ids[ids.ant]]
+					#print(cbind(rem.sc.ids,next.sc.ids,narr.ant))
+					# update with intermediary scenes involving only one of the characters
+					updt.ant <- future_sapply(ids.ant, function(k)
+							{	t <- rem.sc.ids[k]
+								theta <- next.sc.ids[k]
+								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes)
+							})
+					#print(cbind(rem.sc.ids[ids.ant],next.sc.ids[ids.ant],narr.ant[ids.ant],updt.ant))
+					narr.ant[ids.ant] <- narr.ant[ids.ant] - updt.ant
+				}
+				
 				# combine narrative persistence and anticipation
 				tmp <- future_apply(cbind(narr.per, narr.ant), 1, max)
 				ij.weights[rem.sc.ids] <- tmp
