@@ -44,14 +44,14 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	
 	# identify scenes involving one of our characters (i or j)
 	chars.org <- char.scenes[t0:t1]
-	chars.org.lgt <- future_sapply(chars.org, length)
-	chars.dif <- future_lapply(chars.org, function(cc) setdiff(cc,ij.names))
-	chars.dif.lgt <- future_sapply(chars.dif, length)
+	chars.org.lgt <- sapply(chars.org, length)
+	chars.dif <- lapply(chars.org, function(cc) setdiff(cc,ij.names))
+	chars.dif.lgt <- sapply(chars.dif, length)
 	idx <- which(chars.org.lgt > chars.dif.lgt)
 	
 	# update interaction weights for each scene involving one char (i or j)
 	if(length(idx)>0)
-		vals[idx] <- future_sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
+		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
 	#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
 	
 	# wrap up
@@ -102,7 +102,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
-	# possible filter the characters
+	# possibly filter the characters
 	if(filtered)
 	{	# read the graph
 		graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
