@@ -45,7 +45,7 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	# identify scenes involving one of our characters (i or j)
 	chars.org <- char.scenes[t0:t1]
 	chars.org.lgt <- future_sapply(chars.org, length)
-	chars.dif <- lapply(chars.org, function(cc) setdiff(cc,ij.names))
+	chars.dif <- future_lapply(chars.org, function(cc) setdiff(cc,ij.names))
 	chars.dif.lgt <- future_sapply(chars.dif, length)
 	idx <- which(chars.org.lgt > chars.dif.lgt)
 	
@@ -165,7 +165,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 				
 				# scenes after the very last occurrence of character i or j
 				if(end.id<length(char.scenes))
-				{	e.ids <- (max(sgl.ids)+1):length(char.scenes)
+				{	e.ids <- (end.id+1):length(char.scenes)
 					#ij.weights[e.ids] <- -Inf
 					rem.sc.ids <- setdiff(rem.sc.ids, e.ids)
 				}
@@ -247,4 +247,4 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes)
 
 
 
-# gg <- ns.graph.extraction(stats.chars, char.scenes, stats.scenes)
+# gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes)
