@@ -107,18 +107,19 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
+	# read the graph
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	g <- read_graph(file=graph.file, format="graphml")
+	V(g)$name <- fix.encoding(strings=V(g)$name)
+	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+	atts <- vertex_attr_names(graph=g)
+	
 	# possibly filter the characters
 	if(filtered)
-	{	# read the graph
-		graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-		g <- read_graph(file=graph.file, format="graphml")
-		V(g)$name <- fix.encoding(strings=V(g)$name)
-		V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-		kept <- which(!V(g)$Filtered)
-		
-		# remove from tables and list
+	{	kept <- which(!V(g)$Filtered)
+		g <- delete_vertices(graph=g, v=V(g)$Filtered)
 		stats.chars <- stats.chars[kept,]
-		char.scenes <- future_lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_STATS_CHAR]))
+		char.scenes <- lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_STATS_CHAR]))
 	}
 	
 	# init char x scene matrix
@@ -133,7 +134,14 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	# init the list of graphs
 	res <- list()
 	for(s in 1:length(char.scenes))
-		res[[s]] <- make_empty_graph(n=nrow(stats.chars), directed=FALSE)
+	{	# create empty graph (no edge)
+		gt <- make_empty_graph(n=nrow(stats.chars), directed=FALSE)
+		# copy the vertex attributes of the static graph
+		for(att in atts)
+			gt <- set_vertex_attr(graph=gt, name=att, value=vertex_attr(graph=g, name=att))
+		# store for later use
+		res[[s]] <- gt
+	}
 	
 	# test:
 	# i <- 345	# Dracon
@@ -151,7 +159,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),")")
 		
 		# scenes where char i appears
-		#i.sc.ids <- which(future_sapply(char.scenes, function(chars) i.name %in% chars))
+		#i.sc.ids <- which(sapply(char.scenes, function(chars) i.name %in% chars))
 		i.sc.ids <- which(scene.mat[i.name,])
 		
 		# loop over the remaining characters for the second end point
@@ -161,7 +169,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),") -- #j=",j.name," (",j,"/",nrow(stats.chars),")")
 			
 			# scenes where char j appears
-			#j.sc.ids <- which(future_sapply(char.scenes, function(chars) j.name %in% chars))
+			#j.sc.ids <- which(sapply(char.scenes, function(chars) j.name %in% chars))
 			j.sc.ids <- which(scene.mat[j.name,])
 			
 			# scenes where both chars appear
@@ -210,7 +218,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				tlog(10, "Computing narrative persistence")
 				narr.per <- rep(-Inf, length(rem.sc.ids))
 				# init with previous scene involving both characters
-				prev.sc.ids <- future_sapply(rem.sc.ids, function(s)
+				prev.sc.ids <- sapply(rem.sc.ids, function(s)
 						{	cands <- which(ij.sc.ids<s)
 							if(length(cands)>0)
 								res <- ij.sc.ids[max(cands)]
@@ -223,7 +231,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				{	narr.per[ids.per] <- ij.weights[prev.sc.ids[ids.per]]
 					#print(cbind(rem.sc.ids,prev.sc.ids,narr.per))
 					# update with intermediary scenes involving only one of the characters
-					updt.per <- future_sapply(ids.per, function(k)
+					updt.per <- sapply(ids.per, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- prev.sc.ids[k]
 								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes, scene.mat)
@@ -236,7 +244,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				tlog(10, "Computing narrative anticipation")
 				narr.ant <- rep(-Inf, length(rem.sc.ids))
 				# init with next scene involving both characters
-				next.sc.ids <- future_sapply(rem.sc.ids, function(s)
+				next.sc.ids <- sapply(rem.sc.ids, function(s)
 						{	cands <- which(ij.sc.ids>s)
 							if(length(cands)>0)
 								res <- ij.sc.ids[min(cands)]
@@ -249,7 +257,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				{	narr.ant[ids.ant] <- ij.weights[next.sc.ids[ids.ant]]
 					#print(cbind(rem.sc.ids,next.sc.ids,narr.ant))
 					# update with intermediary scenes involving only one of the characters
-					updt.ant <- future_sapply(ids.ant, function(k)
+					updt.ant <- sapply(ids.ant, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- next.sc.ids[k]
 								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes, scene.mat)
@@ -259,7 +267,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				}
 				
 				# combine narrative persistence and anticipation
-				tmp <- future_apply(cbind(narr.per, narr.ant), 1, max)
+				tmp <- apply(cbind(narr.per, narr.ant), 1, max)
 				ij.weights[rem.sc.ids] <- tmp
 			}
 			
@@ -285,4 +293,14 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 
 
 
-# gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes)
+###############################################################################
+# test
+filtered <- TRUE
+gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
+base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
+for(s in 1:length(gg))
+{	graph.file <- paste0(base.file,"_s",s,".graphml")
+	tlog(2, "Recording file ",graph.file)
+	g <- gg[[s]]
+	write.graph(graph=g, file=graph.file, format="graphml")
+}

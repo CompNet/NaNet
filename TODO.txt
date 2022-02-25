@@ -87,5 +87,6 @@ Clean code:
 - nothing from "scene" in "comparison"
 - in the logs, systematically print the filenames of the plots and csv (including post scripts)
 - automate the comparison of node vs. node measures (sam for edges) (in both directions n1 vs n2 and n2 vs n1)
+- not normal to load the graph just to get the filtered characters >> should record them in a separate file
 
 use nbr of occurrences (scenes) to plot vertex size? (instead of betweenness)
