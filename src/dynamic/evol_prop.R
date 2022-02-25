@@ -3,6 +3,9 @@
 # 
 # Vincent Labatut
 # 02/2022
+#
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# source("src/dynamic/evol_prop.R")
 ###############################################################################
 source("src/common/include.R")
 
@@ -13,7 +16,7 @@ source("src/common/include.R")
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-filted <- TRUE
+filtred <- TRUE
 
 base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
 gg <- list()
