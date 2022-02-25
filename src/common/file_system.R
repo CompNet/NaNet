@@ -223,11 +223,12 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
+# subfold: additional subfolder (optional).
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
+get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, subfold=NA, plot.type=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -250,6 +251,9 @@ get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, o
 		if(!is.logical(vol))
 			folder <- file.path(folder, vol)
 	}
+	# possibly add extra subfolder
+	if(!is.na(subfold))
+		folder <- file.path(folder, subfold)
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))

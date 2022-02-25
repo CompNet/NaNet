@@ -29,6 +29,16 @@ GRAPH_MEASURES[[MEAS_DENSITY]] <- list( #density
 	{	graph.density(graph=graph, loops=FALSE)
 	}
 )
+GRAPH_MEASURES[[paste0(MEAS_DENSITY,SFX_WEIGHT)]] <- list( #density-weighted
+	type=numeric(),
+	bounds=c(0,1),
+	cname="Weighted Density",
+	foo=function(graph) 
+	{	# we assume the edge weights are normalized in [0;1]
+		n <- gorder(graph)
+		sum(E(graph)$weight)/(n*(n-1)/2)
+	}
+)
 
 # link weights
 LINK_MEASURES[[MEAS_LINKWEIGHT]] <- list( #linkweight

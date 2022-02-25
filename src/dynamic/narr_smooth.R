@@ -294,13 +294,14 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 
 
 ###############################################################################
-# test
-filtered <- TRUE
-gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
-base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
-for(s in 1:length(gg))
-{	graph.file <- paste0(base.file,"_s",s,".graphml")
-	tlog(2, "Recording file ",graph.file)
-	g <- gg[[s]]
-	write.graph(graph=g, file=graph.file, format="graphml")
-}
+## test
+#filtered <- TRUE
+#gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
+#base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
+#for(s in 1:length(gg))
+#{	graph.file <- paste0(base.file,"_s",s,".graphml")
+#	tlog(2, "Recording file ",graph.file)
+#	g <- gg[[s]]
+#	write.graph(graph=g, file=graph.file, format="graphml")
+#}
+
