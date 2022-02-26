@@ -16,7 +16,7 @@ source("src/common/include.R")
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-filtred <- TRUE
+filtered <- TRUE
 
 base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
 gg <- list()
@@ -50,7 +50,7 @@ sc.nbr <- length(gg)
 
 ###############################################################################
 # tests
-mean(strength(graph=gg[[400]]))
+#mean(strength(graph=gg[[400]]))
 
 
 
