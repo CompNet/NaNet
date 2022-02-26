@@ -16,7 +16,7 @@ source("src/common/include.R")
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-filtered <- TRUE
+filtered <- TRUE 
 
 base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
 gg <- list()
