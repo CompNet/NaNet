@@ -294,13 +294,8 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 
 
 ###############################################################################
-<<<<<<< HEAD
-# test
-#filtered <- TRUE
-=======
 ## test
 #filtered <- FALSE
->>>>>>> branch 'master' of ssh://git@github.com/CompNet/NaNet.git
 #gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
 #base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
 #for(s in 1:length(gg))

@@ -13,10 +13,15 @@ source("src/common/include.R")
 
 
 ###############################################################################
+# parameters
+filtered <- TRUE 
+pub.order <- FALSE
+
+
+
+###############################################################################
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
-
-filtered <- TRUE 
 
 base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
 gg <- list()
@@ -49,8 +54,52 @@ sc.nbr <- length(gg)
 
 
 ###############################################################################
-# tests
-#mean(strength(graph=gg[[400]]))
+# retrieve volume positions expressed in scenes
+
+# read raw data
+data <- read.raw.data()
+# compute and plot corpus stats
+data <- compute.stats(data)
+
+# init volume boundaries
+if(!pub.order)
+{	ord.vols <- (1:nrow(data$volume.info))[order(data$volume.info[,COL_VOLS_RANK])]	
+}else
+	ord.vols <- 1:nrow(data$volume.info)
+sc.by.vol <- data$stats.volumes[ord.vols,COL_STATS_SCENES]
+vol.sc <- unlist(sapply(1:length(sc.by.vol), function(i) rep(ord.vols[i],sc.by.vol[i])))
+vol.sc.bounds <- t(sapply(1:length(ord.vols), function(i) range(which(vol.sc==ord.vols[i]))))
+rownames(vol.sc.bounds) <- data$volume.info[ord.vols,COL_VOLS_VOLUME]
+colnames(vol.sc.bounds) <- c(COL_STATS_START_SCENE_ID, COL_STATS_END_SCENE_ID)
+
+###############################################################################
+# Draws rectangles corresponding to volumes.
+#
+# 
+###############################################################################
+draw.volume.rects <- function(ylim)
+{	# rectangle colors
+	rec.pal <- c("gray90","gray80")
+	
+	# draw each volume
+	for(v in 1:nrow(vol.sc.bounds))
+	{	rect(
+				xleft=vol.sc.bounds[v,COL_STATS_START_SCENE_ID], 
+				xright=vol.sc.bounds[v,COL_STATS_END_SCENE_ID], 
+				ybottom=ylim[1]-abs(ylim[1])*0.05, 
+				ytop=ylim[2], 
+				col=rec.pal[(v %% 2)+1], 
+				border=NA, density=NA
+		)
+		text(
+				x=(vol.sc.bounds[v,COL_STATS_START_SCENE_ID]+vol.sc.bounds[v,COL_STATS_END_SCENE_ID])/2, 
+				y=ylim[2]*0.95, 
+				labels=data$volume.info[ord.vols[v],COL_VOLS_VOLUME],
+				cex=0.55, adj=c(0.5,0)
+		)
+	}
+}
+
 
 
 
@@ -85,6 +134,12 @@ gr.meas <- c(
 	MEAS_DENSITY,
 	paste0(MEAS_DENSITY,SFX_WEIGHT)
 )
+log.y <- c(
+	paste0(MEAS_CLOSENESS,SFX_AVG), paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_AVG),
+	MEAS_DENSITY, paste0(MEAS_DENSITY,SFX_WEIGHT),
+	paste0(MEAS_EIGENCNTR,SFX_AVG), paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_AVG),
+	paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_AVG)
+)
 gr.stats <- matrix(NA, nrow=sc.nbr, ncol=length(gr.meas), dimnames=list(c(),gr.meas))
 
 # compute each measure
@@ -99,6 +154,12 @@ for(m in 1:length(gr.meas))
 		gr.stats[i,m] <- GRAPH_MEASURES[[meas]]$foo(gg[[i]])
 	}
 	
+	# compute y range
+	tmp <- gr.stats[,m]
+	tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
+	ylim <- range(tmp)
+	ylim[2] <- ylim[2]*1.1	# add some space for volume names
+	
 	# plot the measure
 	plot.file <- get.path.topomeas.plot(object="graph", mode="scenes", meas.name=meas, filtered=filtered, subfold="narr_smooth/graph")
 	tlog(6, "Plotting in file \"",plot.file,"\"")
@@ -108,13 +169,23 @@ for(m in 1:length(gr.meas))
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
 		par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+		# init empty plot
 		plot(
-			x=1:sc.nbr, y=gr.stats[,m], 
+			NULL, 
 #			ylim=GRAPH_MEASURES[[meas]]$bounds, 
-			xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
-			col=MAIN_COLOR,
-			type="l"
+			xlim=c(1,sc.nbr), ylim=ylim,
+			log=if(meas %in% log.y) "y" else "",
+			xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname
 		)
+		# add volume representations
+		draw.volume.rects(ylim)
+		# add line
+		lines(
+			x=1:sc.nbr, y=gr.stats[,m], 
+			xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
+			col=MAIN_COLOR
+		)
+		# add axis
 		dev.off()
 	}
 }
@@ -138,6 +209,10 @@ vx.meas <- c(
 	paste0(MEAS_EIGENCNTR,SFX_WEIGHT),
 	paste0(MEAS_TRANSITIVITY,SFX_LOCAL),
 	paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL)
+)
+log.y <- c(
+	MEAS_CLOSENESS, paste0(MEAS_CLOSENESS,SFX_WEIGHT),
+	paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT)
 )
 vs.stats <- list()
 
@@ -194,8 +269,11 @@ for(m in 1:length(vx.meas))
 			plot(
 				NULL, 
 				ylim=ylim, xlim=c(1,sc.nbr),
+				log=if(meas %in% log.y) "y" else "",
 				xlab="Scenes", ylab=NODE_MEASURES[[meas]]$cname
 			)
+			# add volume representations
+			draw.volume.rects(ylim)
 			# add a serie for each character
 			for(v in 1:length(vs))
 			{	lines(
@@ -225,6 +303,7 @@ tlog(0, "Computing the edge measures")
 ed.meas <- c(
 	MEAS_LINKWEIGHT
 )
+log.y <- c()
 es.stats <- list()
 
 # edges of interest
@@ -299,12 +378,15 @@ for(m in 1:length(ed.meas))
 			plot(
 				NULL, 
 				ylim=ylim, xlim=c(1,sc.nbr),
+				log=if(meas %in% log.y) "y" else "",
 				xlab="Scenes", ylab=LINK_MEASURES[[meas]]$cname
 			)
+			# add volume representations
+			draw.volume.rects(ylim)
 			# add a serie for each edge
 			for(e in 1:length(es))
 			{	lines(
-					x=1:sc.nbr, y=mat[,e.names[e]], 
+					x=1:sc.nbr, y=mat[,e.names[es[e]]], 
 					col=e.pal[es[e]],
 					type="l"
 				)
@@ -321,6 +403,4 @@ for(m in 1:length(ed.meas))
 		}
 	}
 }
-tlog.end.loop(2, "Computation of vertex measures over")
-
-# TODO add bands to represent volumes or arcs?
+tlog.end.loop(2, "Computation of edge measures over")

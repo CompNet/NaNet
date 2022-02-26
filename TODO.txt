@@ -77,7 +77,7 @@ C:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file: !ext:pdf;g
 
 ..:: tentative alt names ::..
 Graph Extraction and Analysis for Sequential Narratives GEASEN
-Network extraction and analysis for sequantial art narratives NEASAN
+Network extraction and analysis for sequential art narratives NEASAN
 Extraction and Analysis of Character Networks from Graphic Novels EACNGN
 
 -------------------------------
@@ -88,5 +88,6 @@ Clean code:
 - in the logs, systematically print the filenames of the plots and csv (including post scripts)
 - automate the comparison of node vs. node measures (sam for edges) (in both directions n1 vs n2 and n2 vs n1)
 - not normal to load the graph just to get the filtered characters >> should record them in a separate file
+- merge the info & stats tables (if possible? check that first)
 
 use nbr of occurrences (scenes) to plot vertex size? (instead of betweenness)
