@@ -76,7 +76,7 @@ colnames(vol.sc.bounds) <- c(COL_STATS_START_SCENE_ID, COL_STATS_END_SCENE_ID)
 ###############################################################################
 # Draws rectangles corresponding to volumes.
 #
-# 
+# ylim: limits of the y axis in the plot.
 ###############################################################################
 draw.volume.rects <- function(ylim)
 {	# rectangle colors
@@ -94,9 +94,9 @@ draw.volume.rects <- function(ylim)
 		)
 		text(
 				x=(vol.sc.bounds[v,COL_STATS_START_SCENE_ID]+vol.sc.bounds[v,COL_STATS_END_SCENE_ID])/2, 
-				y=ylim[2]*0.95, 
+				y=ylim[2], 
 				labels=data$volume.info[ord.vols[v],COL_VOLS_VOLUME],
-				cex=0.55, adj=c(0.5,0)
+				cex=0.55, adj=c(0.5,1)
 		)
 	}
 }
@@ -127,7 +127,7 @@ gr.meas <- c(
 	paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_NBR),
 	#
 	paste0(MEAS_DISTANCE,SFX_AVG),
-	paste0(MEAS_DISTANCE,SFX_AVG),
+	paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG),
 	paste0(MEAS_COMPONENT,SFX_NBR),
 	paste0(MEAS_NODE,SFX_NBR),
 	paste0(MEAS_LINK,SFX_NBR),
