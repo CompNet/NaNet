@@ -15,7 +15,7 @@ source("src/common/include.R")
 ###############################################################################
 # parameters
 filtered <- TRUE 
-pub.order <- FALSE
+pub.order <- TRUE
 
 
 
@@ -62,10 +62,11 @@ data <- read.raw.data()
 data <- compute.stats(data)
 
 # init volume boundaries
-if(!pub.order)
-{	ord.vols <- (1:nrow(data$volume.info))[order(data$volume.info[,COL_VOLS_RANK])]	
+if(pub.order)
+{	ord.vols <- 1:nrow(data$volume.info)
 }else
-	ord.vols <- 1:nrow(data$volume.info)
+	ord.vols <- (1:nrow(data$volume.info))[order(data$volume.info[,COL_VOLS_RANK])]	
+
 sc.by.vol <- data$stats.volumes[ord.vols,COL_STATS_SCENES]
 vol.sc <- unlist(sapply(1:length(sc.by.vol), function(i) rep(ord.vols[i],sc.by.vol[i])))
 vol.sc.bounds <- t(sapply(1:length(ord.vols), function(i) range(which(vol.sc==ord.vols[i]))))
