@@ -2812,9 +2812,9 @@ L3	34	3	34	4	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	
 L3	34	5	35	2	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim	Fenrir
 L3	35	3	35	8	Louve yin / Louve Thorgalsdottir
 L3	36	1	36	4	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim
-L3	36	5	36	6	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön	Louve yin / Louve Thorgalsdottir	Louve yang / Louve	Avrenim
+L3	36	5	36	6	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim
 L3	36	7	36	9	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön
-L3	37	1	37	5	Louve yin / Louve Thorgalsdottir	Louve yang / Louve	Avrenim
+L3	37	1	37	5	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim
 L3	38	1	38	7	Louve yang / Louve Thorgalsdottir
 L3	39	1	39	7	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim	Dragon_L3.39
 L3	40	1	41	7	Louve yin / Louve Thorgalsdottir	Louve yang / Louve Thorgalsdottir	Avrenim	Hicham yin / Hicham	Driss Ibn Fadlân	Azzalepstön	Éphèbes_L3.40	Dragon_L3.39
