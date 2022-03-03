@@ -822,25 +822,25 @@ compute.static.statistics <- function(data, panel.window.sizes, panel.overlaps, 
 			compute.all.static.corrs(mode="scenes", weights=weights, vol=vol)
 	}
 	
-	# statistics for the panel window-based static graphs
-	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
-	for(i in 1:length(panel.window.sizes))
-	{	window.size <- panel.window.sizes[i]
-		for(overlap in panel.overlaps[[i]])
-		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE)
-			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
-		}
-	}#)
-	
-	# statistics for the page window-based static graphs
-	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
-	for(i in 1:length(page.window.sizes))
-	{	window.size <- page.window.sizes[i]
-		for(overlap in page.overlaps[[i]])
-		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE)
-			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
-		}
-	}#)
+#	# statistics for the panel window-based static graphs
+#	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
+#	for(i in 1:length(panel.window.sizes))
+#	{	window.size <- panel.window.sizes[i]
+#		for(overlap in panel.overlaps[[i]])
+#		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE)
+#			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
+#		}
+#	}#)
+#	
+#	# statistics for the page window-based static graphs
+#	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
+#	for(i in 1:length(page.window.sizes))
+#	{	window.size <- page.window.sizes[i]
+#		for(overlap in page.overlaps[[i]])
+#		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE)
+#			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
+#		}
+#	}#)
 	
 	tlog(1,"Computation of statistics for static graphs complete")	
 }

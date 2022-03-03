@@ -435,25 +435,25 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	
-	# extract the panel window-based static graphs
-	future_sapply(1:length(panel.window.sizes), function(i)
-	#for(i in 1:length(panel.window.sizes))
-	{	window.size <- panel.window.sizes[i]
-		for(overlap in panel.overlaps[[i]])
-			g <- extract.static.graph.panel.window(
-					char.info=data$char.info, inter.df=data$inter.df, 
-					window.size=window.size, overlap=overlap)
-	})
-	
-	# extract the page window-based static graphs
-	future_sapply(1:length(page.window.sizes), function(i)
-	#for(i in 1:length(page.window.sizes))
-	{	window.size <- page.window.sizes[i]
-		for(overlap in page.overlaps[[i]])
-			g <- extract.static.graph.page.window(
-					char.info=data$char.info, inter.df=data$inter.df, page.info=data$page.info, 
-					window.size=window.size, overlap=overlap)
-	})
+#	# extract the panel window-based static graphs
+#	future_sapply(1:length(panel.window.sizes), function(i)
+#	#for(i in 1:length(panel.window.sizes))
+#	{	window.size <- panel.window.sizes[i]
+#		for(overlap in panel.overlaps[[i]])
+#			g <- extract.static.graph.panel.window(
+#					char.info=data$char.info, inter.df=data$inter.df, 
+#					window.size=window.size, overlap=overlap)
+#	})
+#	
+#	# extract the page window-based static graphs
+#	future_sapply(1:length(page.window.sizes), function(i)
+#	#for(i in 1:length(page.window.sizes))
+#	{	window.size <- page.window.sizes[i]
+#		for(overlap in page.overlaps[[i]])
+#			g <- extract.static.graph.page.window(
+#					char.info=data$char.info, inter.df=data$inter.df, page.info=data$page.info, 
+#					window.size=window.size, overlap=overlap)
+#	})
 	
 	tlog(1,"Extraction of the static graphs complete")
 	return(data)

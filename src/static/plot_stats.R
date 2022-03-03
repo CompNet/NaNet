@@ -1261,13 +1261,13 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 			generate.static.plots.evol(data=data, arcs=flag, filtered=filtered)
 	}
 
-	# panel-based windows
-	tlog(2,"Generating plots for static graphs with panel-based windows")
-	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
-	
-	# page-based windows
-	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+#	# panel-based windows
+#	tlog(2,"Generating plots for static graphs with panel-based windows")
+#	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+#	
+#	# page-based windows
+#	tlog(2,"Generating plots for static graphs with page-based windows")
+#	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
 	
 	tlog(1,"Generation of plots for static graphs complete")	
 }

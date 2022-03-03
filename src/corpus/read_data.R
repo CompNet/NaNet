@@ -323,6 +323,12 @@ read.char.table <- function(char.scenes)
 		colnames(char.info)[ncol(char.info)] <- COL_CHAR_FREQ
 		idx <- sapply(char.scenes, function(char.scene) length(char.scene)>1)	# only consider scenes with several characters
 		tt <- table(unlist(char.scenes[idx]))
+		pb <- which(is.na(match(names(tt),char.info[,COL_CHAR_NAME])))
+		if(length(pb)>0)
+		{	msg <- paste0("ERROR: could find name(s) \"",paste(names(tt)[pb],collapse=","),"\" in the char table")
+			tlog(3,msg)
+			stop(msg)
+		}
 		char.info[match(names(tt),char.info[,COL_CHAR_NAME]),COL_CHAR_FREQ] <- tt
 		
 		# complete the shortname column (using fullnames)
