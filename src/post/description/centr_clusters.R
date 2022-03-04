@@ -83,6 +83,7 @@ print(sapply(1:best.k, function(c) colMeans(vals.unf[best.membership==c,])))
 # scatterplot3d(log(vals.unf[,1]+1), log(vals.unf[,2]+1), log(vals.unf[,3]+1), color=membership, log="xyz")
 
 # 2D plot of a projection
+library("FactoMineR")
 fit <- cmdscale(dd, eig=FALSE, k=2)
 fit <- PCA(X=vals.unf.sc, ncp=2)
 # https://www.r-bloggers.com/2021/05/principal-component-analysis-pca-in-r/

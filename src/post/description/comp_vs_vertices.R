@@ -244,8 +244,8 @@ for(fformat in PLOT_FORMAT)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 	else if(fformat==PLOT_FORMAT_PNG)
 		png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-	par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-	# unfiltered net results
+		par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+		# unfiltered net results
 		plot(
 			x=1:(gorder(g)-1), y=res[["Unfiltered-Nbr"]],
 			xlab=TeX(xlab), ylab=TeX(ylab),
@@ -253,12 +253,12 @@ for(fformat in PLOT_FORMAT)
 			#log="x",
 			type="l"
 		)
-	# filtered net results
+		# filtered net results
 		lines(
 			x=1:(gorder(g.filt)-1), y=res[["Filtered-Nbr"]], 
 			col=pal[2] 
 		)
-	# legend
+		# legend
 		legend(
 			title="Characters",
 			x="topleft",

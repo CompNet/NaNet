@@ -532,7 +532,8 @@ plot(
 for(s in 1:length(deg.flt))
 {	points(
 		x=deg.flt[[s]], y=tra.flt[[s]],
-		col=pal[s]	# col=pal.sec[s]
+		col=pal[s],	# col=pal.sec[s]
+		cex.lab=0.75, cex.axis=0.75, cex=0.75
 	)
 #	# mean
 #	idx <- which(!is.nan(tra.avg.flt[[s]]) & tra.avg.flt[[s]]>0)
@@ -672,8 +673,9 @@ plot(
 for(s in 1:length(deg.flt))
 {	points(
 		x=deg.flt[[s]], y=nei.flt[[s]],
-		col=pal[s]	# col=pal.sec[s]
-	)
+		col=pal[s],	# col=pal.sec[s]
+		cex.lab=0.75, cex.axis=0.75, cex=0.75
+		)
 #	# mean
 #	idx <- which(!is.nan(nei.avg.flt[[s]]) & nei.avg.flt[[s]]>0)
 #	lines(	

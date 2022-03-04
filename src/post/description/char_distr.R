@@ -129,7 +129,6 @@ for(line in lines)
 	char.unfilt.nbrs <- c(char.unfilt.nbrs, length(chars))
 	char.filt.nbrs <- c(char.filt.nbrs, length(setdiff(chars,main.chars)))
 }
-char.nbr <- char.nbr / length(lines)
 tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")
 
 # test distributions

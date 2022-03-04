@@ -268,6 +268,7 @@ for(mode in modes)
 				fig=c(0,1,0,1),		# set coordinate space of the original plot
 				mgp=c(3,0.8,0)		# distance between axis ticks and values
 			)
+			zm <- 1
 			# labels
 			xl <- TeX(xlab[mode])
 			yl <- TeX(xlab[mode])
@@ -288,6 +289,7 @@ for(mode in modes)
 					mgp=c(3,0.5,0)
 				)
 			}
+			zm <- 0.75
 			# labels
 			xl <- NA
 			yl <- NA
@@ -299,7 +301,8 @@ for(mode in modes)
 			xlab=xl, ylab=yl,
 			col=pal[f], 
 			log="xy", 
-			las=1
+			las=1,
+			cex.lab=zm, cex.axis=zm, cex=zm
 		)
 		# plot fitted line
 		threshold <- max(deg.vals)
