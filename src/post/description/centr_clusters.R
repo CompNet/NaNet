@@ -5,7 +5,7 @@
 # 02/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/centr_clusters.R.R")
+# source("src/post/description/centr_clusters.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="CentrClusters")
@@ -85,7 +85,7 @@ print(sapply(1:best.k, function(c) colMeans(vals.unf[best.membership==c,])))
 # 2D plot of a projection
 library("FactoMineR")
 fit <- cmdscale(dd, eig=FALSE, k=2)
-fit <- PCA(X=vals.unf.sc, ncp=2)
+#fit <- PCA(X=vals.unf.sc, ncp=2)
 # https://www.r-bloggers.com/2021/05/principal-component-analysis-pca-in-r/
 plot(fit-min(fit), col=CAT_COLORS_8[best.membership], log="xy")
 

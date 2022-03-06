@@ -5,7 +5,7 @@
 # 03/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/robustness.R.R")
+# source("src/post/description/robustness.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="RobustnessPlot")

@@ -4,7 +4,7 @@
 # 02/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/sex_stats.R.R")
+# source("src/post/description/sex_stats.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="SexStats")
