@@ -5,7 +5,7 @@
 # 02/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/centr_vs_centr.R.R")
+# source("src/post/description/centr_vs_centr.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="CentrVsCentr")
