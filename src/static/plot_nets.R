@@ -138,7 +138,7 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
-	attrs <- setdiff(attrs, c(COL_CHAR_NAME, COL_CHAR_SHORT_NAME, "id", "name")) # COL_CHAR_FREQ, COL_CHAR_NAMED, COL_CHAR_FILTERED
+	attrs <- setdiff(attrs, c(COL_NAME, COL_SHORT_NAME, "id", "name")) # COL_FREQ, COL_NAMED, COL_FILTERED
 	attrs <- c(attrs, NA)
 	
 	# plot the graph alone, and also depending on each vertex attribute
@@ -158,7 +158,7 @@ plot.static.graph.scenes.all <- function(data)
 			vcols[col.char.idx] <- get.palette(col.char.nbr)
 		}
 		# numeric attribute
-		else if(attr==COL_CHAR_FREQ)
+		else if(attr==COL_FREQ)
 		{	rvals <- vertex_attr(graph=g, name=attr)
 			#vals <- rvals									# linear scale
 			vals <- log(rvals+1)
@@ -211,7 +211,7 @@ plot.static.graph.scenes.all <- function(data)
 				)
 				if(!is.na(attr))
 				{	# numeric attribute
-					if(attr==COL_CHAR_FREQ)
+					if(attr==COL_FREQ)
 					{	# size
 						width <- 100
 						height <- 600
@@ -250,7 +250,7 @@ plot.static.graph.scenes.all <- function(data)
 		}
 		
 		# plot whole filtered graph
-		if(is.na(attr) || attr!=COL_CHAR_FILTERED)
+		if(is.na(attr) || attr!=COL_FILTERED)
 		{	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE)
 			if(!is.na(attr))
 				graph.file <- paste0(graph.file, "_attr=", attr)
@@ -273,7 +273,7 @@ plot.static.graph.scenes.all <- function(data)
 					)
 					if(!is.na(attr))
 					{	# numeric attribute
-						if(attr==COL_CHAR_FREQ)
+						if(attr==COL_FREQ)
 						{	# size
 							width <- 100
 							height <- 400
@@ -321,9 +321,9 @@ plot.static.graph.scenes.all <- function(data)
 	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
 	tlog(4,"Plotting volume-related graphs using vertex colors")
 	for(v in 1:length(data$char.volumes))
-	{	vname <- data$volume.info[v,COL_VOLS_VOLUME]
+	{	vname <- data$volume.info[v,COL_VOLUME]
 		tlog(6,"Plotting volume ",vname," (",v,"/",length(data$char.volumes),")")
-		idx <- match(data$char.volumes[[v]], data$char.info[,COL_CHAR_NAME])
+		idx <- match(data$char.volumes[[v]], data$char.info[,COL_NAME])
 		el <- as_edgelist(graph=g, names=FALSE)
 		idx.e <- which(el[,1] %in% idx & el[,2] %in% idx)
 		vcols <- rep("LIGHTGRAY", nrow(data$char.info))
@@ -349,7 +349,7 @@ plot.static.graph.scenes.all <- function(data)
 					edge.color=ecols, edge.width=ewidths, 
 					rescale=FALSE, #axe=TRUE, 
 					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2]),
-					main=paste0(vname, " - ", data$volume.info[v,COL_VOLS_TITLE], " (",v,"/",nrow(data$volume.info),")")
+					main=paste0(vname, " - ", data$volume.info[v,COL_TITLE], " (",v,"/",nrow(data$volume.info),")")
 			)
 			dev.off()
 		}
@@ -370,7 +370,7 @@ plot.static.graph.scenes.all <- function(data)
 					edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
 					rescale=FALSE, #axe=TRUE, 
 					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2]),
-					main=paste0(vname, " - ", data$volume.info[v,COL_VOLS_TITLE], " (",v,"/",nrow(data$volume.info),")")
+					main=paste0(vname, " - ", data$volume.info[v,COL_TITLE], " (",v,"/",nrow(data$volume.info),")")
 				)
 			dev.off()
 		}
@@ -380,10 +380,10 @@ plot.static.graph.scenes.all <- function(data)
 	tlog(4,"Plotting arc-related graphs using vertex colors")
 	arcs.folder <- file.path(NET_SCENES_FOLDER, "arcs")
 	dir.create(path=arcs.folder, showWarnings=FALSE, recursive=TRUE)
-	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	arc.titles <- unique(data$volume.info[,COL_ARC])
 	for(a in 1:length(data$char.arcs))
 	{	tlog(6,"Plotting arc ",a,"/",length(data$char.arcs))
-		idx <- match(data$char.arcs[[a]], data$char.info[,COL_CHAR_NAME])
+		idx <- match(data$char.arcs[[a]], data$char.info[,COL_NAME])
 		el <- as_edgelist(graph=g, names=FALSE)
 		idx.e <- which(el[,1] %in% idx & el[,2] %in% idx)
 		vcols <- rep("LIGHTGRAY", nrow(data$char.info))
@@ -621,14 +621,14 @@ plot.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.wi
 	g <- plot.static.graph.scenes.all(data)
 	
 	# same for each arc
-	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	arc.titles <- unique(data$volume.info[,COL_ARC])
 	for(arc in 1:length(arc.titles))
 		plot.static.graph.scenes.partial(data, arc=arc)
 	
 	# same for each volume
 	volume.nbr <- nrow(data$volume.info)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.info[v, COL_VOLS_VOLUME]
+	{	vol <- data$volume.info[v, COL_VOLUME]
 		plot.static.graph.scenes.partial(data, vol=vol)
 	}
 	

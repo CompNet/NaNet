@@ -89,5 +89,6 @@ Clean code:
 - automate the comparison of node vs. node measures (sam for edges) (in both directions n1 vs n2 and n2 vs n1)
 - not normal to load the graph just to get the filtered characters >> should record them in a separate file
 - merge the info & stats tables (if possible? check that first)
+- record these tables and provide function to read them directly
 
-use nbr of occurrences (scenes) to plot vertex size? (instead of betweenness)
+use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)

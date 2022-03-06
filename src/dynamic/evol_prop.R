@@ -65,13 +65,13 @@ data <- compute.stats(data)
 if(pub.order)
 {	ord.vols <- 1:nrow(data$volume.info)
 }else
-	ord.vols <- (1:nrow(data$volume.info))[order(data$volume.info[,COL_VOLS_RANK])]	
+	ord.vols <- (1:nrow(data$volume.info))[order(data$volume.info[,COL_RANK])]	
 
-sc.by.vol <- data$stats.volumes[ord.vols,COL_STATS_SCENES]
+sc.by.vol <- data$stats.volumes[ord.vols,COL_SCENES]
 vol.sc <- unlist(sapply(1:length(sc.by.vol), function(i) rep(ord.vols[i],sc.by.vol[i])))
 vol.sc.bounds <- t(sapply(1:length(ord.vols), function(i) range(which(vol.sc==ord.vols[i]))))
-rownames(vol.sc.bounds) <- data$volume.info[ord.vols,COL_VOLS_VOLUME]
-colnames(vol.sc.bounds) <- c(COL_STATS_START_SCENE_ID, COL_STATS_END_SCENE_ID)
+rownames(vol.sc.bounds) <- data$volume.info[ord.vols,COL_VOLUME]
+colnames(vol.sc.bounds) <- c(COL_SCENE_START_ID, COL_SCENE_END_ID)
 
 ###############################################################################
 # Draws rectangles corresponding to volumes.
@@ -85,17 +85,17 @@ draw.volume.rects <- function(ylim)
 	# draw each volume
 	for(v in 1:nrow(vol.sc.bounds))
 	{	rect(
-				xleft=vol.sc.bounds[v,COL_STATS_START_SCENE_ID], 
-				xright=vol.sc.bounds[v,COL_STATS_END_SCENE_ID], 
+				xleft=vol.sc.bounds[v,COL_SCENE_START_ID], 
+				xright=vol.sc.bounds[v,COL_SCENE_END_ID], 
 				ybottom=ylim[1]-abs(ylim[1])*0.05, 
 				ytop=ylim[2], 
 				col=rec.pal[(v %% 2)+1], 
 				border=NA, density=NA
 		)
 		text(
-				x=(vol.sc.bounds[v,COL_STATS_START_SCENE_ID]+vol.sc.bounds[v,COL_STATS_END_SCENE_ID])/2, 
+				x=(vol.sc.bounds[v,COL_SCENE_START_ID]+vol.sc.bounds[v,COL_SCENE_END_ID])/2, 
 				y=ylim[2], 
-				labels=data$volume.info[ord.vols[v],COL_VOLS_VOLUME],
+				labels=data$volume.info[ord.vols[v],COL_VOLUME],
 				cex=0.55, adj=c(0.5,1)
 		)
 	}

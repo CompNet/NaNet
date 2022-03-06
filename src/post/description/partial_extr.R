@@ -33,7 +33,7 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute split scene
 split.vol <- "23"	# The Cage
-idx <- which(data$stats.scenes[,COL_STATS_VOLUME]==split.vol)[1]
+idx <- which(data$stats.scenes[,COL_VOLUME]==split.vol)[1]
 idx <- which(data$inter.df[,"SceneId"]==idx)[1]
 
 # init graph list

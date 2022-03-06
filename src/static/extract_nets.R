@@ -21,8 +21,8 @@
 # char.info: table describing all the characters occurring in the BD series.
 # page.info: table describing all the pages constituting the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
-#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
-#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
+#			COL_FROM_CHAR and COL_CHAR_TO) and their time of 
+#           occurrence (columns COL_PANEL_START_ID and COL_PANEL_END_ID).
 # stats.scenes: scene statistics, only needed if ret.seq is TRUE.
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
@@ -46,41 +46,41 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES, COL_INTER_DURATION)
+	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES, COL_DURATION)
 	colnames(static.df) <- cn
 	
 	# possibly filter interactions
 	if(!is.na(arc))
-	{	arc.titles <- unique(volume.info[,COL_VOLS_ARC])
+	{	arc.titles <- unique(volume.info[,COL_ARC])
 		#arc.nbr <- length(arc.titles)
-		idx.vol <- which(volume.info[,COL_VOLS_ARC]==arc.titles[arc])
+		idx.vol <- which(volume.info[,COL_ARC]==arc.titles[arc])
 		idx.pn <- c()
 		for(v in idx.vol)
-		{	idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==v)
-			start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
-			end.pn <- page.info[idx.pg[length(idx.pg)],COL_PAGES_START_PANEL_ID]
+		{	idx.pg <- which(page.info[,COL_VOLUME_ID]==v)
+			start.pn <- page.info[idx.pg[1],COL_PANEL_START_ID]
+			end.pn <- page.info[idx.pg[length(idx.pg)],COL_PANEL_START_ID]
 			idx.pn <- c(idx.pn, seq(start.pn, end.pn))
 		}
-		is <- which(inter.df[,COL_INTER_START_PANEL_ID] %in% idx.pn)
+		is <- which(inter.df[,COL_PANEL_START_ID] %in% idx.pn)
 	}
 	else if(!is.na(vol))
-	{	vname <- volume.info[vol,COL_VOLS_VOLUME]
-		idx.pg <- which(page.info[,COL_PAGES_VOLUME_ID]==vol)
-		start.pn <- page.info[idx.pg[1],COL_PAGES_START_PANEL_ID]
-		#end.pn <- page.info[idx.pg[length(idx.pg)]+1,COL_PAGES_START_PANEL_ID] - 1
-		end.pn <- page.info[idx.pg[length(idx.pg)],COL_PAGES_START_PANEL_ID]
+	{	vname <- volume.info[vol,COL_VOLUME]
+		idx.pg <- which(page.info[,COL_VOLUME_ID]==vol)
+		start.pn <- page.info[idx.pg[1],COL_PANEL_START_ID]
+		#end.pn <- page.info[idx.pg[length(idx.pg)]+1,COL_PANEL_START_ID] - 1
+		end.pn <- page.info[idx.pg[length(idx.pg)],COL_PANEL_START_ID]
 		idx.pn <- seq(start.pn, end.pn)
-		#is <- which(stats.scenes[,COL_STATS_VOLUME]==vol)
-		is <- which(inter.df[,COL_INTER_START_PANEL_ID] %in% idx.pn)
+		#is <- which(stats.scenes[,COL_VOLUME]==vol)
+		is <- which(inter.df[,COL_PANEL_START_ID] %in% idx.pn)
 	}
 	else
 	{	# possibly order interactions by story order (not publication order)
 #		if(ret.seq)
-#		{	pg.starts <- page.info[,COL_PAGES_START_PANEL_ID]
-#			pg.ends <- page.info[,COL_PAGES_START_PANEL_ID] + page.info[,COL_PAGES_PANELS] - 1
-#			page.ids <- future_sapply(1:nrow(inter.df), function(r) which(pg.starts<=inter.df[r,COL_INTER_START_PANEL_ID] & pg.ends>=inter.df[r,COL_INTER_START_PANEL_ID]))
-#			vol.ranks <- volume.info[page.info[page.ids, COL_PAGES_VOLUME_ID], COL_VOLS_RANK]
-#			inter.df <- inter.df[order(vol.ranks, inter.df[,COL_INTER_START_PANEL_ID]),]
+#		{	pg.starts <- page.info[,COL_PANEL_START_ID]
+#			pg.ends <- page.info[,COL_PANEL_START_ID] + page.info[,COL_PANELS] - 1
+#			page.ids <- future_sapply(1:nrow(inter.df), function(r) which(pg.starts<=inter.df[r,COL_PANEL_START_ID] & pg.ends>=inter.df[r,COL_PANEL_START_ID]))
+#			vol.ranks <- volume.info[page.info[page.ids, COL_VOLUME_ID], COL_RANK]
+#			inter.df <- inter.df[order(vol.ranks, inter.df[,COL_PANEL_START_ID]),]
 #		}
 		# get interactions numbers
 		is <- 1:nrow(inter.df)
@@ -90,17 +90,17 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 	prev.scene <- NA
 	for(i in is)
 	{	# get the current scene id
-		cur.scene <- inter.df[i,COL_INTER_SCENE_ID]
+		cur.scene <- inter.df[i,COL_SCENE_ID]
 		
 		# get the characters
-		from.char <- inter.df[i,COL_INTER_FROM_CHAR]
-		to.char <- inter.df[i,COL_INTER_TO_CHAR]
+		from.char <- inter.df[i,COL_FROM_CHAR]
+		to.char <- inter.df[i,COL_CHAR_TO]
 		
 		# get the corresponding row in the new (integrated) dataframe
-		index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+		index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
 		
 		# compute the number of panels in the sequence
-		length <- inter.df[i,COL_INTER_END_PANEL_ID] - inter.df[i,COL_INTER_START_PANEL_ID] + 1
+		length <- inter.df[i,COL_PANEL_END_ID] - inter.df[i,COL_PANEL_START_ID] + 1
 		
 		# update the integrated dataframe
 		if(length(index)==0)
@@ -111,8 +111,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		}
 		else
 		{	# update the couple of characters (already inserted vefore)
-			static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
-			static.df[index, COL_INTER_DURATION] <- static.df[index, COL_INTER_DURATION] + length
+			static.df[index, COL_OCCURRENCES] <- static.df[index, COL_OCCURRENCES] + 1
+			static.df[index, COL_DURATION] <- static.df[index, COL_DURATION] + length
 		}
 		
 		# if graph sequence required
@@ -126,8 +126,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 				}
 			}
 			# build and add current graph
-			static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
-			idx <- which(char.info[,COL_CHAR_NAME] %in% c(cbind(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR])))
+			static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
+			idx <- which(char.info[,COL_NAME] %in% c(cbind(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO])))
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.info[idx,])
 			g$Scene <- cur.scene
 			res[[cur.scene]] <- g
@@ -149,7 +149,7 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 		}
 	}
 	else
-	{	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
+	{	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
 		#print(static.df)
 		
 		# init the graph
@@ -177,8 +177,8 @@ extract.static.graph.scenes <- function(volume.info, char.info, page.info, inter
 #
 # char.info: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
-#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
-#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
+#			COL_FROM_CHAR and COL_CHAR_TO) and their time of 
+#           occurrence (columns COL_PANEL_START_ID and COL_PANEL_END_ID).
 # window.size: size of the time window (expressed in panels).
 # overlap: how much consecutive windows overlap (expressed in panels). Must be strictly
 #          smaller than window.size.
@@ -203,11 +203,11 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 		stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES)
+	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES)
 	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
-	last.panel <- max(inter.df[,COL_INTER_END_PANEL_ID])
+	last.panel <- max(inter.df[,COL_PANEL_END_ID])
 	window.start <- 1
 	window.end <- window.size
 	covered <- FALSE
@@ -216,23 +216,23 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 		covered <- window.end==last.panel
 		tlog(3,"Current window: [",window.start,",",window.end,"]")
 		# scenes intersecting the window
-		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<window.start | inter.df[,COL_INTER_START_PANEL_ID]>window.end))
+		idx <- which(!(inter.df[,COL_PANEL_END_ID]<window.start | inter.df[,COL_PANEL_START_ID]>window.end))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_FROM_CHAR,COL_CHAR_TO)]))))
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
 			# update dataframe
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+				index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
 				if(length(index)==0)
 				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
 					static.df <- rbind(static.df, tmp.df)
 				}
 				else
-					static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
+					static.df[index, COL_OCCURRENCES] <- static.df[index, COL_OCCURRENCES] + 1
 			}
 		}
 #		print(chars)
@@ -241,7 +241,7 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 		window.end <- window.start + window.size - 1
 	}
 	
-	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
+	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
 #	print(static.df)
 	
 	# init the graph
@@ -263,8 +263,8 @@ extract.static.graph.panel.window <- function(char.info, inter.df, window.size=1
 #
 # char.info: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions (columns 
-#			COL_INTER_FROM_CHAR and COL_INTER_TO_CHAR) and their time of 
-#           occurrence (columns COL_INTER_START_PANEL_ID and COL_INTER_END_PANEL_ID).
+#			COL_FROM_CHAR and COL_CHAR_TO) and their time of 
+#           occurrence (columns COL_PANEL_START_ID and COL_PANEL_END_ID).
 # page.info: dataframe containing the number of panels in the pages.
 # window.size: size of the time window (expressed in pages).
 # overlap: how much consecutive windows overlap (expressed in pages). Must be strictly
@@ -290,7 +290,7 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_INTER_FROM_CHAR, COL_INTER_TO_CHAR, COL_INTER_OCCURRENCES)
+	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES)
 	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
@@ -303,13 +303,13 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 		covered <- window.end==last.page
 		msg <- paste0("Current window: [",window.start,",",window.end,"]")
 		# compute start/end in terms of panels
-		start.panel <- page.info[window.start,COL_INTER_START_PANEL_ID]
-		end.panel <- page.info[window.end,COL_INTER_START_PANEL_ID] + page.info[window.end,COL_PAGES_PANELS] - 1
+		start.panel <- page.info[window.start,COL_PANEL_START_ID]
+		end.panel <- page.info[window.end,COL_PANEL_START_ID] + page.info[window.end,COL_PANELS] - 1
 		tlog(3,paste0(msg, " ie [",start.panel,",",end.panel,"]"))
 		# scenes intersecting the window
-		idx <- which(!(inter.df[,COL_INTER_END_PANEL_ID]<start.panel | inter.df[,COL_INTER_START_PANEL_ID]>end.panel))
+		idx <- which(!(inter.df[,COL_PANEL_END_ID]<start.panel | inter.df[,COL_PANEL_START_ID]>end.panel))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_INTER_FROM_CHAR,COL_INTER_TO_CHAR)]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_FROM_CHAR,COL_CHAR_TO)]))))
 #		print(chars)
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
@@ -317,14 +317,14 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,COL_INTER_FROM_CHAR]==from.char & static.df[,COL_INTER_TO_CHAR]==to.char)
+				index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
 				if(length(index)==0)
 				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
 					static.df <- rbind(static.df, tmp.df)
 				}
 				else
-					static.df[index, COL_INTER_OCCURRENCES] <- static.df[index, COL_INTER_OCCURRENCES] + 1
+					static.df[index, COL_OCCURRENCES] <- static.df[index, COL_OCCURRENCES] + 1
 			}
 		}
 		# update window
@@ -332,7 +332,7 @@ extract.static.graph.page.window <- function(char.info, inter.df, page.info, win
 		window.end <- window.start + window.size - 1
 	}
 	
-	static.df <- static.df[order(static.df[,COL_INTER_FROM_CHAR],static.df[,COL_INTER_TO_CHAR]),]
+	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
 #	print(static.df)
 	
 	# init the graph
@@ -393,11 +393,11 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	# add col to char info
 	char.info <- data$char.info
 	char.info <- cbind(char.info, V(g)$Filtered)
-	colnames(char.info)[ncol(char.info)] <- COL_CHAR_FILTERED
+	colnames(char.info)[ncol(char.info)] <- COL_FILTERED
 	data$char.info <- char.info
 	
 	# extract the graph of each specific narrative arc
-	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	arc.titles <- unique(data$volume.info[,COL_ARC])
 	arc.nbr <- length(arc.titles)
 	for(a in 1:arc.nbr)
 	{	tlog(2,"Extracting graph for narrative arc ",a,"/",arc.nbr)
@@ -431,7 +431,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.info[v,COL_VOLS_VOLUME], filtered=TRUE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.info[v,COL_VOLUME], filtered=TRUE, ext=".graphml")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	

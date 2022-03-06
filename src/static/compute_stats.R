@@ -801,7 +801,7 @@ compute.static.statistics <- function(data, panel.window.sizes, panel.overlaps, 
 	for(weights in c("occurrences","duration"))
 		compute.all.static.corrs(mode="scenes", weights=weights)
 	# same for each narrative arc
-	arc.titles <- unique(data$volume.info[,COL_VOLS_ARC])
+	arc.titles <- unique(data$volume.info[,COL_ARC])
 	for(arc in 1:length(arc.titles))
 	{	for(weights in c("occurrences","duration"))
 		{	for(filtered in c(FALSE,TRUE))
@@ -813,7 +813,7 @@ compute.static.statistics <- function(data, panel.window.sizes, panel.overlaps, 
 	# same for each volume
 	volume.nbr <- nrow(data$volume.info)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.info[v, COL_VOLS_VOLUME]
+	{	vol <- data$volume.info[v, COL_VOLUME]
 		for(weights in c("occurrences","duration"))
 		{	for(filtered in c(FALSE,TRUE))
 				compute.all.static.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered)

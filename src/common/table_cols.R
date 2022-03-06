@@ -5,111 +5,140 @@
 ###############################################################################
 
 
-###############################################################################
-# column names for the volume table
-COL_VOLS_ARC <- "Arc"
-COL_VOLS_LENGTH <- "Length"
-COL_VOLS_MONTH <- "Month"
-COL_VOLS_PAGE_END <- "End"
-COL_VOLS_PAGE_START <- "Start"
-COL_VOLS_SERIES <- "Series"
-COL_VOLS_TITLE <- "Title"
-COL_VOLS_VOLUME <- "Volume"
-COL_VOLS_VOLUME_ID <- "VolumeId"
-COL_VOLS_YEAR <- "Year"
-COL_VOLS_RANK <- "Rank"
 
 
 ###############################################################################
-# column names for the page table
-COL_PAGES_VOLUME <- "Volume"
-COL_PAGES_PAGE <- "Page"
-COL_PAGES_PAGE_ID <- "PageId"
-COL_PAGES_PANELS <- "Panels"
-COL_PAGES_START_PANEL_ID <- "StartPanelId"
-COL_PAGES_VOLUME_ID <- "VolumeId"
+# arcs
+COL_ARC <- "Arc"								# arc title
+COL_ARC_ID <- "ArcId"							# unique arc id (overall)
+COL_ARCS <- "Arcs"								# number of arcs
+
+
 
 
 ###############################################################################
-# column names for the interaction table
-#COL_INTER_VOLUME <- "Volume"
-#COL_INTER_START_PAGE <- "StartPage"
-#COL_INTER_START_PANEL <- "StartPanel"
-#COL_INTER_END_PAGE <- "EndPage"
-#COL_INTER_END_PANEL <- "EndPanel"
-#COL_INTER_END_CHAR <- "Characters"
-COL_INTER_FROM_CHAR <- "FromChar"
-COL_INTER_TO_CHAR <- "ToChar"
-COL_INTER_START_PANEL_ID <- "StartPanelId"
-COL_INTER_END_PANEL_ID <- "EndPanelId"
-COL_INTER_OCCURRENCES <- "Occurrences"
-COL_INTER_DURATION <- "Duration"
-COL_INTER_SCENE_ID <- "SceneId"
+# characters
+COL_CHAR <- "Character"							# unique character name (overall)
+COL_CHARS <- "Characters"						# number of characters
+COL_NAME <- "Name"								# proper name or description of the character (=COL_CHAR)
+COL_NAMED <- "Named"							# whether the character has a proper name
+COL_FREQ <- "Frequency"							# number of scenes
+COL_NAME_SHORT <- "ShortName"					# short version of the name, for important characters only
+COL_FILTERED <- "Filtered"						# whether the character is important (FALSE) or not (TRUE)
+
+# char stats
+COL_CHARS_BY_PAGE <- "AvgCharactersByPage"		# average number of characters by page
+COL_CHARS_BY_PANEL <- "AvgCharactersByPanel"	# average number of characters by panel
+COL_CHARS_BY_SCENE <- "AvgCharactersByScene"	# average number of characters by scene
+COL_CHARS_BY_VOLUME <- "AvgCharactersByVolume"	# average number of characters by volume
+
+
 
 
 ###############################################################################
-# column names for the character table
-COL_CHAR_NAME <- "Name"				# proper name or description of the character
-COL_CHAR_FREQ <- "Frequency"		# number of scenes
-COL_CHAR_SHORT_NAME <- "ShortName"	# short version of the name, for important characters only
-COL_CHAR_NAMED <- "Named"			# whether the character has a proper name
-#COL_CHAR_SEX <- "Sex"				# sex of the character
-COL_CHAR_FILTERED <- "Filtered"		# important character (FALSE) or extra (TRUE)
+# pages
+COL_PAGE <- "Page"								# page number, relative to a volume
+COL_PAGE_ID <- "PageId"							# unique page id (overall)
+COL_PAGE_END <- "EndPage"						# end page number, relative to a volume
+COL_PAGE_END_ID <- "EndPageId"					# unique id of an end page (overall)
+COL_PAGE_START <- "StartPage"					# start page number, relative to a volume
+COL_PAGE_START_ID <- "StartPageId"				# unique id of an end page (overall)
+COL_PAGES <- "Pages"							# number of pages
+
+# page stats
+COL_PAGES_BY_CHAR <- "AvgPagesByCharacter"		# average number of pages by character
+COL_PAGES_BY_SCENE <- "AvgPagesByScene"			# average number of pages by scene
+COL_PAGES_BY_VOLUME <- "AvgPagesByVolume"		# average number of pages by volume
+
+
 
 
 ###############################################################################
-# column names for the correlation table
-COL_SPEAR_DUR <- "spearman-duration"
-COL_PVAL_DUR <- "p-duration"
-COL_SPEAR_OCC <- "spearman-occurrences"
-COL_PVAL_OCC <- "p-occurrences"
+# panels
+COL_PANEL <- "Panel"							# panel number, relative to a volume
+COL_PANEL_ID <- "PanelId"						# unique panel id (overall)
+COL_PANEL_END <- "EndPanel"						# number of an end panel, relative to a volume
+COL_PANEL_END_ID <- "EndPanelId"				# unique id of an end panel (overall)
+COL_PANEL_START <- "StartPanel"					# number of a start panel, relative to a volume
+COL_PANEL_START_ID <- "StartPanelId"			# unique id of a start panel (overall)
+COL_PANELS <- "Panels"							# number of panels
+
+# panel stats
+COL_PANELS_BY_CHAR <- "AvgPanelsByCharacter"	# average number of panels by character
+COL_PANELS_BY_PAGE <- "AvgPanelsByPage"			# average number of panels by page
+COL_PANELS_BY_SCENE <- "AvgPanelsByScene"		# average number of panels by scene
+COL_PANELS_BY_VOLUME <- "AvgPanelsByVolume"		# average number of panels by volume
+
+
 
 
 ###############################################################################
-# column names for the stats tables
-COL_STATS_ARC <- "Arc"
-COL_STATS_ARC_ID <- "ArcId"
-COL_STATS_CHAR <- "Character"
-COL_STATS_CHARS <- "Characters"
-COL_STATS_CHARS_BY_PAGE <- "AvgCharactersByPage"
-COL_STATS_CHARS_BY_PANEL <- "AvgCharactersByPanel"
-COL_STATS_CHARS_BY_SCENE <- "AvgCharactersByScene"
-COL_STATS_CHARS_BY_VOLUME <- "AvgCharactersByVolume"
-COL_STATS_CORR_PANELS_CHARS_BY_SCENE <- "CorrelationPanelsCharactersByScene"
-COL_STATS_CORR_SCENES_PANELS_BY_CHAR <- "CorrelationScenesPanelsByCharacter"
-COL_STATS_END_PAGE <- "EndPage"
-COL_STATS_END_PAGE_ID <- "EndPageId"
-COL_STATS_END_PANEL <- "EndPanel"
-COL_STATS_END_PANEL_ID <- "EndPanelId"
-COL_STATS_END_SCENE_ID <- "EndSceneId"
-COL_STATS_MATCH_BOTH <- "MatchBoth"
-COL_STATS_MATCH_END <- "MatchEnd"
-COL_STATS_MATCH_START <- "MatchStart"
-COL_STATS_PAGE <- "Page"
-COL_STATS_PAGE_ID <- "PageId"
-COL_STATS_PAGES <- "Pages"
-COL_STATS_PAGES_BY_CHAR <- "AvgPagesByCharacter"
-COL_STATS_PAGES_BY_SCENE <- "AvgPagesByScene"
-COL_STATS_PAGES_BY_VOLUME <- "AvgPagesByVolume"
-COL_STATS_PANEL <- "Panel"
-COL_STATS_PANEL_ID <- "PanelId"
-COL_STATS_PANELS <- "Panels"
-COL_STATS_PANELS_BY_CHAR <- "AvgPanelsByCharacter"
-COL_STATS_PANELS_BY_PAGE <- "AvgPanelsByPage"
-COL_STATS_PANELS_BY_SCENE <- "AvgPanelsByScene"
-COL_STATS_PANELS_BY_VOLUME <- "AvgPanelsByVolume"
-COL_STATS_SCENE <- "Scene"
-COL_STATS_SCENES <- "Scenes"
-COL_STATS_SCENES_BY_CHAR <- "AvgScenesByCharacter"
-COL_STATS_SCENES_BY_PAGE <- "AvgScenesByPage"
-COL_STATS_SCENES_BY_VOLUME <- "AvgScenesByVolume"
-COL_STATS_START_PAGE <- "StartPage"
-COL_STATS_START_PAGE_ID <- "StartPageId"
-COL_STATS_START_PANEL <- "StartPanel"
-COL_STATS_START_PANEL_ID <- "StartPanelId"
-COL_STATS_START_SCENE_ID <- "StartSceneId"
-COL_STATS_START_PAGE_ID <- "StartPageId"
-COL_STATS_VOLUME <- "Volume"
-COL_STATS_VOLUMES <- "Volumes"
-COL_STATS_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"
-COL_STATS_VOLUME_ID <- "VolumeId"
+# scenes
+#COL_SCENE <- "Scene"							# check: not sure this is needed
+COL_SCENE_ID <- "SceneId"						# unique scene id (overall)
+COL_SCENE_END_ID <- "EndSceneId"				# unique id of an end scene (overall)
+COL_SCENE_START_ID <- "StartSceneId"			# unique id of a start scene (overall)
+COL_SCENES <- "Scenes"							# number of scenes
+
+# scene position
+COL_MATCH_BOTH <- "MatchBoth"					# scene both starts and ends with a page
+COL_MATCH_END <- "MatchEnd"						# scene starts with a page
+COL_MATCH_START <- "MatchStart"					# scene ends with a page
+
+# scene stats
+COL_SCENES_BY_CHAR <- "AvgScenesByCharacter"	# average number of scenes by character
+COL_SCENES_BY_PAGE <- "AvgScenesByPage"			# average number of scenes by page
+COL_SCENES_BY_VOLUME <- "AvgScenesByVolume"		# average number of scenes by volume
+
+
+
+
+###############################################################################
+# volumes
+COL_VOLUME <- "Volume"							# unique volume code (overall)
+COL_VOLUME_ID <- "VolumeId"						# unique volume id (overall)
+COL_VOLUMES <- "Volumes"						# number of volumes
+
+# volume stats
+COL_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"	# average number of volumes by character
+
+
+
+
+###############################################################################
+# publication date
+COL_MONTH <- "Month"							# number of the publication month
+COL_YEAR <- "Year"								# publication year
+
+
+
+
+###############################################################################
+# interactions
+COL_CHAR_FROM <- "FromChar"						# unique name of the origin character
+COL_CHAR_TO <- "ToChar"							# unique name of the target character
+COL_OCCURRENCES <- "Occurrences"				# number of character co-occurrences
+COL_DURATION <- "Duration"						# total duration of the character co-occurrences (in panels) 
+
+
+
+
+###############################################################################
+# correlation
+COL_DUR_SPEAR <- "spearman-duration"			# Spearman's correlation computed for the durations
+COL_DUR_PVAL <- "p-duration"					# Corresponding p-value
+COL_OCC_SPEAR <- "spearman-occurrences"			# Spearman's correlation computed for the occurrences
+COL_OCC_PVAL <- "p-occurrences"					# Corresponding p-value
+
+#
+COL_CORR_PANELS_CHARS_BY_SCENE <- "CorrelationPanelsCharactersByScene"
+COL_CORR_SCENES_PANELS_BY_CHAR <- "CorrelationScenesPanelsByCharacter"
+
+
+
+
+###############################################################################
+# misc
+COL_SERIES <- "Series"							# name of the series
+COL_TITLE <- "Title"							# title of the volume
+COL_RANK <- "Rank"								# order in the narrative story

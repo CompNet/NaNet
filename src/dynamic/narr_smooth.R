@@ -38,7 +38,7 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 {	# targeted period
 	scenes <- t0:t1
 	# name of the concerned characters
-	ij.names <- stats.chars[c(i,j),COL_STATS_CHAR]
+	ij.names <- stats.chars[c(i,j),COL_CHAR]
 	
 	# init interaction weights for each considered scenes
 	vals <- rep(0, length(scenes))
@@ -54,9 +54,9 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	
 	# update interaction weights for each scene involving one char (i or j)
 	if(length(idx)>0)
-	{	vals[idx] <- apply(scene.mat[,scenes[idx],drop=FALSE], 2, function(col) length(which(col)))*stats.scenes[scenes[idx], COL_STATS_PANELS]
-#		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_STATS_PANELS])
-		#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_STATS_PANELS]))
+	{	vals[idx] <- apply(scene.mat[,scenes[idx],drop=FALSE], 2, function(col) length(which(col)))*stats.scenes[scenes[idx], COL_PANELS]
+#		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_PANELS])
+		#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_PANELS]))
 	}
 	
 	# wrap up
@@ -119,13 +119,13 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	{	kept <- which(!V(g)$Filtered)
 		g <- delete_vertices(graph=g, v=V(g)$Filtered)
 		stats.chars <- stats.chars[kept,]
-		char.scenes <- lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_STATS_CHAR]))
+		char.scenes <- lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_CHAR]))
 	}
 	
 	# init char x scene matrix
 	scene.mat <- matrix(FALSE, 
 			nrow=nrow(stats.chars), ncol=length(char.scenes), 
-			dimnames=list(stats.chars[,COL_STATS_CHAR], c()))
+			dimnames=list(stats.chars[,COL_CHAR], c()))
 	for(s in 1:length(char.scenes))
 	{	chars <- char.scenes[[s]]
 		scene.mat[chars,s] <- rep(TRUE,length(chars))
@@ -155,7 +155,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	# loop over the characters for the first end point
 	tlog.start.loop(2,nrow(stats.chars)-1,"Looping over characters (first character)")
 	for(i in 1:(nrow(stats.chars)-1))
-	{	i.name <- stats.chars[i,COL_STATS_CHAR]
+	{	i.name <- stats.chars[i,COL_CHAR]
 		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),")")
 		
 		# scenes where char i appears
@@ -165,7 +165,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 		# loop over the remaining characters for the second end point
 		tlog.start.loop(4,(i+1):nrow(stats.chars),"Looping over characters (second character)")
 		for(j in (i+1):nrow(stats.chars))
-		{	j.name <- stats.chars[j,COL_STATS_CHAR]
+		{	j.name <- stats.chars[j,COL_CHAR]
 			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),") -- #j=",j.name," (",j,"/",nrow(stats.chars),")")
 			
 			# scenes where char j appears
@@ -174,7 +174,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 			
 			# scenes where both chars appear
 			ij.sc.ids <- intersect(i.sc.ids, j.sc.ids)
-			ij.sc.dur <- stats.scenes[ij.sc.ids, COL_STATS_PANELS]
+			ij.sc.dur <- stats.scenes[ij.sc.ids, COL_PANELS]
 			tlog(8, "Scenes: i=",length(i.sc.ids)," j=",length(j.sc.ids)," both=",length(ij.sc.ids))
 			
 			# init weights
