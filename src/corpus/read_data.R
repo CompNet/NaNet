@@ -49,12 +49,12 @@ read.char.table <- function()
 		
 		# add stats cols
 		df <- data.frame(
-			rep(0,char.nbr),
-			rep(0,char.nbr),
-			rep(0,char.nbr),
-			rep(0,char.nbr),
-			rep(0,char.nbr),
-			rep(0,char.nbr),
+			as.integer(rep(0,char.nbr)),
+			as.integer(rep(0,char.nbr)),
+			as.integer(rep(0,char.nbr)),
+			as.integer(rep(0,char.nbr)),
+			as.integer(rep(0,char.nbr)),
+			as.integer(rep(0,char.nbr)),
 			stringsAsFactors=FALSE, check.names=FALSE
 		)
 		colnames(df) <- c(
@@ -92,12 +92,7 @@ read.char.table <- function()
 # Reads the table describing the volumes of the BD series: starting page, ending
 # page, etc.
 #
-# returns: a dataframe listing the volume information, with the following columns:
-#			- COL_VOLUME: volume in the BD series.
-#			- COL_PAGE_START: starting page relatively to the volume.
-#			- COL_PAGE_END: ending page relatively to the volume.
-#			- COL_PAGES: number of (effective) pages in the volume.
-#			- COL_TITLE: title of the volume.
+# returns: a dataframe listing the volume information.
 ###############################################################################
 read.volume.table <- function()
 {	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
@@ -423,7 +418,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	Encoding(inter.df[,COL_CHAR_TO]) <- "UTF-8"
 	
 	# init character lists
-	panel.chars <- list()
+	panel.chars <- vector(mode="list", length=nrow(panel.stats))
 	page.chars <- vector(mode="list", length=nrow(page.stats))
 	scene.chars <- list()
 	volume.chars <- vector(mode="list", length=nrow(volume.stats))
@@ -548,13 +543,12 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 						# add interactions to dataframe
 						tmp.df <- data.frame(
 							chars.mat[,1], chars.mat[,2], 
-							rep(scene.id,rr), rep(arc.id,rr), rep(volume,rr), rep(volume.id,rr),
-							rep(start.page,rr), rep(start.page.id,rr), 
-							# TODO pq as.integer() ci-dessous ? à tester
-							rep(start.panel,rr), rep(start.panel.id,rr),
-							rep(end.page,rr), rep(end.page.id,rr), 
-							rep(end.panel,rr), rep(end.panel.id,rr),
-							panel.nbr, page.nbr,
+							as.integer(rep(scene.id,rr)), as.integer(rep(arc.id,rr)), rep(volume,rr), as.integer(rep(volume.id,rr)),
+							as.integer(rep(start.page,rr)), as.integer(rep(start.page.id,rr)), 
+							as.integer(rep(start.panel,rr)), as.integer(rep(start.panel.id,rr)),
+							as.integer(rep(end.page,rr)), as.integer(rep(end.page.id,rr)), 
+							as.integer(rep(end.panel,rr)), as.integer(rep(end.panel.id,rr)),
+							as.integer(panel.nbr), as.integer(page.nbr),
 							stringsAsFactors=FALSE, check.names=FALSE)
 						colnames(tmp.df) <- inter.df.cn
 						inter.df <- rbind(inter.df, tmp.df)
@@ -570,13 +564,13 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		match.start <- start.panel==1
 		match.end <- end.panel==page.stats[end.page.id,COL_PANELS]
 		row.scene <- data.frame(
-			scene.id, 
-			arc.id, volume, volume.id,
-			start.page, start.page.id, 
-			start.panel, start.panel.id,
-			end.page, end.page.id, 
-			end.panel, end.panel.id,
-			panel.nbr, page.nbr, length(chars),
+			as.integer(scene.id), 
+			as.integer(arc.id), volume, as.integer(volume.id),
+			as.integer(start.page), as.integer(start.page.id), 
+			as.integer(start.panel), as.integer(start.panel.id),
+			as.integer(end.page), as.integer(end.page.id), 
+			as.integer(end.panel), as.integer(end.panel.id),
+			as.integer(panel.nbr), as.integer(page.nbr), as.integer(length(chars)),
 			match.start, match.end, match.start && match.end,
 			stringsAsFactors=FALSE, check.names=FALSE
 		)
@@ -585,10 +579,10 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		
 		# update character lists
 		scene.chars <- c(scene.chars, list(chars))
-		for(p in 1:panel.nbr) 
-			panel.chars <- c(panel.chars, list(chars))
 		if(length(chars)>0)
-		{	for(p in start.page.id:end.page.id)
+		{	for(p in start.panel.id:end.panel.id) 
+				panel.chars[[p]] <- sort(union(panel.chars[[p]], chars))
+			for(p in start.page.id:end.page.id)
 				page.chars[[p]] <- sort(union(page.chars[[p]], chars))
 			volume.chars[[volume.id]] <- sort(union(volume.chars[[volume.id]], chars))
 			arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
@@ -639,199 +633,183 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	)
 	return(res)	
 }
-#read.inter.table <- function(page.stats, char.stats, volume.stats, arc.stats)
-#{	scene.chars <- list()
-#	
-#	# init stats table for scenes
-#	scene.stats <- data.frame(
-#			character(), integer(),
-#			integer(), integer(),
-#			integer(), integer(), 
-#			integer(), integer(),
-#			integer(), integer(), 
-#			integer(), integer(), integer(),
-#			logical(), logical(), logical(),
-#			stringsAsFactors=FALSE, check.names=FALSE
-#	)
-#	colnames(scene.stats) <- c(
-#			COL_VOLUME, COL_VOLUME_ID,
-#			COL_PAGE_PAGE, COL_PAGE_START_ID, 
-#			COL_START_PANEL, COL_PANEL_START_ID,
-#			COL_PAGE_END, COL_PAGE_END_ID, 
-#			COL_PANEL_END, COL_PANEL_END_ID, 
-#			COL_PANELS, COL_PAGES, COL_CHARS,
-#			COL_MATCH_START, COL_MATCH_END, COL_MATCH_BOTH
-#	)
-#	
-#	# read the proper table
-#	tlog(2,"Trying to read the interaction file (",INTER_FILE,")")
-#	con <- file(INTER_FILE, open="r")
-#		temp <- readLines(con)
-#	close(con)
-#	temp <- fix.encoding(strings=temp)
-#	lines <- strsplit(temp, split='\t', fixed=TRUE)
-#	tlog(2,"Reading of the interaction file completed (",length(lines)," lines)")
-#	
-#	# extract the edge list
-#	tlog(2,"Converting interactions to dataframe")
-#	inter.df <- data.frame(
-#			From=character(), To=character(),
-#			Start=integer(), End=integer(), 
-#			Scene=integer(),
-#			stringsAsFactors=FALSE, check.names=FALSE)
-#	Encoding(inter.df$From) <- "UTF-8"
-#	Encoding(inter.df$To) <- "UTF-8"
-#	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_PANEL_START_ID, COL_PANEL_END_ID, COL_SCENE_ID)
-#	colnames(inter.df) <- cn
-#	prev.end.panel.id <- NA
-#	for(l in 2:length(lines))
-#	{	line <- lines[[l]]
-#		scene.id <- l - 1
-#		
-#		# get volume
-#		volume <- line[1]
-#		volume.id <- which(volume.stats[,COL_VOLUME]==volume)
-#		
-#		# get start page and panel
-#		start.page <- line[2]
-#		start.page.id <- which(page.stats[,COL_PAGE]==start.page & page.stats[,COL_VOLUME_ID]==volume.id)
-#		if(length(start.page.id)==0)
-#		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line: \"",paste(line,collapse=","),"\"")
-#			tlog(3,msg)
-#			stop(msg)
-#		}
-#		start.panel <-  as.integer(line[3])
-#		if(start.panel>page.stats[start.page.id,COL_PANELS])
-#		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\"")
-#			tlog(3,msg)
-#			stop(msg)
-#		}
-#		start.panel.id <- page.stats[start.page.id,COL_PANEL_START_ID] + start.panel - 1
-#		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
-#		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
-#			tlog(3,msg)
-#			#warning(msg)
-#		}
-#		
-#		# get end page and panel
-#		end.page <- line[4]
-#		end.page.id <- which(page.stats[,COL_PAGE]==end.page & page.stats[,COL_VOLUME_ID]==volume.id)
-#		if(length(end.page.id)==0)
-#		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line: \"",paste(line,collapse=","),"\"") 
-#			tlog(3,msg)
-#			stop(msg)
-#		}
-#		end.panel <- as.integer(line[5])
-#		if(end.panel>page.stats[end.page.id,COL_PANELS])
-#		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\"")
-#			tlog(3,msg)
-#			stop(msg)
-#		}
-#		end.panel.id <- page.stats[end.page.id,COL_PANEL_START_ID] + end.panel - 1
-#		prev.end.panel.id <- end.panel.id
-#		
-#		# check that the end is after the start
-#		if(start.panel.id>end.panel.id)
-#		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\"")
-#			tlog(3,msg)
-#			stop(msg)
-#		}
+
+
+
+
+###############################################################################
+# Records the tables and lists extracted from the raw data.
 #
-#		# get all combinations of characters
-#		if(length(line)<6)
-#			chars <- c()
-#		else
-#		{	chars <- line[6:length(line)]
-#			chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
-#			chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
-#					{	if(length(v)==0)
-#							return("")
-#						else if(length(v)==1)
-#							return(trimws(v))
-#						else if(length(v)==2)
-#							return(trimws(v[2]))
-#						else
-#						{	msg <- paste0("ERROR when splitting the names: ",v)
-#							tlog(4,msg)
-#							stop(msg)
-#						}
-#					})
-#			chars <- sort(chars[which(chars!="" & chars!=" ")])
-#			if(length(chars)<=1)
-#			{	if(length(chars)==0)
-#					msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
-#				else #if(length(chars)==1)
-#					msg <- paste0("WARNING there are fewer than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
-#				tlog(3,msg)
-#				#warning(msg)
-#			}
-#			else
-#			{	if(length(chars)>length(unique(chars)))
-#				{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
-#					tlog(3,msg)
-#					#stop(msg)
-#					chars <- unique(chars)
-#				}
-#				if(length(chars)<=1)
-#				{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
-#					tlog(3,msg)
-#					#warning(msg)
-#				}
-#				else
-#				{	chars.mat <- t(combn(x=chars,m=2))
-#				
-#					# add scene to data frame
-#					tmp.df <- data.frame(
-#								From=(chars.mat[,1]), To=chars.mat[,2], 
-#								Start=as.integer(rep(start.panel.id,nrow(chars.mat))), End=as.integer(rep(end.panel.id,nrow(chars.mat))),
-#								Scene=scene.id,
-#								stringsAsFactors=FALSE, check.names=FALSE)
-#					colnames(tmp.df) <- cn
-#					inter.df <- rbind(inter.df, tmp.df)
-#				}
-#			}
-#		}
-#		scene.chars <- c(scene.chars, list(chars))
-#		
-#		# update the scene stats
-#		panel.nbr <- end.panel.id - start.panel.id + 1
-#		page.nbr <- end.page.id - start.page.id + 1
-#		match.start <- start.panel==1
-#		match.end <- end.panel==page.stats[end.page.id,COL_PANELS]
-#		row.scene <- data.frame(
-#			volume, volume.id,
-#			start.page, start.page.id, 
-#			start.panel, start.panel.id,
-#			end.page, end.page.id, 
-#			end.panel, end.panel.id,
-#			panel.nbr, page.nbr, length(chars),
-#			match.start, match.end, match.start && match.end,
-#			stringsAsFactors=FALSE, check.names=FALSE
-#		)
-#		colnames(row.scene) <- c(
-#			COL_VOLUME, COL_VOLUME_ID, 
-#			COL_PAGE_PAGE, COL_PAGE_START_ID, 
-#			COL_START_PANEL, COL_PANEL_START_ID,
-#			COL_PAGE_END, COL_PAGE_END_ID, 
-#			COL_PANEL_END, COL_PANEL_END_ID, 
-#			COL_PANELS, COL_PAGES, COL_CHARS,
-#			COL_MATCH_START, COL_MATCH_END, COL_MATCH_BOTH
-#		)
-#		scene.stats <- rbind(scene.stats, row.scene)
-#	}
-#	
-#	tlog(2,"Conversion of the interaction raw data completed")
-#	res <- list(
-#		inter.df=inter.df,										# interactions
-#		panel.stats=panel.stats, panel.chars=panel.chars,		# panels
-#		page.stats=page.stats, page.chars=page.chars,			# pages
-#		scene.stats=scene.stats, scene.chars=scene.chars,		# scenes
-#		char.stats=char.stats,									# characters 
-#		volume.stats=volume.stats, volume.chars=volume.chars,	# volumes 
-#		arc.stats=arc.stats, arc.chars=arc.chars				# arcs
-#	)
-#	return(res)	
-#}
+# inter.df: table of pairwise interactions.
+# panel.stats: table describing all the panels constituting the series.
+# panel.chars: list of characters involved in each panel.
+# page.stats: table describing all the pages constituting the series.
+# page.chars: list of characters involved in each page.
+# scene.stats: table describing all the scene constituting the series.
+# scene.chars: list of characters involved in each scene.
+# char.stats: table describing all the characters.
+# volume.stats: table describing the series volumes.
+# volume.chars: list of characters involved in each volume.
+# arc.stats: table describing the series narrative arcs.
+# arc.chars: list of characters involved in each arc.
+###############################################################################
+write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, page.chars, scene.stats, scene.chars, char.stats, volume.stats, volume.chars, arc.stats, arc.chars)
+{	# interactions
+	file <- get.path.stat.corpus(desc="interactions")
+	write.csv(x=inter.df, file=paste0(file,".csv"), row.names=FALSE)
+	
+	# panel stats
+	file <- get.path.stat.corpus(object="panels",desc="panel_stats")
+	write.csv(x=panel.stats, file=paste0(file,".csv"), row.names=FALSE)
+	# panel chars
+	tab <- cbind(
+		1:nrow(panel.stats),
+		sapply(panel.chars, function(chars) paste(chars,collapse="\t"))
+	)
+	colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
+	file <- get.path.stat.corpus(object="panels",desc="panel_chars")
+	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	
+	# scene stats
+	file <- get.path.stat.corpus(object="scenes",desc="scene_stats")
+	write.csv(x=scene.stats, file=paste0(file,".csv"), row.names=FALSE)
+	# scene chars
+	tab <- cbind(
+		1:nrow(scene.stats),
+		sapply(scene.chars, function(chars) paste(chars,collapse="\t"))
+	)
+	colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
+	file <- get.path.stat.corpus(object="scenes",desc="scene_chars")
+	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	
+	# characters
+	file <- get.path.stat.corpus(object="characters",desc="char_stats")
+	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
+	
+	# volume stats
+	file <- get.path.stat.corpus(object="volumes",desc="volume_stats")
+	write.csv(x=volume.stats, file=paste0(file,".csv"), row.names=FALSE)
+	# volume chars
+	tab <- cbind(
+		1:nrow(volume.stats),
+		sapply(volume.chars, function(chars) paste(chars,collapse="\t"))
+	)
+	colnames(tab) <- c(COL_VOLUME_ID, COL_CHARS)
+	file <- get.path.stat.corpus(object="volumes",desc="volume_chars")
+	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	
+	# arc stats
+	file <- get.path.stat.corpus(object="arcs",desc="arc_stats")
+	write.csv(x=arc.stats, file=paste0(file,".csv"), row.names=FALSE)
+	# arc chars
+	tab <- cbind(
+		1:nrow(arc.stats),
+		sapply(arc.chars, function(chars) paste(chars,collapse="\t"))
+	)
+	colnames(tab) <- c(COL_ARC_ID, COL_CHARS)
+	file <- get.path.stat.corpus(object="arcs",desc="arc_chars")
+	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+}
+
+
+
+
+###############################################################################
+# Reads a file containing a list of lists of character names.
+#
+# file: file to read.
+#
+# returns: list of character name vectors.
+###############################################################################
+read.char.list <- function(file)
+{	# read the text file
+	con <- file(file, open="r")
+	temp <- readLines(con)
+	close(con)
+	
+	# clean the text
+	temp <- temp[2:length(temp)]
+	temp <- fix.encoding(strings=temp)
+	
+	# split using tabs
+	lines <- strsplit(temp, split='\t', fixed=TRUE)
+	
+	# build list
+	res <- lapply(lines, function(line)
+			{	if(length(line)==1)
+					list()
+				else
+					line[2:length(line)]
+			})
+	return(res)
+}
+
+
+
+
+###############################################################################
+# Reads the tables and lists previously extracted from the raw data and recorded
+# using function write.corpus.data.
+#
+# returns: list containing all the tables and character lists.
+###############################################################################
+read.corpus.data <- function()
+{	# interactions
+	file <- get.path.stat.corpus(desc="interactions")
+	inter.df <- read.csv(file=paste0(file,".csv"))
+	for(col in c(COL_CHAR_FROM, COL_CHAR_TO))
+		inter.df[,col] <- fix.encoding(strings=inter.df[,col])
+	
+	# panel stats
+	file <- get.path.stat.corpus(object="panels",desc="panel_stats")
+	panel.stats <- read.csv(file=paste0(file,".csv"))
+	# panel chars
+	file <- get.path.stat.corpus(object="panels",desc="panel_chars")
+	panel.chars <- read.char.list(file=paste0(file,".txt"))
+	
+	# scene stats
+	file <- get.path.stat.corpus(object="scenes",desc="scene_stats")
+	scene.stats <- read.csv(file=paste0(file,".csv"))
+	# scene chars
+	file <- get.path.stat.corpus(object="scenes",desc="scene_chars")
+	scene.chars <- read.char.list(file=paste0(file,".txt"))
+	
+	# characters
+	file <- get.path.stat.corpus(object="characters",desc="char_stats")
+	char.stats <- read.csv(file=paste0(file,".csv"))
+	for(col in c(COL_NAME, COL_NAME_SHORT))
+		char.stats[,col] <- fix.encoding(strings=char.stats[,col])
+	
+	# volume stats
+	file <- get.path.stat.corpus(object="volumes",desc="volume_stats")
+	volume.stats <- read.csv(file=paste0(file,".csv"))
+	for(col in c(COL_SERIES, COL_TITLE, COL_ARC))
+		volume.stats[,col] <- fix.encoding(strings=volume.stats[,col])
+	# volume chars
+	file <- get.path.stat.corpus(object="volumes",desc="volume_chars")
+	volume.chars <- read.char.list(file=paste0(file,".txt"))
+	
+	# arc stats
+	file <- get.path.stat.corpus(object="arcs",desc="arc_stats")
+	arc.stats <- read.csv(file=paste0(file,".csv"))
+	for(col in c(COL_TITLE))
+		arc.stats[,col] <- fix.encoding(strings=arc.stats[,col])
+	# arc chars
+	file <- get.path.stat.corpus(object="arcs",desc="arc_chars")
+	arc.chars <- read.char.list(file=paste0(file,".txt"))
+	
+	# build result list and return
+	result <- list(
+		inter.df=inter.df,										# interactions
+		panel.stats=panel.stats, panel.chars=panel.chars,		# panels
+		page.stats=page.stats, page.chars=page.chars,			# pages
+		scene.stats=scene.stats, scene.chars=scene.chars,		# scenes
+		char.stats=char.stats,									# characters 
+		volume.stats=volume.stats, volume.chars=volume.chars,	# volumes 
+		arc.stats=arc.stats, arc.chars=arc.chars				# arcs
+	)
+	return(result)
+}
 
 
 
@@ -890,6 +868,17 @@ read.raw.data <- function()
 #	char.stats[,COL_FILTERED] <- rep(TRUE,nrow(char.stats))
 #	char.stats[idx,COL_FILTERED] <- FALSE
 ## cannot select the giant component without the graph >> do the filtering later
+	
+	# record the tables and lists
+	write.corpus.data(
+		inter.df=inter.df,
+		panel.stats=panel.stats, panel.chars=panel.chars,
+		page.stats=page.stats, page.chars=page.chars,
+		scene.stats=scene.stats, scene.chars=scene.chars,
+		char.stats=char.stats, 
+		volume.stats=volume.stats, volume.chars=volume.chars, 
+		arc.stats=arc.stats, arc.chars=arc.chars
+	)
 	
 	# build result and return
 	result <- list(

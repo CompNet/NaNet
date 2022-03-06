@@ -19,7 +19,7 @@
 fix.encoding <- function(strings)
 {	
 	strings <- gsub(pattern="Ã€",replacement="À",x=strings,fixed=TRUE)
-	strings <- gsub(pattern="Ã ",replacement="à",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ã ",replacement="à",x=strings,fixed=TRUE)
 #	strings <- gsub(pattern="??",replacement="Á",x=strings,fixed=TRUE)
 	strings <- gsub(pattern="Ã¡",replacement="á",x=strings,fixed=TRUE)
 	strings <- gsub(pattern="Ã‚",replacement="Â",x=strings,fixed=TRUE)

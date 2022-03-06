@@ -86,9 +86,10 @@ Clean code:
 - move "filt"/"unfilt" in "scenes"
 - nothing from "scene" in "comparison"
 - in the logs, systematically print the filenames of the plots and csv (including post scripts)
-- automate the comparison of node vs. node measures (sam for edges) (in both directions n1 vs n2 and n2 vs n1)
+- automate the comparison of node vs. node measures (same for edges) (in both directions n1 vs n2 and n2 vs n1)
 - not normal to load the graph just to get the filtered characters >> should record them in a separate file
-- merge the info & stats tables (if possible? check that first)
+x merge the info & stats tables (if possible? check that first)
 - record these tables and provide function to read them directly
+- reapplt the corpus stats functions for the filtered data (after first net extraction) 
 
 use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)

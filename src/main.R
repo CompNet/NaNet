@@ -62,9 +62,12 @@ page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 netw
 ###############################################################################
 # read raw data
 data <- read.raw.data()
+# OR, if already computed, read from file
+#data <- read.corpus.data()
+
 # compute and plot corpus stats
 data <- compute.stats(data)
-
+	
 
 
 
