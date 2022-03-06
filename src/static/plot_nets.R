@@ -138,7 +138,7 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
-	attrs <- setdiff(attrs, c(COL_NAME, COL_SHORT_NAME, "id", "name")) # COL_FREQ, COL_NAMED, COL_FILTERED
+	attrs <- setdiff(attrs, c(COL_NAME, COL_NAME_SHORT, "id", "name")) # COL_FREQ, COL_NAMED, COL_FILTERED
 	attrs <- c(attrs, NA)
 	
 	# plot the graph alone, and also depending on each vertex attribute

@@ -23,19 +23,19 @@ read.char.table <- function()
 		# read the character table
 		char.stats <- read.csv(CHAR_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 		char.nbr <- nrow(char.stats)
-		for(col in c(COL_NAME, COL_SHORT_NAME))
+		for(col in c(COL_NAME, COL_NAME_SHORT))
 			char.stats[,col] <- fix.encoding(strings=char.stats[,col])
 		table.chars <- char.stats[,COL_NAME]
 		table.chars <- sort(table.chars)
 		
 		# complete the shortname column (using fullnames if no short name specified)
-		if(!(COL_SHORT_NAME %in% colnames(char.stats)))
+		if(!(COL_NAME_SHORT %in% colnames(char.stats)))
 		{	char.stats <- cbind(char.stats, char.stats[,COL_NAME])
-			colnames(char.stats)[ncol(char.stats)] <- COL_SHORT_NAME
+			colnames(char.stats)[ncol(char.stats)] <- COL_NAME_SHORT
 		}
 		else
-		{	idx <- which(char.stats[,COL_SHORT_NAME]=="")
-			char.stats[idx,COL_SHORT_NAME] <- char.stats[idx,COL_NAME]
+		{	idx <- which(char.stats[,COL_NAME_SHORT]=="")
+			char.stats[idx,COL_NAME_SHORT] <- char.stats[idx,COL_NAME]
 		}
 		
 		# check multiple name use
@@ -104,7 +104,7 @@ read.volume.table <- function()
 	
 	# read the proper table
 	volume.stats <- read.csv(VOLUME_FILE, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
-	vol.nbr <- nrow(volumes.stats)
+	vol.nbr <- nrow(volume.stats)
 	
 	# add volume id
 	volume.stats <- cbind(1:nrow(volume.stats), volume.stats)
@@ -112,12 +112,14 @@ read.volume.table <- function()
 	
 	# add stats cols
 	df <- data.frame(
+		integer(vol.nbr), integer(vol.nbr),
 		integer(vol.nbr),
 		integer(vol.nbr),
 		integer(vol.nbr),
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(df) <- c(
+		COL_PAGE_START_ID, COL_PAGE_END_ID,
 		COL_PANELS,
 		COL_SCENES,
 		COL_CHARS
@@ -182,6 +184,11 @@ init.arc.table <- function(volume.stats)
 	volume.stats <- cbind(volume.stats, arc.stats[arc.idx,COL_ARC_ID])
 	colnames(volume.stats)[ncol(volume.stats)] <- COL_ARC_ID
 	
+	# fill a few columns of the arc table
+	vol.ids <- lapply(1:arc.nbr, function(a) which(volume.stats[,COL_ARC_ID]==a))
+	arc.stats[,COL_VOLUMES] <- sapply(vol.ids, length)
+	arc.stats[,COL_PAGES] <- sapply(vol.ids, function(vols) sum(volume.stats[vols,COL_PAGES]))
+	
 	tlog(2,"Arc table initialization complete")
 	res <- list(
 		volume.stats=volume.stats, 
@@ -212,8 +219,7 @@ read.page.table <- function(volume.stats, arc.stats)
 	pg.nbr <- nrow(page.stats)
 	
 	# check that each relative page number matches the interval defined in the volume table 
-	vol.idx <- match(page.stats[,COL_VOLUME], volume.stats[,COL_VOLUME])
-	vol.ids <- volume.stats[,COL_VOLUME_ID]
+	vol.ids <- match(page.stats[,COL_VOLUME], volume.stats[,COL_VOLUME])
 	err.pg.idx <- which(page.stats[,COL_PAGE]<volume.stats[vol.ids,COL_PAGE_START]
 		| page.stats[,COL_PAGE]>volume.stats[vol.ids,COL_PAGE_END])
 	if(length(err.pg.idx)>0)
@@ -235,7 +241,7 @@ read.page.table <- function(volume.stats, arc.stats)
 	colnames(page.stats)[ncol(page.stats)] <- COL_VOLUME_ID
 	
 	# add the arc id
-	arc.ids <- volume.stats[vol.idx,COL_ARC_ID]
+	arc.ids <- volume.stats[vol.ids,COL_ARC_ID]
 	page.stats <- cbind(page.stats,arc.ids)
 	colnames(page.stats)[ncol(page.stats)] <- COL_ARC_ID
 	
@@ -246,14 +252,14 @@ read.page.table <- function(volume.stats, arc.stats)
 	colnames(page.stats)[ncol(page.stats)] <- COL_PANEL_START_ID
 	
 	# add the id of the panel ending the page
-	end.panel.ids <- cbind(start.panel.ids[2:pg.nbr]-1, start.panel.ids[pg.nbr]+page.stats[pg.nbr,COL_PANELS]-1)
+	end.panel.ids <- c(start.panel.ids[2:pg.nbr]-1, start.panel.ids[pg.nbr]+page.stats[pg.nbr,COL_PANELS]-1)
 	page.stats <- cbind(page.stats,end.panel.ids)
 	colnames(page.stats)[ncol(page.stats)] <- COL_PANEL_END_ID
 	
 	# add stats cols
 	df <- data.frame(
-		integer(vol.nbr),
-		integer(vol.nbr),
+		integer(pg.nbr),
+		integer(pg.nbr),
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(df) <- c(
@@ -264,9 +270,9 @@ read.page.table <- function(volume.stats, arc.stats)
 	
 	# complete volume table
 	tlog(4,"Completing the volume table")
+	# page ids
 	page.ids <- t(sapply(1:nrow(volume.stats), function(v) range(which(page.stats[,COL_VOLUME_ID]==v))))
-	volume.stats <- cbind(volume.stats, page.ids)
-	colnames(volume.stats)[,(ncol(volume.stats)-1):ncol(volume.stats)] <- c(COL_PAGE_START_ID, COL_PAGE_END_ID)
+	volume.stats[,c(COL_PAGE_START_ID, COL_PAGE_END_ID)] <- page.ids
 	
 	tlog(2,"Reading of the page file completed")
 	res <- list(
@@ -319,13 +325,18 @@ init.panel.table <- function(page.stats, char.stats, volume.stats, arc.stats)
 	panel.stats[,COL_VOLUME_ID] <- page.stats[panel.stats[,COL_PAGE_ID], COL_VOLUME_ID]
 	panel.stats[,COL_VOLUME] <- page.stats[panel.stats[,COL_PAGE_ID], COL_VOLUME]
 	panel.stats[,COL_ARC_ID] <- page.stats[panel.stats[,COL_PAGE_ID], COL_ARC_ID]
+	panel.stats[,COL_MATCH_START] <- panel.stats[,COL_PANEL]==1
+	panel.stats[,COL_MATCH_END] <- panel.stats[,COL_PANEL]==page.stats[panel.stats[,COL_PAGE_ID],COL_PANELS]
+	panel.stats[,COL_MATCH_BOTH] <- panel.stats[,COL_MATCH_START] & panel.stats[,COL_MATCH_END]
 	
 	# updating the other tables
+	tlog(4,"Updating the other tables")
 	volume.stats[, COL_PANELS] <- sapply(1:nrow(volume.stats), function(v) length(which(panel.stats[,COL_VOLUME_ID]==v)))
 	arc.stats[, COL_PANELS] <- sapply(1:nrow(arc.stats), function(a) length(which(panel.stats[,COL_ARC_ID]==a)))
 	
 	tlog(2,"Panel table initialization complete")
 	res <- list(
+		panel.stats=panel.stats,
 		page.stats=page.stats, 
 		char.stats=char.stats,
 		volume.stats=volume.stats, 
@@ -395,38 +406,39 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		integer(), integer(), 
 		integer(), integer(), 
 		integer(), integer(), 
+		integer(), integer(), 
 		stringsAsFactors=FALSE, check.names=FALSE)
-	Encoding(inter.df$From) <- "UTF-8"
-	Encoding(inter.df$To) <- "UTF-8"
 	inter.df.cn <- c(
-		COL_FROM_CHAR, COL_CHAR_TO, 
+		COL_CHAR_FROM, COL_CHAR_TO, 
 		COL_SCENE_ID,
 		COL_ARC_ID,
 		COL_VOLUME, COL_VOLUME_ID,
 		COL_PAGE_START, COL_PAGE_START_ID, 
 		COL_PANEL_START, COL_PANEL_START_ID,
 		COL_PAGE_END, COL_PAGE_END_ID, 
-		COL_PANEL_END, COL_PANEL_END_ID)
+		COL_PANEL_END, COL_PANEL_END_ID,
+		COL_PANELS, COL_PAGES)
 	colnames(inter.df) <- inter.df.cn
+	Encoding(inter.df[,COL_CHAR_FROM]) <- "UTF-8"
+	Encoding(inter.df[,COL_CHAR_TO]) <- "UTF-8"
 	
 	# init character lists
 	panel.chars <- list()
-	page.chars <- list()
+	page.chars <- vector(mode="list", length=nrow(page.stats))
 	scene.chars <- list()
-	volume.chars <- list()
-	arc.chars <- list()
+	volume.chars <- vector(mode="list", length=nrow(volume.stats))
+	arc.chars <- vector(mode="list", length=nrow(arc.stats))
 	
-	# extract the edge list
-	tlog(2,"Converting interactions to a scene dataframe")
+	# loop over the scenes
+	tlog(2,"Looping over the lines (=scenes)")
 	prev.end.panel.id <- NA
-	for(l in 2:length(lines))
+	for(l in 2:length(lines))	# skipping header line
 	{	line <- lines[[l]]
 		scene.id <- l - 1
 		
 		# get volume
 		volume <- line[1]
 		volume.id <- which(volume.stats[,COL_VOLUME]==volume)
-		
 		# get arc
 		arc.id <- volume.stats[volume.id,COL_ARC_ID]
 		
@@ -475,6 +487,10 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			stop(msg)
 		}
 		
+		# get durations
+		panel.nbr <- end.panel.id - start.panel.id + 1
+		page.nbr <- end.page.id - start.page.id + 1
+
 		# get all combinations of characters
 		if(length(line)<6)
 			chars <- c()
@@ -501,8 +517,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			if(length(chars)==0)
 				msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
 			else 
-			{	
-				# check whether some characters miss from the table
+			{	# check whether some characters miss from the table
 				pb.chars <- setdiff(chars,char.stats[,COL_NAME])
 				if(length(pb.chars)>0)
 				{	msg <- paste0("ERROR: The following names appear in scene \"",paste(line,collapse=","),"\" but miss from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
@@ -530,7 +545,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 					{	chars.mat <- t(combn(x=chars,m=2))
 						rr <- nrow(chars.mat)
 						
-						# add scene to data frame
+						# add interactions to dataframe
 						tmp.df <- data.frame(
 							chars.mat[,1], chars.mat[,2], 
 							rep(scene.id,rr), rep(arc.id,rr), rep(volume,rr), rep(volume.id,rr),
@@ -539,45 +554,45 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 							rep(start.panel,rr), rep(start.panel.id,rr),
 							rep(end.page,rr), rep(end.page.id,rr), 
 							rep(end.panel,rr), rep(end.panel.id,rr),
+							panel.nbr, page.nbr,
 							stringsAsFactors=FALSE, check.names=FALSE)
 						colnames(tmp.df) <- inter.df.cn
 						inter.df <- rbind(inter.df, tmp.df)
 					}
 				}
 			}
-		
-			# update scene stats
-			panel.nbr <- end.panel.id - start.panel.id + 1
-			page.nbr <- end.page.id - start.page.id + 1
-			match.start <- start.panel==1
-			match.end <- end.panel==page.stats[end.page.id,COL_PANELS]
-			row.scene <- data.frame(
-				scene.id, 
-				arc.id, volume, volume.id,
-				start.page, start.page.id, 
-				start.panel, start.panel.id,
-				end.page, end.page.id, 
-				end.panel, end.panel.id,
-				panel.nbr, page.nbr, length(chars),
-				match.start, match.end, match.start && match.end,
-				stringsAsFactors=FALSE, check.names=FALSE
-			)
-			colnames(row.scene) <- scene.stats.cn
-			scene.stats <- rbind(scene.stats, row.scene)
-			
-			# update panel stats
-			panel.stats[start.panel.id:end.panel.id,COL_CHARS] <- length(chars)
 		}
 		
+		# update panel stats
+		panel.stats[start.panel.id:end.panel.id,COL_CHARS] <- length(chars)
+		
+		# update scene stats
+		match.start <- start.panel==1
+		match.end <- end.panel==page.stats[end.page.id,COL_PANELS]
+		row.scene <- data.frame(
+			scene.id, 
+			arc.id, volume, volume.id,
+			start.page, start.page.id, 
+			start.panel, start.panel.id,
+			end.page, end.page.id, 
+			end.panel, end.panel.id,
+			panel.nbr, page.nbr, length(chars),
+			match.start, match.end, match.start && match.end,
+			stringsAsFactors=FALSE, check.names=FALSE
+		)
+		colnames(row.scene) <- scene.stats.cn
+		scene.stats <- rbind(scene.stats, row.scene)
+		
 		# update character lists
+		scene.chars <- c(scene.chars, list(chars))
 		for(p in 1:panel.nbr) 
 			panel.chars <- c(panel.chars, list(chars))
-		page.chars[[start.page.id]] <- sort(union(page.chars[[start.page.id]], chars))
-		if(end.page.id!=start.page.id)
-			page.chars[[end.page.id]] <- sort(union(page.chars[[end.page.id]], chars))
-		scene.chars <- c(scene.chars, list(chars))
-		volume.chars[[volume.id]] <- sort(union(volume.chars[[volume.id]], chars))
-		arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
+		if(length(chars)>0)
+		{	for(p in start.page.id:end.page.id)
+				page.chars[[p]] <- sort(union(page.chars[[p]], chars))
+			volume.chars[[volume.id]] <- sort(union(volume.chars[[volume.id]], chars))
+			arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
+		}
 	}
 	
 	# update character counts in stats tables
@@ -586,9 +601,9 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	arc.stats[,COL_CHARS] <- sapply(arc.chars, length)
 	
 	# update scene counts in stats tables
-	page.stats[,COL_SCENES] <- sapply(1:nrow(page.stats), function(p) length(which(scene.stats[,COL_PAGE_START_ID]==p | scene.stats[,COL_PAGE_END_ID]==p)))
+	page.stats[,COL_SCENES] <- sapply(1:nrow(page.stats), function(p) length(which(scene.stats[,COL_PAGE_START_ID]<=p & scene.stats[,COL_PAGE_END_ID]>=p)))
 	volume.stats[,COL_SCENES] <- sapply(1:nrow(volume.stats), function(v) length(which(scene.stats[,COL_VOLUME_ID]==v)))
-	arc.stats[,COL_SCENES] <- sapply(1:nrow(arc.stats), function(a) length(which(arc.stats[,COL_ARC_ID]==a)))
+	arc.stats[,COL_SCENES] <- sapply(1:nrow(arc.stats), function(a) length(which(scene.stats[,COL_ARC_ID]==a)))
 	
 	# update narrative unit counts in char stats table
 	tt <- table(unlist(panel.chars)); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PANELS] <- tt
@@ -603,8 +618,8 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	char.stats[match(names(tt),char.stats[,COL_NAME]),COL_FREQ] <- tt
 	
 	# check unused characters
-	pb.char <- setdif(char.stats[,COL_NAME], unique(unlist(scene.chars)))
-	if(length(p.chars)>0)
+	pb.char <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
+	if(length(pb.chars)>0)
 	{	#cat(paste(pb.chars,collapse="\n"))
 		msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,colapse=","))
 		tlog(3,msg)
@@ -614,6 +629,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	
 	tlog(2,"Reading of the interaction file completed")
 	res <- list(
+		inter.df=inter.df,										# interactions
 		panel.stats=panel.stats, panel.chars=panel.chars,		# panels
 		page.stats=page.stats, page.chars=page.chars,			# pages
 		scene.stats=scene.stats, scene.chars=scene.chars,		# scenes
@@ -861,6 +877,7 @@ read.raw.data <- function()
 	inter.df <- tmp$inter.df
 	panel.stats <- tmp$panel.stats; panel.chars <- tmp$panel.chars
 	page.stats <- tmp$page.stats; page.chars <- tmp$page.chars
+	char.stats <- tmp$char.stats
 	scene.stats <- tmp$scene.stats; scene.chars <- tmp$scene.chars
 	volume.stats <- tmp$volume.stats; volume.chars <- tmp$volume.chars
 	arc.stats <- tmp$arc.stats; arc.chars <- tmp$arc.chars

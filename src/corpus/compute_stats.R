@@ -31,7 +31,7 @@ compute.stats.panel <- function(
 		cur.vol=NA, cur.arc=NA)
 {	object <- "panels"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	# panel positions
 	pages.end.panel.ids <- c(
@@ -325,7 +325,7 @@ compute.stats.page <- function(
 		cur.vol=NA, cur.arc=NA)
 {	object <- "pages"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	
 	# volume name
@@ -631,7 +631,7 @@ compute.stats.scene <- function(
 	
 	object <- "scenes"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	
 	# volume name
@@ -925,7 +925,7 @@ compute.stats.char <- function(
 		filtered=FALSE)
 {	object <- "characters"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ, COL_FILTERED, COL_NAMED))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ, COL_FILTERED, COL_NAMED))
 	att.nbr <- length(atts)
 	
 	# volume name
@@ -1227,7 +1227,7 @@ compute.stats.volume <- function(
 		volume.stats, volume.chars)
 {	object <- "volumes"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	
 	# compute stats
@@ -1586,7 +1586,7 @@ compute.stats.arc <- function(
 		volume.stats=volume.stats, volume.chars=volume.chars)
 {	object <- "arcs"
 	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	
 	# compute stats
@@ -1941,7 +1941,7 @@ compute.stats.overall <- function(
 		volume.stats=volume.stats, volume.chars=volume.chars, 
 		arc.stats=arc.stats, arc.chars=arc.chars)
 {	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_SHORT_NAME, COL_FREQ))
+	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
 	att.nbr <- length(atts)
 	
 	# compute stats
