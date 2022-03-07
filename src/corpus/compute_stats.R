@@ -42,7 +42,7 @@ compute.stats.panel <- function(panel.stats, panel.chars, char.stats)
 		tlog(4,"Processing attribute-related panel stats")
 		file <- get.path.stat.corpus(object=object, desc="panels")
 		
-		# init stats tables for attributes
+		# loop over attributes
 		tlog(5,"Loop over attributes")
 		for(a in 1:att.nbr)
 		{	att <- atts[a]
@@ -76,23 +76,20 @@ compute.stats.panel <- function(panel.stats, panel.chars, char.stats)
 
 
 ###############################################################################
-# Computes and records some statistics regarding the panels.
+# Plots the panel statistics.
 #
 # panel.stats: table describing all the panels constituting the series.
 # panel.stats.atts: panel stats for each attribute. 
+# volume.stats: table describing the series volumes.
 # cur.vol: NA (regular mode) or id of the volume specifically processed.
 # cur.arc: NA (regular mode) or id of the arc specifically processed.
-#
-# returns: an updated list of tables.
 ###############################################################################
-plot.stats.panel <- function(
-		panel.stats, panel.stats.atts, 
-		cur.vol=NA, cur.arc=NA)
+plot.stats.panel <- function(panel.stats, panel.stats.atts, volume.stats, cur.vol=NA, cur.arc=NA)
 {	object <- "panels"
 	
 	# message
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[1, COL_VOLUME]
+	{	vname <- volume.stats[cur.vol, COL_VOLUME]
 		tlog(3,"Computing panel stats (cur.vol=",cur.vol," vname=",vname,")")
 		panel.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)		
 	}
@@ -188,7 +185,7 @@ plot.stats.panel <- function(
 		{	pal <- get.palette(ncol(panel.stats.atts[[att]]))[1:ncol(panel.stats.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
-			data <- panel.stats.atts[[att]][,-1]
+			data <- panel.stats.atts[[att]][panel.idx,-1]
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -252,25 +249,27 @@ plot.stats.panel <- function(
 			}
 			# separate plot for each value
 			for(d in 2:ncol(panel.stats.atts[[att]]))
-			{	data <- panel.stats.atts[[att]][,d]
-				val <- colnames(panel.stats.atts[[att]])[d]
-				file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=val)
-				tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-				for(fformat in PLOT_FORMAT)
-				{	if(fformat==PLOT_FORMAT_PDF)
-						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-					else if(fformat==PLOT_FORMAT_PNG)
-						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						h <- hist(
-							data,
-							breaks=0:max(data),
-							col=pal[d],
-							xlab=xl,
-							main=paste0(ml," val=",colnames(panel.stats.atts[[att]])[d],")"),
-							freq=FALSE,
-							#plot=FALSE
-						)
-					dev.off()
+			{	data <- panel.stats.atts[[att]][panel.idx,d]
+				if(any(data!=0))
+				{	val <- colnames(panel.stats.atts[[att]])[d]
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=val)
+					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+							h <- hist(
+								data,
+								breaks=0:max(data),
+								col=pal[d],
+								xlab=xl,
+								main=paste0(ml," val=",colnames(panel.stats.atts[[att]])[d],")"),
+								freq=FALSE,
+								#plot=FALSE
+							)
+						dev.off()
+					}
 				}
 			}
 		}
@@ -283,132 +282,117 @@ plot.stats.panel <- function(
 ###############################################################################
 # Computes and records some statistics regarding the pages.
 #
-# panel.stats: table describing all the panels constituting the series.
-# panel.chars: list of characters involved in each panel.
 # page.stats: table describing all the pages constituting the series.
 # page.chars: list of characters involved in each page.
-# scene.stats: table describing all the scene constituting the series.
-# scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
-# volume.stats: table describing the series volumes.
-# volume.chars: list of characters involved in each volume.
-# arc.stats: table describing the series narrative arcs.
-# arc.chars: list of characters involved in each arc.
-# cur.vol: NA (regular mode) or id of the volume specifically processed.
-# cur.arc: NA (regular mode) or id of the arc specifically processed.
 #
 # returns: an updated list of tables.
 ###############################################################################
-compute.stats.page <- function(
-		panel.stats, panel.chars, 
-		page.stats, page.chars, 
-		scene.stats, scene.chars, 
-		char.stats, 
-		volume.stats, volume.chars, 
-		arc.stats, arc.chars, 
-		cur.vol=NA, cur.arc=NA)
+compute.stats.page <- function(page.stats, page.chars, char.stats)
 {	object <- "pages"
-	# vertex attributes
-	atts <- setdiff(colnames(char.stats), c(COL_NAME, COL_NAME_SHORT, COL_FREQ))
+	
+	##################
+	# init
+	page.nbr <- nrow(page.stats)
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
 	att.nbr <- length(atts)
 	
-	# volume name
-	if(!is.na(cur.vol))
-		vname <- volume.stats[1, COL_VOLUME]
-	else
-		vname <- NA
+	##################
+	# overall stats
+	tlog(4,"No additional overall stat to compute for pages")
+	# nothing to compute here
 	
-	# compute stats
-	page.ids <- sort(unique(panel.stats[,COL_PAGE_ID]))
-	page.nbr <- length(page.ids)
-	
-	# list the characters by page
-	tlog(3,"Listing the characters by page")
-	page.chars <- lapply(1:page.nbr, function(x) c())
-	first.pg.id <- scene.stats[1,COL_PAGE_START_ID]
-	for(s in 1:nrow(scene.stats))
-	{	tlog(5,"Processing scene id ",s,"/",nrow(scene.stats))
-		
-		# find the pages containing the scene
-		start.page.id <- scene.stats[s,COL_PAGE_START_ID]
-		end.page.id <- scene.stats[s,COL_PAGE_END_ID]
-		sc.page.ids <- start.page.id:end.page.id
-		for(page.id in sc.page.ids)
-		{	if(length(scene.chars[[s]])>0)
-			{	i <- which(page.stats[,COL_PAGE_ID]==page.id)
-				page.chars[[i]] <- union(page.chars[[i]], scene.chars[[s]])
-			}
-		}
-	}
-	
-	# init stats table for pages
-	tmp <- data.frame(
-			integer(page.nbr), 
-			integer(page.nbr),
-			stringsAsFactors=FALSE, check.names=FALSE
-	)
-	colnames(tmp) <- c(
-			COL_SCENES, 
-			COL_CHARS
-	)
-	page.stats <- cbind(page.stats, tmp)
-	# init stats tables for attributes
+	##################
+	# attribute-based stats
 	page.stats.atts <- list()
-	if(att.nbr>0)
-	{	for(att in atts)
-		{	vals <- char.stats[,att]
-			uniq <- names(table(vals))	#, useNA="always"))
-			m <- matrix(0, nrow=page.nbr, ncol=length(uniq))
-			colnames(m) <- uniq
-			page.stats.atts[[att]] <- m
+	if(att.nbr==0)
+	{	tlog(4,"No attribute: nothing else to compute")
+	}
+	else
+	{	# compute stats only the first time
+		tlog(4,"Processing attribute-related page stats")
+		file <- get.path.stat.corpus(object=object, desc="pages")
+		
+		# loop over attributes
+		tlog(5,"Loop over attributes")
+		for(a in 1:att.nbr)
+		{	att <- atts[a]
+			tlog(6,"Processing attribute \"",att,"\" (",a,"/",att.nbr,")")
+			
+			# retrieve unique values
+			uniq <- names(table(char.stats[,att]))	#, useNA="always"))
+			# compute distribution for each page
+			mat <- t(sapply(page.chars, function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
+			
+			# add page id to matrix
+			mat <- cbind(1:page.nbr, mat)
+			colnames(mat)[1] <- COL_PAGE_ID
+			# add matrix to result list
+			page.stats.atts[[att]] <- mat
+			
+			# record matrix
+			f <- paste0(file,"_att=",att,".csv")
+			tlog(7,"Creating file \"",f,"\"")
+			write.csv(x=page.stats.atts[[att]], file=f, row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
-	# compute the stats for each page
-	tlog(4,"Processing each page separately")
-	for(p in 1:page.nbr)
-	{	tlog(5,"Processing page id ",page.ids[p]," (",p,"/",page.nbr,")")
-		
-		# number of scenes overlapping the page
-		scn <- length(which(
-						scene.stats[,COL_PAGE_START_ID]<=page.ids[p]
-								& scene.stats[,COL_PAGE_END_ID]>=page.ids[p]
-				))
-		
-		# update overall stat table
-		page.stats[p, COL_SCENES] <- scn
-		page.stats[p, COL_CHARS] <- length(page.chars[[p]])
-		
-		# update attribute stat table
-		if(att.nbr>0)
-		{	idx <- match(page.chars[[p]], char.stats[,COL_NAME])
-			for(att in atts)
-			{	m <- page.stats.atts[[att]]
-				tt <- table(char.stats[idx,att])
-				m[p,names(tt)] <- tt
-				page.stats.atts[[att]] <- m
-			}
-		}
+	result <- list(
+		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars
+	)
+	return(result)
+}
+
+
+
+
+###############################################################################
+# Plots the page statistics.
+#
+# page.stats: table describing all the pages constituting the series.
+# page.stats.atts: page stats for each attribute. 
+# volume.stats: table describing the series volumes.
+# cur.vol: NA (regular mode) or id of the volume specifically processed.
+# cur.arc: NA (regular mode) or id of the arc specifically processed.
+###############################################################################
+plot.stats.page <- function(page.stats, page.stats.atts, volume.stats, cur.vol=NA, cur.arc=NA)
+{	object <- "pages"
+	
+	# message
+	if(!is.na(cur.vol))
+	{	vname <- volume.stats[cur.vol, COL_VOLUME]
+		tlog(3,"Computing page stats (cur.vol=",cur.vol," vname=",vname,")")
+		page.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)		
+	}
+	else if(!is.na(cur.arc))
+	{	vname <- NA
+		tlog(3,"Computing page stats (cur.arc=",cur.arc," title=",arc.stats[cur.arc,COL_TITLE],")")
+		page.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)		
+	}
+	else
+	{	vname <- NA
+		tlog(3,"Computing page stats (whole series)")
+		page.idx <- page.stats[,COL_PAGE_ID]
 	}
 	
-	# record stats
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages")
-	tlog(4,"Recording in ",file)
-	write.csv(x=page.stats, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-	if(att.nbr>0)
-	{	for(att in atts)
-			write.csv(x=page.stats.atts[[att]], file=paste0(file,"_att=",att,".csv"), row.names=FALSE)#, col.names=TRUE)
-	}
+	# pages
+	page.nbr <- length(page.idx)
+	# vertex attributes
+	atts <- names(page.stats.atts)
+	att.nbr <- length(atts)
+	
+	##################
+	# attribute-blind stats
 	
 	# distributions of scene numbers
-	vals <- table(page.stats[,COL_SCENES])
+	vals <- table(page.stats[page.idx,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_PAGES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_scene_nbr")
+	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[,COL_SCENES]
-	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
+	data <- page.stats[page.idx,COL_SCENES]
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -418,13 +402,13 @@ compute.stats.page <- function(
 			xl <- "Number of scenes by page"
 			# histogram
 			h <- hist(
-					data,
-					breaks=0:max(data),
-					col=MAIN_COLOR,
-					xlab=xl,
-					main=ml,
-					freq=FALSE,
-#					plot=FALSE
+				data,
+				breaks=0:max(data),
+				col=MAIN_COLOR,
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 			)
 #			# scatterplot
 #			x <- h$breaks[2:length(h$breaks)]
@@ -439,14 +423,14 @@ compute.stats.page <- function(
 	}
 	
 	# distributions of panel numbers
-	vals <- table(page.stats[,COL_PANELS])
+	vals <- table(page.stats[page.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_PAGES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_panel_nbr")
+	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[,COL_PANELS]
-	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
+	data <- page.stats[page.idx,COL_PANELS]
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -456,13 +440,13 @@ compute.stats.page <- function(
 			xl <- "Number of panels by page"
 			# histogram
 			h <- hist(
-					data,
-					breaks=0:max(data),
-					col=MAIN_COLOR,
-					xlab=xl,
-					main=ml,
-					freq=FALSE,
-#					plot=FALSE
+				data,
+				breaks=0:max(data),
+				col=MAIN_COLOR,
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 			)
 #			# scatterplot
 #			x <- h$breaks[2:length(h$breaks)]
@@ -477,14 +461,14 @@ compute.stats.page <- function(
 	}
 	
 	# distributions of character numbers (overall)
-	vals <- table(page.stats[,COL_CHARS])
+	vals <- table(page.stats[page.idx,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_PAGES, "Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr")
+	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[,COL_CHARS]
-	write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
+	data <- page.stats[page.idx,COL_CHARS]
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -494,13 +478,13 @@ compute.stats.page <- function(
 			xl <- "Number of characters by page"
 			# histogram
 			h <- hist(
-					data,
-					breaks=0:max(data),
-					col=MAIN_COLOR,
-					xlab=xl,
-					main=ml,
-					freq=FALSE,
-#					plot=FALSE
+				data,
+				breaks=0:max(data),
+				col=MAIN_COLOR,
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
 			)
 #			# scatterplot
 #			x <- h$breaks[2:length(h$breaks)]
@@ -514,13 +498,15 @@ compute.stats.page <- function(
 		dev.off()
 	}
 	
-	# distribution of character numbers (by attribute)
+	##################
+	# attribute-based stats
 	if(att.nbr>0)
-	{	for(att in atts)
+	{	# distribution of character numbers (by attribute)
+		for(att in atts)
 		{	pal <- get.palette(ncol(page.stats.atts[[att]]))[1:ncol(page.stats.atts[[att]])]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
-			data <- page.stats.atts[[att]]
-			write.csv(x=data, paste0(file,"_rawvals.csv"), row.names=FALSE)#, col.names=FALSE)
+			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
+			data <- page.stats.atts[[att]][page.idx,-1]
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -553,10 +539,12 @@ compute.stats.page <- function(
 				dev.off()
 			}
 			# separate plot for each value
-			for(d in 1:ncol(page.stats.atts[[att]]))
-			{	data <- page.stats.atts[[att]][,d]
+			for(d in 2:ncol(page.stats.atts[[att]]))
+			{	data <- page.stats.atts[[att]][page.idx,d]
 				if(any(data!=0))
-				{	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(page.stats.atts[[att]])[d])
+				{	val <- colnames(page.stats.atts[[att]])[d]
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(page.stats.atts[[att]])[d])
+					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
 							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -577,9 +565,6 @@ compute.stats.page <- function(
 			}
 		}
 	}
-	
-	result <- list(page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars)
-	return(result)
 }
 
 
@@ -2127,29 +2112,29 @@ compute.stats <- function(data)
 		
 	# complete panel stats
 	tmp <- compute.stats.panel(
-			panel.stats=panel.stats, panel.chars=panel.chars, 
-			char.stats=char.stats
+		panel.stats=panel.stats, panel.chars=panel.chars, 
+		char.stats=char.stats
 	)
 	panel.stats.atts <- tmp$panel.stats.atts
 	# plot panel stats
 	plot.stats.panel(
 		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts,
+		volume.stats,
 		cur.vol=NA, cur.arc=NA
 	)
 	
 	# complete page stats
 	tmp <- compute.stats.page(
-		panel.stats=panel.stats, panel.chars=panel.chars,
 		page.stats=page.stats, page.chars=page.chars,
-		scene.stats=scene.stats, scene.chars=scene.chars,
-		char.stats=char.stats, 
-		volume.stats=volume.stats, volume.chars=volume.chars, 
-		arc.stats=arc.stats, arc.chars=arc.chars,
+		char.stats=char.stats
+	)
+	page.stats.atts <- tmp$page.stats.atts
+	# plot page stats
+	plot.stats.page(
+		page.stats=page.stats, page.stats.atts=page.stats.atts,
+		volume.stats,
 		cur.vol=NA, cur.arc=NA
 	)
-	page.stats <- tmp$page.stats
-	page.stats.atts <- tmp$page.stats.atts
-	page.chars <- tmp$page.chars
 	
 	# complete scene stats
 	tmp <- compute.stats.scene(

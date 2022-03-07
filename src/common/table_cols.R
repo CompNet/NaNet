@@ -17,25 +17,13 @@ COL_ARCS <- "Arcs"								# number of arcs
 
 
 ###############################################################################
-# characters
-COL_CHAR <- "Character"							# unique character name (overall)
-COL_CHARS <- "Characters"						# number of characters
-COL_NAME <- "Name"								# proper name or description of the character (=COL_CHAR)
-COL_NAMED <- "Named"							# whether the character has a proper name
-COL_FREQ <- "Frequency"							# number of scenes
-COL_NAME_SHORT <- "ShortName"					# short version of the name, for important characters only
-COL_FILTERED <- "Filtered"						# whether the character is important (FALSE) or not (TRUE)
-COLS_ATT_IGNORE <- c(							# list of columns not representing character attributes
-	COL_NAME, COL_NAME_SHORT, 
-	COL_FREQ, 
-	COL_ARCS, COL_VOLUMES, COL_PAGES, COL_PANELS, COL_SCENES
-)
+# volumes
+COL_VOLUME <- "Volume"							# unique volume code (overall)
+COL_VOLUME_ID <- "VolumeId"						# unique volume id (overall)
+COL_VOLUMES <- "Volumes"						# number of volumes
 
-# char stats
-COL_CHARS_BY_PAGE <- "AvgCharactersByPage"		# average number of characters by page
-COL_CHARS_BY_PANEL <- "AvgCharactersByPanel"	# average number of characters by panel
-COL_CHARS_BY_SCENE <- "AvgCharactersByScene"	# average number of characters by scene
-COL_CHARS_BY_VOLUME <- "AvgCharactersByVolume"	# average number of characters by volume
+# volume stats
+COL_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"	# average number of volumes by character
 
 
 
@@ -99,13 +87,25 @@ COL_SCENES_BY_VOLUME <- "AvgScenesByVolume"		# average number of scenes by volum
 
 
 ###############################################################################
-# volumes
-COL_VOLUME <- "Volume"							# unique volume code (overall)
-COL_VOLUME_ID <- "VolumeId"						# unique volume id (overall)
-COL_VOLUMES <- "Volumes"						# number of volumes
+# characters
+COL_CHAR <- "Character"							# unique character name (overall)
+COL_CHARS <- "Characters"						# number of characters
+COL_NAME <- "Name"								# proper name or description of the character (=COL_CHAR)
+COL_NAMED <- "Named"							# whether the character has a proper name
+COL_FREQ <- "Frequency"							# number of scenes
+COL_NAME_SHORT <- "ShortName"					# short version of the name, for important characters only
+COL_FILTERED <- "Filtered"						# whether the character is important (FALSE) or not (TRUE)
+COLS_ATT_IGNORE <- c(							# list of columns not representing character attributes
+	COL_NAME, COL_NAME_SHORT, 
+	COL_FREQ, 
+	COL_ARCS, COL_VOLUMES, COL_PAGES, COL_PANELS, COL_SCENES
+)
 
-# volume stats
-COL_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"	# average number of volumes by character
+# char stats
+COL_CHARS_BY_PAGE <- "AvgCharactersByPage"		# average number of characters by page
+COL_CHARS_BY_PANEL <- "AvgCharactersByPanel"	# average number of characters by panel
+COL_CHARS_BY_SCENE <- "AvgCharactersByScene"	# average number of characters by scene
+COL_CHARS_BY_VOLUME <- "AvgCharactersByVolume"	# average number of characters by volume
 
 
 
