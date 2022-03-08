@@ -359,13 +359,14 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 # object: "panels", "scenes", "characters", etc.
 # vol: id of the considered volume.
 # arc: id of the considered narrative arc.
+# subfold: additional folder.
 # desc: ad hoc description of the file.
 # att: vertex attribute concerned.
 # val: considered value of the vertex attribute.
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, desc, att=NA, val=NA)
+get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, folder=NA, desc, att=NA, val=NA)
 {	# base folder
 	if(!is.na(vol))
 		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol)
@@ -376,6 +377,9 @@ get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, desc, att=NA, val=NA
 	# possibly add object
 	if(!is.na(object))
 		folder <- file.path(folder, object)
+	# possibly add extra subfolder
+	if(!is.na(subfold))
+		folder <- file.path(folder, subfold)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
