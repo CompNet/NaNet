@@ -28,7 +28,7 @@ compute.stats.panel <- function(panel.stats, panel.chars, char.stats, volume.sta
 	
 	
 	##################
-	# overall stats
+	# attribute-blind stats
 	tlog(4,"Computing attribute-blind stats for for panels")
 	# specific volume
 	if(!is.na(cur.vol))
@@ -179,7 +179,8 @@ plot.stats.panel <- function(panel.stats, panel.stats.atts, volume.stats, cur.vo
 #			y <- y[idx]
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	
@@ -333,7 +334,7 @@ compute.stats.page <- function(page.stats, page.chars, char.stats, volume.stats,
 	
 	
 	##################
-	# overall stats
+	# attribute-blind stats
 	tlog(4,"Computing attribute-blind stats for for pages")
 	# specific volume
 	if(!is.na(cur.vol))
@@ -485,7 +486,8 @@ plot.stats.page <- function(page.stats, page.stats.atts, volume.stats, cur.vol=N
 #			y <- y[idx]
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	
@@ -523,7 +525,8 @@ plot.stats.page <- function(page.stats, page.stats.atts, volume.stats, cur.vol=N
 #			y <- y[idx]
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	
@@ -561,7 +564,8 @@ plot.stats.page <- function(page.stats, page.stats.atts, volume.stats, cur.vol=N
 #			y <- y[idx]
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	
@@ -659,7 +663,7 @@ compute.stats.scene <- function(scene.stats, scene.chars, char.stats, volume.sta
 	
 	
 	##################
-	# overall stats
+	# attribute-blind stats
 	tlog(4,"Computing attribute-blind stats for for scenes")
 	# specific volume
 	if(!is.na(cur.vol))
@@ -792,7 +796,7 @@ plot.stats.scene <- function(scene.stats, scene.stats.atts, volume.stats, cur.vo
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#				# histogram
+#			# histogram
 #			h <- hist(
 #					data,
 #					breaks=0:max(data),
@@ -812,11 +816,12 @@ plot.stats.scene <- function(scene.stats, scene.stats.atts, volume.stats, cur.vo
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
 			# complementary cumulative distribution function
-			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+			if(length(unique(data))>1)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	# check distribution
-	if(is.na(cur.vol) && is.na(cur.arc))
+	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -855,14 +860,15 @@ plot.stats.scene <- function(scene.stats, scene.stats.atts, volume.stats, cur.vo
 #			y <- y[idx]
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
 #			# complementary cumulative distribution function
-#			plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	
 	# distributions of page numbers
 	vals <- table(scene.stats[scene.idx,COL_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
-	colnames(vals) <- c(COL_PANELS, COL_PAGES,"Proportion")
+	colnames(vals) <- c(COL_PANELS, COL_SCENES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_page_nbr")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
@@ -898,7 +904,7 @@ plot.stats.scene <- function(scene.stats, scene.stats.atts, volume.stats, cur.vo
 		dev.off()
 	}
 	# check distribution
-	if(is.na(cur.vol) && is.na(cur.arc))
+	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -1023,7 +1029,7 @@ compute.stats.char <- function(panel.stats, panel.chars, page.stats, page.chars,
 	
 	
 	##################
-	# overall stats
+	# attribute-blind stats
 	tlog(4,"Computing attribute-blind stats for for character")
 	# specific volume
 	if(!is.na(cur.vol))
@@ -1115,11 +1121,18 @@ plot.stats.char <- function(char.stats, volume.stats, cur.vol=NA, cur.arc=NA, fi
 		tlog(3,"Computing ",filt.txt," char stats (whole series)")
 		char.idx <- which(char.filter)
 	}
+	# vertex attributes
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	
 	# record stats
 	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="_char_stats")
 	tlog(4,"Recording stats in ",file)
 	write.csv(x=char.stats[char.idx,], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	
+	
+	##################
+	# attribute-blind stats
 	
 	# distribution of volumes by character
 	if(is.na(cur.vol))
@@ -1337,6 +1350,39 @@ plot.stats.char <- function(char.stats, volume.stats, cur.vol=NA, cur.arc=NA, fi
 		colnames(tab) <- c("Min occurrences","Named","Unnamed")
 		write.csv(x=tab, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	}
+	
+	
+	##################
+	# attribute-based stats
+	if(att.nbr>0)
+	{	for(a in 1:length(atts))
+		{	tlog(4,"Processing attribute ",atts[a]," (",a,"/",length(atts),")")
+			
+			# attribute distribution over the characters
+			vals <- table(char.stats[,atts[a]])
+			perc <- vals/sum(vals)*100
+			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+			colnames(df) <- c(atts[a],"Frequency","Proportion")
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="char_attr_distrib", att=atts[a])
+			tlog(8,"Producing files \"",file,"\"")
+			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			#
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+				barplot(
+					height=perc,
+					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
+					col=col
+				)
+				dev.off()
+			}
+			
+			# others?
+		}
+	}
 }
 
 
@@ -1363,7 +1409,7 @@ compute.stats.volume <- function(panel.stats, panel.chars, page.stats, page.char
 	
 	
 	##################
-	# overall stats
+	# attribute-blind stats
 	tlog(4,"Computing attribute-blind volume stats")
 	
 	# complete volume stats table
@@ -1413,7 +1459,8 @@ compute.stats.volume <- function(panel.stats, panel.chars, page.stats, page.char
 		volume.stats.indiv[[v]] <- list(
 			vol.panel.stats=vol.panel.stats, vol.panel.stats.atts=vol.panel.stats.atts, vol.panel.chars=vol.panel.chars,
 			vol.page.stats=vol.page.stats, vol.page.stats.atts=vol.page.stats.atts, vol.page.chars=vol.page.chars,
-			vol.scene.stats=vol.scene.stats, vol.scene.stats.atts=vol.scene.stats.atts, vol.scene.chars=vol.scene.chars
+			vol.scene.stats=vol.scene.stats, vol.scene.stats.atts=vol.scene.stats.atts, vol.scene.chars=vol.scene.chars,
+			vol.char.stats=vol.char.stats
 		)
 		
 		# update means in volume stats table
@@ -1489,8 +1536,18 @@ compute.stats.volume <- function(panel.stats, panel.chars, page.stats, page.char
 #
 # returns: an updated list of tables.
 ###############################################################################
-plot.stats.volume <- function(panel.stats, panel.stats.atts, page.stats, page.stats.atts, scene.stats, scene.stats.atts, char.stats, volume.stats, volume.stats.atts, volume.stats.indiv)
+plot.stats.volume <- function(panel.stats, panel.stats.atts, page.stats, page.stats.atts, scene.stats, scene.stats.atts, char.stats, volume.stats, volume.stats.atts, volume.stats.indiv, cur.arc=NA)
 {	object <- "volumes"
+	
+	# preparation
+	if(!is.na(cur.arc))
+	{	tlog(3,"Computing volume stats (cur.arc=",cur.arc,")")
+		volume.idx <- which(volume.stats[,COL_ARC_ID]==cur.arc)		
+	}
+	else
+	{	tlog(3,"Computing volume stats (whole series)")
+		volume.idx <- volume.stats[,COL_VOLUME_ID]
+	}
 	
 	# volumes
 	volume.nbr <- nrow(volume.stats)
@@ -1499,133 +1556,269 @@ plot.stats.volume <- function(panel.stats, panel.stats.atts, page.stats, page.st
 	atts <- names(volume.stats.atts)
 	att.nbr <- length(atts)
 	
+	
+	##################
+	# attribute-blind stats
+	tlog(4,"Computing attribute-blind volume stats")
+	
 	# plot the stats for each volume
-	tlog(4,"Processing each volume separately")
-	for(v in 1:volume.nbr)
-	{	vname <- volume.stats[v,COL_VOLUME]
-		tlog(5,"Processing volume ",vname," (",v,"/",nrow(volume.stats),")")
-		
-		
-		##################
-		# attribute-blind stats
-		
-		# plot volume-specific stats
-		plot.stats.panel(panel.stats, panel.stats.atts, volume.stats, cur.vol=v, cur.arc=NA)
-		plot.stats.page(page.stats, page.stats.atts, volume.stats, cur.vol=v, cur.arc=NA)
-		plot.stats.scene(scene.stats, scene.stats.atts, volume.stats, cur.vol=v, cur.arc=NA)
-		plot.stats.char(char.stats, char.stats.atts, volume.stats, cur.vol=v, cur.arc=NA)
-		
-		# volume-based selection
-		idx.sc <- which(scene.stats[,COL_VOLUME_ID]==v)
-		idx.char <- which(char.stats[,COL_VOLUME_ID]==v)
-		
-		# density plot: chars vs. panels (by scene)
-		file <- get.path.stat.corpus(vol=vname, desc="comparison_chars-scenes_vs_panels-scenes")
-		tlog(6,"Distribution of characters by scene vs. panels by scene: producing files \"",file,"\"")
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				xvals <- scene.stats[idx.sc,COL_CHARS]
-				yvals <- scene.stats[idx.sc,COL_PANELS]
-				xlab <- "Number of characters by scene"
-				ylab <- "Number of panels by scene"
-				p=ggplot(scene.stats[idx.sc,], aes(x=xvals, y=yvals)) +
-					geom_hex(binwidth=1) + 
-					coord_fixed() +
-					scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
-					theme_bw() +
-					theme_classic() +	# base_size=18
-					labs(fill="Frequency",x=xlab, y=ylab) +
-					theme(legend.position="left") +
-					geom_point(aes(x=xvals, y=yvals), alpha=0)
-				ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
-				print(p)
-			dev.off()
-		}
-		
-		
-		##################
-		# attribute-based stats
-		if(att.nbr>0)
-		{	for(a in 1:length(atts))
-			{	tlog(6,"Processing attribute ",atts[a]," (",a,"/",length(atts),")")
-				
-				# attribute distribution over the characters
-				vals <- table(char.stats[idx.char,atts[a]])
-				perc <- vals/sum(vals)*100
-				df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
-				colnames(df) <- c(atts[a],"Frequency","Proportion")
-				file <- get.path.stat.corpus(vol=vname, desc="attr_distrib", att=atts[a])
-				write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-				#
-				for(fformat in PLOT_FORMAT)
-				{	if(fformat==PLOT_FORMAT_PDF)
-						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-					else if(fformat==PLOT_FORMAT_PNG)
-						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						barplot(
-							height=perc,
-							main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-							col=col
-						)
-					dev.off()
-				}
-				
-				# others?
+	if(is.na(cur.arc))
+	{	tlog(4,"Processing each volume separately")
+		for(v in 1:volume.nbr)
+		{	vname <- volume.stats[v,COL_VOLUME]
+			tlog(5,"Processing volume ",vname," (",v,"/",nrow(volume.stats),")")
+			
+			vol.panel.stats <- volume.stats.indiv[[v]]$panel.stats
+			vol.panel.stats.atts <- volume.stats.indiv[[v]]$panel.stats.atts
+			vol.page.stats <- volume.stats.indiv[[v]]$page.stats
+			vol.page.stats.atts <- volume.stats.indiv[[v]]$page.stats.atts
+			vol.scene.stats <- volume.stats.indiv[[v]]$scene.stats
+			vol.scene.stats.atts <- volume.stats.indiv[[v]]$scene.stats.atts
+			vol.char.stats <- volume.stats.indiv[[v]]$char.stats
+			
+			# plot volume-specific stats
+			plot.stats.panel(panel.stats=vol.panel.stats, panel.stats.atts=vol.panel.stats.atts, volume.stats=volume.stats, cur.vol=v)
+			plot.stats.page(page.stats=vol.page.stats, page.stats.atts=vol.page.stats.atts, volume.stats=volume.stats, cur.vol=v)
+			plot.stats.scene(scene.stats=vol.scene.stats, scene.stats.atts=vol.scene.stats.atts, volume.stats=volume.stats, cur.vol=v)
+			plot.stats.char(char.stats=vol.char.stats, char.stats.atts=vol.char.stats.atts, volume.stats=volume.stats, cur.vol=v)
+			
+			# density plot: chars vs. panels (by scene)
+			file <- get.path.stat.corpus(vol=vname, desc="comparison_chars-scenes_vs_panels-scenes")
+			tlog(6,"Distribution of characters by scene vs. panels by scene: producing files \"",file,"\"")
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					xvals <- vol.scene.stats[,COL_CHARS]
+					yvals <- vol.scene.stats[,COL_PANELS]
+					xlab <- "Number of characters by scene"
+					ylab <- "Number of panels by scene"
+					p=ggplot(vol.scene.stats, aes(x=xvals, y=yvals)) +
+						geom_hex(binwidth=1) + 
+						coord_fixed() +
+						scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
+						theme_bw() +
+						theme_classic() +	# base_size=18
+						labs(fill="Frequency",x=xlab, y=ylab) +
+						theme(legend.position="left") +
+						geom_point(aes(x=xvals, y=yvals), alpha=0)
+					ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
+					print(p)
+				dev.off()
 			}
 		}
 	}
 	
-	# record stats
-	file <- get.path.stat.corpus(object=object, desc="volumes")
-	tlog(4,"Recording in ",file)
-	write.csv(x=volume.stats, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-	if(att.nbr>0)
-	{	for(att in atts)
-			write.csv(x=volume.stats.atts[[att]], file=paste0(file,"_att=",att,".csv"), row.names=FALSE)#, col.names=TRUE)
+	# distributions of panel numbers
+	vals <- table(volume.stats[volume.idx,COL_PANELS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_PANELS, COL_VOLUMES,"Proportion")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_panel_nbr")
+	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
+	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	data <- volume.stats[volume.idx,COL_PANELS]
+	ml <- "Panel number distribution over volumes"
+	xl <- "Number of panels by volume"
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+#			# histogram
+#			h <- hist(
+#					data,
+#					breaks=0:max(data),
+##					col=col,
+##					xlab=xl,
+##					main=ml,
+##					freq=FALSE,
+#					plot=FALSE
+#			)
+#			# scatterplot
+#				x <- h$breaks[2:length(h$breaks)]
+#			y <- h$density
+#			idx <- which(y>0)
+#			x <- x[idx]
+#			y <- y[idx]
+#			expmax <- floor(log(min(y),10))
+#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
+#			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
+			# complementary cumulative distribution function
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+		dev.off()
 	}
-	# record the volumes for each character (for latter use)
-	con <- file(paste0(file,"_chars.txt"), open="wt")
-		sapply(volume.chars, function(lst) writeLines(paste(lst,collapse=","), con))
-	close(con)
+	# check distribution
+	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+	}
+
+	# distributions of character numbers (overall)
+	vals <- table(volume.stats[volume.idx,COL_CHARS])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_CHARS, COL_VOLUMES, "Proportion")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_char_nbr")
+	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
+	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	data <- volume.stats[volume.idx,COL_CHARS]
+	ml <- "Character number distribution over volumes"
+	xl <- "Number of characters by volume"
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+			# histogram
+			h <- hist(
+					data,
+					breaks=0:max(data),
+					col=col,
+					xlab=xl,
+					main=ml,
+					freq=FALSE,
+#					plot=FALSE
+			)
+#			# scatterplot
+#			x <- h$breaks[2:length(h$breaks)]
+#			y <- h$counts
+#			idx <- which(y>0)
+#			x <- x[idx]
+#			y <- y[idx]
+#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
+#			# complementary cumulative distribution function
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+		dev.off()
+	}
+	
+	# distributions of page numbers
+	vals <- table(volume.stats[volume.idx,COL_PAGES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_PAGES, COL_VOLUMES,"Proportion")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_page_nbr")
+	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
+	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	data <- volume.stats[volume.idx,COL_PAGES]
+	ml <- "Page number distribution over volumes"
+	xl <- "Number of pages by volume"
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+			# histogram
+			h <- hist(
+				data,
+				breaks=0:max(data),
+				col=col,
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
+			)
+#			# scatterplot
+#			x <- h$breaks[2:length(h$breaks)]
+#			y <- h$counts
+#			idx <- which(y>0)
+#			x <- x[idx]
+#			y <- y[idx]
+#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
+			# complementary cumulative distribution function
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+		dev.off()
+	}
+#	# check distribution
+#	if(length(unique(data))>1 && is.na(cur.arc))
+#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+#	}
+	
+	# distributions of scene numbers
+	vals <- table(volume.stats[volume.idx,COL_SCENES])
+	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
+	colnames(vals) <- c(COL_SCENES, COL_VOLUMES,"Proportion")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_scene_nbr")
+	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
+	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	#
+	data <- volume.stats[volume.idx,COL_SCENES]
+	ml <- "Scene number distribution over volumes"
+	xl <- "Number of scenes by volume"
+	for(fformat in PLOT_FORMAT)
+	{	if(fformat==PLOT_FORMAT_PDF)
+			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+		else if(fformat==PLOT_FORMAT_PNG)
+			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+			# histogram
+			h <- hist(
+				data,
+				breaks=0:max(data),
+				col=col,
+				xlab=xl,
+				main=ml,
+				freq=FALSE,
+#				plot=FALSE
+			)
+#			# scatterplot
+#			x <- h$breaks[2:length(h$breaks)]
+#			y <- h$counts
+#			idx <- which(y>0)
+#			x <- x[idx]
+#			y <- y[idx]
+#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
+			# complementary cumulative distribution function
+#			if(length(unique(data))>1)
+#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+		dev.off()
+	}
+	# check distribution
+#	if(length(unique(data))>1 && is.na(cur.arc))
+#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+#	}
 	
 	# evolution of the stats by volume
 	vol.cols <- c(
-			COL_PAGES, COL_PAGES_BY_SCENE, COL_PAGES_BY_CHAR,
-			COL_SCENES, COL_SCENES_BY_PAGE, COL_SCENES_BY_CHAR, 
-			COL_PANELS, COL_PANELS_BY_PAGE, COL_PANELS_BY_SCENE, COL_PANELS_BY_CHAR, 
-			COL_CHARS, COL_CHARS_BY_PAGE, COL_CHARS_BY_SCENE, COL_CHARS_BY_PANEL,
-			COL_CORR_PANELS_CHARS_BY_SCENE, COL_CORR_SCENES_PANELS_BY_CHAR
+		COL_PAGES, COL_PAGES_BY_SCENE, COL_PAGES_BY_CHAR,
+		COL_SCENES, COL_SCENES_BY_PAGE, COL_SCENES_BY_CHAR, 
+		COL_PANELS, COL_PANELS_BY_PAGE, COL_PANELS_BY_SCENE, COL_PANELS_BY_CHAR, 
+		COL_CHARS, COL_CHARS_BY_PAGE, COL_CHARS_BY_SCENE, COL_CHARS_BY_PANEL,
+		COL_CORR_PANELS_CHARS_BY_SCENE, COL_CORR_SCENES_PANELS_BY_CHAR
 	)
 	vol.titles <- c(
-			"total number of pages", "average number of pages by scene", "average number of pages by character", 
-			"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
-			"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
-			"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel",
-			"correlation between the numbers of characters and panels by scene", "correlation between the numbers of scenes and panels by character"
+		"total number of pages", "average number of pages by scene", "average number of pages by character", 
+		"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
+		"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
+		"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel",
+		"correlation between the numbers of characters and panels by scene", "correlation between the numbers of scenes and panels by character"
 	)
 	vol.fnames <- c(
-			"num_pages", "num_pages_by_scene", "num_pages_by_char",
-			"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
-			"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
-			"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel",
-			"corr_chars_panels_by_scene", "corr_scenes_panels_by_char"
+		"num_pages", "num_pages_by_scene", "num_pages_by_char",
+		"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
+		"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
+		"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel",
+		"corr_chars_panels_by_scene", "corr_scenes_panels_by_char"
 	)
-	tlog(4,"Generating the plots")
+	tlog(4,"Generating the evolution plots")
 	for(v in 1:length(vol.cols))
 	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
-		file <- get.path.stat.corpus(object=object, desc=vol.fnames[v])
+		file <- get.path.stat.corpus(object=object, arc=cur.arc, desc=vol.fnames[v])
+		tlog(4,"Producing files \"",file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				barplot(
-					height=volume.stats[,vol.cols[v]],
-					names.arg=volume.stats[,COL_VOLUME],
+					height=volume.stats[volume.idx,vol.cols[v]],
+					names.arg=volume.stats[volume.idx,COL_VOLUME],
 					main=paste0("Evolution of the ",vol.titles[v]),
 					col=col
 				)
@@ -1633,54 +1826,76 @@ plot.stats.volume <- function(panel.stats, panel.stats.atts, page.stats, page.st
 		}
 	}
 	
-	# distributions of character numbers
-	vals <- table(volume.stats[, COL_CHARS])
-	vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
-	colnames(vals) <- c(COL_CHARS, COL_VOLUMES, "Proportion")
-	file <- get.path.stat.corpus(object=object, desc="volumes_distrib_char_nbr")
-	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-	#
-	data <- volume.stats[,COL_CHARS]
-	if(length(unique(data))>1)
-	{	ml <- "Character number distribution over volumes"
-		xl <- "Number of characters by volume"
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#					# histogram
-#					h <- hist(
-#						data,
-#						breaks=0:max(data),
-##						col=col,
-##						xlab=xl,
-##						main=ml,
-##						freq=FALSE,
-#						plot=FALSE
-#					)
-#					# scatterplot
-#					x <- h$breaks[2:length(h$breaks)]
-#					y <- h$counts
-#					idx <- which(y>0)
-#					x <- x[idx]
-#					y <- y[idx]
-#					plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-					# complementary cumulative distribution function
-					plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+	
+	##################
+	# attribute-based stats
+	if(att.nbr>0)
+	{	# distribution of character numbers (by attribute)
+		for(att in atts)
+		{	data <- volume.stats.atts[[att]][volume.idx,-1]
+			pal <- get.palette(ncol(data))
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="volumes_distrib_char_nbr", att=att)
+			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
+			ml <- paste0("Character number distribution over volumes (att=",att)
+			xl <- "Number of characters by volume"
+			yl <- "Frequency"
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
+					for(d in 1:ncol(data))
+					{	h <- hist(
+							data[,d], 
+							breaks=0:max(data), 
+							plot=FALSE
+						)
+						vals[,d] <- h$counts
+					}
+					barplot(
+						height=t(vals),
+						names.arg=h$breaks[2:length(h$breaks)],
+						xlab=xl,
+						ylab=yl,
+						main=paste0(ml,")"),
+						col=pal,
+						space=0,
+						args.legend = list(x = "topright"),
+						legend.text=colnames(data)
+					)
 				dev.off()
+			}
+			# separate plot for each value
+			for(d in 2:ncol(volume.stats.atts[[att]]))
+			{	data <- volume.stats.atts[[att]][volume.idx,d]
+				if(any(data!=0))
+				{	val <- colnames(volume.stats.atts[[att]])[d]
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="volumes_distrib_char_nbr", att=att, val=colnames(volume.stats.atts[[att]])[d])
+					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+							h <- hist(
+								data,
+								breaks=0:max(data),
+								col=pal[d-1],
+								xlab=xl,
+								main=paste0(ml," - val=",val,")"),
+								freq=FALSE,
+								#plot=FALSE
+							)
+						dev.off()
+					}
+				}
+			}
 		}
-		# check distribution
-		distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
 	
 	# TODO plot the distributions obtained for all volumes on the same plot? (using lines instead of points)
-
-	result <- list(
-		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts
-	)
-	return(result)
 }
 
 
