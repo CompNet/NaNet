@@ -13,6 +13,9 @@ COL_ARC <- "Arc"								# arc title
 COL_ARC_ID <- "ArcId"							# unique arc id (overall)
 COL_ARCS <- "Arcs"								# number of arcs
 
+# arc stats
+COL_ARCS_BY_CHAR <- "AvgArcsByCharacter"		# average number of arcs by character
+
 
 
 
@@ -24,6 +27,7 @@ COL_VOLUMES <- "Volumes"						# number of volumes
 
 # volume stats
 COL_VOLUMES_BY_CHAR <- "AvgVolumesByCharacter"	# average number of volumes by character
+COL_VOLUMES_BY_ARC <- "AvgVolumesByArc"			# average number of volumes by arc
 
 
 
@@ -42,6 +46,7 @@ COL_PAGES <- "Pages"							# number of pages
 COL_PAGES_BY_CHAR <- "AvgPagesByCharacter"		# average number of pages by character
 COL_PAGES_BY_SCENE <- "AvgPagesByScene"			# average number of pages by scene
 COL_PAGES_BY_VOLUME <- "AvgPagesByVolume"		# average number of pages by volume
+COL_PAGES_BY_ARC <- "AvgPagesByArc"				# average number of pages by arc
 
 
 
@@ -61,6 +66,7 @@ COL_PANELS_BY_CHAR <- "AvgPanelsByCharacter"	# average number of panels by chara
 COL_PANELS_BY_PAGE <- "AvgPanelsByPage"			# average number of panels by page
 COL_PANELS_BY_SCENE <- "AvgPanelsByScene"		# average number of panels by scene
 COL_PANELS_BY_VOLUME <- "AvgPanelsByVolume"		# average number of panels by volume
+COL_PANELS_BY_ARC <- "AvgPanelsByArc"			# average number of panels by arc
 
 
 
@@ -82,6 +88,7 @@ COL_MATCH_START <- "MatchStart"					# scene ends with a page
 COL_SCENES_BY_CHAR <- "AvgScenesByCharacter"	# average number of scenes by character
 COL_SCENES_BY_PAGE <- "AvgScenesByPage"			# average number of scenes by page
 COL_SCENES_BY_VOLUME <- "AvgScenesByVolume"		# average number of scenes by volume
+COL_SCENES_BY_ARC <- "AvgScenesByArc"			# average number of scenes by arc
 
 
 
@@ -106,6 +113,7 @@ COL_CHARS_BY_PAGE <- "AvgCharactersByPage"		# average number of characters by pa
 COL_CHARS_BY_PANEL <- "AvgCharactersByPanel"	# average number of characters by panel
 COL_CHARS_BY_SCENE <- "AvgCharactersByScene"	# average number of characters by scene
 COL_CHARS_BY_VOLUME <- "AvgCharactersByVolume"	# average number of characters by volume
+COL_CHARS_BY_ARC <- "AvgCharactersByArc"		# average number of characters by arc
 
 
 
