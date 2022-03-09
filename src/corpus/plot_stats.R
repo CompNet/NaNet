@@ -507,7 +507,7 @@ plot.stats.scene <- function(
 	vals <- table(scene.stats[scene.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_SCENES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.scene")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -553,7 +553,7 @@ plot.stats.scene <- function(
 	vals <- table(scene.stats[scene.idx,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_SCENES, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -592,7 +592,7 @@ plot.stats.scene <- function(
 	vals <- table(scene.stats[scene.idx,COL_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_SCENES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_pages.by.scene")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -641,7 +641,7 @@ plot.stats.scene <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_positions")
 	tlog(4,"Distribution of scene positions: Producing files \"",file,"\"")
 	write.csv(x=df, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -670,7 +670,7 @@ plot.stats.scene <- function(
 				pal <- get.palette(ncol(data))
 			else
 				pal <- pal[colnames(data)]
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over scenes (att=",att)
 			xl <- "Number of characters by scene"
@@ -708,7 +708,7 @@ plot.stats.scene <- function(
 			{	data <- scene.stats.atts[[att]][scene.idx,d]
 				if(any(data!=0))
 				{	val <- colnames(scene.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att, val=colnames(scene.stats.atts[[att]])[d])
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene", att=att, val=colnames(scene.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
