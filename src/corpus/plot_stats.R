@@ -1061,10 +1061,6 @@ plot.stats.char <- function(
 # returns: an updated list of tables.
 ###############################################################################
 plot.stats.volume <- function(
-		panel.stats, panel.stats.atts, 
-		page.stats, page.stats.atts, 
-		scene.stats, scene.stats.atts, 
-		char.stats, 
 		volume.stats, volume.stats.atts, volume.stats.indiv=NA, 
 		cur.arc=NA)
 {	object <- "volumes"
@@ -1098,13 +1094,13 @@ plot.stats.volume <- function(
 		{	vname <- volume.stats[v,COL_VOLUME]
 			tlog(5,"Processing volume ",vname," (",v,"/",nrow(volume.stats),")")
 			
-			vol.panel.stats <- volume.stats.indiv[[v]]$panel.stats
-			vol.panel.stats.atts <- volume.stats.indiv[[v]]$panel.stats.atts
-			vol.page.stats <- volume.stats.indiv[[v]]$page.stats
-			vol.page.stats.atts <- volume.stats.indiv[[v]]$page.stats.atts
-			vol.scene.stats <- volume.stats.indiv[[v]]$scene.stats
-			vol.scene.stats.atts <- volume.stats.indiv[[v]]$scene.stats.atts
-			vol.char.stats <- volume.stats.indiv[[v]]$char.stats
+			vol.panel.stats <- volume.stats.indiv[[v]]$vol.panel.stats
+			vol.panel.stats.atts <- volume.stats.indiv[[v]]$vol.panel.stats.atts
+			vol.page.stats <- volume.stats.indiv[[v]]$vol.page.stats
+			vol.page.stats.atts <- volume.stats.indiv[[v]]$vol.page.stats.atts
+			vol.scene.stats <- volume.stats.indiv[[v]]$vol.scene.stats
+			vol.scene.stats.atts <- volume.stats.indiv[[v]]$vol.scene.stats.atts
+			vol.char.stats <- volume.stats.indiv[[v]]$vol.char.stats
 			
 			# plot volume-specific stats
 			plot.stats.panel(panel.stats=vol.panel.stats, panel.stats.atts=vol.panel.stats.atts, volume.stats=volume.stats, cur.vol=v)
@@ -1482,11 +1478,7 @@ plot.stats.volume <- function(
 # returns: an updated list of tables.
 ###############################################################################
 plot.stats.arc <- function(
-		panel.stats, panel.stats.atts, 
-		page.stats, page.stats.atts, 
-		scene.stats, scene.stats.atts, 
-		char.stats, 
-		volume.stats, volume.stats.atts, 
+		volume.stats, 
 		arc.stats, arc.stats.atts, arc.stats.indiv)
 {	object <- "arcs"
 	
@@ -1511,15 +1503,15 @@ plot.stats.arc <- function(
 	for(a in 1:arc.nbr)
 	{	tlog(5,"Processing arc ",a,"/",nrow(arc.stats))
 		
-		arc.panel.stats <- arc.stats.indiv[[a]]$panel.stats
-		arc.panel.stats.atts <- arc.stats.indiv[[a]]$panel.stats.atts
-		arc.page.stats <- arc.stats.indiv[[a]]$page.stats
-		arc.page.stats.atts <- arc.stats.indiv[[a]]$page.stats.atts
-		arc.scene.stats <- arc.stats.indiv[[a]]$scene.stats
-		arc.scene.stats.atts <- arc.stats.indiv[[a]]$scene.stats.atts
-		arc.char.stats <- arc.stats.indiv[[a]]$char.stats
-		arc.volume.stats <- arc.volume.indiv[[a]]$volume.stats
-		arc.volume.stats.atts <- arc.volume.indiv[[a]]$volume.stats.atts
+		arc.panel.stats <- arc.stats.indiv[[a]]$arc.panel.stats
+		arc.panel.stats.atts <- arc.stats.indiv[[a]]$arc.panel.stats.atts
+		arc.page.stats <- arc.stats.indiv[[a]]$arc.page.stats
+		arc.page.stats.atts <- arc.stats.indiv[[a]]$arc.page.stats.atts
+		arc.scene.stats <- arc.stats.indiv[[a]]$arc.scene.stats
+		arc.scene.stats.atts <- arc.stats.indiv[[a]]$arc.scene.stats.atts
+		arc.char.stats <- arc.stats.indiv[[a]]$arc.char.stats
+		arc.volume.stats <- arc.volume.indiv[[a]]$arc.volume.stats
+		arc.volume.stats.atts <- arc.volume.indiv[[a]]$arc.volume.stats.atts
 		
 		# plot arc-specific stats
 		plot.stats.panel(panel.stats=arc.panel.stats, panel.stats.atts=arc.panel.stats.atts, volume.stats=volume.stats, cur.arc=a)
@@ -1900,12 +1892,8 @@ plot.stats.arc <- function(
 # returns: an updated list of tables.
 ###############################################################################
 plot.stats.series <- function(
-		panel.stats, panel.chars, 
-		page.stats, page.chars, 
-		scene.stats, scene.chars, 
-		char.stats, 
-		volume.stats, volume.chars, 
-		arc.stats, arc.chars)
+		scene.stats, 
+		char.stats)
 {	object <- NA
 	
 	# preparation
@@ -1919,8 +1907,8 @@ plot.stats.series <- function(
 	# attribute-blind stats
 	tlog(4,"Plotting attribute-blind series stats")
 	
-	# density plot: chars vs. panels
-	file <- get.path.stat.corpus(desc="comparison_chars-scenes_vs_panels-scenes")
+	# density plot: chars/scene vs. panels/scene
+	file <- get.path.stat.corpus(desc="distrib_panels.by.scene_chars.by.scene")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1944,8 +1932,8 @@ plot.stats.series <- function(
 		dev.off()
 	}
 	
-	# density plot: scenes vs. panels
-	file <- get.path.stat.corpus(desc="comparison_scenes-chars_vs_panels-chars")
+	# density plot: scenes/char vs. panels/char
+	file <- get.path.stat.corpus(desc="distrib_panels.by.char_scenes.by.char")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1969,6 +1957,8 @@ plot.stats.series <- function(
 		dev.off()
 	}
 	
+# TODO shouldn't this be in characters? so that it's present in each volume and arc?
+# TODO also this seems redundant with the plot in characters/unfiltered/attr/
 	# attribute stats
 	tlog(3,"Computing attribute stats")
 	for(a in 1:length(atts))
@@ -2050,7 +2040,6 @@ plot.stats <- function(data)
 	arc.chars <- data$arc.chars
 	# series
 	series.stats <- data$series.stats
-	series.stats.atts <- data$series.stats.atts
 	
 	# plot panel stats
 	plot.stats.panel(
@@ -2092,16 +2081,20 @@ plot.stats <- function(data)
 	
 	# plot volume stats
 	plot.stats.volume(
-		volume.stats=volume.stats, volume.chars=volume.chars, volume.stats.indiv=volume.stats.indiv
+		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv,
+		cur.arc=NA
 	)
 	
 	# plot arc stats
 	plot.stats.arc(
+		volume.stats=volume.stats, 
 		arc.stats=arc.stats, arc.chars=arc.chars, arc.stats.indiv=arc.stats.indiv
 	)
 	
+# TODO not sure we need that, see notes in the function	
 	# plot series stats
 	plot.stats.series(
-		series.stats=series.stats
+		scene.stats=scene.stats,
+		char.stats=char.stats
 	)
 }

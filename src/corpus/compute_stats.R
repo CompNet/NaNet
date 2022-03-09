@@ -33,7 +33,7 @@ compute.stats.panel <- function(
 	
 	##################
 	# attribute-blind stats
-	tlog(4,"Computing attribute-blind stats for for panels")
+	tlog(4,"Computing attribute-blind panel stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
@@ -104,7 +104,7 @@ compute.stats.panel <- function(
 	}
 	
 	result <- list(
-		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts, panel.chars=panel.chars
+		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts, panel.chars=panel.chars[char.idx]
 	)
 	return(result)
 }
@@ -138,7 +138,7 @@ compute.stats.page <- function(
 	
 	##################
 	# attribute-blind stats
-	tlog(4,"Computing attribute-blind stats for for pages")
+	tlog(4,"Computing attribute-blind page stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
@@ -208,7 +208,7 @@ compute.stats.page <- function(
 	}
 	
 	result <- list(
-		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars
+		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars[char.idx]
 	)
 	return(result)
 }
@@ -242,7 +242,7 @@ compute.stats.scene <- function(
 	
 	##################
 	# attribute-blind stats
-	tlog(4,"Computing attribute-blind stats for for scenes")
+	tlog(4,"Computing attribute-blind scene stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
@@ -313,7 +313,7 @@ compute.stats.scene <- function(
 	}
 	
 	result <- list(
-		scene.stats=scene.stats, scene.stats.atts=scene.stats.atts, scene.chars=scene.chars
+		scene.stats=scene.stats, scene.stats.atts=scene.stats.atts, scene.chars=scene.chars[char.idx]
 	)
 	return(result)
 }
@@ -350,7 +350,7 @@ compute.stats.char <- function(
 	
 	##################
 	# attribute-blind stats
-	tlog(4,"Computing attribute-blind stats for for character")
+	tlog(4,"Computing attribute-blind character stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
@@ -361,8 +361,8 @@ compute.stats.char <- function(
 		tt <- table(unlist(panel.chars[which(panel.stats[,COL_VOLUME_ID]==cur.vol)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PANELS] <- tt
 		tt <- table(unlist(page.chars[which(page.stats[,COL_VOLUME_ID]==cur.vol)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PAGES] <- tt
 		tt <- table(unlist(scene.chars[which(scene.stats[,COL_VOLUME_ID]==cur.vol)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_SCENES] <- tt
-		char.stats[,COL_VOLUMES] <- rep(1, length(idx))
-		char.stats[,COL_ARCS] <- rep(1, length(idx))
+		char.stats[,COL_VOLUMES] <- rep(1, length(char.idx))
+		char.stats[,COL_ARCS] <- rep(1, length(char.idx))
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
@@ -375,7 +375,7 @@ compute.stats.char <- function(
 		tt <- table(unlist(page.chars[which(page.stats[,COL_ARC_ID]==cur.arc)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PAGES] <- tt
 		tt <- table(unlist(scene.chars[which(scene.stats[,COL_ARC_ID]==cur.arc)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_SCENES] <- tt
 		tt <- table(unlist(volume.chars[which(volume.stats[,COL_ARC_ID]==cur.arc)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_VOLUMES] <- tt
-		char.stats[,COL_ARCS] <- rep(1, length(idx))
+		char.stats[,COL_ARCS] <- rep(1, length(char.idx))
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -418,8 +418,7 @@ compute.stats.volume <- function(
 		page.stats, page.chars, 
 		scene.stats, scene.chars, 
 		char.stats, 
-		volume.stats, volume.chars,
-		cur.arc=NA)
+		volume.stats, volume.chars)
 {	object <- "volumes"
 	
 	##################
@@ -433,75 +432,73 @@ compute.stats.volume <- function(
 	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind volume stats")
-	
-	if(is.na(cur.arc))
-	{	# complete volume stats table
-		df <- data.frame(
-			numeric(vol.nbr), numeric(vol.nbr), 
-			numeric(vol.nbr), numeric(vol.nbr), 
-			numeric(vol.nbr), numeric(vol.nbr), numeric(vol.nbr), 
-			numeric(vol.nbr), numeric(vol.nbr), numeric(vol.nbr), 
-			numeric(vol.nbr), numeric(vol.nbr), 
-			stringsAsFactors=FALSE, check.names=FALSE
-		)
-		colnames(df) <- c(
-			COL_PAGES_BY_SCENE, COL_PAGES_BY_CHAR,
-			COL_SCENES_BY_PAGE, COL_SCENES_BY_CHAR,
-			COL_PANELS_BY_PAGE, COL_PANELS_BY_SCENE, COL_PANELS_BY_CHAR,
-			COL_CHARS_BY_PAGE, COL_CHARS_BY_SCENE, COL_CHARS_BY_PANEL,
-			COL_CORR_PANELS_CHARS_BY_SCENE, COL_CORR_SCENES_PANELS_BY_CHAR
-		)
-		volume.stats <- cbind(volume.stats, df)
 		
-		for(v in 1:volume.nbr)
-		{	tlog(5,"Computing volume ",v,"/",volume.nbr)
+	# complete volume stats table
+	df <- data.frame(
+		numeric(volume.nbr), numeric(volume.nbr), 
+		numeric(volume.nbr), numeric(volume.nbr), 
+		numeric(volume.nbr), numeric(volume.nbr), numeric(volume.nbr), 
+		numeric(volume.nbr), numeric(volume.nbr), numeric(volume.nbr), 
+		numeric(volume.nbr), numeric(volume.nbr), 
+		stringsAsFactors=FALSE, check.names=FALSE
+	)
+	colnames(df) <- c(
+		COL_PAGES_BY_SCENE, COL_PAGES_BY_CHAR,
+		COL_SCENES_BY_PAGE, COL_SCENES_BY_CHAR,
+		COL_PANELS_BY_PAGE, COL_PANELS_BY_SCENE, COL_PANELS_BY_CHAR,
+		COL_CHARS_BY_PAGE, COL_CHARS_BY_SCENE, COL_CHARS_BY_PANEL,
+		COL_CORR_PANELS_CHARS_BY_SCENE, COL_CORR_SCENES_PANELS_BY_CHAR
+	)
+	volume.stats <- cbind(volume.stats, df)
+	
+	for(v in 1:volume.nbr)
+	{	tlog(5,"Computing volume ",v,"/",volume.nbr)
+		
+		# panels
+		tmp <- compute.stats.panel(panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		vol.panel.stats <- tmp$panel.stats
+		vol.panel.stats.atts <- tmp$panel.stats.atts
+		vol.panel.chars <- tmp$panel.chars
 			
-			# panels
-			tmp <- compute.stats.panel(panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
-			vol.panel.stats <- tmp$panel.stats
-			vol.panel.stats.atts <- tmp$panel.stats.atts
-			vol.panel.chars <- tmp$panel.chars
-				
-			# pages
-			tmp <- compute.stats.page(page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
-			vol.page.stats <- tmp$page.stats
-			vol.page.stats.atts <- tmp$page.stats.atts
-			vol.page.chars <- tmp$page.chars
-			
-			# scenes
-			tmp <- compute.stats.scene(scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
-			vol.scene.stats <- tmp$scene.stats
-			vol.scene.stats.atts <- tmp$scene.stats.atts
-			vol.scene.chars <- tmp$scene.chars
-			
-			# character
-			tmp <- compute.stats.char(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.vol=v)
-			vol.char.stats <- tmp$char.stats
-			
-			# add to result list
-			volume.stats.indiv[[v]] <- list(
-				vol.panel.stats=vol.panel.stats, vol.panel.stats.atts=vol.panel.stats.atts, vol.panel.chars=vol.panel.chars,
-				vol.page.stats=vol.page.stats, vol.page.stats.atts=vol.page.stats.atts, vol.page.chars=vol.page.chars,
-				vol.scene.stats=vol.scene.stats, vol.scene.stats.atts=vol.scene.stats.atts, vol.scene.chars=vol.scene.chars,
-				vol.char.stats=vol.char.stats
-			)
-			
-			# update means in volume stats table
-			volume.stats[v,COL_PAGES_BY_SCENE]  <- sum(vol.scene.stats[,COL_PAGES]) /nrow(vol.scene.stats)	# mean number of pages by scene
-			volume.stats[v,COL_PAGES_BY_CHAR]   <- sum(vol.char.stats [,COL_PAGES]) /nrow(vol.char.stats)	# mean number of pages by character
-			volume.stats[v,COL_SCENES_BY_PAGE]  <- sum(vol.page.stats [,COL_SCENES])/nrow(vol.page.stats)	# mean number of scenes by page
-			volume.stats[v,COL_SCENES_BY_CHAR]  <- sum(vol.char.stats [,COL_SCENES])/nrow(vol.char.stats)	# mean number of scenes by character
-			volume.stats[v,COL_PANELS_BY_PAGE]  <- sum(vol.page.stats [,COL_PANELS])/nrow(vol.page.stats)	# mean number of panels by page
-			volume.stats[v,COL_PANELS_BY_SCENE] <- sum(vol.scene.stats[,COL_PANELS])/nrow(vol.scene.stats)	# mean number of panels by scene
-			volume.stats[v,COL_PANELS_BY_CHAR]  <- sum(vol.char.stats [,COL_PANELS])/nrow(vol.char.stats)	# mean number of panels by char
-			volume.stats[v,COL_CHARS_BY_PAGE]   <- sum(vol.page.stats [,COL_CHARS]) /nrow(vol.page.stats)	# mean number of characters by page
-			volume.stats[v,COL_CHARS_BY_SCENE]  <- sum(vol.scene.stats[,COL_CHARS]) /nrow(vol.scene.stats)	# mean number of characters by scene
-			volume.stats[v,COL_CHARS_BY_PANEL]  <- sum(vol.panel.stats[,COL_CHARS]) /nrow(vol.panel.stats)	# mean number of characters by panel
-			
-			# update correlations in volume stats table
-			volume.stats[v,COL_CORR_PANELS_CHARS_BY_SCENE] <- cor(vol.scene.stats[,COL_CHARS], vol.scene.stats[,COL_PANELS])	# panels by scene vs. characters by scene
-			volume.stats[v,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(vol.char.stats [,COL_SCENES],vol.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
-		}
+		# pages
+		tmp <- compute.stats.page(page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		vol.page.stats <- tmp$page.stats
+		vol.page.stats.atts <- tmp$page.stats.atts
+		vol.page.chars <- tmp$page.chars
+		
+		# scenes
+		tmp <- compute.stats.scene(scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		vol.scene.stats <- tmp$scene.stats
+		vol.scene.stats.atts <- tmp$scene.stats.atts
+		vol.scene.chars <- tmp$scene.chars
+		
+		# character
+		tmp <- compute.stats.char(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.vol=v)
+		vol.char.stats <- tmp$char.stats
+		
+		# add to result list
+		volume.stats.indiv[[v]] <- list(
+			vol.panel.stats=vol.panel.stats, vol.panel.stats.atts=vol.panel.stats.atts, vol.panel.chars=vol.panel.chars,
+			vol.page.stats=vol.page.stats, vol.page.stats.atts=vol.page.stats.atts, vol.page.chars=vol.page.chars,
+			vol.scene.stats=vol.scene.stats, vol.scene.stats.atts=vol.scene.stats.atts, vol.scene.chars=vol.scene.chars,
+			vol.char.stats=vol.char.stats
+		)
+		
+		# update means in volume stats table
+		volume.stats[v,COL_PAGES_BY_SCENE]  <- sum(vol.scene.stats[,COL_PAGES]) /nrow(vol.scene.stats)	# mean number of pages by scene
+		volume.stats[v,COL_PAGES_BY_CHAR]   <- sum(vol.char.stats [,COL_PAGES]) /nrow(vol.char.stats)	# mean number of pages by character
+		volume.stats[v,COL_SCENES_BY_PAGE]  <- sum(vol.page.stats [,COL_SCENES])/nrow(vol.page.stats)	# mean number of scenes by page
+		volume.stats[v,COL_SCENES_BY_CHAR]  <- sum(vol.char.stats [,COL_SCENES])/nrow(vol.char.stats)	# mean number of scenes by character
+		volume.stats[v,COL_PANELS_BY_PAGE]  <- sum(vol.page.stats [,COL_PANELS])/nrow(vol.page.stats)	# mean number of panels by page
+		volume.stats[v,COL_PANELS_BY_SCENE] <- sum(vol.scene.stats[,COL_PANELS])/nrow(vol.scene.stats)	# mean number of panels by scene
+		volume.stats[v,COL_PANELS_BY_CHAR]  <- sum(vol.char.stats [,COL_PANELS])/nrow(vol.char.stats)	# mean number of panels by char
+		volume.stats[v,COL_CHARS_BY_PAGE]   <- sum(vol.page.stats [,COL_CHARS]) /nrow(vol.page.stats)	# mean number of characters by page
+		volume.stats[v,COL_CHARS_BY_SCENE]  <- sum(vol.scene.stats[,COL_CHARS]) /nrow(vol.scene.stats)	# mean number of characters by scene
+		volume.stats[v,COL_CHARS_BY_PANEL]  <- sum(vol.panel.stats[,COL_CHARS]) /nrow(vol.panel.stats)	# mean number of characters by panel
+		
+		# update correlations in volume stats table
+		volume.stats[v,COL_CORR_PANELS_CHARS_BY_SCENE] <- cor(vol.scene.stats[,COL_CHARS], vol.scene.stats[,COL_PANELS])	# panels by scene vs. characters by scene
+		volume.stats[v,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(vol.char.stats [,COL_SCENES],vol.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
 		
 		# record volume stat table
 		file <- get.path.stat.corpus(object=object, desc="_volume_stats")
@@ -537,14 +534,14 @@ compute.stats.volume <- function(
 			volume.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="_volume_stats", att=att)
+			file <- get.path.stat.corpus(object=object, desc="_volume_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=volume.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 
 	result <- list(
-		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv
+		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv, volume.chars=volume.chars
 	)
 	return(result)
 }
@@ -636,11 +633,16 @@ compute.stats.arc <- function(
 		arc.char.stats <- tmp$char.stats
 		
 		# volumes
-		tmp <- compute.stats.volume(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
-		arc.volume.stats <- tmp$volume.stats
-		arc.volume.stats.atts <- tmp$volume.stats.atts
-		arc.volume.chars <- tmp$volume.chars
-		
+#		tmp <- compute.stats.volume(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
+#		arc.volume.stats <- tmp$volume.stats
+#		arc.volume.stats.atts <- tmp$volume.stats.atts
+#		arc.volume.chars <- tmp$volume.chars
+# we don't need to generate additional files	
+		idx <- which(volume.stats[,COL_ARC_ID]==a)
+		arc.volume.stats <- volume.stats[idx,]
+		arc.volume.stats.atts <- lapply(volume.stats.atts, function(mat) mat[idx,]) 
+		arc.volume.chars <- volume.chars[idx]
+	
 		# add to result list
 		arc.stats.indiv[[v]] <- list(
 			arc.panel.stats=arc.panel.stats, arc.panel.stats.atts=arc.panel.stats.atts, arc.panel.chars=arc.panel.chars,
@@ -704,14 +706,14 @@ compute.stats.arc <- function(
 			arc.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="_arc_stats", att=att)
+			file <- get.path.stat.corpus(object=object, desc="_arc_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=arc.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
 	result <- list(
-		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv
+		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv, arc.chars=arc.chars
 	)
 	return(result)
 }
@@ -737,12 +739,12 @@ compute.stats.arc <- function(
 # returns: an updated list of tables.
 ###############################################################################
 compute.stats.series <- function(
-		panel.stats, panel.chars, 
-		page.stats, page.chars, 
-		scene.stats, scene.chars, 
+		panel.stats,  
+		page.stats,  
+		scene.stats,  
 		char.stats, 
-		volume.stats, volume.chars, 
-		arc.stats, arc.chars)
+		volume.stats,  
+		arc.stats)
 {	object <- NA
 	
 	##################
@@ -871,21 +873,24 @@ compute.stats <- function(data)
 	# complete panel stats
 	tmp <- compute.stats.panel(
 		panel.stats=panel.stats, panel.chars=panel.chars, 
-		char.stats=char.stats
+		char.stats=char.stats,
+		cur.vol=NA, cur.arc=NA
 	)
 	panel.stats.atts <- tmp$panel.stats.atts
 	
 	# complete page stats
 	tmp <- compute.stats.page(
 		page.stats=page.stats, page.chars=page.chars,
-		char.stats=char.stats
+		char.stats=char.stats,
+		cur.vol=NA, cur.arc=NA
 	)
 	page.stats.atts <- tmp$page.stats.atts
 	
 	# complete scene stats
 	tmp <- compute.stats.scene(
 		scene.stats=scene.stats, scene.chars=scene.chars,
-		char.stats=char.stats 
+		char.stats=char.stats, 
+		cur.vol=NA, cur.arc=NA
 	)
 	scene.stats.atts <- tmp$scene.stats.atts
 	
@@ -927,15 +932,14 @@ compute.stats <- function(data)
 	
 	# compute series stats
 	tmp <- compute.stats.series(
-		panel.stats=panel.stats, panel.chars=panel.chars,
-		page.stats=page.stats, page.chars=page.chars,
-		scene.stats=scene.stats, scene.chars=scene.chars,
+		panel.stats=panel.stats, 
+		page.stats=page.stats, 
+		scene.stats=scene.stats, 
 		char.stats=char.stats, 
-		volume.stats=volume.stats, volume.chars=volume.chars, 
-		arc.stats=arc.stats, arc.chars=arc.chars
+		volume.stats=volume.stats,  
+		arc.stats=arc.stats
 	)
 	series.stats <- tmp$series.stats
-	series.stats.atts <- tmp$series.stats.atts
 	
 	# return all the stats
 	result <- list(
@@ -946,7 +950,7 @@ compute.stats <- function(data)
 		char.stats=char.stats, 
 		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv, volume.chars=volume.chars,
 		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv, arc.chars=arc.chars,
-		series.stats=series.stats, series.stats.atts=series.stats.atts
+		series.stats=series.stats
 	)
 	return(result)
 }
