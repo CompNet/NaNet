@@ -798,13 +798,13 @@ plot.stats.char <- function(
 		vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
 		colnames(vals) <- c(COL_VOLUMES, COL_CHARS,"Proportion")
 		tlog(4,"Distribution of volume numbers: producing files \"",file,"\"")
-		file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("chars_distrib_volume_nbr"))
+		file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_volumes.by.char"))
 		write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		#
 		data <- char.stats[char.idx,COL_VOLUMES]
 		if(length(unique(data))>1)
-		{	ml <- paste0("Volume number distribution over",if(filtered) " filtered" else ""," characters")
-			xl <- paste0("Number of volumes by",if(filtered) " filtered" else ""," character")
+		{	ml <- paste0("Volume number distribution over ",filt.txt," characters")
+			xl <- paste0("Number of volumes by ",filt.txt," character")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -845,12 +845,12 @@ plot.stats.char <- function(
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PAGES, COL_CHARS,"Proportion")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
-	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("chars_distrib_page_nbr"))
+	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_pages.by.char"))
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- char.stats[char.idx,COL_PAGES]
-	ml <- paste0("Page number distribution over",if(filtered) " filtered" else ""," characters")
-	xl <- paste0("Number of pages by",if(filtered) " filtered" else ""," character")
+	ml <- paste0("Page number distribution over ",filt.txt," characters")
+	xl <- paste0("Number of pages by ",filt.txt," character")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -888,13 +888,13 @@ plot.stats.char <- function(
 	vals <- table(char.stats[char.idx,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("chars_distrib_scene_nbr"))
+	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_senes.by.char"))
 	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- char.stats[char.idx,COL_SCENES]
-	ml <- paste0("Scene number distribution over",if(filtered) " filtered" else ""," characters")
-	xl <- paste0("Number of scenes by",if(filtered) " filtered" else ""," character")
+	ml <- paste0("Scene number distribution over ",filt.txt," characters")
+	xl <- paste0("Number of scenes by ",filt.txt," character")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -931,13 +931,13 @@ plot.stats.char <- function(
 	vals <- table(char.stats[char.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_CHARS,"Proportion")
-	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("chars_distrib_panel_nbr"))
+	file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_panels.by.char"))
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
 	data <- char.stats[char.idx,COL_PANELS]
-	ml <- paste0("Panel number distribution over",if(filtered) " filtered" else ""," characters")
-	xl <- paste0("Number of panels by",if(filtered) " filtered" else ""," character")
+	ml <- paste0("Panel number distribution over ",filt.txt," characters")
+	xl <- paste0("Number of panels by ",filt.txt," character")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -976,7 +976,7 @@ plot.stats.char <- function(
 	{	thresholds <- seq(0, 10)	#max(char.stats[,COL_FREQ]))
 		char.nums <- sapply(thresholds, function(t) c(table(factor(char.stats[char.stats[,COL_FREQ]>=t,COL_NAMED], levels=c("TRUE","FALSE")))))
 		# generate barplots
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="chars_filtering_by_occurences")
+		file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="filtering_chars_vs_threshold")
 		tlog(4,"Behavior of character: producing files \"",file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -1018,10 +1018,16 @@ plot.stats.char <- function(
 			
 			# attribute distribution over the characters
 			vals <- table(char.stats[,atts[a]])
+			pal <- ATT_COLORS[[atts[a]]]
+			if(length(pal)==0) 
+				pal <- get.palette(length(vals))
+			else
+				pal <- pal[names(vals)]
+			
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="char_attr_distrib", att=atts[a])
+			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="char_attr_distrib", att=atts[a])
 			tlog(8,"Producing files \"",file,"\"")
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
@@ -1033,7 +1039,7 @@ plot.stats.char <- function(
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-					col=col
+					col=pal
 				)
 				dev.off()
 			}

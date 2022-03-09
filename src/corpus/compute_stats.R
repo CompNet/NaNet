@@ -889,14 +889,16 @@ compute.stats <- function(data)
 	)
 	scene.stats.atts <- tmp$scene.stats.atts
 	
-	# plot character stats
+	# complete character stats
 	tmp <- compute.stats.char(
+		panel.stats=panel.stats, panel.chars=panel.chars, 
+		page.stats=page.stats, page.chars=page.chars, 
+		scene.stats=scene.stats, scene.chars=scene.chars, 
 		char.stats=char.stats, 
-		volume.stats=volume.stats, 
-		cur.vol=NA, cur.arc=NA,
-		filtered=FALSE
+		volume.stats=volume.stats, volume.chars=volume.chars, 
+		arc.stats=arc.stats, arc.chars=arc.chars, 
+		cur.vol=NA, cur.arc=NA
 	)
-	char.stats <- tmp$char.stats
 	
 	# complete volume stats
 	tmp <- compute.stats.volume(
