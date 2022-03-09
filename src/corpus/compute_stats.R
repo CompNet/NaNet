@@ -38,15 +38,15 @@ compute.stats.panel <- function(
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
 		# keep only the panels of the current volume
-		char.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)
-		panel.stats <- panel.stats[char.idx,]
+		panel.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)
+		panel.stats <- panel.stats[panel.idx,]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the panels of the current arc
-		char.idx <- which(panel.stats[,COL_ARC_ID]==cur.arc)
-		panel.stats <- panel.stats[char.idx,]
+		panel.idx <- which(panel.stats[,COL_ARC_ID]==cur.arc)
+		panel.stats <- panel.stats[panel.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -66,7 +66,7 @@ compute.stats.panel <- function(
 	# whole series
 	else
 	{	vname <- NA
-		char.idx <- 1:length(panel.chars)
+		panel.idx <- 1:length(panel.chars)
 	}
 	
 	
@@ -88,7 +88,7 @@ compute.stats.panel <- function(
 			# retrieve unique values
 			uniq <- names(table(char.stats[,att]))	#, useNA="always"))
 			# compute distribution for each panel
-			mat <- t(sapply(panel.chars[char.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
+			mat <- t(sapply(panel.chars[panel.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add panel id to matrix
 			mat <- cbind(1:panel.nbr, mat)
@@ -104,7 +104,7 @@ compute.stats.panel <- function(
 	}
 	
 	result <- list(
-		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts, panel.chars=panel.chars[char.idx]
+		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts, panel.chars=panel.chars[panel.idx]
 	)
 	return(result)
 }
@@ -143,15 +143,15 @@ compute.stats.page <- function(
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
 		# keep only the pages of the current volume
-		char.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)
-		page.stats <- page.stats[char.idx,]
+		page.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)
+		page.stats <- page.stats[page.idx,]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the pages of the current arc
-		char.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)
-		page.stats <- page.stats[char.idx,]
+		page.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)
+		page.stats <- page.stats[page.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -171,7 +171,7 @@ compute.stats.page <- function(
 	# whole series
 	else
 	{	vname <- NA
-		char.idx <- 1:length(page.chars)
+		page.idx <- 1:length(page.chars)
 	}
 	
 	##################
@@ -192,7 +192,7 @@ compute.stats.page <- function(
 			# retrieve unique values
 			uniq <- names(table(char.stats[,att]))	#, useNA="always"))
 			# compute distribution for each page
-			mat <- t(sapply(page.chars[char.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
+			mat <- t(sapply(page.chars[page.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add page id to matrix
 			mat <- cbind(1:page.nbr, mat)
@@ -208,7 +208,7 @@ compute.stats.page <- function(
 	}
 	
 	result <- list(
-		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars[char.idx]
+		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars[page.idx]
 	)
 	return(result)
 }
@@ -247,15 +247,15 @@ compute.stats.scene <- function(
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
 		# keep only the scenes of the current volume
-		char.idx <- which(scene.stats[,COL_VOLUME_ID]==cur.vol)
-		scene.stats <- scene.stats[char.idx,]
+		scene.idx <- which(scene.stats[,COL_VOLUME_ID]==cur.vol)
+		scene.stats <- scene.stats[scene.idx,]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the scenes of the current arc
-		char.idx <- which(scene.stats[,COL_ARC_ID]==cur.arc)
-		scene.stats <- scene.stats[char.idx,]
+		scene.idx <- which(scene.stats[,COL_ARC_ID]==cur.arc)
+		scene.stats <- scene.stats[scene.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -275,7 +275,7 @@ compute.stats.scene <- function(
 	# whole series
 	else
 	{	vname <- NA
-		char.idx <- 1:length(scene.chars)
+		scene.idx <- 1:length(scene.chars)
 	}
 	
 	
@@ -297,7 +297,7 @@ compute.stats.scene <- function(
 			# retrieve unique values
 			uniq <- names(table(char.stats[,att]))	#, useNA="always"))
 			# compute distribution for each scene
-			mat <- t(sapply(scene.chars[char.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
+			mat <- t(sapply(scene.chars[scene.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add scene id to matrix
 			mat <- cbind(1:scene.nbr, mat)
@@ -313,7 +313,7 @@ compute.stats.scene <- function(
 	}
 	
 	result <- list(
-		scene.stats=scene.stats, scene.stats.atts=scene.stats.atts, scene.chars=scene.chars[char.idx]
+		scene.stats=scene.stats, scene.stats.atts=scene.stats.atts, scene.chars=scene.chars[scene.idx]
 	)
 	return(result)
 }
