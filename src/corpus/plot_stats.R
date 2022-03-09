@@ -2019,6 +2019,7 @@ plot.stats <- function(data)
 	arc.chars <- data$arc.chars
 	# series
 	series.stats <- data$series.stats
+	series.stats.atts <- data$series.stats.atts
 	
 	# plot panel stats
 	plot.stats.panel(
