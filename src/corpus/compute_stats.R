@@ -43,13 +43,14 @@ compute.stats.panel <- function(
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
-	{	# keep only the panels of the current arc
+	{	vname <- NA
+		# keep only the panels of the current arc
 		char.idx <- which(panel.stats[,COL_ARC_ID]==cur.arc)
 		panel.stats <- panel.stats[char.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_panel_stats")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_stats")
 		tlog(5,"Writing panel stats \"",file,"\"")
 		write.csv(x=panel.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -58,13 +59,15 @@ compute.stats.panel <- function(
 			sapply(panel.chars, function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_panel_chars")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_chars")
 		tlog(4,"Writing panel chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
+	{	vname <- NA
 		char.idx <- 1:length(panel.chars)
+	}
 	
 	
 	##################
@@ -94,7 +97,7 @@ compute.stats.panel <- function(
 			panel.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_panel_stats", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=panel.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -139,20 +142,20 @@ compute.stats.page <- function(
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- volume.stats[cur.vol,COL_VOLUME]
-		
 		# keep only the pages of the current volume
 		char.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)
 		page.stats <- page.stats[char.idx,]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
-	{	# keep only the pages of the current arc
+	{	vname <- NA
+		# keep only the pages of the current arc
 		char.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)
 		page.stats <- page.stats[char.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_page_stats")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_stats")
 		tlog(5,"Writing page stats \"",file,"\"")
 		write.csv(x=page.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -161,14 +164,15 @@ compute.stats.page <- function(
 			sapply(page.chars, function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_page_chars")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_chars")
 		tlog(4,"Writing page chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
+	{	vname <- NA
 		char.idx <- 1:length(page.chars)
-	
+	}
 	
 	##################
 	# attribute-based stats
@@ -197,7 +201,7 @@ compute.stats.page <- function(
 			page.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_page_stats", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=page.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -248,13 +252,14 @@ compute.stats.scene <- function(
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
-	{	# keep only the scenes of the current arc
+	{	vname <- NA
+		# keep only the scenes of the current arc
 		char.idx <- which(scene.stats[,COL_ARC_ID]==cur.arc)
 		scene.stats <- scene.stats[char.idx,]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_scene_stats")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_stats")
 		tlog(5,"Writing scene stats \"",file,"\"")
 		write.csv(x=scene.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -263,13 +268,15 @@ compute.stats.scene <- function(
 			sapply(scene.chars, function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_scene_chars")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_chars")
 		tlog(4,"Writing scene chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
+	{	vname <- NA
 		char.idx <- 1:length(scene.chars)
+	}
 	
 	
 	##################
@@ -299,7 +306,7 @@ compute.stats.scene <- function(
 			scene.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=arc, desc="_scene_stats", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=scene.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -359,7 +366,8 @@ compute.stats.char <- function(
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
-	{	# keep only the characters of the current arc
+	{	vname <- NA
+		# keep only the characters of the current arc
 		char.idx <- match(arc.chars[[cur.arc]],char.stats[,COL_NAME])
 		char.stats <- char.stats[char.idx,]
 		# update stats
@@ -371,13 +379,15 @@ compute.stats.char <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, subfold="unfiltered", vol=vname, arc=arc, desc="_char_stats")
+		file <- get.path.stat.corpus(object=object, subfold="unfiltered", vol=vname, arc=cur.arc, desc="_char_stats")
 		tlog(5,"Writing char stats \"",file,"\"")
 		write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
 	}
 	# whole series
 	else
+	{	vname <- NA
 		char.idx <- 1:length(panel.chars)
+	}
 	
 	
 	##################

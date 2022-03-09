@@ -116,11 +116,33 @@ CAT_COLORS_32 <- c(	# glasbey.colors(32) from package Polychrome
 	"#FE8F42", "#DD00FF", "#201A01", "#720055", "#766C95", "#02AD24", "#C8FF00", "#886C00", 
 	"#FFB79F", "#858567", "#A10300", "#14F9FF", "#00479E", "#DC5E93", "#93D4FF", "#004CFF"
 )
-SEX_COLORS_4 <- c(	# retrieved from https://blog.datawrapper.de/gendercolor/
+
+
+
+
+#############################################################
+# colors used to render attributes in plots
+
+ATT_COLORS_SEX <- c(	# retrieved from https://blog.datawrapper.de/gendercolor/
 	"Male"="#19A0AA",		# turquoise
 	"Female"="#F15F36",		# salmon
 	"Mixed"="#730B6D", 		# purple
 	"Unknown"="LIGHTGRAY"	# gray
+)
+ATT_COLORS_FILT <- c(
+	"FALSE"=rgb(228,26,28,maxColorValue=255),		# red
+	"TRUE"=rgb(55,126,184,maxColorValue=255)		# blue
+)
+ATT_COLORS_BOOL <- c(
+	"FALSE"=rgb(255,127,0,maxColorValue=255),		# orange
+	"TRUE"=rgb(77,175,74,maxColorValue=255)			# green
+)
+
+# overall list
+ATT_COLORS <- list(
+	Filtered=ATT_COLORS_FILT,
+	Named=ATT_COLORS_BOOL,
+	Sex=ATT_COLORS_SEX
 )
 
 

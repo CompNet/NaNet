@@ -356,6 +356,11 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 # Returns the full path for a file containing stats regarding the corpus. The
 # extension is not included as the same basename can be used for both csv and plots.
 # 
+# Forms of the path:
+#	corpus/object/subfold/att/desc_val
+#	corpus/arcs/1/object/subfold/att/desc_val
+#	corpus/vols/L3/object/subfold/att/desc_val
+#
 # object: "panels", "scenes", "characters", etc.
 # vol: id of the considered volume.
 # arc: id of the considered narrative arc.
@@ -366,7 +371,7 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, folder=NA, desc, att=NA, val=NA)
+get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, desc, att=NA, val=NA)
 {	# base folder
 	if(!is.na(vol))
 		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol)
@@ -380,17 +385,17 @@ get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, folder=NA, desc, att
 	# possibly add extra subfolder
 	if(!is.na(subfold))
 		folder <- file.path(folder, subfold)
+	# possibly add attribute name
+	if(!is.na(att))
+		folder <- file.path(folder,paste0("attribute=",att))
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
 	res <- file.path(folder, desc)
-	# possibly add attribute name
-	if(!is.na(att))
-		res <- paste0(res,"_att=",att)
 	# possibly add attribute value
 	if(!is.na(val))
-		res <- paste0(res,"_val=",val)
+		res <- paste0(res,"_value=",val)
 	
 	return(res)
 }

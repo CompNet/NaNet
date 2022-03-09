@@ -91,5 +91,6 @@ Clean code:
 x merge the info & stats tables (if possible? check that first)
 - record these tables and provide function to read them directly
 - reapplt the corpus stats functions for the filtered data (after first net extraction) 
+- allow defining specific colors for attributes (eg sex)
 
-use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
+- use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)

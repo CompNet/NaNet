@@ -42,7 +42,7 @@ plot.stats.panel <- function(
 	
 	# panels
 	panel.nbr <- length(panel.idx)
-	col <- get.palette(1)
+	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(panel.stats.atts)
 	att.nbr <- length(atts)
@@ -55,7 +55,7 @@ plot.stats.panel <- function(
 	vals <- table(panel.stats[panel.idx,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_PANELS, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -99,7 +99,7 @@ plot.stats.panel <- function(
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 	colnames(df) <- c("Position","Frequency","Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_positions")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_positions")
 	tlog(4,"Distribution of panel positions: Producing files \"",file,"\"")
 	write.csv(x=df, paste0(file, ".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -123,8 +123,8 @@ plot.stats.panel <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- panel.stats.atts[[att]][panel.idx,-1]
-			pal <- get.palette(ncol(data))
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att)
+			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			xl <- "Number of characters by panel"
 			yl <- "Frequency"
@@ -192,7 +192,7 @@ plot.stats.panel <- function(
 			{	data <- panel.stats.atts[[att]][panel.idx,d]
 				if(any(data!=0))
 				{	val <- colnames(panel.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="panels_distrib_char_nbr", att=att, val=val)
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char", att=att, val=val)
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -253,7 +253,7 @@ plot.stats.page <- function(
 	
 	# pages
 	page.nbr <- length(page.idx)
-	col <- get.palette(1)
+	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(page.stats.atts)
 	att.nbr <- length(atts)
@@ -386,7 +386,7 @@ plot.stats.page <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- page.stats.atts[[att]][page.idx,-1]
-			pal <- get.palette(ncol(data))
+			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over pages (att=",att)
@@ -486,7 +486,7 @@ plot.stats.scene <- function(
 	
 	# scenes
 	scene.nbr <- length(scene.idx)
-	col <- get.palette(1)
+	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(scene.stats.atts)
 	att.nbr <- length(atts)
@@ -657,7 +657,7 @@ plot.stats.scene <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- scene.stats.atts[[att]][scene.idx,-1]
-			pal <- get.palette(ncol(data))
+			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over scenes (att=",att)
@@ -743,12 +743,12 @@ plot.stats.char <- function(
 	if(filtered)
 	{	filt.txt <- "filtered"
 		char.filter <- char.stats[,COL_FILTERED]
-		col <- get.palette(values=2)[2]
+		col <- ATT_COLORS_FILT[2]
 	}
 	else
 	{	filt.txt <- "unfiltered"
 		char.filter <- rep(TRUE, nrow(char.stats))
-		col <- get.palette(values=2)[1]
+		col <- ATT_COLORS_FILT[1]
 	}
 	
 	# preparation
@@ -1063,7 +1063,7 @@ plot.stats.volume <- function(
 	
 	# volumes
 	volume.nbr <- nrow(volume.stats)
-	col <- get.palette(1)
+	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(volume.stats.atts)
 	att.nbr <- length(atts)
@@ -1158,8 +1158,8 @@ plot.stats.volume <- function(
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
 			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+			if(length(unique(data))>1)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	# check distribution
@@ -1346,7 +1346,8 @@ plot.stats.volume <- function(
 		for(att in atts)
 		{	tlog(4,"Computing attribute \"",att,"\"")
 			data <- volume.stats.atts[[att]][volume.idx,-1]
-			
+			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
+
 			# plot for each arc
 			for(v in 1:arc.nbr)
 			{	# attribute distribution over the characters
@@ -1366,7 +1367,7 @@ plot.stats.volume <- function(
 					barplot(
 						height=perc,
 						main=paste0("Distribution of character attribute ",att," (%)"),
-						col=MAIN_COLOR
+						col=pal
 					)
 					dev.off()
 				}
@@ -1374,7 +1375,6 @@ plot.stats.volume <- function(
 				# others?
 			}
 			
-			pal <- get.palette(ncol(data))
 			file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over volumes (att=",att)
@@ -1474,7 +1474,7 @@ plot.stats.arc <- function(
 	
 	# arcs
 	arc.nbr <- nrow(arc.stats)
-	col <- get.palette(1)
+	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(arc.stats.atts)
 	att.nbr <- length(atts)
@@ -1569,8 +1569,8 @@ plot.stats.arc <- function(
 #			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
 #			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
 			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+			if(length(unique(data))>1)
+				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
 		dev.off()
 	}
 	# check distribution
@@ -1745,7 +1745,7 @@ plot.stats.arc <- function(
 					height=arc.stats[,arc.cols[a]],
 					names.arg=arc.stats[,COL_ARC],
 					main=paste0("Evolution of the ",arc.ttls[a]),
-					col=MAIN_COLOR
+					col=col
 				)
 			dev.off()
 		}
@@ -1759,6 +1759,7 @@ plot.stats.arc <- function(
 		for(att in atts)
 		{	tlog(4,"Computing attribute \"",att,"\"")
 			data <- arc.stats.atts[[att]][arc.idx,-1]
+			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
 			
 			# plot for each arc
 			for(a in 1:arc.nbr)
@@ -1779,7 +1780,7 @@ plot.stats.arc <- function(
 					barplot(
 						height=perc,
 						main=paste0("Distribution of character attribute ",att," (%)"),
-						col=MAIN_COLOR
+						col=pal
 					)
 					dev.off()
 				}
@@ -1788,7 +1789,6 @@ plot.stats.arc <- function(
 			}
 			
 			# plot for the attribute
-			pal <- get.palette(ncol(data))
 			file <- get.path.stat.corpus(object=object, desc="arcs_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over arcs (att=",att)
@@ -1950,6 +1950,7 @@ plot.stats.series <- function(
 		
 		# attribute distribution over the characters
 		vals <- table(char.stats[,atts[a]])
+		pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(length(vals))
 		perc <- vals/sum(vals)*100
 		df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 		colnames(df) <- c(atts[a],"Frequency","Proportion")
@@ -1965,7 +1966,7 @@ plot.stats.series <- function(
 				barplot(
 					height=perc,
 					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-					col=MAIN_COLOR
+					col=pal
 				)
 			dev.off()
 		}

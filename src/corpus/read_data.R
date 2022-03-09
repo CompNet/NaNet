@@ -660,26 +660,6 @@ update.all.tables <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	tt <- table(unlist(scene.chars[idx]))
 	char.stats[match(names(tt),char.stats[,COL_NAME]),COL_FREQ] <- tt
 	
-	# update arc means
-	tlog(4,"Computing means in arc table")
-	arc.nbr <- nrow(arc.stats)
-	# identify components for each arc
-	panel.ids <- lapply(1:arc.nbr, function(a) which(panel.stats[,COL_ARC_ID]==a))
-	page.ids  <- lapply(1:arc.nbr, function(a) which(page.stats [,COL_ARC_ID]==a))
-	scene.ids <- lapply(1:arc.nbr, function(a) which(scene.stats[,COL_ARC_ID]==a))
-	char.ids  <- lapply(1:arc.nbr, function(a) which(char.stats [,COL_ARC_ID]==a))
-	# compute means
-	arc.stats[,COL_PAGES_BY_SCENE]  <- sapply(1:arc.nbr, function(a) sum(scene.stats[scene.ids[[a]],COL_PAGES]) /length(scene.ids[[a]]))
-	arc.stats[,COL_PAGES_BY_CHAR]   <- sapply(1:arc.nbr, function(a) sum(char.stats [char.ids [[a]],COL_PAGES]) /length(char.ids [[a]]))
-	arc.stats[,COL_SCENES_BY_PAGE]  <- sapply(1:arc.nbr, function(a) sum(page.stats [page.ids [[a]],COL_SCENES])/length(page.ids [[a]]))
-	arc.stats[,COL_SCENES_BY_CHAR]  <- sapply(1:arc.nbr, function(a) sum(char.stats [char.ids [[a]],COL_SCENES])/length(char.ids [[a]]))
-	arc.stats[,COL_PANELS_BY_PAGE]  <- sapply(1:arc.nbr, function(a) sum(page.stats [page.ids [[a]],COL_PANELS])/length(page.ids [[a]]))
-	arc.stats[,COL_PANELS_BY_SCENE] <- sapply(1:arc.nbr, function(a) sum(scene.stats[scene.ids[[a]],COL_PANELS])/length(scene.ids[[a]]))
-	arc.stats[,COL_PANELS_BY_CHAR]  <- sapply(1:arc.nbr, function(a) sum(char.stats [char.ids [[a]],COL_PANELS])/length(char.ids [[a]]))
-	arc.stats[,COL_CHARS_BY_PAGE]   <- sapply(1:arc.nbr, function(a) sum(page.stats [page.ids [[a]],COL_CHARS]) /length(page.ids [[a]]))
-	arc.stats[,COL_CHARS_BY_SCENE]  <- sapply(1:arc.nbr, function(a) sum(scene.stats[scene.ids[[a]],COL_CHARS]) /length(scene.ids[[a]]))
-	arc.stats[,COL_CHARS_BY_PANEL]  <- sapply(1:arc.nbr, function(a) sum(panel.stats[panel.ids[[a]],COL_CHARS]) /length(panel.ids[[a]]))
-	
 	tlog(2,"Table update completed")
 	res <- list(
 		inter.df=inter.df,										# interactions
