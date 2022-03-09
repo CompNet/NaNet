@@ -123,7 +123,11 @@ plot.stats.panel <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- panel.stats.atts[[att]][panel.idx,-1]
-			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
+			pal <- ATT_COLORS[[att]]
+			if(length(pal)==0) 
+				pal <- get.palette(ncol(data))
+			else
+				pal <- pal[colnames(data)]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			xl <- "Number of characters by panel"
@@ -266,7 +270,7 @@ plot.stats.page <- function(
 	vals <- table(page.stats[page.idx,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_PAGES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_scenes.by.page")
 	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -305,7 +309,7 @@ plot.stats.page <- function(
 	vals <- table(page.stats[page.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_PAGES,"Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.page")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -344,7 +348,7 @@ plot.stats.page <- function(
 	vals <- table(page.stats[page.idx,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_PAGES, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -386,8 +390,12 @@ plot.stats.page <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- page.stats.atts[[att]][page.idx,-1]
-			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att)
+			pal <- ATT_COLORS[[att]]
+			if(length(pal)==0) 
+				pal <- get.palette(ncol(data))
+			else
+				pal <- pal[colnames(data)]
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over pages (att=",att)
 			xl <- "Number of characters by page"
@@ -425,7 +433,7 @@ plot.stats.page <- function(
 			{	data <- page.stats.atts[[att]][page.idx,d]
 				if(any(data!=0))
 				{	val <- colnames(page.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="pages_distrib_char_nbr", att=att, val=colnames(page.stats.atts[[att]])[d])
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page", att=att, val=colnames(page.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -657,7 +665,11 @@ plot.stats.scene <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	data <- scene.stats.atts[[att]][scene.idx,-1]
-			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
+			pal <- ATT_COLORS[[att]]
+			if(length(pal)==0) 
+				pal <- get.palette(ncol(data))
+			else
+				pal <- pal[colnames(data)]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="scenes_distrib_char_nbr", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over scenes (att=",att)
@@ -1346,8 +1358,12 @@ plot.stats.volume <- function(
 		for(att in atts)
 		{	tlog(4,"Computing attribute \"",att,"\"")
 			data <- volume.stats.atts[[att]][volume.idx,-1]
-			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
-
+			pal <- ATT_COLORS[[att]]
+			if(length(pal)==0) 
+				pal <- get.palette(ncol(data))
+			else
+				pal <- pal[colnames(data)]
+			
 			# plot for each arc
 			for(v in 1:arc.nbr)
 			{	# attribute distribution over the characters
@@ -1759,7 +1775,11 @@ plot.stats.arc <- function(
 		for(att in atts)
 		{	tlog(4,"Computing attribute \"",att,"\"")
 			data <- arc.stats.atts[[att]][arc.idx,-1]
-			pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(ncol(data))
+			pal <- ATT_COLORS[[att]]
+			if(length(pal)==0) 
+				pal <- get.palette(ncol(data))
+			else
+				pal <- pal[colnames(data)]
 			
 			# plot for each arc
 			for(a in 1:arc.nbr)
@@ -1950,7 +1970,11 @@ plot.stats.series <- function(
 		
 		# attribute distribution over the characters
 		vals <- table(char.stats[,atts[a]])
-		pal <- ATT_COLORS[[att]]; if(length(pal)==0) pal <- get.palette(length(vals))
+		pal <- ATT_COLORS[[att]]
+		if(length(pal)==0) 
+			pal <- get.palette(length(vals))
+		else
+			pal <- pal[names(vals)]
 		perc <- vals/sum(vals)*100
 		df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 		colnames(df) <- c(atts[a],"Frequency","Proportion")
