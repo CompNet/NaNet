@@ -70,8 +70,8 @@ record.randmeas.stats <- function(tab, filtered=FALSE)
 load.as.bipartite <- function()
 {	# load raw data
 	data <- read.raw.data()
-	char.info <- data$char.info
-	f.n <- nrow(char.info)
+	char.stats <- data$char.stats
+	f.n <- nrow(char.stats)
 	char.scenes <- data$char.scenes
 	g.n <- length(char.scenes)
 	
@@ -81,8 +81,8 @@ load.as.bipartite <- function()
 	V(bg)$type <- c(rep(FALSE,f.n), rep(TRUE,g.n))
 	
 	# add character names and info
-	for(coln in colnames(char.info))
-		bg <- set_vertex_attr(graph=bg, name=coln, index=1:f.n, value=char.info[,coln])
+	for(coln in colnames(char.stats))
+		bg <- set_vertex_attr(graph=bg, name=coln, index=1:f.n, value=char.stats[,coln])
 	
 	# add scene names
 	bg <- set_vertex_attr(graph=bg, name="Name", index=f.n+(1:g.n), value=paste0("Scene_",1:g.n))

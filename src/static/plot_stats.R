@@ -1169,11 +1169,11 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 {	# init arc/vol-dependent variables
 	if(arcs)
 	{	emode <- "arc"
-		items <- unique(data$volume.info[,COL_ARC])
+		items <- unique(data$volume.stats[,COL_ARC])
 	}
 	else
 	{	emode <- "volume"
-		items <- data$volume.info[,COL_VOLUME]
+		items <- data$volume.stats[,COL_VOLUME]
 	}
 	
 	# init other variables
@@ -1243,15 +1243,15 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 	for(filtered in c(FALSE, TRUE))
 		generate.static.plots.scene(filtered=filtered)
 	# same for each narrative arc
-	arc.titles <- unique(data$volume.info[,COL_ARC])
+	arc.titles <- unique(data$volume.stats[,COL_ARC])
 	for(arc in 1:length(arc.titles))
 	{	for(filtered in c(FALSE, TRUE))
 			generate.static.plots.scene(arc=arc, filtered=filtered)
 	}
 	# same for each volume
-	volume.nbr <- nrow(data$volume.info)
+	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.info[v, COL_VOLUME]
+	{	vol <- data$volume.stats[v, COL_VOLUME]
 		for(filtered in c(FALSE, TRUE))
 			generate.static.plots.scene(vol=vol, filtered=filtered)
 	}

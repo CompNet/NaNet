@@ -19,7 +19,7 @@ library("stringr")
 data <- read.raw.data()
 
 folder <- file.path(DATA_FOLDER,"summaries")
-volumes <- data$volume.info[,COL_VOLUME]
+volumes <- data$volume.stats[,COL_VOLUME]
 
 # load text files
 lines <- c()
@@ -30,11 +30,11 @@ for(v in volumes)
 }
 
 # look for characters
-freq.tab <- matrix(NA, nrow=nrow(data$char.info), ncol=length(volumes))
+freq.tab <- matrix(NA, nrow=nrow(data$char.stats), ncol=length(volumes))
 colnames(freq.tab) <- volumes
-rownames(freq.tab) <- data$char.info[,COL_NAME_SHORT]
-for(c in 1:nrow(data$char.info))
-{	name <- tolower(data$char.info[c, COL_NAME_SHORT])
+rownames(freq.tab) <- data$char.stats[,COL_NAME_SHORT]
+for(c in 1:nrow(data$char.stats))
+{	name <- tolower(data$char.stats[c, COL_NAME_SHORT])
 	tlog(0,"Processing character \"",name,"\"")
 	#grepl(name, lines, fixed=TRUE)
 	freq.tab[c, ] <- str_count(lines, paste0("\\b",name,"\\b"))
@@ -48,17 +48,17 @@ for(v in volumes)
 {	tlog(2, "Processing volume ",v)
 	idx <- which(freq.tab[,v]>0)
 	for(i in idx)
-		tlog(4, data$char.info[i,COL_NAME_SHORT], ": ", freq.tab[i, v])
+		tlog(4, data$char.stats[i,COL_NAME_SHORT], ": ", freq.tab[i, v])
 	tlog(2, "")
 }
 
 # estimate from graph
-est.tab <- matrix(NA, nrow=nrow(data$char.info), ncol=length(volumes))
+est.tab <- matrix(NA, nrow=nrow(data$char.stats), ncol=length(volumes))
 colnames(est.tab) <- volumes
-rownames(est.tab) <- data$char.info[,COL_NAME_SHORT]
+rownames(est.tab) <- data$char.stats[,COL_NAME_SHORT]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
-	#g <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, vol=v)
+	#g <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df, vol=v)
 	graph.file <- get.path.graph.file(mode="scenes", vol=v, ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	

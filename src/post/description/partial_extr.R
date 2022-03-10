@@ -42,12 +42,12 @@ gs <- list()
 # extract first network
 tlog(0,"Extract first network")
 idx1 <- 1:(idx-1)
-gs[[1]] <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df[idx1,], stats.scenes=data$stats.scenes[idx1,])
+gs[[1]] <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df[idx1,], stats.scenes=data$stats.scenes[idx1,])
 
 # extract second network
 tlog(0,"Extract second network")
 idx2 <- idx:nrow(data$inter.df)
-gs[[2]] <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df[idx2,], stats.scenes=data$stats.scenes[idx2,])
+gs[[2]] <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df[idx2,], stats.scenes=data$stats.scenes[idx2,])
 
 
 

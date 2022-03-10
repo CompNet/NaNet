@@ -28,8 +28,8 @@ source("src/common/include.R")
 ###############################################################################
 # load raw data
 data <- read.raw.data()
-char.info <- data$char.info
-f.n <- nrow(char.info)
+char.stats <- data$char.stats
+f.n <- nrow(char.stats)
 char.scenes <- data$char.scenes
 g.n <- length(char.scenes)
 
@@ -48,8 +48,8 @@ colnames(tab) <- cn
 g <- make_empty_graph(n=f.n+g.n, directed=FALSE)
 V(g)$type <- c(rep("Character",f.n), rep("Scene",g.n))
 # add character names and info
-for(coln in colnames(char.info))
-	g <- set_vertex_attr(graph=g, name=coln, index=1:f.n, value=char.info[,coln])
+for(coln in colnames(char.stats))
+	g <- set_vertex_attr(graph=g, name=coln, index=1:f.n, value=char.stats[,coln])
 # add scene names
 g <- set_vertex_attr(graph=g, name="Name", index=f.n+(1:g.n), value=paste0("Scene_",1:g.n))
 # build edge list

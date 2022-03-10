@@ -26,7 +26,7 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 # load raw data
 data <- read.raw.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
-gs <- extract.static.graph.scenes(volume.info=data$volume.info, char.info=data$char.info, page.info=data$page.info, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
+gs <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df, stats.scenes=data$stats.scenes, ret.seq=TRUE)
 
 # init lists
 g.orders <- list()

@@ -321,12 +321,12 @@ plot.static.graph.scenes.all <- function(data)
 	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
 	tlog(4,"Plotting volume-related graphs using vertex colors")
 	for(v in 1:length(data$char.volumes))
-	{	vname <- data$volume.info[v,COL_VOLUME]
+	{	vname <- data$volume.stats[v,COL_VOLUME]
 		tlog(6,"Plotting volume ",vname," (",v,"/",length(data$char.volumes),")")
-		idx <- match(data$char.volumes[[v]], data$char.info[,COL_NAME])
+		idx <- match(data$char.volumes[[v]], data$char.stats[,COL_NAME])
 		el <- as_edgelist(graph=g, names=FALSE)
 		idx.e <- which(el[,1] %in% idx & el[,2] %in% idx)
-		vcols <- rep("LIGHTGRAY", nrow(data$char.info))
+		vcols <- rep("LIGHTGRAY", nrow(data$char.stats))
 		vcols[idx] <- "RED"
 		ecols <- rep("LIGHTGREY",gsize(g))
 		ecols[idx.e] <- "RED"
@@ -349,7 +349,7 @@ plot.static.graph.scenes.all <- function(data)
 					edge.color=ecols, edge.width=ewidths, 
 					rescale=FALSE, #axe=TRUE, 
 					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2]),
-					main=paste0(vname, " - ", data$volume.info[v,COL_TITLE], " (",v,"/",nrow(data$volume.info),")")
+					main=paste0(vname, " - ", data$volume.stats[v,COL_TITLE], " (",v,"/",nrow(data$volume.stats),")")
 			)
 			dev.off()
 		}
@@ -370,7 +370,7 @@ plot.static.graph.scenes.all <- function(data)
 					edge.color=ecols[idx.efiltr], edge.width=ewidths[idx.efiltr], 
 					rescale=FALSE, #axe=TRUE, 
 					xlim=range(LAYOUT[,1]), ylim=range(LAYOUT[,2]),
-					main=paste0(vname, " - ", data$volume.info[v,COL_TITLE], " (",v,"/",nrow(data$volume.info),")")
+					main=paste0(vname, " - ", data$volume.stats[v,COL_TITLE], " (",v,"/",nrow(data$volume.stats),")")
 				)
 			dev.off()
 		}
@@ -380,13 +380,13 @@ plot.static.graph.scenes.all <- function(data)
 	tlog(4,"Plotting arc-related graphs using vertex colors")
 	arcs.folder <- file.path(NET_SCENES_FOLDER, "arcs")
 	dir.create(path=arcs.folder, showWarnings=FALSE, recursive=TRUE)
-	arc.titles <- unique(data$volume.info[,COL_ARC])
+	arc.titles <- unique(data$volume.stats[,COL_ARC])
 	for(a in 1:length(data$char.arcs))
 	{	tlog(6,"Plotting arc ",a,"/",length(data$char.arcs))
-		idx <- match(data$char.arcs[[a]], data$char.info[,COL_NAME])
+		idx <- match(data$char.arcs[[a]], data$char.stats[,COL_NAME])
 		el <- as_edgelist(graph=g, names=FALSE)
 		idx.e <- which(el[,1] %in% idx & el[,2] %in% idx)
-		vcols <- rep("LIGHTGRAY", nrow(data$char.info))
+		vcols <- rep("LIGHTGRAY", nrow(data$char.stats))
 		vcols[idx] <- "RED"
 		ecols <- rep("LIGHTGREY",gsize(g))
 		ecols[idx.e] <- "RED"
@@ -621,14 +621,14 @@ plot.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.wi
 	g <- plot.static.graph.scenes.all(data)
 	
 	# same for each arc
-	arc.titles <- unique(data$volume.info[,COL_ARC])
+	arc.titles <- unique(data$volume.stats[,COL_ARC])
 	for(arc in 1:length(arc.titles))
 		plot.static.graph.scenes.partial(data, arc=arc)
 	
 	# same for each volume
-	volume.nbr <- nrow(data$volume.info)
+	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.info[v, COL_VOLUME]
+	{	vol <- data$volume.stats[v, COL_VOLUME]
 		plot.static.graph.scenes.partial(data, vol=vol)
 	}
 	
