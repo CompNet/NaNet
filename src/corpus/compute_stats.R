@@ -24,19 +24,13 @@ compute.stats.panel <- function(
 		cur.vol=NA, cur.arc=NA)
 {	object <- "panels"
 	
-	##################
-	# init
-	panel.nbr <- nrow(panel.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
-	
 	
 	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind panel stats")
 	# specific volume
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol,COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the panels of the current volume
 		panel.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)
 		panel.stats <- panel.stats[panel.idx,]
@@ -72,6 +66,8 @@ compute.stats.panel <- function(
 	
 	##################
 	# attribute-based stats
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	panel.stats.atts <- list()
 	if(att.nbr==0)
 	{	tlog(4,"No attribute: nothing else to compute")
@@ -91,7 +87,7 @@ compute.stats.panel <- function(
 			mat <- t(sapply(panel.chars[panel.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add panel id to matrix
-			mat <- cbind(1:panel.nbr, mat)
+			mat <- cbind(1:length(panel.idx), mat)
 			colnames(mat)[1] <- COL_PANEL_ID
 			# add matrix to result list
 			panel.stats.atts[[att]] <- mat
@@ -130,18 +126,11 @@ compute.stats.page <- function(
 	
 	
 	##################
-	# init
-	page.nbr <- nrow(page.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
-	
-	
-	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind page stats")
 	# specific volume
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol,COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the pages of the current volume
 		page.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)
 		page.stats <- page.stats[page.idx,]
@@ -176,6 +165,8 @@ compute.stats.page <- function(
 	
 	##################
 	# attribute-based stats
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	page.stats.atts <- list()
 	if(att.nbr==0)
 	{	tlog(4,"No attribute: nothing else to compute")
@@ -195,7 +186,7 @@ compute.stats.page <- function(
 			mat <- t(sapply(page.chars[page.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add page id to matrix
-			mat <- cbind(1:page.nbr, mat)
+			mat <- cbind(1:length(page.idx), mat)
 			colnames(mat)[1] <- COL_PAGE_ID
 			# add matrix to result list
 			page.stats.atts[[att]] <- mat
@@ -234,18 +225,11 @@ compute.stats.scene <- function(
 	
 	
 	##################
-	# init
-	scene.nbr <- nrow(scene.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
-	
-	
-	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind scene stats")
 	# specific volume
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol,COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the scenes of the current volume
 		scene.idx <- which(scene.stats[,COL_VOLUME_ID]==cur.vol)
 		scene.stats <- scene.stats[scene.idx,]
@@ -281,6 +265,8 @@ compute.stats.scene <- function(
 	
 	##################
 	# attribute-based stats
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	scene.stats.atts <- list()
 	if(att.nbr==0)
 	{	tlog(4,"No attribute: nothing else to compute")
@@ -300,7 +286,7 @@ compute.stats.scene <- function(
 			mat <- t(sapply(scene.chars[scene.idx], function(chars) table(factor(char.stats[match(chars,char.stats[,COL_NAME]), att],levels=uniq))))
 			
 			# add scene id to matrix
-			mat <- cbind(1:scene.nbr, mat)
+			mat <- cbind(1:length(scene.idx), mat)
 			colnames(mat)[1] <- COL_SCENE_ID
 			# add matrix to result list
 			scene.stats.atts[[att]] <- mat
@@ -342,18 +328,11 @@ compute.stats.char <- function(
 	
 	
 	##################
-	# init
-	char.nbr <- nrow(char.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
-	
-	
-	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind character stats")
 	# specific volume
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol,COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the characters of the current volume
 		char.idx <- match(volume.chars[[cur.vol]],char.stats[,COL_NAME])
 		char.stats <- char.stats[char.idx,]
@@ -393,8 +372,10 @@ compute.stats.char <- function(
 	##################
 	# attribute-based stats
 	tlog(4,"No attribute-based stats to compute for characters")
+	#atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	#att.nbr <- length(atts)
 	# nothing to do here
-	
+
 	res <- list(
 		char.stats=char.stats
 	)
@@ -424,15 +405,13 @@ compute.stats.volume <- function(
 	##################
 	# init
 	volume.nbr <- nrow(volume.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
 	volume.stats.indiv <- list()
 	
 	
 	##################
 	# attribute-blind stats
 	tlog(4,"Computing attribute-blind volume stats")
-		
+	
 	# complete volume stats table
 	df <- data.frame(
 		numeric(volume.nbr), numeric(volume.nbr), 
@@ -509,6 +488,8 @@ compute.stats.volume <- function(
 	
 	##################
 	# attribute-based stats
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	volume.stats.atts <- list()
 	if(att.nbr==0)
 	{	tlog(4,"No attribute: nothing else to compute")
@@ -578,8 +559,6 @@ compute.stats.arc <- function(
 	##################
 	# init
 	arc.nbr <- nrow(arc.stats)
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
 	arc.stats.indiv <- list()
 	
 	
@@ -681,6 +660,8 @@ compute.stats.arc <- function(
 	
 	##################
 	# attribute-based stats
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
 	arc.stats.atts <- list()
 	if(att.nbr==0)
 	{	tlog(4,"No attribute: nothing else to compute")
@@ -746,11 +727,6 @@ compute.stats.series <- function(
 		volume.stats,  
 		arc.stats)
 {	object <- NA
-	
-	##################
-	# init
-	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	att.nbr <- length(atts)
 	
 	
 	##################
@@ -831,6 +807,8 @@ compute.stats.series <- function(
 	##################
 	# attribute-based stats
 	tlog(4,"Nothing else to compute for the series")
+	#atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	#att.nbr <- length(atts)
 	
 	
 	result <- list(

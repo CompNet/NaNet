@@ -26,23 +26,20 @@ plot.stats.panel <- function(
 	
 	# preparation
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol, COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		tlog(3,"Computing panel stats (cur.vol=",cur.vol," vname=",vname,")")
-		panel.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)		
 	}
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		tlog(3,"Computing panel stats (cur.arc=",cur.arc," title=",arc.stats[cur.arc,COL_TITLE],")")
-		panel.idx <- which(panel.stats[,COL_ARC_ID]==cur.arc)		
 	}
 	else
 	{	vname <- NA
 		tlog(3,"Computing panel stats (whole series)")
-		panel.idx <- panel.stats[,COL_PANEL_ID]
 	}
 	
 	# panels
-	panel.nbr <- length(panel.idx)
+	panel.nbr <- nrow(panel.stats)
 	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(panel.stats.atts)
@@ -53,14 +50,14 @@ plot.stats.panel <- function(
 	# attribute-blind stats
 	
 	# distributions of character numbers (overall)
-	vals <- table(panel.stats[panel.idx,COL_CHARS])
+	vals <- table(panel.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_PANELS, "Proportion")
-	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char")
+	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.panel")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- panel.stats[panel.idx,COL_CHARS]
+	data <- panel.stats[,COL_CHARS]
 	ml <- "Character number distribution over panels"
 	xl <- "Number of characters by panel"
 	for(fformat in PLOT_FORMAT)
@@ -93,9 +90,9 @@ plot.stats.panel <- function(
 	
 	# distribution of panel positions
 	vals <- c()
-	vals["Both"] <- length(which(panel.stats[panel.idx, COL_MATCH_BOTH]))
-	vals["Starts page"] <- length(which(panel.stats[panel.idx, COL_MATCH_START])) - vals["Both"]
-	vals["Ends page"] <- length(which(panel.stats[panel.idx, COL_MATCH_END])) - vals["Both"]
+	vals["Both"] <- length(which(panel.stats[, COL_MATCH_BOTH]))
+	vals["Starts page"] <- length(which(panel.stats[, COL_MATCH_START])) - vals["Both"]
+	vals["Ends page"] <- length(which(panel.stats[, COL_MATCH_END])) - vals["Both"]
 	vals["None"] <- panel.nbr - vals["Both"] - vals["Starts page"] - vals["Ends page"]
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
@@ -123,13 +120,13 @@ plot.stats.panel <- function(
 	if(att.nbr>0)
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
-		{	data <- panel.stats.atts[[att]][panel.idx,-1]
+		{	data <- panel.stats.atts[[att]][,-1]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
 				pal <- get.palette(ncol(data))
 			else
 				pal <- pal[colnames(data)]
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char", att=att)
+			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.panel", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			xl <- "Number of characters by panel"
 			yl <- "Frequency"
@@ -138,7 +135,7 @@ plot.stats.panel <- function(
 					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					ml <- paste0("Character number distribution over pages (att=",att)
+					ml <- paste0("Character number distribution over panels (att=",att)
 					# scatterplot
 #					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
 #					for(d in 1:ncol(data))
@@ -182,22 +179,21 @@ plot.stats.panel <- function(
 					barplot(
 						height=t(vals),
 						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl,
-						ylab=yl,
-						main=paste0(ml,")"),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=TRUE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal,
-						space=0,
-						args.legend = list(x = "topright"),
+						#space=0,
+						args.legend=list(x="topright"),
 						legend.text=colnames(data)
 					)
 				dev.off()
 			}
 			# separate plot for each value
 			for(d in 2:ncol(panel.stats.atts[[att]]))
-			{	data <- panel.stats.atts[[att]][panel.idx,d]
+			{	data <- panel.stats.atts[[att]][,d]
 				if(any(data!=0))
 				{	val <- colnames(panel.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.char", att=att, val=val)
+					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.panel", att=att, val=val)
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -241,23 +237,20 @@ plot.stats.page <- function(
 	
 	# preparation
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol, COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		tlog(3,"Computing page stats (cur.vol=",cur.vol," vname=",vname,")")
-		page.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)		
 	}
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		tlog(3,"Computing page stats (cur.arc=",cur.arc," title=",arc.stats[cur.arc,COL_TITLE],")")
-		page.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)		
 	}
 	else
 	{	vname <- NA
 		tlog(3,"Computing page stats (whole series)")
-		page.idx <- page.stats[,COL_PAGE_ID]
 	}
 	
 	# pages
-	page.nbr <- length(page.idx)
+	page.nbr <- nrow(page.stats)
 	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(page.stats.atts)
@@ -268,14 +261,14 @@ plot.stats.page <- function(
 	# attribute-blind stats
 	
 	# distributions of scene numbers
-	vals <- table(page.stats[page.idx,COL_SCENES])
+	vals <- table(page.stats[,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_PAGES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_scenes.by.page")
 	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[page.idx,COL_SCENES]
+	data <- page.stats[,COL_SCENES]
 	ml <- "Scene number distribution over pages"
 	xl <- "Number of scenes by page"
 	for(fformat in PLOT_FORMAT)
@@ -307,14 +300,14 @@ plot.stats.page <- function(
 	}
 	
 	# distributions of panel numbers
-	vals <- table(page.stats[page.idx,COL_PANELS])
+	vals <- table(page.stats[,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_PAGES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.page")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[page.idx,COL_PANELS]
+	data <- page.stats[,COL_PANELS]
 	ml <- "Panel number distribution over pages"
 	xl <- "Number of panels by page"
 	for(fformat in PLOT_FORMAT)
@@ -346,14 +339,14 @@ plot.stats.page <- function(
 	}
 	
 	# distributions of character numbers (overall)
-	vals <- table(page.stats[page.idx,COL_CHARS])
+	vals <- table(page.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_PAGES, "Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- page.stats[page.idx,COL_CHARS]
+	data <- page.stats[,COL_CHARS]
 	ml <- "Character number distribution over pages"
 	xl <- "Number of characters by page"
 	for(fformat in PLOT_FORMAT)
@@ -390,7 +383,7 @@ plot.stats.page <- function(
 	if(att.nbr>0)
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
-		{	data <- page.stats.atts[[att]][page.idx,-1]
+		{	data <- page.stats.atts[[att]][,-1]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
 				pal <- get.palette(ncol(data))
@@ -419,19 +412,18 @@ plot.stats.page <- function(
 					barplot(
 						height=t(vals),
 						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl,
-						ylab=yl,
-						main=paste0(ml,")"),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal,
-						space=0,
-						args.legend = list(x = "topright"),
+						#space=0,
+						args.legend=list(x="topright"),
 						legend.text=colnames(data)
 					)
 				dev.off()
 			}
 			# separate plot for each value
 			for(d in 2:ncol(page.stats.atts[[att]]))
-			{	data <- page.stats.atts[[att]][page.idx,d]
+			{	data <- page.stats.atts[[att]][,d]
 				if(any(data!=0))
 				{	val <- colnames(page.stats.atts[[att]])[d]
 					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page", att=att, val=colnames(page.stats.atts[[att]])[d])
@@ -478,23 +470,20 @@ plot.stats.scene <- function(
 	
 	# preparation
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol, COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		tlog(3,"Computing scene stats (cur.vol=",cur.vol," vname=",vname,")")
-		scene.idx <- which(scene.stats[,COL_VOLUME_ID]==cur.vol)		
 	}
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		tlog(3,"Computing scene stats (cur.arc=",cur.arc," title=",arc.stats[cur.arc,COL_TITLE],")")
-		scene.idx <- which(scene.stats[,COL_ARC_ID]==cur.arc)		
 	}
 	else
 	{	vname <- NA
 		tlog(3,"Computing scene stats (whole series)")
-		scene.idx <- scene.stats[,COL_SCENE_ID]
 	}
 	
 	# scenes
-	scene.nbr <- length(scene.idx)
+	scene.nbr <- nrow(scene.stats)
 	col <- ATT_COLORS_FILT[1]
 	# vertex attributes
 	atts <- names(scene.stats.atts)
@@ -505,14 +494,14 @@ plot.stats.scene <- function(
 	# attribute-blind stats
 	
 	# distributions of panel numbers
-	vals <- table(scene.stats[scene.idx,COL_PANELS])
+	vals <- table(scene.stats[,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_SCENES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_panels.by.scene")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- scene.stats[scene.idx,COL_PANELS]
+	data <- scene.stats[,COL_PANELS]
 	ml <- "Panel number distribution over scenes"
 	xl <- "Number of panels by scene"
 	for(fformat in PLOT_FORMAT)
@@ -551,14 +540,14 @@ plot.stats.scene <- function(
 	}
 
 	# distributions of character numbers (overall)
-	vals <- table(scene.stats[scene.idx,COL_CHARS])
+	vals <- table(scene.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_SCENES, "Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- scene.stats[scene.idx,COL_CHARS]
+	data <- scene.stats[,COL_CHARS]
 	ml <- "Character number distribution over scenes"
 	xl <- "Number of characters by scene"
 	for(fformat in PLOT_FORMAT)
@@ -590,14 +579,14 @@ plot.stats.scene <- function(
 	}
 	
 	# distributions of page numbers
-	vals <- table(scene.stats[scene.idx,COL_PAGES])
+	vals <- table(scene.stats[,COL_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_SCENES,"Proportion")
 	file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_pages.by.scene")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- scene.stats[scene.idx,COL_PAGES]
+	data <- scene.stats[,COL_PAGES]
 	ml <- "Page number distribution over scenes"
 	xl <- "Number of pages by scene"
 	for(fformat in PLOT_FORMAT)
@@ -606,15 +595,15 @@ plot.stats.scene <- function(
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
+#			h <- hist(
+#				data,
+#				breaks=0:max(data),
+#				col=col,
+#				xlab=xl,
+#				main=ml,
+#				freq=FALSE,
+##				plot=FALSE
+#			)
 #			# scatterplot
 #			x <- h$breaks[2:length(h$breaks)]
 #			y <- h$counts
@@ -635,9 +624,9 @@ plot.stats.scene <- function(
 
 	# distribution of scene positions
 	vals <- c()
-	vals["Both"] <- length(which(scene.stats[scene.idx, COL_MATCH_BOTH]))
-	vals["Starts page"] <- length(which(scene.stats[scene.idx, COL_MATCH_START])) - vals["Both"]
-	vals["Ends page"] <- length(which(scene.stats[scene.idx, COL_MATCH_END])) - vals["Both"]
+	vals["Both"] <- length(which(scene.stats[, COL_MATCH_BOTH]))
+	vals["Starts page"] <- length(which(scene.stats[, COL_MATCH_START])) - vals["Both"]
+	vals["Ends page"] <- length(which(scene.stats[, COL_MATCH_END])) - vals["Both"]
 	vals["None"] <- scene.nbr - vals["Both"] - vals["Starts page"] - vals["Ends page"]
 	perc <- vals/sum(vals)*100
 	df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
@@ -665,7 +654,7 @@ plot.stats.scene <- function(
 	if(att.nbr>0)
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
-		{	data <- scene.stats.atts[[att]][scene.idx,-1]
+		{	data <- scene.stats.atts[[att]][,-1]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
 				pal <- get.palette(ncol(data))
@@ -694,19 +683,18 @@ plot.stats.scene <- function(
 					barplot(
 						height=t(vals),
 						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl,
-						ylab=yl,
-						main=paste0(ml,")"),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal,
-						space=0,
-						args.legend = list(x = "topright"),
+						#space=0,
+						args.legend=list(x="topright"),
 						legend.text=colnames(data)
 					)
 				dev.off()
 			}
 			# separate plot for each value
 			for(d in 2:ncol(scene.stats.atts[[att]]))
-			{	data <- scene.stats.atts[[att]][scene.idx,d]
+			{	data <- scene.stats.atts[[att]][,d]
 				if(any(data!=0))
 				{	val <- colnames(scene.stats.atts[[att]])[d]
 					file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene", att=att, val=colnames(scene.stats.atts[[att]])[d])
@@ -755,30 +743,27 @@ plot.stats.char <- function(
 	# char filtering
 	if(filtered)
 	{	filt.txt <- "filtered"
-		char.filter <- char.stats[,COL_FILTERED]
+		char.idx <- which(char.stats[,COL_FILTERED])
 		col <- ATT_COLORS_FILT[2]
 	}
 	else
 	{	filt.txt <- "unfiltered"
-		char.filter <- rep(TRUE, nrow(char.stats))
+		char.idx <- 1:nrow(char.stats)
 		col <- ATT_COLORS_FILT[1]
 	}
 	
 	# preparation
 	if(!is.na(cur.vol))
-	{	vname <- volume.stats[cur.vol, COL_VOLUME]
+	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		tlog(3,"Computing ",filt.txt," char stats (cur.vol=",cur.vol," vname=",vname,")")
-		char.idx <- which(char.filter & char.stats[,COL_VOLUME_ID]==cur.vol)		
 	}
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		tlog(3,"Computing ",filt.txt," char stats (cur.arc=",cur.arc," title=",arc.stats[cur.arc,COL_TITLE],")")
-		char.idx <- which(char.filter & char.stats[,COL_ARC_ID]==cur.arc)
 	}
 	else
 	{	vname <- NA
 		tlog(3,"Computing ",filt.txt," char stats (whole series)")
-		char.idx <- which(char.filter)
 	}
 	# vertex attributes
 	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
@@ -792,6 +777,54 @@ plot.stats.char <- function(
 	
 	##################
 	# attribute-blind stats
+
+	# distribution of arcs by character
+	if(is.na(cur.arc) && is.na(cur.vol))
+	{	vals <- table(char.stats[char.idx,COL_ARCS])
+		vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
+		colnames(vals) <- c(COL_ARCS, COL_CHARS,"Proportion")
+		tlog(4,"Distribution of arc numbers: producing files \"",file,"\"")
+		file <- get.path.stat.corpus(object=object, subfold=filt.txt, desc=paste0("distrib_arcs.by.char"))
+		write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+		#
+		data <- char.stats[char.idx,COL_ARCS]
+		if(length(unique(data))>1)
+		{	ml <- paste0("Arc number distribution over ",filt.txt," characters")
+			xl <- paste0("Number of arcs by ",filt.txt," character")
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+#						# histogram
+#						h <- hist(
+#							data,
+#							breaks=0:max(data),
+##							col=col,
+##							xlab=xl,
+##							main=ml,
+##							freq=FALSE,
+#							plot=FALSE
+#						)
+#						# scatterplot
+#						x <- h$breaks[2:length(h$breaks)]
+#						y <- h$counts
+#						idx <- which(y>0)
+#						x <- x[idx]
+#						y <- y[idx]
+#						plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
+						# complementary cumulative distribution function
+						if(length(unique(data))>1)
+							plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
+					dev.off()
+			}
+			# check distribution
+			if(DO_STAT_TESTS)
+			{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
+				write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
+			}
+		}
+	}
 	
 	# distribution of volumes by character
 	if(is.na(cur.vol))
@@ -799,7 +832,7 @@ plot.stats.char <- function(
 		vals <- data.frame(names(vals), vals, 100*vals/sum(vals), stringsAsFactors=FALSE, check.names=FALSE)
 		colnames(vals) <- c(COL_VOLUMES, COL_CHARS,"Proportion")
 		tlog(4,"Distribution of volume numbers: producing files \"",file,"\"")
-		file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_volumes.by.char"))
+		file <- get.path.stat.corpus(object=object, subfold=filt.txt, arc=cur.arc, desc=paste0("distrib_volumes.by.char"))
 		write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		#
 		data <- char.stats[char.idx,COL_VOLUMES]
@@ -834,7 +867,7 @@ plot.stats.char <- function(
 					dev.off()
 			}
 			# check distribution
-			if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
+			if(DO_STAT_TESTS && is.na(cur.arc))
 			{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 				write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 			}
@@ -988,7 +1021,7 @@ plot.stats.char <- function(
 				barplot(
 					height=char.nums,						# data
 					names.arg=thresholds,					# bar names
-					beside=FALSE,							# grouped bars
+					beside=FALSE,							# stacked (FALSE) vs. grouped (TRUE) bars
 					col=cols,								# bar colors
 					main=NA,								# no main title
 					xlab="Minimal number of occurrences",	# x-axis label
@@ -1024,12 +1057,12 @@ plot.stats.char <- function(
 				pal <- get.palette(length(vals))
 			else
 				pal <- pal[names(vals)]
-			
+			#
 			perc <- vals/sum(vals)*100
 			df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
 			colnames(df) <- c(atts[a],"Frequency","Proportion")
-			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="char_attr_distrib", att=atts[a])
-			tlog(8,"Producing files \"",file,"\"")
+			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="attr_distrib", att=atts[a])
+			tlog(5,"Producing files \"",file,"\"")
 			write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 			#
 			for(fformat in PLOT_FORMAT)
@@ -1045,7 +1078,299 @@ plot.stats.char <- function(
 				dev.off()
 			}
 			
-			# others?
+			# distribution of arcs by character attribute
+			if(is.na(cur.arc) && is.na(cur.vol))
+			{	vals <- table(char.stats[char.idx,COL_ARCS],char.stats[char.idx,atts[a]])
+				vals <- cbind(as.integer(rownames(vals)), as.data.frame.matrix(vals, stringsAsFactors=FALSE, check.names=FALSE))
+				rownames(vals) <- NULL
+				colnames(vals)[1] <- COL_ARCS
+				# all values at once
+				file <- get.path.stat.corpus(object=object, subfold=filt.txt, desc=paste0("distrib_arcs.by.char"), att=atts[a])
+				tlog(5,"Distribution of arc numbers by attribute: producing files \"",file,"\"")
+				write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+				#
+				data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+				rownames(data) <- colnames(vals)[2:ncol(vals)]
+				data[,vals[,1]] <- t(vals[,-1])
+				#
+				ml <- paste0("Arc number distribution over ",filt.txt," characters")
+				xl <- paste0("Number of arcs by ",filt.txt," character")
+				yl <- "Frequency"
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# barplots
+						barplot(
+							height=data,
+							names.arg=1:ncol(data),
+							xlab=xl, ylab=yl, main=paste0(ml,")"),
+							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+							col=pal,
+							space=0,
+							args.legend=list(x="topright"),
+							legend.text=rownames(data)
+						)
+					dev.off()
+				}
+				# each value separately
+				for(d in 1:nrow(data))
+				{	val <- rownames(data)[d]
+					file <- get.path.stat.corpus(object=object, subfold=filt.txt, desc=paste0("distrib_arcs.by.char"), att=atts[a], val=val)
+					tlog(5,"Distribution of arc numbers by attribute value: producing files \"",file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# barplots
+						barplot(
+							height=data[d,],
+							names.arg=1:ncol(data),
+							xlab=xl, ylab=yl, main=paste0(ml,")"),
+							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+							col=pal[d],
+							space=0
+						)
+						dev.off()
+					}
+				}
+			}
+
+			# distribution of volumes by character attribute
+			if(is.na(cur.vol))
+			{	vals <- table(char.stats[char.idx,COL_VOLUMES],char.stats[char.idx,atts[a]])
+				vals <- cbind(as.integer(rownames(vals)), as.data.frame.matrix(vals, stringsAsFactors=FALSE, check.names=FALSE))
+				rownames(vals) <- NULL
+				colnames(vals)[1] <- COL_VOLUMES
+				# all values at once
+				file <- get.path.stat.corpus(object=object, subfold=filt.txt, arc=cur.arc, desc=paste0("distrib_volumes.by.char"), att=atts[a])
+				tlog(5,"Distribution of volume numbers by attribute: producing files \"",file,"\"")
+				write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+				#
+				data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+				rownames(data) <- colnames(vals)[2:ncol(vals)]
+				data[,vals[,1]] <- t(vals[,-1])
+				#
+				ml <- paste0("Volume number distribution over ",filt.txt," characters")
+				xl <- paste0("Number of volumes by ",filt.txt," character")
+				yl <- "Frequency"
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# barplots
+						barplot(
+							height=data,
+							names.arg=1:ncol(data),
+							xlab=xl, ylab=yl, main=paste0(ml,")"),
+							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+							col=pal,
+							space=0,
+							args.legend=list(x="topright"),
+							legend.text=rownames(data)
+						)
+					dev.off()
+				}
+				# each value separately
+				for(d in 1:nrow(data))
+				{	val <- rownames(data)[d]
+					file <- get.path.stat.corpus(object=object, subfold=filt.txt, arc=cur.arc, desc=paste0("distrib_volumes.by.char"), att=atts[a], val=val)
+					tlog(5,"Distribution of volume numbers by attribute value: producing files \"",file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						# barplots
+						barplot(
+							height=data[d,],
+							names.arg=1:ncol(data),
+							xlab=xl, ylab=yl, main=paste0(ml,")"),
+							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+							col=pal[d],
+							space=0
+						)
+						dev.off()
+					}
+				}
+			}
+
+			# distribution of scenes by character attribute
+			vals <- table(char.stats[char.idx,COL_SCENES],char.stats[char.idx,atts[a]])
+			vals <- cbind(as.integer(rownames(vals)), as.data.frame.matrix(vals, stringsAsFactors=FALSE, check.names=FALSE))
+			rownames(vals) <- NULL
+			colnames(vals)[1] <- COL_SCENES
+			# all values at once
+			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_scenes.by.char"), att=atts[a])
+			tlog(5,"Distribution of scene numbers by attribute: producing files \"",file,"\"")
+			write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			#
+			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			rownames(data) <- colnames(vals)[2:ncol(vals)]
+			data[,vals[,1]] <- t(vals[,-1])
+			#
+			ml <- paste0("Scene number distribution over ",filt.txt," characters")
+			xl <- paste0("Number of scenes by ",filt.txt," character")
+			yl <- "Frequency"
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data,
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal,
+						space=0,
+						args.legend=list(x="topright"),
+						legend.text=rownames(data)
+					)
+				dev.off()
+			}
+			# each value separately
+			for(d in 1:nrow(data))
+			{	val <- rownames(data)[d]
+				file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_scenes.by.char"), att=atts[a], val=val)
+				tlog(5,"Distribution of scene numbers by attribute value: producing files \"",file,"\"")
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data[d,],
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal[d],
+						space=0
+					)
+					dev.off()
+				}
+			}
+			
+			# distribution of pages by character attribute
+			vals <- table(char.stats[char.idx,COL_PAGES],char.stats[char.idx,atts[a]])
+			vals <- cbind(as.integer(rownames(vals)), as.data.frame.matrix(vals, stringsAsFactors=FALSE, check.names=FALSE))
+			rownames(vals) <- NULL
+			colnames(vals)[1] <- COL_PAGES
+			# all values at once
+			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_pages.by.char"), att=atts[a])
+			tlog(5,"Distribution of page numbers by attribute: producing files \"",file,"\"")
+			write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			#
+			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			rownames(data) <- colnames(vals)[2:ncol(vals)]
+			data[,vals[,1]] <- t(vals[,-1])
+			#
+			ml <- paste0("Page number distribution over ",filt.txt," characters")
+			xl <- paste0("Number of pages by ",filt.txt," character")
+			yl <- "Frequency"
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data,
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal,
+						space=0,
+						args.legend=list(x="topright"),
+						legend.text=rownames(data)
+					)
+				dev.off()
+			}
+			# each value separately
+			for(d in 1:nrow(data))
+			{	val <- rownames(data)[d]
+				file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_pages.by.char"), att=atts[a], val=val)
+				tlog(5,"Distribution of page numbers by attribute value: producing files \"",file,"\"")
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data[d,],
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal[d],
+						space=0
+					)
+					dev.off()
+				}
+			}
+			
+			# distribution of panels by character attribute
+			vals <- table(char.stats[char.idx,COL_PANELS],char.stats[char.idx,atts[a]])
+			vals <- cbind(as.integer(rownames(vals)), as.data.frame.matrix(vals, stringsAsFactors=FALSE, check.names=FALSE))
+			rownames(vals) <- NULL
+			colnames(vals)[1] <- COL_PANELS
+			# all values at once
+			file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_panels.by.char"), att=atts[a])
+			tlog(5,"Distribution of panel numbers by attribute: producing files \"",file,"\"")
+			write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			#
+			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			rownames(data) <- colnames(vals)[2:ncol(vals)]
+			data[,vals[,1]] <- t(vals[,-1])
+			#
+			ml <- paste0("Panel number distribution over ",filt.txt," characters")
+			xl <- paste0("Number of panels by ",filt.txt," character")
+			yl <- "Frequency"
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data,
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal,
+						space=0,
+						args.legend=list(x="topright"),
+						legend.text=rownames(data)
+					)
+				dev.off()
+			}
+			# each value separately
+			for(d in 1:nrow(data))
+			{	val <- rownames(data)[d]
+				file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc=paste0("distrib_panels.by.char"), att=atts[a], val=val)
+				tlog(5,"Distribution of panel numbers by attribute value: producing files \"",file,"\"")
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					# barplots
+					barplot(
+						height=data[d,],
+						names.arg=1:ncol(data),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
+						col=pal[d],
+						space=0
+					)
+					dev.off()
+				}
+			}
 		}
 	}
 }
@@ -1069,11 +1394,9 @@ plot.stats.volume <- function(
 	# preparation
 	if(!is.na(cur.arc))
 	{	tlog(3,"Computing volume stats (cur.arc=",cur.arc,")")
-		volume.idx <- which(volume.stats[,COL_ARC_ID]==cur.arc)		
 	}
 	else
 	{	tlog(3,"Computing volume stats (whole series)")
-		volume.idx <- volume.stats[,COL_VOLUME_ID]
 	}
 	
 	# volumes
@@ -1092,7 +1415,7 @@ plot.stats.volume <- function(
 	if(is.na(cur.arc))
 	{	tlog(4,"Processing each volume separately")
 		for(v in 1:volume.nbr)
-		{	vname <- volume.stats[v,COL_VOLUME]
+		{	vname <- paste0(v,"_",volume.stats[v,COL_VOLUME])
 			tlog(5,"Processing volume ",vname," (",v,"/",nrow(volume.stats),")")
 			
 			vol.panel.stats <- volume.stats.indiv[[v]]$vol.panel.stats
@@ -1110,7 +1433,7 @@ plot.stats.volume <- function(
 			plot.stats.char(char.stats=vol.char.stats, volume.stats=volume.stats, cur.vol=v)
 			
 			# density plot: chars vs. panels (by scene)
-			file <- get.path.stat.corpus(vol=vname, desc="comparison_chars-scenes_vs_panels-scenes")
+			file <- get.path.stat.corpus(vol=vname, desc="distrib_chars.by.scene_vs_panels.by.scene")
 			tlog(6,"Distribution of characters by scene vs. panels by scene: producing files \"",file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -1138,14 +1461,14 @@ plot.stats.volume <- function(
 	}
 	
 	# distributions of panel numbers
-	vals <- table(volume.stats[volume.idx,COL_PANELS])
+	vals <- table(volume.stats[,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_VOLUMES,"Proportion")
-	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_panels.by.volume")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- volume.stats[volume.idx,COL_PANELS]
+	data <- volume.stats[,COL_PANELS]
 	ml <- "Panel number distribution over volumes"
 	xl <- "Number of panels by volume"
 	for(fformat in PLOT_FORMAT)
@@ -1178,20 +1501,20 @@ plot.stats.volume <- function(
 		dev.off()
 	}
 	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
 
 	# distributions of character numbers (overall)
-	vals <- table(volume.stats[volume.idx,COL_CHARS])
+	vals <- table(volume.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_VOLUMES, "Proportion")
-	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_chars.by.volume")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- volume.stats[volume.idx,COL_CHARS]
+	data <- volume.stats[,COL_CHARS]
 	ml <- "Character number distribution over volumes"
 	xl <- "Number of characters by volume"
 	for(fformat in PLOT_FORMAT)
@@ -1223,14 +1546,14 @@ plot.stats.volume <- function(
 	}
 	
 	# distributions of page numbers
-	vals <- table(volume.stats[volume.idx,COL_PAGES])
+	vals <- table(volume.stats[,COL_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PAGES, COL_VOLUMES,"Proportion")
-	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_pages.by.volume")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- volume.stats[volume.idx,COL_PAGES]
+	data <- volume.stats[,COL_PAGES]
 	ml <- "Page number distribution over volumes"
 	xl <- "Number of pages by volume"
 	for(fformat in PLOT_FORMAT)
@@ -1267,14 +1590,14 @@ plot.stats.volume <- function(
 #	}
 	
 	# distributions of scene numbers
-	vals <- table(volume.stats[volume.idx,COL_SCENES])
+	vals <- table(volume.stats[,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_VOLUMES,"Proportion")
-	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_scenes.by.volume")
 	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
-	data <- volume.stats[volume.idx,COL_SCENES]
+	data <- volume.stats[,COL_SCENES]
 	ml <- "Scene number distribution over volumes"
 	xl <- "Number of scenes by volume"
 	for(fformat in PLOT_FORMAT)
@@ -1323,20 +1646,20 @@ plot.stats.volume <- function(
 		"total number of scenes", "average number of scenes by page", "average number of scenes by character", 
 		"total number of panels", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
 		"total number of characters", "average number of characters by page", "average number of characters by scene", "average number of characters by panel",
-		"correlation between the numbers of characters and panels by scene", "correlation between the numbers of scenes and panels by character"
+		"correlation between the numbers of characters and panels, by scene", "correlation between the numbers of scenes and panels, by character"
 	)
 	vol.fnames <- c(
-		"num_pages", "num_pages_by_scene", "num_pages_by_char",
-		"num_scenes", "num_scenes_by_page", "num_scenes_by_char",
-		"num_panels", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
-		"num_chars", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel",
-		"corr_chars_panels_by_scene", "corr_scenes_panels_by_char"
+		"pages", "pages.by.scene", "pages.by.char",
+		"scenes", "scenes.by.page", "scenes.by.char",
+		"panels", "panels.by.page", "panels.by.scene", "panels.by.char", 
+		"chars", "chars.by.page", "chars.by.scene", "chars.by.panel",
+		"corr_chars.by.scene_panels.by.scene", "corr_scenes.by.char_panels.by.char"
 	)
 	tlog(4,"Generating the evolution plots")
 	for(v in 1:length(vol.cols))
 	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
-		file <- get.path.stat.corpus(object=object, arc=cur.arc, desc=vol.fnames[v])
+		file <- get.path.stat.corpus(object=object, subfold="evolution", arc=cur.arc, desc=vol.fnames[v])
 		tlog(4,"Producing files \"",file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -1344,8 +1667,8 @@ plot.stats.volume <- function(
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 				barplot(
-					height=volume.stats[volume.idx,vol.cols[v]],
-					names.arg=volume.stats[volume.idx,COL_VOLUME],
+					height=volume.stats[,vol.cols[v]],
+					names.arg=volume.stats[,COL_VOLUME],
 					main=paste0("Evolution of the ",vol.titles[v]),
 					col=col
 				)
@@ -1360,41 +1683,44 @@ plot.stats.volume <- function(
 	{	# distribution of character numbers (by attribute)
 		for(att in atts)
 		{	tlog(4,"Computing attribute \"",att,"\"")
-			data <- volume.stats.atts[[att]][volume.idx,-1]
+			data <- volume.stats.atts[[att]][,-1]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
 				pal <- get.palette(ncol(data))
 			else
 				pal <- pal[colnames(data)]
 			
-			# plot for each arc
-			for(v in 1:arc.nbr)
-			{	# attribute distribution over the characters
-				vals <- data[v,]
-				perc <- vals/sum(vals)*100
-				df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
-				colnames(df) <- c(att,"Frequency","Proportion")
-				file <- get.path.stat.corpus(desc="char_attr_distrib", vol=v, att=att)
-				tlog(4,"Producing files \"",file,"\"")
-				write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-				#
-				for(fformat in PLOT_FORMAT)
-				{	if(fformat==PLOT_FORMAT_PDF)
-						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-					else if(fformat==PLOT_FORMAT_PNG)
-						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					barplot(
-						height=perc,
-						main=paste0("Distribution of character attribute ",att," (%)"),
-						col=pal
-					)
-					dev.off()
+			# plot for each volume
+			if(is.na(cur.arc))
+			{	for(v in 1:volume.nbr)
+				{	vname <- paste0(v,"_",volume.stats[v,COL_VOLUME])
+					# attribute distribution over the characters
+					vals <- data[v,]
+					perc <- vals/sum(vals)*100
+					df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
+					colnames(df) <- c(att,"Frequency","Proportion")
+					file <- get.path.stat.corpus(desc="attr.distrib", vol=vname, att=att)
+					tlog(4,"Producing files \"",file,"\"")
+					write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+					#
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						barplot(
+							height=perc,
+							main=paste0("Distribution of character attribute ",att," (%)"),
+							col=pal
+						)
+						dev.off()
+					}
+					
+					# others?
 				}
-				
-				# others?
 			}
 			
-			file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_chars.by.volume", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over volumes (att=",att)
 			xl <- "Number of characters by volume"
@@ -1417,22 +1743,21 @@ plot.stats.volume <- function(
 					barplot(
 						height=t(vals),
 						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl,
-						ylab=yl,
-						main=paste0(ml,")"),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal,
-						space=0,
-						args.legend = list(x = "topright"),
+						#space=0,
+						args.legend=list(x="topright"),
 						legend.text=colnames(data)
 					)
 				dev.off()
 			}
 			# separate plot for each value
 			for(d in 2:ncol(volume.stats.atts[[att]]))
-			{	data <- volume.stats.atts[[att]][volume.idx,d]
+			{	data <- volume.stats.atts[[att]][,d]
 				if(any(data!=0))
 				{	val <- colnames(volume.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="volumes_distrib_char_nbr", att=att, val=colnames(volume.stats.atts[[att]])[d])
+					file <- get.path.stat.corpus(object=object, arc=cur.arc, desc="distrib_chars.by.volume", att=att, val=colnames(volume.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -1522,7 +1847,7 @@ plot.stats.arc <- function(
 		plot.stats.volume(panel.stats=arc.panel.stats, panel.stats.atts=arc.panel.stats.atts, page.stats=arc.page.stats, page.stats.atts=arc.page.stats.atts, scene.stats=arc.scene.stats, scene.stats.atts=arc.scene.stats.atts, char.stats=arc.char.stats, char.stats.atts=arc.char.stats.atts, volume.stats=arc.volume.stats, volume.stats.atts=arc.volume.stats.atts, cur.arc=a)
 		
 		# density plot: chars vs. panels (by scene)
-		file <- get.path.stat.corpus(arc=a, desc="comparison_chars-scenes_vs_panels-scenes")
+		file <- get.path.stat.corpus(arc=a, desc="distrib_chars.by.scene_vs_panels.by.scene")
 		tlog(6,"Distribution of characters by scene vs. panels by scene: producing files \"",file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -1552,7 +1877,7 @@ plot.stats.arc <- function(
 	vals <- table(arc.stats[arc.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PANELS, COL_ARCS,"Proportion")
-	file <- get.path.stat.corpus(object=object, desc="arcs_distrib_panel_nbr")
+	file <- get.path.stat.corpus(object=object, desc="distrib_panel.by.arc")
 	tlog(4,"Distribution of panel numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -1598,7 +1923,7 @@ plot.stats.arc <- function(
 	vals <- table(arc.stats[arc.idx,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_CHARS, COL_ARCS, "Proportion")
-	file <- get.path.stat.corpus(object=object, desc="arcs_distrib_char_nbr")
+	file <- get.path.stat.corpus(object=object, desc="distrib_chars.by.arc")
 	tlog(4,"Distribution of character numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -1637,7 +1962,7 @@ plot.stats.arc <- function(
 	vals <- table(arc.stats[arc.idx,COL_PAGES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_PAGES, COL_ARCS,"Proportion")
-	file <- get.path.stat.corpus(object=object, desc="arcs_distrib_page_nbr")
+	file <- get.path.stat.corpus(object=object, desc="distrib_pages.by.arc")
 	tlog(4,"Distribution of page numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -1681,7 +2006,7 @@ plot.stats.arc <- function(
 	vals <- table(arc.stats[arc.idx,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
 	colnames(vals) <- c(COL_SCENES, COL_ARCS,"Proportion")
-	file <- get.path.stat.corpus(object=object, desc="arcs_distrib_scene_nbr")
+	file <- get.path.stat.corpus(object=object, desc="distrib_scenes.by.arc")
 	tlog(4,"Distribution of scene numbers: producing files \"",file,"\"")
 	write.csv(x=vals, paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	#
@@ -1736,21 +2061,21 @@ plot.stats.arc <- function(
 		"total number of scenes", "average number of scenes by volume", "average number of scenes by page", "average number of scenes by character", 
 		"total number of panels", "average number of panels by volume", "average number of panels by page", "average number of panels by scene", "average number of panels by character", 
 		"total number of characters", "average number of characters by volume", "average number of characters by page", "average number of characters by scene", "average number of characters by panel",
-		"correlation between the numbers of characters and panels by scene", "correlation between the numbers of scenes and panels by character"
+		"correlation between the numbers of characters and panels, by scene", "correlation between the numbers of scenes and panels, by character"
 	)
 	arc.fnames <- c(
-		"num_volumes", "num_volumes_by_char",
-		"num_pages", "num_pages_by_volume", "num_pages_by_scene", "num_pages_by_char",
-		"num_scenes", "num_scenes_by_volume", "num_scenes_by_page", "num_scenes_by_char",
-		"num_panels", "num_panels_by_volume", "num_panels_by_page", "num_panels_by_scene", "num_panels_by_char", 
-		"num_chars", "num_chars_by_volume", "num_chars_by_page", "num_chars_by_scene", "num_chars_by_panel",
-		"corr_chars_panels_by_scene", "corr_scenes_panels_by_char"
+		"volumes", "volumes.by.char",
+		"pages", "pages.by.volume", "pages.by.scene", "pages.by.char",
+		"scenes", "scenes.by.volume", "scenes.by.page", "scenes.by.char",
+		"panels", "panels.by.volume", "panels.by.page", "panels.by.scene", "panels.by.char", 
+		"chars", "chars.by.volume", "chars.by.page", "chars.by.scene", "chars.by.panel",
+		"corr_chars.by.scene_panels.by.scene", "corr_scenes.by.char._panels.by.char"
 	)
 	tlog(4,"Generating the plots")
 	for(a in 1:length(arc.cols))
 	{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
 		
-		file <- get.path.stat.corpus(object=object, desc=arc.fnames[a])
+		file <- get.path.stat.corpus(object=object, subfold="evolution", desc=arc.fnames[a])
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
@@ -1808,7 +2133,7 @@ plot.stats.arc <- function(
 			}
 			
 			# plot for the attribute
-			file <- get.path.stat.corpus(object=object, desc="arcs_distrib_char_nbr", att=att)
+			file <- get.path.stat.corpus(object=object, desc="distrib_chars.by.arc", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over arcs (att=",att)
 			xl <- "Number of characters by arc"
@@ -1831,12 +2156,11 @@ plot.stats.arc <- function(
 					barplot(
 						height=t(vals),
 						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl,
-						ylab=yl,
-						main=paste0(ml,")"),
+						xlab=xl, ylab=yl, main=paste0(ml,")"),
+						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal,
-						space=0,
-						args.legend = list(x = "topright"),
+						#space=0,
+						args.legend=list(x="topright"),
 						legend.text=colnames(data)
 					)
 				dev.off()
@@ -1846,7 +2170,7 @@ plot.stats.arc <- function(
 			{	data <- arc.stats.atts[[att]][arc.idx,d]
 				if(any(data!=0))
 				{	val <- colnames(arc.stats.atts[[att]])[d]
-					file <- get.path.stat.corpus(object=object, desc="arcs_distrib_char_nbr", att=att, val=colnames(arc.stats.atts[[att]])[d])
+					file <- get.path.stat.corpus(object=object, desc="distrib_chars.by.arc", att=att, val=colnames(arc.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)

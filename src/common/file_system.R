@@ -374,9 +374,9 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, desc, att=NA, val=NA)
 {	# base folder
 	if(!is.na(vol))
-		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, vol)
+		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, "separate", vol)
 	else if(!is.na(arc))
-		folder <- file.path(STAT_CORPUS_ARCS_FOLDER, arc)
+		folder <- file.path(STAT_CORPUS_ARCS_FOLDER, "separate", arc)
 	else
 		folder <- STAT_CORPUS_FOLDER
 	# possibly add object
