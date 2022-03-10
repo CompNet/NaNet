@@ -87,13 +87,20 @@ Clean code:
 - put no stat from "scene" in "comparison"
 - in the logs, systematically print the filenames of the plots and csv (including post scripts)
 - automate the comparison of node measure vs. node measures (same for edges) (in both directions n1 vs n2 and n2 vs n1)
+
 - not normal to load the graph just to get the filtered characters >> should record them in a separate file
+  - then look for usage and correct old ways
 x merge the info & stats tables (if possible? check that first)
 x record these tables and provide function to read them directly
-- reapply the corpus stats functions for the filtered data (after first net extraction) 
+x reapply the corpus stats functions for the filtered data (after first net extraction)
+  >> TODO: test 
 x allow defining specific colors for attributes (eg sex)
 - define a unique function to plot distributions
   > systematize histo & ccdf?
+- charger les stats au lieu de les recalculer dans post (et ailleurs)
+- "rawvals" supprimé car déjà contenu dans les stats 
+  >> à corriger dans post
 
+TODO: test graph extraction and update of filtered stats
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)

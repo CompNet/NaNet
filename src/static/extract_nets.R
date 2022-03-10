@@ -17,23 +17,19 @@
 # to the whole series, or a specific narrative arc or volume. It can also output
 # a sequence of cumulative graphs (each one corresponding to a scene).
 #
-# arc.stats: table describing all the arcs constituting the BD series.
-# volume.stats: table describing all the volumes constituting the BD series.
-# char.stats: table describing all the characters occurring in the BD series.
-# page.stats: table describing all the pages constituting the BD series.
 # inter.df: dataframe containing the pairwise interactions.
-# stats.scenes: scene statistics, only needed if ret.seq is TRUE.
-# arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
+# char.stats: table describing all the characters occurring in the BD series.
+# volume.stats: table describing all the volumes constituting the BD series.
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
+# arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
 # ret.set: whether to return the full sequence of incremental graphs (longer computation).
-# record: whether to record the produced graph (only if ret.set is FALSE).
 #
 # returns: the corresponding static graph. It contains several edge weights:
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
 #		   If ret.set==TRUE, then the function returns a list of graphs.
 ###############################################################################
-extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, page.stats, inter.df, stats.scenes, arc=NA, vol=NA, ret.seq=FALSE, record=TRUE)
+extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=NA, arc=NA, ret.seq=FALSE)
 {	tlog(2,"Extracting the scene-based static graph")
 	res <- list()
 	vname <- NA
@@ -50,27 +46,11 @@ extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, pag
 	
 	# possibly filter interactions
 	if(!is.na(arc))
-	{	arc.titles <- unique(volume.stats[,COL_ARC])
-		#arc.nbr <- length(arc.titles)
-		idx.vol <- which(volume.stats[,COL_ARC]==arc.titles[arc])
-		idx.pn <- c()
-		for(v in idx.vol)
-		{	idx.pg <- which(page.stats[,COL_VOLUME_ID]==v)
-			start.pn <- page.stats[idx.pg[1],COL_PANEL_START_ID]
-			end.pn <- page.stats[idx.pg[length(idx.pg)],COL_PANEL_START_ID]
-			idx.pn <- c(idx.pn, seq(start.pn, end.pn))
-		}
-		is <- which(inter.df[,COL_PANEL_START_ID] %in% idx.pn)
+	{	is <- which(inter.df[,COL_ARC]==arc)
 	}
 	else if(!is.na(vol))
-	{	vname <- volume.stats[vol,COL_VOLUME]
-		idx.pg <- which(page.stats[,COL_VOLUME_ID]==vol)
-		start.pn <- page.stats[idx.pg[1],COL_PANEL_START_ID]
-		#end.pn <- page.stats[idx.pg[length(idx.pg)]+1,COL_PANEL_START_ID] - 1
-		end.pn <- page.stats[idx.pg[length(idx.pg)],COL_PANEL_START_ID]
-		idx.pn <- seq(start.pn, end.pn)
-		#is <- which(stats.scenes[,COL_VOLUME]==vol)
-		is <- which(inter.df[,COL_PANEL_START_ID] %in% idx.pn)
+	{	vname <- paste0(vol,"_",volume.stats[vol,COL_VOLUME])
+		is <- which(inter.df[,COL_VOLUME_ID]==vol)
 	}
 	else
 	{	# possibly order interactions by story order (not publication order)
@@ -138,14 +118,6 @@ extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, pag
 	# set up result variable
 	if(ret.seq)
 	{	msg <- paste0("returning a series of ",length(res)," graphs")
-		# write to file
-		if(record)
-		{	for(s in 1:length(res))
-			{	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext="_scene.graphml")
-				write_graph(graph=g, file=graph.file, format="graphml")
-				
-			}
-		}
 	}
 	else
 	{	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
@@ -153,11 +125,6 @@ extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, pag
 		
 		# init the graph
 		g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
-		# write to file
-		if(record)
-		{	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, ext=".graphml")
-			write_graph(graph=g, file=graph.file, format="graphml")
-		}
 		#plot(g, layout=layout_with_fr(g))
 		res <- g
 		msg <- "returning a single graph"
@@ -171,11 +138,81 @@ extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, pag
 
 
 ###############################################################################
+# Receives the unfiltered static graph and extract the filtered version. Records
+# the list of filtered characters in a separate file.
+#
+# g: unfiltered static graph.
+# char.stats: table containing the character statistics.
+# volume.stats: table containing the volume statistics.
+#
+# returns: list containing the updated graphs and stats.
+###############################################################################
+extract.static.graph.filtered <- function(g, char.stats, volume.stats)
+{	tlog(1,"Filtering extras from the graph")
+	
+	tlog(2,"Counts for criteria deg>1 vs. freq>3")
+	tt <- table(degree(g)>1, V(g)$Frequency>3)
+	print(rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt))))
+	
+	# filtering by freq and occ
+	crit <- degree(g)<=1 | V(g)$Frequency<=3
+	idx.remove <- which(crit)
+	idx.keep <- which(!crit)
+	g.filtr <- delete_vertices(graph=g, v=idx.remove)
+	tlog(2,"Named characters among those meeting the criteria: ",length(which(V(g.filtr)$Named)))
+	
+	# keeping the giant comp
+	tlog(2,"Component sizes in the network of characters meeting the criteria: ",paste(components(graph=g.filtr, mode="weak")$csize,collapse=", "))
+	tmp <- get.largest.component(g.filtr, indices=TRUE)
+	idx.cmp <- idx.keep[tmp$indices]
+	g.cmp <- tmp$comp
+	
+	# write to file
+	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=".graphml")
+	tlog(4,"Recording filtered graph in \"",graph.file,"\"")
+	write_graph(graph=g.cmp, file=graph.file, format="graphml")
+	
+	# update graph file
+	V(g)$Filtered <- rep(TRUE,gorder(g))
+	V(g)$Filtered[idx.cmp] <- FALSE
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
+	write_graph(graph=g, file=graph.file, format="graphml")
+	
+	# add col to char stats table
+	char.stats <- data$char.stats
+	char.stats <- cbind(char.stats, V(g)$Filtered)
+	colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
+	data$char.stats <- char.stats
+	
+	# update file
+	file <- get.path.stat.corpus(object="characters",subfold="unfiltered",desc="_char_stats")
+	tlog(4,"Writing character stats \"",file,"\"")
+	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
+	
+	# plot corpus stats for filtered chars
+	plot.stats.char(
+		char.stats=char.stats, 
+		volume.stats=volume.stats, 
+		cur.vol=NA, cur.arc=NA,
+		filtered=TRUE
+	)
+	
+	res <- list(
+		g=g, g.filt=g.cmp,
+		char.stats=char.stats
+	)
+	return(res)
+}
+
+
+
+###############################################################################
 # Extracts a static graph based on a list of pairwise interactions, using the
 # specified window size and overlap, both expressed in number of panels.
 #
-# char.stats: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions.
+# char.stats: table describing all the characters occurring in the BD series.
 # window.size: size of the time window (expressed in panels).
 # overlap: how much consecutive windows overlap (expressed in panels). Must be strictly
 #          smaller than window.size.
@@ -183,7 +220,7 @@ extract.static.graph.scenes <- function(arc.stats, volume.stats, char.stats, pag
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.panel.window <- function(char.stats, inter.df, window.size=10, overlap=2)
+extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=10, overlap=2)
 {	tlog(2,"Extracting the panel window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
@@ -268,7 +305,7 @@ extract.static.graph.panel.window <- function(char.stats, inter.df, window.size=
 # returns: the corresponding static graph, whose edge weights correspond to the
 #		   number of co-occurrences between the concerned nodes.
 ###############################################################################
-extract.static.graph.page.window <- function(char.stats, inter.df, page.stats, window.size=2, overlap=1)
+extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, window.size=2, overlap=1)
 {	tlog(2,"Extracting the page window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
 	
 	# check the overlap parameter
@@ -356,77 +393,84 @@ extract.static.graph.page.window <- function(char.stats, inter.df, page.stats, w
 ###############################################################################
 extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 {	tlog(1,"Extracting static graphs")
+	inter.df <- data$inter.df
+	page.stats <- data$page.stats
+	char.stats <- data$char.stats
+	volume.stats <- data$volume.stats
+	
 	# extract the full scene-based static graph
 	g <- extract.static.graph.scenes(
-			volume.stats=data$volume.stats, char.stats=data$char.stats, 
-			page.stats=data$page.stats, inter.df=data$inter.df)
+		inter.df=inter.df,
+		char.stats=char.stats,
+		volume.stats=volume.stats
+	)
+	# record to file
+	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	tlog(2,"Record to file \"",graph.file,"\"")
+	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	# extract the filtered version
-	tlog(1,"Filtering extras from the graph")
-	tlog(2,"Counts for criteria deg>1 vs. freq>3")
-	tt <- table(degree(g)>1, V(g)$Frequency>3)
-	print(rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt))))
-	# filtering by freq and occ
-	crit <- degree(g)<=1 | V(g)$Frequency<=3
-	idx.remove <- which(crit)
-	idx.keep <- which(!crit)
-	g.filtr <- delete_vertices(graph=g, v=idx.remove)
-	tlog(2,"Named characters among those meeting the criteria: ",length(which(V(g.filtr)$Named)))
-	# keeping the giant comp
-	tlog(2,"Component sizes in the network of characters meeting the criteria: ",paste(components(graph=g.filtr, mode="weak")$csize,collapse=", "))
-	tmp <- get.largest.component(g.filtr, indices=TRUE)
-	idx.cmp <- idx.keep[tmp$indices]
-	g.cmp <- tmp$comp
-	# write to file
-	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=".graphml")
-	write_graph(graph=g.cmp, file=graph.file, format="graphml")
-	# update main file
-	V(g)$Filtered <- rep(TRUE,gorder(g))
-	V(g)$Filtered[idx.cmp] <- FALSE
-	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-	write_graph(graph=g, file=graph.file, format="graphml")
-	# add col to char info
-	char.stats <- data$char.stats
-	char.stats <- cbind(char.stats, V(g)$Filtered)
-	colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
+	tmp <- extract.static.graph.filtered(
+		g=g, 
+		char.stats=char.stats, 
+		volume.stats=volume.stats
+	)
+	g <- tmp$g
+	g.filt <- tmp$g.filt
+	char.stats <- tmp$char.stats
 	data$char.stats <- char.stats
 	
 	# extract the graph of each specific narrative arc
-	arc.titles <- unique(data$volume.stats[,COL_ARC])
+	arc.titles <- unique(volume.stats[,COL_ARC])
 	arc.nbr <- length(arc.titles)
 	for(a in 1:arc.nbr)
 	{	tlog(2,"Extracting graph for narrative arc ",a,"/",arc.nbr)
 		
 		# extract the unfiltered scene-based static graph for the arc
 		g <- extract.static.graph.scenes(
-				volume.stats=data$volume.stats, char.stats=data$char.stats, 
-				page.stats=data$page.stats, inter.df=data$inter.df,
-				arc=a)
+			inter.df=inter.df,
+			char.stats=char.stats, 
+			volume.stats=volume.stats, 
+			arc=a
+		)
+		# record to file
+		graph.file <- get.path.graph.file(mode="scenes", arc=a,  ext=".graphml")
+		tlog(2,"Record to file \"",graph.file,"\"")
+		write_graph(graph=g, file=graph.file, format="graphml")
 		
 		# extract the filtered version
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
 		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE, ext=".graphml")
+		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	
 	# extract the graph of each volume
-	volume.nbr <- nrow(data$volume.stats)
+	volume.nbr <- nrow(volume.stats)
 	for(v in 1:volume.nbr)
-	{	tlog(2,"Extracting graph for volume id ",v,"/",nrow(data$volume.stats))
+	{	tlog(2,"Extracting graph for volume id ",v,"/",volume.nbr)
+		vname <- paste0(v,"_",volume.stats[v,COL_VOLUME])
 		
 		# extract the unfiltered scene-based static graph for the volume
 		g <- extract.static.graph.scenes(
-				volume.stats=data$volume.stats, char.stats=data$char.stats, 
-				page.stats=data$page.stats, inter.df=data$inter.df,
-				vol=v)
+			inter.df=data$inter.df,
+			char.stats=char.stats, 
+			volume.stats=volume.stats, 
+			vol=v
+		)
+		# record to file
+		graph.file <- get.path.graph.file(mode="scenes", vol=vname, ext=".graphml")
+		tlog(2,"Record to file \"",graph.file,"\"")
+		write_graph(graph=g, file=graph.file, format="graphml")
 		
 		# extract the filtered version
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=data$volume.stats[v,COL_VOLUME], filtered=TRUE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=TRUE, ext=".graphml")
+		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
 	
@@ -436,7 +480,8 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 #	{	window.size <- panel.window.sizes[i]
 #		for(overlap in panel.overlaps[[i]])
 #			g <- extract.static.graph.panel.window(
-#					char.stats=data$char.stats, inter.df=data$inter.df, 
+#					inter.df=inter.df, 
+#					char.stats=char.stats, 
 #					window.size=window.size, overlap=overlap)
 #	})
 #	
@@ -446,7 +491,9 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 #	{	window.size <- page.window.sizes[i]
 #		for(overlap in page.overlaps[[i]])
 #			g <- extract.static.graph.page.window(
-#					char.stats=data$char.stats, inter.df=data$inter.df, page.stats=data$page.stats, 
+#					inter.df=data$inter.df, 
+#					char.stats=data$char.stats, 
+#					page.stats=data$page.stats, 
 #					window.size=window.size, overlap=overlap)
 #	})
 	

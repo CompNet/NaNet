@@ -33,8 +33,7 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute split scene
 split.vol <- "23"	# The Cage
-idx <- which(data$stats.scenes[,COL_VOLUME]==split.vol)[1]
-idx <- which(data$inter.df[,"SceneId"]==idx)[1]
+idx <- min(which(data$inter.df[,COL_VOLUME]==split.vol))
 
 # init graph list
 gs <- list()
@@ -42,12 +41,20 @@ gs <- list()
 # extract first network
 tlog(0,"Extract first network")
 idx1 <- 1:(idx-1)
-gs[[1]] <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df[idx1,], stats.scenes=data$stats.scenes[idx1,])
+gs[[1]] <- extract.static.graph.scenes(
+	inter.df=data$inter.df[idx1,], 
+	char.stats=data$char.stats,
+	volume.stats=data$volume.stats
+)
 
 # extract second network
 tlog(0,"Extract second network")
 idx2 <- idx:nrow(data$inter.df)
-gs[[2]] <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df[idx2,], stats.scenes=data$stats.scenes[idx2,])
+gs[[2]] <- extract.static.graph.scenes(
+	inter.df=data$inter.df[idx2,], 
+	char.stats=data$char.stats, 
+	volume.stats=data$volume.stats 
+)
 
 
 

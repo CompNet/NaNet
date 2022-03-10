@@ -2390,15 +2390,6 @@ plot.corpus.stats <- function(data)
 		cur.vol=NA, cur.arc=NA,
 		filtered=FALSE
 	)
-#	# possibly process filtered characters (just for plots) >> TODO do that later (after net extraction)
-#	if(COL_FILTERED %in% colnames(char.stats))
-#	{	plot.stats.char(
-#			char.stats=char.stats, 
-#			volume.stats=volume.stats, 
-#			cur.vol=NA, cur.arc=NA,
-#			filtered=TRUE
-#		)
-#	}
 	
 	# plot volume stats
 	plot.stats.volume(

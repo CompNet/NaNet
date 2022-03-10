@@ -58,7 +58,6 @@ colnames(est.tab) <- volumes
 rownames(est.tab) <- data$char.stats[,COL_NAME_SHORT]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
-	#g <- extract.static.graph.scenes(volume.stats=data$volume.stats, char.stats=data$char.stats, page.stats=data$page.stats, inter.df=data$inter.df, vol=v)
 	graph.file <- get.path.graph.file(mode="scenes", vol=v, ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	
