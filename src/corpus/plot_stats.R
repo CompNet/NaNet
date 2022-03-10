@@ -4,6 +4,7 @@
 # Vincent Labatut
 # 05/2021
 ###############################################################################
+DO_STAT_TESTS <- FALSE	# much slower
 
 
 
@@ -544,7 +545,7 @@ plot.stats.scene <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -627,7 +628,7 @@ plot.stats.scene <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -833,7 +834,7 @@ plot.stats.char <- function(
 					dev.off()
 			}
 			# check distribution
-			if(length(unique(data))>1 && is.na(cur.arc))
+			if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 			{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 				write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 			}
@@ -879,7 +880,7 @@ plot.stats.char <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -922,7 +923,7 @@ plot.stats.char <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -966,7 +967,7 @@ plot.stats.char <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -1106,7 +1107,7 @@ plot.stats.volume <- function(
 			plot.stats.panel(panel.stats=vol.panel.stats, panel.stats.atts=vol.panel.stats.atts, volume.stats=volume.stats, cur.vol=v)
 			plot.stats.page(page.stats=vol.page.stats, page.stats.atts=vol.page.stats.atts, volume.stats=volume.stats, cur.vol=v)
 			plot.stats.scene(scene.stats=vol.scene.stats, scene.stats.atts=vol.scene.stats.atts, volume.stats=volume.stats, cur.vol=v)
-			plot.stats.char(char.stats=vol.char.stats, char.stats.atts=vol.char.stats.atts, volume.stats=volume.stats, cur.vol=v)
+			plot.stats.char(char.stats=vol.char.stats, volume.stats=volume.stats, cur.vol=v)
 			
 			# density plot: chars vs. panels (by scene)
 			file <- get.path.stat.corpus(vol=vname, desc="comparison_chars-scenes_vs_panels-scenes")
@@ -1177,7 +1178,7 @@ plot.stats.volume <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -1260,7 +1261,7 @@ plot.stats.volume <- function(
 		dev.off()
 	}
 #	# check distribution
-#	if(length(unique(data))>1 && is.na(cur.arc))
+#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 #	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 #		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 #	}
@@ -1304,7 +1305,7 @@ plot.stats.volume <- function(
 		dev.off()
 	}
 	# check distribution
-#	if(length(unique(data))>1 && is.na(cur.arc))
+#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 #	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 #		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 #	}
@@ -1588,7 +1589,7 @@ plot.stats.arc <- function(
 		dev.off()
 	}
 	# check distribution
-	if(length(unique(data))>1 && is.na(cur.arc))
+	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 	}
@@ -1671,7 +1672,7 @@ plot.stats.arc <- function(
 		dev.off()
 	}
 #	# check distribution
-#	if(length(unique(data))>1 && is.na(cur.arc))
+#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 #	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 #		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 #	}
@@ -1715,7 +1716,7 @@ plot.stats.arc <- function(
 		dev.off()
 	}
 	# check distribution
-#	if(length(unique(data))>1 && is.na(cur.arc))
+#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
 #	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
 #		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
 #	}
@@ -2024,8 +2025,8 @@ plot.stats <- function(data)
 	page.chars <- data$page.chars
 	# scenes
 	scene.stats <- data$scene.stats
-	scene.chars <- data$scene.chars
 	scene.stats.atts <- data$scene.stats.atts
+	scene.chars <- data$scene.chars
 	# chars
 	char.stats <- data$char.stats
 	# volumes

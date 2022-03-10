@@ -56,7 +56,7 @@ compute.stats.panel <- function(
 		# record chars
 		tab <- cbind(
 			1:nrow(panel.stats),
-			sapply(panel.chars, function(chars) paste(chars,collapse="\t"))
+			sapply(panel.chars[panel.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
 		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_chars")
@@ -161,7 +161,7 @@ compute.stats.page <- function(
 		# record chars
 		tab <- cbind(
 			1:nrow(page.stats),
-			sapply(page.chars, function(chars) paste(chars,collapse="\t"))
+			sapply(page.chars[page.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
 		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_chars")
@@ -265,7 +265,7 @@ compute.stats.scene <- function(
 		# record chars
 		tab <- cbind(
 			1:nrow(scene.stats),
-			sapply(scene.chars, function(chars) paste(chars,collapse="\t"))
+			sapply(scene.chars[scene.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
 		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_chars")
