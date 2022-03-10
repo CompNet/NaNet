@@ -65,9 +65,11 @@ data <- read.raw.data()
 # OR, if already computed, read from file
 #data <- read.corpus.data()
 
-# compute and plot corpus stats
-data <- compute.stats(data)
-	
+# compute corpus stats
+data <- compute.corpus.stats(data)
+# plot corpus stats
+data <- plot.corpus.stats(data)
+
 
 
 

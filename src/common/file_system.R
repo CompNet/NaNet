@@ -387,7 +387,8 @@ get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, desc, at
 		folder <- file.path(folder, subfold)
 	# possibly add attribute name
 	if(!is.na(att))
-		folder <- file.path(folder,paste0("attribute=",att))
+		folder <- file.path(folder,"attributes",att)
+#		folder <- file.path(folder,paste0("attribute=",att))
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	

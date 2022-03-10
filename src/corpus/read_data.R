@@ -696,7 +696,7 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 {	tlog(2,"Writing statistics and character lists")
 	
 	# interactions
-	file <- get.path.stat.corpus(desc="interactions")
+	file <- get.path.stat.corpus(desc="_interactions")
 	tlog(4,"Writing interaction file \"",file,"\"")
 	write.csv(x=inter.df, file=paste0(file,".csv"), row.names=FALSE)
 	
@@ -824,7 +824,7 @@ read.corpus.data <- function()
 {	tlog(2,"Reading statistics and character lists")
 	
 	# interactions
-	file <- get.path.stat.corpus(desc="interactions")
+	file <- get.path.stat.corpus(desc="_interactions")
 	tlog(2,"Reading interaction file \"",file,"\"")
 	inter.df <- read.csv(file=paste0(file,".csv"))
 	for(col in c(COL_CHAR_FROM, COL_CHAR_TO))

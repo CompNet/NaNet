@@ -26,21 +26,21 @@ compute.stats.panel <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind panel stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent panel stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the panels of the current volume
 		panel.idx <- which(panel.stats[,COL_VOLUME_ID]==cur.vol)
-		panel.stats <- panel.stats[panel.idx,]
+		panel.stats <- panel.stats[panel.idx,,drop=F]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the panels of the current arc
 		panel.idx <- which(panel.stats[,COL_ARC_ID]==cur.arc)
-		panel.stats <- panel.stats[panel.idx,]
+		panel.stats <- panel.stats[panel.idx,,drop=F]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -126,21 +126,21 @@ compute.stats.page <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind page stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent page stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the pages of the current volume
 		page.idx <- which(page.stats[,COL_VOLUME_ID]==cur.vol)
-		page.stats <- page.stats[page.idx,]
+		page.stats <- page.stats[page.idx,,drop=F]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the pages of the current arc
 		page.idx <- which(page.stats[,COL_ARC_ID]==cur.arc)
-		page.stats <- page.stats[page.idx,]
+		page.stats <- page.stats[page.idx,,drop=F]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -225,21 +225,21 @@ compute.stats.scene <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind scene stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent scene stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the scenes of the current volume
 		scene.idx <- which(scene.stats[,COL_VOLUME_ID]==cur.vol)
-		scene.stats <- scene.stats[scene.idx,]
+		scene.stats <- scene.stats[scene.idx,,drop=F]
 	}
 	# specific arc
 	else if(!is.na(cur.arc))
 	{	vname <- NA
 		# keep only the scenes of the current arc
 		scene.idx <- which(scene.stats[,COL_ARC_ID]==cur.arc)
-		scene.stats <- scene.stats[scene.idx,]
+		scene.stats <- scene.stats[scene.idx,,drop=F]
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
@@ -328,14 +328,14 @@ compute.stats.char <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind character stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent character stats")
 	# specific volume
 	if(!is.na(cur.vol))
 	{	vname <- paste0(cur.vol,"_",volume.stats[cur.vol,COL_VOLUME])
 		# keep only the characters of the current volume
 		char.idx <- match(volume.chars[[cur.vol]],char.stats[,COL_NAME])
-		char.stats <- char.stats[char.idx,]
+		char.stats <- char.stats[char.idx,,drop=F]
 		# update stats
 		tt <- table(unlist(panel.chars[which(panel.stats[,COL_VOLUME_ID]==cur.vol)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PANELS] <- tt
 		tt <- table(unlist(page.chars[which(page.stats[,COL_VOLUME_ID]==cur.vol)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PAGES] <- tt
@@ -348,7 +348,7 @@ compute.stats.char <- function(
 	{	vname <- NA
 		# keep only the characters of the current arc
 		char.idx <- match(arc.chars[[cur.arc]],char.stats[,COL_NAME])
-		char.stats <- char.stats[char.idx,]
+		char.stats <- char.stats[char.idx,,drop=F]
 		# update stats
 		tt <- table(unlist(panel.chars[which(panel.stats[,COL_ARC_ID]==cur.arc)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PANELS] <- tt
 		tt <- table(unlist(page.chars[which(page.stats[,COL_ARC_ID]==cur.arc)])); char.stats[match(names(tt),char.stats[,COL_NAME]),COL_PAGES] <- tt
@@ -409,8 +409,8 @@ compute.stats.volume <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind volume stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent volume stats")
 	
 	# complete volume stats table
 	df <- data.frame(
@@ -552,7 +552,7 @@ compute.stats.arc <- function(
 		page.stats, page.chars, 
 		scene.stats, scene.chars, 
 		char.stats, 
-		volume.stats, volume.chars, 
+		volume.stats, volume.stats.atts, volume.chars, 
 		arc.stats, arc.chars)
 {	object <- "arcs"
 	
@@ -563,14 +563,14 @@ compute.stats.arc <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(4,"Computing attribute-blind arc stats")
+	# attribute-independent stats
+	tlog(4,"Computing attribute-independent arc stats")
 	
 	# complete arc stats table
 	df <- data.frame(
 		numeric(arc.nbr), 
 		numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
-		numeric(arc.nbr), numeric(arc.nbr), 
+		numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
 		numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
 		numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), numeric(arc.nbr), 
 		numeric(arc.nbr), numeric(arc.nbr), 
@@ -618,16 +618,17 @@ compute.stats.arc <- function(
 #		arc.volume.chars <- tmp$volume.chars
 # we don't need to generate additional files	
 		idx <- which(volume.stats[,COL_ARC_ID]==a)
-		arc.volume.stats <- volume.stats[idx,]
-		arc.volume.stats.atts <- lapply(volume.stats.atts, function(mat) mat[idx,]) 
+		arc.volume.stats <- volume.stats[idx,,drop=F]
+		arc.volume.stats.atts <- lapply(volume.stats.atts, function(mat) mat[idx,,drop=F]) 
 		arc.volume.chars <- volume.chars[idx]
 	
 		# add to result list
-		arc.stats.indiv[[v]] <- list(
+		arc.stats.indiv[[a]] <- list(
 			arc.panel.stats=arc.panel.stats, arc.panel.stats.atts=arc.panel.stats.atts, arc.panel.chars=arc.panel.chars,
 			arc.page.stats=arc.page.stats, arc.page.stats.atts=arc.page.stats.atts, arc.page.chars=arc.page.chars,
 			arc.scene.stats=arc.scene.stats, arc.scene.stats.atts=arc.scene.stats.atts, arc.scene.chars=arc.scene.chars,
-			arc.char.stats=arc.char.stats
+			arc.char.stats=arc.char.stats,
+			arc.volume.stats=arc.volume.stats, arc.volume.stats.atts=arc.volume.stats.atts, arc.volume.chars=arc.volume.chars
 		)
 		
 		# update means in volume stats table
@@ -730,8 +731,8 @@ compute.stats.series <- function(
 	
 	
 	##################
-	# attribute-blind stats
-	tlog(3,"Computing series stats")
+	# attribute-independent stats
+	tlog(3,"Computing attribute-independent series stats")
 	panel.nbr <- nrow(panel.stats)
 	page.nbr <- nrow(page.stats)
 	scene.nbr <- nrow(scene.stats)
@@ -751,7 +752,7 @@ compute.stats.series <- function(
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(series.stats) <- c(
-		COL_ARCS, COL_ARC_BY_CHAR,
+		COL_ARCS, COL_ARCS_BY_CHAR,
 		COL_VOLUMES, COL_VOLUMES_BY_ARC, COL_VOLUMES_BY_CHAR,
 		COL_PAGES, COL_PAGES_BY_ARC, COL_PAGES_BY_VOLUME, COL_PAGES_BY_SCENE, COL_PAGES_BY_CHAR,
 		COL_SCENES, COL_SCENES_BY_ARC, COL_SCENES_BY_VOLUME, COL_SCENES_BY_PAGE, COL_SCENES_BY_CHAR, 
@@ -799,20 +800,46 @@ compute.stats.series <- function(
 	series.stats[1,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(char.stats[,COL_SCENES],char.stats[,COL_PANELS])
 	
 	# record stats
-	file <- get.path.stat.corpus(desc="series")
+	file <- get.path.stat.corpus(desc="_series_stats")
 	tlog(4,"Recording in ",file)
 	write.csv(x=series.stats, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
 	
 	##################
 	# attribute-based stats
-	tlog(4,"Nothing else to compute for the series")
-	#atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
-	#att.nbr <- length(atts)
-	
+	atts <- setdiff(colnames(char.stats), COLS_ATT_IGNORE)
+	att.nbr <- length(atts)
+	series.stats.atts <- list()
+	if(att.nbr==0)
+	{	tlog(4,"No attribute: nothing else to compute")
+	}
+	else
+	{	tlog(4,"Processing attribute-related series stats")
+		
+		# loop over attributes
+		tlog(5,"Loop over attributes")
+		for(a in 1:att.nbr)
+		{	att <- atts[a]
+			tlog(6,"Processing attribute \"",att,"\" (",a,"/",att.nbr,")")
+			
+			# retrieve unique values
+			uniq <- names(table(char.stats[,att]))	#, useNA="always"))
+			# compute distribution for each arc
+			mat <- t(as.matrix(table(factor(char.stats[,att],levels=uniq))))
+			
+			# add matrix to result list
+			series.stats.atts[[att]] <- mat
+			
+#			# record matrix
+#			file <- get.path.stat.corpus(object=object, desc="_series_stats", att=att)
+#			tlog(7,"Creating file \"",file,"\"")
+#			write.csv(x=series.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+# not needed: information already present in the characters folder
+		}
+	}
 	
 	result <- list(
-		series.stats=series.stats
+		series.stats=series.stats, series.stats.atts=series.stats.atts
 	)
 	return(result)
 }
@@ -827,7 +854,7 @@ compute.stats.series <- function(
 #
 # returns: same data, completed with stats.
 ###############################################################################
-compute.stats <- function(data)
+compute.corpus.stats <- function(data)
 {	tlog(2,"Computing corpus stats")
 	inter.df <- data$inter.df
 	# panels
@@ -901,7 +928,7 @@ compute.stats <- function(data)
 		page.stats=page.stats, page.chars=page.chars,
 		scene.stats=scene.stats, scene.chars=scene.chars,
 		char.stats=char.stats, 
-		volume.stats=volume.stats, volume.chars=volume.chars, 
+		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.chars=volume.chars, 
 		arc.stats=arc.stats, arc.chars=arc.chars
 	)
 	arc.stats <- tmp$arc.stats
@@ -918,6 +945,7 @@ compute.stats <- function(data)
 		arc.stats=arc.stats
 	)
 	series.stats <- tmp$series.stats
+	series.stats.atts <- tmp$series.stats.atts
 	
 	# return all the stats
 	result <- list(
@@ -928,7 +956,7 @@ compute.stats <- function(data)
 		char.stats=char.stats, 
 		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv, volume.chars=volume.chars,
 		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv, arc.chars=arc.chars,
-		series.stats=series.stats
+		series.stats=series.stats, series.stats.atts=series.stats.atts
 	)
 	return(result)
 }
