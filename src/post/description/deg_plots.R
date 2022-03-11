@@ -79,7 +79,7 @@ for(meas in meass)
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params
-		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="both_distrib")
+		file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="both_distrib")
 		pal <- get.palette(length(data))
 		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
 		if(!is.na(wt))

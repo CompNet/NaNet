@@ -63,7 +63,7 @@ for(wt in wts)
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.comparison.plot(object="linkweight", mode="scenes", meas.name=meas, weights=wt, filtered=FALSE, plot.type="both_distrib")
+	file <- get.path.topomeas.plot(object="linkweight", mode="scenes", meas.name=meas, weights=wt, filtered=FALSE, plot.type="both_distrib")
 	pal <- get.palette(length(data))
 	ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution (",wt,")")
 	xl <- paste0(ALL_MEASURES[[meas]]$cname," (",wt,")")

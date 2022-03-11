@@ -64,7 +64,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Unfiltered-Size"]] <- props
 res[["Unfiltered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_size_vs_vertices")
+plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_size_vs_vertices")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -83,7 +83,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_nbr_vs_vertices")
+plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_nbr_vs_vertices")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -159,7 +159,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Filtered-Size"]] <- props
 res[["Filtered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=TRUE, plot.type="comp_size_vs_vertices")
+plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=TRUE, plot.type="comp_size_vs_vertices")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -178,7 +178,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=TRUE, plot.type="comp_nbr_vs_vertices")
+plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=TRUE, plot.type="comp_nbr_vs_vertices")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -205,7 +205,7 @@ for(fformat in PLOT_FORMAT)
 
 # both unfiltered and filtered in the same figure
 tlog(0, "Plot figures combining unfiltered and filtered nets results")
-plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_vs_vertices_both")
+plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type="comp_vs_vertices_both")
 tlog(4, "Plotting component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)

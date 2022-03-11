@@ -599,7 +599,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
 #	if(!is.na(arc) && !is.na(vol))
 #		mn <- c(mn, names(NODECOMP_MEASURES))
-	cn <- c(COL_SPEAR_DUR, COL_PVAL_DUR, COL_SPEAR_OCC, COL_PVAL_OCC) 
+	cn <- c(COL_DUR_SPEAR, COL_DUR_PVAL, COL_OCC_SPEAR, COL_OCC_PVAL) 
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -664,7 +664,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				}
 			)
 			if(meas.name %in% rownames(res.tab))
-				res.tab[meas.name,c(COL_SPEAR_DUR,COL_PVAL_DUR)] <- c(corr$estimate, corr$p.value)
+				res.tab[meas.name,c(COL_DUR_SPEAR,COL_DUR_PVAL)] <- c(corr$estimate, corr$p.value)
 			else
 			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
 				rownames(res.tab)[nrow(res.tab)] <- meas.name
@@ -681,7 +681,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				}
 			)		
 			if(meas.name %in% rownames(res.tab))
-				res.tab[meas.name,c(COL_SPEAR_OCC,COL_PVAL_OCC)] <- c(corr$estimate, corr$p.value)
+				res.tab[meas.name,c(COL_OCC_SPEAR,COL_OCC_PVAL)] <- c(corr$estimate, corr$p.value)
 			else
 			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
 				rownames(res.tab)[nrow(res.tab)] <- meas.name

@@ -66,7 +66,7 @@ for(wt in wts)
 	}
 	res[[paste0("Unfiltered-",wt)]] <- vals
 	# plot results
-	plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="comp_vs_edges")
+	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="evolution_publication_lines")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -102,7 +102,7 @@ for(wt in wts)
 	}
 	res[[paste0("Filtered-",wt)]] <- vals.filt
 	# plot result
-	plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=TRUE, plot.type="comp_vs_edges")
+	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=TRUE, plot.type="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -132,7 +132,7 @@ tlog(0, "Plot figures combining unfiltered and filtered nets results")
 for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
 	
-	plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="comp_vs_edges_both")
+	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="comp_vs_edges_both")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -182,7 +182,7 @@ for(filtered in c(FALSE,TRUE))
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
-	plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=filtered, plot.type="comp_vs_edges")
+	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=filtered, plot.type="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -217,7 +217,7 @@ for(filtered in c(FALSE,TRUE))
 }
 
 # all in the same figure
-plot.file <- get.path.comparison.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=FALSE, plot.type="comp_vs_edges_both")
+plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=FALSE, plot.type="comp_vs_edges_both")
 tlog(0, "Plot everything in the same file ",plot.file)
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)

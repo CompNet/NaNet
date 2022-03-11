@@ -262,7 +262,7 @@ for(mode in modes)
 		# create/complete figure
 		if(!filts[f])
 		{	# open plot file
-			plot.file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type=paste0("pref_attach_both_",mode))
+			plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, filtered=FALSE, plot.type=paste0("pref_attach_both_",mode))
 			tlog(2,"Plot in file ",plot.file)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 			# plot parameters

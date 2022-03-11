@@ -5,6 +5,7 @@
 # 02/2019 Vincent Labatut
 #############################################################################################
 # load libraries
+source <- function(file) {eval(parse(file, encoding="UTF-8"),envir=.GlobalEnv)}	# allows solving encoding problems on Windows systems
 
 library("igraph")
 library("CINNA")
