@@ -826,14 +826,14 @@ read.corpus.data <- function()
 	# interactions
 	file <- get.path.stat.corpus(desc="_interactions")
 	tlog(2,"Reading interaction file \"",file,"\"")
-	inter.df <- read.csv(file=paste0(file,".csv"))
+	inter.df <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_CHAR_FROM, COL_CHAR_TO))
 		inter.df[,col] <- fix.encoding(strings=inter.df[,col])
 	
 	# panel stats
 	file <- get.path.stat.corpus(object="panels",desc="_panel_stats")
 	tlog(2,"Reading panel stats file \"",file,"\"")
-	panel.stats <- read.csv(file=paste0(file,".csv"))
+	panel.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# panel chars
 	file <- get.path.stat.corpus(object="panels",desc="_panel_chars")
 	tlog(2,"Reading panel chars file \"",file,"\"")
@@ -842,7 +842,7 @@ read.corpus.data <- function()
 	# page stats
 	file <- get.path.stat.corpus(object="pages",desc="_page_stats")
 	tlog(2,"Reading page stats file \"",file,"\"")
-	page.stats <- read.csv(file=paste0(file,".csv"))
+	page.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# page chars
 	file <- get.path.stat.corpus(object="pages",desc="_page_chars")
 	tlog(2,"Reading page chars file \"",file,"\"")
@@ -851,7 +851,7 @@ read.corpus.data <- function()
 	# scene stats
 	file <- get.path.stat.corpus(object="scenes",desc="_scene_stats")
 	tlog(2,"Reading scene stats file \"",file,"\"")
-	scene.stats <- read.csv(file=paste0(file,".csv"))
+	scene.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# scene chars
 	file <- get.path.stat.corpus(object="scenes",desc="_scene_chars")
 	tlog(2,"Reading scene chars file \"",file,"\"")
@@ -860,14 +860,14 @@ read.corpus.data <- function()
 	# characters
 	file <- get.path.stat.corpus(object="characters",subfold="unfiltered",desc="_char_stats")
 	tlog(2,"Reading char stats file \"",file,"\"")
-	char.stats <- read.csv(file=paste0(file,".csv"))
+	char.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_NAME, COL_NAME_SHORT))
 		char.stats[,col] <- fix.encoding(strings=char.stats[,col])
 	
 	# volume stats
 	file <- get.path.stat.corpus(object="volumes",desc="_volume_stats")
 	tlog(2,"Reading volume stats file \"",file,"\"")
-	volume.stats <- read.csv(file=paste0(file,".csv"))
+	volume.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_SERIES, COL_TITLE, COL_ARC))
 		volume.stats[,col] <- fix.encoding(strings=volume.stats[,col])
 	# volume chars
@@ -878,7 +878,7 @@ read.corpus.data <- function()
 	# arc stats
 	file <- get.path.stat.corpus(object="arcs",desc="_arc_stats")
 	tlog(2,"Reading arc stats file \"",file,"\"")
-	arc.stats <- read.csv(file=paste0(file,".csv"))
+	arc.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_TITLE))
 		arc.stats[,col] <- fix.encoding(strings=arc.stats[,col])
 	# arc chars

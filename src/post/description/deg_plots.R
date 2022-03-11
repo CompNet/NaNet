@@ -48,8 +48,8 @@ idx.keep <- which(!V(g)$Filtered)
 meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
 
 # load numbers of occurrences of characters
-file <-  get.path.stat.corpus(object="characters", desc="chars_distrib_scene_nbr_rawvals.csv")
-sce.nbr <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE))[,1]
+file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
 
 # process each measure
 for(meas in meass)

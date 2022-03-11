@@ -42,9 +42,10 @@ filt.names <- V(g)$name[V(g)$Filtered]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 idx.keep <- which(!V(g)$Filtered)
 
-# load numbers of occurrences of characters
-file <-  get.path.stat.corpus(object="characters", desc="chars_distrib_scene_nbr_rawvals.csv")
-sce.nbr <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE))[,1]
+## load numbers of occurrences of characters
+#file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+#sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
+# I don't think we need that here
 
 meas <- c("linkweight")
 wts <- c("duration","occurrences")

@@ -45,6 +45,13 @@ tlog(0,"Producing distribution plots")
 # loop params
 object <- "characters"
 counts <- c("scene","volume","page","panel")
+col.counts <- c("scene"=COL_SCENES, "volume"=COL_VOLUMES, "page"=COL_PAGES, "panel"=COL_PANELS)
+
+# load the tables
+file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+tt1 <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+file <- get.path.stat.corpus(object="characters", subfold="filtered", desc="_char_stats.csv")
+tt2 <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 
 # process each count type
 for(count in counts)
@@ -52,10 +59,8 @@ for(count in counts)
 	
 	# load precomputed data
 	data <- list()
-	file <- get.path.stat.corpus(object=object, desc=paste0("chars_distrib_",count,"_nbr"))
-	data[[1]] <- as.matrix(read.csv(file=paste0(file,"_rawvals.csv")))
-	file <- get.path.stat.corpus(object=object, desc=paste0("chars_filtered_distrib_",count,"_nbr"))
-	data[[2]] <- as.matrix(read.csv(file=paste0(file,"_rawvals.csv")))
+	data[[1]] <- tt1[,col.counts[count]]
+	data[[2]] <- tt2[,col.counts[count]]
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params

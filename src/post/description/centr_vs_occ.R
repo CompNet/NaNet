@@ -72,10 +72,10 @@ for(centr.name in centr.names)
 		centr.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=TRUE)
 		
 		# get occurrence values
-		file <- get.path.stat.corpus(object="characters", desc=paste0("chars_distrib_",occ.name,"_nbr_rawvals.csv"))
-		occ.vals.unf <- as.matrix(read.csv(file=file))
-		file <- get.path.stat.corpus(object="characters", desc=paste0("chars_filtered_distrib_",occ.name,"_nbr_rawvals.csv"))
-		occ.vals.flt <- as.matrix(read.csv(file=file))
+		file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+		occ.vals.unf <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
+		file <- get.path.stat.corpus(object="characters", subfold="filtered", desc="_char_stats.csv")
+		occ.vals.flt <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
 		
 		#### handle unfiltered data
 		tlog(6,"Dealing with the unfiltered data")
