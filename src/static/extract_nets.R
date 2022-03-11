@@ -156,7 +156,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	colnames(ttt) <- c("Degree<1","Degree>=1","Total")
 	rownames(ttt) <- c("Frequency<1","Frequency>=1","Total")
 	print(ttt)
-	file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext="filtering_criteria.csv")
+	file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="filtering_criteria", ext=".csv")
 	write.csv(x=ttt, file=file, row.names=TRUE)
 	
 	# filtering by freq and occ
