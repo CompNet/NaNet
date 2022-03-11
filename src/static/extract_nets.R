@@ -46,7 +46,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 	
 	# possibly filter interactions
 	if(!is.na(arc))
-	{	is <- which(inter.df[,COL_ARC]==arc)
+	{	is <- which(inter.df[,COL_ARC_ID]==arc)
 	}
 	else if(!is.na(vol))
 	{	vname <- paste0(vol,"_",volume.stats[vol,COL_VOLUME])

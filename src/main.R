@@ -68,7 +68,7 @@ data <- read.raw.data()
 # compute corpus stats
 data <- compute.corpus.stats(data)
 # plot corpus stats
-data <- plot.corpus.stats(data)
+plot.corpus.stats(data)
 
 
 
@@ -77,7 +77,7 @@ data <- plot.corpus.stats(data)
 # extract static networks
 data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
-#plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 

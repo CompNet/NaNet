@@ -123,7 +123,9 @@ plot.stats.panel <- function(
 		{	data <- panel.stats.atts[[att]][,-1,drop=FALSE]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
-				pal <- get.palette(ncol(data))
+			{	pal <- get.palette(ncol(data))
+				names(pal) <- colnames(data)
+			}
 			else
 				pal <- pal[colnames(data)]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.panel", att=att)
@@ -386,7 +388,9 @@ plot.stats.page <- function(
 		{	data <- page.stats.atts[[att]][,-1,drop=FALSE]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
-				pal <- get.palette(ncol(data))
+			{	pal <- get.palette(ncol(data))
+				names(pal) <- colnames(data)
+			}
 			else
 				pal <- pal[colnames(data)]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.page", att=att)
@@ -657,7 +661,9 @@ plot.stats.scene <- function(
 		{	data <- scene.stats.atts[[att]][,-1,drop=FALSE]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
-				pal <- get.palette(ncol(data))
+			{	pal <- get.palette(ncol(data))
+				names(pal) <- colnames(data)
+			}
 			else
 				pal <- pal[colnames(data)]
 			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="distrib_chars.by.scene", att=att)
@@ -1053,7 +1059,9 @@ plot.stats.char <- function(
 			vals <- c(table(char.stats[char.idx,atts[a]]))
 			pal <- ATT_COLORS[[atts[a]]]
 			if(length(pal)==0) 
-				pal <- get.palette(length(vals))
+			{	pal <- get.palette(length(vals))
+				names(pal) <- names(vals)
+			}
 			else
 				pal <- pal[names(vals)]
 			#
@@ -1686,7 +1694,9 @@ plot.stats.volume <- function(
 			data <- volume.stats.atts[[att]][,-1,drop=FALSE]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
-				pal <- get.palette(ncol(data))
+			{	pal <- get.palette(ncol(data))
+				names(pal) <- colnames(data)
+			}
 			else
 				pal <- pal[colnames(data)]
 			
@@ -2103,7 +2113,9 @@ plot.stats.arc <- function(
 			data <- arc.stats.atts[[att]][arc.idx,-1,drop=FALSE]
 			pal <- ATT_COLORS[[att]]
 			if(length(pal)==0) 
-				pal <- get.palette(ncol(data))
+			{	pal <- get.palette(ncol(data))
+				names(pal) <- colnames(data)
+			}
 			else
 				pal <- pal[colnames(data)]
 			

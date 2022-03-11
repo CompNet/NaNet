@@ -138,7 +138,7 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
-	attrs <- setdiff(attrs, c(COL_NAME, COL_NAME_SHORT, "id", "name")) # COL_FREQ, COL_NAMED, COL_FILTERED
+	attrs <- setdiff(attrs, c(COL_NAME, COL_NAME_SHORT, "id", "name"))
 	attrs <- c(attrs, NA)
 	
 	# plot the graph alone, and also depending on each vertex attribute
@@ -158,28 +158,32 @@ plot.static.graph.scenes.all <- function(data)
 			vcols[col.char.idx] <- get.palette(col.char.nbr)
 		}
 		# numeric attribute
-		else if(attr==COL_FREQ)
+		else if(attr %in% c(COL_FREQ, COL_ARCS, COL_VOLUMES, COL_PAGES, COL_PANELS, COL_SCENES))
 		{	rvals <- vertex_attr(graph=g, name=attr)
-			#vals <- rvals									# linear scale
-			vals <- log(rvals+1)
+			if(attr==COL_FREQ)
+				vals <- log(rvals+1)						# non-linear scale
+			else
+				vals <- rvals								# linear scale
 			fine <- 500 									# granularity of the color gradient
 			pal <- viridis									# extreme colors of the gradient
 			#pal <- colorRampPalette(c("YELLOW","RED"))		# extreme colors of the gradient
 			finite <- !is.infinite(vals)
+			vcols <- rep("#575757",gorder(g))				# infinite values are grey
 			vcols[finite] <- pal(fine)[as.numeric(cut(vals[finite],breaks=fine))]
-			vcols[!finite] <- "#575757"						# infinite values are grey
 		}
 		# categorical attribute
 		else
-		{	vals <- vertex_attr(graph=g, name=attr)
+		{	vals <- as.character(vertex_attr(graph=g, name=attr))
 			uvals <- sort(unique(vals))
 			col.nbr <- length(uvals)
-			if(attr=="Sex")
-				pal <- SEX_COLORS_4[uvals]
+			pal <- ATT_COLORS[[attr]]
+			if(length(pal)==0) 
+			{	pal <- get.palette(col.nbr)
+				names(pal) <- uvals
+			}
 			else
-				pal <- get.palette(col.nbr)
-			names(pal) <- uvals
-			vcols <- pal[as.character(vals)]
+				pal <- pal[uvals]
+			vcols <- pal[vals]
 			names(vcols) <- V(g)$name
 		}
 		
@@ -211,13 +215,17 @@ plot.static.graph.scenes.all <- function(data)
 				)
 				if(!is.na(attr))
 				{	# numeric attribute
-					if(attr==COL_FREQ)
+					if(attr %in% c(COL_FREQ, COL_ARCS, COL_VOLUMES, COL_PAGES, COL_PANELS, COL_SCENES))
 					{	# size
 						width <- 100
 						height <- 600
 						# colors
-						lvals <- log(1:fine+1)
-						lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+						if(attr==COL_FREQ)
+						{	lvals <- log(1:fine+1)	# non-linear scale
+							lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+						}
+						else
+							lvals <- 1:fine			# linear scale
 						lcols <- pal(fine)[lvals]
 						# position
 						x1 <- min(LAYOUT[,1])
@@ -273,13 +281,17 @@ plot.static.graph.scenes.all <- function(data)
 					)
 					if(!is.na(attr))
 					{	# numeric attribute
-						if(attr==COL_FREQ)
+						if(attr %in% c(COL_FREQ, COL_ARCS, COL_VOLUMES, COL_PAGES, COL_PANELS, COL_SCENES))
 						{	# size
 							width <- 100
 							height <- 400
 							# colors
-							lvals <- log(1:fine+1)
-							lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+							if(attr==COL_FREQ)
+							{	lvals <- log(1:fine+1)	# non-linear scale
+								lvals <- (lvals-min(lvals))/(max(lvals-min(lvals)))*fine
+							}
+							else
+								lvals <- 1:fine			# linear scale
 							lcols <- pal(fine)[lvals]
 							# position
 							#x1 <- min(LAYOUT[,1])
@@ -452,13 +464,17 @@ plot.static.graph.scenes.all <- function(data)
 ###############################################################################
 plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 {	tlog(2,"Plotting the scene-based static graph for ",if(is.na(arc)) paste0("vol=",vol) else paste0("arc=",arc))
+	if(is.na(vol))
+		vname <- NA
+	else
+		vname <- paste0(vol,"_",data$volume.stats[v,COL_VOLUME])
 	
 	# get default colors
 	tmp <- compute.graphical.params()
 	vs0 <- tmp$vsizes
 	
 	# read unfiltered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=FALSE, desc="static", ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	# clean names
 	V(g)$name <- fix.encoding(strings=V(g)$name)
@@ -470,7 +486,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 		setup.graph.layout(g, NET_SCENES_FOLDER)
 	
 	# read filtered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE, desc="static", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, desc="static", ext=".graphml")
 	g.filtr <- read_graph(file=graph.file, format="graphml")
 	# clean names
 	V(g.filtr)$name <- fix.encoding(strings=V(g.filtr)$name)
@@ -521,7 +537,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# plot unfiltered graph
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=FALSE, desc="static")
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=FALSE, desc="static")
 	tlog(4,"Plotting the selected unfiltered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -544,7 +560,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	}
 	
 	# plot filtered graph
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE, desc="static")
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, desc="static")
 	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -577,7 +593,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	)
 	lay.filtr <- lay.filtr*100
 	
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vol, filtered=TRUE, subfold="layout", desc="static")
+	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, subfold="layout", desc="static")
 	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
