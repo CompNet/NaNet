@@ -166,26 +166,26 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	tmp <- get.largest.component(g.filtr, indices=TRUE)
 	idx.cmp <- idx.keep[tmp$indices]
 	g.cmp <- tmp$comp
-	
-	# write to file
+
+	# write graph to file
 	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=".graphml")
 	tlog(4,"Recording filtered graph in \"",graph.file,"\"")
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	
-	# update graph file
+	# add attribute to unfiltered graph
 	V(g)$Filtered <- rep(TRUE,gorder(g))
 	V(g)$Filtered[idx.cmp] <- FALSE
+	# record graph file
 	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
 	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
-	# add col to char stats table
+	# add col to char stats table and record
 	char.stats <- data$char.stats
 	char.stats <- cbind(char.stats, V(g)$Filtered)
 	colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
 	data$char.stats <- char.stats
-	
-	# update file
+	# update stats file
 	file <- get.path.stat.corpus(object="characters",subfold="unfiltered",desc="_char_stats")
 	tlog(4,"Writing character stats \"",file,"\"")
 	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)

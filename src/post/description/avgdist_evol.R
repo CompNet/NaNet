@@ -15,16 +15,13 @@ source("src/common/include.R")
 ###############################################################################
 # plots unfiltered and filtered figures as separate files
 
-# load full graph to get filtered characters
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-filt.names <- V(g)$name[V(g)$Filtered]
+# load corpus stats
+data <- read.corpus.data()
+
+# get filtered characters
+filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
-# load raw data
-data <- read.raw.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 

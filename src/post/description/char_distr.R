@@ -109,29 +109,19 @@ for(count in counts)
 ###############################################################################
 # additional stats
 
-# load list of chars by volume
-file <- get.path.stat.corpus(object="volumes", desc="volumes")
-con <- file(paste0(file,"_chars.txt"),open="r")
-	lines <- readLines(con) 
-close(con)
+# load corpus stats
+data <- read.corpus.data()
 
-# read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
 # get the main characters
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-main.chars <- V(g)$name[!V(g)$Filtered]
+main.chars <- data$char.stats[!data$char.stats[,COL_FILTERED],COL_NAME]
 
 # compute char by vol
 char.unfilt.nbrs <- c()
 char.filt.nbrs <- c()
-for(line in lines)
-{	chars <- strsplit(line,split=",",fixed=TRUE)[[1]]
-	char.unfilt.nbrs <- c(char.unfilt.nbrs, length(chars))
+for(chars in data$volume.chars)
+{	char.unfilt.nbrs <- c(char.unfilt.nbrs, length(chars))
 	char.filt.nbrs <- c(char.filt.nbrs, length(setdiff(chars,main.chars)))
 }
 tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")

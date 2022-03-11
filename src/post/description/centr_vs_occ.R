@@ -16,15 +16,19 @@ start.rec.log(text="CentrVsOcc")
 ###############################################################################
 tlog(0, "Plotting centrality vs. occurrences")
 
+# load corpus stats
+data <- read.corpus.data()
+
 # plot parameters
 pal <- get.palette(2)
 
-# read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+## read the graph
+#graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+#g <- read_graph(file=graph.file, format="graphml")
+## clean names
+#V(g)$name <- fix.encoding(strings=V(g)$name)
+#V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+# TODO I think I don't need this
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
@@ -248,14 +252,14 @@ print(corr.mat.flt.clean)
 # check the outliers according to Eigencentrality
 tlog(0,"Checking the outliers according to the Eigenvector centrality:")
 centr.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure="eigenvector", filtered=FALSE)
-filtered <- V(g)$Filtered
+filtered <- data$char.stats[,COL_FILTERED]
 idx <- order(centr.vals.unf, decreasing=FALSE)
 tlog(2,"List of characters by decreasing Eigenvector centrality:")
-print(cbind(V(g)$name[idx], filtered[idx], centr.vals.unf[idx]))
+print(cbind(data$char.stats[idx,COL_NAME], filtered[idx], centr.vals.unf[idx]))
 tlog(2,"Number of characters with a quasi-zero Eigencentrality: ",length(which(centr.vals.unf<1e-10)))
 tlog(2,"Rank of the unfiltered characters: ")
 ranks <- rank(centr.vals.unf)[!filtered]
-print(cbind(V(g)$name[!filtered][order(ranks)], ranks[order(ranks)]))
+print(cbind(data$char.stats[!filtered,COL_NAME][order(ranks)], ranks[order(ranks)]))
 
 
 

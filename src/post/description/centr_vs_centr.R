@@ -20,11 +20,12 @@ tlog(0, "Plotting centrality vs. centrality")
 pal <- get.palette(2)
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+#graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+#g <- read_graph(file=graph.file, format="graphml")
+## clean names
+#V(g)$name <- fix.encoding(strings=V(g)$name)
+#V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+# TODO I think I don't need this
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
@@ -171,7 +172,7 @@ for(centr1.name in centr.names)
 #		df <- data.frame(cut.centr2.vals.flt, cut.centr1.vals.flt)
 #		fit <- nlsLM(cut.centr1.vals.flt ~ c1*cut.centr2.vals.flt^c2, 
 #				start=list(c1=val1, c2=val2),
-#				data = df,
+#				data=df,
 #				control=list(maxiter=200))
 #		summary(fit)
 		

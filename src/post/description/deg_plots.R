@@ -33,16 +33,12 @@ laws["Filtered-strength-duration"] <- "truncated"
 # distribution plots
 tlog(0,"Producing degree & strength distribution plots")
 
-# retrieve the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-
+# load corpus stats
+data <- read.corpus.data()
 # get filtered characters
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-idx.keep <- which(!V(g)$Filtered)
+idx.keep <- which(!data$char.stats[,COL_FILTERED])
 
 # loop params
 meass <- c(MEAS_DEGREE,MEAS_STRENGTH)

@@ -4,7 +4,7 @@
 # Vincent Labatut
 # 05/2021
 ###############################################################################
-DO_STAT_TESTS <- TRUE	# much slower
+DO_STAT_TESTS <- FALSE	# much slower
 
 
 

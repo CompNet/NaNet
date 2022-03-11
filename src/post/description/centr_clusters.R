@@ -17,21 +17,27 @@ start.rec.log(text="CentrClusters")
 tlog(0, "Cluster analysis of the centrality measures")
 klim <- 20	# maximal k value when clustering the data
 
-# read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-kept <- which(!V(g)$Filtered)
+# load corpus stats
+data <- read.corpus.data()
+
+# get filtered characters
+kept <- which(!data$char.stats[,COL_FILTERED])
+
+## read the graph
+#graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+#g <- read_graph(file=graph.file, format="graphml")
+## clean names
+#V(g)$name <- fix.encoding(strings=V(g)$name)
+#V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+# TODO don't think I need that
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 
 # get centrality values
 tlog(0, "Read centrality values")
-vals.unf <- matrix(NA, nrow=gorder(g), ncol=length(centr.names), dimnames=list(V(g)$name,centr.names))
-vals.flt <- matrix(NA, nrow=length(kept), ncol=length(centr.names), dimnames=list(V(g)$name[kept],centr.names))
+vals.unf <- matrix(NA, nrow=nrow(data$char.stats), ncol=length(centr.names), dimnames=list(data$char.stats[,COL_NAME],centr.names))
+vals.flt <- matrix(NA, nrow=length(kept), ncol=length(centr.names), dimnames=list(data$char.stats[kept,COL_FILTERED],centr.names))
 for(centr.name in centr.names)
 {		vals.unf[,centr.name] <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=FALSE)
 		vals.flt[,centr.name] <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=TRUE)
