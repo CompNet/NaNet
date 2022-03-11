@@ -176,7 +176,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	V(g)$Filtered <- rep(TRUE,gorder(g))
 	V(g)$Filtered[idx.cmp] <- FALSE
 	# record graph file
-	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
@@ -281,7 +281,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -370,7 +370,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -405,7 +405,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		volume.stats=volume.stats
 	)
 	# record to file
-	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 	tlog(2,"Record to file \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
@@ -434,7 +434,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 			arc=a
 		)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", arc=a,  ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", arc=a,  filtered=FALSE, ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
@@ -461,7 +461,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 			vol=v
 		)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=vname, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=FALSE, ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		

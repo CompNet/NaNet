@@ -23,7 +23,7 @@ tlog(0,"Extract two distinct networks for the narrative")
 data <- read.raw.data()
 
 # load full graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)

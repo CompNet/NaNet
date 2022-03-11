@@ -20,7 +20,7 @@ tlog(0, "Plotting centrality vs. centrality")
 pal <- get.palette(2)
 
 # read the graph
-#graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+#graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 #g <- read_graph(file=graph.file, format="graphml")
 ## clean names
 #V(g)$name <- fix.encoding(strings=V(g)$name)

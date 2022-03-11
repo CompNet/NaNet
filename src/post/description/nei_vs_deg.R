@@ -18,7 +18,7 @@ start.rec.log(text="NeighVsDeg")
 # compute the unfiltered data
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 # clean names
 V(g)$name <- fix.encoding(strings=V(g)$name)

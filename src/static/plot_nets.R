@@ -17,7 +17,7 @@
 ###############################################################################
 compute.graphical.params <- function(g=NA)
 {	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 	g0 <- read_graph(file=graph.file, format="graphml")
 	# clean names
 	V(g0)$name <- fix.encoding(strings=V(g0)$name)
@@ -102,7 +102,7 @@ plot.static.graph.scenes.all <- function(data)
 {	tlog(2,"Plotting the scene-based static graph")
 	
 	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	# clean names
 	V(g)$name <- fix.encoding(strings=V(g)$name)

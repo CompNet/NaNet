@@ -80,8 +80,15 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 
 ###############################################################################
 # Returns the full path for a graph file, based on the specified parameters. 
-# File extension is included (.graphml).
-# 
+#
+# Forms of the path:
+#	networks/pages/static_ws=window.size_ol=overlap.ext
+#	networks/panels/static_ws=window.size_ol=overlap.ext
+#	networks/scene/filtered/subfold
+#	networks/scene/filtered/arcs/subfold/desc_vol.ext
+#	networks/scene/filtered/volumes/desc_arc
+#	networks/scene/unfiltered/...
+#
 # mode: either "scenes", "panel.window", or "page.window".
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -93,7 +100,7 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=FALSE, subfold=NA, ext=NA)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -101,9 +108,9 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
-	# possible add filtered suffix
-	if(filtered)
-		folder <- paste0(folder, "_filtered")
+	# add filtered suffix
+	if(!is.na(filtered))
+		folder <- file.path(folder, if(filtered) "filtered" else "unfiltered")
 	# possibly add arc subfolder
 	if(!is.na(arc))
 		folder <- file.path(folder, "arcs")
@@ -357,9 +364,9 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 # extension is not included as the same basename can be used for both csv and plots.
 # 
 # Forms of the path:
-#	corpus/object/subfold/att/desc_val
-#	corpus/arcs/1/object/subfold/att/desc_val
-#	corpus/vols/L3/object/subfold/att/desc_val
+#	stats/corpus/object/subfold/att/desc_val
+#	stats/corpus/arcs/1/object/subfold/att/desc_val
+#	stats/corpus/vols/40_L3/object/subfold/att/desc_val
 #
 # object: "panels", "scenes", "characters", etc.
 # vol: id of the considered volume.

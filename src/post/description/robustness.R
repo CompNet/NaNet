@@ -17,7 +17,7 @@ start.rec.log(text="RobustnessPlot")
 # get the graphs
 
 # read the unfiltered graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 tlog(0,"Reading graph file \"",graph.file,"\"")
 g.unf <- read_graph(file=graph.file, format="graphml")
 # clean names

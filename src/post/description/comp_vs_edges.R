@@ -23,7 +23,7 @@ start.rec.log(text="CompVsEdges")
 # compute results and plot separate figures
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
 tlog(0, "Reading graph ",graph.file)
 g <- read_graph(file=graph.file, format="graphml")
 # clean names
