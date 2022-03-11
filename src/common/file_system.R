@@ -82,8 +82,8 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # Returns the full path for a graph file, based on the specified parameters. 
 #
 # Forms of the path:
-#	networks/pages/static_ws=window.size_ol=overlap.ext
-#	networks/panels/static_ws=window.size_ol=overlap.ext
+#	networks/pages/desc_ws=window.size_ol=overlap.ext
+#	networks/panels/desc_ws=window.size_ol=overlap.ext
 #	networks/scene/filtered/subfold
 #	networks/scene/filtered/arcs/subfold/desc_vol.ext
 #	networks/scene/filtered/volumes/desc_arc
@@ -95,12 +95,13 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # arc: concerned narrative arc (optional).
 # vol: concerned volume (optional).
 # filtered: whether this concerns the filtered version of the graph.
+# desc: ad hoc description of the file.
 # subfold: additional subfolder (optional).
 # ext: file extension added at the end of the path.
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, ext=NA)
+get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, desc, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -124,7 +125,7 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, "static")
+	res <- file.path(folder, desc)
 	# possibly add base name
 	if(mode=="scenes")
 		res <- 	paste0(res, "_scenes")

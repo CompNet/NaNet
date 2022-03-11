@@ -743,7 +743,7 @@ plot.stats.char <- function(
 	# char filtering
 	if(filtered)
 	{	filt.txt <- "filtered"
-		char.idx <- which(char.stats[,COL_FILTERED])
+		char.idx <- which(!char.stats[,COL_FILTERED])
 		col <- ATT_COLORS_FILT[2]
 	}
 	else
@@ -1050,7 +1050,7 @@ plot.stats.char <- function(
 		{	tlog(4,"Processing attribute ",atts[a]," (",a,"/",length(atts),")")
 			
 			# attribute distribution over the characters
-			vals <- c(table(char.stats[,atts[a]]))
+			vals <- c(table(char.stats[char.idx,atts[a]]))
 			pal <- ATT_COLORS[[atts[a]]]
 			if(length(pal)==0) 
 				pal <- get.palette(length(vals))
@@ -2107,34 +2107,6 @@ plot.stats.arc <- function(
 			else
 				pal <- pal[colnames(data)]
 			
-#			# plot for each arc
-#			for(a in 1:arc.nbr)
-#			{	# attribute distribution over the characters
-#				vals <- data[a,]
-#				perc <- vals/sum(vals)*100
-#				df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
-#				colnames(df) <- c(att,"Frequency","Proportion")
-#				file <- get.path.stat.corpus(desc="attr_distrib", arc=a, att=att)
-#				tlog(4,"Producing files \"",file,"\"")
-#				write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-#				#
-#				for(fformat in PLOT_FORMAT)
-#				{	if(fformat==PLOT_FORMAT_PDF)
-#						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-#					else if(fformat==PLOT_FORMAT_PNG)
-#						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#					barplot(
-#						height=perc,
-#						main=paste0("Distribution of character attribute ",att," (%)"),
-#						col=pal
-#					)
-#					dev.off()
-#				}
-#				
-#				# others?
-#			}
-# TODO aleady plotted in the characters folder		
-			
 			# plot for the attribute
 			file <- get.path.stat.corpus(object=object, desc="distrib_chars.by.arc", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
@@ -2286,40 +2258,8 @@ plot.stats.series <- function(
 	}
 	
 	# attribute stats
-	tlog(3,"Computing attribute stats")
-	for(a in 1:length(atts))
-	{	tlog(4,"Computing attribute ",atts[a]," (",a,"/",length(atts),")")
-		
-#		# attribute distribution over the characters
-#		vals <- table(char.stats[,atts[a]])
-#		pal <- ATT_COLORS[[att]]
-#		if(length(pal)==0) 
-#			pal <- get.palette(length(vals))
-#		else
-#			pal <- pal[names(vals)]
-#		perc <- vals/sum(vals)*100
-#		df <- data.frame(names(vals), vals, perc, stringsAsFactors=FALSE, check.names=FALSE)
-#		colnames(df) <- c(atts[a],"Frequency","Proportion")
-#		file <- get.path.stat.corpus(desc="attr_distrib", att=atts[a])
-#		tlog(4,"Producing files \"",file,"\"")
-#		write.csv(x=df, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
-#		#
-#		for(fformat in PLOT_FORMAT)
-#		{	if(fformat==PLOT_FORMAT_PDF)
-#				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-#			else if(fformat==PLOT_FORMAT_PNG)
-#				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#				barplot(
-#					height=perc,
-#					main=paste0("Distribution of character attribute ",atts[a]," (%)"),
-#					col=pal
-#				)
-#			dev.off()
-#		}
-# TODO already plotted in the character subfolder
-		
-		# others?
-	}
+	tlog(3,"Nothing to plot for attribute stats")
+	# nothing to do here
 }
 
 
@@ -2403,7 +2343,6 @@ plot.corpus.stats <- function(data)
 		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv
 	)
 	
-# TODO not sure we need that, see notes in the function	
 	# plot series stats
 	plot.stats.series(
 		scene.stats=scene.stats,

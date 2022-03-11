@@ -23,7 +23,7 @@ tlog(0,"Extract two distinct networks for the narrative")
 data <- read.raw.data()
 
 # load full graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
@@ -86,7 +86,7 @@ for(i in 1:length(gs))
 	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
 	
 	# plot whole unfiltered graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=paste0("_part_",i))
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=paste0("_part_",i))
 	tlog(6,"Plotting the whole unfiltered graph in file ",graph.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -114,7 +114,7 @@ for(i in 1:length(gs))
 	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# plot whole filtered graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=paste0("_part_",i))
+	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, desc="static", ext=paste0("_part_",i))
 	tlog(6,"Plotting the whole filtered graph in file ",graph.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)

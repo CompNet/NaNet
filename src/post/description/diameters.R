@@ -68,7 +68,7 @@ highlight.paths <- function(g, paths)
 
 ###############################################################################
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 g <- read_graph(file=graph.file, format="graphml")
 V(g)$name <- fix.encoding(strings=V(g)$name)
 V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
@@ -113,7 +113,7 @@ diam.paths <- lapply(1:nrow(idx), function(r) all_shortest_paths(graph=g.filtr, 
 
 # plot diameters
 tlog(0,"Plotting diameter paths")
-base.file <- get.path.graph.file(mode="scenes", filtered=TRUE, subfold="diameters", ext="_diameter")
+base.file <- get.path.graph.file(mode="scenes", filtered=TRUE, subfold="diameters", desc="static", ext="_diameter")
 for(pp in 1:length(diam.paths))
 {	tlog(2,"Processing vertex pair ",pp,"/",length(diam.paths))
 	if(pp==1)

@@ -108,7 +108,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
 	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 	g <- read_graph(file=graph.file, format="graphml")
 	V(g)$name <- fix.encoding(strings=V(g)$name)
 	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
@@ -297,7 +297,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 ## test
 #filtered <- FALSE
 #gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
-#base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
+#base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
 #for(s in 1:length(gg))
 #{	graph.file <- paste0(base.file,"_s",s,".graphml")
 #	tlog(2, "Recording file ",graph.file)

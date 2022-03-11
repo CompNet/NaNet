@@ -41,7 +41,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES, COL_DURATION)
+	cn <- c(COL_CHAR_FROM, COL_CHAR_TO, COL_OCCURRENCES, COL_DURATION)
 	colnames(static.df) <- cn
 	
 	# possibly filter interactions
@@ -72,11 +72,11 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 		cur.scene <- inter.df[i,COL_SCENE_ID]
 		
 		# get the characters
-		from.char <- inter.df[i,COL_FROM_CHAR]
+		from.char <- inter.df[i,COL_CHAR_FROM]
 		to.char <- inter.df[i,COL_CHAR_TO]
 		
 		# get the corresponding row in the new (integrated) dataframe
-		index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
+		index <- which(static.df[,COL_CHAR_FROM]==from.char & static.df[,COL_CHAR_TO]==to.char)
 		
 		# compute the number of panels in the sequence
 		length <- inter.df[i,COL_PANEL_END_ID] - inter.df[i,COL_PANEL_START_ID] + 1
@@ -105,8 +105,8 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 				}
 			}
 			# build and add current graph
-			static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
-			idx <- which(char.stats[,COL_NAME] %in% c(cbind(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO])))
+			static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
+			idx <- which(char.stats[,COL_NAME] %in% c(cbind(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO])))
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
 			g$Scene <- cur.scene
 			res[[cur.scene]] <- g
@@ -120,7 +120,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 	{	msg <- paste0("returning a series of ",length(res)," graphs")
 	}
 	else
-	{	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
+	{	static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
 		#print(static.df)
 		
 		# init the graph
@@ -152,7 +152,12 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	
 	tlog(2,"Counts for criteria deg>1 vs. freq>3")
 	tt <- table(degree(g)>1, V(g)$Frequency>3)
-	print(rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt))))
+	ttt <- rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt)))
+	colnames(ttt) <- c("Degree<1","Degree>=1","Total")
+	rownames(ttt) <- c("Frequency<1","Frequency>=1","Total")
+	print(ttt)
+	file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext="filtering_criteria.csv")
+	write.csv(x=ttt, file=file, row.names=TRUE)
 	
 	# filtering by freq and occ
 	crit <- degree(g)<=1 | V(g)$Frequency<=3
@@ -166,30 +171,41 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	tmp <- get.largest.component(g.filtr, indices=TRUE)
 	idx.cmp <- idx.keep[tmp$indices]
 	g.cmp <- tmp$comp
-
+	
 	# write graph to file
-	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, desc="static", ext=".graphml")
 	tlog(4,"Recording filtered graph in \"",graph.file,"\"")
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	
-	# add attribute to unfiltered graph
+	# add new attribute to unfiltered graph
 	V(g)$Filtered <- rep(TRUE,gorder(g))
 	V(g)$Filtered[idx.cmp] <- FALSE
 	# record graph file
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	# add col to char stats table and record
 	char.stats <- data$char.stats
-	char.stats <- cbind(char.stats, V(g)$Filtered)
-	colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
+	if(COL_FILTERED %in% colnames(char.stats))
+		char.stats[,COL_FILTERED] <- V(g)$Filtered
+	else
+	{	char.stats <- cbind(char.stats, V(g)$Filtered)
+		colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
+	}
 	data$char.stats <- char.stats
 	# update stats file
 	file <- get.path.stat.corpus(object="characters",subfold="unfiltered",desc="_char_stats")
 	tlog(4,"Writing character stats \"",file,"\"")
 	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
 	
+	# plot corpus stats for unfiltered chars
+	plot.stats.char(
+		char.stats=char.stats, 
+		volume.stats=volume.stats, 
+		cur.vol=NA, cur.arc=NA,
+		filtered=FALSE
+	)
 	# plot corpus stats for filtered chars
 	plot.stats.char(
 		char.stats=char.stats, 
@@ -237,7 +253,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 		stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES)
+	cn <- c(COL_CHAR_FROM, COL_CHAR_TO, COL_OCCURRENCES)
 	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
@@ -252,14 +268,14 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_PANEL_END_ID]<window.start | inter.df[,COL_PANEL_START_ID]>window.end))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_FROM_CHAR,COL_CHAR_TO)]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_CHAR_FROM,COL_CHAR_TO)]))))
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
 			# update dataframe
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
+				index <- which(static.df[,COL_CHAR_FROM]==from.char & static.df[,COL_CHAR_TO]==to.char)
 				if(length(index)==0)
 				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
@@ -275,13 +291,13 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 		window.end <- window.start + window.size - 1
 	}
 	
-	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
+	static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
 #	print(static.df)
 	
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, desc="static", ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -322,7 +338,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 			stringsAsFactors=FALSE)
 	Encoding(static.df$From) <- "UTF-8"
 	Encoding(static.df$To) <- "UTF-8"
-	cn <- c(COL_FROM_CHAR, COL_CHAR_TO, COL_OCCURRENCES)
+	cn <- c(COL_CHAR_FROM, COL_CHAR_TO, COL_OCCURRENCES)
 	colnames(static.df) <- cn
 	
 	# compute the co-occurrences
@@ -341,7 +357,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_PANEL_END_ID]<start.panel | inter.df[,COL_PANEL_START_ID]>end.panel))
 		# get all concerned chars
-		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_FROM_CHAR,COL_CHAR_TO)]))))
+		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_CHAR_FROM,COL_CHAR_TO)]))))
 #		print(chars)
 		if(length(chars)>1)
 		{	pairs <- t(combn(x=chars,m=2))
@@ -349,7 +365,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 			for(i in 1:nrow(pairs))
 			{	from.char <- pairs[i,1]
 				to.char <- pairs[i,2]
-				index <- which(static.df[,COL_FROM_CHAR]==from.char & static.df[,COL_CHAR_TO]==to.char)
+				index <- which(static.df[,COL_CHAR_FROM]==from.char & static.df[,COL_CHAR_TO]==to.char)
 				if(length(index)==0)
 				{	tmp.df <- data.frame(From=from.char, To=to.char, Occurrences=1, stringsAsFactors=FALSE)
 					colnames(tmp.df) <- cn
@@ -364,13 +380,13 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 		window.end <- window.start + window.size - 1
 	}
 	
-	static.df <- static.df[order(static.df[,COL_FROM_CHAR],static.df[,COL_CHAR_TO]),]
+	static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
 #	print(static.df)
 	
 	# init the graph
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, desc="static", ext=".graphml")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -405,7 +421,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		volume.stats=volume.stats
 	)
 	# record to file
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, ext=".graphml")
+	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 	tlog(2,"Record to file \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
@@ -434,7 +450,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 			arc=a
 		)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", arc=a,  filtered=FALSE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", arc=a,  filtered=FALSE, desc="static", ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
@@ -442,7 +458,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE, desc="static", ext=".graphml")
 		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
@@ -461,7 +477,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 			vol=v
 		)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=FALSE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=FALSE, desc="static", ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
@@ -469,7 +485,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 		idx.remove <- which(V(g)$Filtered | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=TRUE, ext=".graphml")
+		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=TRUE, desc="static", ext=".graphml")
 		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}

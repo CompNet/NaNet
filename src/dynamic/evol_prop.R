@@ -23,7 +23,7 @@ pub.order <- TRUE
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth")
+base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
 gg <- list()
 go.on <- TRUE
 s <- 1
