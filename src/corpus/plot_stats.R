@@ -1013,7 +1013,7 @@ plot.stats.char <- function(
 	{	thresholds <- seq(0, 10)	#max(char.stats[,COL_FREQ]))
 		char.nums <- sapply(thresholds, function(t) c(table(factor(char.stats[char.stats[,COL_FREQ]>=t,COL_NAMED], levels=c("TRUE","FALSE")))))
 		# generate barplots
-		file <- get.path.stat.corpus(object=object, subfold=filt.txt, vol=vname, arc=cur.arc, desc="filtering_chars_vs_threshold")
+		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="filtering_chars_vs_threshold")
 		tlog(4,"Behavior of character: producing files \"",file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)

@@ -8,7 +8,7 @@
 # source("src/post/description/char_distr.R")
 ###############################################################################
 source("src/common/include.R")
-start.rec.log(text="CharDistr")
+start.rec.log(text="CharDistr") 
 
 
 
@@ -17,23 +17,27 @@ start.rec.log(text="CharDistr")
 # note: result of Clauset et al.'s method (already computed elsewhere)
 laws <- c()
 # unfiltered 
-#	volumes/char = none
-laws["Unfiltered-characters-volume"] <- "none"
+#	panels/char = good
+laws["Unfiltered-characters-panel"] <- "good"
 # 	pages/char = good
 laws["Unfiltered-characters-page"] <- "good"
 #	scenes/char = good
 laws["Unfiltered-characters-scene"] <- "good"
-#	panels/char = good
-laws["Unfiltered-characters-panel"] <- "good"
+#	volumes/char = none
+laws["Unfiltered-characters-volume"] <- "none"
+#	arcs/char = none
+laws["Unfiltered-characters-arc"] <- "none"
 # filtered 
-#	volumes/char = truncated
-laws["Filtered-characters-volume"] <- "truncated"
+#	panels/char = good
+laws["Filtered-characters-panel"] <- "good"
 #	pages/char = good
 laws["Filtered-characters-page"] <- "good"
 #	scenes/char = good
 laws["Filtered-characters-scene"] <- "good"
-#	panels/char = good
-laws["Filtered-characters-panel"] <- "good"
+#	volumes/char = truncated
+laws["Filtered-characters-volume"] <- "truncated"
+#	arcs/char = moderate
+laws["Filtered-characters-arc"] <- "moderate"
 
 
 
@@ -44,8 +48,8 @@ tlog(0,"Producing distribution plots")
 
 # loop params
 object <- "characters"
-counts <- c("scene","volume","page","panel")
-col.counts <- c("scene"=COL_SCENES, "volume"=COL_VOLUMES, "page"=COL_PAGES, "panel"=COL_PANELS)
+counts <- c("panel","page","scene","volume","arc")
+col.counts <- c("panel"=COL_PANELS, "scene"=COL_SCENES, "page"=COL_PAGES, "volume"=COL_VOLUMES, "arc"=COL_ARCS)
 
 # load the tables
 file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
@@ -64,7 +68,7 @@ for(count in counts)
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.stat.corpus(object=object, desc=paste0("chars_both_distrib_",count,"_nbr"))
+	file <- get.path.stat.corpus(object=object, desc=paste0("distrib_",count,"s.by.char"))
 	pal <- get.palette(length(data))
 	ml <- paste0("Distribution of ",count," number over characters")
 	xl <- paste0("Number of ",count,"s by character")
@@ -77,7 +81,7 @@ for(count in counts)
 		tmp <- power.law$setXmin(est)
 		if(laws[paste0(names(data)[i],"-",object,"-",count)]=="truncated")
 			pl[[i]] <- discpowerexp.fit(x=data[[i]],threshold=power.law$xmin)
-		if(laws[paste0(names(data)[i],"-",object,"-",count)]=="good")
+		if(laws[paste0(names(data)[i],"-",object,"-",count)] %in% c("good","moderate"))
 			pl[[i]] <- power.law
 	}
 	print(pl)
@@ -96,7 +100,7 @@ for(count in counts)
 				y <- 1 - cumsum(ddiscpowerexp(x=x,exponent=pl[[2]]$exponent,rate=pl[[2]]$rate,threshold=pl[[2]]$threshold))
 				lines(x, y, col="BLACK", lty=2)
 			}
-			if(laws[paste0(names(data)[i],"-",object,"-",count)]=="good")
+			if(laws[paste0(names(data)[i],"-",object,"-",count)] %in% c("good","moderate"))
 				lines(pl[[i]], col="BLACK", lty=2)
 		}
 		dev.off()
@@ -127,14 +131,14 @@ for(chars in data$volume.chars)
 tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")
 
 # test distributions
-file <- get.path.stat.corpus(object="volumes", desc="volumes_distrib_char_nbr_distrtest")
+file <- get.path.stat.corpus(object="volumes", desc="distrib_chars.by.volume_unfiltered_distrtest")
 test.disc.distr(data=char.unfilt.nbrs, 			# good
-		xlab="Number of characters by volume", return_stats=TRUE, 
-		plot.file=file)
-file <- get.path.stat.corpus(object="volumes", desc="volumes_distrib_char_filtered_nbr_distrtest")
+	xlab="Number of characters by volume", return_stats=TRUE, 
+	plot.file=file)
+file <- get.path.stat.corpus(object="volumes", desc="distrib_chars.by.volume_filtered_distrtest")
 test.disc.distr(data=char.filt.nbrs, 			# good
-		xlab="Number of characters by volume", return_stats=TRUE, 
-		plot.file=file)
+	xlab="Number of characters by volume", return_stats=TRUE, 
+	plot.file=file)
 
 
 

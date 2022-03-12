@@ -425,7 +425,7 @@ extract.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page
 	tlog(2,"Record to file \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
-	# extract the filtered version
+	# extract the filtered version and record
 	tmp <- extract.static.graph.filtered(
 		g=g, 
 		char.stats=char.stats, 
