@@ -26,7 +26,7 @@ tlog(0, "Filtering characters")
 g.flt <- delete_vertices(graph=g.unf, v=V(g.unf)$Filtered)
 
 # measures of interest (and random removal)
-meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
+meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, "random")
 
 
 
@@ -45,9 +45,9 @@ for(m in 1:length(meass))
 	ll <- list()
 	
 	# process the unfiltered and filtered networks
-	tlog.start.loop(2,2,"Looping over unfiltered/filtered nets")
+	tlog.start.loop(4,2,"Looping over unfiltered/filtered nets")
 	for(filtered in c(FALSE, TRUE))
-	{	tlog.loop(4,m,"Processing the ",if(!filtered) "un" else "","filtered network")
+	{	tlog.loop(6,m,"Processing the ",if(!filtered) "un" else "","filtered network")
 		
 		# init graph
 		if(filtered)
@@ -58,19 +58,22 @@ for(m in 1:length(meass))
 		cs <- c()
 		
 		thre <- round(0.05*gorder(gt))
+		thre2 <- round(0.10*gorder(gt))
 		
 		# remove each vertex one after the other
-		tlog.start.loop(4,length(vs),"Looping over vertices")
+		tlog.start.loop(6,length(vs),"Looping over vertices")
 		for(v in vs)
-		{	#tlog.loop(6,v,"Processing vertex ",v,"/",length(xs))
+		{	#tlog.loop(8,v,"Processing vertex ",v,"/",length(xs))
 			
 			# size of the largest component
 			mxcps <- max(components(gt)$csize)
 			cs <- c(cs, mxcps)
 			if(v==6)
-				tlog(8,"Component size when removing the top 5 vertices: ",mxcps," (",sprintf("%.2f",mxcps/gorder(gt)*100),"%)")
+				tlog(10,"Component size when removing the top 5 vertices: ",mxcps," (",sprintf("%.2f",mxcps/gorder(gt)*100),"%)")
 			if(v==thre)
-				tlog(8,"Component size when removing 5% of the top vertices: ",mxcps," (",sprintf("%.2f",mxcps/gorder(gt)*100),"%)")
+				tlog(10,"Component size when removing 5% of the top vertices: ",mxcps," (",sprintf("%.2f",mxcps/gorder(gt)*100),"%)")
+			if(v==thre2)
+				tlog(10,"Component size when removing 10% of the top vertices: ",mxcps," (",sprintf("%.2f",mxcps/gorder(gt)*100),"%)")
 			
 			# remove the next vertex
 			if(meas=="random")
@@ -78,14 +81,15 @@ for(m in 1:length(meass))
 			else
 			{	cache <<- list()
 				vals <- NODE_MEASURES[[meas]]$foo(gt)
-				idx <- as.integer(which.max(vals)[1])
+				vals[is.na(vals)] <- 0
+				idx <- which(vals==max(vals,na.rm=T))[1]
 			}
 			gt <- delete_vertices(graph=gt, v=idx)
 		}
-		tlog.end.loop(4,"Loop over vertices is over")
+		tlog.end.loop(6,"Loop over vertices is over")
 		ll[[as.character(filtered)]] <- cs
 	}
-	tlog.end.loop(2,"Loop over unfiltered/filtered graph is over")
+	tlog.end.loop(4,"Loop over unfiltered/filtered graph is over")
 	ys[[meas]] <- ll
 }
 tlog.end.loop(0,"Loop over measures is complete")
@@ -95,6 +99,7 @@ tlog.end.loop(0,"Loop over measures is complete")
 
 ###############################################################################
 # plotting the results
+meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 
 # file and common parameters
 plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name="gcompsize", filtered=FALSE, plot.type=paste0("vs_",meas))
@@ -180,13 +185,6 @@ for(fformat in PLOT_FORMAT)
 	
 	dev.off()
 }
-
-
-
-
-
-
-
 
 
 
