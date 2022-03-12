@@ -16,7 +16,7 @@ library("stringr")
 
 
 # load series data
-data <- read.raw.data()
+data <- read.corpus.data()
 
 folder <- file.path(DATA_FOLDER,"summaries")
 volumes <- data$volume.stats[,COL_VOLUME]

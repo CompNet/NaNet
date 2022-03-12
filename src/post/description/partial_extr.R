@@ -19,8 +19,8 @@ start.rec.log(text="PartialExtr")
 # represents the narrative as two distinct networks 
 tlog(0,"Extract two distinct networks for the narrative")
 
-# load raw data
-data <- read.raw.data()
+# load stats
+data <- read.corpus.data()
 
 # load full graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")

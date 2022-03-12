@@ -39,7 +39,7 @@
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/pref_attach.R")
+# source("src/post/description/pref_attach.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="PrefAttach")
@@ -62,7 +62,7 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
-data <- read.raw.data()
+data <- read.corpus.data()
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs.unf <- extract.static.graph.scenes(
 	inter.df=data$inter.df,

@@ -23,14 +23,6 @@ data <- read.corpus.data()
 # get filtered characters
 kept <- which(!data$char.stats[,COL_FILTERED])
 
-## read the graph
-#graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-#g <- read_graph(file=graph.file, format="graphml")
-## clean names
-#V(g)$name <- fix.encoding(strings=V(g)$name)
-#V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-# TODO don't think I need that
-
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 

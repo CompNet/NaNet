@@ -16,9 +16,7 @@ start.rec.log(text="SexStats")
 tlog(0,"Load data and network")
 
 # read raw data
-data <- read.raw.data()
-# compute and plot corpus stats
-data <- compute.stats(data)
+data <- read.corpus.data()
 
 # read the graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
@@ -30,8 +28,7 @@ kept <- which(!V(g)$Filtered)
 
 # plot parameters
 sexes <- c("Male","Female","Mixed","Unknown")
-pal <- SEX_COLORS_4
-pal[4] <- "DARKGRAY"
+pal <- ATT_COLORS$Sex[sexes]
 pal.sec <- sapply(pal, function(col) combine.colors(col, "WHITE", transparency=20))
 
 
@@ -85,8 +82,8 @@ tlog(0,"Basic stats regarding scenes vs. sex")
 
 tlog(2,"Considering the unfiltered characters")
 # number of scenes by sex
-sc <- data$char.scenes
-sc.sexes <- lapply(sc, function(chars) V(g)[chars]$Sex)
+sc <- data$scene.chars
+sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex)
 sc.ov.sexes <- sapply(sc.sexes, function(sx)
 		{	res <- NA
 			sx <- sx[sx!="Unknown"]
@@ -113,7 +110,7 @@ print(tt/sum(tt)*100)
 
 # scenes with only women (more than one)
 idx <- which(sc.ov.sexes=="Female" & sapply(sc.sexes, function(c) length(which(c=="Female"))>1))
-tab <- cbind(data$stats.scenes[idx,], sapply(data$char.scenes[idx], function(c) paste(c,collapse=",")))
+tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
 colnames(tab)[ncol(tab)] <- "Characters"
 #write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
 tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
@@ -125,8 +122,8 @@ print(tt/sum(tt)*100)
 
 tlog(2,"Considering the filtered characters")
 # number of scenes by sex
-sc <- data$char.scenes
-sc.sexes <- lapply(sc, function(chars) V(g)[chars]$Sex[!V(g)[chars]$Filtered])
+sc <- data$scene.chars
+sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex[!V(g)[chars]$Filtered])
 sc.ov.sexes <- sapply(sc.sexes, function(sx)
 		{	res <- NA
 			sx <- sx[sx!="Unknown"]
@@ -158,18 +155,18 @@ tlog(2,"Sex-specific density")
 # unfiltered data
 tlog(4,"Unfiltered network:")
 gm <- delete_vertices(g, V(g)$Sex!="Male")
-dens.mal <- edge_density(tmp)
+dens.mal <- edge_density(gm)
 gf <- delete_vertices(g, V(g)$Sex!="Female")
-dens.fem <- edge_density(tmp)
+dens.fem <- edge_density(gf)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
 # filtered data
 tlog(4,"Filtered network:")
-gm <- delete_vertices(gm, V(g)$Filtered)
-dens.mal <- edge_density(tmp)
-gf <- delete_vertices(gf, V(g)$Filtered)
-dens.fem <- edge_density(tmp)
+gm <- delete_vertices(gm, V(gm)$Filtered)
+dens.mal <- edge_density(gm)
+gf <- delete_vertices(gf, V(gf)$Filtered)
+dens.fem <- edge_density(gf)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
@@ -184,7 +181,7 @@ gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Unfiltered network: ",ass.unf)
 # filtered net
-gs <- delete_vertices(gs, V(g)$Filtered)
+gs <- delete_vertices(gs, V(gs)$Filtered)
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Filtered network: ",ass.unf)
 
@@ -200,7 +197,7 @@ col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)
 tlog(0,"Unfiltered network:")
 table(col.tris)
 # filtered net
-gs <- delete_vertices(gs, V(g)$Filtered)
+gs <- delete_vertices(gs, V(gs)$Filtered)
 tris <- triangles(graph=gs)$Sex
 col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
 tlog(0,"Unfiltered network:")

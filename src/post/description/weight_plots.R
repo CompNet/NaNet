@@ -6,7 +6,7 @@
 # 01/2022
 #
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/weight_plot.R")
+# source("src/post/description/weight_plots.R")
 ###############################################################################
 source("src/common/include.R")
 start.rec.log(text="WeightDistr")
@@ -30,19 +30,6 @@ laws["Filtered-linkweight-duration"] <- "good"
 ###############################################################################
 # distribution plots
 tlog(0,"Producing weight distribution plots")
-
-## load corpus stats
-#data <- read.corpus.data()
-## get filtered characters
-#filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
-#if(length(filt.names)==0) stop("Empty list of filtered characters")
-#idx.keep <- which(!data$char.stats[,COL_FILTERED])
-# TODO don't think I need that
-
-## load numbers of occurrences of characters
-#file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
-#sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
-# I don't think we need that here
 
 meas <- c("linkweight")
 wts <- c("duration","occurrences")

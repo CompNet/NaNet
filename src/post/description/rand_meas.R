@@ -69,7 +69,7 @@ record.randmeas.stats <- function(tab, filtered=FALSE)
 ###############################################################################
 load.as.bipartite <- function()
 {	# load raw data
-	data <- read.raw.data()
+	data <- read.corpus.data()
 	char.stats <- data$char.stats
 	f.n <- nrow(char.stats)
 	char.scenes <- data$char.scenes

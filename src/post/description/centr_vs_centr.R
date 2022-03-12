@@ -19,14 +19,6 @@ tlog(0, "Plotting centrality vs. centrality")
 # plot parameters
 pal <- get.palette(2)
 
-# read the graph
-#graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-#g <- read_graph(file=graph.file, format="graphml")
-## clean names
-#V(g)$name <- fix.encoding(strings=V(g)$name)
-#V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
-# TODO I think I don't need this
-
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 
