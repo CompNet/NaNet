@@ -22,7 +22,7 @@ source("src/graphs/smallworldness.R")
 #############################################################################################
 read.graphml.file <- function(file)
 {	# read graph
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read_graph(file=file, format="graphml")
 	
 	# convert strings
 	for(col in c(tolower(COL_NAME), COL_NAME_SHORT))
