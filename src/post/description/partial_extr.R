@@ -24,9 +24,7 @@ data <- read.corpus.data()
 
 # load full graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+g <- read.graphml.file(file=graph.file)
 # get filtered characters
 filt.names <- V(g)$name[V(g)$Filtered]
 if(length(filt.names)==0) stop("Empty list of filtered characters")

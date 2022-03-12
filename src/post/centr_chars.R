@@ -59,7 +59,7 @@ rownames(est.tab) <- data$char.stats[,COL_NAME_SHORT]
 for(v in volumes)
 {	tlog(2, "Processing volume ",v)
 	graph.file <- get.path.graph.file(mode="scenes", vol=v, filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	
 #	vals <- degree(graph=g, mode="all")									# 0.55	0.25
 #	vals <- strength(graph=g, mode="all", weights=E(g)$Duration)		# 0.55	0.22

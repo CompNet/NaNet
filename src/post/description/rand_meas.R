@@ -106,7 +106,7 @@ load.as.bipartite <- function()
 	
 	# filtered version
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	idx <- match(V(g)[V(g)$Filtered]$name, V(bg)$Name)
 	bg.filtr <- delete_vertices(graph=bg, v=idx)
 	bg.filtr <- delete_vertices(graph=bg.filtr, v=which(degree(bg.filtr, mode="all")<1))
@@ -237,7 +237,7 @@ lattice.graph.measures <- function(filtered=FALSE)
 	
 	# load the original network 
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
 	# build lattice
@@ -276,7 +276,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 	
 	# load the original network 
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
 	

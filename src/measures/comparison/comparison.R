@@ -17,7 +17,7 @@
 get.ref.graph <- function(weights, filtered=FALSE)
 {	# load the graph
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	res <- read.graph(file=graph.file, format="graphml")
+	res <- read.graphml.file(file=graph.file) 
 
 	# possibly remove certain nodes
 	if(filtered)

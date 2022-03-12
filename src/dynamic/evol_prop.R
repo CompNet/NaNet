@@ -33,9 +33,7 @@ while(go.on)
 	{	tlog(2, "Reading file ",graph.file)
 		
 		# read graph
-		g <- read.graph(file=graph.file, format="graphml")
-		V(g)$name <- fix.encoding(strings=V(g)$name)
-		V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+		g <- read.graphml.file(file=graph.file)
 		char.names <- V(g)$name
 		char.shortnames <- V(g)$ShortName
 		

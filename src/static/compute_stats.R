@@ -715,7 +715,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 	
 	# read the graph file
 	tlog(4,"Loading graph")
-	g <- read.graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	if(!is.na(weights))
 	{	if(weights=="occurrences")
 			E(g)$weight <- E(g)$Occurrences
@@ -754,7 +754,7 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	
 	# read the graph file
 	tlog(4,"Loading graph")
-	g <- read.graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	if(!is.na(weights))
 	{	if(weights=="occurrences")
 			E(g)$weight <- E(g)$Occurrences

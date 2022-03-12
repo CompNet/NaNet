@@ -69,9 +69,7 @@ highlight.paths <- function(g, paths)
 ###############################################################################
 # read the graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-g <- read_graph(file=graph.file, format="graphml")
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+g <- read.graphml.file(file=graph.file)
 
 # compute graphical parameters
 tmp <- compute.graphical.params()

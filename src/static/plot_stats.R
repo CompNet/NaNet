@@ -1117,7 +1117,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	# compute and plot additional stuff
 	# read the graph
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
+	g <- read.graphml.file(file=graph.file)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
 	g.dur <- g; E(g.dur)$weight <- E(g)$Duration

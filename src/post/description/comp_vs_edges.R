@@ -25,10 +25,7 @@ start.rec.log(text="CompVsEdges")
 # read the graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 tlog(0, "Reading graph ",graph.file)
-g <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g)$name <- fix.encoding(strings=V(g)$name)
-V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+g <- read.graphml.file(file=graph.file)
 
 # filter the characters
 tlog(0, "Filtering characters")

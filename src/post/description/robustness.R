@@ -19,10 +19,7 @@ start.rec.log(text="RobustnessPlot")
 # read the unfiltered graph
 graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 tlog(0,"Reading graph file \"",graph.file,"\"")
-g.unf <- read_graph(file=graph.file, format="graphml")
-# clean names
-V(g.unf)$name <- fix.encoding(strings=V(g.unf)$name)
-V(g.unf)$ShortName <- fix.encoding(strings=V(g.unf)$ShortName)
+g.unf <- read.graphml.file(file=graph.file)
 
 # filter the characters
 tlog(0, "Filtering characters")

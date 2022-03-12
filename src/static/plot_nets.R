@@ -18,10 +18,7 @@
 compute.graphical.params <- function(g=NA)
 {	# read the graph
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g0 <- read_graph(file=graph.file, format="graphml")
-	# clean names
-	V(g0)$name <- fix.encoding(strings=V(g0)$name)
-	V(g0)$ShortName <- fix.encoding(strings=V(g0)$ShortName)
+	g0 <- read.graphml.file(file=graph.file)
 	
 	# set up layout
 	if(any(is.na(LAYOUT)))
@@ -30,7 +27,7 @@ compute.graphical.params <- function(g=NA)
 #V(g0)$y <- LAYOUT[,2]
 	
 # this piece of script was once used to manually fine tune vertex positions with gephi
-#gg <- read.graph("D:/Users/Vincent/Downloads/Web/Untitled.graphml",format="graphml")
+#gg <- read_graph("D:/Users/Vincent/Downloads/Web/Untitled.graphml",format="graphml")
 #tab <- cbind(V(gg)$x, V(gg)$y)
 #ids <- as.integer(substr(V(gg)$id, 2, nchar(V(gg)$id)))
 #idx <- order(ids)
@@ -103,10 +100,7 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# read the graph
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
-	# clean names
-	V(g)$name <- fix.encoding(strings=V(g)$name)
-	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+	g <- read.graphml.file(file=graph.file)
 	
 	# compute graphical parameters
 	tmp <- compute.graphical.params()
@@ -475,10 +469,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	
 	# read unfiltered graph
 	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=FALSE, desc="static", ext=".graphml")
-	g <- read_graph(file=graph.file, format="graphml")
-	# clean names
-	V(g)$name <- fix.encoding(strings=V(g)$name)
-	V(g)$ShortName <- fix.encoding(strings=V(g)$ShortName)
+	g <- read.graphml.file(file=graph.file)
 	idx.con <- which(degree(g,mode="all")>0)
 		
 	# set up layout
@@ -487,10 +478,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	
 	# read filtered graph
 	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, desc="static", ext=".graphml")
-	g.filtr <- read_graph(file=graph.file, format="graphml")
-	# clean names
-	V(g.filtr)$name <- fix.encoding(strings=V(g.filtr)$name)
-	V(g.filtr)$ShortName <- fix.encoding(strings=V(g.filtr)$ShortName)
+	g.filtr <- read.graphml.file(file=graph.file)
 	idx.filtr <- match(V(g.filtr)$name, V(g)$name)
 	
 	# set up vertex sizes

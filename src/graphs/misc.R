@@ -14,6 +14,30 @@ source("src/graphs/smallworldness.R")
 
 
 #############################################################################################
+# Reads the graph produced by the script, converting the strings when needed.
+#
+# file: file path.
+#
+# returns: igraph object.
+#############################################################################################
+read.graphml.file <- function(file)
+{	# read graph
+	g <- read_graph(file=graph.file, format="graphml")
+	
+	# convert strings
+	for(col in c(tolower(COL_NAME), COL_NAME_SHORT))
+	{	str <- vertex_attr(graph=g, name=col)
+		str <- fix.encoding(strings=str)
+		g <- set_vertex_attr(graph=g, name=col, value=str)
+	}
+	
+	return(g)
+}
+
+
+
+
+#############################################################################################
 # Returns the weakly connected largest component of the specified graph, and possibly the
 # indices of the concerned vertices in the original graph.
 #
