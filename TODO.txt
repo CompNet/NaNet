@@ -91,3 +91,5 @@ Clean code:
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
+TODO
+- test vol_prop.R script once re-run narrative smoothing

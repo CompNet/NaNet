@@ -54,50 +54,14 @@ sc.nbr <- length(gg)
 ###############################################################################
 # retrieve volume positions expressed in scenes
 
-# read raw data
-data <- read.raw.data()
-# compute and plot corpus stats
-data <- compute.stats(data)
+# read stats
+data <- read.corpus.data()
 
-# init volume boundaries
-if(pub.order)
+# order volumes
+if(pub.order)	# by publication order
 {	ord.vols <- 1:nrow(data$volume.stats)
-}else
+}else			# by story order
 	ord.vols <- (1:nrow(data$volume.stats))[order(data$volume.stats[,COL_RANK])]	
-
-sc.by.vol <- data$volume.stats[ord.vols,COL_SCENES]
-vol.sc <- unlist(sapply(1:length(sc.by.vol), function(i) rep(ord.vols[i],sc.by.vol[i])))
-vol.sc.bounds <- t(sapply(1:length(ord.vols), function(i) range(which(vol.sc==ord.vols[i]))))
-rownames(vol.sc.bounds) <- data$volume.stats[ord.vols,COL_VOLUME]
-colnames(vol.sc.bounds) <- c(COL_SCENE_START_ID, COL_SCENE_END_ID)
-
-###############################################################################
-# Draws rectangles corresponding to volumes.
-#
-# ylim: limits of the y axis in the plot.
-###############################################################################
-draw.volume.rects <- function(ylim)
-{	# rectangle colors
-	rec.pal <- c("gray90","gray80")
-	
-	# draw each volume
-	for(v in 1:nrow(vol.sc.bounds))
-	{	rect(
-			xleft=vol.sc.bounds[v,COL_SCENE_START_ID], 
-			xright=vol.sc.bounds[v,COL_SCENE_END_ID], 
-			ybottom=ylim[1]-abs(ylim[1])*0.05, 
-			ytop=ylim[2], 
-			col=rec.pal[(v %% 2)+1], 
-			border=NA, density=NA
-		)
-		text(
-			x=(vol.sc.bounds[v,COL_SCENE_START_ID]+vol.sc.bounds[v,COL_SCENE_END_ID])/2, 
-			y=ylim[2], 
-			labels=data$volume.stats[ord.vols[v],COL_VOLUME],
-			cex=0.55, adj=c(0.5,1)
-		)
-	}
-}
 
 
 
@@ -177,7 +141,7 @@ for(m in 1:length(gr.meas))
 			xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname
 		)
 		# add volume representations
-		draw.volume.rects(ylim)
+		draw.volume.rects(ylim, volume.stats[ord.vols,])
 		# add line
 		lines(
 			x=1:sc.nbr, y=gr.stats[,m], 
@@ -272,7 +236,7 @@ for(m in 1:length(vx.meas))
 				xlab="Scenes", ylab=NODE_MEASURES[[meas]]$cname
 			)
 			# add volume representations
-			draw.volume.rects(ylim)
+			draw.volume.rects(ylim, volume.stats[ord.vols,])
 			# add a serie for each character
 			for(v in 1:length(vs))
 			{	lines(
@@ -381,7 +345,7 @@ for(m in 1:length(ed.meas))
 				xlab="Scenes", ylab=LINK_MEASURES[[meas]]$cname
 			)
 			# add volume representations
-			draw.volume.rects(ylim)
+			draw.volume.rects(ylim, volume.stats[ord.vols,])
 			# add a serie for each edge
 			for(e in 1:length(es))
 			{	lines(

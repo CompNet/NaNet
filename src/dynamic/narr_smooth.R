@@ -7,8 +7,11 @@
 # 
 # Vincent Labatut
 # 02/2022
+#
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# source("src/dynamic/narr_smooth.R")
 ###############################################################################
- 
+
 
 
 
@@ -27,18 +30,18 @@
 # j: second character.
 # t0: first scene.
 # t1: last scene.
-# stats.chars: list of characters with their attributes.
-# char.scenes: which character appears in which scene.
-# stats.scenes: allows retrieving scene durations.
+# char.stats: list of characters with their attributes.
+# scene.chars: which character appears in which scene.
+# scene.stats: allows retrieving scene durations.
 # scene.mat: characters x scenes matrix
 #
 # returns: sum of interaction scores.
 ###############################################################################
-ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes, stats.scenes, scene.mat)
+ns.compute.interaction.scores <- function(i, j, t0, t1, char.stats, scene.chars, scene.stats, scene.mat)
 {	# targeted period
 	scenes <- t0:t1
 	# name of the concerned characters
-	ij.names <- stats.chars[c(i,j),COL_CHAR]
+	ij.names <- char.stats[c(i,j),COL_NAME]
 	
 	# init interaction weights for each considered scenes
 	vals <- rep(0, length(scenes))
@@ -46,7 +49,7 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	# identify scenes involving one of our characters (i or j)
 	idx <- which(scene.mat[i,scenes] | scene.mat[j,scenes])
 	
-#	chars.org <- char.scenes[t0:t1]
+#	chars.org <- scene.chars[t0:t1]
 #	chars.org.lgt <- sapply(chars.org, length)
 #	chars.dif <- lapply(chars.org, function(cc) setdiff(cc,ij.names))
 #	chars.dif.lgt <- sapply(chars.dif, length)
@@ -54,9 +57,9 @@ ns.compute.interaction.scores <- function(i, j, t0, t1, stats.chars, char.scenes
 	
 	# update interaction weights for each scene involving one char (i or j)
 	if(length(idx)>0)
-	{	vals[idx] <- apply(scene.mat[,scenes[idx],drop=FALSE], 2, function(col) length(which(col)))*stats.scenes[scenes[idx], COL_PANELS]
-#		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*stats.scenes[scenes[s], COL_PANELS])
-		#print(cbind(chars.dif.lgt[idx],stats.scenes[scenes[idx], COL_PANELS]))
+	{	vals[idx] <- apply(scene.mat[,scenes[idx],drop=FALSE], 2, function(col) length(which(col)))*scene.stats[scenes[idx], COL_PANELS]
+#		vals[idx] <- sapply(idx, function(s) chars.dif.lgt[s]*scene.stats[scenes[s], COL_PANELS])
+		#print(cbind(chars.dif.lgt[idx],scene.stats[scenes[idx], COL_PANELS]))
 	}
 	
 	# wrap up
@@ -96,13 +99,13 @@ ns.normalization <- function(x, mu=0.01)
 # participating to the same scene are considered to interact with one another,
 # with a weight corresponding to the scene duration (expressesd in panels).
 # 
-# stats.chars: list of characters with their attributes.
-# char.scenes: which character appears in which scene.
-# stats.scenes: allows retrieving scene durations.
+# char.stats: list of characters with their attributes.
+# scene.chars: which character appears in which scene.
+# scene.stats: allows retrieving scene durations.
 # 
 # returns: a sequence of graphs corresponding to a dynamic graph.
 ###############################################################################
-ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered=FALSE)
+ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, filtered=FALSE)
 {	tlog(2, "Extracting a dynamic network using narrative smoothing")
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
@@ -116,24 +119,25 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	if(filtered)
 	{	kept <- which(!V(g)$Filtered)
 		g <- delete_vertices(graph=g, v=V(g)$Filtered)
-		stats.chars <- stats.chars[kept,]
-		char.scenes <- lapply(char.scenes, function(ll) intersect(ll, stats.chars[,COL_CHAR]))
+		char.stats <- char.stats[kept,]
+		scene.chars <- lapply(scene.chars, function(ll) intersect(ll, char.stats[,COL_NAME]))
 	}
 	
 	# init char x scene matrix
 	scene.mat <- matrix(FALSE, 
-			nrow=nrow(stats.chars), ncol=length(char.scenes), 
-			dimnames=list(stats.chars[,COL_CHAR], c()))
-	for(s in 1:length(char.scenes))
-	{	chars <- char.scenes[[s]]
-		scene.mat[chars,s] <- rep(TRUE,length(chars))
+		nrow=nrow(char.stats), ncol=nrow(scene.stats), 
+		dimnames=list(char.stats[,COL_NAME], c()))
+	for(s in 1:length(scene.chars))
+	{	chars <- scene.chars[[s]]
+		if(length(chars)>0)
+			scene.mat[chars,s] <- rep(TRUE,length(chars))
 	}
 	
 	# init the list of graphs
 	res <- list()
-	for(s in 1:length(char.scenes))
+	for(s in 1:length(scene.chars))
 	{	# create empty graph (no edge)
-		gt <- make_empty_graph(n=nrow(stats.chars), directed=FALSE)
+		gt <- make_empty_graph(n=nrow(char.stats), directed=FALSE)
 		# copy the vertex attributes of the static graph
 		for(att in atts)
 			gt <- set_vertex_attr(graph=gt, name=att, value=vertex_attr(graph=g, name=att))
@@ -151,36 +155,36 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 	# 						   1491 1492      1494                                    1505      1507
 	
 	# loop over the characters for the first end point
-	tlog.start.loop(2,nrow(stats.chars)-1,"Looping over characters (first character)")
-	for(i in 1:(nrow(stats.chars)-1))
-	{	i.name <- stats.chars[i,COL_CHAR]
-		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),")")
+	tlog.start.loop(2,nrow(char.stats)-1,"Looping over characters (first character)")
+	for(i in 1:(nrow(char.stats)-1))
+	{	i.name <- char.stats[i,COL_NAME]
+		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),")")
 		
 		# scenes where char i appears
-		#i.sc.ids <- which(sapply(char.scenes, function(chars) i.name %in% chars))
+		#i.sc.ids <- which(sapply(scene.chars, function(chars) i.name %in% chars))
 		i.sc.ids <- which(scene.mat[i.name,])
 		
 		# loop over the remaining characters for the second end point
-		tlog.start.loop(4,(i+1):nrow(stats.chars),"Looping over characters (second character)")
-		for(j in (i+1):nrow(stats.chars))
-		{	j.name <- stats.chars[j,COL_CHAR]
-			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(stats.chars)),") -- #j=",j.name," (",j,"/",nrow(stats.chars),")")
+		tlog.start.loop(4,(i+1):nrow(char.stats),"Looping over characters (second character)")
+		for(j in (i+1):nrow(char.stats))
+		{	j.name <- char.stats[j,COL_NAME]
+			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),") -- #j=",j.name," (",j,"/",nrow(char.stats),")")
 			
 			# scenes where char j appears
-			#j.sc.ids <- which(sapply(char.scenes, function(chars) j.name %in% chars))
+			#j.sc.ids <- which(sapply(scene.chars, function(chars) j.name %in% chars))
 			j.sc.ids <- which(scene.mat[j.name,])
 			
 			# scenes where both chars appear
 			ij.sc.ids <- intersect(i.sc.ids, j.sc.ids)
-			ij.sc.dur <- stats.scenes[ij.sc.ids, COL_PANELS]
+			ij.sc.dur <- scene.stats[ij.sc.ids, COL_PANELS]
 			tlog(8, "Scenes: i=",length(i.sc.ids)," j=",length(j.sc.ids)," both=",length(ij.sc.ids))
 			
 			# init weights
-			ij.weights <- rep(-Inf, length(char.scenes))
+			ij.weights <- rep(-Inf, length(scene.chars))
 			
 			# check whether the characters interact at least once
 			if(length(ij.sc.ids)>0)
-			{	rem.sc.ids <- 1:length(char.scenes)
+			{	rem.sc.ids <- 1:length(scene.chars)
 				
 				######## set the weights for the scenes where the relation is active 
 				tlog(8, "Processing active scenes")
@@ -202,8 +206,8 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 				}
 				
 				# scenes after the very last occurrence of character i or j
-				if(end.id<length(char.scenes))
-				{	e.ids <- (end.id+1):length(char.scenes)
+				if(end.id<length(scene.chars))
+				{	e.ids <- (end.id+1):length(scene.chars)
 					#ij.weights[e.ids] <- -Inf
 					rem.sc.ids <- setdiff(rem.sc.ids, e.ids)
 				}
@@ -232,7 +236,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 					updt.per <- sapply(ids.per, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- prev.sc.ids[k]
-								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, stats.chars, char.scenes, stats.scenes, scene.mat)
+								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, char.stats, scene.chars, scene.stats, scene.mat)
 							})
 					#print(cbind(rem.sc.ids[ids.per],prev.sc.ids[ids.per],narr.per[ids.per],updt.per))
 					narr.per[ids.per] <- narr.per[ids.per] - updt.per
@@ -258,7 +262,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 					updt.ant <- sapply(ids.ant, function(k)
 							{	t <- rem.sc.ids[k]
 								theta <- next.sc.ids[k]
-								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, stats.chars, char.scenes, stats.scenes, scene.mat)
+								ns.compute.interaction.scores(i, j, t0=t, t1=theta-1, char.stats, scene.chars, scene.stats, scene.mat)
 							})
 					#print(cbind(rem.sc.ids[ids.ant],next.sc.ids[ids.ant],narr.ant[ids.ant],updt.ant))
 					narr.ant[ids.ant] <- narr.ant[ids.ant] - updt.ant
@@ -273,7 +277,7 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 			ij.weights <- ns.normalization(ij.weights)
 			
 			# update the list of graphs
-			for(s in 1:length(char.scenes))
+			for(s in 1:length(scene.chars))
 			{	if(ij.weights[s]!=0)
 				{	g <- res[[s]]
 					g <- add_edges(graph=g, edges=c(i,j), attr=list(weight=ij.weights[s]))
@@ -293,8 +297,9 @@ ns.graph.extraction <- function(stats.chars, char.scenes, stats.scenes, filtered
 
 ###############################################################################
 ## test
+#data <- read.corpus.data()
 #filtered <- FALSE
-#gg <- ns.graph.extraction(stats.chars=data$stats.chars, char.scenes=data$char.scenes, stats.scenes=data$stats.scenes, filtered=filtered)
+#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, filtered=filtered)
 #base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
 #for(s in 1:length(gg))
 #{	graph.file <- paste0(base.file,"_s",s,".graphml")
