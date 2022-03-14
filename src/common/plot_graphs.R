@@ -648,7 +648,7 @@ draw.volume.rects <- function(ylim, volume.stats)
 		text(
 			x=(volume.stats[v,COL_SCENE_START_ID]+volume.stats[v,COL_SCENE_END_ID])/2, 
 			y=ylim[2], 
-			labels=volume.stats[,COL_VOLUME],
+			labels=volume.stats[v,COL_VOLUME],
 			cex=0.55, adj=c(0.5,1)
 		)
 	}

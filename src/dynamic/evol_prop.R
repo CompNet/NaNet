@@ -19,6 +19,7 @@ pub.order <- TRUE
 
 
 
+
 ###############################################################################
 # load the graphs
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
@@ -105,6 +106,10 @@ log.y <- c(
 )
 gr.stats <- matrix(NA, nrow=sc.nbr, ncol=length(gr.meas), dimnames=list(c(),gr.meas))
 
+# color palette
+pal <- get.palette(2)
+col <- if(filtered) pal[2] else pal[1]
+
 # compute each measure
 tlog.start.loop(2, length(gr.meas), "Looping over graph measures")
 for(m in 1:length(gr.meas))
@@ -145,10 +150,10 @@ for(m in 1:length(gr.meas))
 		# add line
 		lines(
 			x=1:sc.nbr, y=gr.stats[,m], 
-			xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
-			col=MAIN_COLOR
+			#xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
+			col=col
 		)
-		# add axis
+		# close file
 		dev.off()
 	}
 }

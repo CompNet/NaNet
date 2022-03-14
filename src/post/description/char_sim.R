@@ -20,6 +20,8 @@ tlog(0,"Load data and network")
 tlog(2,"Reading previously computed corpus stats")
 data <- read.corpus.data()
 char.stats <- data$char.stats
+volume.stats <- data$volume.stats
+scene.stats <- data$scene.stats
 
 # get filtered character names
 filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
@@ -37,7 +39,7 @@ gs <- list()
 gs[["FALSE"]] <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=char.stats, 
-	volume.stats=data$volume.stats, 
+	volume.stats=volume.stats, 
 	ret.seq=TRUE
 )
 
@@ -74,8 +76,16 @@ sim.meas[["euclidean"]] <- list(
 #	foo=function(a,i,j) {REGE.for(M=a)$E[i,j]}
 #)
 
-# color parameters
+# plot parameters
 pal <- get.palette(2)
+wide <- TRUE
+if(wide)
+{	pw.pdf <- 15; ph.pdf <- 5
+	pw.png <- 2400; ph.png <- 800
+}else
+{	pw.pdf <- 7; ph.pdf <- 7
+	pw.png <- 800; ph.png <- 800
+}
 
 # targeted pairs of characters
 pairs <- matrix(c(
@@ -108,27 +118,40 @@ for(p in 1:nrow(pairs))
 			return(res)
 		}))
 		colnames(res) <- names(sim.meas)
-	
+		
 		# plot the obtained values
 		tlog(5,"Looping over all similarity measures")
 		for(m in 1:length(sim.meas))
-		{	plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=paste0("comp_",names(sim.meas)[m]), filtered=filt, plot.type=paste0("pair=",paste0(pairs[p,],collapse="--")))
+		{	# compute y range
+			ylim <- range(res[,m], na.rm=TRUE)
+			ylim[2] <- ylim[2]*1.1	# add some space for volume names
+			
+			# produce file
+			pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
+			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=paste0("comp_",names(sim.meas)[m]), filtered=filt, plot.type=pt)
 			tlog(6,"Creating file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), width=pw.pdf, height=ph.pdf, bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				# init plot with unfiltered results
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=pw.png, height=ph.png, units="px", pointsize=20, bg="white")
+				# init empty plot
 				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 				plot(
-					x=1:nrow(res), y=res[,m], 
-#					ylim=sim.meas[[m]]$bounds,
-					xlab="Scene", #  "by publication order"
-					ylab=names(sim.meas)[m],
-					las=1, col=if(filt) pal[2] else pal[1],
-					type="l"
+					NULL,
+					xlim=c(1,nrow(scene.stats)), ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
+					xlab="Scenes", ylab=sim.meas[[m]]$cname,
+					las=1
 				)
+				# add volume representations
+				if(wide)
+					draw.volume.rects(ylim, volume.stats[ord.vols,])
+				# add line
+				lines(
+					x=1:nrow(res), y=res[,m], 
+					col=if(filt) pal[2] else pal[1]
+				)
+				# close file
 				dev.off()
 			}
 		}
