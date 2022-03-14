@@ -67,7 +67,7 @@ for(i in 1:2)
 			control=list(maxiter=200))
 	print(summary(fit))
 	
-	# plot the distance as the graph order
+	# plot distance as a function of graph order
 	plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name="avgdist", filtered=i==2, plot.type="evolution_publication_lines")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)

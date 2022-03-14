@@ -31,7 +31,6 @@ pal.sec <- sapply(pal, function(col) combine.colors(col, "WHITE", transparency=2
 
 
 
-
 ###############################################################################
 tlog(0,"Basic stats regarding edges vs. sex")
 
@@ -680,17 +679,6 @@ for(s in 1:length(deg.flt))
 
 # close file
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
 
 
 

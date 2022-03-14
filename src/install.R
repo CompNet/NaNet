@@ -14,6 +14,8 @@
 install.packages("igraph")
 # harmonic closeness
 install.packages("CINNA")
+# block modeling
+install.packages("blockmodeling")
 
 # parallel computation
 #install.packages("foreach")
