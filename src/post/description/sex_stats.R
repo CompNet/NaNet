@@ -31,6 +31,45 @@ pal.sec <- sapply(pal, function(col) combine.colors(col, "WHITE", transparency=2
 
 
 
+###############################################################################
+tlog(0,"Basic stats regarding characters vs. sex")
+char.stats <- data$char.stats
+
+# all characters
+tlog(2, "All characters:")
+cnt.m <- length(which(char.stats[,"Sex"]=="Male"))
+cnt.f <- length(which(char.stats[,"Sex"]=="Female"))
+per.m <- cnt.m/nrow(char.stats)*100
+per.f <- cnt.f/nrow(char.stats)*100
+tlog(4, "Proportions of: males=",per.m,", females=",per.f)
+per.m <- cnt.m/(cnt.m+cnt.f)*100
+per.f <- cnt.f/(cnt.m+cnt.f)*100
+tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+
+# filtered data
+tlog(2, "Filtered data:")
+cnt.m <- length(which(char.stats[,"Sex"]=="Male" & !char.stats[,"Filtered"]))
+cnt.f <- length(which(char.stats[,"Sex"]=="Female" & !char.stats[,"Filtered"]))
+per.m <- cnt.m/length(which(!char.stats[,"Filtered"]))*100
+per.f <- cnt.f/length(which(!char.stats[,"Filtered"]))*100
+tlog(4, "Proportions of: males=",per.m,", females=",per.f)
+per.m <- cnt.m/(cnt.m+cnt.f)*100
+per.f <- cnt.f/(cnt.m+cnt.f)*100
+tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+
+# only named characters
+tlog(2, "Named characters:")
+cnt.m <- length(which(char.stats[,"Sex"]=="Male" & !char.stats[,"Named"]))
+cnt.f <- length(which(char.stats[,"Sex"]=="Female" & !char.stats[,"Named"]))
+per.m <- cnt.m/length(which(!char.stats[,"Named"]))*100
+per.f <- cnt.f/length(which(!char.stats[,"Named"]))*100
+tlog(4, "Proportions of: males=",per.m,", females=",per.f)
+per.m <- cnt.m/(cnt.m+cnt.f)*100
+per.f <- cnt.f/(cnt.m+cnt.f)*100
+tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+
+
+
 
 ###############################################################################
 tlog(0,"Basic stats regarding edges vs. sex")
@@ -41,35 +80,84 @@ el <- as_edgelist(graph=g, names=FALSE)
 # use sex instead of ids
 el.sex <- cbind(V(g)[el[,1]]$Sex, V(g)[el[,2]]$Sex)
 tlog(4,"In the unfiltered graph:")
-#el.str <- apply(el.sex, 1, function(row) paste0(sort(row),collapse="--"))
-#el.str[el.str=="Female--Mixed"] <- "Female--Male"
-#el.str[el.str=="Male--Mixed"] <- "Female--Male"
-#el.str[el.str=="Mixed--Mixed"] <- "Female--Male"
-#table(el.str)
 el.str <- t(apply(el.sex, 1, sort))
+# filter unknown sex and convert mixed sex
+idx.mxd <- which(el.str[,1]=="Female" & el.str[,2]=="Mixed")
+el.str[idx.mxd,2] <- rep("Male",length(idx.mxd))
+idx.mxd <- which(el.str[,1]=="Male" & el.str[,2]=="Mixed")
+el.str[idx.mxd,1] <- rep("Female",length(idx.mxd))
+el.str[idx.mxd,2] <- rep("Male",length(idx.mxd))
+idx.mxd <- which(el.str[,1]=="Mixed" & el.str[,2]=="Mixed")
+el.str[idx.mxd,1] <- rep("Female",length(idx.mxd))
+el.str[idx.mxd,2] <- rep("Male",length(idx.mxd))
+idx.ukn <- which(el.str[,1]=="Unknown" | el.str[,2]=="Unknown")
+el.str.unf <- el.str[-idx.ukn,]
 tlog(6,"Numbers of edges by sex")
-tt <- table(el.str[,1], el.str[,2])
+tt <- table(el.str.unf[,1], el.str.unf[,2])
 print(tt)
 tlog(6,"Same expressed as percents")
 print(tt/sum(tt)*100)
+tlog(6,"F/M Ratio: ",sum(tt["Female",])/sum(tt[,"Male"]))
 # filtered graph
 tlog(4,"In the filtered graph:")
-idx <- which(el[,1] %in% kept & el[,2] %in% kept)
-el.str <- t(apply(el.sex[idx,], 1, sort))
+idx.rmv <- which(!(el[,1] %in% kept) | !(el[,2] %in% kept))
+el.str.flt <- el.str[-union(idx.ukn,idx.rmv),]
 tlog(6,"Numbers of edges by sex")
-tt <- table(el.str[,1], el.str[,2])
+tt <- table(el.str.flt[,1], el.str.flt[,2])
 print(tt)
 tlog(6,"Same expressed as percents")
 print(tt/sum(tt)*100)
+tlog(6,"F/M Ratio: ",sum(tt["Female",])/sum(tt[,"Male"]))
 
 # total degree by sex
 tlog(2,"Total degree by sex")
 tlog(4,"In the unfiltered graph:")
 vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=FALSE)
-print(sapply(sexes, function(s) sum(vals[V(g)$Sex==s])))
+cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
+print(cnt)
+tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
 tlog(4,"In the filtered graph:")
 vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=TRUE)
-print(sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s])))
+cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
+print(cnt)
+tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+
+# total strength by sex
+tlog(2,"Total strength by sex")
+for(w in c("occurrences","duration"))
+{	tlog(4,"Using ",w," as weights")
+	tlog(6,"In the unfiltered graph:")
+	vals <- load.static.nodelink.stats.scenes(object="nodes", weights=w, measure=MEAS_STRENGTH, filtered=FALSE)
+	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
+	print(cnt)
+	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+	tlog(6,"In the filtered graph:")
+	vals <- load.static.nodelink.stats.scenes(object="nodes", weights=w, measure=MEAS_STRENGTH, filtered=TRUE)
+	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
+	print(cnt)
+	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+}
+
+# sex-specific density
+tlog(2,"Sex-specific density")
+# unfiltered data
+tlog(4,"Unfiltered network:")
+gm <- delete_vertices(g, V(g)$Sex!="Male")
+dens.mal <- edge_density(gm)
+gf <- delete_vertices(g, V(g)$Sex!="Female")
+dens.fem <- edge_density(gf)
+tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
+tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
+tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
+# filtered data
+tlog(4,"Filtered network:")
+gm <- delete_vertices(gm, V(gm)$Filtered)
+dens.mal <- edge_density(gm)
+gf <- delete_vertices(gf, V(gf)$Filtered)
+dens.fem <- edge_density(gf)
+tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
+tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
+tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
 
 
 
@@ -147,27 +235,6 @@ print(tt/sum(tt)*100)
 # NOTE: no sense in doing Bechdel for filtered chars, as it requires 
 # ignoring certain characters actively taking part in the scene
 
-# sex-specific density
-tlog(2,"Sex-specific density")
-# unfiltered data
-tlog(4,"Unfiltered network:")
-gm <- delete_vertices(g, V(g)$Sex!="Male")
-dens.mal <- edge_density(gm)
-gf <- delete_vertices(g, V(g)$Sex!="Female")
-dens.fem <- edge_density(gf)
-tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
-tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
-tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
-# filtered data
-tlog(4,"Filtered network:")
-gm <- delete_vertices(gm, V(gm)$Filtered)
-dens.mal <- edge_density(gm)
-gf <- delete_vertices(gf, V(gf)$Filtered)
-dens.fem <- edge_density(gf)
-tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
-tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
-tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
-
 
 
 
@@ -192,13 +259,20 @@ gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
 tris <- triangles(graph=gs)$Sex
 col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
 tlog(0,"Unfiltered network:")
-table(col.tris)
+tt <- table(col.tris)
+print(tt)
+# same as proportions
+print(tt/sum(tt)*100)
+
 # filtered net
 gs <- delete_vertices(gs, V(gs)$Filtered)
 tris <- triangles(graph=gs)$Sex
 col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
 tlog(0,"Unfiltered network:")
-table(col.tris)
+tt <- table(col.tris)
+print(tt)
+# same as proportions
+print(tt/sum(tt)*100)
 
 
 
@@ -207,7 +281,13 @@ table(col.tris)
 tlog(0,"Producing sex-separated nodal measure distribution plots")
 
 # measure names
-meas.names <- c(MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_DEGREE, MEAS_EIGENCNTR, paste0(MEAS_TRANSITIVITY,SFX_LOCAL))
+meas.names <- c(
+	MEAS_BETWEENNESS, 
+	MEAS_CLOSENESS, 
+	MEAS_DEGREE, 
+	MEAS_EIGENCNTR, 
+	paste0(MEAS_TRANSITIVITY,SFX_LOCAL)
+)
 
 # inlay position
 inlay.coords <- matrix(nrow=length(meas.names), ncol=4)
@@ -234,10 +314,10 @@ for(m in 1:length(meas.names))
 	tlog(4,"Loading pre-computed unfiltered values")
 	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=FALSE)
 	data.unf <- list()
-	tlog(6,"Average values by sex:")
+	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
 	{	data.unf[[sex]] <- vals[V(g)$Sex==sex]
-		tlog(8,sex,": ",mean(data.unf[[sex]],na.rm=TRUE))
+		tlog(8,sex,": avg=",mean(data.unf[[sex]],na.rm=TRUE)," sdev=",sd(data.unf[[sex]],na.rm=TRUE))
 	}
 	data.unf[["Mixed"]] <- NULL; data.unf[["Unknown"]] <- NULL	# we don't care about these sexes
 	# compare means
@@ -261,9 +341,10 @@ for(m in 1:length(meas.names))
 	tlog(4,"Loading pre-computed filtered values")
 	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=TRUE)
 	data.flt <- list()
+	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
 	{	data.flt[[sex]] <- vals[V(g)$Sex[kept]==sex]
-		tlog(8,sex,": ",mean(data.flt[[sex]],na.rm=TRUE))
+		tlog(8,sex,": avg=",mean(data.flt[[sex]],na.rm=TRUE)," sdev=",sd(data.flt[[sex]],na.rm=TRUE))
 	}
 	data.flt[["Mixed"]] <- NULL; data.flt[["Unknown"]] <- NULL	# we don't care about these sexes 
 	# compare means
@@ -680,17 +761,6 @@ for(s in 1:length(deg.flt))
 
 # close file
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
 
 
 
