@@ -1,5 +1,5 @@
-# Computes and plots the evolution of various topolofical measures over time,
-# for a pre-computed sequence of igraphs representing a dynamic graph.
+# Computes and plots the evolution of various topological measures over time,
+# for a pre-computed sequence of igraph objects representing a dynamic graph.
 # 
 # Vincent Labatut
 # 02/2022
@@ -83,18 +83,18 @@ draw.volume.rects <- function(ylim)
 	# draw each volume
 	for(v in 1:nrow(vol.sc.bounds))
 	{	rect(
-				xleft=vol.sc.bounds[v,COL_SCENE_START_ID], 
-				xright=vol.sc.bounds[v,COL_SCENE_END_ID], 
-				ybottom=ylim[1]-abs(ylim[1])*0.05, 
-				ytop=ylim[2], 
-				col=rec.pal[(v %% 2)+1], 
-				border=NA, density=NA
+			xleft=vol.sc.bounds[v,COL_SCENE_START_ID], 
+			xright=vol.sc.bounds[v,COL_SCENE_END_ID], 
+			ybottom=ylim[1]-abs(ylim[1])*0.05, 
+			ytop=ylim[2], 
+			col=rec.pal[(v %% 2)+1], 
+			border=NA, density=NA
 		)
 		text(
-				x=(vol.sc.bounds[v,COL_SCENE_START_ID]+vol.sc.bounds[v,COL_SCENE_END_ID])/2, 
-				y=ylim[2], 
-				labels=data$volume.stats[ord.vols[v],COL_VOLUME],
-				cex=0.55, adj=c(0.5,1)
+			x=(vol.sc.bounds[v,COL_SCENE_START_ID]+vol.sc.bounds[v,COL_SCENE_END_ID])/2, 
+			y=ylim[2], 
+			labels=data$volume.stats[ord.vols[v],COL_VOLUME],
+			cex=0.55, adj=c(0.5,1)
 		)
 	}
 }
@@ -338,14 +338,14 @@ for(m in 1:length(ed.meas))
 		vals <- LINK_MEASURES[[meas]]$foo(gg[[i]])
 		enm <- as_edgelist(graph=gg[[i]], names=TRUE)
 		idx <- sapply(1:nrow(edg.plot), function(r) 
-				{	idx <- which(enm[,1]==edg.plot[r,1] & enm[,2]==edg.plot[r,2] 
-									| enm[,1]==edg.plot[r,2] & enm[,2]==edg.plot[r,1])
-					if(length(idx)==0)
-						res <- NA
-					else
-						res <- idx[1]
-					return(res)
-				})
+		{	idx <- which(enm[,1]==edg.plot[r,1] & enm[,2]==edg.plot[r,2] 
+							| enm[,1]==edg.plot[r,2] & enm[,2]==edg.plot[r,1])
+			if(length(idx)==0)
+				res <- NA
+			else
+				res <- idx[1]
+			return(res)
+		})
 		mat[i,!is.na(idx)] <- vals[idx[!is.na(idx)]]
 	}
 	es.stats[[meas]] <- mat
@@ -403,3 +403,4 @@ for(m in 1:length(ed.meas))
 	}
 }
 tlog.end.loop(2, "Computation of edge measures over")
+ 
