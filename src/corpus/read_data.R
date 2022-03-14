@@ -108,6 +108,8 @@ read.volume.table <- function()
 	# add stats cols
 	df <- data.frame(
 		integer(vol.nbr), integer(vol.nbr),
+		integer(vol.nbr), integer(vol.nbr),
+		integer(vol.nbr), integer(vol.nbr),
 		integer(vol.nbr),
 		integer(vol.nbr),
 		integer(vol.nbr),
@@ -115,6 +117,8 @@ read.volume.table <- function()
 	)
 	colnames(df) <- c(
 		COL_PAGE_START_ID, COL_PAGE_END_ID,
+		COL_PANEL_START_ID, COL_PANEL_END,
+		COL_SCENE_START_ID, COL_SCENE_END_ID,
 		COL_PANELS,
 		COL_SCENES,
 		COL_CHARS
@@ -268,6 +272,9 @@ read.page.table <- function(volume.stats, arc.stats)
 	# page ids
 	page.ids <- t(sapply(1:nrow(volume.stats), function(v) range(which(page.stats[,COL_VOLUME_ID]==v))))
 	volume.stats[,c(COL_PAGE_START_ID, COL_PAGE_END_ID)] <- page.ids
+	# panel ids
+	volume.stats[,COL_PANEL_START_ID] <- page.stats[volume.stats[,COL_PAGE_START_ID],COL_PANEL_START_ID]
+	volume.stats[,COL_PANEL_END_ID] <- page.stats[volume.stats[,COL_PAGE_END_ID],COL_PANEL_END_ID]
 	
 	tlog(2,"Reading of the page file completed")
 	res <- list(
@@ -633,6 +640,10 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 ###############################################################################
 update.all.tables <- function(inter.df, panel.stats, panel.chars, page.stats, page.chars, scene.stats, scene.chars, char.stats, volume.stats, volume.chars, arc.stats, arc.chars)
 {	tlog(2,"Updating all tables")
+	
+	# update scene start/end in volume table
+	tlog(4,"Updating volume table")
+	volume.stats[,c(COL_SCENE_START_ID,COL_SCENE_END_ID)] <- t(sapply(1:nrow(volume.stats), function(v) range(which(scene.stats[,COL_VOLUME_ID]==v)))) 
 	
 	# update character counts in stats tables
 	tlog(4,"Computing character counts")

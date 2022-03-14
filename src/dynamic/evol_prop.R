@@ -65,7 +65,7 @@ if(pub.order)
 }else
 	ord.vols <- (1:nrow(data$volume.stats))[order(data$volume.stats[,COL_RANK])]	
 
-sc.by.vol <- data$stats.volumes[ord.vols,COL_SCENES]
+sc.by.vol <- data$volume.stats[ord.vols,COL_SCENES]
 vol.sc <- unlist(sapply(1:length(sc.by.vol), function(i) rep(ord.vols[i],sc.by.vol[i])))
 vol.sc.bounds <- t(sapply(1:length(ord.vols), function(i) range(which(vol.sc==ord.vols[i]))))
 rownames(vol.sc.bounds) <- data$volume.stats[ord.vols,COL_VOLUME]
