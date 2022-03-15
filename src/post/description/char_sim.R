@@ -13,39 +13,39 @@ start.rec.log(text="CharSim")
 
 
 
-###############################################################################
-tlog(0,"Load data and network")
-
-# read raw data
-tlog(2,"Reading previously computed corpus stats")
-data <- read.corpus.data()
-char.stats <- data$char.stats
-volume.stats <- data$volume.stats
-scene.stats <- data$scene.stats
-
-# get filtered character names
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
-if(length(filt.names)==0) stop("Empty list of filtered characters")
-
-# read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-tlog(2,"Reading file \"",graph.file,"\"")
-g <- read.graphml.file(file=graph.file)
-kept <- which(!V(g)$Filtered)
-
-# compute the sequence of scene-based graphs (possibly one for each scene)
-tlog(2,"Extracting the sequence of graphs")
-gs <- list()
-gs[["FALSE"]] <- extract.static.graph.scenes(
-	inter.df=data$inter.df, 
-	char.stats=char.stats, 
-	volume.stats=volume.stats, 
-	ret.seq=TRUE
-)
-
-# compute the filtered version
-tlog(2,"Same thing for filtered graphs")
-gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+################################################################################
+#tlog(0,"Load data and network")
+#
+## read raw data
+#tlog(2,"Reading previously computed corpus stats")
+#data <- read.corpus.data()
+#char.stats <- data$char.stats
+#volume.stats <- data$volume.stats
+#scene.stats <- data$scene.stats
+#
+## get filtered character names
+#filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+#if(length(filt.names)==0) stop("Empty list of filtered characters")
+#
+## read the graph
+#graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+#tlog(2,"Reading file \"",graph.file,"\"")
+#g <- read.graphml.file(file=graph.file)
+#kept <- which(!V(g)$Filtered)
+#
+## compute the sequence of scene-based graphs (possibly one for each scene)
+#tlog(2,"Extracting the sequence of graphs")
+#gs <- list()
+#gs[["FALSE"]] <- extract.static.graph.scenes(
+#	inter.df=data$inter.df, 
+#	char.stats=char.stats, 
+#	volume.stats=volume.stats, 
+#	ret.seq=TRUE
+#)
+#
+## compute the filtered version
+#tlog(2,"Same thing for filtered graphs")
+#gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 
 
 
@@ -55,22 +55,22 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # similarity measures
 sim.meas <- list()
-sim.meas[["cosine"]] <- list(
-	bounds=c(0,1),
-	cname="Cosine Similarity",
-	foo=function(a,i,j) {sum(a[i,]*a[j,])/sqrt(sum(a[i,]^2)*sum(a[j,]^2))}
-)
-sim.meas[["pearson"]] <- list(
-	bounds=c(-1,1),
-	cname="Pearson Coefficient",
-	foo=function(a,i,j) {cor(x=a[i,], y=a[j,])}
-)
+#sim.meas[["cosine"]] <- list(
+#	bounds=c(0,1),
+#	cname="Cosine Similarity",
+#	foo=function(a,i,j) {sum(a[i,]*a[j,])/sqrt(sum(a[i,]^2)*sum(a[j,]^2))}
+#)
+#sim.meas[["pearson"]] <- list(
+#	bounds=c(-1,1),
+#	cname="Pearson Coefficient",
+#	foo=function(a,i,j) {cor(x=a[i,], y=a[j,])}
+#)
 sim.meas[["euclidean"]] <- list(
 	bounds=c(0,NA),
 	cname="Euclidean Distance",
 	foo=function(a,i,j) {sqrt(sum((a[i,]-a[j,])^2))}
 )
-sim.meas[["regulareq"]] <- list(
+sim.meas[["regequiv"]] <- list(
 	bounds=c(0,NA),
 	cname="Regular Equivalence",
 	foo=function(a,i,j) {REGE.for(M=a)$E[i,j]}
@@ -108,11 +108,12 @@ for(p in 1:nrow(pairs))
 		# compute the similarity between both chars for each graph of the sequence
 		tlog(5,"Looping over all graphs in the sequence")
 		res <- t(sapply(1:length(gs[[as.character(filt)]]), function(s) 
-		{	tlog(6,"Processing scene ",s,"/",length(gs[[as.character(filt)]]))
+		{	if(s==1 || s %% 500==0 || s==length(gs[[as.character(filt)]]))
+				tlog(6,"Processing scene ",s,"/",length(gs[[as.character(filt)]]))
 			g <- gs[[as.character(filt)]][[s]]
 			vs <- match(fnames,  V(g)$name)
 			if(any(is.na(vs)))
-				res <- rep(NA,3)
+				res <- rep(NA,length(sim.meas))
 			else
 			{	a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
 				res <- sapply(1:length(sim.meas), function(m) sim.meas[[m]]$foo(a, vs[1],vs[2]))
@@ -158,7 +159,8 @@ for(p in 1:nrow(pairs))
 			}
 		}
 	}
-# TODO version with both filtered and unfiltered plots at once?
+# TODO version with both filtered and unfiltered plots at once
+# TODO same process applied to narr smooth nets
 }
 
 
