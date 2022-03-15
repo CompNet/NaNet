@@ -296,14 +296,76 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, filtered=F
 
 
 ###############################################################################
+# Record a dynamic graph as a series of graph.
+#
+# gs: list of igraph objects representing a dynamic graph.
+# filtered: whether the characters have been filtered or not.
+###############################################################################
+ns.write.graph <- function(gs, filtered)
+{	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
+	tlog(2,"Writting files of the form \"",base.file,"\"")
+	
+	# loop over scenes
+	for(s in 1:length(gs))
+	{	graph.file <- paste0(base.file,"_s",s,".graphml")
+		if(s==1 || s %% 500 == 0 || s==length(gs))
+			tlog(4, "(",s,"/",length(gs),") Recording file ",graph.file)
+		g <- gs[[s]]
+		write.graph(graph=g, file=graph.file, format="graphml")
+	}
+}
+
+
+
+
+###############################################################################
+# Read sequence of graphs representing a dynamic graph, based on a sequence of
+# graphml files, each one representing one step of the dynamic graph.
+#
+# filtered: whether the characters have been filtered or not.
+# remove.isolates: whether to remove isolates in each time slice.
+#
+# returns: list of igraph objects representing a dynamic graph.
+###############################################################################
+ns.read.graph <- function(filtered, remove.isolates=TRUE)
+{	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
+	tlog(2,"Reading files of the form \"",base.file,"\"")
+	gs <- list()
+	
+	# loop over scenes
+	go.on <- TRUE
+	s <- 1
+	while(go.on)
+	{	graph.file <- paste0(base.file,"_s",s,".graphml")
+		if(file.exists(graph.file))
+		{	if(s==1 || s %% 500 == 0 || s==length(gs))
+				tlog(4, "(",s,"/",length(gs),") Reading file ",graph.file)
+			
+			# read graph
+			g <- read.graphml.file(file=graph.file)
+			
+			# possibly remove isolates
+			if(remove.isolates)
+			{	isolates <- which(degree(g)==0)
+				g <- delete_vertices(g, isolates)
+			}
+			
+			gs[[s]] <- g
+			s <- s + 1
+		}
+		else
+			go.on <- FALSE
+	}
+	
+	return(gs)
+}
+
+
+
+
+###############################################################################
 ## test
 #data <- read.corpus.data()
 #filtered <- FALSE
 #gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, filtered=filtered)
-#base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
-#for(s in 1:length(gg))
-#{	graph.file <- paste0(base.file,"_s",s,".graphml")
-#	tlog(2, "Recording file ",graph.file)
-#	g <- gg[[s]]
-#	write.graph(graph=g, file=graph.file, format="graphml")
-#}
+#ns.write.graph(gs=gg, filtered)

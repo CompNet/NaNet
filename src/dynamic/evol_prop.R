@@ -8,6 +8,7 @@
 # source("src/dynamic/evol_prop.R")
 ###############################################################################
 source("src/common/include.R")
+start.rec.log(text="EvolutionProp")
 
 
 
@@ -21,33 +22,14 @@ pub.order <- TRUE
 
 
 ###############################################################################
-# load the graphs
+# load the dynamic graph
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
-gg <- list()
-go.on <- TRUE
-s <- 1
-while(go.on)
-{	graph.file <- paste0(base.file,"_s",s,".graphml")
-	if(file.exists(graph.file))
-	{	tlog(2, "Reading file ",graph.file)
-		
-		# read graph
-		g <- read.graphml.file(file=graph.file)
-		char.names <- V(g)$name
-		char.shortnames <- V(g)$ShortName
-		
-		# remove isolates and store
-		isolates <- which(degree(g)==0)
-		gg[[s]] <- delete_vertices(g, isolates)
-		
-		s <- s + 1
-	}
-	else
-		go.on <- FALSE
-}
+gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE)
+	
 sc.nbr <- length(gg)
+char.names <- V(gg[[sc.nbr]])$name
+char.shortnames <- V(gg[[sc.nbr]])$ShortName
 
 
 
@@ -372,4 +354,11 @@ for(m in 1:length(ed.meas))
 	}
 }
 tlog.end.loop(2, "Computation of edge measures over")
- 
+
+
+
+
+###############################################################################
+# end logging
+tlog(0,"Process complete")
+end.rec.log()

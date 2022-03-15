@@ -14,38 +14,38 @@ start.rec.log(text="CharSim")
 
 
 ################################################################################
-#tlog(0,"Load data and network")
-#
-## read raw data
-#tlog(2,"Reading previously computed corpus stats")
-#data <- read.corpus.data()
-#char.stats <- data$char.stats
-#volume.stats <- data$volume.stats
-#scene.stats <- data$scene.stats
-#
-## get filtered character names
-#filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
-#if(length(filt.names)==0) stop("Empty list of filtered characters")
-#
-## read the graph
-#graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
-#tlog(2,"Reading file \"",graph.file,"\"")
-#g <- read.graphml.file(file=graph.file)
-#kept <- which(!V(g)$Filtered)
-#
-## compute the sequence of scene-based graphs (possibly one for each scene)
-#tlog(2,"Extracting the sequence of graphs")
-#gs <- list()
-#gs[["FALSE"]] <- extract.static.graph.scenes(
-#	inter.df=data$inter.df, 
-#	char.stats=char.stats, 
-#	volume.stats=volume.stats, 
-#	ret.seq=TRUE
-#)
-#
-## compute the filtered version
-#tlog(2,"Same thing for filtered graphs")
-#gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+tlog(0,"Load data and network")
+
+# read raw data
+tlog(2,"Reading previously computed corpus stats")
+data <- read.corpus.data()
+char.stats <- data$char.stats
+volume.stats <- data$volume.stats
+scene.stats <- data$scene.stats
+
+# get filtered character names
+filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+if(length(filt.names)==0) stop("Empty list of filtered characters")
+
+# read the graph
+graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+tlog(2,"Reading file \"",graph.file,"\"")
+g <- read.graphml.file(file=graph.file)
+kept <- which(!V(g)$Filtered)
+
+# compute the sequence of scene-based graphs (possibly one for each scene)
+tlog(2,"Extracting the sequence of graphs")
+gs <- list()
+gs[["FALSE"]] <- extract.static.graph.scenes(
+	inter.df=data$inter.df, 
+	char.stats=char.stats, 
+	volume.stats=volume.stats, 
+	ret.seq=TRUE
+)
+
+# compute the filtered version
+tlog(2,"Same thing for filtered graphs")
+gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 
 
 
@@ -89,9 +89,9 @@ if(wide)
 
 # targeted pairs of characters
 pairs <- matrix(c(
-		"Thorgal", "Jolan", 
-		"Thorgal", "Aaricia"),
-		ncol=2, byrow=T)
+	"Thorgal", "Jolan", 
+	"Thorgal", "Aaricia"),
+ncol=2, byrow=T)
 
 tlog(2,"Looping over the pairs of vertices")
 for(p in 1:nrow(pairs))
