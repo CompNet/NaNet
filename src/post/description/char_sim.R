@@ -17,6 +17,7 @@ start.rec.log(text="CharSim")
 # main parameters
 wide <- TRUE				# wide plots showing volumes as rectangles
 narr.smooth <- TRUE			# whether to use narrative smoothing
+weighted <- TRUE			# whether to use the graph weights
 sc.lim <- 1500				# limit on the considered scenes (NA for no limit)
 
 
@@ -55,6 +56,9 @@ if(narr.smooth)
 		volume.stats=volume.stats, 
 		ret.seq=TRUE
 	)
+	# possibly set weights
+	if(weighted)
+		gs[["FALSE"]] <- future_lapply(gs[["FALSE"]], function(g) E(g)$weight <- E(g)$Occurrences)
 	
 	# compute the filtered version
 	tlog(2,"Same thing for filtered graphs")
@@ -122,7 +126,7 @@ fnames <- cbind(char.stats[idx[,1],COL_NAME], char.stats[idx[,2],COL_NAME])
 tlog(2,"Looping over similarity measures")
 for(m in 1:length(sim.meas))
 {	tlog(3,"Processing measure \"",names(sim.meas)[m],"\" (",m,"/",length(sim.meas),")")
-	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",names(sim.meas)[m])
+	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",if(weighted) "weighted" else "","_",names(sim.meas)[m])
 	sim.vals <- list()
 	
 	# process unfiltered and filtered networks
@@ -140,10 +144,10 @@ for(m in 1:length(sim.meas))
 			vs <- cbind(match(fnames[,1],V(g)$name), match(fnames[,2],V(g)$name))
 			idx <- which(!apply(vs, 1, function(row) any(is.na(row))))
 			if(length(idx)>0)
-			{	if(narr.smooth)
-					a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
-				else
+			{	if(weighted)
 					a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE, att="weight")
+				else
+					a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
 				sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
 			}
 			return(sim)
