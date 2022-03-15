@@ -1,6 +1,10 @@
 # Computes and plots the evolution of various topological measures over time,
 # for a pre-computed sequence of igraph objects representing a dynamic graph.
 # 
+# TODO
+# As of now just using narrative smoothing: we could switch to other dynamic graph,
+# scene-cumulative or even volumes or arcs.
+# 
 # Vincent Labatut
 # 02/2022
 #
@@ -22,14 +26,8 @@ pub.order <- TRUE
 
 
 ###############################################################################
-# load the dynamic graph
-tlog(0, "Loading the dynamic graph as a sequence of static graphs")
-
-gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE)
-	
-sc.nbr <- length(gg)
-char.names <- V(gg[[sc.nbr]])$name
-char.shortnames <- V(gg[[sc.nbr]])$ShortName
+# read stats
+data <- read.corpus.data()
 
 
 
@@ -37,14 +35,27 @@ char.shortnames <- V(gg[[sc.nbr]])$ShortName
 ###############################################################################
 # retrieve volume positions expressed in scenes
 
-# read stats
-data <- read.corpus.data()
-
 # order volumes
 if(pub.order)	# by publication order
 {	ord.vols <- 1:nrow(data$volume.stats)
+	ord.fold <- "order_pub"
 }else			# by story order
-	ord.vols <- (1:nrow(data$volume.stats))[order(data$volume.stats[,COL_RANK])]	
+{	ord.vols <- (1:nrow(data$volume.stats))[order(data$volume.stats[,COL_RANK])]
+	ord.fold <- "order_story"
+}
+
+
+
+
+###############################################################################
+# load the dynamic graph
+tlog(0, "Loading the dynamic graph as a sequence of static graphs")
+
+gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order)
+	
+sc.nbr <- length(gg)
+char.names <- V(gg[[sc.nbr]])$name
+char.shortnames <- V(gg[[sc.nbr]])$ShortName
 
 
 
@@ -111,7 +122,7 @@ for(m in 1:length(gr.meas))
 	ylim[2] <- ylim[2]*1.1	# add some space for volume names
 	
 	# plot the measure
-	plot.file <- get.path.topomeas.plot(object="graph", mode="scenes", meas.name=meas, filtered=filtered, subfold="narr_smooth/graph")
+	plot.file <- get.path.topomeas.plot(object="graph", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/graph"))
 	tlog(6, "Plotting in file \"",plot.file,"\"")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -207,7 +218,7 @@ for(m in 1:length(vx.meas))
 			pt <- "_main_chars"
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/nodes/",pt))
+		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/nodes/",pt))
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -316,7 +327,7 @@ for(m in 1:length(ed.meas))
 		}
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name=meas, filtered=filtered, subfold="narr_smooth/links/", plot.type=pt)
+		plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name=meas, filtered=filtered, subfold="narr_smooth/",ord.fold,"/links/", plot.type=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)

@@ -102,15 +102,18 @@ ns.normalization <- function(x, mu=0.01)
 # char.stats: list of characters with their attributes.
 # scene.chars: which character appears in which scene.
 # scene.stats: allows retrieving scene durations.
+# volume.stats: allows ordering volumes by publication date or story-wise.
+# filtered: whether characters should be filtered or not.
+# pub.order: whether to consider volumes in publication vs. story order.
 # 
 # returns: a sequence of graphs corresponding to a dynamic graph.
 ###############################################################################
-ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, filtered=FALSE)
+ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.stats, filtered=FALSE, pub.order=TRUE)
 {	tlog(2, "Extracting a dynamic network using narrative smoothing")
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
-	# read the graph
+	# read the whole graph
 	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	atts <- vertex_attr_names(graph=g)
@@ -132,6 +135,9 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, filtered=F
 		if(length(chars)>0)
 			scene.mat[chars,s] <- rep(TRUE,length(chars))
 	}
+	
+	# possibly order scenes
+	# TODO depending on pub.order option
 	
 	# init the list of graphs
 	res <- list()
@@ -300,9 +306,15 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, filtered=F
 #
 # gs: list of igraph objects representing a dynamic graph.
 # filtered: whether the characters have been filtered or not.
+# pub.order: whether to consider volumes in publication vs. story order.
 ###############################################################################
-ns.write.graph <- function(gs, filtered)
-{	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
+ns.write.graph <- function(gs, filtered, pub.order=TRUE)
+{	if(pub.order)	# by publication order
+		ord.fold <- "order_pub"
+	else			# by story order
+		ord.fold <- "order_story"
+	
+	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
 	tlog(2,"Writting files of the form \"",base.file,"\"")
 	
 	# loop over scenes
@@ -324,11 +336,17 @@ ns.write.graph <- function(gs, filtered)
 #
 # filtered: whether the characters have been filtered or not.
 # remove.isolates: whether to remove isolates in each time slice.
+# pub.order: whether to consider volumes in publication vs. story order.
 #
 # returns: list of igraph objects representing a dynamic graph.
 ###############################################################################
-ns.read.graph <- function(filtered, remove.isolates=TRUE)
-{	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold="narr_smooth", desc="ns")
+ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
+{	if(pub.order)	# by publication order
+		ord.fold <- "order_pub"
+	else			# by story order
+		ord.fold <- "order_story"
+	
+	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
 	tlog(2,"Reading files of the form \"",base.file,"\"")
 	gs <- list()
 	
@@ -367,5 +385,6 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE)
 ## test
 #data <- read.corpus.data()
 #filtered <- FALSE
-#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, filtered=filtered)
+#pub.order <- TRUE
+#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
 #ns.write.graph(gs=gg, filtered)

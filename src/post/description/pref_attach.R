@@ -68,7 +68,7 @@ gs.unf <- extract.static.graph.scenes(
 	inter.df=data$inter.df,
 	char.stats=data$char.stats, 
 	volume.stats=data$volume.stats, 
-	ret.seq=TRUE
+	ret.seq=TRUE, pub.order=TRUE	# TODO check that this parm is used in the rest of the graph (should be a main script param)
 )
 gs.filt <- future_lapply(gs.unf, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 # build the list for latter use

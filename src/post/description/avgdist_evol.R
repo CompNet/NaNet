@@ -27,7 +27,7 @@ gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=data$char.stats, 
 	volume.stats=data$volume.stats, 
-	ret.seq=TRUE
+	ret.seq=TRUE, pub.order=TRUE # TODO check that this parm is used in the rest of the graph (also, should be main parameter of the script)
 )
 
 # init lists

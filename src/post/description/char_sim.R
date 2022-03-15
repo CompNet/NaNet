@@ -19,6 +19,8 @@ wide <- TRUE				# wide plots showing volumes as rectangles
 narr.smooth <- TRUE			# whether to use narrative smoothing
 weighted <- TRUE			# whether to use the graph weights
 sc.lim <- 1500				# limit on the considered scenes (NA for no limit)
+pub.order <- TRUE			# whether to use the volume publication vs. story order
+# TODO take last parm into account in path names
 
 
 
@@ -46,15 +48,15 @@ kept <- which(!V(g)$Filtered)
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- list()
 if(narr.smooth)
-{	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE)
-	gs[["TRUE"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE)
+{	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
+	gs[["TRUE"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order)
 }else
 {	tlog(2,"Extracting the sequence of graphs")
 	gs[["FALSE"]] <- extract.static.graph.scenes(
 		inter.df=data$inter.df, 
 		char.stats=char.stats, 
 		volume.stats=volume.stats, 
-		ret.seq=TRUE
+		ret.seq=TRUE, pub.order=pub.order
 	)
 	# possibly set weights
 	if(weighted)
@@ -70,6 +72,13 @@ if(is.na(sc.lim))
 {	sc.rg <- 1:nrow(scene.stats)
 }else
 	sc.rg <- 1:sc.lim
+
+# subfolder
+if(pub.order)
+{	ord.fold <- "order_pub"
+}else
+{	ord.fold <- "order_story"
+}
 
 
 
@@ -126,7 +135,7 @@ fnames <- cbind(char.stats[idx[,1],COL_NAME], char.stats[idx[,2],COL_NAME])
 tlog(2,"Looping over similarity measures")
 for(m in 1:length(sim.meas))
 {	tlog(3,"Processing measure \"",names(sim.meas)[m],"\" (",m,"/",length(sim.meas),")")
-	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",if(weighted) "weighted" else "","_",names(sim.meas)[m])
+	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul",paste0(".",ord.fold),"_",if(weighted) "weighted" else "","_",names(sim.meas)[m])
 	sim.vals <- list()
 	
 	# process unfiltered and filtered networks

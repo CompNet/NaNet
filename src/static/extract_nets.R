@@ -9,7 +9,7 @@
 
 
 ###############################################################################
-# Extracts a static graph based on a list of pairwise interactions, using the
+# Extracts a graph based on a list of pairwise interactions, using the
 # scene as the time unit, without overlap. Nodes are characters, and links
 # represent them (inter-)acting during the same scene.
 #
@@ -23,13 +23,14 @@
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
 # ret.set: whether to return the full sequence of incremental graphs (longer computation).
+# pub.order: whether to consider volumes in publication vs. story order.
 #
 # returns: the corresponding static graph. It contains several edge weights:
 #		   - Occurrences: number of interactions between the concerned nodes.
 #		   - Duration: total duration (in number of panels).
 #		   If ret.set==TRUE, then the function returns a list of graphs.
 ###############################################################################
-extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=NA, arc=NA, ret.seq=FALSE)
+extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=NA, arc=NA, ret.seq=FALSE, pub.order=TRUE)
 {	tlog(2,"Extracting the scene-based static graph")
 	res <- list()
 	vname <- NA
@@ -53,16 +54,15 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 		is <- which(inter.df[,COL_VOLUME_ID]==vol)
 	}
 	else
-	{	# possibly order interactions by story order (not publication order)
-#		if(ret.seq)
-#		{	pg.starts <- page.stats[,COL_PANEL_START_ID]
-#			pg.ends <- page.stats[,COL_PANEL_START_ID] + page.stats[,COL_PANELS] - 1
-#			page.ids <- future_sapply(1:nrow(inter.df), function(r) which(pg.starts<=inter.df[r,COL_PANEL_START_ID] & pg.ends>=inter.df[r,COL_PANEL_START_ID]))
-#			vol.ranks <- volume.stats[page.stats[page.ids, COL_VOLUME_ID], COL_RANK]
-#			inter.df <- inter.df[order(vol.ranks, inter.df[,COL_PANEL_START_ID]),]
-#		}
-		# get interactions numbers
-		is <- 1:nrow(inter.df)
+	{	# order interactions by publication order
+		if(pub.order)
+			is <- 1:nrow(inter.df)
+		# or by story order
+		else
+		{	vol.ranks <- volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]
+			scene.ranks <- inter.df[,COL_SCENE_ID]
+			is <- order(vol.ranks, scene.ranks)
+		}
 	}
 	
 	# build the edgelist by considering each line (i.e. interaction) in the dataframe
@@ -97,7 +97,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 		# if graph sequence required
 		if(ret.seq)
 		{	# possibly copy previous graph
-			if(!is.na(prev.scene) && cur.scene>(prev.scene+1))
+			if(!is.na(prev.scene) && cur.scene!=prev.scene)
 			{	for(s in (prev.scene+1):(cur.scene-1))
 				{	g <- res[[s-1]]
 					g <- set_graph_attr(graph=g, name="Scene", value=s)

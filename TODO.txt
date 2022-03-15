@@ -92,4 +92,9 @@ Clean code:
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
 TODO
-- test vol_prop.R script once re-run narrative smoothing
+- test evol_prop.R script once re-run narrative smoothing
+- should separate the extraction of the static graph vs. graph sequence
+- avgdist.evol.R probably needs to fix: the way order is handled (possibly not taken into account the cumulative nature of the graph, as it is now)
+- complete the narr_smooth script to take volume order param into account
+  - add scene number to graph (actual one, not just row idx since rows could be reordered)
+- filename when numbering graph seq should be fixed size (time slice numbers)
