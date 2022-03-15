@@ -20,7 +20,6 @@ narr.smooth <- TRUE			# whether to use narrative smoothing
 weighted <- TRUE			# whether to use the graph weights
 sc.lim <- 1500				# limit on the considered scenes (NA for no limit)
 pub.order <- TRUE			# whether to use the volume publication vs. story order
-# TODO take last parm into account in path names
 
 
 
