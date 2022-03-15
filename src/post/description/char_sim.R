@@ -70,11 +70,11 @@ sim.meas[["euclidean"]] <- list(
 	cname="Euclidean Distance",
 	foo=function(a,i,j) {sqrt(sum((a[i,]-a[j,])^2))}
 )
-#sim.meas[["regulareq"]] <- list(
-#	bounds=c(0,NA),
-#	cname="Regular Equivalence",
-#	foo=function(a,i,j) {REGE.for(M=a)$E[i,j]}
-#)
+sim.meas[["regulareq"]] <- list(
+	bounds=c(0,NA),
+	cname="Regular Equivalence",
+	foo=function(a,i,j) {REGE.for(M=a)$E[i,j]}
+)
 
 # plot parameters
 pal <- get.palette(2)
@@ -107,8 +107,10 @@ for(p in 1:nrow(pairs))
 			
 		# compute the similarity between both chars for each graph of the sequence
 		tlog(5,"Looping over all graphs in the sequence")
-		res <- t(sapply(gs[[as.character(filt)]], function(g) 
-		{	vs <- match(fnames,  V(g)$name)
+		res <- t(sapply(1:length(gs[[as.character(filt)]]), function(s) 
+		{	tlog(6,"Processing scene ",s,"/",length(gs[[as.character(filt)]]))
+			g <- gs[[as.character(filt)]][[s]]
+			vs <- match(fnames,  V(g)$name)
 			if(any(is.na(vs)))
 				res <- rep(NA,3)
 			else
