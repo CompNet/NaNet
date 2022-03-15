@@ -15,7 +15,8 @@ start.rec.log(text="CharSim")
 
 ################################################################################
 # main parameters
-wide <- TRUE		# wide plots showing volumes as rectangles
+wide <- TRUE				# wide plots showing volumes as rectangles
+narr.smooth <- TRUE			# whether to use narrative smoothing
 
 
 
@@ -41,19 +42,23 @@ g <- read.graphml.file(file=graph.file)
 kept <- which(!V(g)$Filtered)
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
-tlog(2,"Extracting the sequence of graphs")
 gs <- list()
-gs[["FALSE"]] <- extract.static.graph.scenes(
-	inter.df=data$inter.df, 
-	char.stats=char.stats, 
-	volume.stats=volume.stats, 
-	ret.seq=TRUE
-)
-
-# compute the filtered version
-tlog(2,"Same thing for filtered graphs")
-gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
-
+if(narr.smooth)
+{	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE)
+	gs[["TRUE"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE)
+}else
+{	tlog(2,"Extracting the sequence of graphs")
+	gs[["FALSE"]] <- extract.static.graph.scenes(
+		inter.df=data$inter.df, 
+		char.stats=char.stats, 
+		volume.stats=volume.stats, 
+		ret.seq=TRUE
+	)
+	
+	# compute the filtered version
+	tlog(2,"Same thing for filtered graphs")
+	gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+}
 
 
 
@@ -77,11 +82,11 @@ sim.meas[["euclidean"]] <- list(
 	cname="Euclidean Distance",
 	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
 )
-sim.meas[["regequiv"]] <- list(
-	bounds=c(0,NA),
-	cname="Regular Equivalence",
-	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
-)
+#sim.meas[["regequiv"]] <- list(
+#	bounds=c(0,NA),
+#	cname="Regular Equivalence",
+#	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+#)
 
 # plot parameters
 pal <- get.palette(2)
@@ -109,6 +114,7 @@ fnames <- cbind(char.stats[idx[,1],COL_NAME], char.stats[idx[,2],COL_NAME])
 tlog(2,"Looping over similarity measures")
 for(m in 1:length(sim.meas))
 {	tlog(3,"Processing measure \"",names(sim.meas)[m],"\" (",m,"/",length(sim.meas),")")
+	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",names(sim.meas)[m])
 	sim.vals <- list()
 	
 	# process unfiltered and filtered networks
@@ -133,6 +139,11 @@ for(m in 1:length(sim.meas))
 		}))
 		colnames(sims) <- rownames(pairs)
 		
+		# record results
+		file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt)
+		tlog(6,"Recording results to file \"",file,"\"")
+		write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
+		
 		#####
 		# plot the obtained values for each character pair
 		tlog(5,"Looping over the pairs of vertices")
@@ -141,7 +152,7 @@ for(m in 1:length(sim.meas))
 			
 			# set file name
 			pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=paste0("comp_",names(sim.meas)[m]), filtered=filt, plot.type=pt)
+			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt, plot.type=pt)
 			tlog(7,"Creating file \"",plot.file,"\"")
 			
 			# compute y range
@@ -187,8 +198,9 @@ for(m in 1:length(sim.meas))
 		sims.flt <- 
 		
 		# set file name
+		mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",names(sim.meas)[m])
 		pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_both_wide" else "")
-		plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=paste0("comp_",names(sim.meas)[m]), filtered=FALSE, plot.type=pt)
+		plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=FALSE, plot.type=pt)
 		tlog(6,"Creating file \"",plot.file,"\"")
 		
 		# compute y range

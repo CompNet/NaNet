@@ -339,7 +339,7 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE)
 	{	graph.file <- paste0(base.file,"_s",s,".graphml")
 		if(file.exists(graph.file))
 		{	if(s==1 || s %% 500 == 0 || s==length(gs))
-				tlog(4, "(",s,"/",length(gs),") Reading file ",graph.file)
+				tlog(4, "Reading file ",graph.file)
 			
 			# read graph
 			g <- read.graphml.file(file=graph.file)
