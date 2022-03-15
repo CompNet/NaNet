@@ -190,6 +190,9 @@ for(m in 1:length(sim.meas))
 				# add volume representations
 				if(wide)
 					draw.volume.rects(ylim, volume.stats)
+				# horizontal dotted line
+				if(names(sim.meas)[m]=="pearson")
+					abline(h=0, lty=2)
 				# add line
 				lines(
 					x=sc.rg, y=sims[,p], 
@@ -246,6 +249,9 @@ for(m in 1:length(sim.meas))
 					col=if(filt) pal[2] else pal[1]
 				)
 			}
+			# horizontal dotted line
+			if(names(sim.meas)[m]=="pearson")
+				abline(h=0, lty=2)
 			# legend
 			legend(
 				title="Characters",
