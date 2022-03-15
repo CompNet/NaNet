@@ -17,6 +17,7 @@ start.rec.log(text="CharSim")
 # main parameters
 wide <- TRUE				# wide plots showing volumes as rectangles
 narr.smooth <- TRUE			# whether to use narrative smoothing
+sc.lim <- 1500				# limit on the considered scenes (NA for no limit)
 
 
 
@@ -60,6 +61,13 @@ if(narr.smooth)
 	gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 }
 
+# scene range
+if(is.na(sc.lim))
+{	sc.rg <- 1:nrow(scene.stats)
+}else
+	sc.rg <- 1:sc.lim
+
+
 
 
 ###############################################################################
@@ -67,26 +75,26 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # similarity measures
 sim.meas <- list()
-sim.meas[["cosine"]] <- list(
-	bounds=c(0,1),
-	cname="Cosine Similarity",
-	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sum(a[idx[r,1],]*a[idx[r,2],])/sqrt(sum(a[idx[r,1],]^2)*sum(a[idx[r,2],]^2)))}
-)
-sim.meas[["pearson"]] <- list(
-	bounds=c(-1,1),
-	cname="Pearson Coefficient",
-	foo=function(a,idx) {sapply(1:nrow(idx), function(r) cor(x=a[idx[r,1],], y=a[idx[r,2],]))}
-)
-sim.meas[["euclidean"]] <- list(
-	bounds=c(0,NA),
-	cname="Euclidean Distance",
-	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
-)
-#sim.meas[["regequiv"]] <- list(
-#	bounds=c(0,NA),
-#	cname="Regular Equivalence",
-#	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+#sim.meas[["cosine"]] <- list(
+#	bounds=c(0,1),
+#	cname="Cosine Similarity",
+#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sum(a[idx[r,1],]*a[idx[r,2],])/sqrt(sum(a[idx[r,1],]^2)*sum(a[idx[r,2],]^2)))}
 #)
+#sim.meas[["pearson"]] <- list(
+#	bounds=c(-1,1),
+#	cname="Pearson Coefficient",
+#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) cor(x=a[idx[r,1],], y=a[idx[r,2],]))}
+#)
+#sim.meas[["euclidean"]] <- list(
+#	bounds=c(0,NA),
+#	cname="Euclidean Distance",
+#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
+#)
+sim.meas[["regequiv"]] <- list(
+	bounds=c(0,NA),
+	cname="Regular Equivalence",
+	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+)
 
 # plot parameters
 pal <- get.palette(2)
@@ -124,15 +132,18 @@ for(m in 1:length(sim.meas))
 		#####
 		# compute the similarity between all char pairs, for each graph of the sequence
 		tlog(5,"Looping over all graphs in the sequence")
-		sims <- t(sapply(1:length(gs[[as.character(filt)]]), function(s) 
-		{	if(s==1 || s %% 500==0 || s==length(gs[[as.character(filt)]]))
-				tlog(6,"Processing scene ",s,"/",length(gs[[as.character(filt)]]))
+		sims <- t(sapply(sc.rg, function(s) 
+		{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
+				tlog(6,"Processing scene ",s,"/",max(sc.rg))
 			sim <- rep(NA, nrow(pairs))
 			g <- gs[[as.character(filt)]][[s]]
 			vs <- cbind(match(fnames[,1],V(g)$name), match(fnames[,2],V(g)$name))
 			idx <- which(!apply(vs, 1, function(row) any(is.na(row))))
 			if(length(idx)>0)
-			{	a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
+			{	if(narr.smooth)
+					a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
+				else
+					a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE, att="weight")
 				sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
 			}
 			return(sim)
@@ -140,9 +151,11 @@ for(m in 1:length(sim.meas))
 		colnames(sims) <- rownames(pairs)
 		
 		# record results
-		file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt)
-		tlog(6,"Recording results to file \"",file,"\"")
-		write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
+		if(is.na(sc.lim))
+		{	file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt)
+			tlog(6,"Recording results to file \"",file,"\"")
+			write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
+		}
 		
 		#####
 		# plot the obtained values for each character pair
@@ -155,7 +168,8 @@ for(m in 1:length(sim.meas))
 			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt, plot.type=pt)
 			tlog(7,"Creating file \"",plot.file,"\"")
 			
-			# compute y range
+			# compute data ranges
+			xlim <- range(sc.rg)
 			ylim <- range(sims[,p], na.rm=TRUE)
 			ylim[2] <- ylim[2]*1.1	# add some space for volume names
 			
@@ -169,7 +183,7 @@ for(m in 1:length(sim.meas))
 				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 				plot(
 					NULL,
-					xlim=c(1,nrow(scene.stats)), ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
+					xlim=xlim, ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
 					xlab="Scenes", ylab=sim.meas[[m]]$cname,
 					las=1
 				)
@@ -178,7 +192,7 @@ for(m in 1:length(sim.meas))
 					draw.volume.rects(ylim, volume.stats)
 				# add line
 				lines(
-					x=1:nrow(scene.stats), y=sims[,p], 
+					x=sc.rg, y=sims[,p], 
 					col=if(filt) pal[2] else pal[1]
 				)
 				# close file
@@ -203,7 +217,8 @@ for(m in 1:length(sim.meas))
 		plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=FALSE, plot.type=pt)
 		tlog(6,"Creating file \"",plot.file,"\"")
 		
-		# compute y range
+		# compute data ranges
+		xlim <- range(sc.rg)
 		ylim <- range(c(sim.vals[[as.character(FALSE)]][,p], sim.vals[[as.character(TRUE)]][,p]), na.rm=TRUE)
 		ylim[2] <- ylim[2]*1.1	# add some space for volume names
 		
@@ -217,7 +232,7 @@ for(m in 1:length(sim.meas))
 			par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 			plot(
 				NULL,
-				xlim=c(1,nrow(scene.stats)), ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
+				xlim=xlim, ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
 				xlab="Scenes", ylab=sim.meas[[m]]$cname,
 				las=1
 			)
@@ -227,7 +242,7 @@ for(m in 1:length(sim.meas))
 			# add line
 			for(filt in c(FALSE,TRUE))
 			{	lines(
-					x=1:nrow(scene.stats), y=sim.vals[[as.character(filt)]][,p], 
+					x=sc.rg, y=sim.vals[[as.character(filt)]][,p], 
 					col=if(filt) pal[2] else pal[1]
 				)
 			}
@@ -240,93 +255,15 @@ for(m in 1:length(sim.meas))
 			)
 			# close file
 			dev.off()
-			
 		}
 	}
 }
-# TODO same process applied to narr smooth nets
-
-
-
-
-
-
-
-
-## plot the similarity values
-#tlog(2,"Looping over the pairs of vertices")
-#for(p in 1:nrow(pairs))
-#{	tlog(3,"Processing pair ",pairs[p,1],"--",pairs[p,2]," (",p,"/",nrow(pairs),")")
-#	
-#	# get full names
-#	idx <- c(which(char.stats[COL_NAME_SHORT]==pairs[p,1]), which(char.stats[COL_NAME_SHORT]==pairs[p,2]))
-#	fnames <- char.stats[idx,COL_NAME]
-#	
-#	# process unfiltered and filtered networks
-#	for(filt in c(FALSE,TRUE))
-#	{	tlog(4,"Processing the ",if(!filt) "un" else "","filtered network")
-#			
-#		# compute the similarity between both chars for each graph of the sequence
-#		tlog(5,"Looping over all graphs in the sequence")
-#		res <- t(sapply(1:length(gs[[as.character(filt)]]), function(s) 
-#		{	if(s==1 || s %% 500==0 || s==length(gs[[as.character(filt)]]))
-#				tlog(6,"Processing scene ",s,"/",length(gs[[as.character(filt)]]))
-#			g <- gs[[as.character(filt)]][[s]]
-#			vs <- match(fnames,  V(g)$name)
-#			if(any(is.na(vs)))
-#				res <- rep(NA,length(sim.meas))
-#			else
-#			{	a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
-#				res <- sapply(1:length(sim.meas), function(m) sim.meas[[m]]$foo(a, vs[1],vs[2]))
-#			}
-#			return(res)
-#		}))
-#		colnames(res) <- names(sim.meas)
-#		
-#		# plot the obtained values
-#		tlog(5,"Looping over all similarity measures")
-#		for(m in 1:length(sim.meas))
-#		{	# compute y range
-#			ylim <- range(res[,m], na.rm=TRUE)
-#			ylim[2] <- ylim[2]*1.1	# add some space for volume names
-#			
-#			# produce file
-#			pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-#			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=paste0("comp_",names(sim.meas)[m]), filtered=filt, plot.type=pt)
-#			tlog(6,"Creating file \"",plot.file,"\"")
-#			for(fformat in PLOT_FORMAT)
-#			{	if(fformat==PLOT_FORMAT_PDF)
-#					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), width=pw.pdf, height=ph.pdf, bg="white")
-#				else if(fformat==PLOT_FORMAT_PNG)
-#					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=pw.png, height=ph.png, units="px", pointsize=20, bg="white")
-#				# init empty plot
-#				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-#				plot(
-#					NULL,
-#					xlim=c(1,nrow(scene.stats)), ylim=ylim,				# ylim=sim.meas[[m]]$bounds,
-#					xlab="Scenes", ylab=sim.meas[[m]]$cname,
-#					las=1
-#				)
-#				# add volume representations
-#				if(wide)
-#					draw.volume.rects(ylim, volume.stats[ord.vols,])
-#				# add line
-#				lines(
-#					x=1:nrow(res), y=res[,m], 
-#					col=if(filt) pal[2] else pal[1]
-#				)
-#				# close file
-#				dev.off()
-#			}
-#		}
-#	}
-#}
 
 
 
 
 ###############################################################################
-
+# 
 
 
 
