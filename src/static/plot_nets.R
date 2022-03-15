@@ -327,7 +327,7 @@ plot.static.graph.scenes.all <- function(data)
 	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
 	tlog(4,"Plotting volume-related graphs using vertex colors")
 	for(v in 1:length(data$volume.chars))
-	{	vname <- data$volume.stats[v,COL_VOLUME]
+	{	vname <- paste0(v,"_",data$volume.stats[v,COL_VOLUME])
 		tlog(6,"Plotting volume ",vname," (",v,"/",length(data$volume.chars),")")
 		idx <- match(data$volume.chars[[v]], data$char.stats[,COL_NAME])
 		el <- as_edgelist(graph=g, names=FALSE)
@@ -363,9 +363,9 @@ plot.static.graph.scenes.all <- function(data)
 		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=TRUE, subfold="fulledges", desc="static")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(graph.file,"_vol",vname,"_filtered",PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(graph.file,"_vol",vname,"_filtered",PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 				plot(g.filtr, 
 					layout=LAYOUT[idx.filtr,],	# lay.filtr,  
 					vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr], 
