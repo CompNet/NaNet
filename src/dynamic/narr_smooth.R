@@ -137,13 +137,20 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 	}
 	
 	# possibly order scenes
-	# TODO depending on pub.order option
+	if(!pub.order)
+	{	vol.ranks <- volume.stats[scene.stats[,COL_VOLUME_ID],COL_RANK]
+		scene.ranks <- scene.stats[,COL_SCENE_ID]
+		idx <- order(vol.ranks, scene.ranks)
+		scene.stats <- scene.stats[idx,]
+		scene.mat <- scene.mat[,idx]
+	}
 	
 	# init the list of graphs
 	res <- list()
 	for(s in 1:length(scene.chars))
 	{	# create empty graph (no edge)
 		gt <- make_empty_graph(n=nrow(char.stats), directed=FALSE)
+		gt <- set_vertex_attr(graph=gt, name=COL_SCENE_ID, value=scene.stats[s,COL_SCENE_ID])
 		# copy the vertex attributes of the static graph
 		for(att in atts)
 			gt <- set_vertex_attr(graph=gt, name=att, value=vertex_attr(graph=g, name=att))
@@ -227,23 +234,23 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 				narr.per <- rep(-Inf, length(rem.sc.ids))
 				# init with previous scene involving both characters
 				prev.sc.ids <- sapply(rem.sc.ids, function(s)
-						{	cands <- which(ij.sc.ids<s)
-							if(length(cands)>0)
-								res <- ij.sc.ids[max(cands)]
-							else
-								res <- NA
-							return(res)
-						})
+				{	cands <- which(ij.sc.ids<s)
+					if(length(cands)>0)
+						res <- ij.sc.ids[max(cands)]
+					else
+						res <- NA
+					return(res)
+				})
 				ids.per <- which(!is.na(prev.sc.ids))
 				if(length(ids.per)>0)
 				{	narr.per[ids.per] <- ij.weights[prev.sc.ids[ids.per]]
 					#print(cbind(rem.sc.ids,prev.sc.ids,narr.per))
 					# update with intermediary scenes involving only one of the characters
 					updt.per <- sapply(ids.per, function(k)
-							{	t <- rem.sc.ids[k]
-								theta <- prev.sc.ids[k]
-								ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, char.stats, scene.chars, scene.stats, scene.mat)
-							})
+					{	t <- rem.sc.ids[k]
+						theta <- prev.sc.ids[k]
+						ns.compute.interaction.scores(i, j, t0=theta+1, t1=t, char.stats, scene.chars, scene.stats, scene.mat)
+					})
 					#print(cbind(rem.sc.ids[ids.per],prev.sc.ids[ids.per],narr.per[ids.per],updt.per))
 					narr.per[ids.per] <- narr.per[ids.per] - updt.per
 				}
@@ -381,10 +388,10 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
 
 
 
-###############################################################################
+################################################################################
 ## test
 #data <- read.corpus.data()
 #filtered <- FALSE
-#pub.order <- TRUE
+#pub.order <- FALSE
 #gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
-#ns.write.graph(gs=gg, filtered)
+#ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order)
