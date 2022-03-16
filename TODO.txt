@@ -88,12 +88,12 @@ Clean code:
 - automate the comparison of node measure vs. node measures (same for edges) (in both directions n1 vs n2 and n2 vs n1)
 - define a unique function to plot distributions
   > systematize histo & ccdf?
+- narrative smoothing is slow, and possibly bugged
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
 TODO
-- test evol_prop.R script once re-run narrative smoothing
 - should separate the extraction of the static graph vs. graph sequence
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
-- avgdist.evol.R probably needs to fix: the way order is handled (possibly not taken into account the cumulative nature of the graph, as it is now)
+- avgdist.evol.R probably needs a fix: the way *order* is handled (possibly does not take into account the cumulative nature of the graph, as it is now)
 - filename when numbering graph seq should be fixed size (time slice numbers)

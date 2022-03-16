@@ -34,7 +34,15 @@ idx <- match(chars,char.stats[,COL_NAME])
 pal <- get.palette(5)[c(1,4)]
 
 # monitored volumes
-vols <- c("30","31","32","33","K3", "K4", "34", "K5", "K6", "35")
+vols <- c(
+	"30", "31", "32",#"K1",
+	"33", #"L1", "K2",
+	"K3", #"L2", "J1", "L3",
+	"K4", "34", #"J2","L4",
+	"K5", #"L5", "J3", 
+	"K6", #"J4","L6",
+	"35"
+)
 vols.idx <- match(vols, volume.stats[,COL_VOLUME])
 
 # read volume stats

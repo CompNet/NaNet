@@ -20,7 +20,7 @@ start.rec.log(text="EvolutionProp")
 ###############################################################################
 # parameters
 filtered <- TRUE 
-pub.order <- TRUE
+pub.order <- FALSE
 
 
 
@@ -28,7 +28,7 @@ pub.order <- TRUE
 ###############################################################################
 # read stats
 data <- read.corpus.data()
-
+volume.stats <- data$volume.stats
 
 
 
@@ -37,10 +37,10 @@ data <- read.corpus.data()
 
 # order volumes
 if(pub.order)	# by publication order
-{	ord.vols <- 1:nrow(data$volume.stats)
+{	ord.vols <- 1:nrow(volume.stats)
 	ord.fold <- "order_pub"
 }else			# by story order
-{	ord.vols <- (1:nrow(data$volume.stats))[order(data$volume.stats[,COL_RANK])]
+{	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
 	ord.fold <- "order_story"
 }
 
@@ -54,8 +54,8 @@ tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order)
 	
 sc.nbr <- length(gg)
-char.names <- V(gg[[sc.nbr]])$name
-char.shortnames <- V(gg[[sc.nbr]])$ShortName
+char.names <- data$char.stats[,COL_NAME]
+char.shortnames <- data$char.stats[,COL_NAME_SHORT]
 
 
 
@@ -178,7 +178,7 @@ log.y <- c(
 vs.stats <- list()
 
 # vertices of interest
-vtx.plot <- c("Thorgal Aegirsson","Aaricia Ganfalfsdottir","Kriss de Valnor","Jolan Thorgalsson","Louve")
+vtx.plot <- c("Thorgal Aegirsson","Aaricia Ganfalfsdottir","Kriss de Valnor","Jolan Thorgalsson","Louve Thorgalsdottir")
 # build character list
 tmp <- t(combn(vtx.plot,2))								# all pairs of chars
 vss <- lapply(seq_len(nrow(tmp)), function(i) tmp[i,])	# convert to a list
@@ -199,8 +199,10 @@ for(m in 1:length(vx.meas))
 	# compute the measure for each time slice
 	for(i in 1:length(gg))
 	{	cache <<- list()
-		vals <- NODE_MEASURES[[meas]]$foo(gg[[i]])
-		mat[i,V(gg[[i]])$name] <- vals
+		if(gorder(gg[[i]])>0)
+		{	vals <- NODE_MEASURES[[meas]]$foo(gg[[i]])
+			mat[i,V(gg[[i]])$name] <- vals
+		}
 	}
 	vs.stats[[meas]] <- mat
 	
@@ -218,7 +220,7 @@ for(m in 1:length(vx.meas))
 			pt <- "_main_chars"
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/nodes/",pt))
+		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/nodes/"),pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -327,7 +329,7 @@ for(m in 1:length(ed.meas))
 		}
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name=meas, filtered=filtered, subfold="narr_smooth/",ord.fold,"/links/", plot.type=pt)
+		plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/links/"), plot.type=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
