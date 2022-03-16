@@ -90,6 +90,8 @@ Clean code:
   > systematize histo & ccdf?
 - narrative smoothing is slow, and possibly bugged
 
+- make names larger in volume- and arc-dependent net plots (PDF)
+
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
 TODO
