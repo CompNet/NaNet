@@ -94,8 +94,10 @@ Clean code:
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
+- check that we record the data used in plots that are costly to compute (e.g. reg sim)
+
 TODO
 - should separate the extraction of the static graph vs. graph sequence
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
 - avgdist.evol.R probably needs a fix: the way *order* is handled (possibly does not take into account the cumulative nature of the graph, as it is now)
-- filename when numbering graph seq should be fixed size (time slice numbers)
+- revise folder organization in net stats and comparison plots

@@ -322,16 +322,7 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE)
 		ord.fold <- "order_story"
 	
 	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
-	tlog(2,"Writting files of the form \"",base.file,"\"")
-	
-	# loop over scenes
-	for(s in 1:length(gs))
-	{	graph.file <- paste0(base.file,"_s",s,".graphml")
-		if(s==1 || s %% 500 == 0 || s==length(gs))
-			tlog(4, "(",s,"/",length(gs),") Recording file ",graph.file)
-		g <- gs[[s]]
-		write.graph(graph=g, file=graph.file, format="graphml")
-	}
+	write.dynamic.graph(gs=gs, base.path=base.file)
 }
 
 
@@ -354,33 +345,7 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
 		ord.fold <- "order_story"
 	
 	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
-	tlog(2,"Reading files of the form \"",base.file,"\"")
-	gs <- list()
-	
-	# loop over scenes
-	go.on <- TRUE
-	s <- 1
-	while(go.on)
-	{	graph.file <- paste0(base.file,"_s",s,".graphml")
-		if(file.exists(graph.file))
-		{	if(s==1 || s %% 500 == 0 || s==length(gs))
-				tlog(4, "Reading file ",graph.file)
-			
-			# read graph
-			g <- read.graphml.file(file=graph.file)
-			
-			# possibly remove isolates
-			if(remove.isolates)
-			{	isolates <- which(degree(g)==0)
-				g <- delete_vertices(g, isolates)
-			}
-			
-			gs[[s]] <- g
-			s <- s + 1
-		}
-		else
-			go.on <- FALSE
-	}
+	gs <- read.dynamic.graph(base.path=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)
 }

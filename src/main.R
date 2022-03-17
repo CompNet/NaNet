@@ -60,12 +60,12 @@ page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 netw
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 # OR, if already computed, read from file
-#data <- read.corpus.data()
+data <- read.corpus.data()
 
 # compute corpus stats
-data <- compute.corpus.stats(data)
+#data <- compute.corpus.stats(data)
 # plot corpus stats
 #plot.corpus.stats(data)
 
@@ -74,9 +74,9 @@ data <- compute.corpus.stats(data)
 
 ###############################################################################
 # extract static networks
-data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+#data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 # plot them
-#plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 
@@ -99,4 +99,4 @@ end.rec.log()
 
 ###############################################################################
 # post analysis
-source("src/post/description/_all_post.R")
+#source("src/post/description/_all_post.R")

@@ -6,33 +6,10 @@
 # source("src/graphs/misc.R")
 #############################################################################################
 source("src/graphs/generation.R")
+source("src/graphs/read_write.R")
 source("src/graphs/rewiring.R")
 source("src/graphs/topomeas.R")
 source("src/graphs/smallworldness.R")
-
-
-
-
-#############################################################################################
-# Reads the graph produced by the script, converting the strings when needed.
-#
-# file: file path.
-#
-# returns: igraph object.
-#############################################################################################
-read.graphml.file <- function(file)
-{	# read graph
-	g <- read_graph(file=file, format="graphml")
-	
-	# convert strings
-	for(col in c(tolower(COL_NAME), COL_NAME_SHORT))
-	{	str <- vertex_attr(graph=g, name=col)
-		str <- fix.encoding(strings=str)
-		g <- set_vertex_attr(graph=g, name=col, value=str)
-	}
-	
-	return(g)
-}
 
 
 
