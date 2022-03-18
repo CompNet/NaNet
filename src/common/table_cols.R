@@ -154,4 +154,4 @@ COL_CORR_SCENES_PANELS_BY_CHAR <- "CorrelationScenesPanelsByCharacter"
 # misc
 COL_SERIES <- "Series"							# name of the series
 COL_TITLE <- "Title"							# title of the volume
-COL_RANK <- "Rank"								# order in the narrative story
+COL_RANK <- "Rank"								# order in the narrative story (by opposition to the publication order)

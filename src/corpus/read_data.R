@@ -160,11 +160,13 @@ init.arc.table <- function(volume.stats)
 		integer(arc.nbr),
 		integer(arc.nbr),
 		integer(arc.nbr),
+		integer(arc.nbr),
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(arc.stats) <- c(
 		COL_ARC_ID, 
 		COL_TITLE, 
+		COL_RANK,
 		COL_VOLUMES,
 		COL_PAGES,
 		COL_PANELS,
@@ -185,6 +187,7 @@ init.arc.table <- function(volume.stats)
 	
 	# fill a few columns of the arc table
 	vol.ids <- lapply(1:arc.nbr, function(a) which(volume.stats[,COL_ARC_ID]==a))
+	arc.stats[,COL_RANK] <- rank(sapply(vol.ids, function(vols) min(volume.stats[vols,COL_RANK])))
 	arc.stats[,COL_VOLUMES] <- sapply(vol.ids, length)
 	arc.stats[,COL_PAGES] <- sapply(vol.ids, function(vols) sum(volume.stats[vols,COL_PAGES]))
 	
@@ -259,13 +262,18 @@ read.page.table <- function(volume.stats, arc.stats)
 	df <- data.frame(
 		integer(pg.nbr),
 		integer(pg.nbr),
+		integer(pg.nbr),
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(df) <- c(
+		COL_RANK,
 		COL_SCENES,
 		COL_CHARS
 	)
 	page.stats <- cbind(page.stats, df)
+	
+	# init story rank
+	page.stats[,COL_RANK] <- rank(volume.stats[page.stats[,COL_VOLUME_ID],COL_RANK]*(nrow(page.stats)+1) + page.stats[,COL_PAGE])
 	
 	# complete volume table
 	tlog(4,"Completing the volume table")
@@ -275,7 +283,7 @@ read.page.table <- function(volume.stats, arc.stats)
 	# panel ids
 	volume.stats[,COL_PANEL_START_ID] <- page.stats[volume.stats[,COL_PAGE_START_ID],COL_PANEL_START_ID]
 	volume.stats[,COL_PANEL_END_ID] <- page.stats[volume.stats[,COL_PAGE_END_ID],COL_PANEL_END_ID]
-	
+		
 	tlog(2,"Reading of the page file completed")
 	res <- list(
 		page.stats=page.stats, 
@@ -308,12 +316,14 @@ init.panel.table <- function(page.stats, char.stats, volume.stats, arc.stats)
 		integer(panel.nbr), integer(panel.nbr), integer(panel.nbr), integer(panel.nbr), 
 		integer(panel.nbr), integer(panel.nbr), character(panel.nbr), 
 		integer(panel.nbr),
+		integer(panel.nbr),
 		logical(panel.nbr), logical(panel.nbr), logical(panel.nbr),
 		stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(panel.stats) <- c(
 		COL_PANEL_ID, COL_PAGE_ID, COL_VOLUME_ID, COL_ARC_ID,
 		COL_PANEL, COL_PAGE, COL_VOLUME,  
+		COL_RANK, 
 		COL_CHARS, 
 		COL_MATCH_START, COL_MATCH_END, COL_MATCH_BOTH
 	)
@@ -327,6 +337,7 @@ init.panel.table <- function(page.stats, char.stats, volume.stats, arc.stats)
 	panel.stats[,COL_VOLUME_ID] <- page.stats[panel.stats[,COL_PAGE_ID], COL_VOLUME_ID]
 	panel.stats[,COL_VOLUME] <- page.stats[panel.stats[,COL_PAGE_ID], COL_VOLUME]
 	panel.stats[,COL_ARC_ID] <- page.stats[panel.stats[,COL_PAGE_ID], COL_ARC_ID]
+	panel.stats[,COL_RANK] <- rank(page.stats[panel.stats[,COL_PAGE_ID],COL_RANK]*(nrow(panel.stats)+1) + panel.stats[,COL_PANEL])
 	panel.stats[,COL_MATCH_START] <- panel.stats[,COL_PANEL]==1
 	panel.stats[,COL_MATCH_END] <- panel.stats[,COL_PANEL]==page.stats[panel.stats[,COL_PAGE_ID],COL_PANELS]
 	panel.stats[,COL_MATCH_BOTH] <- panel.stats[,COL_MATCH_START] & panel.stats[,COL_MATCH_END]
@@ -381,6 +392,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		integer(), integer(), 
 		integer(), integer(),
 		integer(), integer(), 
+		integer(), 
 		integer(), integer(), integer(),
 		logical(), logical(), logical(),
 		stringsAsFactors=FALSE, check.names=FALSE
@@ -393,6 +405,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		COL_PANEL_START, COL_PANEL_START_ID,
 		COL_PAGE_END, COL_PAGE_END_ID, 
 		COL_PANEL_END, COL_PANEL_END_ID, 
+		COL_RANKS,
 		COL_PANELS, COL_PAGES, COL_CHARS,
 		COL_MATCH_START, COL_MATCH_END, COL_MATCH_BOTH
 	)
@@ -409,6 +422,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		integer(), integer(), 
 		integer(), integer(), 
 		integer(), integer(), 
+		integer(), 
 		stringsAsFactors=FALSE, check.names=FALSE)
 	inter.df.cn <- c(
 		COL_CHAR_FROM, COL_CHAR_TO, 
@@ -419,6 +433,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		COL_PANEL_START, COL_PANEL_START_ID,
 		COL_PAGE_END, COL_PAGE_END_ID, 
 		COL_PANEL_END, COL_PANEL_END_ID,
+		COL_RANK,
 		COL_PANELS, COL_PAGES)
 	colnames(inter.df) <- inter.df.cn
 	Encoding(inter.df[,COL_CHAR_FROM]) <- "UTF-8"
@@ -501,18 +516,18 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			chars <- line[6:length(line)]
 			chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
 			chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
-					{	if(length(v)==0)
-							return("")
-						else if(length(v)==1)
-							return(trimws(v))
-						else if(length(v)==2)
-							return(trimws(v[2]))
-						else
-						{	msg <- paste0("ERROR when splitting the names: ",v)
-							tlog(4,msg)
-							stop(msg)
-						}
-					})
+			{	if(length(v)==0)
+					return("")
+				else if(length(v)==1)
+					return(trimws(v))
+				else if(length(v)==2)
+					return(trimws(v[2]))
+				else
+				{	msg <- paste0("ERROR when splitting the names: ",v)
+					tlog(4,msg)
+					stop(msg)
+				}
+			})
 			chars <- sort(chars[which(chars!="" & chars!=" ")])
 			
 			# check the character names
@@ -555,7 +570,8 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 							as.integer(rep(start.panel,rr)), as.integer(rep(start.panel.id,rr)),
 							as.integer(rep(end.page,rr)), as.integer(rep(end.page.id,rr)), 
 							as.integer(rep(end.panel,rr)), as.integer(rep(end.panel.id,rr)),
-							as.integer(panel.nbr), as.integer(page.nbr),
+							as.integer(NA),
+							as.integer(rep(panel.nbr,rr)), as.integer(rep(page.nbr,rr)),
 							stringsAsFactors=FALSE, check.names=FALSE)
 						colnames(tmp.df) <- inter.df.cn
 						inter.df <- rbind(inter.df, tmp.df)
@@ -577,6 +593,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			as.integer(start.panel), as.integer(start.panel.id),
 			as.integer(end.page), as.integer(end.page.id), 
 			as.integer(end.panel), as.integer(end.panel.id),
+			as.integer(NA),
 			as.integer(panel.nbr), as.integer(page.nbr), as.integer(length(chars)),
 			match.start, match.end, match.start && match.end,
 			stringsAsFactors=FALSE, check.names=FALSE
@@ -595,6 +612,10 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
 		}
 	}
+	
+	# update scene and interaction ranks
+	scene.stats[,COL_RANK] <- rank(volume.stats[scene.stats[,COL_VOLUME_ID],COL_RANK]*(nrow(scene.stats)+1) + scene.stats[,COL_SCENE_ID], ties.method="first")
+	inter.df[,COL_RANK] <- rank(volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]*(nrow(inter.df)+1) + 1:nrow(inter.df), ties.method="first")
 	
 	# check unused characters
 	pb.char <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
