@@ -24,7 +24,7 @@ The script does the following:
 
 
 # Data
-The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Figshare](https://doi.org/...) **(not available yet)**.
+The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Zenodo](https://doi.org/...) **(not available yet)**.
 
 
 # Organization
@@ -34,7 +34,7 @@ Here are the folders composing the project:
   * File `interactions.csv`: list of scenes with the involved characters.
   * File `pages.csv`: list of pages with their number of panels.
   * File `volumes.csv`: list of volumes (issues) in the series.
-  * Folder `networks`: all the networks extracted from the above tables.
+  * Folder `networks`: all the networks extracted from the above tables, as Graphml files and plots.
   * Folder `stats`: CSV and plot files containing the statistics computed for the corpus and for these networks.
 * Folder `log`: logs produced when running the scripts.
 * Folder `res`: resources used by the `R` scripts.
@@ -66,7 +66,7 @@ In order to extract the networks from the raw data, compute the statistics, and 
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [L'18] (note that this will take a while).
+The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)] (note that this will take a while).
 
 
 # Dependencies
@@ -99,4 +99,4 @@ Tested with `R` version 4.0.5, with the following packages:
 
 
 # References
-* **[V'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, submitted.
+* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, submitted.
