@@ -8,6 +8,7 @@
 # Vincent Labatut
 # 02/2022
 #
+# setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/dynamic/narr_smooth.R")
 ###############################################################################

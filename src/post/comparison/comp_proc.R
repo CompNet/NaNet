@@ -3,6 +3,7 @@
 # Vincent Labatut
 # 08/2021
 #
+# setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/comparison/comp_proc.R")
 ###############################################################################

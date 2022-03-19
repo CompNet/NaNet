@@ -12,6 +12,7 @@
 # Vincent Labatut
 # 11/2021
 #
+# setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/rand_meas.R.R")
 ###############################################################################

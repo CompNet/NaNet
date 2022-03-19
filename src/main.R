@@ -4,6 +4,7 @@
 # Vincent Labatut
 # 11/2018
 #
+# setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/main.R")
 ###############################################################################
@@ -21,6 +22,10 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 ## setup parameters
+#SERIES <- "Test"
+#SERIES <- "Ralph_Azham"
+SERIES <- "Thorgal"
+
 ## test
 #panel.window.sizes <- c(1, 2, 3)
 #panel.overlaps <- list(c(0), c(0,1), c(0,1,2))

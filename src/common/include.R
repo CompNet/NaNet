@@ -46,7 +46,7 @@ options(warn=1)			# as they happen
 
 #SERIES <- "Test"
 #SERIES <- "Ralph_Azham"
-SERIES <- "Thorgal"
+#SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
 
 

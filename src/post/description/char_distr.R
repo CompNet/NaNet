@@ -4,6 +4,7 @@
 # Vincent Labatut
 # 12/2021
 #
+# setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/char_distr.R")
 ###############################################################################
