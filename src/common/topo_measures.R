@@ -5,6 +5,8 @@
 ###############################################################################
 
 
+
+
 ###############################################################################
 # topological measure names
 MEAS_BETWEENNESS <- "betweenness"
@@ -26,6 +28,7 @@ MEAS_DENSITY <- "density"
 MEAS_LINKWEIGHT <- "linkweight"
 MEAS_EIGENCNTR <- "eigenvector"
 MEAS_TRANSITIVITY <- "transitivity"
+
 # comparison measure names
 MEAS_COSINE_SIM <- "cosine"
 MEAS_EUCLIDEAN_DIST <- "euclidean"
@@ -36,6 +39,13 @@ MEAS_FMEASURE <- "fmeasure"
 MEAS_FALSENEG <- "falsenegative"
 MEAS_FALSEPOS <- "falsepositive"
 MEAS_TRUEPOS <- "truepositive"
+
+# fake measures
+MEAS_MULTI_NODES <- "multi-nodes"
+MEAS_MULTI_LINKS <- "multi-links"
+MEAS_MULTI_NODEPAIRS <- "multi-nodepairs"
+MEAS_MULTI_GRAPH <- "multi-graph"
+
 
 
 
@@ -53,6 +63,7 @@ SFX_ASSORT <- "-assortativity"
 SFX_CENTRZ <- "-centralization"
 SFX_LOCAL <- "-local"
 SFX_GLOBAL <- "-global"
+
 # for comparison measures
 SFX_DUR <- "-duration"
 SFX_OCC <- "-occurrences"
@@ -60,8 +71,13 @@ SFX_FILTERED <- "-filtered"
 SFX_TOTAL <- "-total"
 
 
+
+
 ###############################################################################
 # define/load the topological measures
+
+# load topological measures
+ALL_MEASURES <- list()
 NODE_MEASURES <- list()
 NODEPAIR_MEASURES <- list()
 LINK_MEASURES <- list()
@@ -79,7 +95,8 @@ source("src/measures/topological/element.R")
 source("src/measures/topological/harmo_closeness.R")
 source("src/measures/topological/spectral.R")
 source("src/measures/topological/transitivity.R")
-# comparison measures
+
+# load comparison measures
 GRAPHCOMP_MEASURES <- list()
 NODECOMP_MEASURES <- list()
 source("src/measures/comparison/comparison.R")
@@ -92,7 +109,17 @@ source("src/measures/comparison/jaccard.R")
 source("src/measures/comparison/precision.R")
 source("src/measures/comparison/recall.R")
 source("src/measures/comparison/truepos.R")
+
+# overall list
 ALL_MEASURES <- c(NODE_MEASURES, NODEPAIR_MEASURES, LINK_MEASURES, GRAPH_MEASURES, GRAPHCOMP_MEASURES, NODECOMP_MEASURES)
+
+# fake measures, used only to build file paths 
+ALL_MEASURES[[MEAS_MULTI_NODES]] <- list(folder="multiple", object="nodes")
+ALL_MEASURES[[MEAS_MULTI_LINKS]] <- list(folder="multiple", object="links")
+ALL_MEASURES[[MEAS_MULTI_NODEPAIRS]] <- list(folder="multiple", object="nodepairs")
+ALL_MEASURES[[MEAS_MULTI_GRAPH]] <- list(folder="multiple", object="graph")
+
+
 
 
 ###############################################################################

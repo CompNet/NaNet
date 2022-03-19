@@ -176,15 +176,21 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
-	# possible add filtered suffix
+	# possible add filtered subfolder
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
 	# possibly add arc subfolder
-	if(!is.na(arc))
-		folder <- file.path(folder, "arcs", arc)
+	if(!is.na(arc) && (!is.logical(arc) || arc))
+	{	folder <- file.path(folder, "arcs")
+		if(!is.logical(arc))
+			folder <- file.path(folder, arc)
+	}
 	# possibly add volume subfolder
-	if(!is.na(vol))
-		folder <- file.path(folder, "volumes", vol)
+	if(!is.na(vol) && (!is.logical(vol) || vol))
+	{	folder <- file.path(folder, "volumes")
+		if(!is.logical(vol))
+			folder <- file.path(folder, vol)
+	}
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -221,8 +227,9 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # measure of some network. File extension is not included and must be added 
 # a posteriori.
 # 
-# object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# net.type: "static", "cumulative", "narr_smooth".
+# order: "publication" vs. "story" order for the dynamic networks.
 # meas.name: file-ready name of the measure.
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -230,38 +237,46 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
-# filtered: whether this concerns the filtered version of the graph.
+# filtered: whether this concerns the filtered version of the graph (or NA if not applicable).
 # subfold: additional subfolder (optional).
 # plot.type: type of plot (barplot, histogram, etc.).
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, subfold=NA, plot.type=NA)
-{	# base folder
+get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, plot.type=NA)
+{	# base folder 
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
 	else if(mode=="page.window")
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
-	# possible add filtered suffix
-	if(filtered)
-		folder <- paste0(folder, "_filtered")
+	# possibly add filtered subfolder
+	if(!is.na(filtered))
+		folder <- file.path(folder, filtered)
+	# add network type folder
+	folder <- file.path(folder, net.type)
+	# possibly add order subfolder
+	if(!is.na(order))
+		folder <- file.path(folder, order) 
 	# possibly add arc subfolder
 	if(!is.na(arc) && (!is.logical(arc) || arc))
 	{	folder <- file.path(folder, "arcs")
 		if(!is.logical(arc))
-			folder <- file.path(folder, arc)
+			folder <- file.path(folder, "separate", arc)
 	}
 	# possibly add volume subfolder
 	if(!is.na(vol) && (!is.logical(vol) || vol))
 	{	folder <- file.path(folder, "volumes")
 		if(!is.logical(vol))
-			folder <- file.path(folder, vol)
+			folder <- file.path(folder, "separate", vol)
 	}
-	# possibly add extra subfolder
-	if(!is.na(subfold))
-		folder <- file.path(folder, subfold)
+	# possibly add weight subfolder
+	if(!is.na(weights))
+		folder <- file.path(folder, weights)
+#	# possibly add extra subfolder
+#	if(!is.na(subfold))
+#		folder <- file.path(folder, subfold)
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -272,26 +287,32 @@ get.path.topomeas.plot <- function(object, mode, meas.name=NA, window.size=NA, o
 	# possibly add overlap
 	else if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
-	# possibly add scene weights
-	if(!is.na(weights))
-		folder <- file.path(folder, weights)
+	# possibly add measure object
+	if(!is.na(meas.name))
+		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, "static")
-	# possibly add object
-	if(!is.na(object))
-		res <- 	paste0(res, "_", object)
+	fname <- ""
+#	# possibly add object
+#	if(!is.na(object))
+#		res <- 	paste0(fname, "_", object)
 	# add measure
 	if(!is.na(meas.name))
-		res <- paste0(res, "_meas=",meas.name)
+		res <- paste0(fname, "_",meas.name)
 	# possibly add plot type
 	if(!is.na(plot.type))
-		res <- paste0(res, "_", plot.type)
+		res <- paste0(fname, "_", plot.type)
+	# possibly use placeholder
+	if(res=="")
+		res <- "file"
 	
+	res <- file.path(folder, fname)
 	return(res)
 }
+# TODO rem object, subfold ; add net.type, order 
+# TODO add static level to network folders
 
 
 

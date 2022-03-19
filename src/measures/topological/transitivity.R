@@ -24,6 +24,8 @@ NODE_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL)]] <- list( #transitivity-loca
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 	}
@@ -32,6 +34,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_AVG)]] <- list( #transiti
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Average Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 		mean(values,na.rm=TRUE)
@@ -41,6 +45,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_STDEV)]] <- list( #transi
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Standard Deviation of the Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 		sd(values,na.rm=TRUE)
@@ -50,6 +56,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_MIN)]] <- list( #transiti
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Minimal Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 		min(values,na.rm=TRUE)
@@ -59,6 +67,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_LOCAL,SFX_MAX)]] <- list( #transiti
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Maximal Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 		max(values,na.rm=TRUE)
@@ -68,6 +78,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_ASSORT)]] <- list( #transitivity-as
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Local Transitivity Assortativity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_LOCAL), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -77,6 +89,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_GLOBAL)]] <- list( #transitivity-gl
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Global Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	transitivity(graph=graph, type="globalundirected", weights=NULL, isolates="zero")
 	}
@@ -89,6 +103,8 @@ NODE_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL)]] <- list( #transi
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 	}
@@ -97,6 +113,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_AVG)]] <- list
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Average Weighted Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 		mean(values,na.rm=TRUE)
@@ -106,6 +124,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_STDEV)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Standard Deviation of the Weighted Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 		sd(values,na.rm=TRUE)
@@ -115,6 +135,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_MIN)]] <- list
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Minimal Weighted Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 		min(values,na.rm=TRUE)
@@ -124,6 +146,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL,SFX_MAX)]] <- list
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Maximal Weighted Local Transitivity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 		max(values,na.rm=TRUE)
@@ -133,6 +157,8 @@ GRAPH_MEASURES[[paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_ASSORT)]] <- list( #tran
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Weighted Local Transitivity Assortativity",
+	folder=MEAS_TRANSITIVITY,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.transitivity(paste0(MEAS_TRANSITIVITY,SFX_WEIGHT,SFX_LOCAL), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)

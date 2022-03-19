@@ -33,6 +33,8 @@ NODE_MEASURES[[MEAS_HARMO_CLOSENESS]] <- list( #harmo-closeness
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 	}
@@ -41,6 +43,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_AVG)]] <- list( #harmo-closeness
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Average Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		mean(values,na.rm=TRUE)
@@ -50,6 +54,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_STDEV)]] <- list( #harmo-closene
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Standard Deviation of the Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		sd(values,na.rm=TRUE)
@@ -59,6 +65,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_MIN)]] <- list( #harmo-closeness
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Minimal Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		min(values,na.rm=TRUE)
@@ -68,6 +76,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_MAX)]] <- list( #harmo-closeness
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Maximal Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		max(values,na.rm=TRUE)
@@ -77,6 +87,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_ASSORT)]] <- list( #harmo-closen
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Harmonic Closeness Assortativity",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		idx <- which(!is.na(values))
@@ -87,6 +99,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_CENTRZ)]] <- list( #harmo-closen
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Harmonic Closeness Centralization",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.harmo.closeness(MEAS_HARMO_CLOSENESS, graph)
 		idx <- which(!is.na(values))
@@ -101,6 +115,8 @@ NODE_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM)]] <- list( #harmo-closeness
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 	}
@@ -109,6 +125,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM,SFX_AVG)]] <- list( #harmo-
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Average Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -118,6 +136,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM,SFX_STDEV)]] <- list( #harm
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Standard Deviation of the Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -127,6 +147,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM,SFX_MIN)]] <- list( #harmo-
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Minimal Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -136,6 +158,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM,SFX_MAX)]] <- list( #harmo-
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Maximal Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -145,6 +169,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_NORM,SFX_ASSORT)]] <- list( #har
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Normalized Harmonic Closeness Assortativity",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_NORM), graph)
 		idx <- which(!is.na(values))
@@ -159,6 +185,8 @@ NODE_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT)]] <- list( #harmo-closene
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 	}
@@ -167,6 +195,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_AVG)]] <- list( #harm
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Average Weighted Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
@@ -176,6 +206,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_STDEV)]] <- list( #ha
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Standard Deviation of the Weighted Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
@@ -185,6 +217,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_MIN)]] <- list( #harm
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Minimal Weighted Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
@@ -194,6 +228,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_MAX)]] <- list( #harm
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Maximal Weighted Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
@@ -203,6 +239,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #h
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Weighted Harmonic Closeness Assortativity",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		idx <- which(!is.na(values))
@@ -213,6 +251,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #h
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted Harmonic Closeness Centralization",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT), graph)
 		idx <- which(!is.na(values))
@@ -227,6 +267,8 @@ NODE_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM)]] <- list( #harm
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="nodes",
 	foo=function(graph) 
 	{	compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 	}
@@ -235,6 +277,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Average Weighted Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -244,6 +288,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- 
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Standard Deviation of the Weighted Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -253,6 +299,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Minimal Weighted Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -262,6 +310,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MAX)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Maximal Weighted Normalized Harmonic Closeness",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -271,6 +321,8 @@ GRAPH_MEASURES[[paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <-
 	type=numeric(),
 	bounds=c(-1,1),
 	cname="Weighted Normalized Harmonic Closeness Assortativity",
+	folder=MEAS_HARMO_CLOSENESS,
+	object="graph",
 	foo=function(graph) 
 	{	values <- compute.harmo.closeness(paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		idx <- which(!is.na(values))
