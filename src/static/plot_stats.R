@@ -1051,9 +1051,6 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 	tlog(3,"Generating multiple plots for mode=",mode)
 	generate.static.plots.multiple(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
-	tlog(3,"Generating correlation plots for mode=",mode)
-	generate.static.plots.corr(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
-	
 	tlog(3,"Generating rank comparison plots for mode=",mode)
 	generate.static.plots.ranks(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 	
@@ -1270,44 +1267,87 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 # The statistics must have been previously computed.
 #
 # data: preprocessed data.
-# panel.window.sizes: values for this parameter
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
 ###############################################################################
-generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-{	tlog(1,"Generating plots for static graphs")
+generate.static.plots.base <- function(data)
+{	tlog(1,"Generating plots for scene-based static graphs")
 	
-	# deal with scene-based graph
+	# deal with scene-based graphs
 	tlog(2,"Generating plots for static graphs with scene-based windows")
 	for(filtered in c(FALSE, TRUE))
 		generate.static.plots.scene(filtered=filtered)
+	
 	# same for each narrative arc
-	arc.titles <- unique(data$volume.stats[,COL_ARC])
-	for(arc in 1:length(arc.titles))
+	arc.nbr <- nrow(data$arc.stats)
+	for(arc in 1:arc.nbr)
 	{	for(filtered in c(FALSE, TRUE))
 			generate.static.plots.scene(arc=arc, filtered=filtered)
 	}
+	
 	# same for each volume
 	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.stats[v, COL_VOLUME]
+	{	vol <- paste0(v, "_", data$volume.stats[v, COL_VOLUME])
 		for(filtered in c(FALSE, TRUE))
 			generate.static.plots.scene(vol=vol, filtered=filtered)
 	}
+	
 	# evolution plots
 	for(flag in c(TRUE,FALSE))
 	{	for(filtered in c(FALSE, TRUE))
 			generate.static.plots.evol(data=data, arcs=flag, filtered=filtered)
 	}
 	
-#	# panel-based windows
-#	tlog(2,"Generating plots for static graphs with panel-based windows")
-#	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
-#	
-#	# page-based windows
-#	tlog(2,"Generating plots for static graphs with page-based windows")
-#	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	tlog(1,"Generation of plots for scene-based static graphs complete")	
+}
+
+
+
+
+###############################################################################
+# Main function for the generation of plots describing static graphs.
+# The statistics must have been previously computed.
+#
+# panel.window.sizes: values for this parameter
+# panel.overlaps: values for this parameter, specified for of the above parameter values.
+# page.window.sizes: same for page-based windows instead of panel-based.
+# page.overlaps: same.
+###############################################################################
+generate.static.plots.window <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+{	tlog(1,"Generating plots for window-based static graphs")
 	
-	tlog(1,"Generation of plots for static graphs complete")	
+	# panel-based windows
+	tlog(2,"Generating plots for static graphs with panel-based windows")
+	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+	
+	# page-based windows
+	tlog(2,"Generating plots for static graphs with page-based windows")
+	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	
+	tlog(1,"Generation of plots for window-based static graphs complete")	
+}
+
+
+
+
+###############################################################################
+# Main function for the generation of plots comparing graphs.
+# The statistics must have been previously computed.
+#
+# panel.window.sizes: values for this parameter
+# panel.overlaps: values for this parameter, specified for of the above parameter values.
+# page.window.sizes: same for page-based windows instead of panel-based.
+# page.overlaps: same.
+###############################################################################
+generate.static.plots.comparison <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+{	tlog(1,"Generating plots for the comparison of static graphs")
+	
+	# panel-based windows
+	tlog(2,"Generating correlation plots for static graphs with panel-based windows")
+	generate.static.plots.corr(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)
+	
+	# page-based windows
+	tlog(2,"Generating correlation plots for static graphs with page-based windows")
+	generate.static.plots.corr(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps)
+	
+	tlog(1,"Generation of plots for the comparison of static graphs complete")	
 }

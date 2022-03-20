@@ -613,12 +613,8 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 # Main function for the extraction of graphs based on interaction tables.
 #
 # data: preprocessed data.
-# panel.window.sizes: values for this parameter
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
 ###############################################################################
-plot.static.graphs <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+plot.static.graphs <- function(data)
 {	tlog(1,"Plotting static graphs")
 	
 	# plot the scene-based static graph

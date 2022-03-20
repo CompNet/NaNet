@@ -4,11 +4,12 @@
 # Vincent Labatut
 # 02/2019
 ###############################################################################
-
 # list used to cache certain (costly to compute) intermediary results
 cache <- list()
 # whether to force computation even if value already recorded
 FORCE <- TRUE
+
+
 
 
 ###############################################################################
@@ -96,6 +97,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 	tlog(4,"Computation of nodal topological measures complete")
 	return(res.tab)
 }
+
 
 
 
@@ -259,6 +261,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 
 
 
+
 ###############################################################################
 # Computes all preselected node-pair topological measures for the specified static graph.
 #
@@ -351,6 +354,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 
 
 
+
 ###############################################################################
 # Computes all preselected link topological measures for the specified static graph.
 #
@@ -439,6 +443,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 
 
 
+
 ###############################################################################
 # Computes all preselected graph topological measures for the specified static graph.
 #
@@ -504,6 +509,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 	tlog(4,"Computation of graph topological measures complete")
 	return(res.tab)
 }
+
 
 
 
@@ -576,6 +582,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	tlog(4,"Computation of graph comparison measures complete")
 	return(res.tab)
 }
+
 
 
 
@@ -702,6 +709,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 
 
 
+
 ###############################################################################
 # Computes all rank correlation measures for the specified static graph.
 #
@@ -740,6 +748,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 
 
 
+
 ###############################################################################
 # Computes all preselected topological measures for the specified static graph.
 #
@@ -751,8 +760,9 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
+# compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, compare=FALSE)
 {	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
@@ -771,16 +781,22 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	# init cache
 	cache <<- list()
 	
-	# compute its stats
-	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-	if(!filtered && is.na(arc) && is.na(vol)) compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-	compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-	compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-	compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-	if(!filtered && is.na(arc) && is.na(vol)) compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	# compute comparison measures
+	if(compare)
+	{	compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+		compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	}
+	# compute regular topological measures
+	else
+	{	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+		compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+		compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+		compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	}
 	
 	tlog(3,"Computation of all topological measures complete")
 }
+
 
 
 
@@ -789,62 +805,132 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 # The graphs must have been previously extracted.
 #
 # data: preprocessed data.
+###############################################################################
+compute.static.statistics.base <- function(data)
+{	tlog(1,"Computing statistics for scene-based static graphs")
+	
+	# statistics for the scene-based graph
+	for(weights in c("occurrences","duration"))
+	{	for(filtered in c(FALSE,TRUE))
+			compute.all.static.statistics(mode="scenes", weights=weights, filtered=filtered, compare=FALSE)
+	}
+	
+	# same for each narrative arc
+	arc.nbr <- nrow(data$arc.stats)
+	for(arc in 1:arc.nbr)
+	{	for(weights in c("occurrences","duration"))
+		{	for(filtered in c(FALSE,TRUE))
+				compute.all.static.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered, compare=FALSE)
+		}
+	}
+	
+	# same for each volume
+	volume.nbr <- nrow(data$volume.stats)
+	for(v in 1:volume.nbr)
+	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
+		for(weights in c("occurrences","duration"))
+		{	for(filtered in c(FALSE,TRUE))
+				compute.all.static.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered, compare=FALSE)
+		}
+	}
+	
+	tlog(1,"Computation of statistics for scene-based static graphs complete")	
+}
+
+
+
+
+###############################################################################
+# Main function for the computation of statistics describing static graphs.
+# The graphs must have been previously extracted.
+#
 # panel.window.sizes: values for this parameter.
 # panel.overlaps: values for this parameter, specified for of the above parameter values.
 # page.window.sizes: same for page-based windows instead of panel-based.
 # page.overlaps: same.
 ###############################################################################
-compute.static.statistics <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-{	tlog(1,"Computing statistics for static graphs")
+compute.static.statistics.window <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+{	tlog(1,"Computing statistics for window-based static graphs")
 	
-	# statistics for the scene-based graph
+	# statistics for the panel window-based static graphs
+	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(panel.window.sizes))
+	{	window.size <- panel.window.sizes[i]
+		for(overlap in panel.overlaps[[i]])
+			compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=FALSE)
+	}#)
+	
+	# statistics for the page window-based static graphs
+	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(page.window.sizes))
+	{	window.size <- page.window.sizes[i]
+		for(overlap in page.overlaps[[i]])
+			compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=FALSE)
+	}#)
+	
+	tlog(1,"Computation of statistics for window-based static graphs complete")	
+}
+
+
+
+
+###############################################################################
+# Main function for the comparison of graphs. Statistics must have been computed
+# beforehand.
+#
+# data: preprocessed data.
+# panel.window.sizes: values for this parameter.
+# panel.overlaps: values for this parameter, specified for of the above parameter values.
+# page.window.sizes: same for page-based windows instead of panel-based.
+# page.overlaps: same.
+###############################################################################
+compute.static.statistics.comparison <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+{	tlog(1,"Computing comparisons for static graphs")
+	
+	#### scene-based graphs
+	
+	# comparison for the scene-based graphs
 	for(weights in c("occurrences","duration"))
-	{	for(filtered in c(FALSE,TRUE))
-			compute.all.static.statistics(mode="scenes", weights=weights, filtered=filtered)
-	}
-	for(weights in c("occurrences","duration"))
+	{	compute.all.static.statistics(mode="scenes", weights=weights, filtered=FALSE, compare=TRUE)
 		compute.all.static.corrs(mode="scenes", weights=weights)
-	# same for each narrative arc
-	arc.titles <- unique(data$volume.stats[,COL_ARC])
-	for(arc in 1:length(arc.titles))
+	}
+	
+	# correlations only for each narrative arc
+	arc.nbr <- nrow(data$arc.stats)
+	for(arc in 1:arc.nbr)
 	{	for(weights in c("occurrences","duration"))
-		{	for(filtered in c(FALSE,TRUE))
-				compute.all.static.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered)
-		}
-		for(weights in c("occurrences","duration"))
 			compute.all.static.corrs(mode="scenes", weights=weights, arc=arc)
 	}
-	# same for each volume
+	# correlations only for each volume
 	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
-	{	vol <- data$volume.stats[v, COL_VOLUME]
-		for(weights in c("occurrences","duration"))
-		{	for(filtered in c(FALSE,TRUE))
-				compute.all.static.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered)
-		}
+	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
 		for(weights in c("occurrences","duration"))
 			compute.all.static.corrs(mode="scenes", weights=weights, vol=vol)
 	}
 	
-#	# statistics for the panel window-based static graphs
-#	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
-#	for(i in 1:length(panel.window.sizes))
-#	{	window.size <- panel.window.sizes[i]
-#		for(overlap in panel.overlaps[[i]])
-#		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE)
-#			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
-#		}
-#	}#)
-#	
-#	# statistics for the page window-based static graphs
-#	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
-#	for(i in 1:length(page.window.sizes))
-#	{	window.size <- page.window.sizes[i]
-#		for(overlap in page.overlaps[[i]])
-#		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE)
-#			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
-#		}
-#	}#)
 	
-	tlog(1,"Computation of statistics for static graphs complete")	
+	#### window-based graphs
+	
+	# statistics for the panel window-based static graphs
+	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(panel.window.sizes))
+	{	window.size <- panel.window.sizes[i]
+		for(overlap in panel.overlaps[[i]])
+		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=TRUE)
+			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
+		}
+	}#)
+	
+	# statistics for the page window-based static graphs
+	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
+	for(i in 1:length(page.window.sizes))
+	{	window.size <- page.window.sizes[i]
+		for(overlap in page.overlaps[[i]])
+		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=TRUE)
+			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
+		}
+	}#)
+	
+	tlog(1,"Computation of comparisons for static graphs complete")	
 }

@@ -8,14 +8,6 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/main.R")
 ###############################################################################
-source("src/common/include.R")
-
-
-
-
-###############################################################################
-# start logging
-start.rec.log(text=SERIES)
 
 
 
@@ -64,6 +56,16 @@ page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 netw
 
 
 ###############################################################################
+# load scripts
+source("src/common/include.R")
+
+# start logging
+start.rec.log(text=SERIES)
+
+
+
+
+###############################################################################
 # read raw data
 #data <- read.raw.data()
 # OR, if already computed, read from file
@@ -78,19 +80,44 @@ data <- read.corpus.data()
 
 
 ###############################################################################
-# extract static networks
-#data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-# plot them
-plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+# extract static scene-based networks
+#data <- extract.static.graphs.base(data)
+
+# plot these graphs
+plot.static.graphs(data)
 
 
 
 
 ###############################################################################
-# compute graph stats
-#compute.static.statistics(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-# plot them
-#generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+# compute scene-based graph stats
+compute.static.statistics.base(data)
+
+# plot these stats
+generate.static.plots.base(data)
+
+
+
+
+###############################################################################
+# extract static panel- and page-based networks
+data <- extract.static.graphs.window(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+# compute their stats
+compute.static.statistics.window(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+# plot these stats
+generate.static.plots.window(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+
+
+
+###############################################################################
+# compute comparison stats
+compute.static.statistics.comparison(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+
+# plot these stats
+generate.static.plots.comparison(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
 
 
 

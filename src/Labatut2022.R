@@ -16,6 +16,16 @@
 
 
 ###############################################################################
+# setup parameters
+SERIES <- "Thorgal"
+
+
+
+
+###############################################################################
+# load scripts
+source("src/common/include.R")
+
 # start logging
 start.rec.log(text=SERIES)
 
@@ -23,23 +33,12 @@ start.rec.log(text=SERIES)
 
 
 ###############################################################################
-# setup parameters
-SERIES <- "Thorgal"
-
-# load scripts
-source("src/common/include.R")
-
-
-
-
-###############################################################################
 # read raw data
 data <- read.raw.data()
-# OR, if already computed, read from file
-#data <- read.corpus.data()
 
 # compute corpus stats
 data <- compute.corpus.stats(data)
+
 # plot corpus stats
 plot.corpus.stats(data)
 
@@ -48,18 +47,20 @@ plot.corpus.stats(data)
 
 ###############################################################################
 # extract static networks
-data <- extract.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-# plot them
-plot.static.graphs(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+data <- extract.static.graphs.base(data)
+
+# plot these graphs
+plot.static.graphs(data)
 
 
 
 
 ###############################################################################
-# compute graph stats
-compute.static.statistics(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
-# plot them
-generate.static.plots(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+# compute scene-based graph stats
+compute.static.statistics.base(data)
+
+# plot these stats
+generate.static.plots(data)
 
 
 

@@ -66,6 +66,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_DUR)]] <- list( #F-measure with du
 	type=numeric(),
 	bounds=c(0,1),
 	cname="F-measure with Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_DUR), graph, filtered=FALSE)
 		return(values)
@@ -75,6 +77,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR)]] <- list( #Weigh
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
 		return(values)
@@ -84,6 +88,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
 		return(values)
@@ -93,6 +99,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_OCC)]] <- list( #F-measure with oc
 	type=numeric(),
 	bounds=c(0,1),
 	cname="F-measure with Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_OCC), graph, filtered=FALSE)
 		return(values)
@@ -102,6 +110,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC)]] <- list( #Weigh
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted F-measure with Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
 		return(values)
@@ -111,6 +121,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- li
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
 		return(values)
@@ -124,6 +136,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_DUR)]] <- list( #F-m
 	type=numeric(),
 	bounds=c(0,1),
 	cname="F-measure with Filtered Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -133,6 +147,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] <
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted F-measure with Filtered Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -142,6 +158,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SF
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Filtered Scene-Based Duration Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -151,6 +169,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_OCC)]] <- list( #F-m
 	type=numeric(),
 	bounds=c(0,1),
 	cname="F-measure with Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
 		return(values)
@@ -160,6 +180,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] <
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted F-measure with Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
 		return(values)
@@ -169,6 +191,8 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SF
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Weighted normalized F-measure with Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FMEASURE,
+	object="graph",
 	foo=function(graph)
 	{	values <- compute.f.measure(paste0(MEAS_FMEASURE, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
 		return(values)
