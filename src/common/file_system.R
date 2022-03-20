@@ -81,27 +81,23 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 ###############################################################################
 # Returns the full path for a graph file, based on the specified parameters. 
 #
-# Forms of the path:
-#	networks/pages/desc_ws=window.size_ol=overlap.ext
-#	networks/panels/desc_ws=window.size_ol=overlap.ext
-#	networks/scene/filtered/subfold
-#	networks/scene/filtered/arcs/subfold/desc_vol.ext
-#	networks/scene/filtered/volumes/desc_arc
-#	networks/scene/unfiltered/...
-#
 # mode: either "scenes", "panel.window", or "page.window".
+# net.type: "static", "cumulative", "narr_smooth".
+# order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
 # arc: concerned narrative arc (optional).
 # vol: concerned volume (optional).
 # filtered: whether this concerns the filtered version of the graph.
-# desc: ad hoc description of the file.
 # subfold: additional subfolder (optional).
+# pref: prefix of the file name.
+# pref: prefix of the file name.
+# suf: suffix of the file name.
 # ext: file extension added at the end of the path.
 # 
 # returns: full path.
 ###############################################################################
-get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, desc, ext=NA)
+get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, order=NA, pref=NA, suf=NA, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -109,9 +105,14 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
-	# add filtered suffix
+	# add filtered folder
 	if(!is.na(filtered))
 		folder <- file.path(folder, if(filtered) "filtered" else "unfiltered")
+	# add network type folder
+	folder <- file.path(folder, net.type)
+	# possibly add order subfolder
+	if(!is.na(order))
+		folder <- file.path(folder, order) 
 	# possibly add arc subfolder
 	if(!is.na(arc))
 		folder <- file.path(folder, "arcs")
@@ -125,27 +126,43 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, desc)
-	# possibly add base name
-	if(mode=="scenes")
-		res <- 	paste0(res, "_scenes")
+	fname <- ""
+	# possibly add prefix
+	if(!is.na(pref))
+		fname <- paste0(fname, pref)
 	# possibly add arc number
 	if(!is.na(arc))
-		res <- 	paste0(res, "_arc",arc)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "arc",arc)
+	}
 	# possibly add volume name
 	if(!is.na(vol))
-		res <- 	paste0(res, "_vol",vol)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "vol",vol)
+	}
 	# possibly add window size
 	if(!is.na(window.size))
-		res <- paste0(res, "_ws=",window.size)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "ws=",window.size)
+	}
 	# possibly add overlap
 	if(!is.na(overlap))
-		res <- paste0(res, "_ol=",overlap)
-	
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "ol=",overlap)
+	}
+	# possibly add suffix
+	if(!is.na(suf))
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, suf)
+	}
+	# prevent empty filename 
+	if(fname=="")
+		fname <- "file"
 	# add extension
 	if(!is.na(ext))
-		res <- paste0(res, ext)
+		fname <- paste0(fname, ext)
 	
+	res <- file.path(folder, fname)
 	return(res)
 }
 
@@ -158,6 +175,8 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 # 
 # object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# net.type: "static", "cumulative", "narr_smooth".
+# order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -168,7 +187,7 @@ get.path.graph.file <- function(mode, window.size=NA, overlap=NA, arc=NA, vol=NA
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -176,9 +195,14 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
-	# possible add filtered subfolder
-	if(filtered)
-		folder <- paste0(folder, "_filtered")
+	# possibly add filtered subfolder
+	if(!is.na(filtered))
+		folder <- file.path(folder, filtered)
+	# add network type folder
+	folder <- file.path(folder, net.type)
+	# possibly add order subfolder
+	if(!is.na(order))
+		folder <- file.path(folder, order) 
 	# possibly add arc subfolder
 	if(!is.na(arc) && (!is.logical(arc) || arc))
 	{	folder <- file.path(folder, "arcs")
@@ -201,21 +225,21 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 	# possibly add overlap
 	else if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
-	# possibly add scene weights
-	if(!is.na(weights))
-		folder <- file.path(folder, weights)
+	# add weights
+	folder <- file.path(folder, weights)
+	# possibly add object
+	folder <- file.path(folder, object)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, "static")
-	# possibly add object
-	if(!is.na(object))
-		res <- 	paste0(res, "_", object)
-	
+	fname <- "_stats"
+	# repeat object
+	fname <- paste0(fname, "_", object)
 	# add extension
-	res <- paste0(res, ".csv")
+	fname <- paste0(fname, ".csv")
 	
+	res <- file.path(folder, fname)
 	return(res)
 }
 
@@ -238,13 +262,13 @@ get.path.stat.table <- function(object, mode, window.size=NA, overlap=NA, weight
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph (or NA if not applicable).
-# subfold: additional subfolder (optional).
-# plot.type: type of plot (barplot, histogram, etc.).
+# pref: prefix of the file name.
+# suf: suffix of the file name.
 # 
 # returns: full path.
 ###############################################################################
-get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, plot.type=NA)
-{	# base folder 
+get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
+{	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
 	else if(mode=="page.window")
@@ -271,9 +295,8 @@ get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA,
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-	# possibly add weight subfolder
-	if(!is.na(weights))
-		folder <- file.path(folder, weights)
+	# add weight subfolder
+	folder <- file.path(folder, weights)
 #	# possibly add extra subfolder
 #	if(!is.na(subfold))
 #		folder <- file.path(folder, subfold)
@@ -295,24 +318,26 @@ get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA,
 	
 	# set up file name
 	fname <- ""
-#	# possibly add object
-#	if(!is.na(object))
-#		res <- 	paste0(fname, "_", object)
+	# possibly add prefix
+	if(!is.na(pref))
+		fname <- paste0(fname, pref)
 	# add measure
 	if(!is.na(meas.name))
-		res <- paste0(fname, "_",meas.name)
-	# possibly add plot type
-	if(!is.na(plot.type))
-		res <- paste0(fname, "_", plot.type)
-	# possibly use placeholder
-	if(res=="")
-		res <- "file"
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, meas.name)
+	}
+	# possibly add suffix
+	if(!is.na(suf))
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, suf)
+	}
+	# prevent empty filename 
+	if(fname=="")
+		fname <- "file"
 	
 	res <- file.path(folder, fname)
 	return(res)
 }
-# TODO rem object, subfold ; add net.type, order 
-# TODO add static level to network folders
 
 
 
@@ -322,8 +347,9 @@ get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA,
 # measures with one of the references. File extension is not included and must 
 # be added a posteriori.
 # 
-# object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# net.type: "static", "cumulative", "narr_smooth".
+# order: "publication" vs. "story" order for the dynamic networks.
 # meas.name: name of the plot measure.
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -331,11 +357,12 @@ get.path.topomeas.plot <- function(mode, net.type, meas.name=NA, window.size=NA,
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
-# plot.type: type of plot (barplot, histogram, etc.).
+# pref: prefix of the file name.
+# suf: suffix of the file name.
 # 
 # returns: full path.
 ###############################################################################
-get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, plot.type=NA)
+get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA) # TODO add missing params
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER
@@ -346,35 +373,56 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 	# possible add filtered suffix
 	if(filtered)
 		folder <- paste0(folder, "_filtered")
+	# add network type folder
+	folder <- file.path(folder, net.type)
+	# possibly add order subfolder
+	if(!is.na(order))
+		folder <- file.path(folder, order) 
 	# possibly add arc subfolder
-	if(!is.na(arc))
-		folder <- file.path(folder, "arcs", arc)
+	if(!is.na(arc) && (!is.logical(arc) || arc))
+	{	folder <- file.path(folder, "arcs")
+		if(!is.logical(arc))
+			folder <- file.path(folder, "separate", arc)
+	}
 	# possibly add volume subfolder
-	if(!is.na(vol))
-		folder <- file.path(folder, "volumes", vol)
-	# add object folder
-	folder <- file.path(folder, object)
-	# possibly add measure folder
+	if(!is.na(vol) && (!is.logical(vol) || vol))
+	{	folder <- file.path(folder, "volumes")
+		if(!is.logical(vol))
+			folder <- file.path(folder, "separate", vol)
+	}
+	# add weight subfolder
+	folder <- file.path(folder, weights)
+	# possibly add measure object
 	if(!is.na(meas.name))
-		folder <- file.path(folder, meas.name)
+		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, "static")
+	fname <- ""
+	# possibly add prefix
+	if(!is.na(pref))
+		fname <- paste0(fname, pref)
 	# possibly add window size
 	if(!is.na(window.size))
-		res <- paste0(res, "_ws=",window.size)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "ws=",window.size)
+	}
 	# possibly add overlap
 	if(!is.na(overlap))
-		res <- paste0(res, "_ol=",overlap)
-	# possibly add scene weights
-	if(!is.na(weights))
-		res <- paste0(res, "_wt=", weights)
-	# possibly add plot type
-	if(!is.na(plot.type))
-		res <- paste0(res, "_", plot.type)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, "ol=",overlap)
+	}
+	# possibly add suffix
+	if(!is.na(suf))
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, suf)
+	}
+	# prevent empty filename 
+	if(fname=="") 
+		fname <- "comp"
 	
+	res <- file.path(folder, fname)
 	return(res)
 }
 
@@ -384,23 +432,19 @@ get.path.comparison.plot <- function(object, mode, meas.name=NA, window.size=NA,
 ###############################################################################
 # Returns the full path for a file containing stats regarding the corpus. The
 # extension is not included as the same basename can be used for both csv and plots.
-# 
-# Forms of the path:
-#	stats/corpus/object/subfold/att/desc_val
-#	stats/corpus/arcs/1/object/subfold/att/desc_val
-#	stats/corpus/vols/40_L3/object/subfold/att/desc_val
 #
 # object: "panels", "scenes", "characters", etc.
 # vol: id of the considered volume.
 # arc: id of the considered narrative arc.
 # subfold: additional folder.
-# desc: ad hoc description of the file.
 # att: vertex attribute concerned.
 # val: considered value of the vertex attribute.
+# pref: prefix of the file name.
+# suf: suffix of the file name.
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, desc, att=NA, val=NA)
+get.path.stats.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, att=NA, val=NA, pref=NA, suf=NA)
 {	# base folder
 	if(!is.na(vol))
 		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, "separate", vol)
@@ -422,10 +466,24 @@ get.path.stat.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, desc, at
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
 	# set up file name
-	res <- file.path(folder, desc)
+	fname <- ""
+	# possibly add prefix
+	if(!is.na(pref))
+		fname <- paste0(fname, pref)
 	# possibly add attribute value
 	if(!is.na(val))
-		res <- paste0(res,"_value=",val)
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname,"value=",val)
+	}
+	# possibly add suffix
+	if(!is.na(suf))
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname,suf)
+	}
+	# prevent empty filename 
+	if(fname=="") 
+		fname <- "stats"
 	
+	res <- file.path(folder, fname)
 	return(res)
 }

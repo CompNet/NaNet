@@ -19,7 +19,7 @@ start.rec.log(text="TransVsDeg")
 # compute the unfiltered data
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 
 # compute values
@@ -61,7 +61,7 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type="transitivity_vs_degree")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right

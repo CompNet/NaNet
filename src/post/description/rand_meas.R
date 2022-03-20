@@ -31,7 +31,7 @@ start.rec.log(text="RandMeas")
 ###############################################################################
 load.randmeas.stats <- function(filtered=FALSE)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	tab.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, plot.type="rand.model.stats.csv")
+	tab.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
 	if(file.exists(tab.file))
 		res <- read.csv(tab.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE, row.names=1)
 	else
@@ -57,7 +57,7 @@ load.randmeas.stats <- function(filtered=FALSE)
 ###############################################################################
 record.randmeas.stats <- function(tab, filtered=FALSE)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	tab.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, plot.type="rand.model.stats.csv")
+	tab.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)
 }
 
@@ -108,7 +108,7 @@ load.as.bipartite <- function()
 	bg <- delete_vertices(graph=bg, v=which(degree(bg, mode="all")<1))
 	
 	# filtered version
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	idx <- match(V(g)[V(g)$Filtered]$name, V(bg)$Name)
 	bg.filtr <- delete_vertices(graph=bg, v=idx)
@@ -239,7 +239,7 @@ lattice.graph.measures <- function(filtered=FALSE)
 	res <- load.randmeas.stats(filtered=filtered)
 	
 	# load the original network 
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -278,7 +278,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 	res <- load.randmeas.stats(filtered=filtered)
 	
 	# load the original network 
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))

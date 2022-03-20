@@ -19,7 +19,7 @@ start.rec.log(text="CompVsVertices")
 # compute results and plot separate figures
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(0, "Reading graph ",graph.file)
 g <- read.graphml.file(file=graph.file)
 
@@ -62,7 +62,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Unfiltered-Size"]] <- props
 res[["Unfiltered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", plot.type="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", suf="giant.comp.size_vs_vertices")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -81,7 +81,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", plot.type="comp.nbr_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", suf="comp.nbr_vs_vertices")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -157,7 +157,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Filtered-Size"]] <- props
 res[["Filtered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", plot.type="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", suf="giant.comp.size_vs_vertices")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -176,7 +176,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", plot.type="comp.nbr_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", suf="comp.nbr_vs_vertices")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -203,7 +203,7 @@ for(fformat in PLOT_FORMAT)
 
 # both unfiltered and filtered in the same figure
 tlog(0, "Plot figures combining unfiltered and filtered nets results")
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="both", plot.type="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="both", suf="giant.comp.size_vs_vertices")
 tlog(4, "Plotting component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)

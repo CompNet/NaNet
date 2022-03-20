@@ -20,7 +20,7 @@ tlog(0,"Load data and network")
 data <- read.corpus.data()
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 kept <- which(!V(g)$Filtered)
 
@@ -366,7 +366,7 @@ for(m in 1:length(meas.names))
 	}
 	
 	# set params
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas.name, filtered="both", plot.type="_by.sex")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas.name, filtered="both", suf="_by.sex")
 	#ml <- paste0(ALL_MEASURES[[meas.name]]$cname, " distribution")
 	xl <- paste0(ALL_MEASURES[[meas.name]]$cname)
 	
@@ -495,7 +495,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type="transitivity_vs_degree.by.sex")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree.by.sex")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
@@ -668,7 +668,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type="nei.deg.vs_degree.by.sex")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei.deg.vs_degree.by.sex")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(

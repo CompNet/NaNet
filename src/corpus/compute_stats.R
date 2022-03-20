@@ -44,7 +44,7 @@ compute.stats.panel <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_stats")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats")
 		tlog(5,"Writing panel stats \"",file,"\"")
 		write.csv(x=panel.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -53,7 +53,7 @@ compute.stats.panel <- function(
 			sapply(panel.chars[panel.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_chars")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_chars")
 		tlog(4,"Writing panel chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -93,7 +93,7 @@ compute.stats.panel <- function(
 			panel.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_panel_stats", att=att)
+			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=panel.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -144,7 +144,7 @@ compute.stats.page <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_stats")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats")
 		tlog(5,"Writing page stats \"",file,"\"")
 		write.csv(x=page.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -153,7 +153,7 @@ compute.stats.page <- function(
 			sapply(page.chars[page.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_chars")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_chars")
 		tlog(4,"Writing page chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -192,7 +192,7 @@ compute.stats.page <- function(
 			page.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_page_stats", att=att)
+			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=page.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -243,7 +243,7 @@ compute.stats.scene <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_stats")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats")
 		tlog(5,"Writing scene stats \"",file,"\"")
 		write.csv(x=scene.stats, file=paste0(file,".csv"), row.names=FALSE)
 		# record chars
@@ -252,7 +252,7 @@ compute.stats.scene <- function(
 			sapply(scene.chars[scene.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
-		file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_chars")
+		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_chars")
 		tlog(4,"Writing scene chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -292,7 +292,7 @@ compute.stats.scene <- function(
 			scene.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, vol=vname, arc=cur.arc, desc="_scene_stats", att=att)
+			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=scene.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -358,7 +358,7 @@ compute.stats.char <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stat.corpus(object=object, subfold="unfiltered", vol=vname, arc=cur.arc, desc="_char_stats")
+		file <- get.path.stats.corpus(object=object, subfold="unfiltered", vol=vname, arc=cur.arc, pref="_char_stats")
 		tlog(5,"Writing char stats \"",file,"\"")
 		write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
 	}
@@ -480,7 +480,7 @@ compute.stats.volume <- function(
 		volume.stats[v,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(vol.char.stats [,COL_SCENES],vol.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
 		
 		# record volume stat table
-		file <- get.path.stat.corpus(object=object, desc="_volume_stats")
+		file <- get.path.stats.corpus(object=object, pref="_volume_stats")
 		tlog(4,"Writing volume stats \"",file,"\"")
 		write.csv(x=volume.stats, file=paste0(file,".csv"), row.names=FALSE)
 	}
@@ -515,7 +515,7 @@ compute.stats.volume <- function(
 			volume.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, desc="_volume_stats", att=att)
+			file <- get.path.stats.corpus(object=object, pref="_volume_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=volume.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -653,7 +653,7 @@ compute.stats.arc <- function(
 		arc.stats[a,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(arc.char.stats [,COL_SCENES],arc.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
 		
 		# record arc stat table
-		file <- get.path.stat.corpus(object=object, desc="_arc_stats")
+		file <- get.path.stats.corpus(object=object, pref="_arc_stats")
 		tlog(4,"Writing arc stats \"",file,"\"")
 		write.csv(x=arc.stats, file=paste0(file,".csv"), row.names=FALSE)
 	}
@@ -688,7 +688,7 @@ compute.stats.arc <- function(
 			arc.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stat.corpus(object=object, desc="_arc_stats", att=att)
+			file <- get.path.stats.corpus(object=object, pref="_arc_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=arc.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 		}
@@ -800,7 +800,7 @@ compute.stats.series <- function(
 	series.stats[1,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(char.stats[,COL_SCENES],char.stats[,COL_PANELS])
 	
 	# record stats
-	file <- get.path.stat.corpus(desc="_series_stats")
+	file <- get.path.stats.corpus(pref="_series_stats")
 	tlog(4,"Recording in ",file)
 	write.csv(x=series.stats, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 	
@@ -831,7 +831,7 @@ compute.stats.series <- function(
 			series.stats.atts[[att]] <- mat
 			
 #			# record matrix
-#			file <- get.path.stat.corpus(object=object, desc="_series_stats", att=att)
+#			file <- get.path.stats.corpus(pref="_series_stats", att=att)
 #			tlog(7,"Creating file \"",file,"\"")
 #			write.csv(x=series.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
 # not needed: information already present in the characters folder

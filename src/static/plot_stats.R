@@ -23,7 +23,7 @@ load.static.graph.stats.by.window <- function(object, mode, window.size, overlap
 {	res <- rep(NA, length(overlaps))
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,1]
 	}
@@ -49,7 +49,7 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 {	res <- rep(NA, length(window.sizes))
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,1]
 	}
@@ -73,7 +73,7 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 # returns: the value corresponding to the specified parameters.
 ###############################################################################
 load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol, filtered=filtered)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -101,7 +101,8 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 		col <- COL_SPEAR_OCC
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap)
+		# TODO adjust object in above call
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,col]
 	}
@@ -131,7 +132,8 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 		col <- COL_SPEAR_OCC
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap)
+		# TODO adjust object in above call
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,col]
 	}
@@ -153,7 +155,8 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 # returns: a vector of values representing the desired series.
 ###############################################################################
 load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA)
-{	table.file <- get.path.stat.table(object="corr", mode="scenes", weights=weights, arc=arc, vol=vol)
+{	table.file <- get.path.stat.table(object="corr", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol)
+	# TODO adjust object in above call
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -179,7 +182,7 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 {	res <- list()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
 		tlog(6,"Loading file \"",table.file,"\" (",j,"/",length(overlaps),")")
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
@@ -209,7 +212,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 {	res <- list()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap)
+		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
 		res[[i]] <- values
@@ -234,7 +237,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
 load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", weights=weights, arc=arc, vol=vol, filtered=filtered)
+{	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
 	return(res)
@@ -294,7 +297,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			names(values) <- nms
 			
 			# generate the boxplot plot
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="boxplot")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -319,7 +322,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="violin")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -344,7 +347,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type="distrib")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
 			lty <- c(2, 3, rep(1,length(values)-1))
@@ -388,7 +391,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			names(values) <- nms
 			
 			# generate the boxplot
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="boxplot")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -413,7 +416,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="violin")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -433,7 +436,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type="distrib")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
 			lty <- c(2, 3, rep(1,length(values)-1))
@@ -514,7 +517,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot containing each window size value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="series")
+		plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size="", suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -584,7 +587,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot representing each overlap value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="series")
+		plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap="", suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -684,7 +687,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot containing each window size value as a series
 			cols <- get.palette(length(data))
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size="", plot.type="corr")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size="", suf="corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -745,7 +748,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot representing each overlap value as a series
 			cols <- get.palette(length(data))
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap="", plot.type="corr")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap="", suf="corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -862,7 +865,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					colors <- heat.colors(max(ranks))
 					
 					# generate the plot
-					plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0("ranks=",substr(weights,1,3)))
+					plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0("ranks=",substr(weights,1,3)))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -957,7 +960,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, plot.type=paste0(md,"_barplot"))
+				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf=paste0(md,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1004,7 +1007,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, overlap=overlap, plot.type=paste0(md,"_barplot"))
+				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf=paste0(md,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1103,7 +1106,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			#vals <- vals[vals>0]	# remove the zeroes?
 			
 			# plot histogram
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="histo")
 			# TODO why is this the "comparison" folder? shouldn't it be stats or plots?
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -1125,7 +1128,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			}
 			
 			# plot complementary cumulative distribution function
-			plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="ccdf")
+			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="ccdf")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1137,7 +1140,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			
 			# test the type of distribution (very slow, doing it only for the whole graph)
 			if(is.na(arc) && is.na(vol))
-			{	plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, plot.type="disttest")
+			{	plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="disttest")
 				if(all(vals%%1==0))
 					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
 				else
@@ -1148,7 +1151,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	
 	# compute and plot additional stuff
 	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
@@ -1156,10 +1159,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 	
 	# degree vs. neighbors' degree
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
 	neigh.degree.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	{	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			neigh.degree.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1167,10 +1170,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# degree vs. transitivity
-	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
 	transitivity.vs.degree(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	{	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			transitivity.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1178,10 +1181,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# hop plots
-	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name=MEAS_DISTANCE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.comp(object="nodepairs", mode="scenes", meas.name=MEAS_DISTANCE, arc=arc, vol=vol, filtered=filtered)
 	hop.plot(g, weights=FALSE, filename, col)
 	for(wmode in wmodes)
-	{	filename <- get.path.comparison.plot(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	{	filename <- get.path.stats.comp(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)
 		if(wmode=="duration")
 			hop.plot(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1238,7 +1241,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			}
 			
 			# generate barplots
-			file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, plot.type="evolution")
+			file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, suf="evolution")
 			tlog(4,"Generating file ",file)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -1297,7 +1300,7 @@ generate.static.plots <- function(data, panel.window.sizes, panel.overlaps, page
 	{	for(filtered in c(FALSE, TRUE))
 			generate.static.plots.evol(data=data, arcs=flag, filtered=filtered)
 	}
-
+	
 #	# panel-based windows
 #	tlog(2,"Generating plots for static graphs with panel-based windows")
 #	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps)

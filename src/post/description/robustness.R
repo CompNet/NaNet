@@ -18,7 +18,7 @@ start.rec.log(text="RobustnessPlot")
 # get the graphs
 
 # read the unfiltered graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(0,"Reading graph file \"",graph.file,"\"")
 g.unf <- read.graphml.file(file=graph.file)
 
@@ -103,7 +103,7 @@ tlog.end.loop(0,"Loop over measures is complete")
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 
 # file and common parameters
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", plot.type=paste0("giant.comp.size_vs_",meas))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant.comp.size_vs_",meas))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
 pal <- get.palette(2)

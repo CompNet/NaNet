@@ -24,7 +24,7 @@ start.rec.log(text="CompVsEdges")
 # compute results and plot separate figures
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(0, "Reading graph ",graph.file)
 g <- read.graphml.file(file=graph.file)
 
@@ -64,7 +64,7 @@ for(wt in wts)
 	}
 	res[[paste0("Unfiltered-",wt)]] <- vals
 	# plot results
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="unfiltered", plot.type="evolution_lines")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="unfiltered", suf="evolution_lines")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -100,7 +100,7 @@ for(wt in wts)
 	}
 	res[[paste0("Filtered-",wt)]] <- vals.filt
 	# plot result
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="filtered", plot.type="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="filtered", suf="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -130,7 +130,7 @@ tlog(0, "Plot figures combining unfiltered and filtered nets results")
 for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
 	
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="both", plot.type="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="both", suf="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -182,7 +182,7 @@ for(filtered in c(FALSE,TRUE))
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered=filt.txt, plot.type="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered=filt.txt, suf="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -217,7 +217,7 @@ for(filtered in c(FALSE,TRUE))
 }
 
 # all in the same figure
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered="both", plot.type="comp_vs_edges")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered="both", suf="comp_vs_edges")
 tlog(0, "Plot everything in the same file ",plot.file)
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)

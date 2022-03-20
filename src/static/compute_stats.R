@@ -30,7 +30,7 @@ FORCE <- TRUE
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -79,7 +79,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
+		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -114,7 +114,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 ###############################################################################
 compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
 {	object <- "nodescomp"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing nodal comparison measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -172,7 +172,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo") # TODO move that into the "comparison" folder
+		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, suf="histo") # TODO move that into the "comparison" folder
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -231,7 +231,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.comparison.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, plot.type=paste0(md2,"_",md1,"_barplot"))
+				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0(md2,"_",md1,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -278,7 +278,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -330,7 +330,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# plot
 		if(!all(is.na(values)))
-		{	plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
+		{	plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -370,7 +370,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -419,7 +419,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
+		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -456,7 +456,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 ###############################################################################
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "graph"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing graph topological measures")
 	
 	# read or create the table containing the computed values
@@ -521,7 +521,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 ###############################################################################
 compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
 {	object <- "graphcomp"
-	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing graph comparison measures")
 	
 	# read or create the table containing the computed values
@@ -596,7 +596,8 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 #          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
 compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
-{	table.file <- get.path.stat.table(object="corr", mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
+{	table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
+	#TODO must adapt the object in the above call (not standard)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
@@ -647,7 +648,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 			vals.occ <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered=FALSE)
 			
 			# retrieve tested values
-			tab.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
+			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
 			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE, row.names=1))
 			vals.cur <- tmp.tab[,meas.name]
 			
@@ -713,7 +714,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # vol: the volume to plot (optional, and ignored if arc is specified).
 ###############################################################################
 compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=FALSE, desc="static", ext=".graphml")
+{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -752,7 +753,7 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # filtered: whether to consider the filtered version of the graph.
 ###############################################################################
 compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
-{	graph.file <- get.path.graph.file(mode=mode, window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, desc="static", ext=".graphml")
+{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file

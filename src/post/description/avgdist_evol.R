@@ -79,7 +79,7 @@ for(i in 1:2)
 	print(summary(fit))
 	
 	# plot distance as a function of graph order
-	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered=filt.txt, plot.type=paste0("evolution_",order.txt,"_lines"))
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered=filt.txt, suf=paste0("evolution_",order.txt,"_lines"))
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -107,7 +107,7 @@ for(i in 1:2)
 
 ###############################################################################
 # same thing, but plots both unfiltered and filtered figures in the same file
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered="both", plot.type=paste0("evolution_",order.txt,"_lines"))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered="both", suf=paste0("evolution_",order.txt,"_lines"))
 
 # process all formats
 for(fformat in PLOT_FORMAT)

@@ -40,7 +40,7 @@ filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(2,"Reading file \"",graph.file,"\"")
 g <- read.graphml.file(file=graph.file)
 kept <- which(!V(g)$Filtered)
@@ -173,7 +173,7 @@ for(m in 1:length(sim.meas))
 		# record results
 		if(is.na(sc.lim))
 		{	pt <- names(sim.meas)[m]
-			file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, plot.type=pt)
+			file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 			tlog(6,"Recording results to file \"",file,"\"")
 			write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
 		}
@@ -186,7 +186,7 @@ for(m in 1:length(sim.meas))
 			
 			# set file name
 			pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-			plot.file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, plot.type=pt)
+			plot.file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 			tlog(7,"Creating file \"",plot.file,"\"")
 			
 			# compute data ranges
@@ -235,7 +235,7 @@ for(m in 1:length(sim.meas))
 		
 		# set file name
 		pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-		plot.file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", plot.type=pt)
+		plot.file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
 		tlog(6,"Creating file \"",plot.file,"\"")
 		
 		# compute data ranges

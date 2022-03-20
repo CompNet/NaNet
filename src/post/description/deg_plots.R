@@ -45,7 +45,7 @@ idx.keep <- which(!data$char.stats[,COL_FILTERED])
 meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
 
 # load numbers of occurrences of characters
-file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
 sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
 
 # process each measure
@@ -62,25 +62,25 @@ for(meas in meass)
 		# load precomputed data
 		data <- list()
 		# unfiltered
-		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=FALSE)
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=if(is.na(wt)) "occurrences" else wt, filtered=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
 		data[[1]] <- data[[1]][unfilt.idx]	# remove isolates
-#		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, plot.type="disttest_noisolates")
+#		file <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="disttest_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
-		file <- get.path.stat.table(object="nodes", mode="scenes", weights=if(is.na(wt)) "occurrences" else wt, filtered=TRUE)
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=if(is.na(wt)) "occurrences" else wt, filtered=TRUE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[2]] <- tab[,meas]
 		filt.idx <- data[[2]] > 1
 		data[[2]] <- data[[2]][filt.idx]	# remove isolates
 		names(data) <- c("Unfiltered","Filtered")
-#		file <- get.path.comparison.plot(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, plot.type="disttest_noisolates")
+#		file <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="disttest_noisolates")
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params
-		file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered="both", plot.type="distrib")
+		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered="both", suf="distrib")
 		pal <- get.palette(length(data))
 		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
 		if(!is.na(wt))

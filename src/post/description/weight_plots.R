@@ -41,17 +41,17 @@ for(wt in wts)
 	# load precomputed data
 	data <- list()
 	# unfiltered
-	file <- get.path.stat.table(object="links", mode="scenes", weights=wt, filtered=FALSE)
+	file <- get.path.stat.table(object="links", mode="scenes", net.type="static", weights=wt, filtered=FALSE)
 	tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 	data[[1]] <- tab[,meas]
 	# filtered
-	file <- get.path.stat.table(object="links", mode="scenes", weights=wt, filtered=TRUE)
+	file <- get.path.stat.table(object="links", mode="scenes", net.type="static", weights=wt, filtered=TRUE)
 	tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 	data[[2]] <- tab[,meas]
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", plot.type="distrib")
+	file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="distrib")
 	pal <- get.palette(length(data))
 	ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution (",wt,")")
 	xl <- paste0(ALL_MEASURES[[meas]]$cname," (",wt,")")

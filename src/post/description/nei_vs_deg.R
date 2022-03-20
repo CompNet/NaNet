@@ -19,7 +19,7 @@ start.rec.log(text="NeighVsDeg")
 # compute the unfiltered data
 
 # read the graph
-graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 
 # compute values
@@ -60,7 +60,7 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, filtered="both", plot.type="nei.deg_vs_degree")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, filtered="both", suf="nei.deg_vs_degree")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right

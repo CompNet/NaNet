@@ -101,6 +101,8 @@ TODO
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
 - avgdist.evol.R probably needs a fix: the way *order* is handled (possibly does not take into account the cumulative nature of the graph, as it is now)
 
+- separate comparison from basic stats in functions
+  - and remove these calls from the paper's main script.
 - revise folder organization in net stats and comparison plots
   >> possibly add attribute-based folders?
 

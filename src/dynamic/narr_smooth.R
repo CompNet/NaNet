@@ -115,7 +115,7 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
 	# read the whole graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	atts <- vertex_attr_names(graph=g)
 	
@@ -322,7 +322,7 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE)
 	else			# by story order
 		ord.fold <- "order_story"
 	
-	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
+	base.file <- get.path.data.graph(mode="scenes", net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
 	write.dynamic.graph(gs=gs, base.path=base.file)
 }
 
@@ -345,7 +345,7 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
 	else			# by story order
 		ord.fold <- "order_story"
 	
-	base.file <- get.path.graph.file(mode="scenes", filtered=filtered, subfold=paste0("narr_smooth/",ord.fold), desc="ns")
+	base.file <- get.path.data.graph(mode="scenes", net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
 	gs <- read.dynamic.graph(base.path=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)

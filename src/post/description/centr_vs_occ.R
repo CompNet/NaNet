@@ -69,9 +69,9 @@ for(centr.name in centr.names)
 		centr.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=TRUE)
 		
 		# get occurrence values
-		file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
 		occ.vals.unf <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
-		file <- get.path.stat.corpus(object="characters", subfold="filtered", desc="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", subfold="filtered", pref="_char_stats.csv")
 		occ.vals.flt <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
 		
 		#### handle unfiltered data
@@ -113,7 +113,7 @@ for(centr.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
-		plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered=both, plot.type=paste0("occ_",occ.name,"_vs_",centr.name))
+		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered=both, suf=paste0("occ_",occ.name,"_vs_",centr.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(

@@ -53,9 +53,9 @@ counts <- c("panel","page","scene","volume","arc")
 col.counts <- c("panel"=COL_PANELS, "scene"=COL_SCENES, "page"=COL_PAGES, "volume"=COL_VOLUMES, "arc"=COL_ARCS)
 
 # load the tables
-file <- get.path.stat.corpus(object="characters", subfold="unfiltered", desc="_char_stats.csv")
+file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
 tt1 <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
-file <- get.path.stat.corpus(object="characters", subfold="filtered", desc="_char_stats.csv")
+file <- get.path.stats.corpus(object="characters", subfold="filtered", pref="_char_stats.csv")
 tt2 <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 
 # process each count type
@@ -69,7 +69,7 @@ for(count in counts)
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.stat.corpus(object=object, desc=paste0("distrib_",count,"s.by.char"))
+	file <- get.path.stats.corpus(object=object, pref=paste0("distrib_",count,"s.by.char"))
 	pal <- get.palette(length(data))
 	ml <- paste0("Distribution of ",count," number over characters")
 	xl <- paste0("Number of ",count,"s by character")
@@ -132,11 +132,11 @@ for(chars in data$volume.chars)
 tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")
 
 # test distributions
-file <- get.path.stat.corpus(object="volumes", desc="distrib_chars.by.volume_unfiltered_distrtest")
+file <- get.path.stats.corpus(object="volumes", pref="distrib_chars.by.volume_unfiltered_distrtest")
 test.disc.distr(data=char.unfilt.nbrs, 			# good
 	xlab="Number of characters by volume", return_stats=TRUE, 
 	plot.file=file)
-file <- get.path.stat.corpus(object="volumes", desc="distrib_chars.by.volume_filtered_distrtest")
+file <- get.path.stats.corpus(object="volumes", pref="distrib_chars.by.volume_filtered_distrtest")
 test.disc.distr(data=char.filt.nbrs, 			# good
 	xlab="Number of characters by volume", return_stats=TRUE, 
 	plot.file=file)

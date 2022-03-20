@@ -101,7 +101,7 @@ for(centr1.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- NODE_MEASURES[[centr2.name]]$cname
 		ylab <- NODE_MEASURES[[centr1.name]]$cname
-		plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type=paste0("centr_",centr2.name,"_vs_",centr1.name))
+		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("centr_",centr2.name,"_vs_",centr1.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(

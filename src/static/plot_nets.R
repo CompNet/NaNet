@@ -17,7 +17,7 @@
 ###############################################################################
 compute.graphical.params <- function(g=NA)
 {	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g0 <- read.graphml.file(file=graph.file)
 	
 	# set up layout
@@ -99,7 +99,7 @@ plot.static.graph.scenes.all <- function(data)
 {	tlog(2,"Plotting the scene-based static graph")
 	
 	# read the graph
-	graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	
 	# compute graphical parameters
@@ -187,7 +187,7 @@ plot.static.graph.scenes.all <- function(data)
 		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
 		
 		# plot whole unfiltered graph
-		graph.file <- get.path.graph.file(mode="scenes", filtered=FALSE, desc="static")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph")
 		if(!is.na(attr))
 			graph.file <- paste0(graph.file, "_attr=", attr)
 		tlog(6,"Plotting the whole unfiltered graph in file ",graph.file)
@@ -253,7 +253,7 @@ plot.static.graph.scenes.all <- function(data)
 		
 		# plot whole filtered graph
 		if(is.na(attr) || attr!=COL_FILTERED)
-		{	graph.file <- get.path.graph.file(mode="scenes", filtered=TRUE, desc="static")
+		{	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph")
 			if(!is.na(attr))
 				graph.file <- paste0(graph.file, "_attr=", attr)
 			tlog(6,"Plotting the whole filtered graph in file ",graph.file)
@@ -339,7 +339,7 @@ plot.static.graph.scenes.all <- function(data)
 		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
 		
 		# unfiltered graph
-		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=FALSE, subfold="fulledges", desc="static")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=FALSE, subfold="fulledges", pref="graph")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
@@ -360,7 +360,7 @@ plot.static.graph.scenes.all <- function(data)
 			dev.off()
 		}
 		# filtered graph
-		graph.file <- get.path.graph.file(mode="scenes", vol=vname, filtered=TRUE, subfold="fulledges", desc="static")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=TRUE, subfold="fulledges", pref="graph")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
@@ -398,7 +398,7 @@ plot.static.graph.scenes.all <- function(data)
 		ecols[idx.e] <- "RED"
 		ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],85*(1-lame.normalize(nww[i],exp=3))))
 		# unfiltered graph
-		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=FALSE, subfold="fulledges", desc="static")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=a, filtered=FALSE, subfold="fulledges", pref="graph")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
@@ -419,7 +419,7 @@ plot.static.graph.scenes.all <- function(data)
 			dev.off()
 		}
 		# filtered graph
-		graph.file <- get.path.graph.file(mode="scenes", arc=a, filtered=TRUE, subfold="fulledges", desc="static")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=a, filtered=TRUE, subfold="fulledges", pref="graph")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
@@ -468,7 +468,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	vs0 <- tmp$vsizes
 	
 	# read unfiltered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=FALSE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	idx.con <- which(degree(g,mode="all")>0)
 		
@@ -477,7 +477,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 		setup.graph.layout(g, NET_SCENES_FOLDER)
 	
 	# read filtered graph
-	graph.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, desc="static", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=TRUE, pref="graph", ext=".graphml")
 	g.filtr <- read.graphml.file(file=graph.file)
 	idx.filtr <- match(V(g.filtr)$name, V(g)$name)
 	
@@ -525,7 +525,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
 	
 	# plot unfiltered graph
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=FALSE, desc="static")
+	plot.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=FALSE, pref="graph")
 	tlog(4,"Plotting the selected unfiltered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -548,7 +548,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	}
 	
 	# plot filtered graph
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, desc="static")
+	plot.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=TRUE, pref="graph")
 	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -581,7 +581,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	)
 	lay.filtr <- lay.filtr*100
 	
-	plot.file <- get.path.graph.file(mode="scenes", arc=arc, vol=vname, filtered=TRUE, subfold="layout", desc="static")
+	plot.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=TRUE, subfold="layout", pref="graph")
 	tlog(4,"Plotting the selected filtered graph in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
