@@ -72,9 +72,10 @@ start.rec.log(text=SERIES)
 data <- read.corpus.data()
 
 # compute corpus stats
-#data <- compute.corpus.stats(data)
-# plot corpus stats
-#plot.corpus.stats(data)
+data <- compute.corpus.stats(data)
+
+# plot these stats
+plot.corpus.stats(data)
 
 
 
@@ -125,10 +126,3 @@ generate.static.plots.comparison(data, panel.window.sizes, panel.overlaps, page.
 ###############################################################################
 # stop logging
 end.rec.log()
-
-
-
-
-###############################################################################
-# post analysis
-#source("src/post/description/_all_post.R")

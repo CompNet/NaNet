@@ -91,13 +91,12 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # filtered: whether this concerns the filtered version of the graph.
 # subfold: additional subfolder (optional).
 # pref: prefix of the file name.
-# pref: prefix of the file name.
 # suf: suffix of the file name.
 # ext: file extension added at the end of the path.
 # 
 # returns: full path.
 ###############################################################################
-get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, order=NA, pref=NA, suf=NA, ext=NA)
+get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER

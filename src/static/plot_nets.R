@@ -22,7 +22,7 @@ compute.graphical.params <- function(g=NA)
 	
 	# set up layout
 	if(any(is.na(LAYOUT)))
-		setup.graph.layout(g0, NET_SCENES_FOLDER)
+		setup.graph.layout(g0, NET_FOLDER)
 #V(g0)$x <- LAYOUT[,1]
 #V(g0)$y <- LAYOUT[,2]
 	
@@ -474,7 +474,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 		
 	# set up layout
 	if(any(is.na(LAYOUT)))
-		setup.graph.layout(g, NET_SCENES_FOLDER)
+		setup.graph.layout(g, NET_FOLDER)
 	
 	# read filtered graph
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=TRUE, pref="graph", ext=".graphml")

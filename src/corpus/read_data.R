@@ -405,7 +405,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 		COL_PANEL_START, COL_PANEL_START_ID,
 		COL_PAGE_END, COL_PAGE_END_ID, 
 		COL_PANEL_END, COL_PANEL_END_ID, 
-		COL_RANKS,
+		COL_RANK,
 		COL_PANELS, COL_PAGES, COL_CHARS,
 		COL_MATCH_START, COL_MATCH_END, COL_MATCH_BOTH
 	)
