@@ -33,16 +33,18 @@ volume.stats <- data$volume.stats
 
 
 
+
 ###############################################################################
 # retrieve volume positions expressed in scenes
+filt.txt <- if(filtered) "filtered" else "unfiltered"
 
 # order volumes
 if(pub.order)	# by publication order
 {	ord.vols <- 1:nrow(volume.stats)
-	ord.fold <- "order_pub"
+	ord.fold <- "publication"
 }else			# by story order
 {	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
-	ord.fold <- "order_story"
+	ord.fold <- "story"
 }
 
 
@@ -123,7 +125,7 @@ for(m in 1:length(gr.meas))
 	ylim[2] <- ylim[2]*1.1	# add some space for volume names
 	
 	# plot the measure
-	plot.file <- get.path.topomeas.plot(object="graph", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/graph"))
+	plot.file <- get.path.topomeas.plot(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt)
 	tlog(6, "Plotting in file \"",plot.file,"\"")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -221,7 +223,7 @@ for(m in 1:length(vx.meas))
 			pt <- "_main_chars"
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/nodes/"),pt)
+		plot.file <- get.path.topomeas.plot(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt, plot.type=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -330,7 +332,7 @@ for(m in 1:length(ed.meas))
 		}
 		
 		# plot the measure
-		plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name=meas, filtered=filtered, subfold=paste0("narr_smooth/",ord.fold,"/links/"), plot.type=pt)
+		plot.file <- get.path.topomeas.plot(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt, plot.type=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)

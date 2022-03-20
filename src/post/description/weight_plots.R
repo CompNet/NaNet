@@ -32,7 +32,7 @@ laws["Filtered-linkweight-duration"] <- "good"
 # distribution plots
 tlog(0,"Producing weight distribution plots")
 
-meas <- c("linkweight")
+meas <- c(MEAS_LINKWEIGHT)
 wts <- c("duration","occurrences")
 # process each type of weight	
 for(wt in wts)
@@ -51,7 +51,7 @@ for(wt in wts)
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.topomeas.plot(object="linkweight", mode="scenes", meas.name=meas, weights=wt, filtered=FALSE, plot.type="both_distrib")
+	file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", plot.type="distrib")
 	pal <- get.palette(length(data))
 	ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution (",wt,")")
 	xl <- paste0(ALL_MEASURES[[meas]]$cname," (",wt,")")

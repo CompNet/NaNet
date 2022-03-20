@@ -64,7 +64,7 @@ for(wt in wts)
 	}
 	res[[paste0("Unfiltered-",wt)]] <- vals
 	# plot results
-	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="evolution_publication_lines")
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="unfiltered", plot.type="evolution_lines")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -81,7 +81,7 @@ for(wt in wts)
 			)
 		dev.off()
 	}
-	
+		
 	# same for filtered graph 
 	tlog(4, "Removing edges iteratively for the filtered graph")
 	g0 <- g.filt
@@ -100,7 +100,7 @@ for(wt in wts)
 	}
 	res[[paste0("Filtered-",wt)]] <- vals.filt
 	# plot result
-	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=TRUE, plot.type="comp_vs_edges")
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="filtered", plot.type="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -130,7 +130,7 @@ tlog(0, "Plot figures combining unfiltered and filtered nets results")
 for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
 	
-	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights=tolower(wt), filtered=FALSE, plot.type="comp_vs_edges_both")
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="both", plot.type="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -169,18 +169,20 @@ for(filtered in c(FALSE,TRUE))
 {	if(filtered)
 	{	norm <- gorder(g.filt)
 		fn <- "Filtered"
+		filt.txt <- "filtered"
 		x <- 1:gsize(g.filt)
 		col <- pal[2]
 	}
 	else
 	{	norm <- gorder(g)
 		fn <- "Unfiltered"
+		filt.txt <- "unfiltered"
 		x <- 1:gsize(g)
 		col <- pal[1]
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
-	plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=filtered, plot.type="comp_vs_edges")
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered=filt.txt, plot.type="comp_vs_edges")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -215,7 +217,7 @@ for(filtered in c(FALSE,TRUE))
 }
 
 # all in the same figure
-plot.file <- get.path.topomeas.plot(object="links", mode="scenes", meas.name="linkweight", weights="both", filtered=FALSE, plot.type="comp_vs_edges_both")
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered="both", plot.type="comp_vs_edges")
 tlog(0, "Plot everything in the same file ",plot.file)
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)

@@ -29,6 +29,7 @@ FORCE <- TRUE
 ###############################################################################
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
+	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
@@ -78,7 +79,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
+		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -171,7 +172,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo")
+		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, plot.type="histo") # TODO move that into the "comparison" folder
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -276,6 +277,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 ###############################################################################
 compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
+	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
@@ -328,7 +330,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 		
 		# plot
 		if(!all(is.na(values)))
-		{	plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
+		{	plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -367,6 +369,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 ###############################################################################
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
+	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	table.file <- get.path.stat.table(object=object, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
@@ -416,7 +419,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 		}
 		
 		# plot
-		plot.file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered, plot.type="histo")
+		plot.file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, plot.type="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")

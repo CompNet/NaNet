@@ -19,7 +19,7 @@ start.rec.log(text="CharSim")
 wide <- TRUE				# wide plots showing volumes as rectangles
 narr.smooth <- TRUE			# whether to use narrative smoothing
 weighted <- TRUE			# whether to use the graph weights
-sc.lim <- 1500				# limit on the considered scenes (NA for no limit)
+sc.lim <- NA				# limit on the considered scenes (NA for no limit)
 pub.order <- TRUE			# whether to use the volume publication vs. story order
 
 
@@ -47,11 +47,16 @@ kept <- which(!V(g)$Filtered)
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- list()
+w.name <- NA
 if(narr.smooth)
-{	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
+{	net.type <- "narr_smooth"
+	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
 	gs[["TRUE"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order)
+	if(weighted)
+		w.name <- "normalized"
 }else
-{	tlog(2,"Extracting the sequence of graphs")
+{	net.type <- "cumulative"
+	tlog(2,"Extracting the sequence of graphs")
 	gs[["FALSE"]] <- extract.static.graph.scenes(
 		inter.df=data$inter.df, 
 		char.stats=char.stats, 
@@ -60,7 +65,9 @@ if(narr.smooth)
 	)
 	# possibly set weights
 	if(weighted)
-		gs[["FALSE"]] <- future_lapply(gs[["FALSE"]], function(g) E(g)$weight <- E(g)$Occurrences)
+	{	gs[["FALSE"]] <- future_lapply(gs[["FALSE"]], function(g) E(g)$weight <- E(g)$Occurrences)
+		w.name <- "occurrences"
+	}
 	
 	# compute the filtered version
 	tlog(2,"Same thing for filtered graphs")
@@ -75,9 +82,9 @@ if(is.na(sc.lim))
 
 # subfolder
 if(pub.order)
-{	ord.fold <- "order_pub"
+{	ord.fold <- "publication"
 }else
-{	ord.fold <- "order_story"
+{	ord.fold <- "story"
 }
 
 
@@ -111,6 +118,7 @@ sim.meas[["regequiv"]] <- list(
 
 # plot parameters
 pal <- get.palette(2)
+names(pal) <- c("unfiltered","filtered")
 if(wide)
 {	pw.pdf <- 15; ph.pdf <- 5
 	pw.png <- 2400; ph.png <- 800
@@ -135,12 +143,11 @@ fnames <- cbind(char.stats[idx[,1],COL_NAME], char.stats[idx[,2],COL_NAME])
 tlog(2,"Looping over similarity measures")
 for(m in 1:length(sim.meas))
 {	tlog(3,"Processing measure \"",names(sim.meas)[m],"\" (",m,"/",length(sim.meas),")")
-	mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul",paste0(".",ord.fold),"_",if(weighted) "weighted" else "","_",names(sim.meas)[m])
 	sim.vals <- list()
 	
 	# process unfiltered and filtered networks
-	for(filt in c(FALSE,TRUE))
-	{	tlog(4,"Processing the ",if(!filt) "un" else "","filtered network")
+	for(filt in c("unfiltered","filtered"))
+	{	tlog(4,"Processing the ",filt," network")
 		
 		#####
 		# compute the similarity between all char pairs, for each graph of the sequence
@@ -149,7 +156,7 @@ for(m in 1:length(sim.meas))
 		{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
 				tlog(6,"Processing scene ",s,"/",max(sc.rg))
 			sim <- rep(NA, nrow(pairs))
-			g <- gs[[as.character(filt)]][[s]]
+			g <- gs[[filt]][[s]]
 			vs <- cbind(match(fnames[,1],V(g)$name), match(fnames[,2],V(g)$name))
 			idx <- which(!apply(vs, 1, function(row) any(is.na(row))))
 			if(length(idx)>0)
@@ -165,7 +172,8 @@ for(m in 1:length(sim.meas))
 		
 		# record results
 		if(is.na(sc.lim))
-		{	file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt)
+		{	pt <- names(sim.meas)[m]
+			file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, plot.type=pt)
 			tlog(6,"Recording results to file \"",file,"\"")
 			write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
 		}
@@ -177,8 +185,8 @@ for(m in 1:length(sim.meas))
 		{	tlog(6,"Processing pair ",pairs[p,1],"--",pairs[p,2]," (",p,"/",nrow(pairs),")")
 			
 			# set file name
-			pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-			plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=filt, plot.type=pt)
+			pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
+			plot.file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, plot.type=pt)
 			tlog(7,"Creating file \"",plot.file,"\"")
 			
 			# compute data ranges
@@ -209,13 +217,13 @@ for(m in 1:length(sim.meas))
 				# add line
 				lines(
 					x=sc.rg, y=sims[,p], 
-					col=if(filt) pal[2] else pal[1]
+					col=pal[filt]
 				)
 				# close file
 				dev.off()
 	
 			}
-			sim.vals[[as.character(filt)]] <- sims
+			sim.vals[[filt]] <- sims
 		}
 	}
 	
@@ -224,13 +232,10 @@ for(m in 1:length(sim.meas))
 	tlog(4,"Looping over the pairs of vertices")
 	for(p in 1:nrow(pairs))
 	{	tlog(5,"Processing pair ",pairs[p,1],"--",pairs[p,2]," (",p,"/",nrow(pairs),")")
-		sims.unf <- 
-		sims.flt <- 
 		
 		# set file name
-		mn <- paste0("comp=",if(narr.smooth) "ns" else "cumul","_",names(sim.meas)[m])
-		pt <- paste0("pair=", paste0(pairs[p,],collapse="--"), if(wide) "_both_wide" else "")
-		plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name=mn, filtered=FALSE, plot.type=pt)
+		pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
+		plot.file <- get.path.topomeas.plot(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", plot.type=pt)
 		tlog(6,"Creating file \"",plot.file,"\"")
 		
 		# compute data ranges
@@ -256,10 +261,10 @@ for(m in 1:length(sim.meas))
 			if(wide)
 				draw.volume.rects(ylim, volume.stats)
 			# add line
-			for(filt in c(FALSE,TRUE))
+			for(filt in c("unfiltered","filtered"))
 			{	lines(
-					x=sc.rg, y=sim.vals[[as.character(filt)]][,p], 
-					col=if(filt) pal[2] else pal[1]
+					x=sc.rg, y=sim.vals[[filt]][,p], 
+					col=pal[filt]
 				)
 			}
 			# horizontal dotted line
@@ -277,12 +282,6 @@ for(m in 1:length(sim.meas))
 		}
 	}
 }
-
-
-
-
-###############################################################################
-# 
 
 
 

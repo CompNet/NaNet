@@ -366,7 +366,7 @@ for(m in 1:length(meas.names))
 	}
 	
 	# set params
-	plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=paste0(meas.name,"_sex_both"), filtered=FALSE)
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas.name, filtered="both", plot.type="_by.sex")
 	#ml <- paste0(ALL_MEASURES[[meas.name]]$cname, " distribution")
 	xl <- paste0(ALL_MEASURES[[meas.name]]$cname)
 	
@@ -495,7 +495,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name=MEAS_TRANSITIVITY, filtered=FALSE, plot.type="vs_degree_sex_both")
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type="transitivity_vs_degree.by.sex")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
@@ -668,7 +668,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name="neideg", filtered=FALSE, plot.type="vs_degree_sex_both")
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", plot.type="nei.deg.vs_degree.by.sex")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(

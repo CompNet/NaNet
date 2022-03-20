@@ -14,6 +14,13 @@ source("src/common/include.R")
 
 
 ###############################################################################
+# publication order vs. story order 
+pub.order <- TRUE
+
+
+
+
+###############################################################################
 # plots unfiltered and filtered figures as separate files
 
 # load corpus stats
@@ -28,12 +35,13 @@ gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=data$char.stats, 
 	volume.stats=data$volume.stats, 
-	ret.seq=TRUE, pub.order=TRUE # TODO check that this parm is used in the rest of the graph (also, should be main parameter of the script)
+	ret.seq=TRUE, pub.order=TRUE
 )
 
 # init lists
 g.orders <- list()
 dist.vals <- list()
+order.txt <- if(pub.order) "publication" else "story"
 
 # compute average distance for each graph in the sequence
 #print(any(sapply(gs, function(g) is_connected(g, mode="weak"))))	# check that each graph is connected
@@ -49,7 +57,9 @@ dist.vals[[2]] <- future_sapply(gs.filt, function(g) mean_distance(graph=g, dire
 natures <- c("unfiltered", "filtered")
 pal <- get.palette(2)
 for(i in 1:2)
-{	# setup series
+{	filt.txt <- if(i==1) "unfiltered" else "filtered"
+	
+	# setup series
 	x <- g.orders[[i]]
 	y <- dist.vals[[i]]
 	
@@ -69,7 +79,7 @@ for(i in 1:2)
 	print(summary(fit))
 	
 	# plot distance as a function of graph order
-	plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name="avgdist", filtered=i==2, plot.type="evolution_publication_lines")
+	plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered=filt.txt, plot.type=paste0("evolution_",order.txt,"_lines"))
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -97,7 +107,7 @@ for(i in 1:2)
 
 ###############################################################################
 # same thing, but plots both unfiltered and filtered figures in the same file
-plot.file <- get.path.topomeas.plot(object="nodepairs", mode="scenes", meas.name="avgdist", filtered=FALSE, plot.type="evolution_publication_lines_both")
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered="both", plot.type=paste0("evolution_",order.txt,"_lines"))
 
 # process all formats
 for(fformat in PLOT_FORMAT)

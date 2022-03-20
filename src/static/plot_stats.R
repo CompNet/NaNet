@@ -6,6 +6,8 @@
 ###############################################################################
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -28,6 +30,8 @@ load.static.graph.stats.by.window <- function(object, mode, window.size, overlap
 	
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -54,6 +58,8 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 }
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -72,6 +78,8 @@ load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol
 	res <- tmp.tab[measure,1]
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -102,6 +110,8 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 }
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -130,6 +140,8 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 }
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
@@ -146,6 +158,8 @@ load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA)
 	res <- tmp.tab[measure,]
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -176,6 +190,8 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 }
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the specified parameters: varying window size,
 # fixed overlap.
@@ -203,6 +219,8 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 }
 
 
+
+
 ###############################################################################
 # Loads a series corresponding to the scene-based graph.
 #
@@ -221,6 +239,8 @@ load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, 
 	res <- tmp.tab[,measure]
 	return(res)
 }
+
+
 
 
 ###############################################################################
@@ -445,6 +465,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 }
 
 
+
+
 ###############################################################################
 # Generates the plots containing several series at once, as lines.
 # 
@@ -620,6 +642,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 }
 
 
+
+
 ###############################################################################
 # Generates the plots containing several series at once, as lines, for rank
 # correlation values.
@@ -773,6 +797,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 }
 
 
+
+
 #############################################################################################
 # Generates a bar plot comparing two node or node-pair measures. The reference measure is used as
 # a baseline, and to order the nodes on the x axis. The comparison measure is used to process
@@ -858,6 +884,8 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 		}
 	}
 }
+
+
 
 
 ###############################################################################
@@ -1000,6 +1028,8 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 }
 
 
+
+
 ###############################################################################
 # Generates the plots related to the statistics of static graphs.
 #
@@ -1027,6 +1057,8 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 	tlog(3,"Generating comparison plots for mode=",mode)
 	generate.static.plots.tfpn(mode=mode, window.sizes=window.sizes, overlaps=overlaps)
 }
+
+
 
 
 ###############################################################################
@@ -1158,6 +1190,8 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 }
 
 
+
+
 ###############################################################################
 # Generates the plots showing the evolution of measures over arcs or volumes.
 #
@@ -1166,7 +1200,8 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 # filtered: whether to use the filter version of the graph.
 ###############################################################################
 generate.static.plots.evol <- function(data, arcs, filtered)
-{	# init arc/vol-dependent variables
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	# init arc/vol-dependent variables
 	if(arcs)
 	{	emode <- "arc"
 		items <- unique(data$volume.stats[,COL_ARC])
@@ -1203,7 +1238,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			}
 			
 			# generate barplots
-			file <- get.path.topomeas.plot(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filtered, plot.type="evolution")
+			file <- get.path.topomeas.plot(net.type="static", mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, plot.type="evolution")
 			tlog(4,"Generating file ",file)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -1223,6 +1258,8 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 		}
 	}
 }
+
+
 
 
 ###############################################################################

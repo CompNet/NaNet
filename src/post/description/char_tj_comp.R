@@ -16,6 +16,7 @@ start.rec.log(text="CharComp")
 ################################################################################
 # main parameters
 filtered <- FALSE
+filt.txt <- if(filtered) "filtered" else "unfiltered"
 
 chars <- c("Thorgal Aegirsson","Jolan Thorgalsson")
 
@@ -58,7 +59,7 @@ vols.idx <- match(vols, volume.stats[,COL_VOLUME])
 # read volume stats
 stats <- list() 
 for(v in 1:nrow(volume.stats))
-{	table.file <- get.path.stat.table(object="nodes", mode="scenes", weights="duration", vol=volume.stats[v,COL_VOLUME], filtered=filtered)
+{	table.file <- get.path.stat.table(object="nodes", mode="scenes", weights="duration", vol=volume.stats[v,COL_VOLUME], filtered=filt.txt)
 	tt <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	idx <- match(chars,rownames(tt))
 	if(v==1)
@@ -82,13 +83,14 @@ for(v in 1:nrow(volume.stats))
 # select measure
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, MEAS_STRENGTH)
 meas <- meass[5]
-
+w.name <- if(meas==MEAS_STRENGTH) "duration" else NA
+			
 # get values
 vals <- c(stats[[1]][meas,vols.idx], stats[[2]][meas,vols.idx])
 vals <- vals[!is.na(vals)]
 
 # create the plot
-plot.file <- get.path.topomeas.plot(object="graph", mode="scenes", meas.name=meas, filtered=filtered, plot.type=paste0("evol.by.volume_",paste0(chars.short,collapse="--")))
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=meas, vol=TRUE, filtered=filt.txt, weights=w.name, plot.type=paste0("evolution_",paste0(chars.short,collapse="--")))
 tlog(6, "Plotting in file \"",plot.file,"\"")
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)

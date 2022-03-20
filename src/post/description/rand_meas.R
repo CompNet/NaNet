@@ -30,7 +30,8 @@ start.rec.log(text="RandMeas")
 # returns: the stat table.
 ###############################################################################
 load.randmeas.stats <- function(filtered=FALSE)
-{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=filtered, plot.type="model_stats.csv")
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	tab.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, plot.type="rand.model.stats.csv")
 	if(file.exists(tab.file))
 		res <- read.csv(tab.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE, row.names=1)
 	else
@@ -55,7 +56,8 @@ load.randmeas.stats <- function(filtered=FALSE)
 # filtered: whether we are dealing with the filtered network.
 ###############################################################################
 record.randmeas.stats <- function(tab, filtered=FALSE)
-{	tab.file <- get.path.topomeas.plot(object=NA, mode="scenes", meas.name=NA, filtered=filtered, plot.type="model_stats.csv")
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	tab.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, plot.type="rand.model.stats.csv")
 	write.csv(x=tab, file=tab.file, row.names=TRUE)
 }
 

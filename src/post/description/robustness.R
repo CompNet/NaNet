@@ -103,7 +103,7 @@ tlog.end.loop(0,"Loop over measures is complete")
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 
 # file and common parameters
-plot.file <- get.path.topomeas.plot(object="nodes", mode="scenes", meas.name="gcompsize", filtered=FALSE, plot.type=paste0("vs_",meas))
+plot.file <- get.path.topomeas.plot(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", plot.type=paste0("giant.comp.size_vs_",meas))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
 pal <- get.palette(2)
