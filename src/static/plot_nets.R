@@ -188,8 +188,10 @@ plot.static.graph.scenes.all <- function(data)
 		
 		# plot whole unfiltered graph
 		graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph")
-		if(!is.na(attr))
-			graph.file <- paste0(graph.file, "_attr=", attr)
+		if(is.na(attr))
+			graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph")
+		else
+			graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, subfold="attributes", pref="graph", suf=paste0("attr=", attr))
 		tlog(6,"Plotting the whole unfiltered graph in file ",graph.file)
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -253,9 +255,10 @@ plot.static.graph.scenes.all <- function(data)
 		
 		# plot whole filtered graph
 		if(is.na(attr) || attr!=COL_FILTER)
-		{	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph")
-			if(!is.na(attr))
-				graph.file <- paste0(graph.file, "_attr=", attr)
+		{	if(is.na(attr))
+				graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph")
+			else
+				graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold="attributes", pref="graph", suf=paste0("attr=", attr))
 			tlog(6,"Plotting the whole filtered graph in file ",graph.file)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -573,7 +576,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	#ww <- E(g.filtr)$Duration
 	ww <- rep(1, gsize(g.filtr))
 	el <- get.edgelist(g.filtr, names=FALSE)
-	lay.filtr <<- qgraph.layout.fruchtermanreingold(	# actually not used anymore
+	lay.filtr <<- qgraph.layout.fruchtermanreingold(
 		edgelist=el, 
 		vcount=gorder(g.filtr), 
 		weight=ww, 
