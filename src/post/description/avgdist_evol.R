@@ -9,6 +9,7 @@
 # source("src/post/description/avgdist_evol.R")
 ###############################################################################
 source("src/common/include.R")
+start.rec.log(text="AvgDistEvol")
 
 
 
@@ -17,6 +18,8 @@ source("src/common/include.R")
 # publication order vs. story order 
 pub.order <- TRUE
 
+tlog(0, "Evolution of the average distance over scenes: pub.order=",pub.order)
+
 
 
 
@@ -24,6 +27,7 @@ pub.order <- TRUE
 # plots unfiltered and filtered figures as separate files
 
 # load corpus stats
+tlog(0, "Read corpus stats")
 data <- read.corpus.data()
 
 # get filtered characters
@@ -31,6 +35,7 @@ filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
+tlog(0, "Extract graph sequence")
 gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=data$char.stats, 
@@ -54,6 +59,7 @@ g.orders[[2]] <- future_sapply(gs.filt, gorder)
 dist.vals[[2]] <- future_sapply(gs.filt, function(g) mean_distance(graph=g, directed=FALSE, unconnected=TRUE))
 
 # loop over unfiltered/filtered
+tlog(0, "Loop over unfiltered/filtered")
 natures <- c("unfiltered", "filtered")
 pal <- ATT_COLORS_FILT
 for(i in 1:2)
@@ -65,6 +71,7 @@ for(i in 1:2)
 	{	filt.txt <- "filtered"
 		col <- pal["Keep"]
 	}
+	tlog(2, "Processing ",filt.txt," net (",i,"/",2,")")
 	
 	# setup series
 	x <- g.orders[[i]]
@@ -87,6 +94,7 @@ for(i in 1:2)
 	
 	# plot distance as a function of graph order
 	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered=filt.txt, suf=paste0("evolution_",order.txt,"_lines"))
+	tlog(2, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -108,6 +116,7 @@ for(i in 1:2)
 			dev.off()
 	}
 }
+tlog(0, "Unfiltered/filtered loop complete")
 
 
 
@@ -115,6 +124,7 @@ for(i in 1:2)
 ###############################################################################
 # same thing, but plots both unfiltered and filtered figures in the same file
 plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered="both", suf=paste0("evolution_",order.txt,"_lines"))
+tlog(0, "Plotting both unfiltered and filtered results in file ",plot.file)
 
 # process all formats
 for(fformat in PLOT_FORMAT)
@@ -200,3 +210,10 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 
+
+
+
+###############################################################################
+# end logging
+tlog(0,"Process complete")
+end.rec.log()

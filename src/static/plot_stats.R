@@ -154,8 +154,8 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA)
-{	table.file <- get.path.stat.table(object="corr", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol)
+load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
+{	table.file <- get.path.stat.table(object="corr", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	# TODO adjust object in above call
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
@@ -236,7 +236,7 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
+load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered)
 {	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
@@ -277,8 +277,8 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			object <- "nodescomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered=FALSE)
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered=FALSE)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered="unfiltered")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered="unfiltered")
 		seg.vals <- list()
 		seg.vals[[1]] <- seg.occ.vals[!is.na(seg.occ.vals)]
 		seg.vals[[2]] <- seg.dur.vals[!is.na(seg.dur.vals)]
@@ -502,8 +502,8 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 			object <- "graphcomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="occurrences")
-		seg.dur.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="duration")
+		seg.occ.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered="unfiltered")
+		seg.dur.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="duration", filtered="unfiltered")
 		
 		# retrieve the window.size data series
 		tlog(5,"Gathering and plotting data by window.size")
@@ -669,7 +669,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 		object <- "graph"
 		
 		# load the reference values (scene-based graph)
-		seg.vals <- load.static.corr.scenes(weights="occurrences", measure=meas.name)
+		seg.vals <- load.static.corr.scenes(weights="occurrences", measure=meas.name, filtered="unfiltered")
 		
 		for(weights in c("duration","occurrences"))
 		{	if(weights=="duration")
@@ -828,9 +828,9 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 			object <- "nodepairs"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered=FALSE)
+		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered="unfiltered")
 		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered=FALSE)
+		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered="unfiltered")
 		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
 		
 		for(weights in c("duration","occurrences"))
@@ -929,8 +929,8 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 		
 		# load the reference values (scene-based graph)
 		data0 <- cbind(
-			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="occurrences", measure=ms[m,i])),
-			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="duration", measure=ms[m,i]))
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="occurrences", measure=ms[m,i], filtered="unfiltered")),
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="duration", measure=ms[m,i], filtered="unfiltered"))
 		)
 		
 		# generate a plot for each window size value
@@ -1071,7 +1071,8 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # filtered: whether to use the filtered version of the graph.
 ###############################################################################
 generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
-{	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	tlog(3,"Generating plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
@@ -1097,7 +1098,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(object=object, weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filtered)
+			vals <- load.static.nodelink.stats.scenes(object=object, weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filt.txt)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
@@ -1212,7 +1213,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	}
 	
 	# init other variables
-	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
+	tlog(3,"Generating ",emode,"-based evolution plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
 	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
@@ -1234,7 +1235,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			for(i in 1:length(items))
 			{	vals[i] <- load.static.graph.stats.scenes(object=object, weights=wmode, measure=meas.name, 
 							arc=if(arcs) i else NA, vol=if(arcs) NA else items[i], 
-							filtered=filtered)
+							filtered=filt.txt)
 			}
 			
 			# generate barplots

@@ -31,7 +31,7 @@ FORCE <- TRUE
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -281,7 +281,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -374,7 +374,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	# read or create the table containing the computed values
@@ -461,7 +461,8 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 ###############################################################################
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "graph"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
 	tlog(4,"Computing graph topological measures")
 	
 	# read or create the table containing the computed values
@@ -651,8 +652,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				object <- "links"
 			
 			# retrieve reference values
-			vals.dur <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, arc=arc, vol=vol, filtered=FALSE)
-			vals.occ <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered=FALSE)
+			vals.dur <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
+			vals.occ <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
 			
 			# retrieve tested values
 			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
