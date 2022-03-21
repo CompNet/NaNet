@@ -40,7 +40,7 @@ plot.stats.panel <- function(
 	
 	# panels
 	panel.nbr <- nrow(panel.stats)
-	col <- ATT_COLORS_FILT[1]
+	col <- ATT_COLORS_FILT["Discard"]
 	# vertex attributes
 	atts <- names(panel.stats.atts)
 	att.nbr <- length(atts)
@@ -253,7 +253,7 @@ plot.stats.page <- function(
 	
 	# pages
 	page.nbr <- nrow(page.stats)
-	col <- ATT_COLORS_FILT[1]
+	col <- ATT_COLORS_FILT["Discard"]
 	# vertex attributes
 	atts <- names(page.stats.atts)
 	att.nbr <- length(atts)
@@ -488,7 +488,7 @@ plot.stats.scene <- function(
 	
 	# scenes
 	scene.nbr <- nrow(scene.stats)
-	col <- ATT_COLORS_FILT[1]
+	col <- ATT_COLORS_FILT["Discard"]
 	# vertex attributes
 	atts <- names(scene.stats.atts)
 	att.nbr <- length(atts)
@@ -749,13 +749,13 @@ plot.stats.char <- function(
 	# char filtering
 	if(filtered)
 	{	filt.txt <- "filtered"
-		char.idx <- which(!char.stats[,COL_FILTERED])
-		col <- ATT_COLORS_FILT[2]
+		char.idx <- which(char.stats[,COL_FILTER]=="Keep")
+		col <- ATT_COLORS_FILT["Keep"]
 	}
 	else
 	{	filt.txt <- "unfiltered"
 		char.idx <- 1:nrow(char.stats)
-		col <- ATT_COLORS_FILT[1]
+		col <- ATT_COLORS_FILT["Discard"]
 	}
 	
 	# preparation
@@ -1409,7 +1409,7 @@ plot.stats.volume <- function(
 	
 	# volumes
 	volume.nbr <- nrow(volume.stats)
-	col <- ATT_COLORS_FILT[1]
+	col <- ATT_COLORS_FILT["Discard"]
 	# vertex attributes
 	atts <- names(volume.stats.atts)
 	att.nbr <- length(atts)
@@ -1826,7 +1826,7 @@ plot.stats.arc <- function(
 	
 	# arcs
 	arc.nbr <- nrow(arc.stats)
-	col <- ATT_COLORS_FILT[1]
+	col <- ATT_COLORS_FILT["Discard"]
 	# vertex attributes
 	atts <- names(arc.stats.atts)
 	att.nbr <- length(atts)

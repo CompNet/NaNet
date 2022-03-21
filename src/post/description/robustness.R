@@ -24,7 +24,7 @@ g.unf <- read.graphml.file(file=graph.file)
 
 # filter the characters
 tlog(0, "Filtering characters")
-g.flt <- delete_vertices(graph=g.unf, v=V(g.unf)$Filtered)
+g.flt <- delete_vertices(graph=g.unf, v=V(g.unf)$Filter=="Discard")
 
 # measures of interest (and random removal)
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, "random")
@@ -106,7 +106,7 @@ meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant.comp.size_vs_",meas))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 
 # create plot files
 for(fformat in PLOT_FORMAT)
@@ -131,9 +131,9 @@ for(fformat in PLOT_FORMAT)
 	)
 	# series
 	cols <- c(
-		combine.colors(col1=pal[1], col2="WHITE", transparency=65),
-		pal[1],
-		combine.colors(col1=pal[1], col2="BLACK", transparency=65)
+		combine.colors(col1=pal["Discard"], col2="WHITE", transparency=65),
+		pal["Discard"],
+		combine.colors(col1=pal["Discard"], col2="BLACK", transparency=65)
 	)
 	for(s in 1:length(ys))
 	{	points(
@@ -161,9 +161,9 @@ for(fformat in PLOT_FORMAT)
 	)
 	# series
 	cols <- c(
-		combine.colors(col1=pal[2], col2="WHITE", transparency=65),
-		pal[2],
-		combine.colors(col1=pal[2], col2="BLACK", transparency=65)
+		combine.colors(col1=pal["Keep"], col2="WHITE", transparency=65),
+		pal["Keep"],
+		combine.colors(col1=pal["Keep"], col2="BLACK", transparency=65)
 	)
 	for(s in 1:length(ys))
 	{	points(

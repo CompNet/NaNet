@@ -111,8 +111,8 @@ plot.static.graph.scenes.all <- function(data)
 	ewidths <- tmp$ewidths
 	
 	# get filtered graph
-	idx.filtr <- which(!V(g)$Filtered)
-	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+	idx.keep <- which(V(g)$Filter=="Keep")
+	g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 	el <- get.edgelist(g.filtr, names=FALSE)
 	ww <- rep(1, gsize(g.filtr))
 	#ww <- E(cmp)$weight
@@ -128,7 +128,7 @@ plot.static.graph.scenes.all <- function(data)
 	idx.efiltr <- get.edge.ids(g, c(t(el)))
 	#does not work
 	#el <- as_edgelist(graph=g, names=FALSE)
-	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
+	#idx.efiltr <- which(el[,1] %in% idx.keep & el[,2] %in% idx.keep)
 	
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
@@ -252,7 +252,7 @@ plot.static.graph.scenes.all <- function(data)
 		}
 		
 		# plot whole filtered graph
-		if(is.na(attr) || attr!=COL_FILTERED)
+		if(is.na(attr) || attr!=COL_FILTER)
 		{	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph")
 			if(!is.na(attr))
 				graph.file <- paste0(graph.file, "_attr=", attr)
@@ -263,9 +263,9 @@ plot.static.graph.scenes.all <- function(data)
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 					plot(g.filtr, 
-						layout=LAYOUT[idx.filtr,],	# lay.filtr
-						vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-						vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+						layout=LAYOUT[idx.keep,],	# lay.filtr
+						vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
+						vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 						vertex.label.family="sans",
 						vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 						vertex.label.color="BLACK",
@@ -299,7 +299,7 @@ plot.static.graph.scenes.all <- function(data)
 							legend.gradient(
 								pnts=leg.loc,			# position
 								cols=lcols,				# color gradient
-								limits=sprintf("%.2f", range(rvals[intersect(idx.filtr,finite)],na.rm=TRUE)),
+								limits=sprintf("%.2f", range(rvals[intersect(idx.keep,finite)],na.rm=TRUE)),
 								title=attr,				# title of the legend box
 								cex=2.5					# size of the text in the legend
 							)
@@ -367,9 +367,9 @@ plot.static.graph.scenes.all <- function(data)
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 				plot(g.filtr, 
-					layout=LAYOUT[idx.filtr,],	# lay.filtr,  
-					vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr], 
-					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+					layout=LAYOUT[idx.keep,],	# lay.filtr,  
+					vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep], 
+					vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 					vertex.label.family="sans",
 					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 					vertex.label.color="BLACK",
@@ -426,9 +426,9 @@ plot.static.graph.scenes.all <- function(data)
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 				plot(g.filtr, 
-					layout=LAYOUT[idx.filtr,], #lay.filtr, 
-					vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr], 
-					vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+					layout=LAYOUT[idx.keep,], #lay.filtr, 
+					vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep], 
+					vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 					vertex.label.family="sans",
 					vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 					vertex.label.color="BLACK",
@@ -479,7 +479,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	# read filtered graph
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=TRUE, pref="graph", ext=".graphml")
 	g.filtr <- read.graphml.file(file=graph.file)
-	idx.filtr <- match(V(g.filtr)$name, V(g)$name)
+	idx.keep <- match(V(g.filtr)$name, V(g)$name)
 	
 	# set up vertex sizes
 	E(g)$weight <- E(g)$Duration
@@ -522,7 +522,7 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 	idx.efiltr <- get.edge.ids(g, c(t(el)))
 	#does not work
 	#el <- as_edgelist(graph=g, names=FALSE)
-	#idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
+	#idx.efiltr <- which(el[,1] %in% idx.keep & el[,2] %in% idx.keep)
 	
 	# plot unfiltered graph
 	plot.file <- get.path.data.graph(mode="scenes", net.type="static", arc=arc, vol=vname, filtered=FALSE, pref="graph")
@@ -556,9 +556,9 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr, 
-				layout=LAYOUT[idx.filtr,],	# lay.filtr
-				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+				layout=LAYOUT[idx.keep,],	# lay.filtr
+				vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
+				vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 				vertex.label.family="sans",
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color="BLACK",
@@ -590,8 +590,8 @@ plot.static.graph.scenes.partial <- function(data, arc=NA, vol=NA)
 			png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr, 
 				layout=lay.filtr,
-				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+				vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
+				vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 				vertex.label.family="sans",
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color="BLACK",

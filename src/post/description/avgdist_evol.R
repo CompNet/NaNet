@@ -27,7 +27,7 @@ pub.order <- TRUE
 data <- read.corpus.data()
 
 # get filtered characters
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
@@ -55,9 +55,16 @@ dist.vals[[2]] <- future_sapply(gs.filt, function(g) mean_distance(graph=g, dire
 
 # loop over unfiltered/filtered
 natures <- c("unfiltered", "filtered")
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 for(i in 1:2)
-{	filt.txt <- if(i==1) "unfiltered" else "filtered"
+{	if(i==1)
+	{	filt.txt <- "unfiltered"
+		col <- pal["Discard"]
+	}
+	else 
+	{	filt.txt <- "filtered"
+		col <- pal["Keep"]
+	}
 	
 	# setup series
 	x <- g.orders[[i]]
@@ -91,7 +98,7 @@ for(i in 1:2)
 					x=x, y=y, 
 					xlab=TeX(paste0("Number of ",natures[i]," vertices $n$")),
 					ylab=TeX("Average distance $<d>$"),
-					las=1, col=pal[i],
+					las=1, col=col,
 					type="l"
 				)
 				# plot fitted line

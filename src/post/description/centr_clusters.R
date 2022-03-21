@@ -22,7 +22,7 @@ klim <- 20	# maximal k value when clustering the data
 data <- read.corpus.data()
 
 # get filtered characters
-kept <- which(!data$char.stats[,COL_FILTERED])
+kept <- which(data$char.stats[,COL_FILTER]=="Keep")
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
@@ -30,7 +30,7 @@ centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
 # get centrality values
 tlog(0, "Read centrality values")
 vals.unf <- matrix(NA, nrow=nrow(data$char.stats), ncol=length(centr.names), dimnames=list(data$char.stats[,COL_NAME],centr.names))
-vals.flt <- matrix(NA, nrow=length(kept), ncol=length(centr.names), dimnames=list(data$char.stats[kept,COL_FILTERED],centr.names))
+vals.flt <- matrix(NA, nrow=length(kept), ncol=length(centr.names), dimnames=list(data$char.stats[kept,COL_FILTER]=="Keep",centr.names))
 for(centr.name in centr.names)
 {		vals.unf[,centr.name] <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=FALSE)
 		vals.flt[,centr.name] <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=TRUE)

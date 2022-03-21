@@ -121,8 +121,8 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 	
 	# possibly filter the characters
 	if(filtered)
-	{	kept <- which(!V(g)$Filtered)
-		g <- delete_vertices(graph=g, v=V(g)$Filtered)
+	{	kept <- which(V(g)$Filter=="Keep")
+		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 		char.stats <- char.stats[kept,]
 		scene.chars <- lapply(scene.chars, function(ll) intersect(ll, char.stats[,COL_NAME]))
 	}

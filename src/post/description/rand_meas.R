@@ -110,7 +110,7 @@ load.as.bipartite <- function()
 	# filtered version
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
-	idx <- match(V(g)[V(g)$Filtered]$name, V(bg)$Name)
+	idx <- match(V(g)[V(g)$Filter=="Discard"]$name, V(bg)$Name)
 	bg.filtr <- delete_vertices(graph=bg, v=idx)
 	bg.filtr <- delete_vertices(graph=bg.filtr, v=which(degree(bg.filtr, mode="all")<1))
 	
@@ -242,7 +242,7 @@ lattice.graph.measures <- function(filtered=FALSE)
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	if(filtered)
-		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 	# build lattice
 	g <- make.lattice(n=gorder(g), m=gsize(g)) 
 	
@@ -281,7 +281,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph)
 	if(filtered)
-		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 	
 	# compute degree
 	dd <- degree(g, mode="all")

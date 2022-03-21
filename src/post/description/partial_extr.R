@@ -27,7 +27,7 @@ data <- read.corpus.data()
 graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 # get filtered characters
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute split scene
@@ -107,10 +107,10 @@ for(i in 1:length(gs))
 	}
 	
 	# get filtered graph
-	idx.filtr <- which(!V(g)$Filtered & degree(gs[[i]],mode="all")>0)
-	g.filtr <- delete_vertices(graph=gs[[i]], v=which(V(g)$Filtered | degree(gs[[i]],mode="all")==0))
+	idx.keep <- which(V(g)$Filter=="Keep" & degree(gs[[i]],mode="all")>0)
+	g.filtr <- delete_vertices(graph=gs[[i]], v=which(V(g)$Filter=="Discard" | degree(gs[[i]],mode="all")==0))
 	el <- as_edgelist(graph=gs[[i]], names=FALSE)
-	idx.efiltr <- which(el[,1] %in% idx.filtr & el[,2] %in% idx.filtr)
+	idx.efiltr <- which(el[,1] %in% idx.keep & el[,2] %in% idx.keep)
 	
 	# plot whole filtered graph
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph", suf=paste0("_part_",i))
@@ -121,9 +121,9 @@ for(i in 1:length(gs))
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr,
-				layout=LAYOUT[idx.filtr,],	# lay.filtr
-				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
-				vertex.label=vlabs[idx.filtr], vertex.label.cex=vlabsizes[idx.filtr],
+				layout=LAYOUT[idx.keep,],	# lay.filtr
+				vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
+				vertex.label=vlabs[idx.keep], vertex.label.cex=vlabsizes[idx.keep],
 				vertex.label.family="sans",
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color="BLACK",

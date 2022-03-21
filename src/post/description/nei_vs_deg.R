@@ -54,8 +54,8 @@ fit <- nlsLM(cut.nei ~ c1*cut.deg^c2,
 summary(fit)
 
 # plot
-pal <- get.palette(2)
-col <- pal[1]
+pal <- ATT_COLORS_FILT
+col <- pal["Discard"]
 col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
@@ -131,9 +131,9 @@ legend(
 # add the plot for the filtered net, as an inset
 
 # filter the characters
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-g <- delete_vertices(g, V(g)$Filtered)
+g <- delete_vertices(g, V(g)$Filter=="Discard")
 
 # compute values
 deg.vals <- degree(graph=g, mode="all")
@@ -167,7 +167,7 @@ fit <- nlsLM(cut.nei ~ c1*cut.deg^c2,
 summary(fit)
 
 # plot as an inset
-col <- pal[2]
+col <- pal["Keep"]
 col.sec <- combine.colors(col, "WHITE", transparency=20)
 par(
 	fig=c(0.57,0.98, 0.05, 0.46), 

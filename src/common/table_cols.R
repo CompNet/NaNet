@@ -101,7 +101,7 @@ COL_NAME <- "Name"								# proper name or description of the character (=COL_CH
 COL_NAMED <- "Named"							# whether the character has a proper name
 COL_FREQ <- "Frequency"							# number of scenes
 COL_NAME_SHORT <- "ShortName"					# short version of the name, for important characters only
-COL_FILTERED <- "Filtered"						# whether the character is important (FALSE) or not (TRUE)
+COL_FILTER <- "Filter"							# whether the character is important ("Keep") or not ("Discard")
 COLS_ATT_IGNORE <- c(							# list of columns not representing character attributes
 	COL_NAME, COL_NAME_SHORT, 
 	COL_FREQ, 

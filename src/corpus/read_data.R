@@ -1003,8 +1003,8 @@ read.raw.data <- function()
 #	tt <- table(unlist(inter.df))
 #	idx.cooc <- tt[char.stats[,COL_NAME]]>1
 #	idx <- which(idx.freq & idx.cooc)
-#	char.stats[,COL_FILTERED] <- rep(TRUE,nrow(char.stats))
-#	char.stats[idx,COL_FILTERED] <- FALSE
+#	char.stats[,COL_FILTER] <- rep("Discard",nrow(char.stats))
+#	char.stats[idx,COL_FILTER] <- "Keep"
 ## cannot select the giant component without the graph >> do the filtering later
 	
 	# record the tables and lists

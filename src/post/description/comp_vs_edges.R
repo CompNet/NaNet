@@ -30,9 +30,9 @@ g <- read.graphml.file(file=graph.file)
 
 # filter the characters
 tlog(0, "Filtering characters")
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-g.filt <- delete_vertices(g, V(g)$Filtered)
+g.filt <- delete_vertices(g, V(g)$Filter=="Discard")
 
 # plot settings
 xlab <- "Number of edges"
@@ -40,7 +40,7 @@ ylab <- "Largest component size (proportion of vertices)"
 
 # compute both types of weights
 tlog(0, "Compute values and plot basic figures")
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 wts <- c("Duration","Occurrences")
 res <- list()
 for(wt in wts)
@@ -75,7 +75,7 @@ for(wt in wts)
 			plot(
 				x=1:gsize(g), y=vals/gorder(g),
 				xlab=TeX(xlab), ylab=TeX(ylab),
-				col=pal[1],
+				col=pal["Discard"],
 				ylim=0:1,
 				type="l"
 			)
@@ -111,7 +111,7 @@ for(wt in wts)
 			plot(
 				x=1:gsize(g.filt), y=vals.filt/gorder(g.filt),
 				xlab=TeX(xlab), ylab=TeX(ylab),
-				col=pal[2],
+				col=pal["Keep"],
 				ylim=0:1,
 				type="l"
 			)
@@ -142,7 +142,7 @@ for(wt in wts)
 			plot(
 				x=1:gsize(g), y=res[[paste0("Unfiltered-",wt)]]/gorder(g),
 				xlab=TeX(xlab), ylab=TeX(ylab),
-				col=pal[1],
+				col=pal["Discard"],
 				ylim=0:1,
 				type="l"
 			)
@@ -150,13 +150,13 @@ for(wt in wts)
 			lines(
 				x=1:gsize(g.filt), y=res[[paste0("Filtered-",wt)]]/gorder(g.filt), 
 #				lty=2,
-				col=pal[2] 
+				col=pal["Keep"] 
 			)
 			# legend
 			legend(
 				title="Characters",
 				x="bottomright",
-				fill=pal,
+				fill=pal["Discard","Keep"],
 				legend=c("Unfiltered","Filtered")
 			)
 		dev.off()
@@ -171,14 +171,14 @@ for(filtered in c(FALSE,TRUE))
 		fn <- "Filtered"
 		filt.txt <- "filtered"
 		x <- 1:gsize(g.filt)
-		col <- pal[2]
+		col <- pal["Keep"]
 	}
 	else
 	{	norm <- gorder(g)
 		fn <- "Unfiltered"
 		filt.txt <- "unfiltered"
 		x <- 1:gsize(g)
-		col <- pal[1]
+		col <- pal["Discard"]
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
@@ -237,12 +237,12 @@ for(fformat in PLOT_FORMAT)
 		{	if(filtered=="Filtered")
 			{	norm <- gorder(g.filt)
 				x <- 1:gsize(g.filt)
-				col <- pal[2]
+				col <- pal["Keep"]
 			}
 			else
 			{	norm <- gorder(g)
 				x <- 1:gsize(g)
-				col <- pal[1]
+				col <- pal["Discard"]
 			}
 			for(w in 1:length(wts))
 			{	lines(
@@ -256,7 +256,7 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topleft",
-			fill=pal,
+			fill=pal["Discard","Keep"],
 			legend=c("Unfiltered","Filtered")
 		)
 		legend(

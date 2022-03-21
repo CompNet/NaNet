@@ -130,9 +130,9 @@ ATT_COLORS_SEX <- c(	# retrieved from https://blog.datawrapper.de/gendercolor/
 	"Unknown"="LIGHTGRAY"	# gray
 )
 ATT_COLORS_FILT <- c(
-	"FALSE"=rgb(228,26,28,maxColorValue=255),		# red
-	"TRUE"=rgb(55,126,184,maxColorValue=255)		# blue
-#	"TRUE"=combine.colors(rgb(55,126,184,maxColorValue=255),"WHITE",transparency=40)
+	"Discard"=rgb(228,26,28,maxColorValue=255),		# red
+	"Keep"=rgb(55,126,184,maxColorValue=255)		# blue
+#	"Keep"=combine.colors(rgb(55,126,184,maxColorValue=255),"WHITE",transparency=40)
 )
 ATT_COLORS_BOOL <- c(
 	"FALSE"=rgb(255,127,0,maxColorValue=255),		# orange
@@ -141,7 +141,7 @@ ATT_COLORS_BOOL <- c(
 
 # overall list
 ATT_COLORS <- list(
-	Filtered=ATT_COLORS_FILT,
+	Filter=ATT_COLORS_FILT,
 	Named=ATT_COLORS_BOOL,
 	Sex=ATT_COLORS_SEX
 )

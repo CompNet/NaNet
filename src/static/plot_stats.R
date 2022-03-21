@@ -1074,7 +1074,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 {	tlog(3,"Generating plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
-	col <- get.palette(2)[if(filtered) 2 else 1]
+	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
 	
 	# list measures to plot
 	nmn <- names(NODE_MEASURES)
@@ -1151,7 +1151,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	if(filtered)
-		g <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 	g.dur <- g; E(g.dur)$weight <- E(g)$Duration
 	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 	
@@ -1215,7 +1215,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	tlog(3,"Generating ",emode,"-based evolution plots for the ",if(filtered) "filtered" else "unfiltered"," scene-based graphs")
 	mode <- "scenes"
 	wmodes <- c("occurrences","duration")
-	col <- get.palette(2)[if(filtered) 2 else 1]
+	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
 	
 	# list measures to plot
 	gmn <- names(GRAPH_MEASURES)

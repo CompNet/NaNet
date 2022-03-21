@@ -37,9 +37,9 @@ tlog(0,"Producing degree & strength distribution plots")
 # load corpus stats
 data <- read.corpus.data()
 # get filtered characters
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-idx.keep <- which(!data$char.stats[,COL_FILTERED])
+idx.keep <- which(data$char.stats[,COL_FILTER]=="Keep")
 
 # loop params
 meass <- c(MEAS_DEGREE,MEAS_STRENGTH)

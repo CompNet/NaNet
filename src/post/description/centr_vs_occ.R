@@ -245,7 +245,7 @@ print(corr.mat.flt.clean)
 # check the outliers according to Eigencentrality
 tlog(0,"Checking the outliers according to the Eigenvector centrality:")
 centr.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure="eigenvector", filtered=FALSE)
-filtered <- data$char.stats[,COL_FILTERED]
+filtered <- data$char.stats[,COL_FILTER]=="Discard"
 idx <- order(centr.vals.unf, decreasing=FALSE)
 tlog(2,"List of characters by decreasing Eigenvector centrality:")
 print(cbind(data$char.stats[idx,COL_NAME], filtered[idx], centr.vals.unf[idx]))

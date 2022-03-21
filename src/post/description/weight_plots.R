@@ -52,7 +52,7 @@ for(wt in wts)
 	
 	# set params
 	file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="distrib")
-	pal <- get.palette(length(data))
+	pal <- ATT_COLORS_FILT["Discard","Keep"]
 	ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution (",wt,")")
 	xl <- paste0(ALL_MEASURES[[meas]]$cname," (",wt,")")
 	

@@ -118,9 +118,9 @@ for(count in counts)
 data <- read.corpus.data()
 
 # get the main characters
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-main.chars <- data$char.stats[!data$char.stats[,COL_FILTERED],COL_NAME]
+main.chars <- data$char.stats[data$char.stats[,COL_FILTER]=="Keep",COL_NAME]
 
 # compute char by vol
 char.unfilt.nbrs <- c()

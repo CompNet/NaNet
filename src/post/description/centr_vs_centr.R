@@ -18,7 +18,7 @@ start.rec.log(text="CentrVsCentr")
 tlog(0, "Plotting centrality vs. centrality")
 
 # plot parameters
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
@@ -97,7 +97,7 @@ for(centr1.name in centr.names)
 #		summary(fit)
 
 		# plot unfiltered data
-		col <- pal[1]
+		col <- pal["Discard"]
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- NODE_MEASURES[[centr2.name]]$cname
 		ylab <- NODE_MEASURES[[centr1.name]]$cname
@@ -170,7 +170,7 @@ for(centr1.name in centr.names)
 #		summary(fit)
 		
 		# plot as an inset
-		col <- pal[2]
+		col <- pal["Keep"]
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		par(
 			fig=inlay.coords[paste0(centr1.name,"_",centr2.name),], 

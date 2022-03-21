@@ -81,8 +81,8 @@ nww <- tmp$nww
 ewidths0 <- tmp$ewidths
 
 # get filtered graph
-idx.filtr <- which(!V(g)$Filtered)
-g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filtered))
+idx.keep <- which(V(g)$Filter=="Keep")
+g.filtr <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 el <- get.edgelist(g.filtr, names=FALSE)
 ww <- rep(1, gsize(g.filtr))
 #ww <- E(cmp)$weight
@@ -175,11 +175,11 @@ for(pp in 1:length(diam.paths))
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr2,
-				layout=LAYOUT[idx.filtr,],	# lay.filtr
-#				vertex.size=vsizes[idx.filtr], vertex.color=vcols[idx.filtr],
+				layout=LAYOUT[idx.keep,],	# lay.filtr
+#				vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
 				vertex.size=vsizes, vertex.color=vcolors,
 				vertex.shape=vshapes, vertex.frame.color=outline.cols,
-				vertex.label=vlabs2[idx.filtr], vertex.label.cex=vlabsizes2[idx.filtr],
+				vertex.label=vlabs2[idx.keep], vertex.label.cex=vlabsizes2[idx.keep],
 				vertex.label.family="sans",
 				vertex.label.font=2,					# 1 is plain text, 2 is bold face, 3 is italic, 4 is bold and italic
 				vertex.label.color=outline.cols,

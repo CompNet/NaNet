@@ -53,12 +53,12 @@ start.rec.log(text="PrefAttach")
 tlog(0,"Starting to produce the preferential attachment plots")
 
 # plot parameters
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 
 # load corpus stats
 data <- read.corpus.data()
 # get filtered characters
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # load raw data
@@ -110,7 +110,14 @@ for(mode in modes)
 	tlog(2,"Looping over unfiltered/filtered graphs")
 	for(f in 1:length(filts))
 	{	gs <- gsl[[f]]
-		filtered <- if(filts[f]) "filtered" else "unfiltered"
+		if(filts[f])
+		{	filtered <- "filtered"
+			col <- pal["Keep"]
+		}
+		else
+		{	filtered <-"unfiltered"
+			col <- pal["Discard"]
+		}
 		tlog(4,"Processing the ",filtered," graph")
 		
 		# focus on the middle of the period
@@ -303,7 +310,7 @@ for(mode in modes)
 			x=deg.vals, y=cum.vals,		# cumulative plot
 #			x=deg.vals, y=vals,			# non-cumulative plot
 			xlab=xl, ylab=yl,
-			col=pal[f], 
+			col=col, 
 			log="xy", 
 			las=1,
 			cex.lab=zm, cex.axis=zm, cex=zm

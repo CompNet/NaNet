@@ -133,8 +133,8 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	}
 	
 	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(g)$Filtered))
-	idx.filtr <- which(!V(g)$Filtered)
+	g.filtr <- delete_vertices(g, v=which(V(g)$Filter=="Discard"))
+	idx.keep <- which(V(g)$Filter=="Keep")
 	
 	# compute each measure
 	tlog(5,"Computing each nodal measure")
@@ -158,7 +158,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 			measure <- NODECOMP_MEASURES[[m]]
 			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
 			{	values <- rep(NA,gorder(g))
-				values[idx.filtr] <- measure$foo(graph=g.filtr)
+				values[idx.keep] <- measure$foo(graph=g.filtr)
 			}
 			else
 				values <- measure$foo(graph=g)
@@ -206,7 +206,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		paste0("tfpn", SFX_WEIGHT, SFX_NORM, SFX_OCC)
 	)
 	
-	idx.filtr <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
+	idx.keep <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
 	for(m in 1:nrow(ms))
 	{	meas.name <- rownames(ms)[m]
 		tlog(6,"Plotting measure \"",meas.name,"\"")
@@ -217,7 +217,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 			for(md2 in mds2)
 			{	# all vs main
 				if(md2=="main")
-					idx <- idx.filtr
+					idx <- idx.keep
 				else
 					idx <- 1:nrow(res.tab)
 				
@@ -541,8 +541,8 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	}
 	
 	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(g)$Filtered))
-	#idx.filtr <- which(!V(g)$Filtered)
+	g.filtr <- delete_vertices(g, v=which(V(g)$Filter=="Discard"))
+	#idx.keep <- which(V(g)$Filter=="Keep")
 	
 	# compute each topological and comparison measure
 	tlog(5,"Computing each graph comparison measure")

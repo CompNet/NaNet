@@ -36,14 +36,14 @@ volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
 # get filtered character names
-filt.names <- data$char.stats[data$char.stats[,COL_FILTERED],COL_NAME]
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(2,"Reading file \"",graph.file,"\"")
 g <- read.graphml.file(file=graph.file)
-kept <- which(!V(g)$Filtered)
+kept <- which(V(g)$Filter=="Keep")
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- list()
@@ -117,8 +117,7 @@ sim.meas[["regequiv"]] <- list(
 )
 
 # plot parameters
-pal <- get.palette(2)
-names(pal) <- c("unfiltered","filtered")
+pal <- ATT_COLORS_FILT
 if(wide)
 {	pw.pdf <- 15; ph.pdf <- 5
 	pw.png <- 2400; ph.png <- 800
@@ -148,6 +147,10 @@ for(m in 1:length(sim.meas))
 	# process unfiltered and filtered networks
 	for(filt in c("unfiltered","filtered"))
 	{	tlog(4,"Processing the ",filt," network")
+		if(filt=="unfiltered")
+			col <- pal["Discard"]
+		else
+			col <- pal["Keep"]
 		
 		#####
 		# compute the similarity between all char pairs, for each graph of the sequence
@@ -217,7 +220,7 @@ for(m in 1:length(sim.meas))
 				# add line
 				lines(
 					x=sc.rg, y=sims[,p], 
-					col=pal[filt]
+					col=col
 				)
 				# close file
 				dev.off()
@@ -262,9 +265,13 @@ for(m in 1:length(sim.meas))
 				draw.volume.rects(ylim, volume.stats)
 			# add line
 			for(filt in c("unfiltered","filtered"))
-			{	lines(
+			{	if(filt="unfiltered")
+					col <- pal["Discard"]
+				else
+					col <- pal["Keep"]
+				lines(
 					x=sc.rg, y=sim.vals[[filt]][,p], 
-					col=pal[filt]
+					col=col
 				)
 			}
 			# horizontal dotted line
@@ -274,7 +281,7 @@ for(m in 1:length(sim.meas))
 			legend(
 				title="Characters",
 				x="bottomright",
-				fill=pal,
+				fill=pal["Discard","Keep"],
 				legend=c("Unfiltered","Filtered")
 			)
 			# close file

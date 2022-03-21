@@ -28,7 +28,7 @@ get.ref.graph <- function(weights, filtered=FALSE)
 ##		idx.cmp <- idx.filtr[tmp$indices]
 ##		res <- tmp$comp
 
-		g.filtr <- delete_vertices(graph=res, v=which(V(res)$Filtered))
+		g.filtr <- delete_vertices(graph=res, v=which(V(res)$Filter=="Discard"))
 		
 		res <- g.filtr
 	}

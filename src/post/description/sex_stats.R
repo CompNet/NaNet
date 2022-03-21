@@ -22,7 +22,7 @@ data <- read.corpus.data()
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
-kept <- which(!V(g)$Filtered)
+kept <- which(V(g)$Filter=="Keep")
 
 # plot parameters
 sexes <- c("Male","Female","Mixed","Unknown")
@@ -152,9 +152,9 @@ tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
 # filtered data
 tlog(4,"Filtered network:")
-gm <- delete_vertices(gm, V(gm)$Filtered)
+gm <- delete_vertices(gm, V(gm)$Filter=="Discard")
 dens.mal <- edge_density(gm)
-gf <- delete_vertices(gf, V(gf)$Filtered)
+gf <- delete_vertices(gf, V(gf)$Filter=="Discard")
 dens.fem <- edge_density(gf)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
@@ -209,7 +209,7 @@ print(tt/sum(tt)*100)
 tlog(2,"Considering the filtered characters")
 # number of scenes by sex
 sc <- data$scene.chars
-sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex[!V(g)[chars]$Filtered])
+sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex[!V(g)[chars]$Filter=="Discard"])
 sc.ov.sexes <- sapply(sc.sexes, function(sx)
 		{	res <- NA
 			sx <- sx[sx!="Unknown"]
@@ -246,7 +246,7 @@ gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Unfiltered network: ",ass.unf)
 # filtered net
-gs <- delete_vertices(gs, V(gs)$Filtered)
+gs <- delete_vertices(gs, V(gs)$Filter=="Discard")
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Filtered network: ",ass.unf)
 
@@ -266,7 +266,7 @@ print(tt)
 print(tt/sum(tt)*100)
 
 # filtered net
-gs <- delete_vertices(gs, V(gs)$Filtered)
+gs <- delete_vertices(gs, V(gs)$Filter=="Discard")
 tris <- triangles(graph=gs)$Sex
 col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)]),collapse="-"))
 tlog(0,"Unfiltered network:")
@@ -705,7 +705,7 @@ legend(
 
 ####
 # compute filtered values
-gf <- delete_vertices(g, V(g)$Filtered)
+gf <- delete_vertices(g, V(g)$Filter=="Discard")
 deg.vals <- degree(graph=gf, mode="all")
 nei.vals <- igraph::knn(graph=gf, weights=NULL)$knn	#, mode="all", neighbor.degree.mode="all")
 

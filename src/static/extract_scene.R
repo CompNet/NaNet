@@ -178,8 +178,8 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	
 	# add new attribute to unfiltered graph
-	V(g)$Filtered <- rep(TRUE,gorder(g))
-	V(g)$Filtered[idx.cmp] <- FALSE
+	V(g)$Filter <- rep("Discard",gorder(g))
+	V(g)$Filter[idx.cmp] <- "Keep"
 	# record graph file
 	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
@@ -187,11 +187,11 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	
 	# add col to char stats table and record
 	char.stats <- data$char.stats
-	if(COL_FILTERED %in% colnames(char.stats))
-		char.stats[,COL_FILTERED] <- V(g)$Filtered
+	if(COL_FILTER %in% colnames(char.stats))
+		char.stats[,COL_FILTER] <- V(g)$Filter
 	else
-	{	char.stats <- cbind(char.stats, V(g)$Filtered)
-		colnames(char.stats)[ncol(char.stats)] <- COL_FILTERED
+	{	char.stats <- cbind(char.stats, V(g)$Filter)
+		colnames(char.stats)[ncol(char.stats)] <- COL_FILTER
 	}
 	data$char.stats <- char.stats
 	# update stats file
@@ -279,7 +279,7 @@ extract.static.graphs.base <- function(data)
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
 		# extract the filtered version
-		idx.remove <- which(V(g)$Filtered | degree(g)==0)
+		idx.remove <- which(V(g)$Filter=="Discard" | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
 		graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=a, filtered=TRUE, pref="graph", ext=".graphml")
@@ -301,15 +301,15 @@ extract.static.graphs.base <- function(data)
 			vol=v
 		)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=FALSE, pref="static", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=FALSE, pref="graph", ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
 		# extract the filtered version
-		idx.remove <- which(V(g)$Filtered | degree(g)==0)
+		idx.remove <- which(V(g)$Filter=="Discard" | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=TRUE, pref="static", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=TRUE, pref="graph", ext=".graphml")
 		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}

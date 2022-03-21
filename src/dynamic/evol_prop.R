@@ -103,8 +103,8 @@ log.y <- c(
 gr.stats <- matrix(NA, nrow=sc.nbr, ncol=length(gr.meas), dimnames=list(c(),gr.meas))
 
 # color palette
-pal <- get.palette(2)
-col <- if(filtered) pal[2] else pal[1]
+pal <- ATT_COLORS_FILT
+col <- if(filtered) pal["Keep"] else pal["Discard"]
 
 # compute each measure
 tlog.start.loop(2, length(gr.meas), "Looping over graph measures")

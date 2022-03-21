@@ -25,16 +25,16 @@ g <- read.graphml.file(file=graph.file)
 
 # filter the characters
 tlog(0, "Filtering characters")
-filt.names <- V(g)$name[V(g)$Filtered]
+filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
-g.filt <- delete_vertices(g, V(g)$Filtered)
+g.filt <- delete_vertices(g, V(g)$Filter=="Discard")
 
 # plot settings
 xlab <- "Number of vertices removed"
 
 # compute and plot
 tlog(0, "Compute values and plot basic figures")
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 res <- list()
 # remove each vertex iteratively
 tlog(4, "Removing vertices iteratively for the unfiltered graph")
@@ -74,7 +74,7 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g)-1), y=props/gorder(g),
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[1],
+			col=pal["Discard"],
 			ylim=0:1, log="x",
 			type="l"
 		)
@@ -93,7 +93,7 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g)-1), y=nbrs,
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[1],
+			col=pal["Discard"],
 			#log="x",
 			type="l"
 		)
@@ -169,7 +169,7 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g.filt)-1), y=props/gorder(g.filt),
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[2],
+			col=pal["Keep"],
 			ylim=0:1, log="x",
 			type="l"
 		)
@@ -188,7 +188,7 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g.filt)-1), y=nbrs,
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[2],
+			col=pal["Keep"],
 			#log="x",
 			type="l"
 		)
@@ -216,20 +216,20 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g)-1), y=res[["Unfiltered-Size"]]/gorder(g),
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[1],
+			col=pal["Discard"],
 			ylim=0:1, log="x",
 			type="l"
 		)
 		# filtered net results
 		lines(
 			x=1:(gorder(g.filt)-1), y=res[["Filtered-Size"]]/gorder(g.filt), 
-			col=pal[2] 
+			col=pal["Keep"] 
 		)
 		# legend
 		legend(
 			title="Characters",
 			x="topright",
-			fill=pal,
+			fill=pal["Discard","Keep"],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()
@@ -247,20 +247,20 @@ for(fformat in PLOT_FORMAT)
 		plot(
 			x=1:(gorder(g)-1), y=res[["Unfiltered-Nbr"]],
 			xlab=TeX(xlab), ylab=TeX(ylab),
-			col=pal[1],
+			col=pal["Discard"],
 			#log="x",
 			type="l"
 		)
 		# filtered net results
 		lines(
 			x=1:(gorder(g.filt)-1), y=res[["Filtered-Nbr"]], 
-			col=pal[2] 
+			col=pal["Keep"] 
 		)
 		# legend
 		legend(
 			title="Characters",
 			x="topleft",
-			fill=pal,
+			fill=pal["Discard","Keep"],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()
