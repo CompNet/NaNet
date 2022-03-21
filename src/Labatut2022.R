@@ -9,7 +9,7 @@
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/main.R")
+# source("src/Labatut2022.R")
 ###############################################################################
 
 
@@ -57,10 +57,10 @@ plot.static.graphs(data)
 
 ###############################################################################
 # compute scene-based graph stats
-compute.static.statistics.base(data)
+#compute.static.statistics.base(data)
 
 # plot these stats
-generate.static.plots(data)
+#generate.static.plots(data)
 
 
 
