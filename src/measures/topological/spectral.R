@@ -30,6 +30,7 @@ NODE_MEASURES[[MEAS_EIGENCNTR]] <- list( #eigenvector
 	cname="Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.spectral(MEAS_EIGENCNTR, graph)
 	}
@@ -40,6 +41,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_AVG)]] <- list( #eigenvector-average
 	cname="Average Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(MEAS_EIGENCNTR, graph)
 		mean(values,na.rm=TRUE)
@@ -51,6 +53,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_STDEV)]] <- list( #eigenvector-stdev
 	cname="Standard Deviation of the Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(MEAS_EIGENCNTR, graph)
 		sd(values,na.rm=TRUE)
@@ -62,6 +65,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_MIN)]] <- list( #eigenvector-min
 	cname="Minimal Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(MEAS_EIGENCNTR, graph)
 		min(values,na.rm=TRUE)
@@ -73,6 +77,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_MAX)]] <- list( #eigenvector-max
 	cname="Maximal Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(MEAS_EIGENCNTR, graph)
 		max(values,na.rm=TRUE)
@@ -84,6 +89,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_ASSORT)]] <- list( #eigenvector-assort
 	cname="Eigencentrality Assortativity",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(MEAS_EIGENCNTR, graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -95,6 +101,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_CENTRZ)]] <- list( #eigenvector-centra
 	cname="Eigencentrality Centralization",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	centr_eigen(graph=graph, directed=FALSE, scale=FALSE, normalized=TRUE)$centralization
 	}
@@ -109,6 +116,7 @@ NODE_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM)]] <- list( #eigenvector-norm
 	cname="Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 	}
@@ -119,6 +127,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_AVG)]] <- list( #eigenvector-
 	cname="Average Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -130,6 +139,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_STDEV)]] <- list( #eigenvecto
 	cname="Standard Deviation of the Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -141,6 +151,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_MIN)]] <- list( #eigenvector-
 	cname="Mininmal Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -152,6 +163,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_MAX)]] <- list( #eigenvector-
 	cname="Maximal Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -163,6 +175,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_ASSORT)]] <- list( #eigenvect
 	cname="Normalized Eigencentrality Assortativity",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_NORM), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -174,6 +187,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_NORM,SFX_CENTRZ)]] <- list( #eigenvect
 	cname="Normalized Eigencentrality Centralization",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	centr_eigen(graph=graph, directed=FALSE, scale=TRUE, normalized=TRUE)$centralization
 	}
@@ -188,6 +202,7 @@ NODE_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT)]] <- list( #eigenvector-weighte
 	cname="Weighted Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 	}
@@ -198,6 +213,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_AVG)]] <- list( #eigenvecto
 	cname="Average Weighted Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
@@ -209,6 +225,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_STDEV)]] <- list( #eigenvec
 	cname="Standard Deviation of the Weighted Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
@@ -220,6 +237,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_MIN)]] <- list( #eigenvecto
 	cname="Minimal Weighted Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
@@ -231,6 +249,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_WEIGHT,SFX_MAX)]] <- list( 
 	cname="Maximal Weighted Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
@@ -242,6 +261,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_ASSORT)]] <- list( #eigenve
 	cname="Weighted Eigencentrality Assortativity",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -253,6 +273,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #eigenve
 	cname="Weighted Eigencentrality Centralization",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT), graph)
 		centralize(scores=values, normalized=FALSE)
@@ -268,6 +289,7 @@ NODE_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM)]] <- list( #eigenvecto
 	cname="Weighted Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 	}
@@ -278,6 +300,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- list( #e
 	cname="Average Weighted Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -289,6 +312,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- list( 
 	cname="Standard Deviation of the Weighted Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -300,6 +324,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- list( #e
 	cname="Minimal Weighted Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -311,6 +336,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM,SFX_WEIGHT,SFX_MAX)]] 
 	cname="Maximal Weighted Normalized Eigencentrality",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -322,6 +348,7 @@ GRAPH_MEASURES[[paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- list(
 	cname="Weighted Normalized Eigencentrality Assortativity",
 	folder=MEAS_EIGENCNTR,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.spectral(paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_NORM), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)

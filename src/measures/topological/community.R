@@ -26,6 +26,7 @@ GRAPH_MEASURES[[MEAS_MODULARITY]] <- list( #modularity
 	cname="Modularity",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		modularity(com)
@@ -37,6 +38,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_NBR)]] <- list( #community-number
 	cname="Community Number",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		length(communities(com))
@@ -48,6 +50,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_AVG)]] <- list( #community-si
 	cname="Average Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
@@ -60,6 +63,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_STDEV)]] <- list( #community-
 	cname="Standard Deviation of the Community Sizes",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
@@ -72,6 +76,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MIN)]] <- list( #community-si
 	cname="Minimal Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
@@ -84,6 +89,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_SIZE,SFX_MAX)]] <- list( #community-si
 	cname="Maximal Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	com <- compute.communities(MEAS_MODULARITY, graph)
 		sizes <- sapply(communities(com),length)
@@ -100,6 +106,7 @@ GRAPH_MEASURES[[paste0(MEAS_MODULARITY,SFX_WEIGHT)]] <- list( #modularity-weight
 	cname="Weighted Modularity",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		modularity(com)
@@ -111,6 +118,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_NBR)]] <- list( #community-
 	cname="Weighted Community Number",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		length(communities(com))
@@ -122,6 +130,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_AVG)]] <- list( #c
 	cname="Average Weighted Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
@@ -134,6 +143,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_STDEV)]] <- list( 
 	cname="Standard Deviation of the Weighted Community Sizes",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
@@ -146,6 +156,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MIN)]] <- list( #c
 	cname="Minimal Weighted Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)
@@ -158,6 +169,7 @@ GRAPH_MEASURES[[paste0(MEAS_COMMUNITY,SFX_WEIGHT,SFX_SIZE,SFX_MAX)]] <- list( #c
 	cname="Maximal Weighted Community Size",
 	folder=MEAS_COMMUNITY,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	com <- compute.communities(paste0(MEAS_MODULARITY,SFX_WEIGHT), graph)
 		sizes <- sapply(communities(com),length)

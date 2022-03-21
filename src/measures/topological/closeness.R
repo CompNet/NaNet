@@ -38,6 +38,7 @@ NODE_MEASURES[[MEAS_CLOSENESS]] <- list( #closeness
 	cname="Closeness",
 	folder=MEAS_CLOSENESS,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.closeness(MEAS_CLOSENESS, graph)
 	}
@@ -48,6 +49,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_AVG)]] <- list( #closeness-average
 	cname="Average Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
 		mean(values,na.rm=TRUE)
@@ -59,6 +61,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_STDEV)]] <- list( #closeness-stdev
 	cname="Standard Deviation of the Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
 		sd(values,na.rm=TRUE)
@@ -70,6 +73,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_MIN)]] <- list( #closeness-min
 	cname="Minimal Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
 		min(values,na.rm=TRUE)
@@ -81,6 +85,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_MAX)]] <- list( #closeness-max
 	cname="Maximal Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
 		max(values,na.rm=TRUE)
@@ -92,6 +97,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_ASSORT)]] <- list( #closeness-assortat
 	cname="Closeness Assortativity",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(MEAS_CLOSENESS, graph)
 		idx <- which(!is.na(values))
@@ -104,6 +110,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_CENTRZ)]] <- list( #closeness-centrali
 	cname="Closeness Centralization",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	# retrieve giant component, do not compute measure for the rest of the graph
 		components <- clusters(graph)
@@ -124,6 +131,7 @@ NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM)]] <- list( #closeness-norm
 	cname="Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 	}
@@ -134,6 +142,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_AVG)]] <- list( #closeness-no
 	cname="Average Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -145,6 +154,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_STDEV)]] <- list( #closeness-
 	cname="Standard Deviation of the Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -156,6 +166,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_MIN)]] <- list( #closeness-no
 	cname="Minimal Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -167,6 +178,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_MAX)]] <- list( #closeness-no
 	cname="Maximal Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -178,6 +190,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_ASSORT)]] <- list( #closeness
 	cname="Normalized Closeness Assortativity",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_NORM), graph)
 		idx <- which(!is.na(values))
@@ -190,6 +203,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_NORM,SFX_CENTRZ)]] <- list( #closeness
 	cname="Normalized Closeness Centralization",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	# retrieve giant component, do not compute measure for the rest of the graph
 		components <- clusters(graph)
@@ -210,6 +224,7 @@ NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT)]] <- list( #closeness-weighted
 	cname="Weighted Closeness",
 	folder=MEAS_CLOSENESS,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 	}
@@ -220,6 +235,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_AVG)]] <- list( #closeness-
 	cname="Average Weighted Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
@@ -231,6 +247,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_STDEV)]] <- list( #closenes
 	cname="Standard Deviation of the Weighted Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
@@ -242,6 +259,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_MIN)]] <- list( #closeness-
 	cname="Minimal Weighted Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
@@ -253,6 +271,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_MAX)]] <- list( #closeness-
 	cname="Maximal Weighted Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
@@ -264,6 +283,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #closene
 	cname="Weighted Closeness Assortativity",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		idx <- which(!is.na(values))
@@ -276,6 +296,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #closene
 	cname="Weighted Closeness Centralization",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT), graph)
 		idx <- which(!is.na(values))
@@ -292,6 +313,7 @@ NODE_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM)]] <- list( #closeness-
 	cname="Weighted Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 	}
@@ -302,6 +324,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- list( #c
 	cname="Average Weighted Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -313,6 +336,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- list( 
 	cname="Standard Deviation of the Weighted Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -324,6 +348,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- list( #c
 	cname="Minimal Weighted Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -335,6 +360,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_MAX)]] <- list( #c
 	cname="Maximal Weighted Normalized Closeness",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -346,6 +372,7 @@ GRAPH_MEASURES[[paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- list(
 	cname="Weighted Normalized Closeness Assortativity",
 	folder=MEAS_CLOSENESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.closeness(paste0(MEAS_CLOSENESS,SFX_WEIGHT,SFX_NORM), graph)
 		idx <- which(!is.na(values))

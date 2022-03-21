@@ -24,6 +24,7 @@ NODE_MEASURES[[paste0(MEAS_ECCENTRICITY)]] <- list( #eccentricity
 	cname="Eccentricity",
 	folder=MEAS_ECCENTRICITY,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.eccentricity(MEAS_ECCENTRICITY, graph)
 	}
@@ -34,6 +35,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_AVG)]] <- list( #eccentricity-avera
 	cname="Average Eccentricity",
 	folder=MEAS_ECCENTRICITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
 		mean(values,na.rm=TRUE)
@@ -45,6 +47,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_STDEV)]] <- list( #eccentricity-std
 	cname="Standard Deviation of the Eccentricity",
 	folder=MEAS_ECCENTRICITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
 		sd(values,na.rm=TRUE)
@@ -57,6 +60,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MIN)]] <- list( #eccentricity-min
 	cname="Minimal Eccentricity (or Radius)",
 	folder=MEAS_ECCENTRICITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
 		min(values,na.rm=TRUE)
@@ -69,6 +73,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_MAX)]] <- list( #eccentricity-max
 	cname="Maximal Eccentricity (or Diameter)",
 	folder=MEAS_ECCENTRICITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
 		max(values,na.rm=TRUE)
@@ -80,6 +85,7 @@ GRAPH_MEASURES[[paste0(MEAS_ECCENTRICITY,SFX_ASSORT)]] <- list( #eccentricity-as
 	cname="Eccentricity Assortativity",
 	folder=MEAS_ECCENTRICITY,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.eccentricity(MEAS_ECCENTRICITY, graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)

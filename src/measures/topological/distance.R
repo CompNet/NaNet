@@ -27,6 +27,7 @@ NODEPAIR_MEASURES[[MEAS_DISTANCE]] <- list( #distance
 	cname="Distance",
 	folder=MEAS_DISTANCE,
 	object="nodepairs",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.distance(MEAS_DISTANCE, graph)
 	}
@@ -37,6 +38,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_AVG)]] <- list( #distance-average
 	cname="Average Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -49,6 +51,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_STDEV)]] <- list( #distance-stdev
 	cname="Standard Deviation of the Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -61,6 +64,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MIN)]] <- list( #distance-min
 	cname="Minimal Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -73,6 +77,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_MAX)]] <- list( #distance-max
 	cname="Maximal Distance (or Diameter)",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.distance(MEAS_DISTANCE, graph)
 		values <- values[!is.infinite(values)]
@@ -98,6 +103,7 @@ NODEPAIR_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT)]] <- list( #distance-weighte
 	cname="Weighted Distance",
 	folder=MEAS_DISTANCE,
 	object="nodepairs",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 	}
@@ -108,6 +114,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_AVG)]] <- list( #distance-we
 	cname="Average Weighted Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -120,6 +127,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_STDEV)]] <- list( #distance-
 	cname="Standard Deviation of the Weighted Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -132,6 +140,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MIN)]] <- list( #distance-we
 	cname="Minimal Weighted Distance",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]
@@ -144,6 +153,7 @@ GRAPH_MEASURES[[paste0(MEAS_DISTANCE,SFX_WEIGHT,SFX_MAX)]] <- list( #distance-we
 	cname="Maximal Weighted Distance (or Weighted Diameter)",
 	folder=MEAS_DISTANCE,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.distance(paste0(MEAS_DISTANCE,SFX_WEIGHT), graph)
 		values <- values[!is.infinite(values)]

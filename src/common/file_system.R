@@ -186,7 +186,7 @@ get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overla
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=FALSE)
+get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -225,7 +225,8 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 	else if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
 	# add weights
-	folder <- file.path(folder, weights)
+	if(!is.na(weights))	
+		folder <- file.path(folder, "weights", weights)
 	# possibly add object
 	folder <- file.path(folder, object)
 	# possibly create folder
@@ -266,7 +267,7 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
+get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -294,8 +295,6 @@ get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.s
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-	# add weight subfolder
-	folder <- file.path(folder, weights)
 #	# possibly add extra subfolder
 #	if(!is.na(subfold))
 #		folder <- file.path(folder, subfold)
@@ -309,6 +308,9 @@ get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.s
 	# possibly add overlap
 	else if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
+	# add weight subfolder
+	if(!is.na(weights))
+		folder <- file.path(folder, "weights", weights)
 	# possibly add measure object
 	if(!is.na(meas.name))
 		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
@@ -361,7 +363,7 @@ get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.s
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights="none", arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA) # TODO add missing params
+get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA) # TODO add missing params
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER

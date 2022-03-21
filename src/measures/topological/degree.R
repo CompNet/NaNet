@@ -28,6 +28,7 @@ NODE_MEASURES[[paste0(MEAS_DEGREE)]] <- list( #degree
 	cname="Degree",
 	folder=MEAS_DEGREE,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.degree(MEAS_DEGREE, graph)
 	}
@@ -38,6 +39,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_AVG)]] <- list( #degree-average
 	cname="Average Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_DEGREE, graph)
 		mean(values,na.rm=TRUE)
@@ -49,6 +51,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_STDEV)]] <- list( #degree-stdev
 	cname="Standard Deviation of the Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_DEGREE, graph)
 		sd(values,na.rm=TRUE)
@@ -60,6 +63,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_MIN)]] <- list( #degree-min
 	cname="Minimal Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_DEGREE, graph)
 		min(values,na.rm=TRUE)
@@ -71,6 +75,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_MAX)]] <- list( #degree-max
 	cname="Maximal Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_DEGREE, graph)
 		max(values,na.rm=TRUE)
@@ -82,6 +87,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_ASSORT)]] <- list( #degree-assortativity
 	cname="Degree Assortativity",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	assortativity_degree(graph=graph, directed=FALSE)
 	}
@@ -92,6 +98,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_CENTRZ)]] <- list( #degree-centralization
 	cname="Degree Centralization",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	centr_degree(graph=graph, mode="all", normalized=FALSE)$centralization
 	}
@@ -106,6 +113,7 @@ NODE_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM)]] <- list( #degree-norm
 	cname="Normalized Degree",
 	folder="nodes",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)
 	}
@@ -116,6 +124,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_AVG)]] <- list( #degree-norm-ave
 	cname="Average Normalized Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -127,6 +136,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_STDEV)]] <- list( #degree-norm-s
 	cname="Standard Deviation of the Normalized Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -138,6 +148,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_MIN)]] <- list( #degree-norm-min
 	cname="Minimal Normalized Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -149,6 +160,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_MAX)]] <- list( #degree-norm-max
 	cname="Maximal Normalized Degree",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -160,6 +172,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_ASSORT)]] <- list( #degree-norm-
 	cname="Normalized Degree Assortativity",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	assortativity_degree(graph=graph, directed=TRUE)
 	}
@@ -170,6 +183,7 @@ GRAPH_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM,SFX_CENTRZ)]] <- list( #degree-norm-
 	cname="Normalized Degree Centralization",
 	folder=MEAS_DEGREE,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	centr_degree(graph=graph, mode="all", normalized=TRUE)$centralization
 	}
@@ -184,6 +198,7 @@ NODE_MEASURES[[MEAS_STRENGTH]] <- list( #strength
 	cname="Strength",
 	folder=MEAS_STRENGTH,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.degree(MEAS_STRENGTH, graph)
 	}
@@ -194,6 +209,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_AVG)]] <- list( #strength-average
 	cname="Average Strength",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		mean(values,na.rm=TRUE)
@@ -205,6 +221,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_STDEV)]] <- list( #strength-stdev
 	cname="Standard Deviation of the Strength",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		sd(values,na.rm=TRUE)
@@ -216,6 +233,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_MIN)]] <- list( #strength-min
 	cname="Minimal Strength",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		min(values,na.rm=TRUE)
@@ -227,6 +245,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_MAX)]] <- list( #strength-max
 	cname="Maximal Strength",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		max(values,na.rm=TRUE)
@@ -238,6 +257,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_ASSORT)]] <- list( #strength-assortativ
 	cname="Strength Assortativity",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -249,6 +269,7 @@ GRAPH_MEASURES[[paste0(MEAS_STRENGTH,SFX_CENTRZ)]] <- list( #strength-centraliza
 	cname="Strength Centralization",
 	folder=MEAS_STRENGTH,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.degree(MEAS_STRENGTH, graph)
 		centralize(scores=values, normalized=FALSE)

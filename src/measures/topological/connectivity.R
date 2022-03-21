@@ -38,6 +38,7 @@ NODEPAIR_MEASURES[[MEAS_LK_CONNECT]] <- list( #link-connectivity
 	cname="Link-Connectivity",
 	folder="connectivity",
 	object="nodepairs",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.connectivity(MEAS_LK_CONNECT, graph)
 	}
@@ -48,6 +49,7 @@ GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_AVG)]] <- list( #link-connectivity-av
 	cname="Average Link-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_LK_CONNECT, graph)
 		mean(values,na.rm=TRUE)
@@ -59,6 +61,7 @@ GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_STDEV)]] <- list( #link-connectivity-
 	cname="Standard Deviation of the Link-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_LK_CONNECT, graph)
 		sd(values,na.rm=TRUE)
@@ -71,6 +74,7 @@ GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_MIN)]] <- list( #link-connectivity-mi
 	cname="Minimal Link-Connectivity (or Adhesion)",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_LK_CONNECT, graph)
 		min(values,na.rm=TRUE)
@@ -82,6 +86,7 @@ GRAPH_MEASURES[[paste0(MEAS_LK_CONNECT,SFX_MAX)]] <- list( #link-connectivity-ma
 	cname="Maximal Link-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_LK_CONNECT, graph)
 		max(values,na.rm=TRUE)
@@ -97,6 +102,7 @@ NODEPAIR_MEASURES[[MEAS_ND_CONNECT]] <- list( #node-connectivity
 	cname="Node-Connectivity",
 	folder="connectivity",
 	object="nodepairs",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.connectivity(MEAS_ND_CONNECT, graph)
 	}
@@ -107,6 +113,7 @@ GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_AVG)]] <- list( #node-connectivity-av
 	cname="Average Node-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_ND_CONNECT, graph)
 		mean(values,na.rm=TRUE)
@@ -118,6 +125,7 @@ GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_STDEV)]] <- list( #node-connectivity-
 	cname="Standard Deviation of the Node-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_ND_CONNECT, graph)
 		sd(values,na.rm=TRUE)
@@ -130,6 +138,7 @@ GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_MIN)]] <- list( #node-connectivity-mi
 	cname="Minimal Node-Connectivity (or Cohesion)",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_ND_CONNECT, graph)
 		min(values,na.rm=TRUE)
@@ -141,6 +150,7 @@ GRAPH_MEASURES[[paste0(MEAS_ND_CONNECT,SFX_MAX)]] <- list( #node-connectivity-ma
 	cname="Maximal Node-Connectivity",
 	folder="connectivity",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.connectivity(MEAS_ND_CONNECT, graph)
 		max(values,na.rm=TRUE)

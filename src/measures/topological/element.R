@@ -21,6 +21,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINK,SFX_NBR)]] <- list( #link-number
 	cname="Link Number",
 	folder="basic",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	ecount(graph=graph)
 	}
@@ -31,6 +32,7 @@ GRAPH_MEASURES[[MEAS_DENSITY]] <- list( #density
 	cname="Density",
 	folder="basic",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	graph.density(graph=graph, loops=FALSE)
 	}
@@ -41,6 +43,7 @@ GRAPH_MEASURES[[paste0(MEAS_DENSITY,SFX_WEIGHT)]] <- list( #density-weighted
 	cname="Weighted Density",
 	folder="basic",
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	# we assume the edge weights are normalized in [0;1]
 		n <- gorder(graph)
@@ -55,6 +58,7 @@ LINK_MEASURES[[MEAS_LINKWEIGHT]] <- list( #linkweight
 	cname="Link Weights",
 	folder="basic",
 	object="links",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	#values <- as_adjacency_matrix(graph=graph, type="upper", attr="weight", names=FALSE)
 		#values <- values[upper.tri(values,diag=FALSE)]
@@ -68,6 +72,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_AVG)]] <- list( #linkweight-average
 	cname="Average Link Weight",
 	folder="basic",
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	mean(E(graph)$weight,na.rm=TRUE)
 	}
@@ -78,6 +83,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_STDEV)]] <- list( #linkweight-stdev
 	cname="Standard Deviation of the Link Weights",
 	folder="basic",
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	sd(E(graph)$weight,na.rm=TRUE)
 	}
@@ -88,6 +94,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_MIN)]] <- list( #linkweight-min
 	cname="Minimal Link Weight",
 	folder="basic",
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	min(E(graph)$weight,na.rm=TRUE)
 	}
@@ -98,6 +105,7 @@ GRAPH_MEASURES[[paste0(MEAS_LINKWEIGHT,SFX_MAX)]] <- list( #linkweight-max
 	cname="Maximal Link Weight",
 	folder="basic",
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	max(E(graph)$weight,na.rm=TRUE)
 	}

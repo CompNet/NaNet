@@ -30,6 +30,7 @@ NODE_MEASURES[[MEAS_BETWEENNESS]] <- list( #betweenness
 	cname="Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.betweenness(MEAS_BETWEENNESS, graph)
 	}
@@ -40,6 +41,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_AVG)]] <- list( #betweenness-average
 	cname="Average Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.betweenness(MEAS_BETWEENNESS, graph)
 		mean(values,na.rm=TRUE)
@@ -51,6 +53,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_STDEV)]] <- list( #betweenness-stdev
 	cname="Standard Deviation of the Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(MEAS_BETWEENNESS, graph)
 		sd(values,na.rm=TRUE)
@@ -62,6 +65,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_MIN)]] <- list( #betweenness-min
 	cname="Minimal Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(MEAS_BETWEENNESS, graph)
 		min(values,na.rm=TRUE)
@@ -73,6 +77,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_MAX)]] <- list( #betweenness-max
 	cname="Maximal Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(MEAS_BETWEENNESS, graph)
 		max(values,na.rm=TRUE)
@@ -84,6 +89,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_ASSORT)]] <- list( #betweenness-asso
 	cname="Betweenness Assortativity",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(MEAS_BETWEENNESS, graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -95,6 +101,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_CENTRZ)]] <- list( #betweenness-cent
 	cname="Betweenness Centralization",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	centr_betw(graph=graph, directed=FALSE, normalized=FALSE)$centralization
 	}
@@ -109,6 +116,7 @@ NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM)]] <- list( #betweenness-norm
 	cname="Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="nodes",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 	}
@@ -119,6 +127,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_AVG)]] <- list( #betweennes
 	cname="Average Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -130,6 +139,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_STDEV)]] <- list( #betweenn
 	cname="Standard Deviation of the Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -141,6 +151,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_MIN)]] <- list( #betweennes
 	cname="Minimal Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -152,6 +163,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_MAX)]] <- list( #betweennes
 	cname="Maximal Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -163,6 +175,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_ASSORT)]] <- list( #between
 	cname="Normalized Betweenness Assortativity",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_NORM), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -174,6 +187,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_NORM,SFX_CENTRZ)]] <- list( #between
 	cname="Normalized Betweenness Centralization",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph)
 	{	centr_betw(graph=graph, directed=FALSE, normalized=TRUE)$centralization
 	}
@@ -188,6 +202,7 @@ NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT)]] <- list( #betweenness-weigh
 	cname="Weighted Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 	}
@@ -198,6 +213,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_AVG)]] <- list( #betweenn
 	cname="Average Weighted Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		mean(values,na.rm=TRUE)
@@ -209,6 +225,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_STDEV)]] <- list( #betwee
 	cname="Standard Deviation of the Weighted Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		sd(values,na.rm=TRUE)
@@ -220,6 +237,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_MIN)]] <- list( #betweenn
 	cname="Minimal Weighted Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		min(values,na.rm=TRUE)
@@ -231,6 +249,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_MAX)]] <- list( #betweenn
 	cname="Maximal Weighted Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		max(values,na.rm=TRUE)
@@ -242,6 +261,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_ASSORT)]] <- list( #betwe
 	cname="Weighted Betweenness Assortativity",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
@@ -253,6 +273,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_CENTRZ)]] <- list( #betwe
 	cname="Weighted Betweenness Centralization",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT), graph)
 		centralize(scores=values, normalized=FALSE)
@@ -268,6 +289,7 @@ NODE_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM)]] <- list( #betweenn
 	cname="Weighted Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="nodes",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 	}
@@ -278,6 +300,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_AVG)]] <- list( 
 	cname="Average Weighted Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph) 
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 		mean(values,na.rm=TRUE)
@@ -289,6 +312,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_STDEV)]] <- list
 	cname="Standard Deviation of the Weighted Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 		sd(values,na.rm=TRUE)
@@ -300,6 +324,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_MIN)]] <- list( 
 	cname="Minimal Weighted Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 		min(values,na.rm=TRUE)
@@ -311,6 +336,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_MAX)]] <- list( 
 	cname="Maximal Weighted Normalized Betweenness",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 		max(values,na.rm=TRUE)
@@ -322,6 +348,7 @@ GRAPH_MEASURES[[paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM,SFX_ASSORT)]] <- lis
 	cname="Weighted Normalized Betweenness Assortativity",
 	folder=MEAS_BETWEENNESS,
 	object="graph",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.betweenness(paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_NORM), graph)
 		assortativity(graph=graph, types1=values, types2=NULL, directed=FALSE)
