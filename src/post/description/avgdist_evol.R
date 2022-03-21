@@ -35,7 +35,7 @@ gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=data$char.stats, 
 	volume.stats=data$volume.stats, 
-	ret.seq=TRUE, pub.order=TRUE
+	ret.seq=TRUE, pub.order=pub.order
 )
 
 # init lists
