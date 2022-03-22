@@ -62,7 +62,7 @@ data <- read.corpus.data()
 compute.static.statistics.base(data)
 
 # plot these stats
-#generate.static.plots(data)
+generate.static.plots.base(data)
 
 
 

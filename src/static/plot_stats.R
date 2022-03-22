@@ -297,7 +297,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			names(values) <- nms
 			
 			# generate the boxplot plot
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="boxplot")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -322,7 +322,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="violin")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -347,7 +347,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf="distrib")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
 			lty <- c(2, 3, rep(1,length(values)-1))
@@ -391,7 +391,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			names(values) <- nms
 			
 			# generate the boxplot
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="boxplot")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap=overlap, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -416,7 +416,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="violin")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap=overlap, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -436,7 +436,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf="distrib")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap=overlap, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c("BLACK", "BLACK", viridis(length(values)-2))
 			lty <- c(2, 3, rep(1,length(values)-1))
@@ -517,7 +517,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot containing each window size value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size="", suf="series")
+		plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size="", suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -587,7 +587,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		# generate a plot representing each overlap value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap="", suf="series")
+		plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap="", suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -687,7 +687,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot containing each window size value as a series
 			cols <- get.palette(length(data))
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size="", suf="corr")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size="", suf="corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -748,7 +748,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 			}
 			# generate a plot representing each overlap value as a series
 			cols <- get.palette(length(data))
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap="", suf="corr")
+			plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap="", suf="corr")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -804,7 +804,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 
 #############################################################################################
 # Generates a bar plot comparing two node or node-pair measures. The reference measure is used as
-# a baseline, and to order the nodes on the x axis. The comparison measure is used to process
+# a baseline, and to order the nodes on the x-axis. The comparison measure is used to process
 # the ranking difference with the reference measure, and the result appears as the bar heights.
 # 
 # mode: either "panel.window" or "page.window" (not "scenes").
@@ -865,7 +865,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 					colors <- heat.colors(max(ranks))
 					
 					# generate the plot
-					plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0("ranks=",substr(weights,1,3)))
+					plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0("ranks=",substr(weights,1,3)))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -960,7 +960,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, suf=paste0(md,"_barplot"))
+				plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, suf=paste0(md,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1007,7 +1007,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, overlap=overlap, suf=paste0(md,"_barplot"))
+				plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, overlap=overlap, suf=paste0(md,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1071,11 +1071,16 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # filtered: whether to use the filtered version of the graph.
 ###############################################################################
 generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
-{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+{	if(filtered)
+	{	col <- ATT_COLORS_FILT["Keep"]
+		filt.txt <- "filtered"
+	}
+	else
+	{	col <- ATT_COLORS_FILT["Discard"]
+		filt.txt <- "unfiltered"
+	}
 	tlog(3,"Generating plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
-	wmodes <- c("occurrences","duration")
-	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
 	
 	# list measures to plot
 	nmn <- names(NODE_MEASURES)
@@ -1093,6 +1098,11 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		else if(meas.name %in% npmn)
 			object <- "nodepairs"
 		
+		if(ALL_MEASURES[[meas.name]]$weighted)
+			wmodes <- c("occurrences","duration")
+		else
+			wmodes <- c("none")
+		
 		# process each type of weight
 		for(wmode in wmodes)
 		{	tlog(4,"Dealing with weights=",wmode)
@@ -1104,8 +1114,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			#vals <- vals[vals>0]	# remove the zeroes?
 			
 			# plot histogram
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="histo")
-			# TODO why is this the "comparison" folder? shouldn't it be stats or plots?
+			plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -1126,19 +1135,19 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			}
 			
 			# plot complementary cumulative distribution function
-			plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="ccdf")
+			plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="ccdf")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 				else if(fformat==PLOT_FORMAT_PNG)
 					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						plot.ccdf(data=vals, main=ml, xlab=xl, ylab="default", log=TRUE)
+						plot.ccdf(data=vals, main=ml, xlab=xl, ylab="default", cols=col, log=TRUE)
 					dev.off()
 			}
 			
 			# test the type of distribution (very slow, doing it only for the whole graph)
 			if(is.na(arc) && is.na(vol))
-			{	plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filtered, suf="disttest")
+			{	plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="distrtest")
 				if(all(vals%%1==0))
 					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
 				else
@@ -1157,10 +1166,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 	
 	# degree vs. neighbors' degree
-	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DEGREE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="nei.deg_vs_degree")
 	neigh.degree.vs.degree(g, weights=FALSE, filename, col)
-	for(wmode in wmodes)
-	{	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	for(wmode in c("occurrences","duration"))
+	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_STRENGTH, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="nei.str_vs_strength")
 		if(wmode=="duration")
 			neigh.degree.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1168,10 +1177,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# degree vs. transitivity
-	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=MEAS_DEGREE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="transitivity_vs_degree")
 	transitivity.vs.degree(g, weights=FALSE, filename, col)
-	for(wmode in wmodes)
-	{	filename <- get.path.stats.comp(object="nodes", mode="scenes", meas.name="strength", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	for(wmode in c("occurrences","duration"))
+	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="transitivity_vs_strength")
 		if(wmode=="duration")
 			transitivity.vs.degree(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1179,10 +1188,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	
 	# hop plots
-	filename <- get.path.stats.comp(object="nodepairs", mode="scenes", meas.name=MEAS_DISTANCE, arc=arc, vol=vol, filtered=filtered)
+	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DISTANCE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="hop-plot")
 	hop.plot(g, weights=FALSE, filename, col)
-	for(wmode in wmodes)
-	{	filename <- get.path.stats.comp(object="nodepairs", mode="scenes", meas.name="distance", weights=wmode, arc=arc, vol=vol, filtered=filtered)
+	for(wmode in c("occurrences","duration"))
+	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DISTANCE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="hop-plot")
 		if(wmode=="duration")
 			hop.plot(g.dur, weights=TRUE, filename, col)
 		else if(wmode=="occurrences")
@@ -1209,13 +1218,12 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	}
 	else
 	{	emode <- "volume"
-		items <- data$volume.stats[,COL_VOLUME]
+		items <- paste(1:nrow(data$volume.stats),"_",data$volume.stats[,COL_VOLUME],sep="")
 	}
 	
 	# init other variables
 	tlog(3,"Generating ",emode,"-based evolution plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
-	wmodes <- c("occurrences","duration")
 	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
 	
 	# list measures to plot
@@ -1225,6 +1233,11 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	for(meas.name in gmn)
 	{	tlog(4,"Generating ",emode,"-based evolution plots for measure ",meas.name)
 		object <- "graph"
+		
+		if(ALL_MEASURES[[meas.name]]$weighted)
+			wmodes <- c("occurrences","duration")
+		else
+			wmodes <- c("none")
 		
 		# process each type of weight
 		for(wmode in wmodes)

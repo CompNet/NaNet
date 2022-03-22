@@ -67,7 +67,7 @@ for(meas in meass)
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
 		data[[1]] <- data[[1]][unfilt.idx]	# remove isolates
-#		file <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="disttest_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distrtest_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
 		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=if(is.na(wt)) "occurrences" else wt, filtered="filtered")
@@ -76,7 +76,7 @@ for(meas in meass)
 		filt.idx <- data[[2]] > 1
 		data[[2]] <- data[[2]][filt.idx]	# remove isolates
 		names(data) <- c("Unfiltered","Filtered")
-#		file <- get.path.stats.comp(object="nodes", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="disttest_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="distrtest_noisolates")
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params

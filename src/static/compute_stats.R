@@ -251,7 +251,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.stats.comp(object=object, mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0(md2,"_",md1,"_barplot"))
+				plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0(md2,"_",md1,"_barplot"))
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")

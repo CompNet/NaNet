@@ -11,6 +11,7 @@ GRAPH_MEASURES[[paste0(MEAS_NODE,SFX_NBR)]] <- list( #node-number
 	cname="Node Number",
 	folder="basic",
 	object="graph",
+	weighted=FALSE,
 	foo=function(graph) 
 	{	vcount(graph=graph)
 	}

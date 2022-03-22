@@ -111,8 +111,8 @@ NODE_MEASURES[[paste0(MEAS_DEGREE,SFX_NORM)]] <- list( #degree-norm
 	type=numeric(),
 	bounds=c(0,1),
 	cname="Normalized Degree",
-	folder="nodes",
-	object="graph",
+	folder=MEAS_DEGREE,
+	object="nodes",
 	weighted=FALSE,
 	foo=function(graph) 
 	{	compute.degree(paste0(MEAS_DEGREE,SFX_NORM), graph)

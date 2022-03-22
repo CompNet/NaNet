@@ -206,13 +206,13 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 	if(!is.na(arc) && (!is.logical(arc) || arc))
 	{	folder <- file.path(folder, "arcs")
 		if(!is.logical(arc))
-			folder <- file.path(folder, arc)
+			folder <- file.path(folder, "separate", arc)
 	}
 	# possibly add volume subfolder
 	if(!is.na(vol) && (!is.logical(vol) || vol))
 	{	folder <- file.path(folder, "volumes")
 		if(!is.logical(vol))
-			folder <- file.path(folder, vol)
+			folder <- file.path(folder, "separate", vol)
 	}
 	# possibly add window size
 	if(!is.na(window.size))
