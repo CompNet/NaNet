@@ -1,7 +1,7 @@
 # This script reproduces the computations described in the following paper:
 #
 #	V. Labatut, 
-#	“,” 
+#	“Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal,” 
 #	Submitted, 2022.
 # 
 # Vincent Labatut
@@ -34,25 +34,25 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data()
+data <- read.raw.data()
 # OR, if already computed, read from file
-data <- read.corpus.data()
+#data <- read.corpus.data()
 
 # compute corpus stats
-#data <- compute.corpus.stats(data)
+data <- compute.corpus.stats(data)
 
 # plot corpus stats
-#plot.corpus.stats(data)
+plot.corpus.stats(data)
 
 
 
 
 ###############################################################################
 # extract static networks
-#data <- extract.static.graphs.base(data)
+data <- extract.static.graphs.base(data)
 
 # plot these graphs
-#plot.static.graphs(data)
+plot.static.graphs(data)
 
 
 

@@ -31,12 +31,12 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 	if(weights)
 	{	deg.vals <- strength(g, mode="all")
 		xlab <- "Strength $s$"
-		base.name <- paste0(filename,"_trans_vs_strength")
+		base.name <- paste0(filename,"_transitivity_vs_strength")
 	}
 	else
 	{	deg.vals <- degree(g, mode="all")
 		xlab <- "Degree $k$"
-		base.name <- paste0(filename,"_trans_vs_degree")
+		base.name <- paste0(filename,"_transitivity_vs_degree")
 	}
 	
 	# filter out zero transitivity
@@ -175,17 +175,17 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 	# compute the values
 	if(weights)
 	{	deg.vals <- strength(graph=g, mode="all")
-		tmp <- igraph::knn(graph=g)#, mode="all", neighbor.degree.mode="all")
+		tmp <- igraph::knn(graph=g)#, mode="all", neighbor.degree.mode="all")	# TODO according to the plots, there's seems to be a problem here
 		xlab <- "Strength $s$"
 		ylab <- "Neighbors' average Strength $<s_{nn}>$"
-		base.name <- paste0(filename,"_neideg_vs_strength")
+		base.name <- paste0(filename,"_nei-degree_vs_strength")
 	}
 	else
 	{	deg.vals <- degree(graph=g, mode="all")
 		tmp <- igraph::knn(graph=g, weights=NULL)#, mode="all", neighbor.degree.mode="all")
 		xlab <- "Degree $k$"
 		ylab <- "Neighbors' average Degree $<k_{nn}>$"
-		base.name <- paste0(filename,"_neideg_vs_degree")
+		base.name <- paste0(filename,"_nei-degree_vs_degree")
 	}
 	
 	# filter out zero degree and NaN
@@ -325,7 +325,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 # returns: result of the estimation and goodness of fit.
 ###############################################################################
 hop.plot <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
-{	base.file <- paste0(filename,"_neisize_vs_distance")
+{	base.file <- paste0(filename,"hop-plot_nei-size_vs_distance")
 	col.sec <- combine.colors(col, "WHITE", transparency=20)
 	
 	# compute required distances
@@ -360,11 +360,10 @@ hop.plot <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 				ylim=yl,
 				xlab=TeX(xlab), 
 				ylab=TeX("Proportion of vertices"),
-				log="y", yaxt="n",
-				col=col.sec
+				log="y", yaxt="n"
 			)
 			for(u in 1:n)
-				points(x=dist.vals, y=hp.vals[u,], col="PINK")
+				points(x=dist.vals, y=hp.vals[u,], col=col.sec)
 			# render the y-axis
 			expmax <- floor(log(min(yl[1]),10))
 			axis(

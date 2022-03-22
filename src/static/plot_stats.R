@@ -1156,46 +1156,48 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		}
 	}
 	
-	# compute and plot additional stuff
-	# read the graph
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
-	g <- read.graphml.file(file=graph.file)
-	if(filtered)
-		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
-	g.dur <- g; E(g.dur)$weight <- E(g)$Duration
-	g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
-	
-	# degree vs. neighbors' degree
-	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DEGREE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="nei.deg_vs_degree")
-	neigh.degree.vs.degree(g, weights=FALSE, filename, col)
-	for(wmode in c("occurrences","duration"))
-	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_STRENGTH, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="nei.str_vs_strength")
-		if(wmode=="duration")
-			neigh.degree.vs.degree(g.dur, weights=TRUE, filename, col)
-		else if(wmode=="occurrences")
-			neigh.degree.vs.degree(g.occ, weights=TRUE, filename, col)
-	}
-	
-	# degree vs. transitivity
-	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="transitivity_vs_degree")
-	transitivity.vs.degree(g, weights=FALSE, filename, col)
-	for(wmode in c("occurrences","duration"))
-	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="transitivity_vs_strength")
-		if(wmode=="duration")
-			transitivity.vs.degree(g.dur, weights=TRUE, filename, col)
-		else if(wmode=="occurrences")
-			transitivity.vs.degree(g.occ, weights=TRUE, filename, col)
-	}
-	
-	# hop plots
-	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DISTANCE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="hop-plot")
-	hop.plot(g, weights=FALSE, filename, col)
-	for(wmode in c("occurrences","duration"))
-	{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_DISTANCE, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="hop-plot")
-		if(wmode=="duration")
-			hop.plot(g.dur, weights=TRUE, filename, col)
-		else if(wmode=="occurrences")
-			hop.plot(g.occ, weights=TRUE, filename, col)
+	# compute and plot additional stuff (not for volume- or arc-specific graphs)
+	if(is.na(vol) && is.na(arc))
+	{	# read the graph
+		graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+		g <- read.graphml.file(file=graph.file)
+		if(filtered)
+			g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
+		g.dur <- g; E(g.dur)$weight <- E(g)$Duration
+		g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
+		
+		# degree vs. neighbors' degree
+		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		neigh.degree.vs.degree(g=g, weights=FALSE, filename=filename, col=col)
+		for(wmode in c("occurrences","duration"))
+		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+			if(wmode=="duration")
+				neigh.degree.vs.degree(g=g.dur, weights=TRUE, filename=filename, col=col)
+			else if(wmode=="occurrences")
+				neigh.degree.vs.degree(g=g.occ, weights=TRUE, filename=filename, col=col)
+		}
+		
+		# degree vs. transitivity
+		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		transitivity.vs.degree(g=g, weights=FALSE, filename=filename, col=col)
+		for(wmode in c("occurrences","duration"))
+		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+			if(wmode=="duration")
+				transitivity.vs.degree(g=g.dur, weights=TRUE, filename=filename, col=col)
+			else if(wmode=="occurrences")
+				transitivity.vs.degree(g=g.occ, weights=TRUE, filename=filename, col=col)
+		}
+		
+		# hop plots
+		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		hop.plot(g=g, weights=FALSE, filename=filename, col=col)
+		for(wmode in c("occurrences","duration"))
+		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+			if(wmode=="duration")
+				hop.plot(g=g.dur, weights=TRUE, filename=filename, col=col)
+			else if(wmode=="occurrences")
+				hop.plot(g=g.occ, weights=TRUE, filename=filename, col=col)
+		}
 	}
 }
 

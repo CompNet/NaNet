@@ -75,7 +75,8 @@ source("src/common/strings.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
 source("src/common/plot_graphs.R")
-source("src/common/topo_measures.R")
+
+source("src/measures/measures.R")
 
 source("src/graphs/misc.R")
 
