@@ -6,7 +6,7 @@
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/main.R")
+# source("src/dev_main.R")
 ###############################################################################
 
 

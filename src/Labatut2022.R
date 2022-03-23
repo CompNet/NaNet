@@ -34,25 +34,25 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+#data <- read.raw.data()
 # OR, if already computed, read from file
-#data <- read.corpus.data()
+data <- read.corpus.data()
 
 # compute corpus stats
-data <- compute.corpus.stats(data)
+#data <- compute.corpus.stats(data)
 
 # plot corpus stats
-plot.corpus.stats(data)
+#plot.corpus.stats(data)
 
 
 
 
 ###############################################################################
 # extract static networks
-data <- extract.static.graphs.base(data)
+#data <- extract.static.graphs.base(data)
 
 # plot these graphs
-plot.static.graphs(data)
+#plot.static.graphs(data)
 
 
 
@@ -76,4 +76,4 @@ end.rec.log()
 
 ###############################################################################
 # additional plots
-#source("src/post/description/_all_post.R")
+source("src/post/description/_all_post.R")
