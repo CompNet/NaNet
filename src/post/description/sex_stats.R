@@ -113,12 +113,12 @@ tlog(6,"F/M Ratio: ",sum(tt["Female",])/sum(tt[,"Male"]))
 # total degree by sex
 tlog(2,"Total degree by sex")
 tlog(4,"In the unfiltered graph:")
-vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=FALSE)
+vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="unfiltered")
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 print(cnt)
 tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
 tlog(4,"In the filtered graph:")
-vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=TRUE)
+vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="filtered")
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 print(cnt)
 tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
@@ -128,12 +128,12 @@ tlog(2,"Total strength by sex")
 for(w in c("occurrences","duration"))
 {	tlog(4,"Using ",w," as weights")
 	tlog(6,"In the unfiltered graph:")
-	vals <- load.static.nodelink.stats.scenes(object="nodes", weights=w, measure=MEAS_STRENGTH, filtered=FALSE)
+	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="unfiltered")
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 	print(cnt)
 	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
 	tlog(6,"In the filtered graph:")
-	vals <- load.static.nodelink.stats.scenes(object="nodes", weights=w, measure=MEAS_STRENGTH, filtered=TRUE)
+	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="filtered")
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 	print(cnt)
 	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
@@ -313,7 +313,7 @@ for(m in 1:length(meas.names))
 	
 	# load precomputed data for unfiltered net
 	tlog(4,"Loading pre-computed unfiltered values")
-	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=FALSE)
+	vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="unfiltered")
 	data.unf <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -340,7 +340,7 @@ for(m in 1:length(meas.names))
 	
 	# load precomputed data for filtered net
 	tlog(4,"Loading pre-computed filtered values")
-	vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=meas.name, filtered=TRUE)
+	vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="filtered")
 	data.flt <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -445,8 +445,8 @@ tlog(0,"Plotting transitivity vs. degree")
 
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed unfiltered values")
-deg.vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=FALSE)
-tra.vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered=FALSE)
+deg.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="unfiltered")
+tra.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="unfiltered")
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
@@ -543,8 +543,8 @@ legend(
 ####
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed filtered values")
-deg.vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=MEAS_DEGREE, filtered=TRUE)
-tra.vals <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered=TRUE)
+deg.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="filtered")
+tra.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="filtered")
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))

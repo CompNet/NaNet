@@ -70,7 +70,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_DUR)]] <- list( #true positive compa
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph, filtered=FALSE)
@@ -86,7 +86,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighte
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -102,7 +102,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -118,7 +118,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_OCC)]] <- list( #true positive compa
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph, filtered=FALSE)
@@ -134,7 +134,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighte
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -150,7 +150,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -170,7 +170,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_DUR)]] <- list( #true 
 	bounds=c(0,NA),
 	cname="True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -186,7 +186,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] <- 
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -202,7 +202,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -218,7 +218,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_OCC)]] <- list( #true 
 	bounds=c(0,NA),
 	cname="True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -234,7 +234,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] <- 
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -250,7 +250,7 @@ NODECOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="nodes",
+	object="nodes-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	tmp <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
@@ -270,7 +270,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR)]] <- list( #true po
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_DUR), graph, filtered=FALSE)
@@ -282,7 +282,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- li
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -294,7 +294,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DU
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -306,7 +306,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_OCC)]] <- list( #true po
 	bounds=c(0,NA),
 	cname="True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_OCC), graph, filtered=FALSE)
@@ -318,7 +318,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- li
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -330,7 +330,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OC
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -346,7 +346,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_DUR)]] <- 
 	bounds=c(0,NA),
 	cname="True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -358,7 +358,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SF
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -370,7 +370,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SF
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Filtered Scene-Based Duration Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -382,7 +382,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_OCC)]] <- 
 	bounds=c(0,NA),
 	cname="True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -394,7 +394,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SF
 	bounds=c(0,NA),
 	cname="Weighted True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -406,7 +406,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, SF
 	bounds=c(0,NA),
 	cname="Weighted normalized True Positives relative to Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_TRUEPOS,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.truepositive(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)

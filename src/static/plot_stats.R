@@ -11,7 +11,6 @@
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# object: either "graph" or "graphcomp".
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
@@ -19,8 +18,9 @@
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.window <- function(object, mode, window.size, overlaps, measure)
-{	res <- rep(NA, length(overlaps))
+load.static.graph.stats.by.window <- function(mode, window.size, overlaps, measure)
+{	object <- ALL_MEASURES[[measure]]$object
+	res <- rep(NA, length(overlaps))
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
 		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
@@ -37,7 +37,6 @@ load.static.graph.stats.by.window <- function(object, mode, window.size, overlap
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# object: either "graph" or "graphcomp".
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
@@ -45,8 +44,9 @@ load.static.graph.stats.by.window <- function(object, mode, window.size, overlap
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overlap, measure)
-{	res <- rep(NA, length(window.sizes))
+load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
+{	object <- ALL_MEASURES[[measure]]$object
+	res <- rep(NA, length(window.sizes))
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
 		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
@@ -63,7 +63,6 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 ###############################################################################
 # Loads a series corresponding to the specified parameters.
 #
-# object: either "graph" or "graphcomp".
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
 # arc: the narrative arc to plot (optional).
@@ -72,8 +71,9 @@ load.static.graph.stats.by.overlap <- function(object, mode, window.sizes, overl
 #
 # returns: the value corresponding to the specified parameters.
 ###############################################################################
-load.static.graph.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered=FALSE)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
+load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=FALSE)
+{	object <- ALL_MEASURES[[measure]]$object
+	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -169,7 +169,6 @@ load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
 # Loads a series corresponding to the specified parameters: fixed window size,
 # varying overlap.
 #
-# object: either "nodes" or "links" (not "graph").
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
@@ -178,8 +177,9 @@ load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
 # returns: a list of vectors, each one representing the link/node values for
 #          one parameter set.
 ###############################################################################
-load.static.nodelink.stats.by.window <- function(object, mode, window.size, overlaps, measure)
-{	res <- list()
+load.static.nodelink.stats.by.window <- function(mode, window.size, overlaps, measure)
+{	object <- ALL_MEASURES[[measure]]$object
+	res <- list()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
 		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
@@ -199,7 +199,6 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 # Loads a series corresponding to the specified parameters: varying window size,
 # fixed overlap.
 #
-# object: either "nodes" or "links" (not "graph").
 # mode: either "panel.window" or "page.window" (not "scenes").
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
@@ -208,8 +207,9 @@ load.static.nodelink.stats.by.window <- function(object, mode, window.size, over
 # returns: a list of vectors, each one representing the link/node values for
 #          one parameter set.
 ###############################################################################
-load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, overlap, measure)
-{	res <- list()
+load.static.nodelink.stats.by.overlap <- function(mode, window.sizes, overlap, measure)
+{	object <- ALL_MEASURES[[measure]]$object
+	res <- list()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
 		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap)
@@ -227,7 +227,6 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 ###############################################################################
 # Loads a series corresponding to the scene-based graph.
 #
-# object: either "nodes", "nodepairs" or "links" (not "graph").
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
 # arc: the narrative arc to plot (optional).
@@ -236,8 +235,9 @@ load.static.nodelink.stats.by.overlap <- function(object, mode, window.sizes, ov
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(object, weights, measure, arc=NA, vol=NA, filtered)
-{	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
+load.static.nodelink.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
+{	object <- ALL_MEASURES[[measure]]$object
+	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[,measure]
 	return(res)
@@ -269,16 +269,16 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 	for(meas.name in c(nmn,lmn,cmn))
 	{	tlog(4,"Generating single plots for measure ",meas.name," (mode=",mode,")")
 		
-		if(meas.name %in% nmn)
-			object <- "nodes"
-		else if(meas.name %in% lmn)
-			object <- "links"
-		else if(meas.name %in% cmn)
-			object <- "nodescomp"
+#		if(meas.name %in% nmn)
+#			object <- "nodes"
+#		else if(meas.name %in% lmn)
+#			object <- "links"
+#		else if(meas.name %in% cmn)
+#			object <- "nodescomp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered="unfiltered")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered="unfiltered")
+		seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="unfiltered")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered="unfiltered")
 		seg.vals <- list()
 		seg.vals[[1]] <- seg.occ.vals[!is.na(seg.occ.vals)]
 		seg.vals[[2]] <- seg.dur.vals[!is.na(seg.dur.vals)]
@@ -288,7 +288,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
 			tlog(5,"Dealing with window.size=",window.size)
-			values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -382,7 +382,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps)
 			
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			values <- load.static.nodelink.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			values <- load.static.nodelink.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -496,14 +496,14 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 	for(meas.name in amn)
 	{	tlog(4,"Generating multiple plots for measure ",meas.name," (mode=",mode,")")
 		
-		if(meas.name %in% gmn)
-			object <- "graph"
-		else if(meas.name %in% cmn)
-			object <- "graphcomp"
+#		if(meas.name %in% gmn)
+#			object <- "graph"
+#		else if(meas.name %in% cmn)
+#			object <- "graph-comp"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="occurrences", filtered="unfiltered")
-		seg.dur.vals <- load.static.graph.stats.scenes(object=object, measure=meas.name, weights="duration", filtered="unfiltered")
+		seg.occ.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="occurrences", filtered="unfiltered")
+		seg.dur.vals <- load.static.graph.stats.scenes(measure=meas.name, weights="duration", filtered="unfiltered")
 		
 		# retrieve the window.size data series
 		tlog(5,"Gathering and plotting data by window.size")
@@ -511,7 +511,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
-			data[[i]] <- load.static.graph.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 			data[[i]][is.infinite(data[[i]])] <- NA
 		}
 		# generate a plot containing each window size value as a series
@@ -580,7 +580,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps)
 		{	# the series corresponds to the values of the window sizes
 			overlap <- common.overlaps[i]
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			data[[i]] <- load.static.graph.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
+			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name)
 			data[[i]][is.infinite(data[[i]])] <- NA
 			axis[[i]] <- window.sizes[idx]
 		}
@@ -822,15 +822,15 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 	for(meas.name in mn)
 	{	tlog(4,"Generating rank difference for measure ",meas.name," (mode=",mode,")")
 		
-		if(meas.name %in% names(NODE_MEASURES))
-			object <- "nodes"
-		else if(meas.name %in% names(NODEPAIR_MEASURES))
-			object <- "nodepairs"
+#		if(meas.name %in% names(NODE_MEASURES))
+#			object <- "nodes"
+#		else if(meas.name %in% names(NODEPAIR_MEASURES))
+#			object <- "nodepairs"
 		
 		# load the reference values (scene-based graph)
-		seg.occ.vals <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, filtered="unfiltered")
+		seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="unfiltered")
 		seg.occ.ranks <- rank(seg.occ.vals, ties.method="min")
-		seg.dur.vals <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, filtered="unfiltered")
+		seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered="unfiltered")
 		seg.dur.ranks <- rank(seg.occ.vals, ties.method="min")
 		
 		for(weights in c("duration","occurrences"))
@@ -842,7 +842,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 			# generate a plot for each window size value
 			for(i in 1:length(window.sizes))
 			{	window.size <- window.sizes[i]
-				lst.values <- load.static.nodelink.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
+				lst.values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name)
 				
 				# and for each corresponding overlap value
 				for(j in 1:length(overlaps[[i]]))
@@ -900,9 +900,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps)
 #           value of window.size.
 ###############################################################################
 generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
-{	object <- "graphcomp"
-	
-	# setup measure name lists
+{	# setup measure name lists
 	ms <- rbind(
 		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR)), 
 		c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)), 
@@ -929,8 +927,8 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 		
 		# load the reference values (scene-based graph)
 		data0 <- cbind(
-			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="occurrences", measure=ms[m,i], filtered="unfiltered")),
-			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(object=object, weights="duration", measure=ms[m,i], filtered="unfiltered"))
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(weights="occurrences", measure=ms[m,i], filtered="unfiltered")),
+			sapply(1:ncol(ms), function(i) load.static.graph.stats.scenes(weights="duration", measure=ms[m,i], filtered="unfiltered"))
 		)
 		
 		# generate a plot for each window size value
@@ -940,7 +938,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 			tlog(5,"Dealing with window.size=",window.size)
 			
 			# load values for estimations
-			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.window(object=object, mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=ms[m,j]))
+			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=ms[m,j]))
 			if(length(overlaps[[i]])>1)
 				tmp <- t(tmp)
 			data <- cbind(data0, tmp)
@@ -987,7 +985,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA)
 			
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.overlap(object=object, mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=ms[m,j]))
+			tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=ms[m,j]))
 			if(length(window.sizes[idx])>1)
 				tmp <- t(tmp)
 			data <- cbind(data0, tmp)
@@ -1091,12 +1089,12 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	for(meas.name in c(nmn,lmn))
 	{	tlog(4,"Generating plots for measure ",meas.name)
 		
-		if(meas.name %in% nmn)
-			object <- "nodes"
-		else if(meas.name %in% lmn)
-			object <- "links"
-		else if(meas.name %in% npmn)
-			object <- "nodepairs"
+#		if(meas.name %in% nmn)
+#			object <- "nodes"
+#		else if(meas.name %in% lmn)
+#			object <- "links"
+#		else if(meas.name %in% npmn)
+#			object <- "nodepairs"
 		
 		if(ALL_MEASURES[[meas.name]]$weighted)
 			wmodes <- c("occurrences","duration")
@@ -1108,7 +1106,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(object=object, weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filt.txt)
+			vals <- load.static.nodelink.stats.scenes(weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filt.txt)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
@@ -1234,7 +1232,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	# plot each measure
 	for(meas.name in gmn)
 	{	tlog(4,"Generating ",emode,"-based evolution plots for measure ",meas.name)
-		object <- "graph"
+		#object <- "graph"
 		
 		if(ALL_MEASURES[[meas.name]]$weighted)
 			wmodes <- c("occurrences","duration")
@@ -1248,7 +1246,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			# load pre-computed values (scene-based graph)
 			vals <- rep(NA, length(items))
 			for(i in 1:length(items))
-			{	vals[i] <- load.static.graph.stats.scenes(object=object, weights=wmode, measure=meas.name, 
+			{	vals[i] <- load.static.graph.stats.scenes(weights=wmode, measure=meas.name, 
 							arc=if(arcs) i else NA, vol=if(arcs) NA else items[i], 
 							filtered=filt.txt)
 			}

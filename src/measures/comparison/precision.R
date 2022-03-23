@@ -70,7 +70,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_DUR)]] <- list( #precision with d
 	bounds=c(0,1),
 	cname="Precision with Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_DUR), graph, filtered=FALSE)
@@ -82,7 +82,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_DUR)]] <- list( #Weig
 	bounds=c(0,1),
 	cname="Weighted Precision with Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -94,7 +94,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- l
 	bounds=c(0,1),
 	cname="Weighted normalized Precision with Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -106,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_OCC)]] <- list( #precision with o
 	bounds=c(0,1),
 	cname="Precision with Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_OCC), graph, filtered=FALSE)
@@ -118,7 +118,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_OCC)]] <- list( #Weig
 	bounds=c(0,1),
 	cname="Weighted Precision with Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -130,7 +130,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- l
 	bounds=c(0,1),
 	cname="Weighted normalized Precision with Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -146,7 +146,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_DUR)]] <- list( #pr
 	bounds=c(0,1),
 	cname="Precision with Filtered Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -158,7 +158,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] 
 	bounds=c(0,1),
 	cname="Weighted Precision with Filtered Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -170,7 +170,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, S
 	bounds=c(0,1),
 	cname="Weighted normalized Precision with Filtered Scene-Based Duration Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -182,7 +182,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_OCC)]] <- list( #pr
 	bounds=c(0,1),
 	cname="Precision with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -194,7 +194,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] 
 	bounds=c(0,1),
 	cname="Weighted Precision with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -206,7 +206,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, S
 	bounds=c(0,1),
 	cname="Weighted normalized Precision with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_PRECISION,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.precision.measure(paste0(MEAS_PRECISION, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)

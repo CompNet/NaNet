@@ -70,7 +70,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_DUR)]] <- list( #Cosine similari
 	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_DUR), graph, filtered=FALSE)
@@ -82,7 +82,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #Wei
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -94,7 +94,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -106,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_OCC)]] <- list( #Cosine similari
 	bounds=c(0,1),
 	cname="Cosine Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_OCC), graph, filtered=FALSE)
@@ -118,7 +118,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC)]] <- list( #Wei
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -130,7 +130,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -146,7 +146,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_DUR)]] <- list( #C
 	bounds=c(0,1),
 	cname="Cosine Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -158,7 +158,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]]
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -170,7 +170,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -182,7 +182,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_OCC)]] <- list( #C
 	bounds=c(0,1),
 	cname="Cosine Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -194,7 +194,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]]
 	bounds=c(0,1),
 	cname="Weighted Cosine Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -206,7 +206,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, 
 	bounds=c(0,1),
 	cname="Weighted normalized Cosine Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_COSINE_SIM,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.cosine.similarity(paste0(MEAS_COSINE_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)

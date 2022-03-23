@@ -70,7 +70,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_DUR)]] <- list( #recall with duratio
 	bounds=c(0,1),
 	cname="Recall with Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_DUR), graph, filtered=FALSE)
@@ -82,7 +82,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_DUR)]] <- list( #Weighte
 	bounds=c(0,1),
 	cname="Weighted Recall with Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -94,7 +94,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <- list
 	bounds=c(0,1),
 	cname="Weighted normalized Recall with Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -106,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_OCC)]] <- list( #recall with occurre
 	bounds=c(0,1),
 	cname="Recall with Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_OCC), graph, filtered=FALSE)
@@ -118,7 +118,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_OCC)]] <- list( #Weighte
 	bounds=c(0,1),
 	cname="Weighted Recall with Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -130,7 +130,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <- list
 	bounds=c(0,1),
 	cname="Weighted normalized Recall with Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -146,7 +146,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_DUR)]] <- list( #recal
 	bounds=c(0,1),
 	cname="Recall with Filtered Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -158,7 +158,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]] <- 
 	bounds=c(0,1),
 	cname="Weighted Recall with Filtered Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -170,7 +170,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_
 	bounds=c(0,1),
 	cname="Weighted normalized Recall with Filtered Scene-Based Duration Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -182,7 +182,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_OCC)]] <- list( #recal
 	bounds=c(0,1),
 	cname="Recall with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -194,7 +194,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]] <- 
 	bounds=c(0,1),
 	cname="Weighted Recall with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -206,7 +206,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_
 	bounds=c(0,1),
 	cname="Weighted normalized Recall with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_RECALL,
-	object="graph",
+	object="graph-comp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.recall.measure(paste0(MEAS_RECALL, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)

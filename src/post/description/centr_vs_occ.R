@@ -41,16 +41,16 @@ inlay.coords[paste0(MEAS_BETWEENNESS,"_page"),] <- c(0.53, 0.97, 0.05, 0.49)
 inlay.coords[paste0(MEAS_CLOSENESS,"_page"),] <- c(0.51, 0.97, 0.05, 0.51)
 inlay.coords[paste0(MEAS_DEGREE,"_page"),] <- c(0.52, 0.97, 0.05, 0.52)
 inlay.coords[paste0(MEAS_EIGENCNTR,"_page"),] <- c(0.32, 0.97, 0.05, 0.70)
-inlay.coords[paste0(MEAS_BETWEENNESS,"_panel"),] <- c(0.57, 0.97, 0.05, 0.45)
-inlay.coords[paste0(MEAS_CLOSENESS,"_panel"),] <- c(0.55, 0.97, 0.05, 0.47)
-inlay.coords[paste0(MEAS_DEGREE,"_panel"),] <- c(0.06, 0.49, 0.54, 0.97)
+inlay.coords[paste0(MEAS_BETWEENNESS,"_panel"),] <- c(0.55, 0.97, 0.05, 0.47)
+inlay.coords[paste0(MEAS_CLOSENESS,"_panel"),] <- c(0.54, 0.97, 0.05, 0.48)
+inlay.coords[paste0(MEAS_DEGREE,"_panel"),] <- c(0.06, 0.46, 0.57, 0.97)
 inlay.coords[paste0(MEAS_EIGENCNTR,"_panel"),] <- c(0.39, 0.97, 0.05, 0.63)
 inlay.coords[paste0(MEAS_BETWEENNESS,"_scene"),] <- c(0.49, 0.97, 0.05, 0.53)
 inlay.coords[paste0(MEAS_CLOSENESS,"_scene"),] <- c(0.48, 0.97, 0.05, 0.52)
 inlay.coords[paste0(MEAS_DEGREE,"_scene"),] <- c(0.49, 0.97, 0.05, 0.53)
 inlay.coords[paste0(MEAS_EIGENCNTR,"_scene"),] <- c(0.34, 0.97, 0.05, 0.68)
 inlay.coords[paste0(MEAS_BETWEENNESS,"_volume"),] <- c(0.45, 0.97, 0.05, 0.57)
-inlay.coords[paste0(MEAS_CLOSENESS,"_volume"),] <- c(0.47, 0.97, 0.05, 0.55)
+inlay.coords[paste0(MEAS_CLOSENESS,"_volume"),] <- c(0.50, 0.97, 0.05, 0.52)
 inlay.coords[paste0(MEAS_DEGREE,"_volume"),] <- c(0.47, 0.97, 0.05, 0.55)
 inlay.coords[paste0(MEAS_EIGENCNTR,"_volume"),] <- c(0.27, 0.97, 0.05, 0.75)
 
@@ -65,8 +65,8 @@ for(centr.name in centr.names)
 	{	tlog(4, "Processing mode ",occ.name)
 		
 		# get centrality values
-		centr.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=FALSE)
-		centr.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr.name, filtered=TRUE)
+		centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="unfiltered")
+		centr.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered")
 		
 		# get occurrence values
 		file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
@@ -83,7 +83,7 @@ for(centr.name in centr.names)
 		centr.vals.unf <- centr.vals.unf[idx]
 		occ.vals.unf <- occ.vals.unf[idx]
 		corr.mat.unf.clean[centr.name,occ.name] <- cor(centr.vals.unf, occ.vals.unf, method="spearman")
-		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.clean[centr.name,occ.name])
+		tlog(8,"Spearman correlation after cleaning: ", corr.mat.unf.clean[centr.name,occ.name])
 		avg.occ.vals.unf <- sapply(1:max(occ.vals.unf), function(d) mean(centr.vals.unf[occ.vals.unf==d]))
 
 #		# keep tail
@@ -113,7 +113,7 @@ for(centr.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
-		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered=both, suf=paste0("occ_",occ.name,"_vs_",centr.name))
+		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("occ_",occ.name,"_vs_",centr.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(
@@ -244,7 +244,7 @@ print(corr.mat.flt.clean)
 ###############################################################################
 # check the outliers according to Eigencentrality
 tlog(0,"Checking the outliers according to the Eigenvector centrality:")
-centr.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure="eigenvector", filtered=FALSE)
+centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure="eigenvector", filtered="unfiltered")
 filtered <- data$char.stats[,COL_FILTER]=="Discard"
 idx <- order(centr.vals.unf, decreasing=FALSE)
 tlog(2,"List of characters by decreasing Eigenvector centrality:")

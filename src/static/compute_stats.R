@@ -572,7 +572,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
 compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	object <- "graphcomp"
+{	object <- "graph-comp"
 	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights)
 	tlog(4,"Computing graph comparison measures")
 	
@@ -706,8 +706,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				object <- "links"
 			
 			# retrieve reference values
-			vals.dur <- load.static.nodelink.stats.scenes(object=object, weights="duration", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
-			vals.occ <- load.static.nodelink.stats.scenes(object=object, weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
+			vals.dur <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
+			vals.occ <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
 			
 			# retrieve tested values
 			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)

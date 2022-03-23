@@ -55,12 +55,12 @@ for(centr1.name in centr.names)
 	{	tlog(4, "Processing second centrality measure ",centr2.name)
 		
 		# get centrality 1 values
-		centr1.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr1.name, filtered="unfiltered")
-		centr1.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr1.name, filtered="filtered")
+		centr1.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure=centr1.name, filtered="unfiltered")
+		centr1.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr1.name, filtered="filtered")
 		
 		# get centrality 2 values
-		centr2.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr2.name, filtered="unfiltered")
-		centr2.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr2.name, filtered="filtered")
+		centr2.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure=centr2.name, filtered="unfiltered")
+		centr2.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr2.name, filtered="filtered")
 		
 		#### handle unfiltered data
 		tlog(6,"Dealing with the unfiltered data")
