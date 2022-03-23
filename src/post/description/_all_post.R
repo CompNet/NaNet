@@ -12,8 +12,8 @@
 
 
 source("src/post/description/avgdist_evol.R")
-#source("src/post/description/centr_clusters.R")
-#source("src/post/description/centr_vs_centr.R")
+source("src/post/description/centr_clusters.R")
+source("src/post/description/centr_vs_centr.R")
 #source("src/post/description/centr_vs_occ.R")
 #source("src/post/description/char_distr.R")
 #source("src/post/description/char_sim.R")

@@ -55,12 +55,12 @@ for(centr1.name in centr.names)
 	{	tlog(4, "Processing second centrality measure ",centr2.name)
 		
 		# get centrality 1 values
-		centr1.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr1.name, filtered=FALSE)
-		centr1.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr1.name, filtered=TRUE)
+		centr1.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr1.name, filtered="unfiltered")
+		centr1.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr1.name, filtered="filtered")
 		
 		# get centrality 2 values
-		centr2.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr2.name, filtered=FALSE)
-		centr2.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="occurrences", measure=centr2.name, filtered=TRUE)
+		centr2.vals.unf <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr2.name, filtered="unfiltered")
+		centr2.vals.flt <- load.static.nodelink.stats.scenes(object="nodes", weights="none", measure=centr2.name, filtered="filtered")
 		
 		#### handle unfiltered data
 		tlog(6,"Dealing with the unfiltered data")
@@ -71,7 +71,7 @@ for(centr1.name in centr.names)
 		centr1.vals.unf <- centr1.vals.unf[idx]
 		centr2.vals.unf <- centr2.vals.unf[idx]
 		corr.mat.unf.clean[centr1.name,centr2.name] <- cor(centr1.vals.unf, centr2.vals.unf, method="spearman")
-		tlog(8,"Spearman correlation before cleaning: ", corr.mat.unf.clean[centr1.name,centr2.name])
+		tlog(8,"Spearman correlation after cleaning: ", corr.mat.unf.clean[centr1.name,centr2.name])
 		avg.centr2.vals.unf <- sapply(1:max(centr2.vals.unf), function(d) mean(centr1.vals.unf[centr2.vals.unf==d]))
 
 #		# keep tail
@@ -101,7 +101,7 @@ for(centr1.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- NODE_MEASURES[[centr2.name]]$cname
 		ylab <- NODE_MEASURES[[centr1.name]]$cname
-		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("centr_",centr2.name,"_vs_",centr1.name))
+		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("centr_",centr2.name,"_vs_",centr1.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(

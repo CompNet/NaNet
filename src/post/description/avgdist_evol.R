@@ -16,7 +16,7 @@ start.rec.log(text="AvgDistEvol")
 
 ###############################################################################
 # publication order vs. story order 
-pub.order <- TRUE
+pub.order <- TRUE			# TRUE=publication order, FALSE=story order
 
 tlog(0, "Evolution of the average distance over scenes: pub.order=",pub.order)
 
@@ -26,19 +26,20 @@ tlog(0, "Evolution of the average distance over scenes: pub.order=",pub.order)
 ###############################################################################
 # plots unfiltered and filtered figures as separate files
 
-# load corpus stats
-tlog(0, "Read corpus stats")
-data <- read.corpus.data()
-
-# get filtered characters
-filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
-if(length(filt.names)==0) stop("Empty list of filtered characters")
-
+## load corpus stats
+#tlog(0, "Read corpus stats")
+#data <- read.corpus.data()
+#
+## get filtered characters
+#filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
+#if(length(filt.names)==0) stop("Empty list of filtered characters")
+#
 # compute the sequence of scene-based graphs (possibly one for each scene)
 tlog(0, "Extract graph sequence")
 gs <- extract.static.graph.scenes(
 	inter.df=data$inter.df, 
 	char.stats=data$char.stats, 
+	scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 	volume.stats=data$volume.stats, 
 	ret.seq=TRUE, pub.order=pub.order
 )
@@ -49,17 +50,19 @@ dist.vals <- list()
 order.txt <- if(pub.order) "publication" else "story"
 
 # compute average distance for each graph in the sequence
+tlog(0, "Compute average distances for unfiltered graphs")
 #print(any(sapply(gs, function(g) is_connected(g, mode="weak"))))	# check that each graph is connected
 g.orders[[1]] <- future_sapply(gs, gorder)
 dist.vals[[1]] <- future_sapply(gs, function(g) mean_distance(graph=g, directed=FALSE, unconnected=TRUE))
 
 # same for filtered graphs
+tlog(0, "Compute average distances for filtered graphs")
 gs.filt <- future_lapply(gs, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 g.orders[[2]] <- future_sapply(gs.filt, gorder)
 dist.vals[[2]] <- future_sapply(gs.filt, function(g) mean_distance(graph=g, directed=FALSE, unconnected=TRUE))
 
 # loop over unfiltered/filtered
-tlog(0, "Loop over unfiltered/filtered")
+tlog(0, "Loop over unfiltered/filtered graphs")
 natures <- c("unfiltered", "filtered")
 pal <- ATT_COLORS_FILT
 for(i in 1:2)
@@ -93,7 +96,7 @@ for(i in 1:2)
 	print(summary(fit))
 	
 	# plot distance as a function of graph order
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered=filt.txt, suf=paste0("evolution_",order.txt,"_lines"))
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), weights="none", filtered=filt.txt, suf=paste0("evolution_",order.txt,"_lines"))
 	tlog(2, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -123,7 +126,7 @@ tlog(0, "Unfiltered/filtered loop complete")
 
 ###############################################################################
 # same thing, but plots both unfiltered and filtered figures in the same file
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), filtered="both", suf=paste0("evolution_",order.txt,"_lines"))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), weights="none", filtered="both", suf=paste0("evolution_",order.txt,"_lines"))
 tlog(0, "Plotting both unfiltered and filtered results in file ",plot.file)
 
 # process all formats

@@ -68,6 +68,7 @@ data <- read.corpus.data()
 gs.unf <- extract.static.graph.scenes(
 	inter.df=data$inter.df,
 	char.stats=data$char.stats, 
+	scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 	volume.stats=data$volume.stats, 
 	ret.seq=TRUE, pub.order=TRUE	# TODO check that this parm is used in the rest of the graph (should be a main script param)
 )

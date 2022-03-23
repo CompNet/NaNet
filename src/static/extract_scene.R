@@ -19,6 +19,8 @@
 #
 # inter.df: dataframe containing the pairwise interactions.
 # char.stats: table describing all the characters occurring in the BD series.
+# scene.stats: table describing all the scenes constituting the BD series.
+# scene.chars: list of characters occurring in each scene.
 # volume.stats: table describing all the volumes constituting the BD series.
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
@@ -30,7 +32,7 @@
 #		   - Duration: total duration (in number of panels).
 #		   If ret.set==TRUE, then the function returns a list of graphs.
 ###############################################################################
-extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=NA, arc=NA, ret.seq=FALSE, pub.order=TRUE)
+extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene.chars, volume.stats, vol=NA, arc=NA, ret.seq=FALSE, pub.order=TRUE)
 {	tlog(2,"Extracting the scene-based static graph")
 	res <- list()
 	vname <- NA
@@ -48,28 +50,50 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 	# possibly filter interactions
 	if(!is.na(arc))
 	{	is <- which(inter.df[,COL_ARC_ID]==arc)
+		scenes.ord <- which(scene.stats[,COL_ARC_ID]==arc)
 	}
 	else if(!is.na(vol))
 	{	vname <- paste0(vol,"_",volume.stats[vol,COL_VOLUME])
 		is <- which(inter.df[,COL_VOLUME_ID]==vol)
+		scenes.ord <- which(scene.stats[,COL_VOLUME_ID]==vol)
 	}
 	else
-	{	# order interactions by publication order
-		if(pub.order)
-			is <- 1:nrow(inter.df)
-		# or by story order
-		else
-		{	vol.ranks <- volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]
-			scene.ranks <- inter.df[,COL_SCENE_ID]
-			is <- order(vol.ranks, scene.ranks)
+	{	is <- 1:nrow(inter.df)
+		scenes.ord <- 1:nrow(scene.stats)
+	}
+	
+	# possibly sort scenes and interactions by story order
+	if(!pub.order)
+	{	is <- is[order(inter.df[is,COL_RANK])]
+		scenes.ord <- scenes.ord[order(scene.stats[scenes.ord,COL_RANK])]
+	}
+		
+	# possibly init the list with empty graphs or isolates
+	if(ret.seq)
+	{	#tlog(2,"Initializing the graph list")
+		s <- 1
+		while(scenes.ord[s]!=inter.df[is[1],COL_SCENE_ID])
+		{	tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
+			if(length(scene.chars[[scenes.ord[s]]])==0)
+				g <- make_empty_graph(n=0, directed=FALSE)
+			else if(length(scene.chars[[scenes.ord[s]]])==1)
+			{	idx <- which(char.stats[,COL_NAME]==scene.chars[[scenes.ord[s]]])
+				g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
+			}
+			res[[s]] <- g
+			s <- s + 1
 		}
 	}
 	
 	# build the edgelist by considering each line (i.e. interaction) in the dataframe
 	prev.scene <- NA
+	prev.scene.idx <- NA
+	tlog(2,"Building the edge list")
 	for(i in is)
 	{	# get the current scene id
 		cur.scene <- inter.df[i,COL_SCENE_ID]
+		cur.scene.idx <- which(scenes.ord==cur.scene)
+		#tlog(4,"Processing scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
 		
 		# get the characters
 		from.char <- inter.df[i,COL_CHAR_FROM]
@@ -98,9 +122,11 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 		if(ret.seq)
 		{	# possibly copy previous graph
 			if(!is.na(prev.scene) && cur.scene!=prev.scene)
-			{	for(s in (prev.scene+1):(cur.scene-1))
-				{	g <- res[[s-1]]
-					g <- set_graph_attr(graph=g, name="Scene", value=s)
+			{	# possibly several times, to represent interaction-less scenes
+				for(s in (prev.scene.idx+1):(cur.scene.idx-1))
+				{	#tlog(6,"s=",s," scenes.ord[s-1]=",scenes.ord[s-1]," length(res)=",length(res))
+					g <- res[[s-1]]
+					g <- set_graph_attr(graph=g, name="SceneId", value=scene.stats[scenes.ord[s],COL_SCENE_ID])
 					res[[s]] <- g
 				}
 			}
@@ -109,10 +135,11 @@ extract.static.graph.scenes <- function(inter.df, char.stats, volume.stats, vol=
 			idx <- which(char.stats[,COL_NAME] %in% c(cbind(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO])))
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
 			g$Scene <- cur.scene
-			res[[cur.scene]] <- g
+			res[[cur.scene.idx]] <- g
 		}
 		
 		prev.scene <- cur.scene
+		prev.scene.idx <- cur.scene.idx
 	}
 	
 	# set up result variable
@@ -236,12 +263,15 @@ extract.static.graphs.base <- function(data)
 	inter.df <- data$inter.df
 	page.stats <- data$page.stats
 	char.stats <- data$char.stats
+	scene.stats <- data$scene.stats
+	scene.chars <- data$scene.chars
 	volume.stats <- data$volume.stats
 	
 	# extract the full scene-based static graph
 	g <- extract.static.graph.scenes(
 		inter.df=inter.df,
 		char.stats=char.stats,
+		scene.stats=scene.stats, scene.chars=scene.chars,
 		volume.stats=volume.stats
 	)
 	# record to file
@@ -270,6 +300,7 @@ extract.static.graphs.base <- function(data)
 		g <- extract.static.graph.scenes(
 			inter.df=inter.df,
 			char.stats=char.stats, 
+			scene.stats=scene.stats, scene.chars=scene.chars,
 			volume.stats=volume.stats, 
 			arc=a
 		)
@@ -297,6 +328,7 @@ extract.static.graphs.base <- function(data)
 		g <- extract.static.graph.scenes(
 			inter.df=data$inter.df,
 			char.stats=char.stats, 
+			scene.stats=scene.stats, scene.chars=scene.chars,
 			volume.stats=volume.stats, 
 			vol=v
 		)

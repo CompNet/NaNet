@@ -32,6 +32,8 @@ tlog(0,"Load data and network")
 tlog(2,"Reading previously computed corpus stats")
 data <- read.corpus.data()
 char.stats <- data$char.stats
+scene.stats <- data$scene.stats
+scene.chars <- data$scene.chars
 volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
@@ -61,6 +63,7 @@ if(narr.smooth)
 		inter.df=data$inter.df, 
 		char.stats=char.stats, 
 		volume.stats=volume.stats, 
+		scene.stats=scene.stats, scene.chars=scene.chars,
 		ret.seq=TRUE, pub.order=pub.order
 	)
 	# possibly set weights

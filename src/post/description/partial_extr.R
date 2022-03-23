@@ -43,6 +43,7 @@ idx1 <- 1:(idx-1)
 gs[[1]] <- extract.static.graph.scenes(
 	inter.df=data$inter.df[idx1,], 
 	char.stats=data$char.stats,
+	scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 	volume.stats=data$volume.stats
 )
 
@@ -52,6 +53,7 @@ idx2 <- idx:nrow(data$inter.df)
 gs[[2]] <- extract.static.graph.scenes(
 	inter.df=data$inter.df[idx2,], 
 	char.stats=data$char.stats, 
+	scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 	volume.stats=data$volume.stats 
 )
 
