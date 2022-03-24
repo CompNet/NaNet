@@ -21,6 +21,7 @@
 ###############################################################################
 library("polynom")
 
+SERIES <- "Thorgal"
 source("src/common/include.R")
 
 

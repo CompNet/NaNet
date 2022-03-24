@@ -8,6 +8,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/centr_vs_occ.R")
 ###############################################################################
+SERIES <- "Thorgal"
 source("src/common/include.R")
 start.rec.log(text="CentrVsOcc")
 

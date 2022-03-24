@@ -7,6 +7,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/char_sim.R")
 ###############################################################################
+SERIES <- "Thorgal"
 library("blockmodeling")
 source("src/common/include.R")
 start.rec.log(text="CharSim")

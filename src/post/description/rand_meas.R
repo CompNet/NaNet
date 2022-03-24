@@ -16,6 +16,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/rand_meas.R.R")
 ###############################################################################
+SERIES <- "Thorgal"
 source("src/common/include.R")
 start.rec.log(text="RandMeas")
 

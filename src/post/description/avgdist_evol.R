@@ -8,6 +8,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/avgdist_evol.R")
 ###############################################################################
+SERIES <- "Thorgal"
 source("src/common/include.R")
 start.rec.log(text="AvgDistEvol")
 
