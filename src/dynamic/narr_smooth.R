@@ -346,7 +346,7 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
 		ord.fold <- "order_story"
 	
 	base.file <- get.path.data.graph(mode="scenes", net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
-	gs <- read.dynamic.graph(base.path=base.file, remove.isolates=remove.isolates)
+	gs <- read.dynamic.graph(base.file=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)
 }

@@ -68,13 +68,13 @@ write.dynamic.graph <- function(gs, base.path)
 #
 # returns: list of igraph objects representing a dynamic graph.
 ###############################################################################
-read.dynamic.graph <- function(base.path, remove.isolates=TRUE)
+read.dynamic.graph <- function(base.file, remove.isolates=TRUE)
 {	tlog(2,"Reading files of the form \"",base.file,"\"")
 	gs <- list()
 	
 	# get folder path 
-	folder <- dirname(base.path)
-	file <- basename(base.path)
+	folder <- dirname(base.file)
+	file <- basename(base.file)
 	ll <- list.files(path=folder, pattern=paste0(file,".+"), full.names=TRUE)
 	
 	# number of digits in the file names
@@ -85,7 +85,7 @@ read.dynamic.graph <- function(base.path, remove.isolates=TRUE)
 	go.on <- TRUE
 	s <- 1
 	while(go.on)
-	{	graph.file <- paste0(base.file,"_",s,".graphml")
+	{	graph.file <- paste0(base.file,"_",sprintf(paste0("%0",digits,"d"),s),".graphml")
 		if(file.exists(graph.file))
 		{	if(s==1 || s %% 500 == 0 || s==length(gs))
 				tlog(4, "Reading file ",graph.file)
