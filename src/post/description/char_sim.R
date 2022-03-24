@@ -17,7 +17,7 @@ start.rec.log(text="CharSim")
 ################################################################################
 # main parameters
 wide <- TRUE				# wide plots showing volumes as rectangles
-narr.smooth <- TRUE			# whether to use narrative smoothing
+narr.smooth <- TRUE			# whether to use narrative smoothing or cumulative scene-based networks
 weighted <- TRUE			# whether to use the graph weights
 sc.lim <- NA				# limit on the considered scenes (NA for no limit)
 pub.order <- TRUE			# whether to use the volume publication vs. story order
@@ -98,26 +98,26 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # similarity measures
 sim.meas <- list()
-#sim.meas[["cosine"]] <- list(
-#	bounds=c(0,1),
-#	cname="Cosine Similarity",
-#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sum(a[idx[r,1],]*a[idx[r,2],])/sqrt(sum(a[idx[r,1],]^2)*sum(a[idx[r,2],]^2)))}
-#)
-#sim.meas[["pearson"]] <- list(
-#	bounds=c(-1,1),
-#	cname="Pearson Coefficient",
-#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) cor(x=a[idx[r,1],], y=a[idx[r,2],]))}
-#)
-#sim.meas[["euclidean"]] <- list(
-#	bounds=c(0,NA),
-#	cname="Euclidean Distance",
-#	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
-#)
-sim.meas[["regequiv"]] <- list(
-	bounds=c(0,NA),
-	cname="Regular Equivalence",
-	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+sim.meas[["cosine"]] <- list(
+	bounds=c(0,1),
+	cname="Cosine Similarity",
+	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sum(a[idx[r,1],]*a[idx[r,2],])/sqrt(sum(a[idx[r,1],]^2)*sum(a[idx[r,2],]^2)))}
 )
+sim.meas[["pearson"]] <- list(
+	bounds=c(-1,1),
+	cname="Pearson Coefficient",
+	foo=function(a,idx) {sapply(1:nrow(idx), function(r) cor(x=a[idx[r,1],], y=a[idx[r,2],]))}
+)
+sim.meas[["euclidean"]] <- list(
+	bounds=c(0,NA),
+	cname="Euclidean Distance",
+	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
+)
+#sim.meas[["regequiv"]] <- list(
+#	bounds=c(0,NA),
+#	cname="Regular Equivalence",
+#	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+#)
 
 # plot parameters
 pal <- ATT_COLORS_FILT
