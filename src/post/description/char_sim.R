@@ -18,7 +18,7 @@ start.rec.log(text="CharSim")
 ################################################################################
 # main parameters
 wide <- TRUE				# wide plots showing volumes as rectangles
-narr.smooth <- FALSE			# whether to use narrative smoothing or cumulative scene-based networks
+narr.smooth <- TRUE			# whether to use narrative smoothing or cumulative scene-based networks
 weighted <- TRUE			# whether to use the graph weights
 sc.lim <- NA				# limit on the considered scenes (NA for no limit)
 pub.order <- TRUE			# whether to use the volume publication vs. story order
@@ -69,7 +69,7 @@ if(narr.smooth)
 	)
 	# possibly set weights
 	if(weighted)
-	{	gs[["unfiltered"]] <- future_lapply(gs[["unfiltered"]], function(g) {E(g)$weight <- E(g)$Occurrences;return(g)})
+	{	gs[["unfiltered"]] <- future_lapply(gs[["unfiltered"]], function(g) {E(g)$weight <- E(g)$Occurrences; return(g)})
 		w.name <- "occurrences"
 	}
 	
@@ -219,7 +219,7 @@ for(m in 1:length(sim.meas))
 				if(wide)
 					draw.volume.rects(ylim, volume.stats)
 				# horizontal dotted line
-				if(names(sim.meas)[m]=="pearson")
+				if(names(sim.meas)[m]=="sim-pearson")
 					abline(h=0, lty=2)
 				# add line
 				lines(
@@ -281,7 +281,7 @@ for(m in 1:length(sim.meas))
 				)
 			}
 			# horizontal dotted line
-			if(names(sim.meas)[m]=="pearson")
+			if(names(sim.meas)[m]=="sim-pearson")
 				abline(h=0, lty=2)
 			# legend
 			legend(
