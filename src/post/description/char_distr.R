@@ -48,6 +48,8 @@ laws["Filtered-characters-arc"] <- "moderate"
 # distribution plots
 tlog(0,"Producing distribution plots")
 
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
+
 # loop params
 object <- "characters"
 counts <- c("panel","page","scene","volume","arc")
@@ -72,7 +74,6 @@ for(count in counts)
 	# set params
 	file <- get.path.stats.corpus(object=object, subfold="both", pref=paste0("distrib_",count,"s-by-char"))
 	tlog(4,"Producing files ",file)
-	pal <- get.palette(length(data))
 	ml <- paste0("Distribution of ",count," number over characters")
 	xl <- paste0("Number of ",count,"s by character")
 	

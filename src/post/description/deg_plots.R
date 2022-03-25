@@ -44,6 +44,7 @@ idx.keep <- which(data$char.stats[,COL_FILTER]=="Keep")
 
 # loop params
 meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load numbers of occurrences of characters
 file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
@@ -82,7 +83,6 @@ for(meas in meass)
 		
 		# set params
 		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered="both", suf="distrib")
-		pal <- get.palette(length(data))
 		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
 		if(!is.na(wt))
 			ml <- paste0(ml," (",wt,")")

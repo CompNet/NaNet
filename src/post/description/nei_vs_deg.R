@@ -55,7 +55,7 @@ fit <- nlsLM(cut.nei ~ c1*cut.deg^c2,
 summary(fit)
 
 # plot
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 col <- pal["Discard"]
 col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"

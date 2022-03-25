@@ -19,7 +19,7 @@ start.rec.log(text="CentrVsCentr")
 tlog(0, "Plotting centrality vs. centrality")
 
 # plot parameters
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)

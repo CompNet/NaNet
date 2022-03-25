@@ -35,7 +35,7 @@ xlab <- "Number of vertices removed"
 
 # compute and plot
 tlog(0, "Compute values and plot basic figures")
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 res <- list()
 # remove each vertex iteratively
 tlog(4, "Removing vertices iteratively for the unfiltered graph")
@@ -230,7 +230,7 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topright",
-			fill=pal["Discard","Keep"],
+			fill=pal[c("Discard","Keep")],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()
@@ -261,7 +261,7 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topleft",
-			fill=pal["Discard","Keep"],
+			fill=pal[c("Discard","Keep")],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()

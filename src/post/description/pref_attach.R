@@ -54,7 +54,7 @@ start.rec.log(text="PrefAttach")
 tlog(0,"Starting to produce the preferential attachment plots")
 
 # plot parameters
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load corpus stats
 data <- read.corpus.data()
@@ -497,6 +497,6 @@ end.rec.log()
 #	x=t0s, y=expos-1,
 #	ylim=c(0,3),
 #	xlab="Scene", ylab=TeX("Exponent $\\alpha$"),
-#	las=1, col=pal[1],
+#	las=1, col=pal["Discard"],
 #	type="l", #type="o", pch=20
 #)

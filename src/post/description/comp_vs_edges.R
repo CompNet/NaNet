@@ -40,7 +40,7 @@ ylab <- "Largest component size (proportion of vertices)"
 
 # compute both types of weights
 tlog(0, "Compute values and plot basic figures")
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 wts <- c("Duration","Occurrences")
 res <- list()
 for(wt in wts)

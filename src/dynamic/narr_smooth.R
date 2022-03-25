@@ -301,7 +301,7 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 		}
 		tlog.end.loop(4,"Finished the second character loop")
 	}
-	tlog.end.loop(6,"Finished the first character loop")
+	tlog.end.loop(2,"Finished the first character loop")
 	
 	return(res)
 }
