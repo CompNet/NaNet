@@ -53,18 +53,18 @@ sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=
 # process each measure
 for(meas in meass)
 {	tlog(2,"Dealing with measure ",meas)
-	wts <- NA
-	if(meas=="strength")
+	if(meas==MEAS_STRENGTH)
 		wts <- c("duration","occurrences")
-	
+	else
+		wts <- c("none")
+
 	for(wt in wts)
-	{	if(!is.na(wt)) 
-			tlog(4,"Dealing with weight ",wt)
+	{	tlog(4,"Dealing with weight \"",wt,"\"")
 		
 		# load precomputed data
 		data <- list()
 		# unfiltered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=if(is.na(wt)) "occurrences" else wt, filtered="unfiltered")
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="unfiltered")
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
@@ -72,7 +72,7 @@ for(meas in meass)
 #		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distrtest_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=if(is.na(wt)) "occurrences" else wt, filtered="filtered")
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="filtered")
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[2]] <- tab[,meas]
 		filt.idx <- data[[2]] > 1
@@ -82,12 +82,12 @@ for(meas in meass)
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params
-		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered="both", suf="distrib")
+		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="ccdf")
 		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
-		if(!is.na(wt))
+		if(wt!="none")
 			ml <- paste0(ml," (",wt,")")
 		xl <- paste0(ALL_MEASURES[[meas]]$cname)
-		if(!is.na(wt))
+		if(wt!="none")
 			xl <- paste0(xl," (",wt,")")
 	
 		# check distribution
@@ -96,9 +96,9 @@ for(meas in meass)
 		{	power.law <- displ$new(data[[i]])
 			est <- estimate_xmin(power.law)
 			tmp <- power.law$setXmin(est)
-			if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
+			if(laws[paste0(names(data)[i],"-",meas,if(wt!="none") paste0("-",wt) else "")]=="truncated")
 				pl[[i]] <- discpowerexp.fit(x=data[[i]],threshold=power.law$xmin)
-			else if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="good")
+			else if(laws[paste0(names(data)[i],"-",meas,if(wt!="none") paste0("-",wt) else "")]=="good")
 				pl[[i]] <- power.law
 			else
 				pl[[i]] <- NA
@@ -114,24 +114,37 @@ for(meas in meass)
 			par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 			plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg.title="Characters")
 			for(i in 1:2)
-			{	if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
+			{	if(laws[paste0(names(data)[i],"-",meas,if(wt!="none") paste0("-",wt) else "")]=="truncated")
 				{	x <- seq(pl[[2]]$threshold,max(data[[2]]))
 					y <- 1 - cumsum(ddiscpowerexp(x=x,exponent=pl[[2]]$exponent,rate=pl[[2]]$rate,threshold=pl[[2]]$threshold))
 					lines(x, y, col="BLACK", lty=2)
 				}
-				else if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="good")
+				else if(laws[paste0(names(data)[i],"-",meas,if(wt!="none") paste0("-",wt) else "")]=="good")
 					lines(pl[[i]], col="BLACK", lty=2)
 			}
 			dev.off()
 		}
 		
 		# correlation between degree and number of occurrences
+		pear.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="pearson")
 		kend.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="kendall")
 		spear.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="spearman")
-		tlog(6,"Correlation between unfiltered degree and scene numbers: Kendall=",kend.cor," Spearman=",spear.cor)
+		tlog(6,"Correlation between unfiltered degree and scene numbers: Pearson=",pear.cor,"Kendall=",kend.cor," Spearman=",spear.cor)
+		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="unfiltered", suf=paste0(meas,"_vs_scenes_correlation"))
+		tlog(8,"Recording in file \"",file,"\"")
+		tab <- data.frame(pear.cor, kend.cor, spear.cor)
+		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
+		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
+		#
+		pear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="pearson")
 		kend.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="kendall")
 		spear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="spearman")
-		tlog(6,"Correlation between filtered degree and scene numbers: Kendall=",kend.cor," Spearman=",spear.cor)
+		tlog(6,"Correlation between filtered degree and scene numbers: Pearson=",pear.cor,"Kendall=",kend.cor," Spearman=",spear.cor)
+		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="filtered", suf=paste0(meas,"_vs_scenes_correlation"))
+		tlog(8,"Recording in file \"",file,"\"")
+		tab <- data.frame(pear.cor, kend.cor, spear.cor)
+		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
+		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
 	}
 }
 
