@@ -1,0 +1,4 @@
+- remplacer les noms tronqués du texte par les noms complets de la BD
+- dire qu'on remplace les pronoms par les vrais noms
+- et les pseudos par les vrais noms
+- typiquement, le résumé couvre les 10 premières pages d'un volume
