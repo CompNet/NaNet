@@ -81,6 +81,7 @@ gsl[[2]] <- gs.filt
 
 
 
+
 ################################################################################
 filts <- c(FALSE, TRUE)
 modes <- c("all", "external", "internal")
@@ -107,20 +108,20 @@ ylab["internal"] <- "Attachment probability $\\kappa(k_1 k_2)$"
 
 tlog(2,"Looping over modes (all, external, internal")
 for(mode in modes)
-{	tlog(2,"Processing mode ",mode)
+{	tlog(2,"Processing mode \"",mode,"\"")
 	
 	tlog(2,"Looping over unfiltered/filtered graphs")
 	for(f in 1:length(filts))
 	{	gs <- gsl[[f]]
 		if(filts[f])
-		{	filtered <- "filtered"
+		{	filt.txt <- "filtered"
 			col <- pal["Keep"]
 		}
 		else
-		{	filtered <-"unfiltered"
+		{	filt.txt <-"unfiltered"
 			col <- pal["Discard"]
 		}
-		tlog(4,"Processing the ",filtered," graph")
+		tlog(4,"Processing the ",filt.txt," graph")
 		
 		# focus on the middle of the period
 		t0 <- round(length(gs)*0.5)
@@ -261,9 +262,9 @@ for(mode in modes)
 		# perform NL regression
 		df <- data.frame(cut.deg, cut.cum)
 		fit <-nlsLM(cut.cum ~ c1*cut.deg^c2, 
-					start=list(c1=val1, c2=val2),
-					data=df,
-					control=list(maxiter=200))
+			start=list(c1=val1, c2=val2),
+			data=df,
+			control=list(maxiter=200))
 		print(summary(fit))
 			
 		####################################
@@ -272,7 +273,7 @@ for(mode in modes)
 		# create/complete figure
 		if(!filts[f])
 		{	# open plot file
-			plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, filtered="both", suf=paste0("pref.attach_",mode))
+			plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("pref-attach-",mode,"_vs_degree"))
 			tlog(2,"Plot in file ",plot.file)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 			# plot parameters

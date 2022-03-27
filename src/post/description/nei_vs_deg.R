@@ -21,24 +21,29 @@ start.rec.log(text="NeighVsDeg")
 
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+tlog(0,"Read the graph file: \"",graph.file,"\"")
 g <- read.graphml.file(file=graph.file)
 
 # compute values
+tlog(2,"Compute the graph degree")
 deg.vals <- degree(graph=g, mode="all")
 tmp <- igraph::knn(graph=g, weights=NULL)#, mode="all", neighbor.degree.mode="all")
 
 # filter out zero degree and NaN
+tlog(2,"Filter out zero degree nodes")
 idx <- which(!is.nan(tmp$knn) & tmp$knn>0)
 filt.nei <- tmp$knn[idx]
 filt.deg <- deg.vals[idx]
 
 # keep tail
+tlog(2,"Keep tail")
 thresholds <- quantile(filt.deg, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
 threshold <- thresholds[4]	# exp=0.48
 cut.nei <- filt.nei[filt.deg>=threshold]
 cut.deg <- filt.deg[filt.deg>=threshold]
 
 # init parameters using a linear regression
+tlog(2,"Perform regression")
 fit <- lm(log(cut.nei) ~ log(cut.deg))
 summary(fit)
 params <- fit$coefficients
@@ -49,9 +54,9 @@ val3 <- 0
 # perform NL regression
 df <- data.frame(cut.deg, cut.nei)
 fit <- nlsLM(cut.nei ~ c1*cut.deg^c2, 
-		start=list(c1=val1, c2=val2),
-		data = df,
-		control=list(maxiter=200))
+	start=list(c1=val1, c2=val2),
+	data = df,
+	control=list(maxiter=200))
 summary(fit)
 
 # plot
@@ -61,7 +66,8 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, filtered="both", suf="nei.deg_vs_degree")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
+tlog(2,"Plot in \"",plot.file,"\"")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
@@ -130,6 +136,7 @@ legend(
 
 ###############################################################################
 # add the plot for the filtered net, as an inset
+tlog(2,"Same thing for filtered net")
 
 # filter the characters
 filt.names <- V(g)$name[V(g)$Filter=="Discard"]

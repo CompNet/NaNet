@@ -18,8 +18,8 @@ start.rec.log(text="PartialExtr")
 
 
 ###############################################################################
-# represents the narrative as two distinct networks 
-tlog(0,"Extract two distinct networks for the narrative")
+# divides the narrative into two distinct networks 
+tlog(0,"Extract two distinct networks from the narrative")
 
 # load stats
 data <- read.corpus.data()
