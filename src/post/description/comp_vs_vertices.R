@@ -35,7 +35,7 @@ xlab <- "Number of vertices removed"
 
 # compute and plot
 tlog(0, "Compute values and plot basic figures")
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 res <- list()
 # remove each vertex iteratively
 tlog(4, "Removing vertices iteratively for the unfiltered graph")
@@ -63,7 +63,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Unfiltered-Size"]] <- props
 res[["Unfiltered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", suf="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="unfiltered", suf="giant-comp-size_vs_nodes")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -82,7 +82,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="unfiltered", suf="comp.nbr_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="unfiltered", suf="comp-nbr_vs_nodes")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -158,7 +158,7 @@ for(e in 1:(gorder(g0)-1))
 res[["Filtered-Size"]] <- props
 res[["Filtered-Nbr"]] <- nbrs
 # plot size results
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", suf="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="filtered", suf="giant-comp-size_vs_nodes")
 tlog(4, "Plotting largest component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -177,7 +177,7 @@ for(fformat in PLOT_FORMAT)
 	dev.off()
 }
 # plot count results
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="filtered", suf="comp.nbr_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="filtered", suf="comp-nbr_vs_nodes")
 tlog(4, "Plotting component number in file ",plot.file)
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
@@ -204,7 +204,7 @@ for(fformat in PLOT_FORMAT)
 
 # both unfiltered and filtered in the same figure
 tlog(0, "Plot figures combining unfiltered and filtered nets results")
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_DEGREE, order="publication", filtered="both", suf="giant.comp.size_vs_vertices")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="both", suf="giant-comp-size_vs_nodes")
 tlog(4, "Plotting component size in file ",plot.file)
 ylab <- "Largest component size (proportion of vertices)"
 for(fformat in PLOT_FORMAT)
@@ -230,13 +230,14 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topright",
-			fill=pal["Discard","Keep"],
+			fill=pal[c("Discard","Keep")],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()
 }
 
 tlog(4, "Plotting component number in file ",plot.file)
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="both", suf="comp-nbr_vs_nodes")
 ylab <- "Number of components"
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)
@@ -261,7 +262,7 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topleft",
-			fill=pal["Discard","Keep"],
+			fill=pal[c("Discard","Keep")],
 			legend=c("Unfiltered","Filtered")
 		)
 	dev.off()

@@ -65,7 +65,7 @@ dist.vals[[2]] <- future_sapply(gs.filt, function(g) mean_distance(graph=g, dire
 # loop over unfiltered/filtered
 tlog(0, "Loop over unfiltered/filtered graphs")
 natures <- c("unfiltered", "filtered")
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 for(i in 1:2)
 {	if(i==1)
 	{	filt.txt <- "unfiltered"
@@ -97,7 +97,7 @@ for(i in 1:2)
 	print(summary(fit))
 	
 	# plot distance as a function of graph order
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), weights="none", filtered=filt.txt, suf=paste0("evolution_",order.txt,"_lines"))
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered=filt.txt, suf=paste0("distance-average_vs_nodes_",order.txt))
 	tlog(2, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -127,7 +127,7 @@ tlog(0, "Unfiltered/filtered loop complete")
 
 ###############################################################################
 # same thing, but plots both unfiltered and filtered figures in the same file
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=paste0(MEAS_DISTANCE,SFX_AVG), weights="none", filtered="both", suf=paste0("evolution_",order.txt,"_lines"))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="both", suf=paste0("distance-average_vs_nodes_",order.txt))
 tlog(0, "Plotting both unfiltered and filtered results in file ",plot.file)
 
 # process all formats
@@ -165,7 +165,7 @@ for(fformat in PLOT_FORMAT)
 		x=x, y=y, 
 		xlab=TeX(paste0("Number of vertices $n$")),
 		ylab=TeX("Average distance $<d>$"),
-		las=1, col=pal[1],
+		las=1, col=pal["Discard"],
 		type="l"
 	)
 	# plot fitted line
@@ -201,7 +201,7 @@ for(fformat in PLOT_FORMAT)
 	plot(
 		x=x, y=y, 
 		xlab=NA, ylab=NA,
-		las=1, col=pal[2],
+		las=1, col=pal["Keep"],
 		type="l",
 		cex.lab=0.75, cex.axis=0.75, cex=0.75
 	)

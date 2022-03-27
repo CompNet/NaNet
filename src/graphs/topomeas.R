@@ -178,7 +178,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 		tmp <- igraph::knn(graph=g)#, mode="all", neighbor.degree.mode="all")	# TODO according to the plots, there's seems to be a problem here
 		xlab <- "Strength $s$"
 		ylab <- "Neighbors' average Strength $<s_{nn}>$"
-		base.name <- paste0(filename,"_nei-degree_vs_strength")
+		base.name <- paste0(filename,"_nei-strength_vs_strength")
 	}
 	else
 	{	deg.vals <- degree(graph=g, mode="all")

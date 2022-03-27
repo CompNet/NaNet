@@ -73,13 +73,15 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	{	#tlog(2,"Initializing the graph list")
 		s <- 1
 		while(scenes.ord[s]!=inter.df[is[1],COL_SCENE_ID])
-		{	tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
+		{	#tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
 			if(length(scene.chars[[scenes.ord[s]]])==0)
 				g <- make_empty_graph(n=0, directed=FALSE)
 			else if(length(scene.chars[[scenes.ord[s]]])==1)
 			{	idx <- which(char.stats[,COL_NAME]==scene.chars[[scenes.ord[s]]])
 				g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
 			}
+			g <- set_edge_attr(g, name=COL_OCCURRENCES, value=NA)
+			g <- set_edge_attr(g, name=COL_DURATION, value=NA)
 			res[[s]] <- g
 			s <- s + 1
 		}

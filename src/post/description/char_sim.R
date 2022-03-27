@@ -50,17 +50,17 @@ kept <- which(V(g)$Filter=="Keep")
 
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs <- list()
-w.name <- NA
+w.name <- "none"
 if(narr.smooth)
 {	net.type <- "narr_smooth"
-	gs[["FALSE"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
-	gs[["TRUE"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order)
+	gs[["unfiltered"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
+	gs[["filtered"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order)
 	if(weighted)
 		w.name <- "normalized"
 }else
 {	net.type <- "cumulative"
 	tlog(2,"Extracting the sequence of graphs")
-	gs[["FALSE"]] <- extract.static.graph.scenes(
+	gs[["unfiltered"]] <- extract.static.graph.scenes(
 		inter.df=data$inter.df, 
 		char.stats=char.stats, 
 		volume.stats=volume.stats, 
@@ -69,13 +69,13 @@ if(narr.smooth)
 	)
 	# possibly set weights
 	if(weighted)
-	{	gs[["FALSE"]] <- future_lapply(gs[["FALSE"]], function(g) E(g)$weight <- E(g)$Occurrences)
+	{	gs[["unfiltered"]] <- future_lapply(gs[["unfiltered"]], function(g) {E(g)$weight <- E(g)$Occurrences; return(g)})
 		w.name <- "occurrences"
 	}
 	
 	# compute the filtered version
 	tlog(2,"Same thing for filtered graphs")
-	gs[["TRUE"]] <- future_lapply(gs[["FALSE"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+	gs[["filtered"]] <- future_lapply(gs[["unfiltered"]], function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 }
 
 # scene range
@@ -99,29 +99,29 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # similarity measures
 sim.meas <- list()
-sim.meas[["cosine"]] <- list(
+sim.meas[["sim-cosine"]] <- list(
 	bounds=c(0,1),
 	cname="Cosine Similarity",
 	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sum(a[idx[r,1],]*a[idx[r,2],])/sqrt(sum(a[idx[r,1],]^2)*sum(a[idx[r,2],]^2)))}
 )
-sim.meas[["pearson"]] <- list(
+sim.meas[["sim-pearson"]] <- list(
 	bounds=c(-1,1),
 	cname="Pearson Coefficient",
 	foo=function(a,idx) {sapply(1:nrow(idx), function(r) cor(x=a[idx[r,1],], y=a[idx[r,2],]))}
 )
-sim.meas[["euclidean"]] <- list(
+sim.meas[["sim-euclidean"]] <- list(
 	bounds=c(0,NA),
 	cname="Euclidean Distance",
 	foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
 )
-#sim.meas[["regequiv"]] <- list(
+#sim.meas[["sim-regular"]] <- list(					# BEWARE: this one is extremely slow
 #	bounds=c(0,NA),
 #	cname="Regular Equivalence",
 #	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
 #)
 
 # plot parameters
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 if(wide)
 {	pw.pdf <- 15; ph.pdf <- 5
 	pw.png <- 2400; ph.png <- 800
@@ -219,7 +219,7 @@ for(m in 1:length(sim.meas))
 				if(wide)
 					draw.volume.rects(ylim, volume.stats)
 				# horizontal dotted line
-				if(names(sim.meas)[m]=="pearson")
+				if(names(sim.meas)[m]=="sim-pearson")
 					abline(h=0, lty=2)
 				# add line
 				lines(
@@ -236,18 +236,20 @@ for(m in 1:length(sim.meas))
 	
 	#####
 	# plot unfiltered and filtered values on the same plot
-	tlog(4,"Looping over the pairs of vertices")
+	tlog(4,"Plotting both unfiltered and filtered networks at once")
+	
+	tlog(5,"Looping over the pairs of vertices")
 	for(p in 1:nrow(pairs))
-	{	tlog(5,"Processing pair ",pairs[p,1],"--",pairs[p,2]," (",p,"/",nrow(pairs),")")
+	{	tlog(6,"Processing pair ",pairs[p,1],"--",pairs[p,2]," (",p,"/",nrow(pairs),")")
 		
 		# set file name
 		pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
 		plot.file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
-		tlog(6,"Creating file \"",plot.file,"\"")
+		tlog(7,"Creating file \"",plot.file,"\"")
 		
 		# compute data ranges
 		xlim <- range(sc.rg)
-		ylim <- range(c(sim.vals[[as.character(FALSE)]][,p], sim.vals[[as.character(TRUE)]][,p]), na.rm=TRUE)
+		ylim <- range(c(sim.vals[["unfiltered"]][,p], sim.vals[["filtered"]][,p]), na.rm=TRUE)
 		ylim[2] <- ylim[2]*1.1	# add some space for volume names
 		
 		# produce file
@@ -269,7 +271,7 @@ for(m in 1:length(sim.meas))
 				draw.volume.rects(ylim, volume.stats)
 			# add line
 			for(filt in c("unfiltered","filtered"))
-			{	if(filt="unfiltered")
+			{	if(filt=="unfiltered")
 					col <- pal["Discard"]
 				else
 					col <- pal["Keep"]
@@ -279,13 +281,13 @@ for(m in 1:length(sim.meas))
 				)
 			}
 			# horizontal dotted line
-			if(names(sim.meas)[m]=="pearson")
+			if(names(sim.meas)[m]=="sim-pearson")
 				abline(h=0, lty=2)
 			# legend
 			legend(
 				title="Characters",
 				x="bottomright",
-				fill=pal["Discard","Keep"],
+				fill=pal[c("Discard","Keep")],
 				legend=c("Unfiltered","Filtered")
 			)
 			# close file

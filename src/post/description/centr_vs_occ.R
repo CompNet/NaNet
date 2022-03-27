@@ -22,7 +22,7 @@ tlog(0, "Plotting centrality vs. occurrences")
 data <- read.corpus.data()
 
 # plot parameters
-pal <- get.palette(2)
+pal <- ATT_COLORS_FILT
 
 # measure names
 centr.names <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR)
@@ -110,7 +110,7 @@ for(centr.name in centr.names)
 #		summary(fit)
 
 		# plot unfiltered data
-		col <- pal[1]
+		col <- pal["Discard"]
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
@@ -183,7 +183,7 @@ for(centr.name in centr.names)
 #		summary(fit)
 		
 		# plot as an inset
-		col <- pal[2]
+		col <- pal["Keep"]
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		par(
 			fig=inlay.coords[paste0(centr.name,"_",occ.name),], 

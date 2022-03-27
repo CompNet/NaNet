@@ -36,16 +36,16 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 g.filt <- delete_vertices(g, V(g)$Filter=="Discard")
 
 # plot settings
-xlab <- "Number of edges"
 ylab <- "Largest component size (proportion of vertices)"
 
 # compute both types of weights
 tlog(0, "Compute values and plot basic figures")
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 wts <- c("Duration","Occurrences")
 res <- list()
 for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
+	xlab <- paste0("Number of edges, ordered by ",wt)
 	
 	# remove each edge iteratively
 	tlog(4, "Removing edges iteratively for the unfiltered graph")
@@ -65,7 +65,7 @@ for(wt in wts)
 	}
 	res[[paste0("Unfiltered-",wt)]] <- vals
 	# plot results
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="unfiltered", suf="evolution_lines")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="unfiltered", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -101,7 +101,7 @@ for(wt in wts)
 	}
 	res[[paste0("Filtered-",wt)]] <- vals.filt
 	# plot result
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="filtered", suf="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="filtered", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -130,8 +130,9 @@ for(wt in wts)
 tlog(0, "Plot figures combining unfiltered and filtered nets results")
 for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
+	xlab <- paste0("Number of edges, ordered by ",wt)
 	
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights=tolower(wt), order="publication", filtered="both", suf="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="both", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -157,7 +158,7 @@ for(wt in wts)
 			legend(
 				title="Characters",
 				x="bottomright",
-				fill=pal["Discard","Keep"],
+				fill=pal[c("Discard","Keep")],
 				legend=c("Unfiltered","Filtered")
 			)
 		dev.off()
@@ -165,6 +166,7 @@ for(wt in wts)
 }
 
 # both types of weights in the same figure
+xlab <- paste0("Number of edges ordered by weight")
 tlog(0, "Plot figures combining both types of weights")
 for(filtered in c(FALSE,TRUE))
 {	if(filtered)
@@ -183,7 +185,7 @@ for(filtered in c(FALSE,TRUE))
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered=filt.txt, suf="comp_vs_edges")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered=filt.txt, suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -218,7 +220,8 @@ for(filtered in c(FALSE,TRUE))
 }
 
 # all in the same figure
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_LINKWEIGHT, weights="both", order="publication", filtered="both", suf="comp_vs_edges")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered="both", suf="giant-comp-size_vs_links")
+xlab <- paste0("Number of edges ordered by weight")
 tlog(0, "Plot everything in the same file ",plot.file)
 for(fformat in PLOT_FORMAT)
 {	if(fformat==PLOT_FORMAT_PDF)
@@ -257,7 +260,7 @@ for(fformat in PLOT_FORMAT)
 		legend(
 			title="Characters",
 			x="topleft",
-			fill=pal["Discard","Keep"],
+			fill=pal[c("Discard","Keep")],
 			legend=c("Unfiltered","Filtered")
 		)
 		legend(

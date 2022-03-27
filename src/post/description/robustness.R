@@ -107,7 +107,7 @@ meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant.comp.size_vs_",meas))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
-pal <- ATT_COLORS_FILT
+pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # create plot files
 for(fformat in PLOT_FORMAT)
