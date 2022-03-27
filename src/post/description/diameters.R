@@ -88,10 +88,10 @@ el <- get.edgelist(g.filtr, names=FALSE)
 ww <- rep(1, gsize(g.filtr))
 #ww <- E(cmp)$weight
 lay.filtr <<- qgraph.layout.fruchtermanreingold(	# actually not used anymore
-		edgelist=el, 
-		vcount=gorder(g.filtr), 
-		weight=ww, 
-		area=10*(gorder(g.filtr)^2),repulse.rad=(gorder(g.filtr)^3.0)
+	edgelist=el, 
+	vcount=gorder(g.filtr), 
+	weight=ww, 
+	area=10*(gorder(g.filtr)^2),repulse.rad=(gorder(g.filtr)^3.0)
 )
 
 # get filtered edges
@@ -113,7 +113,6 @@ diam.paths <- lapply(1:nrow(idx), function(r) all_shortest_paths(graph=g.filtr, 
 
 # plot diameters
 tlog(0,"Plotting diameter paths")
-base.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold="diameters", pref="graph", suf="_diameter")
 for(pp in 1:length(diam.paths))
 {	tlog(2,"Processing vertex pair ",pp,"/",length(diam.paths))
 	if(pp==1)
@@ -123,28 +122,28 @@ for(pp in 1:length(diam.paths))
 	
 	q <- 1
 	for(p in s:length(diam.paths[[pp]]))
-	{	# plot absolutely all diameters on the same graph
+	{	# draw absolutely all diameters on the same plot
 		if(p==-1)
 		{	tlog(4,"Plotting all diameters on the same graph")
 			paths <- unlist(diam.paths, recursive=FALSE)
-			graph.file <- paste0(base.file,"s")
-			tlog(6,"Producing file ",graph.file)
+			plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold="diameters", pref="graph", suf="all_diameters")
+			tlog(6,"Producing file ",plot.file)
 			
 		}
-		# plot all diameter variants on the same graph
+		# draw all diameter variants on the same plot
 		else if(p==0)
 		{	tlog(4,"Plotting all diameter variants at once")
 			paths <- diam.paths[[pp]]
-			graph.file <- paste0(base.file,"_",pp)
-			tlog(6,"Producing file ",graph.file)
+			plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp))
+			tlog(6,"Producing file ",plot.file)
 		}
-		# plot each diameter variant separately
+		# draw each diameter variant separately
 		else
 		{	tlog(4,"Plotting diameter variant ",p,"/",length(diam.paths[[pp]]))
 			if(p==1 || !all(diam.paths[[pp]][[p]]==diam.paths[[pp]][[p-1]]))
 			{	paths <- diam.paths[[pp]][[p]]
-				graph.file <- paste0(base.file,"_",pp,"_",q)
-				tlog(6,"Producing file ",graph.file)
+				plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp,"_",q))
+				tlog(6,"Producing file ",plot.file)
 				q <- q + 1
 			}
 			else
@@ -172,9 +171,9 @@ for(pp in 1:length(diam.paths))
 		tlog(6,"Plotting all paths at once for vertex pair #",pp)
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(graph.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
+				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=40, height=40)
 			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(graph.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
+				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2000, height=2000, units="px", pointsize=20, bg="white")
 			plot(g.filtr2,
 				layout=LAYOUT[idx.keep,],	# lay.filtr
 #				vertex.size=vsizes[idx.keep], vertex.color=vcols[idx.keep],
