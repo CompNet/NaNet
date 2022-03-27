@@ -104,7 +104,7 @@ tlog.end.loop(0,"Loop over measures is complete")
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 
 # file and common parameters
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant.comp.size_vs_",meas))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant-comp-size_vs_centrality"))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]
@@ -136,9 +136,9 @@ for(fformat in PLOT_FORMAT)
 		pal["Discard"],
 		combine.colors(col1=pal["Discard"], col2="BLACK", transparency=65)
 	)
-	for(s in 1:length(ys))
+	for(s in 1:length(meass))
 	{	points(
-			x=1:gorder(g.unf)/gorder(g.unf), y=ys[[s]][["FALSE"]]/gorder(g.unf), 
+			x=1:gorder(g.unf)/gorder(g.unf), y=ys[[meass[s]]][["FALSE"]]/gorder(g.unf), 
 			col=cols[s], 
 			pch=s-1
 			# http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r
@@ -147,7 +147,7 @@ for(fformat in PLOT_FORMAT)
 	
 	# add filtered results
 	par(
-		fig=c(0.42, 0.97, 0.42, 0.97), 
+		fig=c(0.43, 0.97, 0.43, 0.97), 
 		new=TRUE,
 		mgp=c(1.5,0.5,0)
 	)
@@ -166,9 +166,9 @@ for(fformat in PLOT_FORMAT)
 		pal["Keep"],
 		combine.colors(col1=pal["Keep"], col2="BLACK", transparency=65)
 	)
-	for(s in 1:length(ys))
+	for(s in 1:length(meass))
 	{	points(
-			x=1:gorder(g.flt)/gorder(g.flt), y=ys[[s]][["TRUE"]]/gorder(g.flt), 
+			x=1:gorder(g.flt)/gorder(g.flt), y=ys[[meass[s]]][["TRUE"]]/gorder(g.flt), 
 			col=cols[s], 
 			pch=s-1,
 			cex.lab=0.75, cex.axis=0.75, cex=0.75
