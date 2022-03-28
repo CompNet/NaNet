@@ -254,6 +254,7 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 # mode: either "scenes", "panel.window", or "page.window".
 # net.type: "static", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
+# att: vertex attribute concerned.
 # meas.name: file-ready name of the measure.
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -267,7 +268,7 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
+get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -295,9 +296,6 @@ get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.s
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-#	# possibly add extra subfolder
-#	if(!is.na(subfold))
-#		folder <- file.path(folder, subfold)
 	# possibly add window size
 	if(!is.na(window.size))
 	{	folder <- file.path(folder, paste0("ws=",window.size))
@@ -308,9 +306,15 @@ get.path.stats.topo <- function(mode, net.type, order=NA, meas.name=NA, window.s
 	# possibly add overlap
 	else if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
+	# possibly add attribute name
+	if(!is.na(att))
+		folder <- file.path(folder,"attributes",att)
 	# add weight subfolder
 	if(!is.na(weights))
 		folder <- file.path(folder, "weights", weights)
+	# possibly add extra subfolder
+	if(!is.na(subfold))
+		folder <- file.path(folder, subfold)
 	# possibly add measure object
 	if(!is.na(meas.name))
 		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)

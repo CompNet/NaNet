@@ -104,7 +104,7 @@ tlog.end.loop(0,"Loop over measures is complete")
 meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, "random")
 
 # file and common parameters
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant-comp-size_vs_centrality"))
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weights="none", meas.name=MEAS_MULTI_GRAPH, filtered="both", suf=paste0("giant-comp-size_vs_centrality"))
 tlog(4, "Plotting in file ",plot.file)
 xlab <- "Proportion of vertices removed"
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]

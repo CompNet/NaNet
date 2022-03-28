@@ -273,7 +273,7 @@ for(mode in modes)
 		# create/complete figure
 		if(!filts[f])
 		{	# open plot file
-			plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("pref-attach-",mode,"_vs_degree"))
+			plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("pref-attach-",mode,"_vs_degree"))
 			tlog(2,"Plot in file ",plot.file)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 			# plot parameters

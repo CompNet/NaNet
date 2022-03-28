@@ -41,34 +41,64 @@ char.stats <- data$char.stats
 tlog(2, "All characters:")
 cnt.m <- length(which(char.stats[,"Sex"]=="Male"))
 cnt.f <- length(which(char.stats[,"Sex"]=="Female"))
+tab <- c(cnt.m,cnt.f)
 per.m <- cnt.m/nrow(char.stats)*100
 per.f <- cnt.f/nrow(char.stats)*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Proportions of: males=",per.m,", females=",per.f)
 per.m <- cnt.m/(cnt.m+cnt.f)*100
 per.f <- cnt.f/(cnt.m+cnt.f)*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+df <- data.frame(tab)
+df <- cbind(c("Male","Female"),df)
+colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
+rownames(df) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 # filtered data
 tlog(2, "Filtered data:")
-cnt.m <- length(which(char.stats[,"Sex"]=="Male" & !char.stats[,"Filtered"]))
-cnt.f <- length(which(char.stats[,"Sex"]=="Female" & !char.stats[,"Filtered"]))
-per.m <- cnt.m/length(which(!char.stats[,"Filtered"]))*100
-per.f <- cnt.f/length(which(!char.stats[,"Filtered"]))*100
+cnt.m <- length(which(char.stats[,"Sex"]=="Male" & char.stats[,"Filter"]=="Keep"))
+cnt.f <- length(which(char.stats[,"Sex"]=="Female" & char.stats[,"Filter"]=="Keep"))
+tab <- c(cnt.m,cnt.f)
+per.m <- cnt.m/length(which(char.stats[,"Filter"]=="Keep"))*100
+per.f <- cnt.f/length(which(char.stats[,"Filter"]=="Keep"))*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Proportions of: males=",per.m,", females=",per.f)
 per.m <- cnt.m/(cnt.m+cnt.f)*100
 per.f <- cnt.f/(cnt.m+cnt.f)*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+df <- data.frame(tab)
+df <- cbind(c("Male","Female"),df)
+colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
+rownames(df) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 # only named characters
 tlog(2, "Named characters:")
 cnt.m <- length(which(char.stats[,"Sex"]=="Male" & !char.stats[,"Named"]))
 cnt.f <- length(which(char.stats[,"Sex"]=="Female" & !char.stats[,"Named"]))
+tab <- c(cnt.m,cnt.f)
 per.m <- cnt.m/length(which(!char.stats[,"Named"]))*100
 per.f <- cnt.f/length(which(!char.stats[,"Named"]))*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Proportions of: males=",per.m,", females=",per.f)
 per.m <- cnt.m/(cnt.m+cnt.f)*100
 per.f <- cnt.f/(cnt.m+cnt.f)*100
+tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Normalized to consider only males and females: males=",per.m,", females=",per.f,", F/M ratio=",per.f/per.m)
+df <- data.frame(tab)
+df <- cbind(c("Male","Female"),df)
+colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
+rownames(df) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 
 
@@ -97,9 +127,14 @@ el.str.unf <- el.str[-idx.ukn,]
 tlog(6,"Numbers of edges by sex")
 tt <- table(el.str.unf[,1], el.str.unf[,2])
 print(tt)
+tab.unf <- c(t(tt)[c(1,2,4)],NA)
 tlog(6,"Same expressed as percents")
-print(tt/sum(tt)*100)
-tlog(6,"F/M Ratio: ",sum(tt["Female",])/sum(tt[,"Male"]))
+tt <- tt/sum(tt)*100
+print(tt)
+tab.unf <- cbind(tab.unf, c(t(tt)[c(1,2,4)],NA))
+ratio <- sum(tt["Female",])/sum(tt[,"Male"])
+tlog(6,"F/M Ratio: ",ratio)
+tab.unf <- cbind(tab.unf, c(NA,NA,NA,ratio))
 # filtered graph
 tlog(4,"In the filtered graph:")
 idx.rmv <- which(!(el[,1] %in% kept) | !(el[,2] %in% kept))
@@ -107,37 +142,75 @@ el.str.flt <- el.str[-union(idx.ukn,idx.rmv),]
 tlog(6,"Numbers of edges by sex")
 tt <- table(el.str.flt[,1], el.str.flt[,2])
 print(tt)
+tab.flt <- c(t(tt)[c(1,2,4)],NA)
 tlog(6,"Same expressed as percents")
-print(tt/sum(tt)*100)
-tlog(6,"F/M Ratio: ",sum(tt["Female",])/sum(tt[,"Male"]))
+tt <- tt/sum(tt)*100
+print(tt)
+tab.flt <- cbind(tab.flt, c(t(tt)[c(1,2,4)],NA))
+ratio <- sum(tt["Female",])/sum(tt[,"Male"])
+tlog(6,"F/M Ratio: ",ratio)
+tab.flt <- cbind(tab.flt, c(NA,NA,NA,ratio))
+
+# save edge stats
+tab.unf <- data.frame(tab.unf)
+tab.unf <- cbind(c("F--F","F--M","M--M","Overall"), tab.unf)
+colnames(tab.unf) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
+rownames(tab.unf) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_edges")
+tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+#
+tab.flt <- data.frame(tab.flt)
+tab.flt <- cbind(c("F--F","F--M","M--M","Overall"), tab.flt)
+colnames(tab.flt) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
+rownames(tab.flt) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_edges")
+tlog(4, "Record filtered stats in \"",tab.file,"\"")
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
+
 
 # total degree by sex
 tlog(2,"Total degree by sex")
 tlog(4,"In the unfiltered graph:")
-vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="unfiltered")
+vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered")
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 print(cnt)
-tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+tab.unf <- c(cnt,NA)
+ratio <- cnt["Female"]/cnt["Male"]
+tlog(4,"Gender Degree Ratio: ",ratio)
+tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ratio))
+#
 tlog(4,"In the filtered graph:")
-vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="filtered")
+vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered")
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 print(cnt)
-tlog(4,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+tab.flt <- c(cnt,NA)
+ratio <- cnt["Female"]/cnt["Male"]
+tlog(4,"Gender Degree Ratio: ",ratio)
+tab.flt <- cbind(tab.flt, c(NA,NA,NA,NA,ratio))
 
 # total strength by sex
 tlog(2,"Total strength by sex")
-for(w in c("occurrences","duration"))
+for(w in c("duration","occurrences"))
 {	tlog(4,"Using ",w," as weights")
+	# unfiltered
 	tlog(6,"In the unfiltered graph:")
 	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="unfiltered")
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 	print(cnt)
-	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+	tab.unf <- cbind(tab.unf, c(cnt,NA))
+	ratio <- cnt["Female"]/cnt["Male"]
+	tlog(6,"Gender Strength Ratio: ",ratio)
+	tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ratio))
+	# filtered
 	tlog(6,"In the filtered graph:")
 	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="filtered")
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 	print(cnt)
-	tlog(6,"Gender Degree Ratio: ",cnt["Female"]/cnt["Male"])
+	tab.flt <- cbind(tab.flt, c(cnt,NA))
+	ratio <- cnt["Female"]/cnt["Male"]
+	tlog(6,"Gender Strength Ratio: ",ratio)
+	tab.flt <- cbind(tab.flt, c(NA,NA,NA,NA,ratio))
 }
 
 # sex-specific density
@@ -149,6 +222,7 @@ dens.mal <- edge_density(gm)
 gf <- delete_vertices(g, V(g)$Sex!="Female")
 dens.fem <- edge_density(gf)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
+tab.unf <- cbind(tab.unf, c(dens.mal,dens.fem,NA,NA,NA))
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
 # filtered data
@@ -158,8 +232,26 @@ dens.mal <- edge_density(gm)
 gf <- delete_vertices(gf, V(gf)$Filter=="Discard")
 dens.fem <- edge_density(gf)
 tlog(6,"Density: male=",dens.mal," -- female=",dens.fem)
+tab.flt <- cbind(tab.flt, c(dens.mal,dens.fem,NA,NA,NA))
 tlog(6,"n: male=",gorder(gm)," -- female=",gorder(gf))
 tlog(6,"m: male=",gsize(gm)," (",gorder(gm)*(gorder(gm)-1)/2,") -- female=",gsize(gf)," (",gorder(gf)*(gorder(gf)-1)/2,")")
+
+# save misc stats
+tab.unf <- data.frame(tab.unf)
+tab.unf <- cbind(c("Male","Female","Mixed","Unknown","Overall"), tab.unf)
+colnames(tab.unf) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Dur","GenderStrengthRatio_Dur","TotalStrength_Occ","GenderStrengthRatio_Occ","Density")
+rownames(tab.unf) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
+tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+#
+tab.flt <- data.frame(tab.flt)
+tab.flt <- cbind(c("Male","Female","Mixed","Unknown","Overall"), tab.flt)
+colnames(tab.flt) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Dur","GenderStrengthRatio_Dur","TotalStrength_Occ","GenderStrengthRatio_Occ","Density")
+rownames(tab.flt) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
+tlog(4, "Record filtered stats in \"",tab.file,"\"")
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 
 
@@ -172,68 +264,103 @@ tlog(2,"Considering the unfiltered characters")
 sc <- data$scene.chars
 sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex)
 sc.ov.sexes <- sapply(sc.sexes, function(sx)
-		{	res <- NA
-			sx <- sx[sx!="Unknown"]
-			#print(sx)
-			if(length(sx)>0)
-			{	if(any(sx=="Mixed"))
-					res <- "Mixed"
-				else if(any(sx=="Male"))
-				{	if(any(sx=="Female"))
-						res <- "Mixed"
-					else
-						res <- "Male"
-				}
-				else
-					res <- "Female"
-			}
-			return(res)
-		})
+{	res <- NA
+	sx <- sx[sx!="Unknown"]
+	#print(sx)
+	if(length(sx)>0)
+	{	if(any(sx=="Mixed"))
+			res <- "Mixed"
+		else if(any(sx=="Male"))
+		{	if(any(sx=="Female"))
+				res <- "Mixed"
+			else
+				res <- "Male"
+		}
+		else
+			res <- "Female"
+	}
+	return(res)
+})
 tlog(4,"Numbers of scenes by sex (ignoring characters of unknown sex)")
 tt <- table(sc.ov.sexes)
 print(tt)
+tab <- c(tt)
 tlog(4,"Same expressed as percents")
-print(tt/sum(tt)*100)
+tt <- tt/sum(tt)*100
+print(tt)
+tab <- cbind(tab, tt)
+tab <- data.frame(tab)
+tab <- cbind(rownames(tab), tab)
+colnames(tab) <- c("Sex","Count","FM_Proportion")
+rownames(tab) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 # scenes with only women (more than one)
-idx <- which(sc.ov.sexes=="Female" & sapply(sc.sexes, function(c) length(which(c=="Female"))>1))
-tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
-colnames(tab)[ncol(tab)] <- "Characters"
+###### generate the file to store annotations
+#idx <- which(sc.ov.sexes=="Female" & sapply(sc.sexes, function(c) length(which(c=="Female"))>1))
+#tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
+#colnames(tab)[ncol(tab)] <- "Characters"
 #write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
+#tlog(4,"In the annotated file, TRUE means 'the females talk about a male';FALSE means 'the females do not talk about a male'"; and 'NA' means 'the females do not talk at all'.)
+###### read the annotated file
 tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
+######
 tlog(4,"Bechdel test by scene:")
 tt <- table(tab2[,"Annotation"], useNA="always")
 print(tt)
+tab <- c(tt)
 tlog(4,"Same expressed as percents:")
-print(tt/sum(tt)*100)
+tt <- tt/sum(tt)*100
+print(tt)
+tab <- cbind(tab,c(tt))
+tab <- data.frame(tab)
+tab <- cbind(c("Success","Fail","NA"),tab)
+colnames(tab) <- c("BechdelTest","Count","Proportion")
+rownames(tab) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 tlog(2,"Considering the filtered characters")
 # number of scenes by sex
 sc <- data$scene.chars
 sc.sexes <- lapply(sc, function(chars) if(length(chars)==0) c() else V(g)[chars]$Sex[!V(g)[chars]$Filter=="Discard"])
 sc.ov.sexes <- sapply(sc.sexes, function(sx)
-		{	res <- NA
-			sx <- sx[sx!="Unknown"]
-			#print(sx)
-			if(length(sx)>0)
-			{	if(any(sx=="Mixed"))
-					res <- "Mixed"
-				else if(any(sx=="Male"))
-				{	if(any(sx=="Female"))
-						res <- "Mixed"
-					else
-						res <- "Male"
-				}
-				else
-					res <- "Female"
-			}
-			return(res)
-		})
+{	res <- NA
+	sx <- sx[sx!="Unknown"]
+	#print(sx)
+	if(length(sx)>0)
+	{	if(any(sx=="Mixed"))
+			res <- "Mixed"
+		else if(any(sx=="Male"))
+		{	if(any(sx=="Female"))
+				res <- "Mixed"
+			else
+				res <- "Male"
+		}
+		else
+			res <- "Female"
+	}
+	return(res)
+})
 tlog(4,"Numbers of scenes by sex (ignoring characters of unknown sex)")
 tt <- table(sc.ov.sexes)
 print(tt)
+tab <- c(tt)
 tlog(4,"Same expressed as percents")
-print(tt/sum(tt)*100)
+tt <- tt/sum(tt)*100
+print(tt)
+tab <- cbind(tab, tt)
+tab <- data.frame(tab)
+tab <- cbind(rownames(tab), tab)
+colnames(tab) <- c("Sex", "Count", "FM_Proportion")
+rownames(tab) <- NULL
+tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+
 # NOTE: no sense in doing Bechdel for filtered chars, as it requires 
 # ignoring certain characters actively taking part in the scene
 
@@ -246,10 +373,21 @@ tlog(0,"Homophily by sex")
 gs <- delete_vertices(g, V(g)$Sex!="Female" & V(g)$Sex!="Male")
 ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
 tlog(0,"Unfiltered network: ",ass.unf)
+tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ass.unf))
+colnames(tab.unf)[ncol(tab.unf)] <- "Homophily"
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
+tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+
 # filtered net
 gs <- delete_vertices(gs, V(gs)$Filter=="Discard")
-ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
-tlog(0,"Filtered network: ",ass.unf)
+ass.flt <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FALSE)
+tlog(0,"Filtered network: ",ass.flt)
+tab.flt <- cbind(tab.flt, c(NA,NA,NA,NA,ass.flt))
+colnames(tab.flt)[ncol(tab.flt)] <- "Homophily"
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
+tlog(4, "Record filtered stats in \"",tab.file,"\"")
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 
 
@@ -263,8 +401,20 @@ col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)
 tlog(0,"Unfiltered network:")
 tt <- table(col.tris)
 print(tt)
+tab <- c(tt)
 # same as proportions
-print(tt/sum(tt)*100)
+tt <- tt/sum(tt)*100
+print(tt)
+tab <- cbind(tab, c(tt))
+# record
+tab <- data.frame(tab)
+tab <- cbind(rownames(tab), tab)
+colnames(tab) <- c("Sex", "Count", "FM_Proportion")
+rownames(tab) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_triangles")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+
 
 # filtered net
 gs <- delete_vertices(gs, V(gs)$Filter=="Discard")
@@ -273,8 +423,19 @@ col.tris <- sapply(1:(length(tris)/3), function(t) paste(sort(tris[(t*3-2):(t*3)
 tlog(0,"Unfiltered network:")
 tt <- table(col.tris)
 print(tt)
+tab <- c(tt)
 # same as proportions
-print(tt/sum(tt)*100)
+tt <- tt/sum(tt)*100
+print(tt)
+tab <- cbind(tab, c(tt))
+# record
+tab <- data.frame(tab)
+tab <- cbind(rownames(tab), tab)
+colnames(tab) <- c("Sex", "Count", "FM_Proportion")
+rownames(tab) <- NULL
+tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_triangles")
+tlog(4, "Record in \"",tab.file,"\"")
+write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 
 
 
@@ -312,9 +473,13 @@ for(m in 1:length(meas.names))
 {	meas.name <- meas.names[m]
 	tlog(2,"Dealing with measure ",meas.name," (",m,"/",length(meas.names),")")
 	
+	# init result matrix
+	tab <- data.frame(matrix(NA,ncol=4,nrow=0))
+	colnames(tab) <- c("Network","TestName","Stat","P-value")
+	
 	# load precomputed data for unfiltered net
 	tlog(4,"Loading pre-computed unfiltered values")
-	vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="unfiltered")
+	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="unfiltered")
 	data.unf <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -328,20 +493,28 @@ for(m in 1:length(meas.names))
 	tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (similar means) is rejected")
 	# compare distributions
 	if(meas.name %in% c(MEAS_DEGREE, MEAS_BETWEENNESS))
-	{	#tmp <- chisq.test(x=data.unf[["Male"]], y=data.unf[["Female"]])
+	{	test.name <- "Permutation"
+		#tmp <- chisq.test(x=data.unf[["Male"]], y=data.unf[["Female"]])
 		tmp <- permTS(x=data.unf[["Male"]], y=data.unf[["Female"]], method="exact.mc", control=permControl(nmc=10^4-1))
-		tlog(6,"Comparing Male vs. Female distributions with the permutation test: D=",tmp$statistic," p=",tmp$p.value)
+		stat <- tmp$statistic; if(is.null(stat)) stat <- NA
+		pval <- tmp$p.value
+		tlog(6,"Comparing Male vs. Female distributions with the permutation test: D=",stat," p=",pval)
 		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
 	}
 	else
-	{	tmp <- ks.test(data.unf[["Male"]],data.unf[["Female"]])
-		tlog(6,"Comparing Male vs. Female distributions with the KS test: D=",tmp$statistic," p=",tmp$p.value)
+	{	test.name <- "Kolmogorov-Smirnov"
+		tmp <- ks.test(data.unf[["Male"]],data.unf[["Female"]])
+		stat <- tmp$statistic
+		pval <- tmp$p.value
+		tlog(6,"Comparing Male vs. Female distributions with the KS test: D=",stat," p=",pval)
 		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
 	}
+	df <- data.frame("Unfiltered",test.name,stat,pval);colnames(df) <- colnames(tab)
+	tab <- rbind(tab, df)
 	
 	# load precomputed data for filtered net
 	tlog(4,"Loading pre-computed filtered values")
-	vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered="filtered")
+	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="filtered")
 	data.flt <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -355,19 +528,31 @@ for(m in 1:length(meas.names))
 	tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (similar means) is rejected")
 	# compare distributions
 	if(meas.name %in% c(MEAS_DEGREE, MEAS_BETWEENNESS))
-	{	#tmp <- chisq.test(x=data.unf[["Male"]], y=data.unf[["Female"]])
+	{	test.name <- "Permutation"
+		#tmp <- chisq.test(x=data.unf[["Male"]], y=data.unf[["Female"]])
 		tmp <- permTS(x=data.flt[["Male"]], y=data.flt[["Female"]], method="exact.mc", control=permControl(nmc=10^4-1))
-		tlog(6,"Comparing Male vs. Female distributions with the permutation test: D=",tmp$statistic," p=",tmp$p.value)
+		stat <- tmp$statistic; if(is.null(stat)) stat <- NA
+		pval <- tmp$p.value
+		tlog(6,"Comparing Male vs. Female distributions with the permutation test: D=",stat," p=",pval)
 		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
 	}
 	else
-	{	tmp <- ks.test(data.flt[["Male"]],data.flt[["Female"]])
-		tlog(6,"Comparing Male vs. Female distributions with the KS test: D=",tmp$statistic," p=",tmp$p.value)
+	{	test.name <- "Kolmogorov-Smirnov"
+		tmp <- ks.test(data.flt[["Male"]],data.flt[["Female"]])
+		stat <- tmp$statistic
+		pval <- tmp$p.value
+		tlog(6,"Comparing Male vs. Female distributions with the KS test: D=",stat," p=",pval)
 		tlog(8,"Reminder: small p (eg. p<0.05) means that the null hypothesis (distributions are similar) is rejected")
 	}
+	df <- data.frame("Filtered",test.name,stat,pval);colnames(df) <- colnames(tab)
+	tab <- rbind(tab, df)
+	
+	# record test results
+	test.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="comparison_test")
+	write.csv(x=tab, file=paste0(test.file,".csv"), row.names=FALSE)
 	
 	# set params
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas.name, filtered="both", suf="_by.sex")
+	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="ccdf")
 	#ml <- paste0(ALL_MEASURES[[meas.name]]$cname, " distribution")
 	xl <- paste0(ALL_MEASURES[[meas.name]]$cname)
 	
@@ -446,8 +631,8 @@ tlog(0,"Plotting transitivity vs. degree")
 
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed unfiltered values")
-deg.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="unfiltered")
-tra.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="unfiltered")
+deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered")
+tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="unfiltered")
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
@@ -496,7 +681,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree.by.sex")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
@@ -544,8 +729,8 @@ legend(
 ####
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed filtered values")
-deg.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=MEAS_DEGREE, filtered="filtered")
-tra.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="filtered")
+deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered")
+tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="filtered")
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
@@ -669,7 +854,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei.deg.vs_degree.by.sex")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
