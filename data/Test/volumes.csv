@@ -1,4 +1,4 @@
-Volume,StartPage,EndPage,Pages,Title,Month,Year,Arc
-1,1,3,3,"Premier volume",01,1900,"Arc 1"
-2,4,6,3,"Second volume",02,1900,"Arc 1"
-3,4,5,2,"Troisième volume",03,1900,"Arc 2"
+Series,Volume,StartPage,EndPage,Pages,Title,Month,Year,Arc,Rank
+Test,1,1,3,3,"First volume",01,1900,"Arc 1",2
+Test,2,4,6,3,"Second volume",02,1900,"Arc 1",1
+Test,3,4,5,2,"Third volume",03,1900,"Arc 2",3

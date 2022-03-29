@@ -1,7 +1,7 @@
-Name,ShortName,Sex,Color
-A,Aa,M,R
-B,Bb,F,G
-C,Cc,M,B
-D,Dd,F,R
-E,Ee,M,G
-F,Ff,F,B
+Name,ShortName,Sex,Color,Named
+A,Aa,M,R,TRUE
+B,Bb,F,G,TRUE
+C,Cc,M,B,TRUE
+D,Dd,F,R,FALSE
+E,Ee,M,G,TRUE
+F,Ff,F,B,TRUE

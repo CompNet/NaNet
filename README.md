@@ -62,11 +62,11 @@ In order to extract the networks from the raw data, compute the statistics, and 
 
 1. Open the `R` console.
 2. Set the current directory as the working directory, using `setwd("<my directory>")`.
-3. Run the main script `src/main.R`.
+3. Run the main script `src/dev_main.R`.
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)] (note that this will take a while).
+The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1](https://github.com/CompNet/NaNet/releases/tag/v1) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/...) **(not available yet)**. 
 
 
 # Dependencies
