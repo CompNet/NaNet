@@ -36,6 +36,7 @@ tlog(0,"Producing weight distribution plots")
 meas <- c(MEAS_LINKWEIGHT)
 wts <- c("duration","occurrences")
 # process each type of weight	
+tlog(2,"Looping over weight types")
 for(wt in wts)
 {	tlog(4,"Dealing with weight ",wt)
 	
@@ -52,7 +53,6 @@ for(wt in wts)
 	names(data) <- c("Unfiltered","Filtered")
 	
 	# set params
-	file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="distrib")
 	pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 	ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution (",wt,")")
 	xl <- paste0(ALL_MEASURES[[meas]]$cname," (",wt,")")
@@ -73,6 +73,8 @@ for(wt in wts)
 	print(pl)
 	
 	# plot distributions
+	file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="distrib_ccdf")
+	tlog(6,"Plotting in file \"",file,"\"")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
 			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")

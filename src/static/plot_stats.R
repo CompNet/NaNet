@@ -61,7 +61,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, meas
 
 
 ###############################################################################
-# Loads a series corresponding to the specified parameters.
+# Loads a value corresponding to the specified parameters.
 #
 # weights: either "occurrences" or "duration".
 # measure: name of the concerned topological measure.
