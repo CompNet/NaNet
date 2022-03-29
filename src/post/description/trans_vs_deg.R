@@ -18,12 +18,14 @@ start.rec.log(text="TransVsDeg")
 
 ###############################################################################
 # compute the unfiltered data
+tlog(0, "Plotting transitivity vs. degree")
 
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 
 # compute values
+tlog(2, "Computing values for unfiltered data")
 deg.vals <- degree(graph=g, mode="all")
 tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
 
@@ -40,6 +42,7 @@ cut.tra <- filt.tra[filt.deg>=threshold]
 cut.deg <- filt.deg[filt.deg>=threshold]
 
 # init parameters using a linear regression
+tlog(2, "Performing regression on unfiltered data")
 fit <- lm(log(cut.tra) ~ log(cut.deg))
 summary(fit)
 params <- fit$coefficients
@@ -62,7 +65,8 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
+plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weight="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
+tlog(2, "Plotting in file \"",plot.file,"\"")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
 	mar=c(4,4,0,0)+0.1,	# remove the title space Bottom Left Top Right
@@ -130,11 +134,13 @@ legend(
 # add the plot for the filtered net, as an inset
 
 # filter the characters
+tlog(2, "Filtering characters")
 filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 g <- delete_vertices(g, V(g)$Filter=="Discard")
 
 # compute values
+tlog(2, "Computing values for filtered data")
 deg.vals <- degree(graph=g, mode="all")
 tra.vals <- transitivity(graph=g, type="local", weights=NA, isolates="zero")
 
@@ -151,6 +157,7 @@ cut.tra <- filt.tra[filt.deg>=threshold]
 cut.deg <- filt.deg[filt.deg>=threshold]
 
 # init parameters using a linear regression
+tlog(2, "Performing regression on filtered data")
 fit <- lm(log(cut.tra) ~ log(cut.deg))
 summary(fit)
 params <- fit$coefficients
@@ -167,6 +174,7 @@ fit <- nlsLM(cut.tra ~ c1*cut.deg^c2,
 summary(fit)
 
 # plot as an inset
+tlog(2, "Adding to plot")
 col <- pal["Keep"]
 col.sec <- combine.colors(col, "WHITE", transparency=20)
 par(
