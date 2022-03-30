@@ -8,7 +8,7 @@ NaNet is free software: you can redistribute it and/or modify it under the terms
 
 * Lab site: http://lia.univ-avignon.fr/
 * GitHub repo: https://github.com/CompNet/NaNet
-* Data: https://doi.org/... **(not available yet)**
+* Data: https://doi.org/10.5281/zenodo.6395874
 * Contact: Vincent Labatut <vincent.labatut@univ-avignon.fr>
 
 -----------------------------------------------------------------------
@@ -24,7 +24,9 @@ The script does the following:
 
 
 # Data
-The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Zenodo](https://doi.org/...) **(not available yet)**.
+The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
+
+![ThorgalStaticNet](/data/Thorgal/network.svg)
 
 
 # Organization
@@ -66,7 +68,7 @@ In order to extract the networks from the raw data, compute the statistics, and 
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1](https://github.com/CompNet/NaNet/releases/tag/v1) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/...) **(not available yet)**. 
+The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1](https://github.com/CompNet/NaNet/releases/tag/v1) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6395875). 
 
 
 # Dependencies
