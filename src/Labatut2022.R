@@ -24,7 +24,7 @@ SERIES <- "Thorgal"
 
 ###############################################################################
 # load scripts
-source("src/common/include.R")
+source("src/common/_include.R")
 
 # start logging
 start.rec.log(text=SERIES)

@@ -46,7 +46,7 @@
 # Used by zeta_function_once.gsl
 #zeta_function_filename <- "~/bin/zeta_function"
 ### TODO EDIT THIS LOCATION!!! ####
-zeta_function_filename <- "res/pli/zeta_func.exe"
+zeta_function_filename <- "res/common/stats/pli/zeta_func.exe"
 
 
 

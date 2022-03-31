@@ -9,7 +9,7 @@
 # source("src/post/description/centr_vs_occ.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="CentrVsOcc")
 
 

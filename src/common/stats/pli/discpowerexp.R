@@ -30,7 +30,7 @@
 # invoked by discpowerexp.norm, below
 #discpowerexp.filename <- "~/bin/discpowerexp"
 ### TODO EDIT THE FILE LOCATION TO GIVE CORRECT PATH ON YOUR SYSTEM!
-discpowerexp.filename <- "res/pli/discpowerexp.exe"
+discpowerexp.filename <- "res/common/stats/pli/discpowerexp.exe"
 
 
 

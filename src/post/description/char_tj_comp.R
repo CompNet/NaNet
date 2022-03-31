@@ -8,7 +8,7 @@
 # source("src/post/description/char_tj_comp.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="CharComp")
 
 

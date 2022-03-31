@@ -9,7 +9,7 @@
 #  2) add to path (C:\MinGW\bin, C:\MinGW\msys\1.0\bin)
 #  3) open terminal, go to C code folder
 #  4) compile simple C file: gcc discpowerexp.c -o discpowerexp.exe
-#  5) move resulting executable file to res/pli folder
+#  5) move resulting executable file to res/common/stats/pli folder
 #  6) edit path variable in R file discpowerexp.R
 #  7) download and install GSL http://gnuwin32.sourceforge.net/packages/gsl.htm
 #  8) add to path (D:\MinGW\GSL\bin, D:\MinGW\GSL\include, D:\MinGW\GSL\lib)
@@ -23,20 +23,20 @@
 ########################################################
 library("poweRlaw")
 
-source("src/pli/discexp.R")
-source("src/pli/disclnorm.R")
-source("src/pli/discpowerexp.R")
-source("src/pli/discweib.R")
-source("src/pli/exp.R")
-source("src/pli/lnorm.R")
-source("src/pli/pareto.R")
-source("src/pli/poisson.R")
-source("src/pli/powerexp.R")
-source("src/pli/powerexp-exponential-integral.R")
-source("src/pli/power-law-test.R")
-source("src/pli/weibull.R")
-source("src/pli/yule.R")
-source("src/pli/zeta.R")
+source("src/common/stats/pli/discexp.R")
+source("src/common/stats/pli/disclnorm.R")
+source("src/common/stats/pli/discpowerexp.R")
+source("src/common/stats/pli/discweib.R")
+source("src/common/stats/pli/exp.R")
+source("src/common/stats/pli/lnorm.R")
+source("src/common/stats/pli/pareto.R")
+source("src/common/stats/pli/poisson.R")
+source("src/common/stats/pli/powerexp.R")
+source("src/common/stats/pli/powerexp-exponential-integral.R")
+source("src/common/stats/pli/power-law-test.R")
+source("src/common/stats/pli/weibull.R")
+source("src/common/stats/pli/yule.R")
+source("src/common/stats/pli/zeta.R")
 
 
 

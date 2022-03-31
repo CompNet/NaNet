@@ -57,7 +57,7 @@ page.overlaps <- lapply(page.window.sizes, function(size) 0:(size-1))	# 210 netw
 
 ###############################################################################
 # load scripts
-source("src/common/include.R")
+source("src/common/_include.R")
 
 # start logging
 start.rec.log(text=SERIES)

@@ -8,7 +8,7 @@
 # source("src/post/description/sex_stats.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="SexStats")
 
 

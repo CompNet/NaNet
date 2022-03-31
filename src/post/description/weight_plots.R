@@ -10,7 +10,7 @@
 # source("src/post/description/weight_plots.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="WeightDistr")
 
 

@@ -10,7 +10,7 @@
 # source("src/post/description/comp_vs_vertices.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="CompVsVertices")
 
 

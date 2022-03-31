@@ -10,7 +10,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/centr_chars.R")
 ###############################################################################
-source("src/common/include.R")
+source("src/common/_include.R")
 library("stringr")
 
 

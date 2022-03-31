@@ -51,12 +51,12 @@ You first need to install `R` and the required packages:
 3. Install the required packages: 
    1. Open the `R` console.
    2. Set the unzipped directory as the working directory, using `setwd("<my directory>")`.
-   3. Run the install script `src/install.R` (that may take a while).
+   3. Run the install script `src/_install.R` (that may take a while).
 
-A part of the analysis requires to compile some C code. The main instructions are in `src\pli\README.txt`, then follow the instructions in the following files (look for the TODOs):
-1. `src\pli\zeta.R/`: concerns the files in folder `src\pli\zeta-function`.
-2. `src\pli\powerexp.R`: concerns the files in folder `src\pli\exponential-integral`.
-3. `src\pli\discpowerexp.R`: concerns the file in folder `\src\pli\discpowerexp`.
+A part of the analysis requires to compile some `C` code. The main instructions are in `src/common/stats/pli/README.txt`, then follow the instructions in the following files (look for the TODOs):
+1. `src/common/stats/pli/zeta.R/`: concerns the files in folder `src/common/stats/pli/zeta-function`.
+2. `src/common/stats/pli/powerexp.R`: concerns the files in folder `src/common/stats/pli/exponential-integral`.
+3. `src/common/stats/pli/discpowerexp.R`: concerns the file in folder `\src/common/stats/pli/discpowerexp`.
 
 
 # Use

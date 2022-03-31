@@ -9,7 +9,7 @@
 ###############################################################################
 SERIES <- "Thorgal"
 library("blockmodeling")
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="CharSim")
 
 
