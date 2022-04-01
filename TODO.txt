@@ -97,3 +97,4 @@ TODO
 - mutualize distribution plots
   - put common processing in single function
   - systematically produce histos and ccdf, distinguish file names with suffixes 
+- clean graph plot function, using gradient legend (cf. medieval project)
