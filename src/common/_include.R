@@ -68,13 +68,12 @@ PLOT_FORMAT <- c(
 # load auxiliary functions
 
 source("src/common/logging.R")
-source("src/common/colors.R")
 source("src/common/strings.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
-source("src/common/plot_graphs.R")
 
 source("src/graphs/graphs/_graphs_misc.R")
+source("src/common/plots/plot_stats.R")
 source("src/common/stats/_stats_misc.R")
 
 source("src/measures/measures.R")
