@@ -11,7 +11,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/comparison/comp_proc_Rochat2017_expl.R")
 ###############################################################################
-source("src/common/distr_test.R")
+source("src/common/stats/distr_test.R")
 
 
 

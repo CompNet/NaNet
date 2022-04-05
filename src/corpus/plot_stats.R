@@ -60,33 +60,14 @@ plot.stats.panel <- function(
 	data <- panel.stats[,COL_CHARS]
 	ml <- "Character number distribution over panels"
 	xl <- "Number of characters by panel"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		breaks=0:max(data), 
+		log=TRUE, cols=col, 
+		file=file,
+		histo=TRUE, ccdf=FALSE, test=FALSE
+	)
 	
 	# distribution of panel positions
 	vals <- c()

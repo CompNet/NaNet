@@ -1,11 +1,11 @@
 #############################################################################################
 # Install all the packages necessary to these scripts.
 # 
-# See also src/common/distr_test.R to compile the C programs required for power law fitting.
+# See also src/common/stats/distr_test.R to compile the C programs required for power law fitting.
 # 
 # 09/2019 Vincent Labatut
 #
-# source("src/install.R")
+# source("src/_install.R")
 #############################################################################################
 
 
