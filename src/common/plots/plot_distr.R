@@ -30,14 +30,20 @@
 plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols, main=NA, leg.title=NA, leg.pos="topright", las=1, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
 {	# plot histo
 	if(histo)
-	{	plot.bars(
+	{	# set file name
+		if(is.na(file))
+			ffile <- NA
+		else
+			ffile <- paste0(file,"_histo")
+		# make plot
+		plot.bars(
 			vals=vals, breaks=breaks, 
 			xlab=xlab, main=main, 
 			cols=cols, 
 			freq=FALSE, beside=TRUE, 
 			leg.title=leg.title, leg.pos=leg.pos, 
 			las=las,
-			file=paste0(file,"_histo")
+			file=ffile
 		)
 	}
 	
@@ -48,14 +54,19 @@ plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 			data <- list(vals)
 		else
 			data <- lapply(1:ncol(vals), function(c) vals[,c])
-		# plot
+		# set file name
+		if(is.na(file))
+			ffile <- NA
+		else
+			ffile <- paste0(file,"_ccdf")
+		# make plot
 		plot.ccdf(
 			data=data, 
 			xlab=xlab, main=main, 
 			log=TRUE, cols=cols,
 			leg.title=leg.title, leg.pos=leg.pos,
 			las=las,
-			file=paste0(file,"_ccdf")
+			file=ffile
 		)
 	}
 	
@@ -83,28 +94,44 @@ plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 # test: whether to fit standard distribution to the values.
 #############################################################
 plot.cont.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, col, main=NA, las=1, file, histo=TRUE, ccdf=TRUE, test=FALSE)
-{	
-	# plot histo
+{	# plot histo
 	if(histo)
-	{	plot.hist(
+	{	# set file name
+		if(is.na(file))
+			ffile <- NA
+		else
+			ffile <- paste0(file,"_histo")
+		# make plot
+		plot.hist(
 			vals=vals, breaks=breaks, 
 			xlab=xlab, main=main, 
 			col=col, 
 			freq=FALSE, 
 			points=FALSE, line=FALSE,
 			las=las,
-			file=paste0(file,"_histo")
+			file=ffile
 		)
 	}
 	
 	# plot ccdv
 	if(ccdf)
-	{	plot.ccdf(
+	{	# set file name
+		if(is.na(file))
+			ffile <- NA
+		else
+			ffile <- paste0(file,"_ccdf")
+		# prepare data
+		if(is.null(dim(vals)))
+			data <- list(vals)
+		else
+			data <- lapply(1:ncol(vals), function(c) vals[,c])
+		# make plot
+		plot.ccdf(
 			data=vals, 
 			xlab=xl, ylab="default", main=main, 
 			log=TRUE, cols=col,
 			las=las,
-			file=paste0(file,"_ccdf")
+			file=ffile
 		)
 	}
 	
