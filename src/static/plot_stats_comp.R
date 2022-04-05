@@ -736,17 +736,17 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps)
 							}
 							# add color legend
 							legend(
-									x="topright", 
-									fill=cols, 
-									legend=common.overlaps, 
-									title="Overlap"
+								x="topright", 
+								fill=cols, 
+								legend=common.overlaps, 
+								title="Overlap"
 							)
 							# add line legend
 							legend(
-									x="bottomright",
-									lty=c(2,3),
-									legend=c("Occurrences","Duration"),
-									title="Scene-Based"
+								x="bottomright",
+								lty=c(2,3),
+								legend=c("Occurrences","Duration"),
+								title="Scene-Based"
 							)
 						dev.off()
 				}
