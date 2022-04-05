@@ -3,6 +3,8 @@
 # using foreach (parallel processing), since each worker must load all these dependencies.
 # 
 # 02/2019 Vincent Labatut
+#
+# source("src/common/_include.R")
 #############################################################################################
 # load libraries
 source <- function(file) {eval(parse(file, encoding="UTF-8"),envir=.GlobalEnv)}	# allows solving encoding problems on Windows systems
@@ -68,13 +70,12 @@ PLOT_FORMAT <- c(
 # load auxiliary functions
 
 source("src/common/logging.R")
-source("src/common/colors.R")
 source("src/common/strings.R")
 source("src/common/file_system.R")
 source("src/common/table_cols.R")
-source("src/common/plot_graphs.R")
 
-source("src/graphs/graphs/_graphs_misc.R")
+source("src/common/graphs/_graphs_misc.R")
+source("src/common/plots/_plot_misc.R")
 source("src/common/stats/_stats_misc.R")
 
 source("src/measures/measures.R")
