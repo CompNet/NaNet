@@ -68,6 +68,18 @@ C_YUSIM_CLR <- "YuleSimon_cmp_LR"; C_DISTR <- c(C_DISTR, C_YUSIM_CLR)
 C_YUSIM_CPVAL <- "YuleSimon_cmp_pval"; C_DISTR <- c(C_DISTR, C_YUSIM_CPVAL)
 C_DECISION <- "Decision"; C_DISTR <- c(C_DISTR, C_DECISION)
 
+# colors
+C_COLORS <- c(
+	"Power law"="BLUE",   
+	"Truncated Power Law"="RED", 
+	"Log-normal law"="GREEN", 
+	"Exponential law"="ORANGE", 
+	"Weibull Law"="PURPLE", 
+	"Poisson law"="MAGENTA", 
+	"Yule-Simon Law"="CHOCOLATE"
+)
+
+
 
 
 #############################################################################################
@@ -116,7 +128,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 			col="BLACK",
 			xlab=xlab, ylab="Probability Density"
 		)
-		lines(power.law, col="BLUE", lwd=2)
+		add.line.plot(data=data, model=power.law, col=C_COLORS["Power Law"], lwd=2)
 	}
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
@@ -143,7 +155,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	foos[["Log-Normal Law"]] <- log.normal
 	# possibly plot model
 	if(!is.na(plot.file))
-		lines(log.normal, col="GREEN", lwd=2)
+		add.line.plot(data=data, model=log.normal, col=C_COLORS["Log-Normal Law"], lwd=2)
 	comp.ln <- compare_distributions(power.law, log.normal)
 	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
@@ -169,7 +181,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	foos[["Exponential Law"]] <- exp.law
 	# possibly plot model
 	if(!is.na(plot.file))
-		lines(exp.law, col="ORANGE", lwd=2)
+		add.line.plot(data=data, model=exp.law, col=C_COLORS["Exponential Law"], lwd=2)
 	comp.el <- compare_distributions(power.law, exp.law)
 	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
@@ -199,7 +211,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 		foos[["Weibull Law"]] <- weib.law
 		# possibly plot model
 		if(!is.na(plot.file))
-			lines(weib.law, col="PURPLE", lwd=2)
+			add.line.plot(data=data, model=weib.law, col=C_COLORS["Weibull Law"], lwd=2)
 		weib.el <- tryCatch(expr=compare_distributions(power.law, weib.law),
 				error=function(e) NA)
 		if(all(is.na(weib.el)))
@@ -223,10 +235,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 			foos[["Weibull Law"]] <- weib.law2
 			# possibly plot model
 			if(!is.na(plot.file))
-			{	x <- seq(weib.law2$xmin, max(data), (max(data)-weib.law2$xmin)/100)
-				y <- 1 - pweibull.tail(x=x, shape=weib.law2$shape, scale=weib.law2$scale, threshold=weib.law2$xmin)
-				lines(x, y, col="PURPLE", lwd=2)
-			}
+				add.line.plot(data=data, model=weib.law2, col=C_COLORS["Weibull Law"], lwd=2)
 		}
 		weib.el2 <- vuong(pareto.weibull.llr(x=data, pareto.d=power.law2, weibull.d=weib.law2))
 		msg <- paste0("Alt. Test statistic: ",weib.el2$loglike.ratio, " p-value: ", weib.el2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
@@ -255,10 +264,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	{	foos[["Truncated Power Law"]] <- trunc.law2
 		# possibly plot model
 		if(!is.na(plot.file))
-		{	x <- seq(trunc.law2$xmin, max(data), (max(data)-trunc.law2$xmin)/100)
-			y <- 1 - ppowerexp(x=x, exponent=trunc.law2$exponent, rate=trunc.law2$rate, threshold=trunc.law2$xmin)
-			lines(x, y, col="RED", lwd=2)
-		}
+			add.line.plot(data=data, model=trunc.law2, col=C_COLORS["Truncated Power Law"], lwd=2)
 		msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
 		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
@@ -363,7 +369,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 			col="BLACK",
 			xlab=xlab, ylab="Probability Density"
 		)
-		lines(power.law, col="BLUE", lwd=2)
+		add.line.plot(data=data, model=power.law, col=C_COLORS["Power Law"], lwd=2)
 	}
 	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
@@ -387,9 +393,9 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	log.normal$setXmin(power.law$getXmin())	# set min x based on power law
 	est <- estimate_pars(log.normal)		# estimate parameters
 	log.normal$setPars(est)
-	foos[["Log-Normal Law"]] <- log.normal
+	foos[[""]] <- log.normal
 	if(!is.na(plot.file))					# possibly plot model
-		lines(log.normal, col="GREEN", lwd=2)
+		add.line.plot(data=data, model=log.normal, col=C_COLORS["Log-Normal Law"], lwd=2)
 	comp.ln <- compare_distributions(power.law, log.normal)
 	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
@@ -413,7 +419,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	exp.law$setPars(est)
 	foos[["Exponential Law"]] <- exp.law
 	if(!is.na(plot.file))					# possibly plot model
-		lines(exp.law, col="ORANGE", lwd=2)
+		add.line.plot(data=data, model=exp.law, col=C_COLORS["Exponential Law"], lwd=2)
 	comp.el <- compare_distributions(power.law, exp.law)
 	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
@@ -437,7 +443,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	pois.law$setPars(est)
 	foos[["Poisson Law"]] <- pois.law
 	if(!is.na(plot.file))					# possibly plot model
-		lines(pois.law, col="PURPLE", lwd=2)
+		add.line.plot(data=data, model=pois.law, col=C_COLORS["Poisson Law"], lwd=2)
 	comp.pl <- compare_distributions(power.law, pois.law)
 	msg <- paste0("Test statistic: ",comp.pl$test_statistic, " p-value: ", comp.pl$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_POIS_CLR] <- comp.pl$test_statistic
@@ -468,10 +474,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	{	foos[["Weibull Law"]] <- weib.law2
 		# possibly plot model
 		if(!is.na(plot.file))
-		{	x <- seq(weib.law2$threshold, max(data))
-			y <- 1 - pdiscweib(x=x, shape=weib.law2$shape, scale=weib.law2$scale, threshold=weib.law2$threshold)
-			lines(x, y, col="MAGENTA", lwd=2)
-		}
+			add.line.plot(data=data, model=weib.law2, col=C_COLORS["Weibull Law"], lwd=2)
 		comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
 		msg <- paste0("Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_WEIB_CLR] <- comp.wl2$loglike.ratio
@@ -497,10 +500,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	{	foos[["Truncated Power Law"]] <- trunc.law2
 		# possibly plot model
 		if(!is.na(plot.file))
-		{	x <- seq(trunc.law2$threshold, max(data))
-			y <- 1 - cumsum(ddiscpowerexp(x=x, exponent=trunc.law2$exponent, rate=trunc.law2$rate, threshold=trunc.law2$threshold))
-			lines(x, y, col="RED", lwd=2)
-		}
+			add.line.plot(data=data, model=trunc.law2, col=C_COLORS["Truncated Power Law"], lwd=2)
 		msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
 		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
@@ -524,10 +524,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	{	foos[["Yule-Simon Law"]] <- yusim.law2
 		# possibly plot model
 		if(!is.na(plot.file))
-		{	x <- seq(yusim.law2$threshold, max(data))
-			y <- 1 - pyule(x=x, alpha=yusim.law2$exponent, xmin=yusim.law2$threshold)
-			lines(x, y, col="CHOCOLATE", lwd=2)
-		}
+			add.line.plot(data=data, model=yusim.law2, col=C_COLORS["Yule-Simon Law"], lwd=2)
 		comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
 		msg <- paste0("Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
@@ -702,13 +699,13 @@ make.decision.distr <- function(tab, threshold=0.01)
 # ...: additional parameters fetched to the "lines" function.
 #############################################################################################
 add.line.plot <- function(data, model, ...)
-{	
-	if(attr(class(model),"package"))
+{	attr <- attr(class(model),"package")
+	if(!is.null(attr) && attr=="poweRlaw")
 		lines(model, ...)
 	else
 	{	# init x
-		cont <- c("weibull")
-		disc <- c("discweib")
+		cont <- c("weibull", "powerexp")
+		disc <- c("discweib", "discpowerexp", "Yule")
 		if(model$type %in% cont)
 			x <- seq(model$xmin, max(data), (max(data)-model$xmin)/100)
 		else if(model$type %in% disc)
@@ -723,9 +720,9 @@ add.line.plot <- function(data, model, ...)
 		# init y (discrete)
 		else if(model$type=="discweib")
 			y <- 1 - pdiscweib(x=x, shape=model$shape, scale=model$scale, threshold=model$threshold)
-		else if(model$type="discpowerexp")
+		else if(model$type=="discpowerexp")
 			y <- 1 - cumsum(ddiscpowerexp(x=x, exponent=model$exponent, rate=model$rate, threshold=model$threshold))
-		else if(model$type="Yule")
+		else if(model$type=="Yule")
 			y <- 1 - pyule(x=x, alpha=model$exponent, xmin=model$threshold)
 		
 		lines(x, y, ...)
