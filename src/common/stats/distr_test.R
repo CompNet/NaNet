@@ -313,9 +313,11 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	}
 	
 	# record log as a separate file
-	conx <- file(paste0(plot.file,"_log.txt"))
-		writeLines(msgs,conx)
-	close(conx)
+	if(!is.na(plot.file))
+	{	conx <- file(paste0(plot.file,"_log.txt"))
+			writeLines(msgs,conx)
+		close(conx)
+	}
 	
 	# get distrib functions
 	if(all(is.na(tmp$laws)))
@@ -571,10 +573,12 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		dev.off()
 	}
 	
-	# record log as a separate file
-	conx <- file(paste0(plot.file,"_log.txt"))
-		writeLines(msgs,conx)
-	close(conx)
+	# possibly record log as a separate file
+	if(!is.na(plot.file))
+	{	conx <- file(paste0(plot.file,"_log.txt"))
+			writeLines(msgs,conx)
+		close(conx)
+	}
 	
 	# get distrib functions
 	if(all(is.na(tmp$laws)))

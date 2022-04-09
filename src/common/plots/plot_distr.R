@@ -15,30 +15,31 @@
 #
 # vals: raw values (possibly several series, as columns).
 # xlab: x-axis label.
-# breaks: histogram breaks.
+# freq: whether to display frequencies or densities in histograms.
 # log: scale of the ccdf axes.
 # cols: colors used to plot each series.
 # main: main title of the plots.
 # leg.title: title of the legend, or NA if none.
 # leg.pos: legend position (multiple series).
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical)
+# export: whether to record the histogram plot values as a CSV file (requires file parameter).
 # file: (optional) file name, to record the histogram plot.
 # histo: whether to plot the histogram.
 # ccdf: whether to plot the complement cumulative distribution function.
 # test: whether to fit standard distribution to the values.
 #############################################################
-plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
+plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
 {	# plot histo
 	if(histo)
 	{	# make plot
 		plot.bars(
-			vals=vals, breaks=breaks, 
+			vals=vals, 
 			xlab=xlab, main=main, 
 			cols=cols, 
-			freq=FALSE, beside=TRUE, 
+			freq=freq, beside=TRUE, 
 			leg.title=leg.title, leg.pos=leg.pos, 
 			las=las,
-			file=file
+			export=export, file=file
 		)
 	}
 	
@@ -60,9 +61,6 @@ plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 			test=test
 		)
 	}
-	
-	# fit distribution
-	
 }
 
 
@@ -75,18 +73,20 @@ plot.disc.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 # vals: raw values (single series assumed).
 # xlab: name of the values (used for the x-axis label).
 # breaks: histogram breaks.
+# freq: whether to display frequencies or densities in histograms.
 # log: scale of the ccdf axes.
 # col: colors used to plot each series.
 # main: main title of the plots.
 # leg.title: title of the legend, or NA if none.
 # leg.pos: legend position (multiple series).
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical)
+# export: whether to record the histogram plot values as a CSV file (requires file parameter).
 # file: (optional) file name, to record the histogram plot.
 # histo: whether to plot the histogram.
 # ccdf: whether to plot the complement cumulative distribution function.
 # test: whether to fit standard distribution to the values.
 #############################################################
-plot.cont.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
+plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
 {	# plot histo
 	if(histo)
 	{	# make plot
@@ -94,10 +94,10 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 			vals=vals, breaks=breaks, 
 			xlab=xlab, main=main, 
 			cols=cols, 
-			freq=FALSE, 
+			freq=freq, 
 			points=FALSE, line=FALSE,
 			las=las,
-			file=file
+			export=export, file=file
 		)
 	}
 	
@@ -119,16 +119,13 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 			test=test
 		)
 	}
-	
-	# fit distribution
-	
 }
 
 
 
 
 #############################################################
-# Plots a custom histogram.
+# Plots a custom histogram, for discrete or continuous values.
 #
 # vals: data to plot. Can be a single series, or several as an array or a list.
 # xlab: name of the values (used for the x-axis label).
@@ -136,13 +133,14 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", log=FALSE, cols
 # cols: color used to plot each series.
 # freq: plot frequencies (TRUE) vs. densities (FALSE).
 # main: main title of the plots.
-# file: (optional) file name, to record the histogram plot.
 # points: adds scatter plots to the bars, representing the corresponding points.
 # line: add density estimate.
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical)
+# export: whether to record the plot values as a CSV file (requires file parameter).
+# file: (optional) file name, to record the histogram plot.
 # ...: additional parameters, fetched to the hist function.
 #############################################################
-plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, points=FALSE, line=FALSE, las=1, file=NA, ...)
+plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, points=FALSE, line=FALSE, las=1, export=FALSE, file=NA, ...)
 {	# prepare data
 	if(!all(class(vals)=="list"))
 	{	if(is.null(dim(vals)))
@@ -240,6 +238,20 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, p
 				if(!is.na(fformat))
 					dev.off()
 			}
+			
+			# possibly record data as a csv
+			if(export && !is.na(file))
+			{	tmp <- cbind(h$breaks[1:(length(h$breaks)-1)], h$breaks[2:length(h$breaks)])
+				intervals <- sapply(1:nrow(tmp), function(r)
+							if(r==1)
+								paste0("[",tmp[r,1],";",tmp[r,2],"]")
+							else
+								paste0("]",tmp[r,1],";",tmp[r,2],"]"))
+				tab <- data.frame(intervals, h$counts, h$density)
+				colnames(tab) <- c("Interval","Count","Proportion")
+				write.csv(x=tab, file=paste0(plot.file,".csv"), row.names=FALSE)
+			}
+			
 		}
 		else
 			tlog(0,"WARNING: could create plot (not enough values)")
@@ -250,10 +262,9 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, p
 
 
 #############################################################
-# Plots a custom barplot.
+# Plots a custom barplot, only for discrete values.
 #
 # vals: data to plot. Can be a single series, or several as an array or a list.
-# breaks: histogram breaks.
 # xlab: label of the x-axis.
 # main: plot title.
 # cols: colors (one for each series).
@@ -262,10 +273,11 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, p
 # leg.title: title of the legend, or NA if none.
 # leg.pos: legend position (multiple series).
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical)
+# export: whether to record the plot values as a CSV file (requires file parameter).
 # file: (optional) file name, to record the histogram plot.
 # ...: additional parameters, fetched to the barplot function.
 #############################################################
-plot.bars <- function(vals, breaks, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg.title=NA, leg.pos="topright", las=1, file=NA, ...)
+plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, ...)
 {	# prepare data
 	if(!all(class(vals)=="list"))
 	{	if(is.null(dim(vals)))
@@ -292,11 +304,17 @@ plot.bars <- function(vals, breaks, xlab, main=NA, cols=NA, freq=FALSE, beside=T
 	else
 		ylab <- "Density"
 	
+	# compute breaks
+	tmp <- unlist(vals)
+	tmp <- tmp[!is.infinite(tmp) & !is.nan(tmp)]
+	breaks <- (min(tmp,na.rm=TRUE)-1):max(tmp,na.rm=TRUE)
+	
 	# compute bar heights
 	for(s in 1:length(vals))
-	{	h <- hist(
+	{	# compute values
+		h <- hist(
 			vals[[s]], 
-			breaks=breaks, 	# min(vals):max(vals)
+			breaks=breaks,
 			plot=FALSE
 		)
 		if(all(is.na(data)))
@@ -305,6 +323,16 @@ plot.bars <- function(vals, breaks, xlab, main=NA, cols=NA, freq=FALSE, beside=T
 			data[,s] <- h$counts
 		else
 			data[,s] <- h$density
+		
+		# possibly record data as a csv
+		if(export && !is.na(file))
+		{	tab <- data.frame(breaks[2:length(breaks)], h$counts, h$density)
+			colnames(tab) <- c("Value","Count","Proportion")
+			tab.file <- paste0(file, "_histo")
+			if(length(vals)>1)
+				tab.file <- paste0(tab.file, "_", names(vals)[s])
+			write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+		}
 	}
 	colnames(data) <- names(vals)
 	
@@ -335,7 +363,7 @@ plot.bars <- function(vals, breaks, xlab, main=NA, cols=NA, freq=FALSE, beside=T
 		{	# barplot
 			barplot(
 				height=c(data),							# data
-				names.arg=h$breaks[2:length(h$breaks)],	# bar names
+				names.arg=breaks[2:length(breaks)],		# bar names
 				xlab=xlab, ylab=ylab, main=main,		# labels
 				col=cols,								# bar colors
 				space=0,								# space between bars
@@ -467,8 +495,8 @@ plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA
 	ys <- ys[idx]
 	xlim <- range(xs)
 	ylim <- range(ys)
-	if(any(is.infinite(c(xlim, ylim))))
-	{	tlog("WARNING: nothing to plot, all values are zero or infinite")
+	if(any(is.infinite(c(xlim, ylim))) || xlim[1]==xlim[2])
+	{	tlog("WARNING: nothing to plot, all values are zero, or infinite, or a unique value")
 		return(FALSE)
 	}
 	
@@ -643,20 +671,19 @@ plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA
 ########################################################""
 ## single series
 #vals <- sample(x=1:100,size=200,replace=TRUE)
-#plot.hist(vals=vals, breaks=min(vals):max(vals), xlab="Xlab", main="Main title", col="RED", freq=FALSE, points=TRUE, line=TRUE, file=NA)
-#plot.bars(vals=vals, breaks=min(vals):max(vals), xlab="XLab", main="Main title", cols="RED", freq=FALSE, beside=TRUE, leg.title="Legend", leg.pos="topright", file=NA)
-#plot.ccdf(data=vals, xlab="XLab", main="Main Title", log=FALSE, cols="Red", leg.title="Legend", leg.pos="topright", las=1, file=NA, test="disc")
-#plot.disc.distribution(vals=vals, xlab="Xlab", breaks=min(vals):max(vals), log=FALSE, cols="RED", main="Main title", leg.title="Legend", leg.pos="topright", las=1, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)
+#plot.hist(vals=vals, breaks=min(vals):max(vals), xlab="Xlab", main="Main title", col="RED", freq=FALSE, points=TRUE, line=TRUE, export=TRUE, file="Test")
+#plot.bars(vals=vals, xlab="XLab", main="Main title", cols="RED", freq=FALSE, beside=TRUE, leg.title="Legend", leg.pos="topright", export=TRUE, file="Test")
+#plot.ccdf(data=vals, xlab="XLab", main="Main Title", log=FALSE, cols="Red", leg.title="Legend", leg.pos="topright", las=1, file="Test", test="disc")
+#plot.disc.distribution(vals=vals, xlab="Xlab", log=FALSE, cols="RED", main="Main title", leg.title="Legend", leg.pos="topright", las=1, export=TRUE, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)
 ##
 #vals <- runif(100)
-#plot.hist(vals=vals, xlab="Xlab", main="Main title", col="RED", freq=FALSE, points=TRUE, line=TRUE, file=NA)
-#plot.ccdf(data=vals, xlab="XLab", main="Main Title", log=FALSE, cols="Red", leg.title="Legend", leg.pos="topright", las=1, file=NA, test="cont")
-#plot.cont.distribution(vals=vals, xlab="Xlab", log=FALSE, cols="RED", main="Main title", leg.title="Legend", leg.pos="topright", las=1, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)
+#plot.hist(vals=vals, xlab="Xlab", main="Main title", col="RED", freq=FALSE, points=TRUE, line=TRUE, export=TRUE, file="Test")
+#plot.ccdf(data=vals, xlab="XLab", main="Main Title", log=FALSE, cols="Red", leg.title="Legend", leg.pos="topright", las=1, file="Test", test="cont")
+#plot.cont.distribution(vals=vals, xlab="Xlab", log=FALSE, cols="RED", main="Main title", leg.title="Legend", leg.pos="topright", las=1, export=TRUE, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)
 ##
 ## multiple series
 #vals <- cbind(sample(x=1:10,size=200,replace=TRUE),sample(x=1:10,size=200,replace=TRUE),sample(x=1:10,size=200,replace=TRUE));colnames(vals) <- c("R","B","G")
-#plot.hist(vals=vals, xlab="Xlab", main="Main title", col="RED", freq=FALSE, points=TRUE, line=TRUE, file="Test")
-#plot.bars(vals=vals, breaks=min(vals):max(vals), xlab="XLab", main="Main title", cols=c("RED","BLUE","GREEN"), freq=FALSE, beside=TRUE, leg.title="Legend", leg.pos="topright", file=NA)
+#plot.hist(vals=vals, xlab="Xlab", main="Main title", col=c("RED","BLUE","GREEN"), freq=FALSE, points=TRUE, line=TRUE, export=TRUE, file="Test")
+#plot.bars(vals=vals, xlab="XLab", main="Main title", cols=c("RED","BLUE","GREEN"), freq=FALSE, beside=TRUE, leg.title="Legend", leg.pos="topright", export=TRUE, file="Test")
 #plot.ccdf(data=vals, xlab="XLab", main="Main Title", log=FALSE, cols=c("RED","BLUE","GREEN"), leg.title="Legend", leg.pos="topright", las=1, file="Test", test="disc")
-#plot.cont.distribution(vals=vals, xlab="Xlab", log=FALSE, cols=c("RED","BLUE","GREEN"), main="Main title", leg.title="Legend", leg.pos="topright", las=1, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)
-
+#plot.cont.distribution(vals=vals, xlab="Xlab", log=FALSE, cols=c("RED","BLUE","GREEN"), main="Main title", leg.title="Legend", leg.pos="topright", las=1, export=TRUE, file="Test", histo=TRUE, ccdf=TRUE, test=TRUE)

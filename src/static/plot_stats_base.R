@@ -103,46 +103,35 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
+			disc <- all(vals%%1==0) 
 			
 			# plot histogram
 			plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						ml <- paste0("weights=",wmode)
-						xl <- ALL_MEASURES[[meas.name]]$cname
-						# histogram
-						h <- hist(
-							vals,
-							breaks=20, #breaks=0:max(vals),
-							col=col,
-							xlab=xl,
-							main=ml,
-							freq=FALSE
-						)
-					dev.off()
+			ml <- paste0("weights=",wmode)
+			xl <- ALL_MEASURES[[meas.name]]$cname
+			test <- is.na(arc) && is.na(vol)	# test the type of distribution: very slow, doing it only for the whole graph
+			if(disc)
+			{	plot.disc.distribution(
+					vals=vals, 
+					xlab=xl, main=ml, 
+					freq=FALSE,
+					log=TRUE, cols=col, 
+					#leg.title=NA, leg.pos="topright", las=1, 
+					export=TRUE, file=plot.file, 
+					histo=TRUE, ccdf=TRUE, test=test
+				)
 			}
-			
-			# plot complementary cumulative distribution function
-			plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="ccdf")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-						plot.ccdf(data=vals, main=ml, xlab=xl, ylab="default", cols=col, log=TRUE)
-					dev.off()
-			}
-			
-			# test the type of distribution (very slow, doing it only for the whole graph)
-			if(is.na(arc) && is.na(vol))
-			{	plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="distrtest")
-				if(all(vals%%1==0))
-					test.disc.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
-				else
-					test.cont.distr(data=vals, xlab=ALL_MEASURES[[meas.name]]$cname, return_stats=TRUE, sims=100, plot.file=plot.file)
+			else
+			{	plot.cont.distribution(
+					vals=vals, 
+					xlab=xl, main=m, 
+					breaks=20, 
+					freq=FALSE, 
+					log=TRUE, cols=col, 
+					#leg.title=NA, leg.pos="topright", las=1, 
+					export=FALSE, file=plot.file, 
+					histo=TRUE, ccdf=TRUE, test=test
+				)
 			}
 		}
 	}
