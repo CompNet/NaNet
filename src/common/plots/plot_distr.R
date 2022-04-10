@@ -309,6 +309,11 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 	tmp <- tmp[!is.infinite(tmp) & !is.nan(tmp)]
 	breaks <- (min(tmp,na.rm=TRUE)-1):max(tmp,na.rm=TRUE)
 	
+	# set bar outline color
+	border.col <- NA
+	if(length(breaks<30))
+		border.col <- "BLACK"
+	
 	# compute bar heights
 	for(s in 1:length(vals))
 	{	# compute values
@@ -366,6 +371,7 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 				names.arg=breaks[2:length(breaks)],		# bar names
 				xlab=xlab, ylab=ylab, main=main,		# labels
 				col=cols,								# bar colors
+				border=border.col,						# bar outline color
 				space=0,								# space between bars
 				las=las,								# axis label orientation
 				...
@@ -383,6 +389,7 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 				names.arg=h$breaks[2:length(h$breaks)],	# bar names
 				xlab=xlab, ylab=ylab, main=main,		# labels
 				col=cols,								# bar colors
+				border=border.col,						# bar outline color
 				space=space,							# space between bars
 				beside=beside,							# grouped/stacked bars
 				las=las,								# axis label orientation

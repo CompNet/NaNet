@@ -86,6 +86,8 @@ Clean code:
   > systematize histo & ccdf?
 - narrative smoothing is so slow, and possibly bugged
 
+- clean graph plot function, using gradient legend (cf. medieval project)
+
 - make names larger in volume- and arc-dependent net plots (PDF)
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
@@ -93,8 +95,3 @@ Clean code:
 TODO
 - should separate the extraction of the static graph vs. graph sequence
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
-
-- mutualize distribution plots
-  - put common processing in single function
-  - systematically produce histos and ccdf, distinguish file names with suffixes 
-- clean graph plot function, using gradient legend (cf. medieval project)

@@ -763,9 +763,9 @@ plot.stats.char <- function(
 							names.arg=1:ncol(data),
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-							col=pal,
+							col=pal, 
 							space=0,
-							args.legend=list(x="topright"),
+							args.legend=list(x="topright",title=atts[a]),
 							legend.text=rownames(data)
 						)
 					dev.off()
@@ -825,7 +825,7 @@ plot.stats.char <- function(
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal,
 							space=0,
-							args.legend=list(x="topright"),
+							args.legend=list(x="topright",title=atts[a]),
 							legend.text=rownames(data)
 						)
 					dev.off()
@@ -882,9 +882,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -905,7 +905,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -940,9 +940,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -963,7 +963,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -998,9 +998,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -1021,7 +1021,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -1475,7 +1475,7 @@ plot.stats.arc <- function(
 	data <- arc.stats[arc.idx,COL_PAGES]
 	ml <- "Page number distribution over arcs"
 	xl <- "Number of pages by arc"
-	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc)
+	test <- DO_STAT_TESTS && length(unique(data))>1
 	plot.disc.distribution(
 		vals=data, 
 		xlab=xl, main=ml, 
