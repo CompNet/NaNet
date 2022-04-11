@@ -2,6 +2,8 @@
 # Defines functions and constants related to colors, for plots.
 # 
 # 11/2019 Vincent Labatut
+#
+# source("src/common/plots/colors.R")
 #############################################################################################
 
 
