@@ -63,10 +63,11 @@ plot.stats.panel <- function(
 	plot.disc.distribution(
 		vals=data, 
 		xlab=xl, main=ml, 
-		breaks=0:max(data), 
+		freq=FALSE,
 		log=TRUE, cols=col, 
-		file=file,
-		histo=TRUE, ccdf=FALSE, test=FALSE
+		#leg.title=NA, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
 	)
 	
 	# distribution of panel positions
@@ -112,65 +113,17 @@ plot.stats.panel <- function(
 			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="distrib_chars-by-panel", att=att)
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			xl <- "Number of characters by panel"
+			ml <- paste0("Character number distribution over panels (att=",att)
 			yl <- "Frequency"
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					ml <- paste0("Character number distribution over panels (att=",att)
-					# scatterplot
-#					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-#					for(d in 1:ncol(data))
-#					{	h <- hist(
-#							data[,d], 
-#							breaks=0:max(data), 
-#							plot=FALSE
-#						)
-#						vals[,d] <- h$counts
-#					}
-#					x <- h$breaks[2:length(h$breaks)]
-#					x <- x[h$counts>0]
-#					y <- h$counts[h$counts>0]
-#					plot(
-#						x,
-#						y,
-#						xlim=range(h$breaks),
-#						ylim=range(vals[vals!=0]),
-#						xlab=xl,
-#						main=paste0(ml,")"),
-#						col=pal[d],
-#						log="y"
-#					)
-#					for(d in 2:ncol(data))
-#					{	points(
-#							h$breaks[2:length(h$breaks)],
-#							h$counts,
-#							col=pal[d],
-#						)
-#					}
-					# barplots
-					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-					for(d in 1:ncol(data))
-					{	h <- hist(
-							data[,d], 
-							breaks=0:max(data), 
-							plot=FALSE
-						)
-						vals[,d] <- h$counts
-					}
-					barplot(
-						height=t(vals),
-						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl, ylab=yl, main=paste0(ml,")"),
-						beside=TRUE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
-						#space=0,
-						args.legend=list(x="topright"),
-						legend.text=colnames(data)
-					)
-				dev.off()
-			}
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=paste0(ml,")"), 
+				freq=TRUE,
+				log=TRUE, cols=pal, 
+				leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=FALSE
+			)
 			# separate plot for each value
 			for(d in 2:ncol(panel.stats.atts[[att]]))
 			{	data <- panel.stats.atts[[att]][,d]
@@ -178,22 +131,15 @@ plot.stats.panel <- function(
 				{	val <- colnames(panel.stats.atts[[att]])[d]
 					file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="distrib_chars-by-panel", att=att, val=val)
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-							h <- hist(
-								data,
-								breaks=0:max(data),
-								col=pal[d-1],
-								xlab=xl,
-								main=paste0(ml," val=",val,")"),
-								freq=FALSE,
-								#plot=FALSE
-							)
-						dev.off()
-					}
+					plot.disc.distribution(
+						vals=data, 
+						xlab=xl, main=paste0(ml," val=",val,")"), 
+						freq=FALSE,
+						log=TRUE, cols=pal[d-1], 
+						#leg.title=att, leg.pos="topright", las=1, 
+						export=TRUE, file=file, 
+						histo=TRUE, ccdf=TRUE, test=FALSE
+					)
 				}
 			}
 		}
@@ -254,33 +200,15 @@ plot.stats.page <- function(
 	data <- page.stats[,COL_SCENES]
 	ml <- "Scene number distribution over pages"
 	xl <- "Number of scenes by page"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	# distributions of panel numbers
 	vals <- table(page.stats[,COL_PANELS])
@@ -293,33 +221,15 @@ plot.stats.page <- function(
 	data <- page.stats[,COL_PANELS]
 	ml <- "Panel number distribution over pages"
 	xl <- "Number of panels by page"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	# distributions of character numbers
 	vals <- table(page.stats[,COL_CHARS])
@@ -332,33 +242,15 @@ plot.stats.page <- function(
 	data <- page.stats[,COL_CHARS]
 	ml <- "Character number distribution over pages"
 	xl <- "Number of characters by page"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	
 	##################
@@ -378,34 +270,15 @@ plot.stats.page <- function(
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over pages (att=",att)
 			xl <- "Number of characters by page"
-			yl <- "Frequency"
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# barplots
-					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-					for(d in 1:ncol(data))
-					{	h <- hist(
-							data[,d], 
-							breaks=0:max(data), 
-							plot=FALSE
-						)
-						vals[,d] <- h$counts
-					}
-					barplot(
-						height=t(vals),
-						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl, ylab=yl, main=paste0(ml,")"),
-						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
-						#space=0,
-						args.legend=list(x="topright"),
-						legend.text=colnames(data)
-					)
-				dev.off()
-			}
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=paste0(ml,")"), 
+				freq=TRUE,
+				log=TRUE, cols=pal, 
+				leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=FALSE
+			)
 			# separate plot for each value
 			for(d in 2:ncol(page.stats.atts[[att]]))
 			{	data <- page.stats.atts[[att]][,d]
@@ -413,22 +286,15 @@ plot.stats.page <- function(
 				{	val <- colnames(page.stats.atts[[att]])[d]
 					file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="distrib_chars-by-page", att=att, val=colnames(page.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-							h <- hist(
-								data,
-								breaks=0:max(data),
-								col=pal[d-1],
-								xlab=xl,
-								main=paste0(ml," - val=",val,")"),
-								freq=FALSE,
-								#plot=FALSE
-							)
-						dev.off()
-					}
+					plot.disc.distribution(
+						vals=data, 
+						xlab=xl, main=paste0(ml," - val=",val,")"), 
+						freq=FALSE,
+						log=TRUE, cols=pal[d-1], 
+						#leg.title=att, leg.pos="topright", las=1, 
+						export=TRUE, file=file, 
+						histo=TRUE, ccdf=TRUE, test=FALSE
+					)
 				}
 			}
 		}
@@ -489,41 +355,17 @@ plot.stats.scene <- function(
 	data <- scene.stats[,COL_PANELS]
 	ml <- "Panel number distribution over scenes"
 	xl <- "Number of panels by scene"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#					breaks=0:max(data),
-##					col=col,
-##					xlab=xl,
-##					main=ml,
-##					freq=FALSE,
-#					plot=FALSE
-#			)
-#			# scatterplot
-#				x <- h$breaks[2:length(h$breaks)]
-#			y <- h$density
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			expmax <- floor(log(min(y),10))
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
-#			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# distributions of character numbers
 	vals <- table(scene.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -535,33 +377,15 @@ plot.stats.scene <- function(
 	data <- scene.stats[,COL_CHARS]
 	ml <- "Character number distribution over scenes"
 	xl <- "Number of characters by scene"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-					data,
-					breaks=0:max(data),
-					col=col,
-					xlab=xl,
-					main=ml,
-					freq=FALSE,
-#					plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	# distributions of page numbers
 	vals <- table(scene.stats[,COL_PAGES])
@@ -574,39 +398,17 @@ plot.stats.scene <- function(
 	data <- scene.stats[,COL_PAGES]
 	ml <- "Page number distribution over scenes"
 	xl <- "Number of pages by scene"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-#			h <- hist(
-#				data,
-#				breaks=0:max(data),
-#				col=col,
-#				xlab=xl,
-#				main=ml,
-#				freq=FALSE,
-##				plot=FALSE
-#			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# distribution of scene positions
 	vals <- c()
 	vals["Both"] <- length(which(scene.stats[, COL_MATCH_BOTH]))
@@ -651,34 +453,15 @@ plot.stats.scene <- function(
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over scenes (att=",att)
 			xl <- "Number of characters by scene"
-			yl <- "Frequency"
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# barplots
-					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-					for(d in 1:ncol(data))
-					{	h <- hist(
-							data[,d], 
-							breaks=0:max(data), 
-							plot=FALSE
-						)
-						vals[,d] <- h$counts
-					}
-					barplot(
-						height=t(vals),
-						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl, ylab=yl, main=paste0(ml,")"),
-						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
-						#space=0,
-						args.legend=list(x="topright"),
-						legend.text=colnames(data)
-					)
-				dev.off()
-			}
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=paste0(ml,")"),
+				freq=TRUE,
+				log=TRUE, cols=pal, 
+				leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=FALSE
+			)
 			# separate plot for each value
 			for(d in 2:ncol(scene.stats.atts[[att]]))
 			{	data <- scene.stats.atts[[att]][,d]
@@ -686,22 +469,15 @@ plot.stats.scene <- function(
 				{	val <- colnames(scene.stats.atts[[att]])[d]
 					file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="distrib_chars-by-scene", att=att, val=colnames(scene.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-							h <- hist(
-								data,
-								breaks=0:max(data),
-								col=pal[d-1],
-								xlab=xl,
-								main=paste0(ml," - val=",val,")"),
-								freq=FALSE,
-								#plot=FALSE
-							)
-						dev.off()
-					}
+					plot.disc.distribution(
+						vals=data, 
+						xlab=xl, main=paste0(ml," - val=",val,")"), 
+						freq=FALSE,
+						log=TRUE, cols=pal[d-1], 
+						#leg.title=att, leg.pos="topright", las=1, 
+						export=TRUE, file=file, 
+						histo=TRUE, ccdf=TRUE, test=FALSE
+					)
 				}
 			}
 		}
@@ -775,38 +551,16 @@ plot.stats.char <- function(
 		if(length(unique(data))>1)
 		{	ml <- paste0("Arc number distribution over ",filt.txt," characters")
 			xl <- paste0("Number of arcs by ",filt.txt," character")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#						# histogram
-#						h <- hist(
-#							data,
-#							breaks=0:max(data),
-##							col=col,
-##							xlab=xl,
-##							main=ml,
-##							freq=FALSE,
-#							plot=FALSE
-#						)
-#						# scatterplot
-#						x <- h$breaks[2:length(h$breaks)]
-#						y <- h$counts
-#						idx <- which(y>0)
-#						x <- x[idx]
-#						y <- y[idx]
-#						plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-						# complementary cumulative distribution function
-						if(length(unique(data))>1)
-							plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-					dev.off()
-			}
-			# check distribution
-			if(DO_STAT_TESTS)
-			{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-				write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-			}
+			test <- DO_STAT_TESTS
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=ml, 
+				freq=FALSE,
+				log=TRUE, cols=col, 
+				#leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=test
+			)
 		}
 	}
 	
@@ -823,38 +577,16 @@ plot.stats.char <- function(
 		if(length(unique(data))>1)
 		{	ml <- paste0("Volume number distribution over ",filt.txt," characters")
 			xl <- paste0("Number of volumes by ",filt.txt," character")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#						# histogram
-#						h <- hist(
-#							data,
-#							breaks=0:max(data),
-##							col=col,
-##							xlab=xl,
-##							main=ml,
-##							freq=FALSE,
-#							plot=FALSE
-#						)
-#						# scatterplot
-#						x <- h$breaks[2:length(h$breaks)]
-#						y <- h$counts
-#						idx <- which(y>0)
-#						x <- x[idx]
-#						y <- y[idx]
-#						plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-						# complementary cumulative distribution function
-						if(length(unique(data))>1)
-							plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-					dev.off()
-			}
-			# check distribution
-			if(DO_STAT_TESTS && is.na(cur.arc))
-			{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-				write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-			}
+			test <- DO_STAT_TESTS && is.na(cur.arc)
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=ml, 
+				freq=FALSE,
+				log=TRUE, cols=col, 
+				#leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=test
+			)
 		}
 	}
 	
@@ -869,39 +601,17 @@ plot.stats.char <- function(
 	data <- char.stats[char.idx,COL_PAGES]
 	ml <- paste0("Page number distribution over ",filt.txt," characters")
 	xl <- paste0("Number of pages by ",filt.txt," character")
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#					breaks=0:max(data),
-##					col=col,
-##					xlab=xl,
-##					main=ml,
-##					freq=FALSE,
-#					plot=FALSE
-#			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# distribution of scenes by character
 	vals <- table(char.stats[char.idx,COL_SCENES])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -913,38 +623,17 @@ plot.stats.char <- function(
 	data <- char.stats[char.idx,COL_SCENES]
 	ml <- paste0("Scene number distribution over ",filt.txt," characters")
 	xl <- paste0("Number of scenes by ",filt.txt," character")
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#				breaks=0:max(data),
-##				col=col,
-##				xlab=xl,
-##				main=ml,
-##				freq=FALSE,
-#				plot=FALSE
-#			)
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# distribution of panels by character
 	vals <- table(char.stats[char.idx,COL_PANELS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -956,39 +645,17 @@ plot.stats.char <- function(
 	data <- char.stats[char.idx,COL_PANELS]
 	ml <- paste0("Panel number distribution over ",filt.txt," characters")
 	xl <- paste0("Number of panels by ",filt.txt," character")
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#					breaks=0:max(data),
-##					col=col,
-##					xlab=xl,
-##					main=ml,
-##					freq=FALSE,
-#					plot=FALSE
-#			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.vol) && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# behavior of character filtering (trying to identify extras)
 	if(!filtered)
 	{	thresholds <- seq(0, 10)	#max(char.stats[,COL_FREQ]))
@@ -1096,9 +763,9 @@ plot.stats.char <- function(
 							names.arg=1:ncol(data),
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-							col=pal,
+							col=pal, 
 							space=0,
-							args.legend=list(x="topright"),
+							args.legend=list(x="topright",title=atts[a]),
 							legend.text=rownames(data)
 						)
 					dev.off()
@@ -1158,7 +825,7 @@ plot.stats.char <- function(
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal,
 							space=0,
-							args.legend=list(x="topright"),
+							args.legend=list(x="topright",title=atts[a]),
 							legend.text=rownames(data)
 						)
 					dev.off()
@@ -1215,9 +882,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -1238,7 +905,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -1273,9 +940,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -1296,7 +963,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -1331,9 +998,9 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
+						col=pal, border=NA,
 						space=0,
-						args.legend=list(x="topright"),
+						args.legend=list(x="topright",title=atts[a]),
 						legend.text=rownames(data)
 					)
 				dev.off()
@@ -1354,7 +1021,7 @@ plot.stats.char <- function(
 						names.arg=1:ncol(data),
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal[d],
+						col=pal[d], border=NA,
 						space=0
 					)
 					dev.off()
@@ -1460,41 +1127,17 @@ plot.stats.volume <- function(
 	data <- volume.stats[,COL_PANELS]
 	ml <- "Panel number distribution over volumes"
 	xl <- "Number of panels by volume"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#					breaks=0:max(data),
-##					col=col,
-##					xlab=xl,
-##					main=ml,
-##					freq=FALSE,
-#					plot=FALSE
-#			)
-#			# scatterplot
-#				x <- h$breaks[2:length(h$breaks)]
-#			y <- h$density
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			expmax <- floor(log(min(y),10))
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
-#			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
-
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
+	
 	# distributions of character numbers
 	vals <- table(volume.stats[,COL_CHARS])
 	vals <- cbind(as.integer(names(vals)), vals, 100*vals/sum(vals))
@@ -1506,33 +1149,15 @@ plot.stats.volume <- function(
 	data <- volume.stats[,COL_CHARS]
 	ml <- "Character number distribution over volumes"
 	xl <- "Number of characters by volume"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	# distributions of page numbers
 	vals <- table(volume.stats[,COL_PAGES])
@@ -1545,38 +1170,16 @@ plot.stats.volume <- function(
 	data <- volume.stats[,COL_PAGES]
 	ml <- "Page number distribution over volumes"
 	xl <- "Number of pages by volume"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-#	# check distribution
-#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
-#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-#	}
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
 	
 	# distributions of scene numbers
 	vals <- table(volume.stats[,COL_SCENES])
@@ -1589,38 +1192,16 @@ plot.stats.volume <- function(
 	data <- volume.stats[,COL_SCENES]
 	ml <- "Scene number distribution over volumes"
 	xl <- "Number of scenes by volume"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
-#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-#	}
+	test <- DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc)
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
 	
 	# evolution of the stats by volume
 	vol.cols <- c(
@@ -1717,34 +1298,15 @@ plot.stats.volume <- function(
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over volumes (att=",att)
 			xl <- "Number of characters by volume"
-			yl <- "Frequency"
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# barplots
-					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-					for(d in 1:ncol(data))
-					{	h <- hist(
-							data[,d], 
-							breaks=0:max(data), 
-							plot=FALSE
-						)
-						vals[,d] <- h$counts
-					}
-					barplot(
-						height=t(vals),
-						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl, ylab=yl, main=paste0(ml,")"),
-						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
-						#space=0,
-						args.legend=list(x="topright"),
-						legend.text=colnames(data)
-					)
-				dev.off()
-			}
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=paste0(ml,")"), 
+				freq=TRUE,
+				log=TRUE, cols=pal, 
+				leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=FALSE
+			)
 			# separate plot for each value
 			for(d in 2:ncol(volume.stats.atts[[att]]))
 			{	data <- volume.stats.atts[[att]][,d]
@@ -1752,22 +1314,15 @@ plot.stats.volume <- function(
 				{	val <- colnames(volume.stats.atts[[att]])[d]
 					file <- get.path.stats.corpus(object=object, arc=cur.arc, pref="distrib_chars-by-volume", att=att, val=colnames(volume.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-							h <- hist(
-								data,
-								breaks=0:max(data),
-								col=pal[d-1],
-								xlab=xl,
-								main=paste0(ml," - val=",val,")"),
-								freq=FALSE,
-								#plot=FALSE
-							)
-						dev.off()
-					}
+					plot.disc.distribution(
+						vals=data, 
+						xlab=xl, main=paste0(ml," - val=",val,")"), 
+						freq=FALSE,
+						log=TRUE, cols=pal[d-1], 
+						#leg.title=att, leg.pos="topright", las=1, 
+						export=TRUE, file=file, 
+						histo=TRUE, ccdf=TRUE, test=FALSE
+					)
 				}
 			}
 		}
@@ -1877,40 +1432,16 @@ plot.stats.arc <- function(
 	data <- arc.stats[arc.idx,COL_PANELS]
 	ml <- "Panel number distribution over arcs"
 	xl <- "Number of panels by arc"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-#			# histogram
-#			h <- hist(
-#					data,
-#					breaks=0:max(data),
-##					col=col,
-##					xlab=xl,
-##					main=ml,
-##					freq=FALSE,
-#					plot=FALSE
-#			)
-#			# scatterplot
-#				x <- h$breaks[2:length(h$breaks)]
-#			y <- h$density
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			expmax <- floor(log(min(y),10))
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy", yaxt="n") #las=1
-#			axis(side=2, at=10^(expmax:0), label=parse(text=paste("10^", expmax:0, sep="")), las=1)
-			# complementary cumulative distribution function
-			if(length(unique(data))>1)
-				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-	if(DO_STAT_TESTS && length(unique(data))>1)
-	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-	}
+	test <- DO_STAT_TESTS && length(unique(data))>1
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
 
 	# distributions of character numbers
 	vals <- table(arc.stats[arc.idx,COL_CHARS])
@@ -1923,33 +1454,15 @@ plot.stats.arc <- function(
 	data <- arc.stats[arc.idx,COL_CHARS]
 	ml <- "Character number distribution over arcs"
 	xl <- "Number of characters by arc"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-					data,
-					breaks=0:max(data),
-					col=col,
-					xlab=xl,
-					main=ml,
-					freq=FALSE,
-#					plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-#			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=FALSE
+	)
 	
 	# distributions of page numbers
 	vals <- table(arc.stats[arc.idx,COL_PAGES])
@@ -1962,38 +1475,16 @@ plot.stats.arc <- function(
 	data <- arc.stats[arc.idx,COL_PAGES]
 	ml <- "Page number distribution over arcs"
 	xl <- "Number of pages by arc"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-#	# check distribution
-#	if(DO_STAT_TESTS && length(unique(data))>1 && is.na(cur.arc))
-#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-#	}
+	test <- DO_STAT_TESTS && length(unique(data))>1
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
 	
 	# distributions of scene numbers
 	vals <- table(arc.stats[arc.idx,COL_SCENES])
@@ -2006,38 +1497,16 @@ plot.stats.arc <- function(
 	data <- arc.stats[arc.idx,COL_SCENES]
 	ml <- "Scene number distribution over arcs"
 	xl <- "Number of scenes by arc"
-	for(fformat in PLOT_FORMAT)
-	{	if(fformat==PLOT_FORMAT_PDF)
-			pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-		else if(fformat==PLOT_FORMAT_PNG)
-			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-			# histogram
-			h <- hist(
-				data,
-				breaks=0:max(data),
-				col=col,
-				xlab=xl,
-				main=ml,
-				freq=FALSE,
-#				plot=FALSE
-			)
-#			# scatterplot
-#			x <- h$breaks[2:length(h$breaks)]
-#			y <- h$counts
-#			idx <- which(y>0)
-#			x <- x[idx]
-#			y <- y[idx]
-#			plot(x, y, col=col, xlab=xl, ylab="Density", main=ml, log="xy")
-			# complementary cumulative distribution function
-#			if(length(unique(data))>1)
-#				plot.ccdf(data=data, main=ml, xlab=xl, ylab="default", log=TRUE, cols=col)
-		dev.off()
-	}
-	# check distribution
-#	if(DO_STAT_TESTS && length(unique(data))>1)
-#	{	distr.stats <- test.disc.distr(data=data, xlab=xl, return_stats=TRUE, plot.file=paste0(file,"_distrtest"))
-#		write.table(distr.stats, file=paste0(file,"_distrtest.csv"), sep=",", row.names=FALSE, col.names=TRUE)
-#	}
+	test <- DO_STAT_TESTS && length(unique(data))>1
+	plot.disc.distribution(
+		vals=data, 
+		xlab=xl, main=ml, 
+		freq=FALSE,
+		log=TRUE, cols=col, 
+		#leg.title=att, leg.pos="topright", las=1, 
+		export=TRUE, file=file, 
+		histo=TRUE, ccdf=TRUE, test=test
+	)
 	
 	# evolution of the stats by arc
 	arc.cols <- c(
@@ -2105,34 +1574,15 @@ plot.stats.arc <- function(
 			tlog(4,"Distribution of character numbers for attribute \"",att,"\": producing files \"",file,"\"")
 			ml <- paste0("Character number distribution over arcs (att=",att)
 			xl <- "Number of characters by arc"
-			yl <- "Frequency"
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					# barplots
-					vals <- matrix(NA,ncol=ncol(data),nrow=max(data))
-					for(d in 1:ncol(data))
-					{	h <- hist(
-							data[,d], 
-							breaks=0:max(data), 
-							plot=FALSE
-						)
-						vals[,d] <- h$counts
-					}
-					barplot(
-						height=t(vals),
-						names.arg=h$breaks[2:length(h$breaks)],
-						xlab=xl, ylab=yl, main=paste0(ml,")"),
-						beside=TRUE,								# stacked (FALSE) vs. grouped (TRUE) bars
-						col=pal,
-						#space=0,
-						args.legend=list(x="topright"),
-						legend.text=colnames(data)
-					)
-				dev.off()
-			}
+			plot.disc.distribution(
+				vals=data, 
+				xlab=xl, main=paste0(ml,")"), 
+				freq=TRUE,
+				log=TRUE, cols=pal, 
+				leg.title=att, leg.pos="topright", las=1, 
+				export=TRUE, file=file, 
+				histo=TRUE, ccdf=TRUE, test=FALSE
+			)
 			# separate plot for each attribute value
 			for(d in 2:ncol(arc.stats.atts[[att]]))
 			{	data <- arc.stats.atts[[att]][arc.idx,d]
@@ -2140,22 +1590,15 @@ plot.stats.arc <- function(
 				{	val <- colnames(arc.stats.atts[[att]])[d]
 					file <- get.path.stats.corpus(object=object, pref="distrib_chars-by-arc", att=att, val=colnames(arc.stats.atts[[att]])[d])
 					tlog(5,"Distribution of character numbers for value \"",att,"\"=\"",val,"\": producing files \"",file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-							h <- hist(
-								data,
-								breaks=0:max(data),
-								col=pal[d-1],
-								xlab=xl,
-								main=paste0(ml," - val=",val,")"),
-								freq=FALSE,
-								#plot=FALSE
-							)
-						dev.off()
-					}
+					plot.disc.distribution(
+						vals=data, 
+						xlab=xl, main=paste0(ml," - val=",val,")"), 
+						freq=FALSE,
+						log=TRUE, cols=pal[d-1], 
+						#leg.title=att, leg.pos="topright", las=1, 
+						export=TRUE, file=file, 
+						histo=TRUE, ccdf=TRUE, test=FALSE
+					)
 				}
 			}
 		}

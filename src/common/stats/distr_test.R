@@ -138,12 +138,19 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 		)
 		add.line.plot(data=data, model=power.law, col=LAW_COLORS[LAW_NAME_PL], lwd=2)
 	}
-	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_PL_EXP] <- power.law$pars
 	tab[1,C_PL_XMIN] <- power.law$xmin
-	tab[1,C_PL_PVAL] <- pl.bs$p
+	# bootstrap test
+	pl.bs <- tryCatch(expr={bootstrap_p(power.law, no_of_sims=sims, threads=8)}, 
+			error=function(e) NA)
+	if(is.na(pl.bs))
+	{	msg <- "ERROR could not apply the bootstrap test to the estimated power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_PL_PVAL] <- pl.bs$p
+	}
 	# alternative, with library pli
 	power.law2 <- tryCatch(expr=pareto.fit(data=data, threshold=power.law$xmin, method="ml"), 
 			error=function(e) NA)
@@ -164,10 +171,17 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	# possibly plot model
 	if(!is.na(plot.file))
 		add.line.plot(data=data, model=log.normal, col=LAW_COLORS[LAW_NAME_LNORM], lwd=2)
-	comp.ln <- compare_distributions(power.law, log.normal)
-	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	# comparison
+	comp.ln <- tryCatch(expr={compare_distributions(power.law, log.normal)}, 
+			error=function(e) NA)
+	if(is.na(comp.ln))
+	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
+		tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	}
 	# alternative, with library pli
 	log.normal2 <- tryCatch(expr=lnorm.fit(x=data, threshold=power.law$xmin), 
 			error=function(e) NA)
@@ -190,10 +204,17 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	# possibly plot model
 	if(!is.na(plot.file))
 		add.line.plot(data=data, model=exp.law, col=LAW_COLORS[LAW_NAME_EXPO], lwd=2)
-	comp.el <- compare_distributions(power.law, exp.law)
-	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
-	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
+	# comparison
+	comp.el <- tryCatch(expr={compare_distributions(power.law, exp.law)}, 
+			error=function(e) NA)
+	if(is.na(comp.el))
+	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_EXPO_CLR] <- comp.el$test_statistic
+		tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
+	}
 	# alternative, with library pli
 	exp.law2 <- tryCatch(expr=exp.fit(x=data, threshold=power.law$xmin), 
 		error=function(e) NA)
@@ -220,10 +241,11 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 		# possibly plot model
 		if(!is.na(plot.file))
 			add.line.plot(data=data, model=weib.law, col=LAW_COLORS[LAW_NAME_WEIB], lwd=2)
-		weib.el <- tryCatch(expr=compare_distributions(power.law, weib.law),
-				error=function(e) NA)
-		if(all(is.na(weib.el)))
-		{	msg <- "ERROR while comparing to the power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		# comparison
+		weib.el <- tryCatch(expr={compare_distributions(power.law, weib.law)},
+			error=function(e) NA)
+		if(is.na(weib.el))
+		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
 		{	msg <- paste0("Test statistic: ",weib.el$test_statistic, " p-value: ", weib.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
@@ -275,10 +297,17 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 			add.line.plot(data=data, model=trunc.law2, col=LAW_COLORS[LAW_NAME_TRUNC], lwd=2)
 		msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
-		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		# comparison
+		comp.tl2 <- tryCatch(expr={power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)},
+				error=function(e) NA)
+		if(is.na(comp.tl2))
+		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+			tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		}
 	}
 	
 	################
@@ -313,9 +342,11 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	}
 	
 	# record log as a separate file
-	conx <- file(paste0(plot.file,"_log.txt"))
-		writeLines(msgs,conx)
-	close(conx)
+	if(!is.na(plot.file))
+	{	conx <- file(paste0(plot.file,"_log.txt"))
+			writeLines(msgs,conx)
+		close(conx)
+	}
 	
 	# get distrib functions
 	if(all(is.na(tmp$laws)))
@@ -380,12 +411,19 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		)
 		add.line.plot(data=data, model=power.law, col=LAW_COLORS[LAW_NAME_PL], lwd=2)
 	}
-	pl.bs <- bootstrap_p(power.law, no_of_sims=sims, threads=8)	# bootstrap test
 	msg <- paste0("Parameters: x_min=",power.law$xmin," exp=",power.law$pars);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	tab[1,C_PL_EXP] <- power.law$pars
 	tab[1,C_PL_XMIN] <- power.law$xmin
-	tab[1,C_PL_PVAL] <- pl.bs$p
+	# bootstrap test
+	pl.bs <- tryCatch(expr={bootstrap_p(power.law, no_of_sims=sims, threads=8)}, 
+			error=function(e) NA)
+	if(is.na(pl.bs))
+	{	msg <- "ERROR could not apply the bootstrap test to the estimated power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("p-value for power law: ",pl.bs$p);tlog(4,msg);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_PL_PVAL] <- pl.bs$p
+	}
 	# alternative, with library pli
 	power.law2 <- tryCatch(expr=zeta.fit(x=data, threshold=power.law$xmin, method="ml.direct"), 
 			error=function(e) NA)
@@ -405,10 +443,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	foos[[LAW_NAME_LNORM]] <- log.normal
 	if(!is.na(plot.file))					# possibly plot model
 		add.line.plot(data=data, model=log.normal, col=LAW_COLORS[LAW_NAME_LNORM], lwd=2)
-	comp.ln <- compare_distributions(power.law, log.normal)
-	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
-	tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	# comparison
+	comp.ln <- tryCatch(expr={compare_distributions(power.law, log.normal)}, 
+		error=function(e) NA)
+	if(is.na(comp.ln))
+	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Test statistic: ",comp.ln$test_statistic, " p-value: ", comp.ln$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_LNORM_CLR] <- comp.ln$test_statistic
+		tab[1,C_LNORM_CPVAL] <- comp.ln$p_two_sided
+	}
 	# alternative, with library pli
 	log.normal2 <- tryCatch(expr=fit.lnorm.disc(x=data, threshold=power.law$xmin), 
 			error=function(e) NA)
@@ -429,10 +474,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	foos[[LAW_NAME_EXPO]] <- exp.law
 	if(!is.na(plot.file))					# possibly plot model
 		add.line.plot(data=data, model=exp.law, col=LAW_COLORS[LAW_NAME_EXPO], lwd=2)
-	comp.el <- compare_distributions(power.law, exp.law)
-	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_EXPO_CLR] <- comp.el$test_statistic
-	tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
+	# comparison
+	comp.el <- tryCatch(expr={compare_distributions(power.law, exp.law)}, 
+			error=function(e) NA)
+	if(is.na(comp.el))
+	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Test statistic: ",comp.el$test_statistic, " p-value: ", comp.el$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_EXPO_CLR] <- comp.el$test_statistic
+		tab[1,C_EXPO_CPVAL] <- comp.el$p_two_sided
+	}
 	# alternative, with library pli
 	exp.law2 <- tryCatch(expr=discexp.fit(x=data, threshold=power.law$xmin), 
 		error=function(e) NA)
@@ -453,10 +505,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	foos[[LAW_NAME_POIS]] <- pois.law
 	if(!is.na(plot.file))					# possibly plot model
 		add.line.plot(data=data, model=pois.law, col=LAW_COLORS[LAW_NAME_POIS], lwd=2)
-	comp.pl <- compare_distributions(power.law, pois.law)
-	msg <- paste0("Test statistic: ",comp.pl$test_statistic, " p-value: ", comp.pl$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-	tab[1,C_POIS_CLR] <- comp.pl$test_statistic
-	tab[1,C_POIS_CPVAL] <- comp.pl$p_two_sided
+	# comparison
+	comp.pl <- tryCatch(expr={compare_distributions(power.law, pois.law)}, 
+			error=function(e) NA)
+	if(is.na(comp.pl))
+	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+	}
+	else
+	{	msg <- paste0("Test statistic: ",comp.pl$test_statistic, " p-value: ", comp.pl$p_two_sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		tab[1,C_POIS_CLR] <- comp.pl$test_statistic
+		tab[1,C_POIS_CPVAL] <- comp.pl$p_two_sided
+	}
 	# alternative, with library pli
 	pois.law2 <- tryCatch(expr=pois.tail.fit(x=data, threshold=power.law$xmin), 
 			error=function(e) NA)
@@ -484,10 +543,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		# possibly plot model
 		if(!is.na(plot.file))
 			add.line.plot(data=data, model=weib.law2, col=LAW_COLORS[LAW_NAME_WEIB], lwd=2)
-		comp.wl2 <- vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))
-		msg <- paste0("Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_WEIB_CLR] <- comp.wl2$loglike.ratio
-		tab[1,C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+		# comparison
+		comp.wl2 <- tryCatch(expr={vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))}, 
+				error=function(e) NA)
+		if(is.na(comp.wl2))
+		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	msg <- paste0("Alt. Test statistic: ",comp.wl2$loglike.ratio, " p-value: ", comp.wl2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_WEIB_CLR] <- comp.wl2$loglike.ratio
+			tab[1,C_WEIB_CPVAL] <- comp.wl2$p.two.sided
+		}
 	}
 	
 	################## discrete truncated power law
@@ -512,10 +578,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 			add.line.plot(data=data, model=trunc.law2, col=LAW_COLORS[LAW_NAME_TRUNC], lwd=2)
 		msg <- paste0("Parameters: x_min=",trunc.law2$threshold," exp=",trunc.law2$exponent," rate=",trunc.law2$rate);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		tab[1,C_TRUNC_EXP] <- trunc.law2$exponent
-		comp.tl2 <- power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)
-		msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
-		tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		# comparison
+		comp.tl2 <- tryCatch(expr={power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)}, 
+				error=function(e) NA)
+		if(is.na(comp.tl2))
+		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	msg <- paste0("Alt. Test statistic: ",comp.tl2$log.like.ratio, " p-value: ", comp.tl2$p_value);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_TRUNC_CLR] <- comp.tl2$log.like.ratio
+			tab[1,C_TRUNC_CPVAL] <- comp.tl2$p_value
+		}
 	}
 	
 	################## yule-simon distribution
@@ -534,10 +607,17 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		# possibly plot model
 		if(!is.na(plot.file))
 			add.line.plot(data=data, model=yusim.law2, col=LAW_COLORS[LAW_NAME_YUSIM], lwd=2)
-		comp.ys2 <- vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))
-		msg <- paste0("Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
-		tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
-		tab[1,C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
+		# comparison
+		comp.ys2 <- tryCatch(expr={vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))}, 
+				error=function(e) NA)
+		if(is.na(comp.ys2))
+		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+		}
+		else
+		{	msg <- paste0("Alt. Test statistic: ",comp.ys2$loglike.ratio, " p-value: ", comp.ys2$p.two.sided);tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
+			tab[1,C_YUSIM_CLR] <- comp.ys2$loglike.ratio
+			tab[1,C_YUSIM_CPVAL] <- comp.ys2$p.two.sided
+		}
 	}
 	
 	################
@@ -571,10 +651,12 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		dev.off()
 	}
 	
-	# record log as a separate file
-	conx <- file(paste0(plot.file,"_log.txt"))
-		writeLines(msgs,conx)
-	close(conx)
+	# possibly record log as a separate file
+	if(!is.na(plot.file))
+	{	conx <- file(paste0(plot.file,"_log.txt"))
+			writeLines(msgs,conx)
+		close(conx)
+	}
 	
 	# get distrib functions
 	if(all(is.na(tmp$laws)))
@@ -656,16 +738,16 @@ make.decision.distr <- function(tab, threshold=0.01)
 	flags[LAW_NAME_WEIB]  <- !is.na(tab[1,C_WEIB_CPVAL]) && tab[1,C_WEIB_CPVAL]<threshold && !is.na(tab[1,C_WEIB_CLR]) && tab[1,C_WEIB_CLR]<0 && tab[1,C_WEIB_CLR]<tab[1,C_TRUNC_CLR]
 	flags[LAW_NAME_YUSIM] <- !is.na(tab[1,C_YUSIM_CPVAL]) && tab[1,C_YUSIM_CPVAL]<threshold && !is.na(tab[1,C_YUSIM_CLR]) && tab[1,C_YUSIM_CLR]<0 && tab[1,C_YUSIM_CLR]<tab[1,C_TRUNC_CLR]
 	
-	if(power)
+	if(!is.na(power) && power)
 	{	if(any(!is.na(flags) & flags))
 		{	dec <- "Moderate"
-			if(truncated)
+			if(!is.na(truncated) && truncated)
 				laws <- LAW_NAME_TRUNC
 			else
 				laws <- LAW_NAME_PL
 			laws <- c(laws, names(flags)[!is.na(flags) & flags])
 		}
-		else if(truncated)
+		else if(!is.na(truncated) && truncated)
 		{	dec <- "Truncated"
 			laws <- LAW_NAME_TRUNC
 		}
@@ -677,13 +759,13 @@ make.decision.distr <- function(tab, threshold=0.01)
 	else
 	{	if(any(!is.na(flags) & flags))
 		{	dec <- "None"
-			if(truncated)
+			if(!is.na(truncated) && truncated)
 				laws <- LAW_NAME_TRUNC
 			else
 				laws <- c()
 			laws <- c(laws, names(flags)[!is.na(flags) & flags])
 		}
-		else if(truncated)
+		else if(!is.na(truncated) && truncated)
 		{	dec <- "Truncated"
 			laws <- LAW_NAME_TRUNC
 		}
