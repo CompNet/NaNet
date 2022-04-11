@@ -3,7 +3,7 @@
 # 
 # 09/2019 Vincent Labatut
 #
-# source("src/common/plot/plot_stats.R")
+# source("src/common/plots/plot_stats.R")
 #############################################################################################
 
 
