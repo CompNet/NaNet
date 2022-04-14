@@ -55,7 +55,7 @@ plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, m
 			data=vals, 
 			xlab=xlab, main=main, 
 			log=TRUE, cols=cols,
-			leg.title=leg.title, leg.pos=leg.pos,
+			leg=TRUE, leg.title=leg.title, leg.pos=leg.pos,
 			las=las,
 			file=file,
 			test=test
@@ -113,7 +113,7 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log
 			data=vals, 
 			xlab=xlab, main=main, 
 			log=TRUE, cols=cols,
-			leg.title=leg.title, leg.pos=leg.pos,
+			leg=TRUE, leg.title=leg.title, leg.pos=leg.pos,
 			las=las,
 			file=file,
 			test=test
@@ -424,9 +424,10 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 # ylab: label of the y-axis, or "default" for default, or NA for no label at all.
 # log: TRUE to use logarithmic scales for the axes.
 # cols: color of each series.
-# leg.title: title of the legend, or NA if none.
+# leg: whether to plot the legend or not, when needed (default TRUE)
+# leg.title: title of the legend (optional).
 # leg.pos: position of the legend (by default, "topright").
-# lines: line types, or NA if points.
+# lines: line types to represent series, or NA if points.
 # cex.axis: size of the axis ticks text.
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical).
 # file: file to create, or NA to plot in current output.
@@ -435,7 +436,7 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 #
 # returns: TRUE iff a plot could be produced.
 #############################################################################################
-plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA, leg.title=NA, leg.pos="topright", lines=NA, cex.axis=1, las=1, file=NA, test=NA, ...)
+plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA, leg=TRUE, leg.title=NA, leg.pos="topright", lines=NA, cex.axis=1, las=1, file=NA, test=NA, ...)
 {	# prepare data
 	if(!all(class(data)=="list"))
 	{	if(is.null(dim(data)))
@@ -632,35 +633,53 @@ plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA
 		}
 		
 		# add the legend
-		if(!is.na(leg.title) && length(data)>1)
-		{	# inclue fit lines in the legend
-			if(!is.na(test) && length(data)>1)
-			{	legend(
-					x=leg.pos, 
-					fill=c(cols,rep(NA,length(f.laws))),
-					border=c(rep("BLACK",length(cols)), rep(NA, length(f.laws))),
-					legend=c(names(data),f.laws), text.col="WHITE",
-					title=leg.title, title.col="WHITE"
-				)
-				legend(
-					x=leg.pos, 
-					bty="n",		# no box around legend
-					col=c(rep(NA,length(cols)), rep("BLACK",length(f.laws))),
-					lty=c(rep(NA,length(cols)), f.lty),
-					legend=c(names(data),f.laws),
-#					legend=rep("", length(data)+length(f.laws)),
-					title=leg.title, 
-					seg.len=1
-				)
+		if(leg)
+		{	if(length(data)>1)
+			{	# legend for both series and fit lines
+				if(!is.na(test) && length(f.laws)>1)
+				{	legend(
+						x=leg.pos, 
+						fill=c(cols,rep(NA,length(f.laws))),
+						border=c(rep("BLACK",length(cols)), rep(NA, length(f.laws))),
+						legend=c(names(data),f.laws), text.col="WHITE",
+						title=leg.title, title.col="WHITE"
+					)
+					legend(
+						x=leg.pos, 
+						bty="n",		# no box around legend
+						col=c(rep(NA,length(cols)), rep("BLACK",length(f.laws))),
+						lty=c(rep(NA,length(cols)), f.lty),
+						legend=c(names(data),f.laws),
+	#					legend=rep("", length(data)+length(f.laws)),
+						title=leg.title, 
+						seg.len=1
+					)
+				}
+				# legend only for series
+				else
+				{	legend(
+						x=leg.pos, 
+						fill=cols, 
+						legend=names(data),
+						title=leg.title
+					)
+				}
 			}
-			# or not (just series)
 			else
-			{	legend(
-					x=leg.pos, 
-					fill=cols, 
-					legend=names(data),
-					title=leg.title
-				)
+			{	# legend only fit lines
+				if(!is.na(test) && length(f.laws)>1)
+				{	legend(
+						x=leg.pos, 
+						col=rep("BLACK",length(f.laws)),
+						lty=f.lty,
+						legend=f.laws,
+						title="Fit"
+					)
+				}
+				# not legend required
+				else
+				{	# 
+				}
 			}
 		}
 		
