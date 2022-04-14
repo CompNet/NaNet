@@ -517,7 +517,7 @@ plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA
 	xlim <- range(xs)
 	ylim <- range(ys)
 	if(any(is.infinite(c(xlim, ylim))) || xlim[1]==xlim[2])
-	{	tlog("WARNING: nothing to plot, all values are zero, or infinite, or a unique value")
+	{	tlog("WARNING: nothing to plot, all (filtered) values are zero, or infinite, or a unique value")
 		return(FALSE)
 	}
 	
