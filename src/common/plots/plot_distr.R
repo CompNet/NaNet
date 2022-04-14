@@ -3,7 +3,7 @@
 # 
 # 09/2019 Vincent Labatut
 #
-# source("src/common/plot/plot_stats.R")
+# source("src/common/plots/plot_distr.R")
 #############################################################################################
 
 
@@ -15,8 +15,8 @@
 #
 # vals: raw values (possibly several series, as columns).
 # xlab: x-axis label.
+# log: TRUE to use logarithmic scales for the axes.
 # freq: whether to display frequencies or densities in histograms.
-# log: scale of the ccdf axes.
 # cols: colors used to plot each series.
 # main: main title of the plots.
 # leg.title: title of the legend, or NA if none.
@@ -28,14 +28,14 @@
 # ccdf: whether to plot the complement cumulative distribution function.
 # test: whether to fit standard distribution to the values.
 #############################################################
-plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
+plot.disc.distribution <- function(vals, xlab, log=FALSE, freq=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
 {	# plot histo
 	if(histo)
 	{	# make plot
 		plot.bars(
 			vals=vals, 
 			xlab=xlab, main=main, 
-			cols=cols, 
+			log=log, cols=cols, 
 			freq=freq, beside=TRUE, 
 			leg.title=leg.title, leg.pos=leg.pos, 
 			las=las,
@@ -54,7 +54,7 @@ plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, m
 		plot.ccdf(
 			data=vals, 
 			xlab=xlab, main=main, 
-			log=TRUE, cols=cols,
+			log=log, cols=cols,
 			leg=TRUE, leg.title=leg.title, leg.pos=leg.pos,
 			las=las,
 			file=file,
@@ -72,9 +72,9 @@ plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, m
 #
 # vals: raw values (single series assumed).
 # xlab: name of the values (used for the x-axis label).
+# log: scale of the ccdf axes.
 # breaks: histogram breaks.
 # freq: whether to display frequencies or densities in histograms.
-# log: scale of the ccdf axes.
 # col: colors used to plot each series.
 # main: main title of the plots.
 # leg.title: title of the legend, or NA if none.
@@ -86,14 +86,14 @@ plot.disc.distribution <- function(vals, xlab, freq=FALSE, log=FALSE, cols=NA, m
 # ccdf: whether to plot the complement cumulative distribution function.
 # test: whether to fit standard distribution to the values.
 #############################################################
-plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
+plot.cont.distribution <- function(vals, xlab, log=FALSE, breaks="Sturges", freq=FALSE, cols=NA, main=NA, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, histo=TRUE, ccdf=TRUE, test=FALSE)
 {	# plot histo
 	if(histo)
 	{	# make plot
 		plot.hist(
 			vals=vals, breaks=breaks, 
 			xlab=xlab, main=main, 
-			cols=cols, 
+			log=log, cols=cols, 
 			freq=freq, 
 			points=FALSE, line=FALSE,
 			las=las,
@@ -112,7 +112,7 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log
 		plot.ccdf(
 			data=vals, 
 			xlab=xlab, main=main, 
-			log=TRUE, cols=cols,
+			log=log, cols=cols,
 			leg=TRUE, leg.title=leg.title, leg.pos=leg.pos,
 			las=las,
 			file=file,
@@ -128,11 +128,12 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log
 # Plots a custom histogram, for discrete or continuous values.
 #
 # vals: data to plot. Can be a single series, or several as an array or a list.
-# xlab: name of the values (used for the x-axis label).
 # breaks: histogram breaks.
+# xlab: name of the values (used for the x-axis label).
+# main: main title of the plots.
+# log: TRUE to use logarithmic scales for the axes.
 # cols: color used to plot each series.
 # freq: plot frequencies (TRUE) vs. densities (FALSE).
-# main: main title of the plots.
 # points: adds scatter plots to the bars, representing the corresponding points.
 # line: add density estimate.
 # las: orientation of axis labels (0:parallel to axis, 1:horizontal, 2:perpendicular to axis, 3:vertical)
@@ -140,7 +141,7 @@ plot.cont.distribution <- function(vals, xlab, breaks="Sturges", freq=FALSE, log
 # file: (optional) file name, to record the histogram plot.
 # ...: additional parameters, fetched to the hist function.
 #############################################################
-plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, points=FALSE, line=FALSE, las=1, export=FALSE, file=NA, ...)
+plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, log=FALSE, cols, freq=FALSE, points=FALSE, line=FALSE, las=1, export=FALSE, file=NA, ...)
 {	# prepare data
 	if(!all(class(vals)=="list"))
 	{	if(is.null(dim(vals)))
@@ -267,6 +268,7 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, p
 # vals: data to plot. Can be a single series, or several as an array or a list.
 # xlab: label of the x-axis.
 # main: plot title.
+# log: TRUE to use logarithmic scales for the axes.
 # cols: colors (one for each series).
 # freq: plot frequencies (TRUE) vs. densities (FALSE).
 # beside: whether to plot multiple series as stacked (FALSE) or groupped (TRUE) bars.
@@ -277,7 +279,7 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, cols, freq=FALSE, p
 # file: (optional) file name, to record the histogram plot.
 # ...: additional parameters, fetched to the barplot function.
 #############################################################
-plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, ...)
+plot.bars <- function(vals, xlab, main=NA, log=FALSE, cols=NA, freq=FALSE, beside=TRUE, leg.title=NA, leg.pos="topright", las=1, export=FALSE, file=NA, ...)
 {	# prepare data
 	if(!all(class(vals)=="list"))
 	{	if(is.null(dim(vals)))
@@ -338,6 +340,9 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 				tab.file <- paste0(tab.file, "_", names(vals)[s])
 			write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
 		}
+		
+		if(log)
+			data[data[,s]==0,s] <- NA
 	}
 	colnames(data) <- names(vals)
 	
@@ -348,6 +353,12 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 	{	plot.file <- paste0(file, "_histo")
 		fformats <- PLOT_FORMAT
 	}
+	
+	# log parameter
+	if(log)
+		plog <- "y"
+	else
+		plog <- ""
 	
 	# produce plot
 	for(fformat in fformats)
@@ -374,6 +385,7 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 				border=border.col,						# bar outline color
 				space=0,								# space between bars
 				las=las,								# axis label orientation
+				log=plog,								# logarithmic axes
 				...
 			)
 		}
@@ -393,14 +405,15 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 				space=space,							# space between bars
 				beside=beside,							# grouped/stacked bars
 				las=las,								# axis label orientation
+				log=plog,								# logarithmic axes
 				...
 			)
 			# add legend
 			legend(
-				x=leg.pos,						# position of the legend
-				fill=cols,						# fill colors
-				legend=names(vals),			# associated text
-				title=leg.title					# main title
+				x=leg.pos,				# position of the legend
+				fill=cols,				# fill colors
+				legend=names(vals),		# associated text
+				title=leg.title			# main title
 			)
 		}
 		
@@ -419,9 +432,9 @@ plot.bars <- function(vals, xlab, main=NA, cols=NA, freq=FALSE, beside=TRUE, leg
 # Note: it is normal if the series do not start from zero.
 # 
 # data: data to plot. Can be a single series, or several as an array or a list.
-# main: main title of the plot.
 # xlab: label of the x-axis, or NA for no label.
 # ylab: label of the y-axis, or "default" for default, or NA for no label at all.
+# main: main title of the plot.
 # log: TRUE to use logarithmic scales for the axes.
 # cols: color of each series.
 # leg: whether to plot the legend or not, when needed (default TRUE)
