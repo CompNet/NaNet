@@ -6,6 +6,7 @@
 # source("src/graphs/misc.R")
 #############################################################################################
 source("src/common/graphs/generation.R")
+source("src/common/graphs/plot_graphs.R")
 source("src/common/graphs/read_write.R")
 source("src/common/graphs/rewiring.R")
 source("src/common/graphs/topomeas.R")

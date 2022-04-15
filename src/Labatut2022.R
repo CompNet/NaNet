@@ -39,20 +39,20 @@ start.rec.log(text=SERIES)
 data <- read.corpus.data()
 
 # compute corpus stats
-#data <- compute.corpus.stats(data)
+data <- compute.corpus.stats(data)
 
 # plot corpus stats
-#plot.corpus.stats(data)
+plot.corpus.stats(data)
 
 
 
 
 ###############################################################################
 # extract static networks
-#data <- extract.static.graphs.base(data)
+data <- extract.static.graphs.base(data)
 
 # plot these graphs
-#plot.static.graphs(data)
+plot.static.graphs(data)
 
 
 
