@@ -359,12 +359,12 @@ custom.gplot <- function(g, paths, col.att, size.att, cat.att=FALSE, v.hl, e.hl,
 					y1 <- y2 + height
 					leg.loc <- cbind(x=c(x1, x2, x2, x1), y=c(y1, y1, y2, y2))
 					legend.gradient(
-							pnts=leg.loc,
-							cols=pal(25),
-							#limits=format(range(vvals[connected],na.rm=TRUE), digits=2, nsmall=2),	# pb: uses scientific notation when numbers too small
-							limits=sprintf("%.2f", range(vvals[connected & finite],na.rm=TRUE)),
-							title=LONG_NAME[col.att], 
-							cex=0.8
+						pnts=leg.loc,
+						cols=pal(25),
+						#limits=format(range(vvals[connected],na.rm=TRUE), digits=2, nsmall=2),	# pb: uses scientific notation when numbers too small
+						limits=sprintf("%.2f", range(vvals[connected & finite],na.rm=TRUE)),
+						title=LONG_NAME[col.att], 
+						cex=0.8
 					)
 				}
 			}
