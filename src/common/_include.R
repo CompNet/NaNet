@@ -9,20 +9,20 @@
 # load libraries
 source <- function(file) {eval(parse(file, encoding="UTF-8"),envir=.GlobalEnv)}	# allows solving encoding problems on Windows systems
 
-library("igraph")
+library("igraph")		# graph analysis
 library("CINNA")
 #library("foreach")
 library("future.apply")	# parallel processing
 library("doParallel")	# parallel processing
-library("vioplot")
-library("ggplot2")
-library("ggExtra")
-library("viridis")
-library("poweRlaw")
-library("qgraph")
+library("vioplot")		# violin plots
+library("ggplot2")		# plots
+library("ggExtra")		# plugin of the previous
+library("viridis")		# color palette
+library("poweRlaw")		# power law testing
+library("qgraph")		# graph layouts
 #library("Rfast")		# not used
 library("data.table")
-library("latex2exp")
+library("latex2exp")	# include latex in plots
 library("minpack.lm")	# nonlinear regression
 library("sfsmisc")		# plot log axes
 library("cluster")		# silhouette measure
