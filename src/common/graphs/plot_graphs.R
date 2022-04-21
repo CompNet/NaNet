@@ -475,7 +475,7 @@ legend.box <- function (x, y = NULL, maxradius, mab = 1.2, inset = 0, double = F
 
 
 #############################################################################################
-# Returns current asp option.
+# Returns current asp option. Used by function legend.box.
 # 
 # Function taken from
 # 	https://rdrr.io/github/AtlanticR/bio.utilities/src/R/get.asp.r
@@ -502,3 +502,55 @@ get.asp <- function()
 lame.normalize <- function(vals, exp=2)
 {	(1-(1-vals)^exp)^(1/exp)
 }
+
+
+
+
+#############################################################################################
+# Adds the triangle vertex shape to igraph plotting abilities.
+# Taken from:
+# 	https://rdrr.io/github/b2slab/FELLA/man/mytriangle.html
+#############################################################################################
+#' Add triangular shape to igraph plot
+#' 
+#' This function enables the usage of triangles as shape in 
+#' the function \code{\link[igraph]{plot.igraph}}. 
+#' 
+#' @param coords,v,params clipping arguments, see 
+#' \code{\link[igraph]{shapes}}
+#' 
+#' @return Plot symbols
+#' 
+#' @examples 
+#' ## This function is internal
+#' library(igraph)
+#' 
+#' add.vertex.shape(
+#' "triangle", clip = shapes("circle")$clip,
+#' plot = FELLA:::mytriangle)
+#' 
+#' g <- barabasi.game(10)
+#' plot(
+#' g, vertex.shape = "triangle", 
+#' vertex.color = rainbow(vcount(g)),
+#' vertex.size = seq(10, 20, length = vcount(g)))
+#' 
+#' @importFrom graphics symbols
+#' 
+#' @keywords internal
+FELLAmytriangle <- function(coords, v=NULL, params) {
+	vertex.color <- params("vertex", "color")
+	if (length(vertex.color) != 1 && !is.null(v)) {
+		vertex.color <- vertex.color[v]
+	}
+	vertex.size <- 1/200 * params("vertex", "size")
+	if (length(vertex.size) != 1 && !is.null(v)) {
+		vertex.size <- vertex.size[v]
+	}
+	
+	graphics::symbols(
+			x = coords[, 1], y = coords[, 2], bg = vertex.color,
+			stars = cbind(vertex.size, vertex.size, vertex.size),
+			add = TRUE, inches = FALSE)
+}
+add.vertex.shape("triangle", clip=shapes("circle")$clip, plot=FELLAmytriangle)
