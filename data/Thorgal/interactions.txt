@@ -229,7 +229,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 06	6	1	6	3	Shardar-le-puissant	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
 06	6	4	6	4	Shardar-le-puissant	2 gardes_6.3	Spectateurs_6.4	Aaricia Gandalfsdottir
 06	6	5	6	5	Shardar-le-puissant	Cour_6.6
-06	7	1	7	1	Shardar-le-puissant	Scientifiques_6.77
+06	7	1	7	1	Shardar-le-puissant	Scientifiques_6.7
 06	7	2	7	4	Shardar-le-puissant
 06	7	5	7	5	Shardar-le-puissant	Helgith
 06	8	1	8	7	Shardar-le-puissant	Helgith	Jolan Thorgalsson
