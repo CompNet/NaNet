@@ -124,7 +124,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			else
 			{	plot.cont.distribution(
 					vals=vals, 
-					xlab=xl, main=m, 
+					xlab=xl, main=ml, 
 					breaks=20, 
 					freq=FALSE, 
 					log=TRUE, cols=col, 
