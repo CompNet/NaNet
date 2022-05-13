@@ -343,7 +343,9 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	
 	# record log as a separate file
 	if(!is.na(plot.file))
-	{	conx <- file(paste0(plot.file,"_log.txt"))
+	{	log.file <- paste0(plot.file,"_log.txt")
+		tlog(2,"Recording log in file '",log.file,"'")
+		conx <- file(log.file)
 			writeLines(msgs,conx)
 		close(conx)
 	}
@@ -653,7 +655,9 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	
 	# possibly record log as a separate file
 	if(!is.na(plot.file))
-	{	conx <- file(paste0(plot.file,"_log.txt"))
+	{	log.file <- paste0(plot.file,"_log.txt")
+		tlog(2,"Recording log in file '",log.file,"'")
+		conx <- file(log.file)
 			writeLines(msgs,conx)
 		close(conx)
 	}
