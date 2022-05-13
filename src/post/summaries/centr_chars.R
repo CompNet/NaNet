@@ -19,7 +19,7 @@ library("stringr")
 # load series data
 data <- read.corpus.data()
 
-folder <- file.path(DATA_FOLDER,"summaries")
+folder <- file.path(DATA_FOLDER,"annotation","summaries")
 volumes <- data$volume.stats[,COL_VOLUME]
 
 # load text files
