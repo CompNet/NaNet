@@ -34,9 +34,9 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data()
+data <- read.raw.data()
 # OR, if already computed, read from file
-data <- read.corpus.data()
+#data <- read.corpus.data()
 
 # compute corpus stats
 data <- compute.corpus.stats(data)

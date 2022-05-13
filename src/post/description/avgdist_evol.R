@@ -27,14 +27,14 @@ tlog(0, "Evolution of the average distance over scenes: pub.order=",pub.order)
 ###############################################################################
 # plots unfiltered and filtered figures as separate files
 
-## load corpus stats
-#tlog(0, "Read corpus stats")
-#data <- read.corpus.data()
-#
-## get filtered characters
-#filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
-#if(length(filt.names)==0) stop("Empty list of filtered characters")
-#
+# load corpus stats
+tlog(0, "Read corpus stats")
+data <- read.corpus.data()
+
+# get filtered characters
+filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
+if(length(filt.names)==0) stop("Empty list of filtered characters")
+
 # compute the sequence of scene-based graphs (possibly one for each scene)
 tlog(0, "Extract graph sequence")
 gs <- extract.static.graph.scenes(

@@ -47,7 +47,7 @@ kept <- which(V(g)$Filter=="Keep")
 
 # loop over dynamic network types: narrative smoothing vs. cumulative scene-based networks 
 tlog(2,"Loop over dynamic network types")
-for(narr.smooth in c(FALSE))
+for(narr.smooth in c(FALSE,TRUE))
 {	# dynamic network type
 	if(narr.smooth)
 		net.type <- "narr_smooth"
