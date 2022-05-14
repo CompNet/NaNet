@@ -24,14 +24,31 @@ setup.graph.layout <- function(g, folder)
 	# try to read the layout if the file exists
 	lay.file <- file.path(folder,"all_layout.txt")
 	if(file.exists(lay.file))
-	{	cat("Loading layout file \"",lay.file,"\"\n",sep="")
+	{	tlog(0,"Loading layout file \"",lay.file,"\"")
 		LAYOUT <<- as.matrix(read.table(file=lay.file, header=TRUE, row.names=1))
-		reset.flag <- gorder(g)!=nrow(LAYOUT)
+		
+		# clean rownames
+		rn <- rownames(LAYOUT)
+		rn <- fix.encoding(strings=rn)
+		rownames(LAYOUT) <- rn
+		
+		# check that the layout includes all characters
+		map <- match(V(g)$name,rownames(LAYOUT))
+		if(any(is.na(map)))
+		{	idx <- which(is.na(map))
+			tlog(2, "Could not find the position of the following characters in the existing layout file:")
+			for(i in idx)
+				tlog(4,V(g)$name[i])
+			reset.flat <- TRUE		
+		}
+		# possibly reorder the characters in the layout, in order to match the graph
+		else
+			LAYOUT <- LAYOUT[map,]
 	}
 	
 	# otherwise, compute the layout
 	if(!file.exists(lay.file) || reset.flag)
-	{	cat("Layout file \"",lay.file,"\" not found or obsolete: computing and recording it\n",sep="")
+	{	tlog(0,"Layout file \"",lay.file,"\" not found or obsolete: computing and recording it")
 		
 		# use a  predefined layout
 #		LAYOUT <<- layout_with_dh(g)		# very long
