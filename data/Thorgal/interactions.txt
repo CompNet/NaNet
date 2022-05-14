@@ -1125,9 +1125,9 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 19	47	1	48	8	Shaïgan / Thorgal Aegirsson	Kriss de Valnor
 20	3	1	3	2	Villageoises_20.3	Vigrid_20.3	Ernhild
 20	3	3	3	3	Erik
-20	3	4	4	5	Villgeoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
+20	3	4	4	5	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
 20	4	6	4	7	Erik	Loups_20.4
-20	4	8	5	4	Villgeoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
+20	4	8	5	4	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
 20	5	5	5	8	Erik	Loups_20.4
 20	6	1	7	5	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 20	7	6	7	9	Jolan Thorgalsson	Muff
@@ -1144,7 +1144,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 20	10	1	10	1	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 20	10	2	10	4	Vikings_20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers_20.9
 20	10	5	11	7	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
-20	12	1	12	6	Villgeoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Thing_20.10	Muff
+20	12	1	12	6	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Thing_20.10	Muff
 20	13	1	13	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 20	13	7	14	7	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Vigrid_20.3	Villageoises_20.13	Muff
 20	15	1	15	8	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff	Vigrid_20.3	Villageois_20.8	Thing_20.10	Solveig
