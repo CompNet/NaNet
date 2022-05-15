@@ -83,12 +83,14 @@ for(v in 1:length(vols))
 	
 		# select lines
 		idx <- which(sapply(est.lines,function(line) line[1])==vol)
-		tlog(6, "Detected ",length(idx)," scenes in this volume (estimation)")
+		tlog(8, "Detected ",length(idx)," scenes in this volume (estimation)")
 		est <- est.lines[idx]
 		
 		# loop over estimated scenes to compute TP and FP
+		tlog(8, "Looping over estimated scenes")
 		for(l in 1:length(est))
-		{	print(l)
+		{	tlog(10, "Processing scene ",l,"/",length(est))
+			
 			# match with the best reference scene (in terms of overlap)
 			start.page <- as.integer(est[[l]][2])
 			start.panel <- as.integer(est[[l]][3])
@@ -136,8 +138,10 @@ for(v in 1:length(vols))
 				ref.chars <- c()
 			
 			# true positives
-			tp <- length(intersect(ref.chars, est.chars))
-		 	# overall
+			tp.chars <- intersect(ref.chars, est.chars)
+			tp <- length(tp.chars)
+			tlog(12, "True positives: ",paste(tp.chars,collapse=", "))
+			# overall
 			stat.tab[vol,TP] <- stat.tab[vol,TP] + tp
 			stat.tab["Total",TP] <- stat.tab["Total",TP] + tp
 			# annotator-wise
@@ -145,7 +149,9 @@ for(v in 1:length(vols))
 			stat.tabs[[annotator]]["Total",TP] <- stat.tabs[[annotator]]["Total",TP] + tp
 			
 			# false positives
-			fp <- length(setdiff(est.chars, ref.chars))
+			fp.chars <- setdiff(est.chars, ref.chars)
+			fp <- length(fp.chars)
+			tlog(12, "False positives: ",paste(fp.chars,collapse=", "))
 			# overall
 			stat.tab[vol,FP] <- stat.tab[vol,FP] + fp
 			stat.tab["Total",FP] <- stat.tab["Total",FP] + fp
@@ -154,7 +160,9 @@ for(v in 1:length(vols))
 			stat.tabs[[annotator]]["Total",FP] <- stat.tabs[[annotator]]["Total",FP] + fp
 		
 			# false negatives
-			fn <- length(setdiff(ref.chars, est.chars))
+			fn.chars <- setdiff(ref.chars, est.chars)
+			fn <- length(fn.chars)
+			tlog(12, "False negatives: ",paste(fn.chars,collapse=", "))
 			# overall
 			stat.tab[vol,FN] <- stat.tab[vol,FN] + fn
 			stat.tab["Total",FN] <- stat.tab["Total",FN] + fn
@@ -176,6 +184,7 @@ for(v in 1:length(vols))
 }
 
 # compute total precision, recall, and f-measure
+tlog(2, "Computing total measures")
 # overall values
 stat.tab["Total",PRE] <- stat.tab["Total",TP] / (stat.tab["Total",TP] + stat.tab["Total",FP])
 stat.tab["Total",REC] <- stat.tab["Total",TP] / (stat.tab["Total",TP] + stat.tab["Total",FN])
@@ -187,6 +196,7 @@ for(annotator in annotators)
 	stat.tabs[[annotator]]["Total",FM]  <- 2 * stat.tabs[[annotator]]["Total",PRE] * stat.tabs[[annotator]]["Total",REC] / (stat.tabs[[annotator]]["Total",PRE] + stat.tabs[[annotator]]["Total",REC])
 }
 
+tlog(2, "Measure matrices:")
 print(stat.tabs)
 print(stat.tab)
 

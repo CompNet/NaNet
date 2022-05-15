@@ -36,7 +36,13 @@ vols <- c("06","16","20") #,"K1")
 annotators <- c("arthur","noe") #,"elise")
 
 # evaluation measures
-meas.names <- c("TruePositives","FalsePositives","FalseNegatives","Precision","Recall","Fmeasure")
+TP <- "TruePositives"
+FP <- "FalsePositives"
+FN <- "FalseNegatives"
+PRE <- "Precision"
+REC <- "Recall"
+FM <- "Fmeasure"
+meas.names <- c(TP, FP, FN, PRE, REC, FM)
 
 # init stat tables
 stat.tab <- matrix(0, nrow=length(vols)+1, ncol=length(meas.names))
@@ -81,19 +87,19 @@ for(v in 1:length(vols))
 			start.panel <- as.integer(est[[l]][3])
 			if(any(sapply(ref,function(line) line[2]==start.page && line[3]==start.panel)))
 			{	# overall
-				stat.tab[vol,"TruePositives"] <- stat.tab[vol,"TruePositives"] + 1
-				stat.tab["Total","TruePositives"] <- stat.tab["Total","TruePositives"] + 1
+				stat.tab[vol,TP] <- stat.tab[vol,TP] + 1
+				stat.tab["Total",TP] <- stat.tab["Total",TP] + 1
 				# annotator-wise
-				stat.tabs[[annotator]][vol,"TruePositives"] <- stat.tabs[[annotator]][vol,"TruePositives"] + 1
-				stat.tabs[[annotator]]["Total","TruePositives"] <- stat.tabs[[annotator]]["Total","TruePositives"] + 1
+				stat.tabs[[annotator]][vol,TP] <- stat.tabs[[annotator]][vol,TP] + 1
+				stat.tabs[[annotator]]["Total",TP] <- stat.tabs[[annotator]]["Total",TP] + 1
 			}
 			else
 			{	# overall
-				stat.tab[vol,"FalsePositives"] <- stat.tab[vol,"FalsePositives"] + 1
-				stat.tab["Total","FalsePositives"] <- stat.tab["Total","FalsePositives"] + 1
+				stat.tab[vol,FP] <- stat.tab[vol,FP] + 1
+				stat.tab["Total",FP] <- stat.tab["Total",FP] + 1
 				# annotator-wise
-				stat.tabs[[annotator]][vol,"FalsePositives"] <- stat.tabs[[annotator]][vol,"FalsePositives"] + 1
-				stat.tabs[[annotator]]["Total","FalsePositives"] <- stat.tabs[[annotator]]["Total","FalsePositives"] + 1
+				stat.tabs[[annotator]][vol,FP] <- stat.tabs[[annotator]][vol,FP] + 1
+				stat.tabs[[annotator]]["Total",FP] <- stat.tabs[[annotator]]["Total",FP] + 1
 			}
 		}
 		
@@ -103,36 +109,36 @@ for(v in 1:length(vols))
 			start.panel <- as.integer(ref[[l]][3])
 			if(!any(sapply(est,function(line) line[2]==start.page && line[3]==start.panel)))
 			{	# overall
-				stat.tab[vol,"FalseNegatives"] <- stat.tab[vol,"FalseNegatives"] + 1
-				stat.tab["Total","FalseNegatives"] <- stat.tab["Total","FalseNegatives"] + 1
+				stat.tab[vol,FN] <- stat.tab[vol,FN] + 1
+				stat.tab["Total",FN] <- stat.tab["Total",FN] + 1
 				# annotator-wise
-				stat.tabs[[annotator]][vol,"FalseNegatives"] <- stat.tabs[[annotator]][vol,"FalseNegatives"] + 1
-				stat.tabs[[annotator]]["Total","FalseNegatives"] <- stat.tabs[[annotator]]["Total","FalseNegatives"] + 1
+				stat.tabs[[annotator]][vol,FN] <- stat.tabs[[annotator]][vol,FN] + 1
+				stat.tabs[[annotator]]["Total",FN] <- stat.tabs[[annotator]]["Total",FN] + 1
 			}
 		}
 		
 		# compute annotator-wise precision, recall, f-measure
-		stat.tabs[[annotator]][vol,"Precision"] <- stat.tabs[[annotator]][vol,"TruePositives"] / (stat.tabs[[annotator]][vol,"TruePositives"] + stat.tabs[[annotator]][vol,"FalsePositives"])
-		stat.tabs[[annotator]][vol,"Recall"] <- stat.tabs[[annotator]][vol,"TruePositives"] / (stat.tabs[[annotator]][vol,"TruePositives"] + stat.tabs[[annotator]][vol,"FalseNegatives"])
-		stat.tabs[[annotator]][vol,"Fmeasure"] <- 2 * stat.tabs[[annotator]][vol,"Precision"] * stat.tabs[[annotator]][vol,"Recall"] / (stat.tabs[[annotator]][vol,"Precision"] + stat.tabs[[annotator]][vol,"Recall"])
+		stat.tabs[[annotator]][vol,PRE] <- stat.tabs[[annotator]][vol,TP] / (stat.tabs[[annotator]][vol,TP] + stat.tabs[[annotator]][vol,FP])
+		stat.tabs[[annotator]][vol,REC] <- stat.tabs[[annotator]][vol,TP] / (stat.tabs[[annotator]][vol,TP] + stat.tabs[[annotator]][vol,FN])
+		stat.tabs[[annotator]][vol,FM] <- 2 * stat.tabs[[annotator]][vol,PRE] * stat.tabs[[annotator]][vol,REC] / (stat.tabs[[annotator]][vol,PRE] + stat.tabs[[annotator]][vol,REC])
 	}
 
 	# compute overall precision, recall, and f-measure
-	stat.tab[vol,"Precision"] <- stat.tab[vol,"TruePositives"] / (stat.tab[vol,"TruePositives"] + stat.tab[vol,"FalsePositives"])
-	stat.tab[vol,"Recall"] <- stat.tab[vol,"TruePositives"] / (stat.tab[vol,"TruePositives"] + stat.tab[vol,"FalseNegatives"])
-	stat.tab[vol,"Fmeasure"] <- 2 * stat.tab[vol,"Precision"] * stat.tab[vol,"Recall"] / (stat.tab[vol,"Precision"] + stat.tab[vol,"Recall"])
+	stat.tab[vol,PRE] <- stat.tab[vol,TP] / (stat.tab[vol,TP] + stat.tab[vol,FP])
+	stat.tab[vol,REC] <- stat.tab[vol,TP] / (stat.tab[vol,TP] + stat.tab[vol,FN])
+	stat.tab[vol,FM] <- 2 * stat.tab[vol,PRE] * stat.tab[vol,REC] / (stat.tab[vol,PRE] + stat.tab[vol,REC])
 }
 
 # compute total precision, recall, and f-measure
 # overall values
-stat.tab["Total","Precision"] <- stat.tab["Total","TruePositives"] / (stat.tab["Total","TruePositives"] + stat.tab["Total","FalsePositives"])
-stat.tab["Total","Recall"] <- stat.tab["Total","TruePositives"] / (stat.tab["Total","TruePositives"] + stat.tab["Total","FalseNegatives"])
-stat.tab["Total","Fmeasure"] <- 2 * stat.tab["Total","Precision"] * stat.tab["Total","Recall"] / (stat.tab["Total","Precision"] + stat.tab["Total","Recall"])
+stat.tab["Total",PRE] <- stat.tab["Total",TP] / (stat.tab["Total",TP] + stat.tab["Total",FP])
+stat.tab["Total",REC] <- stat.tab["Total",TP] / (stat.tab["Total",TP] + stat.tab["Total",FN])
+stat.tab["Total",FM] <- 2 * stat.tab["Total",PRE] * stat.tab["Total",REC] / (stat.tab["Total",PRE] + stat.tab["Total",REC])
 # annotator-wise values
 for(annotator in annotators)
-{	stat.tabs[[annotator]]["Total","Precision"] <- stat.tabs[[annotator]]["Total","TruePositives"] / (stat.tabs[[annotator]]["Total","TruePositives"] + stat.tabs[[annotator]]["Total","FalsePositives"])
-	stat.tabs[[annotator]]["Total","Recall"] <- stat.tabs[[annotator]]["Total","TruePositives"] / (stat.tabs[[annotator]]["Total","TruePositives"] + stat.tabs[[annotator]]["Total","FalseNegatives"])
-	stat.tabs[[annotator]]["Total","Fmeasure"] <- 2 * stat.tabs[[annotator]]["Total","Precision"] * stat.tabs[[annotator]]["Total","Recall"] / (stat.tabs[[annotator]]["Total","Precision"] + stat.tabs[[annotator]]["Total","Recall"])
+{	stat.tabs[[annotator]]["Total",PRE] <- stat.tabs[[annotator]]["Total",TP] / (stat.tabs[[annotator]]["Total",TP] + stat.tabs[[annotator]]["Total",FP])
+	stat.tabs[[annotator]]["Total",REC] <- stat.tabs[[annotator]]["Total",TP] / (stat.tabs[[annotator]]["Total",TP] + stat.tabs[[annotator]]["Total",FN])
+	stat.tabs[[annotator]]["Total",FM] <- 2 * stat.tabs[[annotator]]["Total",PRE] * stat.tabs[[annotator]]["Total",REC] / (stat.tabs[[annotator]]["Total",PRE] + stat.tabs[[annotator]]["Total",REC])
 }
 
 print(stat.tabs)
