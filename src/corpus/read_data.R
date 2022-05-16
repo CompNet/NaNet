@@ -448,7 +448,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 	
 	# loop over the scenes
 	tlog(2,"Looping over the lines (=scenes)")
-	prev.end.panel.id <- NA
+	prev.end.panel.id <- 0
 	for(l in 2:length(lines))	# skipping header line
 	{	line <- lines[[l]]
 		scene.id <- l - 1
@@ -474,7 +474,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			stop(msg)
 		}
 		start.panel.id <- page.stats[start.page.id,COL_PANEL_START_ID] + start.panel - 1
-		if(!is.na(prev.end.panel.id) & start.panel.id>(prev.end.panel.id+1))
+		if(prev.end.panel.id>0 && start.panel.id>(prev.end.panel.id+1))
 		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			#warning(msg)
@@ -495,7 +495,7 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			stop(msg)
 		}
 		end.panel.id <- page.stats[end.page.id,COL_PANEL_START_ID] + end.panel - 1
-		prev.end.panel.id <- end.panel.id
+		prev.end.panel.id <- max(prev.end.panel.id, end.panel.id)	# max in order to consider overlapping/parallel scenes
 		
 		# check that the end is after the start
 		if(start.panel.id>end.panel.id)
