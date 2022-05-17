@@ -31,9 +31,9 @@ ref.lines <- strsplit(temp, split='\t', fixed=TRUE)
 tlog(4,"File read: ",length(ref.lines)," lines)")
 
 # volumes processed by the additional annotaters
-vols <- c("06","16","20") #,"K1")
+vols <- c("06","16","20","K1")
 # annotators' names
-annotators <- c("arthur","noe") #,"elise")
+annotators <- c("arthur","noe","elise")
 
 # evaluation measures
 TP <- "TruePositives"

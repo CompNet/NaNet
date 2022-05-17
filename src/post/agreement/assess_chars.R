@@ -36,9 +36,9 @@ ref.lines <- strsplit(temp, split='\t', fixed=TRUE)
 tlog(4,"File read: ",length(ref.lines)," lines)")
 
 # volumes processed by the additional annotators
-vols <- c("06","16","20") #,"K1")
+vols <- c("06","16","20","K1")
 # annotators' names
-annotators <- c("arthur","noe") #,"elise")
+annotators <- c("arthur","noe","elise")
 
 # evaluation measures
 TP <- "TruePositives"
@@ -126,6 +126,8 @@ for(v in 1:length(vols))
 						return(res)
 					})
 			idx <- which.max(overlaps)
+			tlog(12, "Position   : ",start.page,":",start.panel,"--",end.page,":",end.panel)
+			tlog(12, "Best match : ",as.integer(ref[[idx]][2]),":",as.integer(ref[[idx]][3]),"--",as.integer(ref[[idx]][4]),":",as.integer(ref[[idx]][5]))
 			
 			# get characters
 			if(length(est[[l]])>5)
