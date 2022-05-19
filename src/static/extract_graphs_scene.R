@@ -180,11 +180,15 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 {	tlog(1,"Filtering extras from the graph")
 	
 	tlog(2,"Counts for criteria deg>1 vs. freq>3")
-	tt <- table(degree(g)>1, V(g)$Frequency>3)
+	x1 <- sapply(degree(g), function(x) if(x<=1) "Interactions<=1" else "Interactions>1")
+	x2 <- sapply(V(g)$Frequency, function(x) if(x<=3) "Occurrences<=3" else "Occurrences>3")
+	tt <- table(x1,x2)
 	ttt <- rbind(cbind(tt,rowSums(tt)), c(colSums(tt),sum(tt)))
-	colnames(ttt) <- c("Degree<1","Degree>=1","Total")
-	rownames(ttt) <- c("Frequency<1","Frequency>=1","Total")
+	colnames(ttt)[3] <- "Total"
+	rownames(ttt)[3] <- "Total"
 	print(ttt)
+	tlog(4,"Interactions: number of characters the character of interest interacts with through the whole series (i.e. its degree in the graph)")
+	tlog(4,"Occurrences: number of scenes in which the character of interest appears through the whole series (i.e. its frequency)")
 	file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="filtering_criteria", ext=".csv")
 	write.csv(x=ttt, file=file, row.names=TRUE)
 	
