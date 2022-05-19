@@ -57,10 +57,11 @@ Changes:
   - plot centrality changes over only the top k most central nodes
     (don't we care about the other characters?)
     >> or consider classes of centrality? (use some clustering tool to detect them automatically)
- 
-what if we remove characters occurring only in two scenes (or windows)?
-  - those are probably extra, and most authors do some filtering like this
-  >> does this affect important graph properties such as connectedness? 
+
+notes:
+- heap's law for characters in a long series?
+- scalefreenness=just appearance of realism (not imbalanced social rel, but rather author showing only certain interactions
+- filtering (originally) scale free nets the cause of non power law distrib?
 
 VOLUMES/ARCS
 - when recording the graphml file, indicate the volumes in which each char appears in order to ease the interpretation of communities. 
@@ -95,7 +96,3 @@ Clean code:
 TODO
 - should separate the extraction of the static graph vs. graph sequence
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
-
-Corrections data:
-- Aaricia Ganfalfsdottir -> Aaricia Gandalfsdottir
-- Scientifiques_6.77 >> Scientifiques_6.7
