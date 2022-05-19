@@ -1,0 +1,108 @@
+Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
+20	3	1	3	2	Villageoises_20.3
+20	3	3	3	3	Erik
+20	3	4	4	5	Villageoises_20.3	Vigrid_20.3	Ernhild	Aaricia Gandalfsdottir	Solveig	Villageois_20.3
+20	4	6	4	7	Loups_20.4	Villageois_20.3
+20	4	8	5	4	Villageoises_20.3	Vigrid_20.3	Ernhild	Aaricia Gandalfsdottir	Solveig	Villageois_20.3
+20	5	5	5	8	Loups_20.4	Erik
+20	6	1	7	5	Louve Thorgalsdottir	Jolan Thorgalsson	Muff
+20	7	6	7	9	Jolan Thorgalsson	Muff
+20	7	10	8	1	Louve Thorgalsdottir	Jolan Thorgalsson	Muff	Loups_20.4
+20	8	2	8	3	Louve Thorgalsdottir	Jolan Thorgalsson	Muff	Erik
+20	8	4	8	4	Erik
+20	8	5	9	1	Villageois_20.8	Erik	Vigrid_20.3
+20	9	2	9	2	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8
+20	9	3	9	3	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8
+20	9	4	9	4	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8	Erik	Vigrid_20.3
+20	9	5	9	5	Kriss de Valnor	Vikings_20.9	Thorgal Aegirsson	Guerriers_20.9
+20	9	6	9	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8	Erik	Vigrid_20.3
+20	9	8	9	8	Erik	Vikings_20.9	Thorgal Aegirsson	Guerriers_20.9	Kriss de Valnor
+20	10	1	10	1	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8	Erik	Vigrid_20.3
+20	10	2	10	4	Erik	Vikings_20.9	Thorgal Aegirsson	Guerriers_20.9	Kriss de Valnor
+20	10	5	11	7	Villageoises_20.3	Louve Thorgalsdottir	Jolan Thorgalsson	Muff	Erik	Vigrid_20.3	Solveig	Aaricia Gandalfsdottir	Villageois_20.3
+20	12	1	12	6	Villageoises_20.3	Louve Thorgalsdottir	Jolan Thorgalsson	Muff	Vigrid_20.3	Solveig	Aaricia Gandalfsdottir	Villageois_20.3
+20	13	1	13	6	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	13	7	14	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Villageoises_20.13	Vigrid_20.3
+20	15	1	15	8	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Villageoises_20.13	Vigrid_20.3	Solveig	Erik	Villageois_20.3
+20	16	1	16	2	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	16	3	16	8	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Solveig
+20	17	1	17	2	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	17	3	17	6	Jolan Thorgalsson	Aaricia Gandalfsdottir
+20	17	7	17	8	Aaricia Gandalfsdottir
+20	17	9	17	9
+20	18	1	18	3	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	18	4	18	5	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Loups_20.18
+20	18	8	19	4	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.2	Garde_20.18.3	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Arkadès
+20	19	5	19	6	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	19	7	20	4	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.2
+20	20	5	20	6	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.2	Garde_20.18.3	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Arkadès
+20	20	7	21	1	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.2	Garde_20.18.3	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Loups_20.18	Arkadès
+20	21	2	21	2	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.2	Garde_20.18.3	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Loups_20.18
+20	21	3	21	5	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.3	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Loups_20.18
+20	21	6	21	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Garde_20.18.4	Esclave_20.18	Darek le Svéar	Loups_20.18
+20	21	8	22	4	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Esclave_20.18	Darek le Svéar	Loups_20.18
+20	22	5	22	5	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Esclave_20.18	Darek le Svéar
+20	22	6	22	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Esclave_20.18	Darek le Svéar	Loups_20.18	Arkadès
+20	23	1	23	2	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Esclave_20.18	Darek le Svéar
+20	23	3	23	5	Jolan Thorgalsson	Muff	Darek le Svéar
+20	23	3	23	5	Aaricia Gandalfsdottir	Esclave_20.18
+20	23	6	23	6	Aaricia Gandalfsdottir	Jolan Thorgalsson
+20	23	7	23	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Esclave_20.18	Darek le Svéar	Loups_20.18
+20	24	1	24	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	24	8	24	8	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Voleur_20.24.1
+20	25	1	25	1	Voleur_20.24.1	Voleur_20.24.2
+20	25	2	25	2	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Loups_20.18	Voleur_20.24.1	Voleur_20.24.2	Loups_20.18
+20	25	3	25	3	4 voleurs_20.25	Voleur_20.24.1	Voleur_20.24.2
+20	25	4	25	7	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	26	1	26	3	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff	Loups_20.18
+20	26	4	26	5	Louve Thorgalsdottir	Jolan Thorgalsson	Aaricia Gandalfsdottir	Muff
+20	27	1	27	4	Jolan Thorgalsson	Pêcheurs_20.27
+20	27	5	27	6	Jolan Thorgalsson	Darek le Svéar
+20	27	7	27	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Muff
+20	28	1	28	2	Jolan Thorgalsson	Darek le Svéar	Villageois_20.28
+20	28	3	28	6	Jolan Thorgalsson	Darek le Svéar
+20	28	7	29	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Muff	Erik
+20	29	8	29	8	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Muff	Erik	Kriss de Valnor	Arkadès
+20	30	1	30	4	Jolan Thorgalsson	Darek le Svéar
+20	30	5	31	5	Jolan Thorgalsson	Darek le Svéar	Muff
+20	31	6	31	6	Jolan Thorgalsson	Darek le Svéar	Muff
+20	31	7	31	7	Esclaves_20.31	Gardes_20.31
+20	32	1	32	1	Esclaves_20.31	Gardes_20.31	Kriss de Valnor	Esclavagiste byzantin_20.32
+20	32	2	32	6	Kriss de Valnor	Esclavagiste byzantin_20.32
+20	33	1	33	8	Kriss de Valnor	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+20	34	1	34	5	Jolan Thorgalsson	Darek le Svéar	Muff
+20	34	6	34	6	Gardes_20.34
+20	34	7	35	4	Jolan Thorgalsson	Darek le Svéar
+20	35	5	35	4	Jolan Thorgalsson	Darek le Svéar	Esclavagiste byzantin_20.32	Arkadès
+20	35	8	35	9	Darek le Svéar
+20	35	10	35	10	Jolan Thorgalsson	Darek le Svéar
+20	36	1	36	3	Jolan Thorgalsson	Darek le Svéar
+20	36	4	36	8	Jolan Thorgalsson	Darek le Svéar	Arkadès
+20	36	9	36	10	Jolan Thorgalsson	Darek le Svéar
+20	36	11	37	4	Jolan Thorgalsson	Darek le Svéar		Garde_20.36.2
+20	37	5	37	6	Jolan Thorgalsson	Darek le Svéar	Garde_20.36.1
+20	37	7	37	8	Jolan Thorgalsson	Darek le Svéar
+20	37	9	38	5	Jolan Thorgalsson	Darek le Svéar	Gunnar_20.37	Esclaves_20.37
+20	38	6	38	7	Jolan Thorgalsson	Darek le Svéar	Gunnar_20.37	Esclaves_20.37	Garde_20.36.1	Garde_20.36.2
+20	39	1	39	6	Jolan Thorgalsson	Darek le Svéar	Gunnar_20.37	Lehla	Esclaves_20.39.1	Esclaves_20.39.2
+20	39	7	39	7	Darek le Svéar	Gunnar_20.37	Esclaves_20.39.1	Lehla	Esclaves_20.39.1	Esclaves_20.39.2
+20	39	8	39	8	Jolan Thorgalsson
+20	40	1	40	4	Jolan Thorgalsson	Gardes_20.40	Gunnar_20.37	Vikings_20.40
+20	40	5	40	6	Jolan Thorgalsson	Garde_20.40
+20	40	7	41	1	Jolan Thorgalsson
+20	41	2	41	3	Jolan Thorgalsson	Kriss de Valnor	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Garde_20.41.1	Garde_20.41.2	Équipage_20.41
+20	41	4	41	5	Jolan Thorgalsson	Kriss de Valnor	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Garde_20.41.1	Garde_20.41.2
+20	41	6	42	2	Jolan Thorgalsson	Kriss de Valnor	Garde_20.41.1	Garde_20.41.2
+20	42	3	42	4	Jolan Thorgalsson	Kriss de Valnor	Garde_20.41.1
+20	42	5	42	6	Jolan Thorgalsson	Kriss de Valnor
+20	42	7	42	9	Jolan Thorgalsson	Kriss de Valnor	Vikings_20.40	Équipage_20.41	Gunnar_20.37
+20	43	1	43	6	Jolan Thorgalsson	Vikings_20.40	Gunnar_20.37	Esclavagiste byzantin_20.32
+20	44	1	44	4	Jolan Thorgalsson	Vikings_20.40	Gunnar_20.37	Esclavagiste byzantin_20.32	Lehla	Darek le Svéar
+20	44	5	44	6	Jolan Thorgalsson	Lehla	Darek le Svéar
+20	44	7	44	7	Jolan Thorgalsson	Vikings_20.40	Gunnar_20.37	Esclavagiste byzantin_20.32	Lehla	Darek le Svéar
+20	45	1	45	2	Jolan Thorgalsson	Muff
+20	45	3	46	6	Jolan Thorgalsson	Muff	Arkadès
+20	45	7	46	8	Jolan Thorgalsson	Muff
+20	47	1	47	2	Jolan Thorgalsson	Pêcheur_20.47
+20	47	3	48	6	Jolan Thorgalsson	Lehla	Darek le Svéar
+20	48	7	48	7	Jolan Thorgalsson	Muff	Lehla	Darek le Svéar

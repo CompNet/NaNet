@@ -1,0 +1,78 @@
+Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
+16	3	1	3	4	Wor-le-magnifique	Votiak	Orwald	Villageois_16.3	Soldats_16.3
+16	3	5	5	4	Wor-le-magnifique	Votiak	Orwald	Fils Bossu	Soldats_16.3
+16	5	5	5	8	Wor-le-magnifique	Votiak	Orwald	Soldats_16.3	Fils Bossu
+16	6	1	6	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Einar	Équipage_16.6
+16	6	5	10	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Einar	Équipage_16.6	Vikings_16.6	Wor-le-magnifique
+16	11	1	11	2	Wor-le-magnifique	Orwald	Vikings_16.6
+16	11	3	11	3
+16	11	4	11	5	Fils Bossu
+16	11	6	11	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	12	1	12	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	12	6	12	7	Thorgal Aegirsson	Fils Bossu
+16	13	1	13	1	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	13	2	13	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	14	1	14	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Fils Bossu
+16	15	1	15	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	15	5	15	5	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+16	15	6	16	3	Thorgal Aegirsson	Votiak	Gunnar	Lars_16
+16	16	4	17	2	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Votiak	Gunnar	Lars_16
+16	17	3	17	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Votiak	Gunnar
+16	17	7	17	8	Votiak	Gunnar
+16	18	1	18	7	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Votiak	Gunnar
+16	19	1	19	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Gunnar
+16	19	7	19	8	Votiak	Gunnar
+16	20	1	20	2	Thorgal Aegirsson
+16	20	3	20	4	Thorgal Aegirsson	Vikings_16.6
+16	20	5	20	5	Votiak	Gunnar
+16	21	1	21	4	Jolan Thorgalsson	Aaricia Gandalfsdottir	Votiak	Gunnar
+16	21	5	22	4	Aaricia Gandalfsdottir	Votiak	Gunnar
+16	22	5	22	6	Votiak
+16	22	7	22	7	Jolan Thorgalsson
+16	23	1	23	9	Votiak	Fils Bossu
+16	24	1	24	5	Thorgal Aegirsson
+16	24	6	24	6	Thorgal Aegirsson	Vikings_16.24
+16	24	7	25	5	Thorgal Aegirsson	Solveig
+16	25	6	26	6	Thorgal Aegirsson	Solveig	Hiérulf-le-penseur
+16	26	7	26	7	Jolan Thorgalsson
+16	27	1	27	7	Thorgal Aegirsson	Solveig	Hiérulf-le-penseur
+16	27	8	28	5	Jolan Thorgalsson
+16	28	6	29	3	Thorgal Aegirsson	Solveig
+16	29	4	29	4	Solveig
+16	29	5	29	5	Solveig	Vikings_16.29
+16	29	6	29	7	Solveig	Orwald
+16	29	8	29	8	Thorgal Aegirsson
+16	30	1	30	3	Aaricia Gandalfsdottir
+16	30	4	30	5	Thorgal Aegirsson	Jolan Thorgalsson
+16	30	6	30	8	Aaricia Gandalfsdottir
+16	31	1	31	1	Thorgal Aegirsson
+16	31	2	31	5	Thorgal Aegirsson	Muff
+16	31	6	31	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Muff
+16	31	8	32	1	Aaricia Gandalfsdottir	Loup_16.31
+16	32	2	32	6	Aaricia Gandalfsdottir
+16	32	7	33	2	Thorgal Aegirsson	Orwald	Biarn	Soldat_16.31.2	Soldat_16.31.3	Soldat_16.31.4
+16	33	3	33	5	Thorgal Aegirsson	Orwald	Biarn	Soldat_16.31.2	Soldat_16.31.3
+16	33	6	33	6	Thorgal Aegirsson	Orwald	Biarn	Soldat_16.31.2
+16	33	7	34	5	Thorgal Aegirsson	Orwald	Biarn
+16	34	6	34	6	Aaricia Gandalfsdottir
+16	34	7	35	5	Aaricia Gandalfsdottir	Loup_16.34
+16	35	6	36	3	Wor-le-magnifique	Jolan Thorgalsson	Vikings_16.35
+16	36	4	36	7	Wor-le-magnifique	Jolan Thorgalsson	Biarn	Vikings_16.35
+16	37	1	37	3	Aaricia Gandalfsdottir	Loup_16.34
+16	37	4	37	4	Wor-le-magnifique	Jolan Thorgalsson	Vikings_16.35
+16	37	5	37	7	Aaricia Gandalfsdottir	Loup_16.34
+16	37	8	37	8
+16	38	1	38	4	Biarn	Villageois_16.38	Solveig
+16	38	5	39	6	Thorgal Aegirsson	Wor-le-magnifique	Vikings_16.35	Jolan Thorgalsson
+16	39	7	40	2	Thorgal Aegirsson	Wor-le-magnifique	Vikings_16.35	Jolan Thorgalsson	Votiak
+16	40	3	43	4	Thorgal Aegirsson	Wor-le-magnifique	Vikings_16.35	Jolan Thorgalsson
+16	43	5	44	3	Wor-le-magnifique	Vikings_16.35
+16	44	4	44	7	Loup_16.34
+16	45	1	45	6	Thorgal Aegirsson	Wor-le-magnifique	Jolan Thorgalsson
+16	45	7	47	4	Thorgal Aegirsson	Wor-le-magnifique	Jolan Thorgalsson	Fils Bossu
+16	47	5	47	5	Thorgal Aegirsson	Jolan Thorgalsson
+16	47	6	47	6	Loup_16.34
+16	47	7	48	1	Thorgal Aegirsson	Jolan Thorgalsson	Loup_16.34
+16	48	2	48	2	Thorgal Aegirsson	Jolan Thorgalsson	Loup_16.31
+16	48	3	48	3	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+16	48	4	48	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Thorgal Aegirsson	Jolan Thorgalsson	Loup_16.34

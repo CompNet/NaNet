@@ -1,0 +1,70 @@
+Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
+06	3	1	5	7	Shardar-le-puissant	2 gardes_6.3	Zorn	Savant_6.3	Spectateurs_6.4
+06	6	1	6	3	Shardar-le-puissant	2 gardes_6.3	Savant_6.3	Spectateurs_6.4
+06	6	4	6	4	Shardar-le-puissant	Spectateurs_6.4
+06	6	5	6	5	Shardar-le-puissant	Cour_6.6
+06	7	1	7	1	Shardar-le-puissant	Scientifiques_6.7
+06	7	2	7	4	Shardar-le-puissant
+06	7	5	8	7	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	9	1	9	1	Vikings_6.9.1	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	9	2	9	3	Jorund-le-taureau	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	9	4	9	4	Vikings_6.9.2	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	9	5	9	6	Galathorn	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	10	1	10	2	Barons_6.10	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	10	3	10	5	Thorgal Aegirsson	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	11	1	11	1	Thorgal Aegirsson
+06	11	2	11	3	Thorgal Aegirsson	Cavaliers_6.11
+06	11	4	11	5	Thorgal Aegirsson
+06	12	1	12	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Shardar-le-puissant	Helgith
+06	12	5	12	5	Aaricia Gandalfsdottir	Shardar-le-puissant
+06	12	6	12	7	Aaricia Gandalfsdottir	Shardar-le-puissant	Courtisans_6.12
+06	13	1	13	5	Aaricia Gandalfsdottir	Shardar-le-puissant
+06	14	1	14	6	Jorund-le-taureau	Wargan	Vikings_6.9.1
+06	15	1	15	1	Aaricia Gandalfsdottir	Shardar-le-puissant	Soldats_6.15
+06	15	2	15	5	Jorund-le-taureau	Wargan	Vikings_6.9.1	Soldats_6.15
+06	15	6	16	3	Jorund-le-taureau	Vikings_6.9.1
+06	16	4	16	4	Thorgal Aegirsson
+06	16	5	16	5	Jorund-le-taureau	Vikings_6.9.1
+06	16	6	17	2	Shardar-le-puissant	Aaricia Gandalfsdottir
+06	17	3	18	6	Gardes_6.17	Patrouille_6.17	Thorgal Aegirsson
+06	19	1	19	2	Garde_6.19	Capitaine_6.19	Thorgal Aegirsson
+06	19	3	19	6	Garde_6.19	Thorgal Aegirsson
+06	20	1	20	2	Garde_6.19	2 gardes_6.20	Thorgal Aegirsson
+06	20	3	20	4	Groupe_6.20	Thorgal Aegirsson
+06	20	5	20	5	Thorgal Aegirsson
+06	20	6	21	2	Thorgal Aegirsson	Capitaine_6.20	Falster	Sbire_6.20
+06	21	3	21	5	Thorgal Aegirsson	Jolan Thorgalsson
+06	21	6	22	2	Aaricia Gandalfsdottir	Shardar-le-puissant	Courtisans_6.21
+06	22	3	22	4	Aaricia Gandalfsdottir	Shardar-le-puissant	Helgith
+06	22	5	22	5	Shardar-le-puissant	Helgith
+06	22	6	22	6	Aaricia Gandalfsdottir	Shardar-le-puissant
+06	22	7	23	1	Thorgal Aegirsson	Jolan Thorgalsson
+06	23	2	23	6	Shardar-le-puissant	Falster	Sbire_6.20	Aaricia Gandalfsdottir
+06	23	7	24	2	Shardar-le-puissant	Falster	Sbire_6.20
+06	24	3	24	4	Shardar-le-puissant	Aaricia Gandalfsdottir
+06	24	5	24	5	Aaricia Gandalfsdottir
+06	24	6	26	4	Aaricia Gandalfsdottir	Thorgal Aegirsson
+06	26	5	26	8	Aaricia Gandalfsdottir	Thorgal Aegirsson	Shardar-le-puissant	Helgith	Jolan Thorgalsson
+06	27	1	28	6	Thorgal Aegirsson
+06	29	1	29	4	Thorgal Aegirsson	Courtisane_6.29
+06	29	5	30	6	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
+06	31	1	33	1	Thorgal Aegirsson	Jorund-le-taureau	Galathorn	Vikings_6.29
+06	33	2	34	4	Thorgal Aegirsson	Galathorn	Shardar-le-puissant	Vikings_6.29
+06	34	5	34	7	Thorgal Aegirsson	Galathorn	Vikings_6.29
+06	35	1	35	3	Thorgal Aegirsson
+06	35	4	35	4	Thorgal Aegirsson	Shardar-le-puissant
+06	35	5	36	2	Thorgal Aegirsson
+06	36	3	37	6	Thorgal Aegirsson	Garde_6.36
+06	37	7	39	4	Thorgal Aegirsson
+06	39	5	40	7	Thorgal Aegirsson	Helgith
+06	40	8	41	8	Thorgal Aegirsson
+06	42	1	43	6	Shardar-le-puissant	Aaricia Gandalfsdottir
+06	43	7	44	4	Thorgal Aegirsson
+06	44	5	44	7	Thorgal Aegirsson	Jolan Thorgalsson
+06	44	8	45	2	Shardar-le-puissant	Aaricia Gandalfsdottir
+06	45	3	46	7	Shardar-le-puissant	Aaricia Gandalfsdottir	Thorgal Aegirsson
+06	46	8	46	8	Thorgal Aegirsson	Aaricia Gandalfsdottir
+06	47	1	47	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Galathorn
+06	48	1	48	3	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson
+06	48	4	48	4	Galathorn
+06	48	5	48	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson
