@@ -326,8 +326,6 @@ plot.static.graph.scenes.all <- function(data)
 	}
 	
 	# plot each volume separately (full graph but different vertex colors)
-	vols.folder <- file.path(NET_SCENES_FOLDER, "volumes")
-	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
 	tlog(4,"Plotting volume-related graphs using vertex colors")
 	for(v in 1:length(data$volume.chars))
 	{	vname <- paste0(v,"_",data$volume.stats[v,COL_VOLUME])
@@ -387,8 +385,6 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# plot each arc separately (full graph but different vertex colors)
 	tlog(4,"Plotting arc-related graphs using vertex colors")
-	arcs.folder <- file.path(NET_SCENES_FOLDER, "arcs")
-	dir.create(path=arcs.folder, showWarnings=FALSE, recursive=TRUE)
 	arc.titles <- unique(data$volume.stats[,COL_ARC])
 	for(a in 1:length(data$arc.chars))
 	{	tlog(6,"Plotting arc ",a,"/",length(data$arc.chars))
