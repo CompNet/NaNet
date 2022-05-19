@@ -82,7 +82,7 @@ Name,ShortName,Sex,Named
 6 dieux_L2.26,,Male,FALSE
 6 gardes_3.19,,Male,FALSE
 Aakon,,Male,TRUE
-Aaricia Ganfalfsdottir,Aaricia,Female,TRUE
+Aaricia Gandalfsdottir,Aaricia,Female,TRUE
 Abd El Bouheddi,Abd,Male,TRUE
 Abdel El Hal,,Male,TRUE
 Abdel Razek,,Male,TRUE
@@ -1055,7 +1055,7 @@ Savant_6.3,,Male,FALSE
 Saxons_J7.17,,Male,FALSE
 Sbire_6.20,,Male,FALSE
 Schwitz,,Male,TRUE
-Scientifiques_6.77,,Male,FALSE
+Scientifiques_6.7,,Male,FALSE
 Seck,,Male,TRUE
 Second d'Harald_J7.35.1,,Male,FALSE
 Second_K7.18,,Male,FALSE
@@ -1428,7 +1428,6 @@ Villageoises_20.13,,Female,FALSE
 Villageoises_20.3,,Female,FALSE
 Villageoises_J7.32,,Female,FALSE
 Villageoises_K1.22,,Female,FALSE
-Villgeoises_20.3,,Female,FALSE
 Vilnya,,Female,TRUE
 Viskön,,Male,TRUE
 Vlana,,Female,TRUE
@@ -1448,9 +1447,9 @@ Votiak,,Male,TRUE
 Voyante_K2.20,,Female,FALSE
 Vylnia,,Female,TRUE
 Walkyrie_K3.7,,Female,FALSE
+Walkyries_K1.3,,Female,FALSE
+Walkyries_K2.5,,Female,FALSE
 Walkyries_K3.7,,Female,FALSE
-Walyries_K1.3,,Female,FALSE
-Walyries_K2.5,,Female,FALSE
 Wargan,,Male,TRUE
 Woniaz d'Ourbek,Woniaz,Male,TRUE
 Wor-le-magnifique,Wor,Male,TRUE
