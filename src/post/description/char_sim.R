@@ -128,11 +128,11 @@ for(narr.smooth in c(FALSE,TRUE))
 				cname="Euclidean Distance",
 				foo=function(a,idx) {sapply(1:nrow(idx), function(r) sqrt(sum((a[idx[r,1],]-a[idx[r,2],])^2)))}
 			)
-			#sim.meas[["sim-regular"]] <- list(					# BEWARE: this one is extremely slow
-			#	bounds=c(0,NA),
-			#	cname="Regular Equivalence",
-			#	foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
-			#)
+			sim.meas[["sim-regular"]] <- list(					# BEWARE: this one is extremely slow
+				bounds=c(0,NA),
+				cname="Regular Equivalence",
+				foo=function(a,idx) {tmp <- REGE.for(M=a,E=0)$E; sapply(1:nrow(idx), function(r) tmp[idx[r,1],idx[r,2]])}
+			)
 			
 			# plot parameters
 			pal <- ATT_COLORS_FILT[c("Discard","Keep")]
