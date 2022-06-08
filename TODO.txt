@@ -96,3 +96,6 @@ Clean code:
 TODO
 - should separate the extraction of the static graph vs. graph sequence
   >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
+- community detection by block models?
+  https://cran.r-project.org/web/packages/sbm/
+  https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#network-reconstruction
