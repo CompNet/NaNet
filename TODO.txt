@@ -99,3 +99,5 @@ TODO
 - community detection by block models?
   https://cran.r-project.org/web/packages/sbm/
   https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#network-reconstruction
+
+- alt repo y.rochat data: https://github.com/mtriclot/Belfort
