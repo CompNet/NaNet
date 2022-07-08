@@ -13,6 +13,7 @@ NaNet is free software: you can redistribute it and/or modify it under the terms
 
 -----------------------------------------------------------------------
 
+If you use this source code or the associated dataset, please cite refernce [L'22].
 
 # Description
 This set of R scripts aims at extracting and analyzing character networks extracted from graphic novels. It actually works on manually constituted CSV files, so in theory the work of fiction could be anything besides graphic novels, provided the input format is enforced.
@@ -101,4 +102,4 @@ Tested with `R` version 4.0.5, with the following packages:
 
 
 # References
-* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, submitted.
+* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, Advances in Complex Systems, p.22400033, 2022.  [⟨hal-03694768⟩](https://hal.archives-ouvertes.fr/hal-03694768) - DOI: [10.1142/S0219525922400033](http://doi.org/10.1142/S0219525922400033)
