@@ -19,31 +19,42 @@ LAYOUT <- NA	# graph layout
 # folder: where to record the layout.
 #############################################################
 setup.graph.layout <- function(g, folder)
-{	reset.flag <- FALSE
+{	tmp <- LAYOUT
+	reset.flag <- FALSE
 	
 	# try to read the layout if the file exists
 	lay.file <- file.path(folder,"all_layout.txt")
 	if(file.exists(lay.file))
 	{	tlog(0,"Loading layout file \"",lay.file,"\"")
-		LAYOUT <<- as.matrix(read.table(file=lay.file, header=TRUE, row.names=1))
+		tmp <- as.matrix(read.table(file=lay.file, header=TRUE, row.names=1))
 		
 		# clean rownames
-		rn <- rownames(LAYOUT)
+		rn <- rownames(tmp)
 		rn <- fix.encoding(strings=rn)
-		rownames(LAYOUT) <- rn
+		rownames(tmp) <- rn
 		
 		# check that the layout includes all characters
-		map <- match(V(g)$name,rownames(LAYOUT))
+		map <- match(V(g)$name,rownames(tmp))
 		if(any(is.na(map)))
 		{	idx <- which(is.na(map))
 			tlog(2, "Could not find the position of the following characters in the existing layout file:")
 			for(i in idx)
 				tlog(4,V(g)$name[i])
 			reset.flat <- TRUE		
+			#######
+			# or: manually complete the layout with the few missing nodes
+			#######
+			tmp2 <- cbind(rep(min(tmp[,1]),length(idx))-runif(n=length(idx),0.01,1)*0.1*abs(max(tmp[,1])-min(tmp[,1])),
+						  rep(min(tmp[,2]),length(idx))-runif(n=length(idx),0.01,1)*0.1*abs(max(tmp[,2])-min(tmp[,2])))
+			rownames(tmp2) <- V(g)$name[idx]
+			colnames(tmp2) <- c("x", "y")
+			tmp <- rbind(tmp, tmp2)  
+			map <- match(V(g)$name,rownames(tmp))
+			tmp <- tmp[map,]
 		}
 		# possibly reorder the characters in the layout, in order to match the graph
 		else
-			LAYOUT <- LAYOUT[map,]
+			tmp <- tmp[map,]
 	}
 	
 	# otherwise, compute the layout
@@ -64,24 +75,26 @@ setup.graph.layout <- function(g, folder)
 #			ww <- E(g)$weight
 #		else
 			ww <- rep(1, gsize(g))
-		LAYOUT <<- qgraph.layout.fruchtermanreingold(
+		tmp <- qgraph.layout.fruchtermanreingold(
 				edgelist=el, 
 				vcount=gorder(g), 
 				weight=ww, 
 				area=8*(gorder(g)^2),repulse.rad=(gorder(g)^3.1)
 		)
 		
-		colnames(LAYOUT) <- c("x", "y")
+		colnames(tmp) <- c("x", "y")
 		if("name" %in% vertex_attr_names(g))
-			rownames(LAYOUT) <- V(g)$name
+			rownames(tmp) <- V(g)$name
 		
 		# old code used to manually refine the layout
 #		tkplot(g, layout=LAYOUT)
 #		LAYOUT <<- tk_coords(3)
 		
 		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		write.table(x=LAYOUT, file=lay.file, row.names=TRUE, col.names=TRUE)
+		write.table(x=tmp, file=lay.file, row.names=TRUE, col.names=TRUE)
 	}
+	
+	LAYOUT <<- tmp
 }
 
 
@@ -110,7 +123,7 @@ setup.graph.layout <- function(g, folder)
 #############################################################
 custom.gplot <- function(g, paths, col.att, size.att, cat.att=FALSE, v.hl, e.hl, color.isolates=FALSE, file)
 {	if(any(is.na(LAYOUT)))
-		setup.graph.layout(g)
+		setup.graph.layout(g, folder=NET_FOLDER)
 	pie.values <- NA
 	lgd.col <- NA
 	

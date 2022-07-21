@@ -8,7 +8,7 @@
 # 03/2022
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
-# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/Labatut2022.R")
 ###############################################################################
 
@@ -52,7 +52,8 @@ plot.corpus.stats(data)
 data <- extract.static.graphs.base(data)
 
 # plot these graphs
-plot.static.graphs(data)
+plot.static.graphs(data) 
+# TODO chercher tous les fichiers créés avant 20/07/2022
 
 
 
