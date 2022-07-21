@@ -18,6 +18,7 @@ start.rec.log(text="WeightDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed elsewhere)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 laws["Unfiltered-linkweight-occurrences"] <- "truncated"

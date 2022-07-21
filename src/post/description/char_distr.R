@@ -17,6 +17,7 @@ start.rec.log(text="CharDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed elsewhere)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 #	panels/char = good

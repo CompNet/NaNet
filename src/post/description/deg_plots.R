@@ -18,6 +18,7 @@ start.rec.log(text="DegDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed in the main script)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 laws["Unfiltered-degree"] <- "good"
