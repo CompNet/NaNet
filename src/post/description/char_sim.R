@@ -174,7 +174,8 @@ for(narr.smooth in c(FALSE,TRUE))
 					#####
 					# compute the similarity between all char pairs, for each graph of the sequence
 					tlog(22,"Looping over all graphs in the sequence")
-					sims <- t(sapply(sc.rg, function(s) 
+					sims <- matrix(NA,nrow=0,ncol=nrow(pairs))
+					for(s in sc.rg)
 					{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
 							tlog(24,"Processing scene ",s,"/",max(sc.rg))
 						sim <- rep(NA, nrow(pairs))
@@ -188,8 +189,24 @@ for(narr.smooth in c(FALSE,TRUE))
 								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
 							sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
 						}
-						return(sim)
-					}))
+						sims <- rbind(sims,sim)
+					}
+#					sims <- t(sapply(sc.rg, function(s) 
+#					{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
+#							tlog(24,"Processing scene ",s,"/",max(sc.rg))
+#						sim <- rep(NA, nrow(pairs))
+#						g <- gs[[filt]][[s]]
+#						vs <- cbind(match(fnames[,1],V(g)$name), match(fnames[,2],V(g)$name))
+#						idx <- which(!apply(vs, 1, function(row) any(is.na(row))))
+#						if(length(idx)>0)
+#						{	if(weighted)
+#								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE, att="weight")
+#							else
+#								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
+#							sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
+#						}
+#						return(sim)
+#					}))
 					colnames(sims) <- rownames(pairs)
 					
 					# record results

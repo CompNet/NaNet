@@ -28,7 +28,6 @@ meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, MEAS_S
 
 
 ################################################################################
-filt.txt <- if(filtered) "filtered" else "unfiltered"
 tlog(0,"Load data and network")
 
 # read raw data
