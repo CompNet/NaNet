@@ -53,7 +53,6 @@ data <- extract.static.graphs.base(data)
 
 # plot these graphs
 plot.static.graphs(data) 
-# TODO chercher tous les fichiers créés avant 20/07/2022
 
 
 
