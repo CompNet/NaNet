@@ -5,7 +5,7 @@
 # 11/2018
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
-# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/dev_main.R")
 ###############################################################################
 
@@ -20,12 +20,12 @@ SERIES <- "Thorgal"
 
 # test
 panel.params <- list(
-	window.sizes <- c(1, 2, 3),
-	overlaps <- list(c(0), c(0,1), c(0,1,2))
+	window.sizes=c(1, 2, 3),
+	overlaps=list(c(0), c(0,1), c(0,1,2))
 )
 page.params <- list(
-	window.sizes <- c(1,2,3),
-	overlaps <- list(c(0), c(0,1), c(0,1,2))
+	window.sizes=c(1,2,3),
+	overlaps=list(c(0), c(0,1), c(0,1,2))
 )
 
 # regular values

@@ -3,6 +3,8 @@
 # 
 # Vincent Labatut
 # 11/2018
+#
+# source("src/static/extract_graphs_window.R")
 ###############################################################################
 
 
@@ -46,10 +48,13 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 	window.start <- 1
 	window.end <- window.size
 	covered <- FALSE
+	cnt <- 0
 	while(!covered)
 	{	window.end <- min(window.end,last.panel)
 		covered <- window.end==last.panel
-		tlog(3,"Current window: [",window.start,",",window.end,"]")
+		cnt <- cnt + 1
+		if(cnt %% 1000 == 0)
+			tlog(3,"Current window: [",window.start,",",window.end,"]")
 		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_PANEL_END_ID]<window.start | inter.df[,COL_PANEL_START_ID]>window.end))
 		# get all concerned chars
@@ -80,9 +85,11 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 #	print(static.df)
 	
 	# init the graph
+	tlog(3,"Creating graph object")
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
 	graph.file <- get.path.data.graph(mode="panel.window", net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
+	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the panel window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -131,6 +138,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 	window.start <- 1
 	window.end <- window.size
 	covered <- FALSE
+	cnt <- 0
 	while(!covered)
 	{	window.end <- min(window.end,last.page)
 		covered <- window.end==last.page
@@ -138,6 +146,9 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 		# compute start/end in terms of panels
 		start.panel <- page.stats[window.start,COL_PANEL_START_ID]
 		end.panel <- page.stats[window.end,COL_PANEL_START_ID] + page.stats[window.end,COL_PANELS] - 1
+		cnt <- cnt + 1
+		if(cnt %% 100 == 0)
+			tlog(3,"Current window: [",window.start,",",window.end,"]")
 		tlog(3,paste0(msg, " ie [",start.panel,",",end.panel,"]"))
 		# scenes intersecting the window
 		idx <- which(!(inter.df[,COL_PANEL_END_ID]<start.panel | inter.df[,COL_PANEL_START_ID]>end.panel))
@@ -169,9 +180,11 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 #	print(static.df)
 	
 	# init the graph
+	tlog(3,"Creating graph object")
 	g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
 	graph.file <- get.path.data.graph(mode="page.window", net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
+	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	tlog(2,"Extraction of the page window-based static graph completed for parameters window.size=",window.size," and overlap=",overlap)
@@ -206,19 +219,19 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 	page.overlaps <- page.params$overlaps
 	
 	# extract the panel window-based static graphs
-	future_sapply(1:length(panel.window.sizes), function(i)
-	#for(i in 1:length(panel.window.sizes))
+#	future_sapply(1:length(panel.window.sizes), function(i)
+	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
 			g <- extract.static.graph.panel.window(
 				inter.df=inter.df, 
 				char.stats=char.stats, 
 				window.size=window.size, overlap=overlap)
-	})
+	}#)
 	
 	# extract the page window-based static graphs
-	future_sapply(1:length(page.window.sizes), function(i)
-	#for(i in 1:length(page.window.sizes))
+#	future_sapply(1:length(page.window.sizes), function(i)
+	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
 			g <- extract.static.graph.page.window(
@@ -226,7 +239,7 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 				char.stats=data$char.stats, 
 				page.stats=data$page.stats, 
 				window.size=window.size, overlap=overlap)
-	})
+	}#)
 	
 	tlog(1,"Extraction of the static graphs complete")
 	return(data)
