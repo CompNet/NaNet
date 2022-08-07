@@ -396,7 +396,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: either "occurrences" or "duration".
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.

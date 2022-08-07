@@ -214,8 +214,6 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 # data: preprocessed data.
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
-#
-# returns: the updated data.
 ###############################################################################
 extract.static.graphs.window <- function(data, panel.params, page.params)
 {	tlog(1,"Extracting static graphs")
@@ -256,5 +254,4 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 	}#)
 	
 	tlog(1,"Extraction of the static graphs complete")
-	return(data)
 }

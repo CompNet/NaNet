@@ -114,7 +114,7 @@ generate.static.plots.base(data)
 
 ###############################################################################
 # extract static panel- and page-based networks
-data <- extract.static.graphs.window(data, panel.params, page.params)
+extract.static.graphs.window(data, panel.params, page.params)
 
 # compute their stats
 compute.static.statistics.window(panel.params, page.params)

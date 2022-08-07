@@ -438,19 +438,29 @@ compute.static.statistics.window <- function(panel.params, page.params)
 	page.overlaps <- page.params$overlaps
 	
 	# statistics for the panel window-based static graphs
+	tlog(2,"Dealing with panel-based windows")
 	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
 	for(i in 1:length(panel.window.sizes))
 	{	window.size <- panel.window.sizes[i]
 		for(overlap in panel.overlaps[[i]])
-			compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=FALSE)
+		{	for(weights in c("none","occurrences"))
+			{	for(filtered in c(FALSE,TRUE))
+					compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+			}
+		}
 	}#)
 	
 	# statistics for the page window-based static graphs
+	tlog(2,"Dealing with page-based windows")
 	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
 	for(i in 1:length(page.window.sizes))
 	{	window.size <- page.window.sizes[i]
 		for(overlap in page.overlaps[[i]])
-			compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=FALSE)
+		{	for(weights in c("none","occurrences"))
+			{	for(filtered in c(FALSE,TRUE))
+					compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+			}
+		}
 	}#)
 	
 	tlog(1,"Computation of statistics for window-based static graphs complete")	
