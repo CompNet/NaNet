@@ -25,7 +25,7 @@ The script does the following:
 
 
 # Data
-The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
+The raw dataset was manually constituted based on bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The output files (graphs, plots, tables...) can be obtained by running the scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
 
 ![ThorgalStaticNet](/data/Thorgal/network.svg)
 
