@@ -1019,13 +1019,17 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps)
 # Main function for the generation of plots describing static graphs.
 # The statistics must have been previously computed.
 #
-# panel.window.sizes: values for this parameter
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
+# panel.params: panel-related parameters.
+# page.params: page-related parameters.
 ###############################################################################
-generate.static.plots.window <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots.window <- function(panel.params, page.params)
 {	tlog(1,"Generating plots for window-based static graphs")
+	
+	# retrieve parameters
+	panel.window.sizes <- panel.params$window.sizes
+	panel.overlaps <- panel.params$overlaps
+	page.window.sizes <- page.params$window.sizes
+	page.overlaps <- page.params$overlaps
 	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
@@ -1045,13 +1049,17 @@ generate.static.plots.window <- function(panel.window.sizes, panel.overlaps, pag
 # Main function for the generation of plots comparing graphs.
 # The statistics must have been previously computed.
 #
-# panel.window.sizes: values for this parameter
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
+# panel.params: panel-related parameters.
+# page.params: page-related parameters.
 ###############################################################################
-generate.static.plots.comparison <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+generate.static.plots.comparison <- function(data, panel.params, page.params)
 {	tlog(1,"Generating plots for the comparison of static graphs")
+	
+	# retrieve parameters
+	panel.window.sizes <- panel.params$window.sizes
+	panel.overlaps <- panel.params$overlaps
+	page.window.sizes <- page.params$window.sizes
+	page.overlaps <- page.params$overlaps
 	
 	# panel-based windows
 	tlog(2,"Generating correlation plots for static graphs with panel-based windows")

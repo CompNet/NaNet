@@ -425,13 +425,17 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # Main function for the computation of statistics describing static graphs.
 # The graphs must have been previously extracted.
 #
-# panel.window.sizes: values for this parameter.
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
+# panel.params: panel-related parameters.
+# page.params: page-related parameters.
 ###############################################################################
-compute.static.statistics.window <- function(panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics.window <- function(panel.params, page.params)
 {	tlog(1,"Computing statistics for window-based static graphs")
+	
+	# retrieve parameters
+	panel.window.sizes <- panel.params$window.sizes
+	panel.overlaps <- panel.params$overlaps
+	page.window.sizes <- page.params$window.sizes
+	page.overlaps <- page.params$overlaps
 	
 	# statistics for the panel window-based static graphs
 	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
@@ -460,13 +464,17 @@ compute.static.statistics.window <- function(panel.window.sizes, panel.overlaps,
 # beforehand.
 #
 # data: preprocessed data.
-# panel.window.sizes: values for this parameter.
-# panel.overlaps: values for this parameter, specified for of the above parameter values.
-# page.window.sizes: same for page-based windows instead of panel-based.
-# page.overlaps: same.
+# panel.params: panel-related parameters.
+# page.params: page-related parameters.
 ###############################################################################
-compute.static.statistics.comparison <- function(data, panel.window.sizes, panel.overlaps, page.window.sizes, page.overlaps)
+compute.static.statistics.comparison <- function(data, panel.params, page.params)
 {	tlog(1,"Computing comparisons for static graphs")
+	
+	# retrieve parameters
+	panel.window.sizes <- panel.params$window.sizes
+	panel.overlaps <- panel.params$overlaps
+	page.window.sizes <- page.params$window.sizes
+	page.overlaps <- page.params$overlaps
 	
 	#### scene-based graphs
 	
