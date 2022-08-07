@@ -399,7 +399,7 @@ Enyd,,Female,TRUE
 Équipage_22.4,,Male,FALSE
 Équipage_33.3,,Male,FALSE
 Équipage_39.9,,Male,FALSE
-Equipage_J10.53,,Male,FALSE
+Équipage_J10.53,,Male,FALSE
 Équipage_J3.17,,Male,FALSE
 Erik_20.3,,Male,TRUE
 Erik_J10.5,,Male,TRUE
@@ -519,7 +519,7 @@ Fural,,Male,TRUE
 Furfur,,Male,TRUE
 Galathorn,,Male,TRUE
 Galériens_4.26,,Male,FALSE
-Gandalf-le-fou,Ganfalf,Male,TRUE
+Gandalf-le-fou,Gandalf,Male,TRUE
 Garçon roux_L1.3,,Male,FALSE
 Garçon_24.16,,Male,FALSE
 Garçon_24.47,,Male,FALSE
@@ -1421,7 +1421,6 @@ Villageois_38.28,,Male,FALSE
 Villageois_39.12,,Mixed,FALSE
 Villageois_4.3,,Mixed,FALSE
 Villageois_4.5,,Mixed,FALSE
-Villageois_J.4,,Mixed,FALSE
 Villageois_J1.10,,Mixed,FALSE
 Villageois_J1.3,,Mixed,FALSE
 Villageois_J1.4,,Mixed,FALSE
@@ -1446,6 +1445,7 @@ Villageois_J3.17,,Mixed,FALSE
 Villageois_J3.3,,Mixed,FALSE
 Villageois_J3.9,,Mixed,FALSE
 Villageois_J4.32,,Male,FALSE
+Villageois_J5.4,,Mixed,FALSE
 Villageois_J5.41,,Mixed,FALSE
 Villageois_J6.11,,Mixed,FALSE
 Villageois_K1.22,,Male,FALSE

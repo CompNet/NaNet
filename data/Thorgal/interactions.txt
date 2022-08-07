@@ -3806,9 +3806,9 @@ L7	46	2	46	2	Nidhogg / Vigrid	Aaricia Gandalfsdottir
 L7	46	3	48	7	Nidhogg / Vigrid	Aaricia Gandalfsdottir
 L7	48	8	48	8	Nidhogg	Volsung de Nichor
 J5	3	1	3	4	Thorgal Aegirsson	Fural
-J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois_J.4
+J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois_J5.4
 J5	4	2	4	2	Aaricia Gandalfsdottir	Solveig
-J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois_J.4	Aaricia Gandalfsdottir	Solveig
+J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois_J5.4	Aaricia Gandalfsdottir	Solveig
 J5	5	7	5	7	Aaricia Gandalfsdottir	Solveig
 J5	6	1	6	2	Skald
 J5	6	3	6	7	Thorgal Aegirsson	Skald	Fural
@@ -4704,7 +4704,7 @@ J10	51	5	51	8	Seck	Thorgal Aegirsson
 J10	52	1	52	3	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Mire_J10.52
 J10	52	4	52	7	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Garde_J10.52
 J10	52	8	52	9	Seck	Thorgal Aegirsson
-J10	53	1	53	4	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Equipage_J10.53
+J10	53	1	53	4	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Équipage_J10.53
 J10	53	5	53	8	Thorgal Aegirsson
 J10	54	1	54	1	Sveynn Tiuguskegg	Vikings_J10.54
 J10	54	2	54	4	Thorgal Aegirsson	Olaf_J10.54	Bjorn_J10.54	Viking_J10.54	Fille_J10.54
