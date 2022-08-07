@@ -86,7 +86,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 			res.tab[,meas.name] <- values
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 		
 		# plot
@@ -249,7 +249,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 			res.tab[meas.name,1] <- value
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=FALSE)
 		}
 	}
 	
@@ -373,7 +373,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 			}
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 	}
 	

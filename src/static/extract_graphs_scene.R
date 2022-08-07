@@ -190,7 +190,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	tlog(4,"Interactions: number of characters the character of interest interacts with through the whole series (i.e. its degree in the graph)")
 	tlog(4,"Occurrences: number of scenes in which the character of interest appears through the whole series (i.e. its frequency)")
 	file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="filtering_criteria", ext=".csv")
-	write.csv(x=ttt, file=file, row.names=TRUE)
+	write.csv(x=ttt, file=file, fileEncoding="UTF-8", row.names=TRUE)
 	
 	# filtering by freq and occ
 	crit <- degree(g)<=1 | V(g)$Frequency<=3
@@ -230,7 +230,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	# update stats file
 	file <- get.path.stats.corpus(object="characters",subfold="unfiltered",pref="_char_stats")
 	tlog(4,"Writing character stats \"",file,"\"")
-	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# plot corpus stats for unfiltered chars
 	plot.stats.char(

@@ -214,7 +214,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					{	pt <- names(sim.meas)[m]
 						file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(22,"Recording results to file \"",file,"\"")
-						write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
+						write.csv(x=sims, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 					}
 					
 					#####

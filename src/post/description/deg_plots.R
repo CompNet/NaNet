@@ -135,7 +135,7 @@ for(meas in meass)
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
-		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=tab, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		#
 		pear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="pearson")
 		kend.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="kendall")
@@ -145,7 +145,7 @@ for(meas in meass)
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
-		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=tab, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
 }
 

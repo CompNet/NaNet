@@ -56,7 +56,7 @@ colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 # filtered data
 tlog(2, "Filtered data:")
@@ -77,7 +77,7 @@ colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 # only named characters
 tlog(2, "Named characters:")
@@ -98,7 +98,7 @@ colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 
@@ -158,7 +158,7 @@ colnames(tab.unf) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
 rownames(tab.unf) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_edges")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
-write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 #
 tab.flt <- data.frame(tab.flt)
 tab.flt <- cbind(c("F--F","F--M","M--M","Overall"), tab.flt)
@@ -166,7 +166,7 @@ colnames(tab.flt) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
 rownames(tab.flt) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_edges")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
-write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 # total degree by sex
@@ -243,7 +243,7 @@ colnames(tab.unf) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Du
 rownames(tab.unf) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
-write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 #
 tab.flt <- data.frame(tab.flt)
 tab.flt <- cbind(c("Male","Female","Mixed","Unknown","Overall"), tab.flt)
@@ -251,7 +251,7 @@ colnames(tab.flt) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Du
 rownames(tab.flt) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
-write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 
@@ -295,14 +295,14 @@ colnames(tab) <- c("Sex","Count","FM_Proportion")
 rownames(tab) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 # scenes with only women (more than one)
 ###### generate the file to store annotations
 #idx <- which(sc.ov.sexes=="Female" & sapply(sc.sexes, function(c) length(which(c=="Female"))>1))
 #tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
 #colnames(tab)[ncol(tab)] <- "Characters"
-#write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
+#write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"), fileEncoding="UTF-8")
 #tlog(4,"In the annotated file, TRUE means 'the females talk about a male';FALSE means 'the females do not talk about a male'"; and 'NA' means 'the females do not talk at all'.)
 ###### read the annotated file
 tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
@@ -321,7 +321,7 @@ colnames(tab) <- c("BechdelTest","Count","Proportion")
 rownames(tab) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 tlog(2,"Considering the filtered characters")
 # number of scenes by sex
@@ -359,7 +359,7 @@ colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
 tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 # NOTE: no sense in doing Bechdel for filtered chars, as it requires 
 # ignoring certain characters actively taking part in the scene
@@ -377,7 +377,7 @@ tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ass.unf))
 colnames(tab.unf)[ncol(tab.unf)] <- "Homophily"
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
-write.csv(x=tab.unf, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 # filtered net
 gs <- delete_vertices(gs, V(gs)$Filter=="Discard")
@@ -387,7 +387,7 @@ tab.flt <- cbind(tab.flt, c(NA,NA,NA,NA,ass.flt))
 colnames(tab.flt)[ncol(tab.flt)] <- "Homophily"
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
-write.csv(x=tab.flt, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 
@@ -413,7 +413,7 @@ colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_triangles")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 # filtered net
@@ -435,7 +435,7 @@ colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
 tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_triangles")
 tlog(4, "Record in \"",tab.file,"\"")
-write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
 
 
@@ -549,7 +549,7 @@ for(m in 1:length(meas.names))
 	
 	# record test results
 	test.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="comparison_test")
-	write.csv(x=tab, file=paste0(test.file,".csv"), row.names=FALSE)
+	write.csv(x=tab, file=paste0(test.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# set params
 	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="ccdf")

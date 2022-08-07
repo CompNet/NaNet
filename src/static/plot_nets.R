@@ -42,7 +42,7 @@ compute.graphical.params <- function(g=NA)
 #colnames(tab) <- c("x","y")
 #LAYOUT <<- tab
 #lay.file <- file.path(NET_FOLDER, "all_layout.txt")
-#write.table(x=LAYOUT,file=lay.file)
+#write.table(x=LAYOUT, file=lay.file, fileEncoding="UTF-8")
 	
 	# possibly use the default graph
 	if(all(is.na(g)))

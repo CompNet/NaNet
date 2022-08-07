@@ -250,7 +250,7 @@ plot.hist <- function(vals, breaks="Sturges", xlab, main=NA, log=FALSE, cols, fr
 								paste0("]",tmp[r,1],";",tmp[r,2],"]"))
 				tab <- data.frame(intervals, h$counts, h$density)
 				colnames(tab) <- c("Interval","Count","Proportion")
-				write.csv(x=tab, file=paste0(plot.file,".csv"), row.names=FALSE)
+				write.csv(x=tab, file=paste0(plot.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 			}
 			
 		}
@@ -338,7 +338,7 @@ plot.bars <- function(vals, xlab, main=NA, log=FALSE, cols=NA, freq=FALSE, besid
 			tab.file <- paste0(file, "_histo")
 			if(length(vals)>1)
 				tab.file <- paste0(tab.file, "_", names(vals)[s])
-			write.csv(x=tab, file=paste0(tab.file,".csv"), row.names=FALSE)
+			write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		}
 		
 		if(log)
@@ -500,7 +500,7 @@ plot.ccdf <- function(data, xlab=NA, ylab="default", main=NA, log=FALSE, cols=NA
 			else if(test=="cont")
 				tmp <- test.cont.distr(data=data[[s]], xlab=xlab, return_stats=TRUE, plot.file=plot.file)
 			if(!is.na(file))
-				write.table(tmp$stats, file=paste0(plot.file,".csv"), sep=",", row.names=FALSE, col.names=TRUE)
+				write.table(tmp$stats, file=paste0(plot.file,".csv"), fileEncoding="UTF-8", sep=",", row.names=FALSE, col.names=TRUE)
 			fits[[s]] <- tmp$laws
 		}
 	}

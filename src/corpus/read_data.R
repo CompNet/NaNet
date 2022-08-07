@@ -730,12 +730,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	# interactions
 	file <- get.path.stats.corpus(pref="_interactions")
 	tlog(4,"Writing interaction file \"",file,"\"")
-	write.csv(x=inter.df, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=inter.df, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# panel stats
 	file <- get.path.stats.corpus(object="panels",pref="_panel_stats")
 	tlog(4,"Writing panel stats \"",file,"\"")
-	write.csv(x=panel.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=panel.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# panel chars
 	tab <- cbind(
 		1:nrow(panel.stats),
@@ -744,12 +744,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
 	file <- get.path.stats.corpus(object="panels",pref="_panel_chars")
 	tlog(4,"Writing panel chars \"",file,"\"")
-	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# page stats
 	file <- get.path.stats.corpus(object="pages",pref="_page_stats")
 	tlog(4,"Writing page stats \"",file,"\"")
-	write.csv(x=page.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=page.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# page chars
 	tab <- cbind(
 		1:nrow(page.stats),
@@ -758,12 +758,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
 	file <- get.path.stats.corpus(object="pages",pref="_page_chars")
 	tlog(4,"Writing page chars \"",file,"\"")
-	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# scene stats
 	file <- get.path.stats.corpus(object="scenes",pref="_scene_stats")
 	tlog(4,"Writing scene stats \"",file,"\"")
-	write.csv(x=scene.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=scene.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# scene chars
 	tab <- cbind(
 		1:nrow(scene.stats),
@@ -772,17 +772,17 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
 	file <- get.path.stats.corpus(object="scenes",pref="_scene_chars")
 	tlog(4,"Writing scene chars \"",file,"\"")
-	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# characters
 	file <- get.path.stats.corpus(object="characters",subfold="unfiltered",pref="_char_stats")
 	tlog(4,"Writing character stats \"",file,"\"")
-	write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# volume stats
 	file <- get.path.stats.corpus(object="volumes",pref="_volume_stats")
 	tlog(4,"Writing volume stats \"",file,"\"")
-	write.csv(x=volume.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=volume.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# volume chars
 	tab <- cbind(
 		1:nrow(volume.stats),
@@ -791,12 +791,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	colnames(tab) <- c(COL_VOLUME_ID, COL_CHARS)
 	file <- get.path.stats.corpus(object="volumes",pref="_volume_chars")
 	tlog(4,"Writing volume chars \"",file,"\"")
-	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# arc stats
 	file <- get.path.stats.corpus(object="arcs",pref="_arc_stats")
 	tlog(4,"Writing arc stats \"",file,"\"")
-	write.csv(x=arc.stats, file=paste0(file,".csv"), row.names=FALSE)
+	write.csv(x=arc.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# arc chars
 	tab <- cbind(
 		1:nrow(arc.stats),
@@ -805,7 +805,7 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 	colnames(tab) <- c(COL_ARC_ID, COL_CHARS)
 	file <- get.path.stats.corpus(object="arcs",pref="_arc_chars")
 	tlog(4,"Writing arc chars \"",file,"\"")
-	write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 	tlog(2,"Recording complete")
 }

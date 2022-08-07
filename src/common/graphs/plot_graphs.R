@@ -91,7 +91,7 @@ setup.graph.layout <- function(g, folder)
 #		LAYOUT <<- tk_coords(3)
 		
 		dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
-		write.table(x=tmp, file=lay.file, row.names=TRUE, col.names=TRUE)
+		write.table(x=tmp, file=lay.file, fileEncoding="UTF-8", row.names=TRUE, col.names=TRUE)
 	}
 	
 	LAYOUT <<- tmp
