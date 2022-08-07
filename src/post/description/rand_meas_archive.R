@@ -22,7 +22,7 @@
 library("polynom")
 
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 
 
 

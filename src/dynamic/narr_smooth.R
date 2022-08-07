@@ -318,9 +318,9 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 ###############################################################################
 ns.write.graph <- function(gs, filtered, pub.order=TRUE)
 {	if(pub.order)	# by publication order
-		ord.fold <- "order_pub"
+		ord.fold <- "publication"
 	else			# by story order
-		ord.fold <- "order_story"
+		ord.fold <- "story"
 	
 	base.file <- get.path.data.graph(mode="scenes", net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
 	write.dynamic.graph(gs=gs, base.path=base.file)
@@ -341,9 +341,9 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE)
 ###############################################################################
 ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE)
 {	if(pub.order)	# by publication order
-		ord.fold <- "order_pub"
+		ord.fold <- "publication"
 	else			# by story order
-		ord.fold <- "order_story"
+		ord.fold <- "story"
 	
 	base.file <- get.path.data.graph(mode="scenes", net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
 	gs <- read.dynamic.graph(base.file=base.file, remove.isolates=remove.isolates)

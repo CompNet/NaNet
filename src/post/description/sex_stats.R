@@ -8,7 +8,7 @@
 # source("src/post/description/sex_stats.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="SexStats")
 
 
@@ -590,7 +590,7 @@ for(m in 1:length(meas.names))
 			main=NA, xlab=xl, ylab="default", 
 			log=log.scale[meas.name], 
 			cols=pal, 
-			leg.title=if(meas.name==MEAS_EIGENCNTR) NA else "Sex"
+			leg=meas.name!=MEAS_EIGENCNTR, leg.title="Sex"
 		)
 #		for(i in 1:2)
 #		{	if(laws[paste0(names(data)[i],"-",meas,if(!is.na(wt)) paste0("-",wt) else "")]=="truncated")
@@ -613,7 +613,7 @@ for(m in 1:length(meas.names))
 			main=NA, xlab=NA, ylab=NA, 
 			log=log.scale[meas.name], 
 			cols=pal, 
-			leg.title=if(meas.name==MEAS_EIGENCNTR) "Sex" else NA, leg.pos="bottomleft",
+			leg=meas.name==MEAS_EIGENCNTR, leg.title="Sex", leg.pos="bottomleft",
 			cex.lab=0.75, cex.axis=0.75, cex=0.75
 		)
 		

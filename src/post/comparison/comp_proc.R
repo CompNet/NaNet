@@ -11,7 +11,7 @@ library("igraph")
 library("poweRlaw")
 library("minpack.lm")
 
-source("src/common/include.R")
+source("src/common/_include.R")
 
 
 

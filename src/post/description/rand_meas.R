@@ -17,7 +17,7 @@
 # source("src/post/description/rand_meas.R.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="RandMeas")
 
 

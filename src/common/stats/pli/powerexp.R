@@ -63,7 +63,7 @@
 # integral function
 #exp_int_function_filename <- "~/bin/exponential_integral"
 #### TODO EDIT THIS LOCATION!!!! ###
-exp_int_function_filename <- "res/pli/exp_int.exe"
+exp_int_function_filename <- "src/common/stats/pli/exponential-integral/exp_int.exe"
 
 
 

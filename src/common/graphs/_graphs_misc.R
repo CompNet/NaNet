@@ -5,11 +5,12 @@
 #
 # source("src/graphs/misc.R")
 #############################################################################################
-source("src/graphs/generation.R")
-source("src/graphs/read_write.R")
-source("src/graphs/rewiring.R")
-source("src/graphs/topomeas.R")
-source("src/graphs/smallworldness.R")
+source("src/common/graphs/generation.R")
+source("src/common/graphs/plot_graphs.R")
+source("src/common/graphs/read_write.R")
+source("src/common/graphs/rewiring.R")
+source("src/common/graphs/topomeas.R")
+source("src/common/graphs/smallworldness.R")
 
 
 

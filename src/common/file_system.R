@@ -13,6 +13,13 @@ CHARNETS_FOLDER <- file.path("data","charnets")
 # folder containing the log files
 LOG_FOLDER <- "log"
 
+# folder containing additional annotations
+ANNOTATIONS_FOLDER <- file.path(DATA_FOLDER,"annotations")
+	# folder containing interaction annotations
+	ANN_AGREEMENT_FOLDER <- file.path(ANNOTATIONS_FOLDER,"agreement")
+	# folder containing hand-made summaries
+	ANN_SUMMARIES_FOLDER <- file.path(ANNOTATIONS_FOLDER,"summaries")
+	
 # folder containing the extracted network files
 NET_FOLDER <- file.path(DATA_FOLDER,"networks")
 	# folder containing the page network files

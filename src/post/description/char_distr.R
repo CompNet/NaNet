@@ -9,7 +9,7 @@
 # source("src/post/description/char_distr.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="CharDistr") 
 
 
@@ -17,6 +17,7 @@ start.rec.log(text="CharDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed elsewhere)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 #	panels/char = good
@@ -97,7 +98,7 @@ for(count in counts)
 		else if(fformat==PLOT_FORMAT_PNG)
 			png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 		par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-		plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg.title="Characters")
+		plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg=TRUE, leg.title="Characters")
 		for(i in 1:2)
 		{	if(laws[paste0(names(data)[i],"-",object,"-",count)]=="truncated")
 			{	x <- seq(pl[[2]]$threshold,max(data[[2]]))
@@ -135,12 +136,12 @@ for(chars in data$volume.chars)
 tlog(0,"Char by volume: ",sum(char.unfilt.nbrs)/length(lines)," (unfiltered) vs. ",sum(char.filt.nbrs)/length(lines)," (filtered)")
 
 # test distributions
-file <- get.path.stats.corpus(object="volumes", pref="distrib_chars-by-volume_unfiltered_distrtest")
+file <- get.path.stats.corpus(object="volumes", pref="distrib_chars-by-volume_unfiltered_distr-test")
 tlog(2,"Producing files ",file)
 test.disc.distr(data=char.unfilt.nbrs, 			# good
 	xlab="Number of characters by volume", return_stats=TRUE, 
 	plot.file=file)
-file <- get.path.stats.corpus(object="volumes", pref="distrib_chars-by-volume_filtered_distrtest")
+file <- get.path.stats.corpus(object="volumes", pref="distrib_chars-by-volume_filtered_distr-test")
 tlog(2,"Producing files ",file)
 test.disc.distr(data=char.filt.nbrs, 			# good
 	xlab="Number of characters by volume", return_stats=TRUE, 

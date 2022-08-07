@@ -13,6 +13,7 @@ NaNet is free software: you can redistribute it and/or modify it under the terms
 
 -----------------------------------------------------------------------
 
+If you use this source code or the associated dataset, please cite reference [L'22].
 
 # Description
 This set of R scripts aims at extracting and analyzing character networks extracted from graphic novels. It actually works on manually constituted CSV files, so in theory the work of fiction could be anything besides graphic novels, provided the input format is enforced.
@@ -24,7 +25,7 @@ The script does the following:
 
 
 # Data
-The raw dataset was manually for bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The files produced by the scripts (graphs, plots, tables...) can be obtained by running these scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
+The raw dataset was manually constituted based on bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The output files (graphs, plots, tables...) can be obtained by running the scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
 
 ![ThorgalStaticNet](/data/Thorgal/network.svg)
 
@@ -51,12 +52,12 @@ You first need to install `R` and the required packages:
 3. Install the required packages: 
    1. Open the `R` console.
    2. Set the unzipped directory as the working directory, using `setwd("<my directory>")`.
-   3. Run the install script `src/install.R` (that may take a while).
+   3. Run the install script `src/_install.R` (that may take a while).
 
-A part of the analysis requires to compile some C code. The main instructions are in `src\pli\README.txt`, then follow the instructions in the following files (look for the TODOs):
-1. `src\pli\zeta.R/`: concerns the files in folder `src\pli\zeta-function`.
-2. `src\pli\powerexp.R`: concerns the files in folder `src\pli\exponential-integral`.
-3. `src\pli\discpowerexp.R`: concerns the file in folder `\src\pli\discpowerexp`.
+A part of the analysis requires to compile some `C` code. The main instructions are in `src/common/stats/pli/README.txt`, then follow the instructions in the following files (look for the TODOs):
+1. `src/common/stats/pli/zeta.R/`: concerns the files in folder `src/common/stats/pli/zeta-function`.
+2. `src/common/stats/pli/powerexp.R`: concerns the files in folder `src/common/stats/pli/exponential-integral`.
+3. `src/common/stats/pli/discpowerexp.R`: concerns the file in folder `\src/common/stats/pli/discpowerexp`.
 
 
 # Use
@@ -68,7 +69,7 @@ In order to extract the networks from the raw data, compute the statistics, and 
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1](https://github.com/CompNet/NaNet/releases/tag/v1) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6395875). 
+The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1.0.2](https://github.com/CompNet/NaNet/releases/tag/v1.0.2) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6573491). 
 
 
 # Dependencies
@@ -101,4 +102,4 @@ Tested with `R` version 4.0.5, with the following packages:
 
 
 # References
-* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, submitted.
+* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, Advances in Complex Systems, p.22400033, 2022.  [⟨hal-03694768⟩](https://hal.archives-ouvertes.fr/hal-03694768) - DOI: [10.1142/S0219525922400033](http://doi.org/10.1142/S0219525922400033)

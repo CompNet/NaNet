@@ -10,7 +10,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/centr_chars.R")
 ###############################################################################
-source("src/common/include.R")
+source("src/common/_include.R")
 library("stringr")
 
 
@@ -18,14 +18,12 @@ library("stringr")
 
 # load series data
 data <- read.corpus.data()
-
-folder <- file.path(DATA_FOLDER,"summaries")
 volumes <- data$volume.stats[,COL_VOLUME]
 
 # load text files
 lines <- c()
 for(v in volumes)
-{	con <- file(file.path(folder, paste0(v,".txt")), "r")
+{	con <- file(file.path(ANN_SUMMARIES_FOLDER, paste0(v,".txt")), "r")
 		lines <- c(lines, tolower(paste(readLines(con), collapse=" ")))
 	close(con)
 }

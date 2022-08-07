@@ -25,9 +25,11 @@ compute.graphical.params <- function(g=NA)
 		setup.graph.layout(g0, NET_FOLDER)
 #V(g0)$x <- LAYOUT[,1]
 #V(g0)$y <- LAYOUT[,2]
+#temp.file <- paste0(graph.file,".temp.graphml")
+#write.graph(g0,file=temp.file,format="graphml")
 	
-# this piece of script was once used to manually fine tune vertex positions with gephi
-#gg <- read_graph("D:/Users/Vincent/Downloads/Web/Untitled.graphml",format="graphml")
+## this piece of script was once used to manually fine tune vertex positions with gephi
+#gg <- read_graph(temp.file,format="graphml")
 #tab <- cbind(V(gg)$x, V(gg)$y)
 #ids <- as.integer(substr(V(gg)$id, 2, nchar(V(gg)$id)))
 #idx <- order(ids)
@@ -36,8 +38,10 @@ compute.graphical.params <- function(g=NA)
 ##apply(tmp, 2, range)
 #tab[,2] <- (tab[,2] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
 #tab[,1] <- (tab[,1] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
-#LAYOUT <- tab
-#lay.file <- file.path(NET_SCENES_FOLDER, "all_layout.txt")
+#rownames(tab) <- V(gg)$name
+#colnames(tab) <- c("x","y")
+#LAYOUT <<- tab
+#lay.file <- file.path(NET_FOLDER, "all_layout.txt")
 #write.table(x=LAYOUT,file=lay.file)
 	
 	# possibly use the default graph
@@ -326,8 +330,6 @@ plot.static.graph.scenes.all <- function(data)
 	}
 	
 	# plot each volume separately (full graph but different vertex colors)
-	vols.folder <- file.path(NET_SCENES_FOLDER, "volumes")
-	dir.create(path=vols.folder, showWarnings=FALSE, recursive=TRUE)
 	tlog(4,"Plotting volume-related graphs using vertex colors")
 	for(v in 1:length(data$volume.chars))
 	{	vname <- paste0(v,"_",data$volume.stats[v,COL_VOLUME])
@@ -387,8 +389,6 @@ plot.static.graph.scenes.all <- function(data)
 	
 	# plot each arc separately (full graph but different vertex colors)
 	tlog(4,"Plotting arc-related graphs using vertex colors")
-	arcs.folder <- file.path(NET_SCENES_FOLDER, "arcs")
-	dir.create(path=arcs.folder, showWarnings=FALSE, recursive=TRUE)
 	arc.titles <- unique(data$volume.stats[,COL_ARC])
 	for(a in 1:length(data$arc.chars))
 	{	tlog(6,"Plotting arc ",a,"/",length(data$arc.chars))

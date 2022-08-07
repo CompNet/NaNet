@@ -12,7 +12,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/dynamic/evol_prop.R")
 ###############################################################################
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="EvolutionProp")
 
 

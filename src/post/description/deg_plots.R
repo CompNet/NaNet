@@ -10,7 +10,7 @@
 # source("src/post/description/deg_plots.R")
 ###############################################################################
 SERIES <- "Thorgal"
-source("src/common/include.R")
+source("src/common/_include.R")
 start.rec.log(text="DegDistr")
 
 
@@ -18,6 +18,7 @@ start.rec.log(text="DegDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed in the main script)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 laws["Unfiltered-degree"] <- "good"
@@ -69,7 +70,7 @@ for(meas in meass)
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
 		data[[1]] <- data[[1]][unfilt.idx]	# remove isolates
-#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distrtest_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
 		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="filtered")
@@ -78,7 +79,7 @@ for(meas in meass)
 		filt.idx <- data[[2]] > 1
 		data[[2]] <- data[[2]][filt.idx]	# remove isolates
 		names(data) <- c("Unfiltered","Filtered")
-#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="distrtest_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params
@@ -112,7 +113,7 @@ for(meas in meass)
 			else if(fformat==PLOT_FORMAT_PNG)
 				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 			par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-			plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg.title="Characters")
+			plot.ccdf(data=data, main=NA, xlab=xl, ylab="default", log=TRUE, cols=pal, leg=TRUE, leg.title="Characters")
 			for(i in 1:2)
 			{	if(laws[paste0(names(data)[i],"-",meas,if(wt!="none") paste0("-",wt) else "")]=="truncated")
 				{	x <- seq(pl[[2]]$threshold,max(data[[2]]))

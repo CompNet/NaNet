@@ -26,6 +26,8 @@
 # 	end.rec.log()
 # 
 # 05/2016 Vincent Labatut
+#
+# source("src/common/logging.R")
 #############################################################################################
 # folder to store log files
 FOLDER_LOG <- "log"
