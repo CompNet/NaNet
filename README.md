@@ -69,7 +69,7 @@ In order to extract the networks from the raw data, compute the statistics, and 
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1](https://github.com/CompNet/NaNet/releases/tag/v1) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6395875). 
+The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1.0.2](https://github.com/CompNet/NaNet/releases/tag/v1.0.2) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6573491). 
 
 
 # Dependencies
