@@ -35,6 +35,23 @@ scene.chars <- data$scene.chars
 volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
+# extract dynamic networks
+tlog(2,"Extracting dynamic networks (may take a while)")
+for(filtered in c(FALSE,TRUE))
+{	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
+	for(pub.order in c(FALSE,TRUE))
+	{	tlog(6,"Dealing with ",if(pub.order) "publication" else "story","-ordered networks")
+		gg <- ns.graph.extraction(
+				char.stats=char.stats, 
+				scene.chars=scene.chars, scene.stats=scene.stats, 
+				volume.stats=volume.stats, 
+				filtered=filtered, 
+				pub.order=pub.order
+		)
+		ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order)
+	}
+}
+
 # get filtered character names
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
