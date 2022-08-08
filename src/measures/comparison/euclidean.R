@@ -147,6 +147,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_DUR)]] <- list
 	cname="Euclidean Distance with Filtered Scene-Based Duration Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -158,6 +159,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_DU
 	cname="Weighted Euclidean Distance with Filtered Scene-Based Duration Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -169,6 +171,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NO
 	cname="Weighted normalized Euclidean Distance with Filtered Scene-Based Duration Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
 		return(values)
@@ -180,6 +183,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_OCC)]] <- list
 	cname="Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
 		return(values)
@@ -191,6 +195,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_OC
 	cname="Weighted Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
 		return(values)
@@ -202,6 +207,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NO
 	cname="Weighted normalized Euclidean Distance with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_EUCLIDEAN_DIST,
 	object="graph-comp",
+	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.euclidean.distance(paste0(MEAS_EUCLIDEAN_DIST, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
 		return(values)
