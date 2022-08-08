@@ -179,10 +179,10 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 		i.sc.ids <- which(scene.mat[i.name,])
 		
 		# loop over the remaining characters for the second end point
-		tlog.start.loop(4,(i+1):nrow(char.stats),"Looping over characters (second character)")
+		tlog.start.loop(4,nrow(char.stats)-i,"Looping over characters (second character)")
 		for(j in (i+1):nrow(char.stats))
 		{	j.name <- char.stats[j,COL_NAME]
-			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),") -- #j=",j.name," (",j,"/",nrow(char.stats),")")
+			tlog.loop(6,j-i,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),") -- #j=",j.name," (",j-i,"/",nrow(char.stats)-i,")")
 			
 			# scenes where char j appears
 			#j.sc.ids <- which(sapply(scene.chars, function(chars) j.name %in% chars))
