@@ -70,7 +70,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_DUR)]] <- list( #Jaccard's simi
 	bounds=c(0,1),
 	cname="Jaccard Similarity with Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_DUR), graph, filtered=FALSE)
@@ -82,7 +82,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_DUR)]] <- list( #We
 	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_DUR), graph, filtered=FALSE)
@@ -94,7 +94,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR)]] <-
 	bounds=c(0,1),
 	cname="Weighted normalized Jaccard Similarity with Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=FALSE)
@@ -106,7 +106,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_OCC)]] <- list( #Jaccard's simi
 	bounds=c(0,1),
 	cname="Jaccard Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_OCC), graph, filtered=FALSE)
@@ -118,7 +118,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_OCC)]] <- list( #We
 	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_OCC), graph, filtered=FALSE)
@@ -130,7 +130,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC)]] <-
 	bounds=c(0,1),
 	cname="Weighted normalized Jaccard Similarity with Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=FALSE)
@@ -146,7 +146,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_DUR)]] <- list( #
 	bounds=c(0,1),
 	cname="Jaccard Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_DUR), graph, filtered=TRUE)
@@ -158,7 +158,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)]
 	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), graph, filtered=TRUE)
@@ -170,7 +170,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM,
 	bounds=c(0,1),
 	cname="Weighted normalized Jaccard Similarity with Filtered Scene-Based Duration Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), graph, filtered=TRUE)
@@ -182,7 +182,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_OCC)]] <- list( #
 	bounds=c(0,1),
 	cname="Jaccard Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_OCC), graph, filtered=TRUE)
@@ -194,7 +194,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)]
 	bounds=c(0,1),
 	cname="Weighted Jaccard Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), graph, filtered=TRUE)
@@ -206,7 +206,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM,
 	bounds=c(0,1),
 	cname="Weighted normalized Jaccard Similarity with Filtered Scene-Based Occurrences Graph",
 	folder=MEAS_JACCARD_SIM,
-	object="graph-comp",
+	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
 	{	values <- compute.jaccard.similarity(paste0(MEAS_JACCARD_SIM, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), graph, filtered=TRUE)
