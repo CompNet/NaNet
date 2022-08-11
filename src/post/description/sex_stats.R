@@ -172,7 +172,7 @@ write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.nam
 # total degree by sex
 tlog(2,"Total degree by sex")
 tlog(4,"In the unfiltered graph:")
-vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered")
+vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered", compare=FALSE)
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 print(cnt)
 tab.unf <- c(cnt,NA)
@@ -181,7 +181,7 @@ tlog(4,"Gender Degree Ratio: ",ratio)
 tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ratio))
 #
 tlog(4,"In the filtered graph:")
-vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered")
+vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered", compare=FALSE)
 cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 print(cnt)
 tab.flt <- c(cnt,NA)
@@ -195,7 +195,7 @@ for(w in c("duration","occurrences"))
 {	tlog(4,"Using ",w," as weights")
 	# unfiltered
 	tlog(6,"In the unfiltered graph:")
-	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="unfiltered")
+	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="unfiltered", compare=FALSE)
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex==s]))
 	print(cnt)
 	tab.unf <- cbind(tab.unf, c(cnt,NA))
@@ -204,7 +204,7 @@ for(w in c("duration","occurrences"))
 	tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ratio))
 	# filtered
 	tlog(6,"In the filtered graph:")
-	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="filtered")
+	vals <- load.static.nodelink.stats.scenes(weights=w, measure=MEAS_STRENGTH, filtered="filtered", compare=FALSE)
 	cnt <- sapply(sexes, function(s) sum(vals[V(g)$Sex[kept]==s]))
 	print(cnt)
 	tab.flt <- cbind(tab.flt, c(cnt,NA))
@@ -303,7 +303,7 @@ write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=F
 #tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
 #colnames(tab)[ncol(tab)] <- "Characters"
 #write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"), fileEncoding="UTF-8")
-#tlog(4,"In the annotated file, TRUE means 'the females talk about a male';FALSE means 'the females do not talk about a male'"; and 'NA' means 'the females do not talk at all'.)
+#tlog(4,"In the annotated file, TRUE means 'the females talk about a male';FALSE means 'the females do not talk about a male'; and 'NA' means 'the females do not talk at all'.")
 ###### read the annotated file
 tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
 ######
@@ -479,7 +479,7 @@ for(m in 1:length(meas.names))
 	
 	# load precomputed data for unfiltered net
 	tlog(4,"Loading pre-computed unfiltered values")
-	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="unfiltered")
+	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="unfiltered", compare=FALSE)
 	data.unf <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -514,7 +514,7 @@ for(m in 1:length(meas.names))
 	
 	# load precomputed data for filtered net
 	tlog(4,"Loading pre-computed filtered values")
-	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="filtered")
+	vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered="filtered", compare=FALSE)
 	data.flt <- list()
 	tlog(6,"Statistics by sex:")
 	for(sex in sexes)
@@ -631,8 +631,8 @@ tlog(0,"Plotting transitivity vs. degree")
 
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed unfiltered values")
-deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered")
-tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="unfiltered")
+deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="unfiltered", compare=FALSE)
+tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="unfiltered", compare=FALSE)
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))
@@ -729,8 +729,8 @@ legend(
 ####
 # load precomputed data for unfiltered net
 tlog(2,"Loading pre-computed filtered values")
-deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered")
-tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="filtered")
+deg.vals <- load.static.nodelink.stats.scenes(weights="none", measure=MEAS_DEGREE, filtered="filtered", compare=FALSE)
+tra.vals <- load.static.nodelink.stats.scenes(weights="none", measure=paste0(MEAS_TRANSITIVITY,SFX_LOCAL), filtered="filtered", compare=FALSE)
 
 ## keep tail
 #thresholds <- quantile(deg.filt, probs=c(0,0.25,0.50,0.75,0.85,0.90,0.95))

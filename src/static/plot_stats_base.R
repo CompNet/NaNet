@@ -3,6 +3,8 @@
 # 
 # Vincent Labatut
 # 02/2019
+#
+# source("src/static/plot_stats_base.R")
 ###############################################################################
 
 
@@ -16,12 +18,13 @@
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, ignored if arc is specified).
 # filtered: whether to use the filter version of the graph.
+# compare: whether to compute the regular stats or to compare with reference graphs.
 #
 # returns: the value corresponding to the specified parameters.
 ###############################################################################
-load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=FALSE)
+load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=NA, compare=NA)
 {	object <- ALL_MEASURES[[measure]]$object
-	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -38,13 +41,16 @@ load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, fil
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, ignored if arc is specified).
 # filtered: whether to use the filter version of the graph.
+# compare: whether to compute the regular stats or to compare with reference graphs.
 #
 # returns: a vector representing the link/node values for the specified measure.
 ###############################################################################
-load.static.nodelink.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
+load.static.nodelink.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=NA, compare=NA)
 {	object <- ALL_MEASURES[[measure]]$object
-	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered)
+	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
+#print(table.file)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
+#print(colnames(tmp.tab))
 	res <- tmp.tab[,measure]
 	return(res)
 }
@@ -99,7 +105,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		{	tlog(4,"Dealing with weights=",wmode)
 			
 			# load pre-computed values (scene-based graph)
-			vals <- load.static.nodelink.stats.scenes(weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filt.txt)
+			vals <- load.static.nodelink.stats.scenes(weights=wmode, measure=meas.name, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 			# remove possible NAs
 			vals <- vals[!is.na(vals)]
 			#vals <- vals[vals>0]	# remove the zeroes?
@@ -230,7 +236,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			for(i in 1:length(items))
 			{	vals[i] <- load.static.graph.stats.scenes(weights=wmode, measure=meas.name, 
 							arc=if(arcs) i else NA, vol=if(arcs) NA else items[i], 
-							filtered=filt.txt)
+							filtered=filt.txt, compare=TRUE)
 			}
 			
 			# generate barplots

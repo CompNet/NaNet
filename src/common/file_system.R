@@ -190,17 +190,29 @@ get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overla
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
+# filtered: whether this concerns the filtered version of the graph.
+# compare: whether to compute the regular stats or to compare with reference graphs.
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, compare=FALSE)
 {	# base folder
-	if(mode=="panel.window")
-		folder <- STAT_PANELS_FOLDER
-	else if(mode=="page.window")
-		folder <- STAT_PAGES_FOLDER
-	else if(mode=="scenes")
-		folder <- STAT_SCENES_FOLDER
+	if(!compare)
+	{	if(mode=="panel.window")
+			folder <- STAT_PANELS_FOLDER
+		else if(mode=="page.window")
+			folder <- STAT_PAGES_FOLDER
+		else if(mode=="scenes")
+			folder <- STAT_SCENES_FOLDER
+	}
+	else
+	{	if(mode=="panel.window")
+			folder <- COMP_PANELS_FOLDER
+		else if(mode=="page.window")
+			folder <- COMP_PAGES_FOLDER
+		else if(mode=="scenes")
+			folder <- COMP_SCENES_FOLDER
+	}
 	# possibly add filtered subfolder
 	if(!is.na(filtered))
 		folder <- file.path(folder, filtered)
@@ -221,15 +233,11 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-	# possibly add window size
+	# possibly add window size folder
 	if(!is.na(window.size))
-	{	folder <- file.path(folder, paste0("ws=",window.size))
-		# possibly add overlap
-		if(!is.na(overlap))
-			folder <- paste0(folder, "_ol=",overlap)
-	}
-	# possibly add overlap
-	else if(!is.na(overlap))
+		folder <- file.path(folder, paste0("ws=",window.size))
+	# possibly add overlap folder
+	if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
 	# add weights
 	if(!is.na(weights))	
@@ -303,20 +311,16 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-	# possibly add window size
+	# possibly add window size subfolder
 	if(!is.na(window.size))
-	{	folder <- file.path(folder, paste0("ws=",window.size))
-		# possibly add overlap
-		if(!is.na(overlap))
-			folder <- paste0(folder, "_ol=",overlap)
-	}
-	# possibly add overlap
-	else if(!is.na(overlap))
+		folder <- file.path(folder, paste0("ws=",window.size))
+	# possibly add overlap subfolder
+	if(!is.na(overlap))
 		folder <- file.path(folder, paste0("ol=",overlap))
 	# possibly add attribute name
 	if(!is.na(att))
 		folder <- file.path(folder,"attributes",att)
-	# add weight subfolder
+	# possibly add weight subfolder
 	if(!is.na(weights))
 		folder <- file.path(folder, "weights", weights)
 	# possibly add extra subfolder
@@ -324,7 +328,11 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 		folder <- file.path(folder, subfold)
 	# possibly add measure object
 	if(!is.na(meas.name))
-		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
+	{	if(is.null(ALL_MEASURES[[meas.name]]))
+			folder <- file.path(folder, meas.name)
+		else
+			folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
+	}
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
@@ -374,7 +382,7 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA) # TODO add missing params
+get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER
@@ -382,9 +390,9 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 		folder <- COMP_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- COMP_SCENES_FOLDER
-	# possible add filtered suffix
-	if(filtered)
-		folder <- paste0(folder, "_filtered")
+	# possibly add filtered subfolder
+	if(!is.na(filtered))
+		folder <- file.path(folder, filtered)
 	# add network type folder
 	folder <- file.path(folder, net.type)
 	# possibly add order subfolder
@@ -402,11 +410,21 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 		if(!is.logical(vol))
 			folder <- file.path(folder, "separate", vol)
 	}
-	# add weight subfolder
-	folder <- file.path(folder, weights)
+	# possibly add window size and overlap
+	if(!is.na(window.size) && !is.na(overlap))
+		folder <- file.path(folder, paste0("ws=", window.size), paste0("ol=", overlap))
+	else if(mode!="scenes")
+		folder <- file.path(folder, "_all")
+	# possibly add weight subfolder
+	if(!is.na(weights))
+		folder <- file.path(folder, "weights", weights)
 	# possibly add measure object
 	if(!is.na(meas.name))
-		folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
+	{	if(is.null(ALL_MEASURES[[meas.name]]))
+			folder <- file.path(folder, meas.name)
+		else
+			folder <- file.path(folder, ALL_MEASURES[[meas.name]]$object, ALL_MEASURES[[meas.name]]$folder)
+	}
 	# possibly create folder
 	dir.create(path=folder, showWarnings=FALSE, recursive=TRUE)
 	
@@ -416,12 +434,12 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 	if(!is.na(pref))
 		fname <- paste0(fname, pref)
 	# possibly add window size
-	if(!is.na(window.size))
+	if(!is.na(window.size) && is.na(overlap))
 	{	if(fname!="") fname <- paste0(fname,"_")
 		fname <- paste0(fname, "ws=",window.size)
 	}
 	# possibly add overlap
-	if(!is.na(overlap))
+	if(!is.na(overlap) && is.na(window.size))
 	{	if(fname!="") fname <- paste0(fname,"_")
 		fname <- paste0(fname, "ol=",overlap)
 	}

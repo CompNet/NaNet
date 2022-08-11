@@ -16,14 +16,16 @@
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: either "occurrences" or "duration".
+# filtered: whether to use the filter version of the graph.
 #
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	object <- "nodescomp"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights)
+compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=NA)
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	object <- "nodecomp"
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing nodal comparison measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -34,7 +36,11 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 	}
 	else
 		nodecomp.meas <- NODECOMP_MEASURES
-	
+	if(filtered)
+		nodecomp.meas <- nodecomp.meas[sapply(names(nodecomp.meas), function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	else
+		nodecomp.meas <- nodecomp.meas[sapply(names(nodecomp.meas), function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+		
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
 	reset.flag <- FALSE
@@ -47,10 +53,6 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		colnames(res.tab) <- names(nodecomp.meas)
 		rownames(res.tab) <- V(g)$name
 	}
-	
-	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(g)$Filter=="Discard"))
-	idx.keep <- which(V(g)$Filter=="Keep")
 	
 	# compute each measure
 	tlog(5,"Computing each nodal measure")
@@ -71,13 +73,8 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 		else
 		{	# compute values
-			measure <- NODECOMP_MEASURES[[m]]
-			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
-			{	values <- rep(NA,gorder(g))
-				values[idx.keep] <- measure$foo(graph=g.filtr)
-			}
-			else
-				values <- measure$foo(graph=g)
+			measure <- nodecomp.meas[[m]]
+			values <- measure$foo(graph=g)
 			if(length(values)==0)
 				values <- rep(NA,gorder(g))
 			tlog(7,"Number of values: ",length(values))
@@ -86,11 +83,17 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 			res.tab[,meas.name] <- values
 			
 			# update file
+			tlog(7,"Updating stat file '",table.file,"'")
 			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 		
 		# plot
-		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, suf="histo") # TODO move that into the "comparison" folder
+		if(grepl(SFX_OCC, meas.name, fixed=TRUE))
+			subf <- "occ"
+		else if(grepl(SFX_DUR, meas.name, fixed=TRUE))
+			subf <- "dur"
+		plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_histo"))
+		tlog(7,"Plotting in file '",plot.file,"'")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -104,28 +107,46 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 		}
 	}
 	
-	# plot the TP, FP and FN values for the main characters
-	ms <- rbind(
-		c(paste0(MEAS_TRUEPOS, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_DUR), paste0(MEAS_FALSENEG, SFX_DUR)), 
-		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR)), 
-		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
-		c(paste0(MEAS_TRUEPOS, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_OCC), paste0(MEAS_FALSENEG, SFX_OCC)), 
-		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC)), 
-		c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
-	)
-	rownames(ms) <- c(
-		paste0("tfpn", SFX_DUR),
-		paste0("tfpn", SFX_WEIGHT, SFX_DUR),
-		paste0("tfpn", SFX_WEIGHT, SFX_NORM, SFX_DUR),
-		paste0("tfpn", SFX_OCC),
-		paste0("tfpn", SFX_WEIGHT, SFX_OCC),
-		paste0("tfpn", SFX_WEIGHT, SFX_NORM, SFX_OCC)
-	)
+	# plot the TP, FP and FN values for all characters / only the main ones
+	if(!is.na(weights))
+	{	if(weights=="none")
+		{	if(!filtered)
+			{	ms <- rbind(
+					c(paste0(MEAS_TRUEPOS, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_DUR), paste0(MEAS_FALSENEG, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_OCC), paste0(MEAS_FALSENEG, SFX_OCC))
+				)
+			}
+			else
+			{	ms <- rbind(
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_DUR), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_OCC), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_OCC))
+				)
+			}
+		}
+		else
+		{	if(!filtered)
+			{	ms <- rbind(
+					c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_OCC)), 
+					c(paste0(MEAS_TRUEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
+				)
+			}
+			else
+			{	ms <- rbind(
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_OCC)), 
+					c(paste0(MEAS_TRUEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_FILTERED, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
+				)
+			}
+		}
+	}
 	
 	idx.keep <- order(V(g)$Frequency, decreasing=TRUE)[1:min(gorder(g),10)]
 	for(m in 1:nrow(ms))
-	{	meas.name <- rownames(ms)[m]
-		tlog(6,"Plotting measure \"",meas.name,"\"")
+	{	meas.name <- ms[m,1]
+		tlog(6,"Plotting measure \"",meas.name,"\" (",m,"/",nrow(ms),")")
 		
 		mds1 <- c("freq", "prop")
 		for(md1 in mds1)
@@ -149,7 +170,16 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					ylab <- "Frequency"
 				}
 				
-				plot.file <- get.path.stats.comp(mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, suf=paste0(md2,"_",md1,"_barplot"))
+				if(grepl(SFX_OCC, meas.name, fixed=TRUE))
+					subf <- "occ"
+				else if(grepl(SFX_DUR, meas.name, fixed=TRUE))
+					subf <- "dur"
+				if(grepl(SFX_NORM, meas.name, fixed=TRUE))
+					subf <- paste0(subf,"_norm")
+				else
+					subf <- paste0(subf,"_raw")
+				plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name="nodecomp/tfpn", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md2,"_",md1,"_barplot"))
+				tlog(7,"Plotting in file '",plot.file,"'")
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
 						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -187,12 +217,14 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# filtered: whether to use the filter version of the graph.
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA)
-{	object <- "graph-comp"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights)
+compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=NA)
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	object <- "graphcomp"
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing graph comparison measures")
 	
 	if(!is.na(weights))
@@ -203,6 +235,10 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 	}
 	else
 		graphcomp.meas <- GRAPHCOMP_MEASURES
+	if(filtered)
+		graphcomp.meas <- graphcomp.meas[sapply(names(graphcomp.meas), function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	else
+		graphcomp.meas <- graphcomp.meas[sapply(names(graphcomp.meas), function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -214,16 +250,11 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		colnames(res.tab) <- c("Value")
 	}
 	
-	# get filtered graph
-	g.filtr <- delete_vertices(g, v=which(V(g)$Filter=="Discard"))
-	#idx.keep <- which(V(g)$Filter=="Keep")
-	
 	# compute each topological and comparison measure
 	tlog(5,"Computing each graph comparison measure")
-	measures <- graphcomp.meas
-	for(m in 1:length(measures))
-	{	meas.name <- names(measures)[m]
-		tlog(6,"Computing measure ",meas.name," (",m,"/",length(measures),")")
+	for(m in 1:length(graphcomp.meas))
+	{	meas.name <- names(graphcomp.meas)[m]
+		tlog(6,"Computing measure ",meas.name," (",m,"/",length(graphcomp.meas),")")
 		
 		# possibly add row if missing
 		if(!(meas.name %in% rownames(res.tab)))
@@ -238,17 +269,15 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 		}
 		else
 		{	# compute value
-			measure <- measures[[m]]
-			if(grepl(SFX_FILTERED, meas.name, fixed=TRUE))
-				value <- measure$foo(graph=g.filtr)
-			else
-				value <- measure$foo(graph=g)
+			measure <- graphcomp.meas[[m]]
+			value <- measure$foo(graph=g)
 			tlog(7,"Value: ",value)
 			
 			# update table
 			res.tab[meas.name,1] <- value
 			
 			# update file
+			tlog(7,"Updating stat file '",table.file,"'")
 			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=FALSE)
 		}
 	}
@@ -271,20 +300,29 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
+# filtered: whether to use the filter version of the graph.
 #
 # returns: a kx4 table containing all computed values, where k is the number of measures,
 #		   and the columns correspond to Spearman's correlation and the associated p-value,
 #          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
-compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
-{	table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
-	#TODO must adapt the object in the above call (not standard)
+compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
+{	filt.txt <- if(filtered) "filtered" else "unfiltered"
+	table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
-	mn <- c(names(NODE_MEASURES), names(NODEPAIR_MEASURES)) # not links, as their number can vary from one graph to the other
-#	if(!is.na(arc) && !is.na(vol))
-#		mn <- c(mn, names(NODECOMP_MEASURES))
-	cn <- c(COL_DUR_SPEAR, COL_DUR_PVAL, COL_OCC_SPEAR, COL_OCC_PVAL) 
+	# select measures
+	if(!is.na(weights))
+	{	if(weights=="none")
+		{	mn <- c(names(NODE_MEASURES)[sapply(NODE_MEASURES, function(meas) !meas$weighted)], names(NODEPAIR_MEASURES)[sapply(NODEPAIR_MEASURES, function(meas) !meas$weighted)])
+			cn <- c(COL_NONE_SPEAR, COL_NONE_PVAL)
+		}
+		else
+		{	mn <- c(names(NODE_MEASURES)[sapply(NODE_MEASURES, function(meas) meas$weighted)], names(NODEPAIR_MEASURES)[sapply(NODEPAIR_MEASURES, function(meas) meas$weighted)])
+			cn <- c(COL_DUR_SPEAR, COL_DUR_PVAL, COL_OCC_SPEAR, COL_OCC_PVAL)
+		}
+		# no link-related measure, as their number can vary from one graph to the other
+	}
 	
 	# read or create the table containing the computed values
 	tlog(5,"Getting/creating file \"",table.file,"\"")
@@ -318,59 +356,86 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 			if(meas.name %in% names(NODE_MEASURES))
 				object <- "nodes"
 			else if(meas.name %in% names(NODECOMP_MEASURES))
-				object <- "nodescomp"
+				object <- "nodecomp"
 			else if(meas.name %in% names(NODEPAIR_MEASURES))
 				object <- "nodepairs"
 			else if(meas.name %in% names(LINK_MEASURES))
 				object <- "links"
 			
-			# retrieve reference values
-			vals.dur <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
-			vals.occ <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered="unfiltered")
-			
 			# retrieve tested values
-			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
+			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE, row.names=1))
 			vals.cur <- tmp.tab[,meas.name]
 			
-			# compute correlations
-			#corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
-			corr <- tryCatch(
-				cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
-#				warning=function(w) 
-#				{	tlog(7,"WARNING: ",w)
-#				},
-				error=function(e)
-				{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
-					tlog(7,msg)
-					warning(msg)
-					corr <- list(estimate=NA,p.value=NA)
-					return(corr)
+			# distinguish the weighted and unweighted cases
+			if(is.na(weights) || weights=="none")
+			{	# retrieve reference values
+				vals.none <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+				
+				# compute correlations
+				#corr <- cor.test(x=vals.none, y=vals.cur, method="spearman")
+				corr <- tryCatch(
+						cor.test(x=vals.none, y=vals.cur, method="spearman", exact=FALSE),
+#						warning=function(w) 
+#						{	tlog(7,"WARNING: ",w)
+#						},
+						error=function(e)
+						{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name," (duration)")
+							tlog(7,msg)
+							warning(msg)
+							corr <- list(estimate=NA,p.value=NA)
+							return(corr)
+						}
+				)
+				if(meas.name %in% rownames(res.tab))
+					res.tab[meas.name,c(COL_NONE_SPEAR,COL_NONE_PVAL)] <- c(corr$estimate, corr$p.value)
+				else
+				{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
+					rownames(res.tab)[nrow(res.tab)] <- meas.name
 				}
-			)
-			if(meas.name %in% rownames(res.tab))
-				res.tab[meas.name,c(COL_DUR_SPEAR,COL_DUR_PVAL)] <- c(corr$estimate, corr$p.value)
-			else
-			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
-				rownames(res.tab)[nrow(res.tab)] <- meas.name
 			}
-			#corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
-			corr <- tryCatch(
-				cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
-				error=function(e) 
-				{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name)
-					tlog(7,msg)
-					warning(msg)
-					corr <- list(estimate=NA,p.value=NA)
-					return(corr)
+			else
+			{	# retrieve reference values
+				vals.dur <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+				vals.occ <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+				
+				# compute correlations
+				#corr <- cor.test(x=vals.dur, y=vals.cur, method="spearman")
+				corr <- tryCatch(
+						cor.test(x=vals.dur, y=vals.cur, method="spearman", exact=FALSE),
+						error=function(e)
+						{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name," (duration)")
+							tlog(7,msg)
+							warning(msg)
+							corr <- list(estimate=NA,p.value=NA)
+							return(corr)
+						}
+				)
+				if(meas.name %in% rownames(res.tab))
+					res.tab[meas.name,c(COL_DUR_SPEAR,COL_DUR_PVAL)] <- c(corr$estimate, corr$p.value)
+				else
+				{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
+					rownames(res.tab)[nrow(res.tab)] <- meas.name
 				}
-			)		
-			if(meas.name %in% rownames(res.tab))
-				res.tab[meas.name,c(COL_OCC_SPEAR,COL_OCC_PVAL)] <- c(corr$estimate, corr$p.value)
-			else
-			{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
-				rownames(res.tab)[nrow(res.tab)] <- meas.name
+				#corr <- cor.test(x=vals.occ, y=vals.cur, method="spearman")
+				corr <- tryCatch(
+						cor.test(x=vals.occ, y=vals.cur, method="spearman", exact=FALSE),
+						error=function(e) 
+						{	msg <- paste0("ERROR: problem when computing Spearman for measure ",meas.name, "(occurrences)")
+							tlog(7,msg)
+							warning(msg)
+							corr <- list(estimate=NA,p.value=NA)
+							return(corr)
+						}
+				)		
+				if(meas.name %in% rownames(res.tab))
+					res.tab[meas.name,c(COL_OCC_SPEAR,COL_OCC_PVAL)] <- c(corr$estimate, corr$p.value)
+				else
+				{	res.tab <- rbind(meas.name, c(corr$estimate, corr$p.value))
+					rownames(res.tab)[nrow(res.tab)] <- meas.name
+				}
 			}
+			
 			
 			# update file
 			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
@@ -394,26 +459,28 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
+# filtered: whether to use the filter version of the graph.
 ###############################################################################
-compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA)
-{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=FALSE, pref="graph", ext=".graphml")
+compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
+{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
-	# read the graph file
-	tlog(4,"Loading graph")
-	g <- read.graphml.file(file=graph.file)
-	if(!is.na(weights))
-	{	if(weights=="occurrences")
-			E(g)$weight <- E(g)$Occurrences
-		else if(weights=="duration")
-			E(g)$weight <- E(g)$Duration
-	}
+#	# read the graph file
+#	tlog(4,"Loading graph")
+#	g <- read.graphml.file(file=graph.file)
+#	if(!is.na(weights))
+#	{	if(weights=="occurrences")
+#			E(g)$weight <- E(g)$Occurrences
+#		else if(weights=="duration")
+#			E(g)$weight <- E(g)$Duration
+#	}
+# not needed!
 	
 	# init cache
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.correlations(mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol)
+	compute.static.correlations(mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	
 	tlog(3,"Computation of all rank correlation measures complete")
 }
@@ -445,7 +512,7 @@ compute.static.statistics.window <- function(panel.params, page.params)
 		for(overlap in panel.overlaps[[i]])
 		{	for(weights in c("none","occurrences"))
 			{	for(filtered in c(FALSE,TRUE))
-					compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+					compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
 			}
 		}
 	}#)
@@ -458,7 +525,7 @@ compute.static.statistics.window <- function(panel.params, page.params)
 		for(overlap in page.overlaps[[i]])
 		{	for(weights in c("none","occurrences"))
 			{	for(filtered in c(FALSE,TRUE))
-					compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+					compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
 			}
 		}
 	}#)
@@ -487,49 +554,61 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 	page.overlaps <- page.params$overlaps
 	
 	#### scene-based graphs
-	
-	# comparison for the scene-based graphs
-	for(weights in c("none","occurrences","duration"))
-	{	compute.all.static.statistics(mode="scenes", weights=weights, filtered=FALSE, compare=TRUE)
-		compute.all.static.corrs(mode="scenes", weights=weights)
-	}
-	
-	# correlations only for each narrative arc
-	arc.nbr <- nrow(data$arc.stats)
-	for(arc in 1:arc.nbr)
-	{	for(weights in c("none","occurrences","duration"))
-			compute.all.static.corrs(mode="scenes", weights=weights, arc=arc)
-	}
-	# correlations only for each volume
-	volume.nbr <- nrow(data$volume.stats)
-	for(v in 1:volume.nbr)
-	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
+	tlog(1,"Dealing with scene-based graphs")
+	# loop over unfiltered/filtered networks
+	for(filtered in c(FALSE,TRUE))
+	{	tlog(2,"Processing filtered=",filtered)
+		
+		# comparison for the scene-based graphs
 		for(weights in c("none","occurrences","duration"))
-			compute.all.static.corrs(mode="scenes", weights=weights, vol=vol)
+		{	compute.static.all.statistics(mode="scenes", weights=weights, filtered=filtered, compare=TRUE)
+			compute.all.static.corrs(mode="scenes", weights=weights, filtered=filtered)
+		}
+		
+		# correlations only for each narrative arc
+		arc.nbr <- nrow(data$arc.stats)
+		for(arc in 1:arc.nbr)
+		{	for(weights in c("none","occurrences","duration"))
+				compute.all.static.corrs(mode="scenes", weights=weights, arc=arc, filtered=filtered)
+		}
+		# correlations only for each volume
+		volume.nbr <- nrow(data$volume.stats)
+		for(v in 1:volume.nbr)
+		{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
+			for(weights in c("none","occurrences","duration"))
+				compute.all.static.corrs(mode="scenes", weights=weights, vol=vol, filtered=filtered)
+		}
 	}
-	
-	
+			
 	#### window-based graphs
-	
-	# statistics for the panel window-based static graphs
-	#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
-	for(i in 1:length(panel.window.sizes))
-	{	window.size <- panel.window.sizes[i]
-		for(overlap in panel.overlaps[[i]])
-		{	compute.all.static.statistics(mode="panel.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=TRUE)
-			compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap)
+	tlog(1,"Dealing with window-based graphs")
+	# loop over weight types
+	for(weights in c("none","occurrences"))
+	{	# loop over unfiltered/filtered networks
+		for(filtered in c(FALSE,TRUE))
+		{	tlog(2,"Processing weights=",weights," filtered=",filtered)
+			
+			# statistics for the panel window-based static graphs
+			#future_sapply(1:length(panel.window.sizes), function(i) >> cache interaction pb
+			for(i in 1:length(panel.window.sizes))
+			{	window.size <- panel.window.sizes[i]
+				for(overlap in panel.overlaps[[i]])
+				{	#compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+					compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+				}
+			}#)
+			
+			# statistics for the page window-based static graphs
+			#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
+			for(i in 1:length(page.window.sizes))
+			{	window.size <- page.window.sizes[i]
+				for(overlap in page.overlaps[[i]])
+				{	#compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+					compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+				}
+			}#)
 		}
-	}#)
-	
-	# statistics for the page window-based static graphs
-	#future_sapply(1:length(page.window.sizes), function(i) >> cache interaction pb
-	for(i in 1:length(page.window.sizes))
-	{	window.size <- page.window.sizes[i]
-		for(overlap in page.overlaps[[i]])
-		{	compute.all.static.statistics(mode="page.window", window.size=window.size, overlap=overlap, filtered=FALSE, compare=TRUE)
-			compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap)
-		}
-	}#)
+	}
 	
 	tlog(1,"Computation of comparisons for static graphs complete")	
 }

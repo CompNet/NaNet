@@ -138,6 +138,8 @@ COL_DURATION <- "Duration"						# total duration of the character co-occurrences
 
 ###############################################################################
 # correlation
+COL_NONE_SPEAR <- "spearman"					# Spearman's correlation computed for the unweighted graph
+COL_NONE_PVAL <- "p-value"						# Corresponding p-value
 COL_DUR_SPEAR <- "spearman-duration"			# Spearman's correlation computed for the durations
 COL_DUR_PVAL <- "p-duration"					# Corresponding p-value
 COL_OCC_SPEAR <- "spearman-occurrences"			# Spearman's correlation computed for the occurrences

@@ -281,6 +281,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)]] <- l
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted False Positives relative to Scene-Based Duration Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -292,6 +293,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_D
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted normalized False Positives relative to Scene-Based Duration Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -303,6 +305,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_OCC)]] <- list( #false 
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="False Positives relative to Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
@@ -314,6 +317,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)]] <- l
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted False Positives relative to Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -325,6 +329,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_O
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted normalized False Positives relative to Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -340,6 +345,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_DUR)]] <-
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="False Positives relative to Filtered Scene-Based Duration Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
@@ -351,6 +357,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, S
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted False Positives relative to Filtered Scene-Based Duration Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -362,6 +369,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, S
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted normalized False Positives relative to Filtered Scene-Based Duration Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -373,6 +381,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_OCC)]] <-
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="False Positives relative to Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=FALSE,
 	foo=function(graph)
@@ -384,6 +393,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, S
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted False Positives relative to Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
@@ -395,6 +405,7 @@ GRAPHCOMP_MEASURES[[paste0(MEAS_FALSEPOS, SFX_FILTERED, SFX_TOTAL, SFX_WEIGHT, S
 	type=numeric(),
 	bounds=c(0,NA),
 	cname="Weighted normalized False Positives relative to Filtered Scene-Based Occurrences Graph",
+	folder=MEAS_FALSEPOS,
 	object="graphcomp",
 	weighted=TRUE,
 	foo=function(graph)
