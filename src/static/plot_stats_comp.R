@@ -753,7 +753,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			}
 			
 			# generating the plot
-			cols <- get.palette(length(data))
+			#cols <- get.palette(length(data))
+			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=file.path("corr",ALL_MEASURES[[meas.name]]$folder), window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
@@ -823,7 +824,8 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			}
 			
 			# generating the plot
-			cols <- get.palette(length(data))
+			#cols <- get.palette(length(data))
+			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=file.path("corr",ALL_MEASURES[[meas.name]]$folder), overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
