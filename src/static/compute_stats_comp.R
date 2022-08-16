@@ -593,7 +593,7 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 			for(i in 1:length(panel.window.sizes))
 			{	window.size <- panel.window.sizes[i]
 				for(overlap in panel.overlaps[[i]])
-				{	#compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+				{	compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 					compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 				}
 			}#)
@@ -603,7 +603,7 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 			for(i in 1:length(page.window.sizes))
 			{	window.size <- page.window.sizes[i]
 				for(overlap in page.overlaps[[i]])
-				{	#compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+				{	compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 					compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 				}
 			}#)

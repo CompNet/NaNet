@@ -21,9 +21,7 @@
 #          smaller than window.size.
 ###############################################################################
 extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=10, overlap=2)
-{	tlog(2,"Extracting the panel window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
-	
-	# check the overlap parameter
+{	# check the overlap parameter
 	if(overlap>=window.size)
 	{	msg <- paste0("ERROR: overlap parameter must be smaller than or equal to window.size: window.size=",window.size,", overlap=",overlap)
 		tlog(4,msg)
@@ -118,9 +116,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 #          smaller than window.size.
 ###############################################################################
 extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, window.size=2, overlap=1)
-{	tlog(2,"Extracting the page window-based static graph for parameters window.size=",window.size," and overlap=",overlap)
-	
-	# check the overlap parameter
+{	# check the overlap parameter
 	if(overlap>=window.size)
 	{	msg <- paste0("ERROR: overlap must be smaller than window.size: window.size=",window.size,", overlap=",overlap)
 		tlog(4,msg)
@@ -231,27 +227,43 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 	page.overlaps <- page.params$overlaps
 	
 	# extract the panel window-based static graphs
+	net.nbr <- length(unlist(panel.overlaps))
+	net.cnt <- 0
 #	future_sapply(1:length(panel.window.sizes), function(i)
+	tlog.start.loop(1,net.nbr,"Extracting panel-based graphs")
 	for(i in 1:length(panel.window.sizes))
 	{	panel.window.size <- panel.window.sizes[i]
 		for(panel.overlap in panel.overlaps[[i]])
+		{	net.cnt <- net.cnt + 1
+			tlog.loop(2,net.cnt,"Extracting the panel window-based static graph for parameters window.size=",panel.window.size," and overlap=",panel.overlap," (",net.cnt,"/",net.nbr,")")
+			
 			extract.static.graph.panel.window(
 				inter.df=inter.df, 
 				char.stats=char.stats, 
 				window.size=panel.window.size, overlap=panel.overlap)
+		}
 	}#)
+	tlog.end.loop(1,"Done with panel-based graphs")
 	
 	# extract the page window-based static graphs
+	net.nbr <- length(unlist(page.overlaps))
+	net.cnt <- 0
 #	future_sapply(1:length(page.window.sizes), function(i)
+	tlog.start.loop(1,net.nbr,"Extracting page-based graphs")
 	for(i in 1:length(page.window.sizes))
 	{	page.window.size <- page.window.sizes[i]
 		for(page.overlap in page.overlaps[[i]])
+		{	net.cnt <- net.cnt + 1
+			tlog.loop(2,net.cnt,"Extracting the page window-based static graph for parameters window.size=",page.window.size," and overlap=",page.overlap," (",net.cnt,"/",net.nbr,")")
+			
 			extract.static.graph.page.window(
 				inter.df=inter.df, 
 				char.stats=char.stats, 
 				page.stats=page.stats, 
 				window.size=page.window.size, overlap=page.overlap)
+		}
 	}#)
+	tlog.end.loop(1,"Done with page-based graphs")
 	
 	tlog(1,"Extraction of the static graphs complete")
 }
