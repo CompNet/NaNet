@@ -74,27 +74,28 @@ The script `src/Labatut2022.R` reproduces the computations described in article 
 
 # Dependencies
 Tested with `R` version 4.0.5, with the following packages:
-* [`igraph`](http://igraph.org/r/) package: version 1.2.6.
-* [`CINNA`](https://cran.r-project.org/web/packages/CINNA/): version 1.1.54.
 * [`blockmodeling`](https://cran.r-project.org/web/packages/blockmodeling/): version 1.0.5.
+* [`CINNA`](https://cran.r-project.org/web/packages/CINNA/): version 1.1.54.
+* [`cluster`](https://cran.rstudio.com/web/packages/cluster): version 2.1.0.
+* [`data.table`](https://cran.r-project.org/web/packages/data.table/): version 1.13.0.
+* [`doParallel`](https://cran.r-project.org/web/packages/doParallel/): version 1.0.16.
+* [`ercv`](https://cran.r-project.org/web/packages/ercv/): version 1.0.1.
 * [`foreach`](https://cran.r-project.org/web/packages/foreach/): version 1.5.0.
 * [`future.apply`](https://cran.r-project.org/web/packages/future.apply/): version 1.6.0.
-* [`doParallel`](https://cran.r-project.org/web/packages/doParallel/): version 1.0.16.
-* [`ggplot2`](https://cran.r-project.org/web/packages/ggplot2/): version 3.3.3.
 * [`ggExtra`](https://cran.r-project.org/web/packages/ggExtra/): version 0.9.
+* [`ggplot2`](https://cran.r-project.org/web/packages/ggplot2/): version 3.3.3.
+* [`igraph`](http://igraph.org/r/) package: version 1.2.6.
+* [`latex2exp`](https://cran.r-project.org/web/packages/latex2exp/): version 0.4.0.
+* [`minpack.lm`](https://cran.r-project.org/web/packages/minpack.lm/): version 1.2.1.
+* [`perm`](https://cran.r-project.org/web/packages/perm/): version 1.0.0.2.
+* [`plotfunctions`](https://cran.r-project.org/web/packages/plotfunctions): version 1.4.
+* [`polynom`](https://cran.r-project.org/web/packages/polynom/): version 1.4.0.
+* [`poweRlaw`](https://cran.r-project.org/web/packages/poweRlaw/): version 0.70.6.
+* [`SDMTools`](https://cran.rstudio.com/web/packages/SDMTools): version 1.1.221.
 * [`sfsmisc`](https://cran.r-project.org/web/packages/sfsmisc/): version 1.1.12.
+* [`stringr`](https://cran.r-project.org/web/packages/stringr/): version 1.4.0.
 * [`vioplot`](https://cran.r-project.org/web/packages/vioplot/): version 0.3.6.
 * [`viridis`](https://cran.r-project.org/web/packages/viridis/): version 0.6.0.
-* [`SDMTools`](https://cran.rstudio.com/web/packages/SDMTools): version 1.1.221.
-* [`ercv`](https://cran.r-project.org/web/packages/ercv/): version 1.0.1.
-* [`poweRlaw`](https://cran.r-project.org/web/packages/poweRlaw/): version 0.70.6.
-* [`perm`](https://cran.r-project.org/web/packages/perm/): version 1.0.0.2.
-* [`minpack.lm`](https://cran.r-project.org/web/packages/minpack.lm/): version 1.2.1.
-* [`stringr`](https://cran.r-project.org/web/packages/stringr/): version 1.4.0.
-* [`latex2exp`](https://cran.r-project.org/web/packages/latex2exp/): version 0.4.0.
-* [`polynom`](https://cran.r-project.org/web/packages/polynom/): version 1.4.0.
-* [`data.table`](https://cran.r-project.org/web/packages/data.table/): version 1.13.0.
-* [`cluster`](https://cran.rstudio.com/web/packages/cluster): version 2.1.0.
 
 
 # To-do List

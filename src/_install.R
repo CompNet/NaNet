@@ -27,6 +27,7 @@ install.packages("doParallel")
 install.packages("ggplot2")
 install.packages("ggExtra")
 install.packages("sfsmisc")
+install.packages("plotfunctions")
 # violin plots
 install.packages("vioplot")
 # colors

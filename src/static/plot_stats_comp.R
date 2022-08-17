@@ -581,14 +581,31 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 								col=cols[d], lwd=2
 							)
 						}
-						# add color legend
-						legend(
-							x="topright", 
-							fill=cols, 
-							legend=window.sizes, 
-							title="Window Size"
-						)
-						# add line legend
+						# add color legend (discrete)
+						if(length(data)<=5)
+						{	legend(
+								x="topright", 
+								fill=cols, 
+								legend=window.sizes, 
+								title="Window Size"
+							)
+						}
+						# or continuous if too many series
+						else
+						{	#legend.gradient(
+							#	pnts="topright",
+							#	cols=viridis(25),
+							#	limits=range(overlaps[[i]]),
+							#	title="Overlap",
+							#	#cex=0.8
+							#)
+							gradientLegend(
+								range(overlaps[[i]]), 
+								color=viridis(25,direction=-1), 
+								inside=TRUE
+							)
+						}
+						# add line legend (if two reference values)
 						if(length(seg.vals)>1)
 						{	legend(
 								x="bottomright",
@@ -653,13 +670,30 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 								col=cols[d], lwd=2
 							)
 						}
-						# add color legend
-						legend(
-							x="topright", 
-							fill=cols, 
-							legend=common.overlaps, 
-							title="Overlap"
-						)
+						# add color legend (discrete)
+						if(length(data)<=5)
+						{	legend(
+								x="topright", 
+								fill=cols, 
+								legend=common.overlaps, 
+								title="Overlap"
+							)
+						}
+						# or continuous if too many series
+						else
+						{	#legend.gradient(
+							#	pnts="topright",
+							#	cols=viridis(25),
+							#	limits=range(overlaps[[i]]),
+							#	title="Overlap",
+							#	#cex=0.8
+							#)
+							gradientLegend(
+								range(overlaps[[i]]), 
+								color=viridis(25,direction=-1), 
+								inside=TRUE
+							)
+						}
 						# add line legend
 						if(length(seg.vals)>1)
 						{	legend(
