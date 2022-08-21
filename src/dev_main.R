@@ -19,14 +19,14 @@
 SERIES <- "Thorgal"
 
 # test
-panel.params <- list(
-	window.sizes=c(1, 2, 3),
-	overlaps=list(c(0), c(0,1), c(0,1,2))
-)
-page.params <- list(
-	window.sizes=c(1,2,3),
-	overlaps=list(c(0), c(0,1), c(0,1,2))
-)
+#panel.params <- list(
+#	window.sizes=c(1, 2, 3),
+#	overlaps=list(c(0), c(0,1), c(0,1,2))
+#)
+#page.params <- list(
+#	window.sizes=c(1,2,3),
+#	overlaps=list(c(0), c(0,1), c(0,1,2))
+#)
 
 # regular values
 #panel.params <- list(
@@ -55,14 +55,14 @@ page.params <- list(
 #)
 
 # more complete parameters
-#panel.params <- list(
-#	window.sizes=c(1:30),
-#	overlaps=lapply(panel.window.sizes, function(size) 0:(size-1))	# 465 networks
-#)
-#page.params <- list(
-#	window.sizes=c(1:20),
-#	overlaps=lapply(page.window.sizes, function(size) 0:(size-1))	# 210 networks
-#)
+panel.params <- list(
+	window.sizes=1:30,
+	overlaps=lapply(1:30, function(size) 0:(size-1))	# 465 networks
+)
+page.params <- list(
+	window.sizes=1:20,
+	overlaps=lapply(1:20, function(size) 0:(size-1))	# 210 networks
+)
 
 
 
