@@ -9,34 +9,35 @@
 # load libraries
 source <- function(file) {eval(parse(file, encoding="UTF-8"),envir=.GlobalEnv)}	# allows solving encoding problems on Windows systems
 
-library("igraph")		# graph analysis
+library("igraph")			# graph analysis
 library("CINNA")
 #library("foreach")
-library("future.apply")	# parallel processing
-library("doParallel")	# parallel processing
-library("vioplot")		# violin plots
-library("ggplot2")		# plots
-library("ggExtra")		# plugin of the previous
-library("viridis")		# color palette
-library("poweRlaw")		# power law testing
-library("qgraph")		# graph layouts
-#library("Rfast")		# not used
+library("future.apply")		# parallel processing
+library("doParallel")		# parallel processing
+library("vioplot")			# violin plots
+library("ggplot2")			# plots
+library("ggExtra")			# plugin of the previous
+library("viridis")			# color palette
+library("poweRlaw")			# power law testing
+library("qgraph")			# graph layouts
+#library("Rfast")			# not used
 library("data.table")
-library("latex2exp")	# include latex in plots
-library("minpack.lm")	# nonlinear regression
-library("sfsmisc")		# plot log axes
-library("cluster")		# silhouette measure
+library("latex2exp")		# include latex in plots
+library("minpack.lm")		# nonlinear regression
+library("sfsmisc")			# plot log axes
+library("cluster")			# silhouette measure
 library("SDMTools")
-library("perm")			# permutation test
+library("perm")				# permutation test
+library("plotfunctions")	# gradient legend in plots
 
 
 
 #############################################################################################
 # handle warnings
 
-options(warn=1)			# as they happen
+#options(warn=1)			# as they happen
 #options(warn=2)				# as errors
-#options(error=recover)		# debug
+options(error=recover)		# debug
 
 #plan(multisession)
 

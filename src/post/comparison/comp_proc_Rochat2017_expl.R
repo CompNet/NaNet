@@ -114,7 +114,7 @@ folder <- file.path(CHARNETS_FOLDER, "Rochat2017")
 	tt[match(rownames(tt1),rn),1:ncol(tt1)] <- tt1
 	tt[match(rownames(tt2),rn),(ncol(tt1)+1):(ncol(tt1)+ncol(tt2))] <- tt2
 	tt[match(rownames(tt3),rn),(ncol(tt1)+ncol(tt2)+1):(ncol(tt1)+ncol(tt2)+ncol(tt3))] <- tt3
-	write.csv(x=tt, file=file.path(folder,"1982.Akira-adj_combined.csv"), row.names=TRUE)#, col.names=TRUE)
+	write.csv(x=tt, file=file.path(folder,"1982.Akira-adj_combined.csv"), fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 	tlog(2,"Number of characters: ",nrow(tt))
 	tlog(2,"Number of pages: ",ncol(tt))
 	tlog(2,"Number of volumes: ",vol.nbr)

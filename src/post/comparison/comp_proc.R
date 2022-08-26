@@ -108,11 +108,11 @@ charnet.prop <- function(g, tabs)
 	
 	# record tables
 	tab.file <- file.path(folder,"_measures.csv")
-	write.table(prop.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	write.table(prop.tab, file=tab.file, fileEncoding="UTF-8", sep=",", row.names=TRUE, col.names=TRUE)
 	tab.file <- file.path(folder,"_small_world.csv")
-	write.table(sw.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	write.table(sw.tab, file=tab.file, fileEncoding="UTF-8", sep=",", row.names=TRUE, col.names=TRUE)
 	tab.file <- file.path(folder,"_degree_dist.csv")
-	write.table(distr.tab, file=tab.file, sep=",", row.names=TRUE, col.names=TRUE)
+	write.table(distr.tab, file=tab.file, fileEncoding="UTF-8", sep=",", row.names=TRUE, col.names=TRUE)
 	
 	tabs <- list(prop.tab=prop.tab, sw.tab=sw.tab, distr.tab=distr.tab)
 	return(tabs)

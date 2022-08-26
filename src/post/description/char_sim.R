@@ -35,6 +35,23 @@ scene.chars <- data$scene.chars
 volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
+# extract dynamic networks
+tlog(2,"Extracting dynamic networks (may take a while)")
+for(filtered in c(FALSE,TRUE))
+{	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
+	for(pub.order in c(FALSE,TRUE))
+	{	tlog(6,"Dealing with ",if(pub.order) "publication" else "story","-ordered networks")
+		gg <- ns.graph.extraction(
+				char.stats=char.stats, 
+				scene.chars=scene.chars, scene.stats=scene.stats, 
+				volume.stats=volume.stats, 
+				filtered=filtered, 
+				pub.order=pub.order
+		)
+		ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order)
+	}
+}
+
 # get filtered character names
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
@@ -174,7 +191,8 @@ for(narr.smooth in c(FALSE,TRUE))
 					#####
 					# compute the similarity between all char pairs, for each graph of the sequence
 					tlog(22,"Looping over all graphs in the sequence")
-					sims <- t(sapply(sc.rg, function(s) 
+					sims <- matrix(NA,nrow=0,ncol=nrow(pairs))
+					for(s in sc.rg)
 					{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
 							tlog(24,"Processing scene ",s,"/",max(sc.rg))
 						sim <- rep(NA, nrow(pairs))
@@ -188,8 +206,24 @@ for(narr.smooth in c(FALSE,TRUE))
 								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
 							sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
 						}
-						return(sim)
-					}))
+						sims <- rbind(sims,sim)
+					}
+#					sims <- t(sapply(sc.rg, function(s) 
+#					{	if(s==min(sc.rg) || s %% 500==0 || s==max(sc.rg))
+#							tlog(24,"Processing scene ",s,"/",max(sc.rg))
+#						sim <- rep(NA, nrow(pairs))
+#						g <- gs[[filt]][[s]]
+#						vs <- cbind(match(fnames[,1],V(g)$name), match(fnames[,2],V(g)$name))
+#						idx <- which(!apply(vs, 1, function(row) any(is.na(row))))
+#						if(length(idx)>0)
+#						{	if(weighted)
+#								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE, att="weight")
+#							else
+#								a <- as_adjacency_matrix(graph=g, type="both", sparse=FALSE)
+#							sim[idx] <- sim.meas[[m]]$foo(a, vs[idx,,drop=FALSE])
+#						}
+#						return(sim)
+#					}))
 					colnames(sims) <- rownames(pairs)
 					
 					# record results
@@ -197,7 +231,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					{	pt <- names(sim.meas)[m]
 						file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(22,"Recording results to file \"",file,"\"")
-						write.csv(x=sims, file=paste0(file,".csv"), row.names=FALSE)
+						write.csv(x=sims, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 					}
 					
 					#####

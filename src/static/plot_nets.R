@@ -25,9 +25,11 @@ compute.graphical.params <- function(g=NA)
 		setup.graph.layout(g0, NET_FOLDER)
 #V(g0)$x <- LAYOUT[,1]
 #V(g0)$y <- LAYOUT[,2]
+#temp.file <- paste0(graph.file,".temp.graphml")
+#write.graph(g0,file=temp.file,format="graphml")
 	
-# this piece of script was once used to manually fine tune vertex positions with gephi
-#gg <- read_graph("D:/Users/Vincent/Downloads/Web/Untitled.graphml",format="graphml")
+## this piece of script was once used to manually fine tune vertex positions with gephi
+#gg <- read_graph(temp.file,format="graphml")
 #tab <- cbind(V(gg)$x, V(gg)$y)
 #ids <- as.integer(substr(V(gg)$id, 2, nchar(V(gg)$id)))
 #idx <- order(ids)
@@ -36,9 +38,11 @@ compute.graphical.params <- function(g=NA)
 ##apply(tmp, 2, range)
 #tab[,2] <- (tab[,2] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
 #tab[,1] <- (tab[,1] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
-#LAYOUT <- tab
-#lay.file <- file.path(NET_SCENES_FOLDER, "all_layout.txt")
-#write.table(x=LAYOUT,file=lay.file)
+#rownames(tab) <- V(gg)$name
+#colnames(tab) <- c("x","y")
+#LAYOUT <<- tab
+#lay.file <- file.path(NET_FOLDER, "all_layout.txt")
+#write.table(x=LAYOUT, file=lay.file, fileEncoding="UTF-8")
 	
 	# possibly use the default graph
 	if(all(is.na(g)))

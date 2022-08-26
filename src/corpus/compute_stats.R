@@ -46,7 +46,7 @@ compute.stats.panel <- function(
 	{	# record stats
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats")
 		tlog(5,"Writing panel stats \"",file,"\"")
-		write.csv(x=panel.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=panel.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
 		tab <- cbind(
 			1:nrow(panel.stats),
@@ -55,7 +55,7 @@ compute.stats.panel <- function(
 		colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_chars")
 		tlog(4,"Writing panel chars \"",file,"\"")
-		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
@@ -95,7 +95,7 @@ compute.stats.panel <- function(
 			# record matrix
 			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
-			write.csv(x=panel.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			write.csv(x=panel.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
@@ -146,7 +146,7 @@ compute.stats.page <- function(
 	{	# record stats
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats")
 		tlog(5,"Writing page stats \"",file,"\"")
-		write.csv(x=page.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=page.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
 		tab <- cbind(
 			1:nrow(page.stats),
@@ -155,7 +155,7 @@ compute.stats.page <- function(
 		colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_chars")
 		tlog(4,"Writing page chars \"",file,"\"")
-		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
@@ -194,7 +194,7 @@ compute.stats.page <- function(
 			# record matrix
 			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
-			write.csv(x=page.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			write.csv(x=page.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
@@ -245,7 +245,7 @@ compute.stats.scene <- function(
 	{	# record stats
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats")
 		tlog(5,"Writing scene stats \"",file,"\"")
-		write.csv(x=scene.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=scene.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
 		tab <- cbind(
 			1:nrow(scene.stats),
@@ -254,7 +254,7 @@ compute.stats.scene <- function(
 		colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
 		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_chars")
 		tlog(4,"Writing scene chars \"",file,"\"")
-		write.table(tab, file=paste0(file,".txt"), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
 	# whole series
 	else
@@ -294,7 +294,7 @@ compute.stats.scene <- function(
 			# record matrix
 			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
-			write.csv(x=scene.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			write.csv(x=scene.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
@@ -360,7 +360,7 @@ compute.stats.char <- function(
 	{	# record stats
 		file <- get.path.stats.corpus(object=object, subfold="unfiltered", vol=vname, arc=cur.arc, pref="_char_stats")
 		tlog(5,"Writing char stats \"",file,"\"")
-		write.csv(x=char.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
 	# whole series
 	else
@@ -482,7 +482,7 @@ compute.stats.volume <- function(
 		# record volume stat table
 		file <- get.path.stats.corpus(object=object, pref="_volume_stats")
 		tlog(4,"Writing volume stats \"",file,"\"")
-		write.csv(x=volume.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=volume.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
 	
 	
@@ -517,7 +517,7 @@ compute.stats.volume <- function(
 			# record matrix
 			file <- get.path.stats.corpus(object=object, pref="_volume_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
-			write.csv(x=volume.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			write.csv(x=volume.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 
@@ -655,7 +655,7 @@ compute.stats.arc <- function(
 		# record arc stat table
 		file <- get.path.stats.corpus(object=object, pref="_arc_stats")
 		tlog(4,"Writing arc stats \"",file,"\"")
-		write.csv(x=arc.stats, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=arc.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
 	
 	
@@ -690,7 +690,7 @@ compute.stats.arc <- function(
 			# record matrix
 			file <- get.path.stats.corpus(object=object, pref="_arc_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
-			write.csv(x=arc.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+			write.csv(x=arc.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
 	}
 	
@@ -802,7 +802,7 @@ compute.stats.series <- function(
 	# record stats
 	file <- get.path.stats.corpus(pref="_series_stats")
 	tlog(4,"Recording in ",file)
-	write.csv(x=series.stats, file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+	write.csv(x=series.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 	
 	
 	##################
@@ -833,7 +833,7 @@ compute.stats.series <- function(
 #			# record matrix
 #			file <- get.path.stats.corpus(pref="_series_stats", att=att)
 #			tlog(7,"Creating file \"",file,"\"")
-#			write.csv(x=series.stats.atts[[att]], file=paste0(file,".csv"), row.names=FALSE)#, col.names=TRUE)
+#			write.csv(x=series.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 # not needed: information already present in the characters folder
 		}
 	}

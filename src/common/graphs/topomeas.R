@@ -149,7 +149,7 @@ transitivity.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 	
 	# record results
 	tab.file <- paste0(base.name,".csv")
-	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
+	write.csv(x=tab, file=tab.file, row.names=TRUE, fileEncoding="UTF-8")#, col.names=TRUE)
 	
 	result <- list(exponent=best.exp, sigma=best.sigma, r2=best.r2)
 	return(result)
@@ -297,7 +297,7 @@ neigh.degree.vs.degree <- function(g, weights=FALSE, filename, col=MAIN_COLOR)
 	
 	# record results
 	tab.file <- paste0(base.name,".csv")
-	write.csv(x=tab, file=tab.file, row.names=TRUE)#, col.names=TRUE)
+	write.csv(x=tab, file=tab.file, row.names=TRUE, fileEncoding="UTF-8")#, col.names=TRUE)
 	
 	result <- list(exponent=best.exp, sigma=best.sigma, r2=best.r2)
 	return(result)

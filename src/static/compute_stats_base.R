@@ -20,7 +20,7 @@ FORCE <- TRUE
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: either "occurrences" or "duration".
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
@@ -31,7 +31,7 @@ FORCE <- TRUE
 compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -85,7 +85,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 			res.tab[,meas.name] <- values
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 		
 		# plot
@@ -129,7 +129,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -185,7 +185,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 			res.tab[,meas.name] <- values
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 		
 		# plot
@@ -231,7 +231,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -285,7 +285,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 			res.tab[,meas.name] <- values
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=TRUE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=TRUE)
 		}
 		
 		# plot
@@ -328,7 +328,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "graph"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt)
+	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing graph topological measures")
 	
 	if(!is.na(weights))
@@ -378,7 +378,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 			res.tab[meas.name,1] <- value
 			
 			# update file
-			write.csv(x=res.tab, file=table.file, row.names=TRUE)#, col.names=FALSE)
+			write.csv(x=res.tab, file=table.file, fileEncoding="UTF-8", row.names=TRUE)#, col.names=FALSE)
 		}
 	}
 	
@@ -396,13 +396,13 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: either "occurrences" or "duration".
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, compare=FALSE)
+compute.static.all.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, compare=FALSE)
 {	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
@@ -421,16 +421,15 @@ compute.all.static.statistics <- function(mode, window.size=NA, overlap=NA, weig
 	
 	# compute comparison measures
 	if(compare)
-	{	# TODO
-#		compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
-#		compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights)
+	{	compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+		compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 	}
 	# compute regular topological measures
 	else
-	{	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-		compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-		compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
-		compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered)
+	{	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	}
 	
 	tlog(3,"Computation of all topological measures complete")
@@ -451,15 +450,15 @@ compute.static.statistics.base <- function(data)
 	# statistics for the scene-based graph
 	for(weights in c("none","occurrences","duration"))
 	{	for(filtered in c(FALSE,TRUE))
-			compute.all.static.statistics(mode="scenes", weights=weights, filtered=filtered, compare=FALSE)
+			compute.static.all.statistics(mode="scenes", weights=weights, filtered=filtered, compare=FALSE)
 	}
 	
 	# same for each narrative arc
 	arc.nbr <- nrow(data$arc.stats)
 	for(arc in 1:arc.nbr)
-	{	for(weights in c("none","occurrences","duration"))
+	{	for(weights in c("none","occurrences"))
 		{	for(filtered in c(FALSE,TRUE))
-				compute.all.static.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered, compare=FALSE)
+				compute.static.all.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered, compare=FALSE)
 		}
 	}
 	
@@ -467,9 +466,9 @@ compute.static.statistics.base <- function(data)
 	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
 	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
-		for(weights in c("none","occurrences","duration"))
+		for(weights in c("none","occurrences"))
 		{	for(filtered in c(FALSE,TRUE))
-				compute.all.static.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered, compare=FALSE)
+				compute.static.all.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered, compare=FALSE)
 		}
 	}
 	

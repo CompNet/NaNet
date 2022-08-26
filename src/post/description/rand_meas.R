@@ -59,7 +59,7 @@ load.randmeas.stats <- function(filtered=FALSE)
 record.randmeas.stats <- function(tab, filtered=FALSE)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	tab.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
-	write.csv(x=tab, file=tab.file, row.names=TRUE)
+	write.csv(x=tab, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
 }
 
 

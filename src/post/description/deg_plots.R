@@ -18,6 +18,7 @@ start.rec.log(text="DegDistr")
 
 ###############################################################################
 # note: result of Clauset et al.'s method (already computed in the main script)
+# TODO: automate the retrieval of this information
 laws <- c()
 # unfiltered 
 laws["Unfiltered-degree"] <- "good"
@@ -64,7 +65,7 @@ for(meas in meass)
 		# load precomputed data
 		data <- list()
 		# unfiltered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="unfiltered")
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="unfiltered", compare=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
@@ -72,7 +73,7 @@ for(meas in meass)
 #		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="filtered")
+		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[2]] <- tab[,meas]
 		filt.idx <- data[[2]] > 1
@@ -134,7 +135,7 @@ for(meas in meass)
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
-		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=tab, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		#
 		pear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="pearson")
 		kend.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="kendall")
@@ -144,7 +145,7 @@ for(meas in meass)
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
-		write.csv(x=tab, file=paste0(file,".csv"), row.names=FALSE)
+		write.csv(x=tab, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
 }
 

@@ -169,20 +169,21 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 	# 						   1491 1492      1494                                    1505      1507
 	
 	# loop over the characters for the first end point
-	tlog.start.loop(2,nrow(char.stats)-1,"Looping over characters (first character)")
+	pair.nbr <- nrow(char.stats)*(nrow(char.stats)-1)/2
+	pair.count <- 0
+	tlog.start.loop(2,pair.nbr,"Looping over character pairs")
 	for(i in 1:(nrow(char.stats)-1))
 	{	i.name <- char.stats[i,COL_NAME]
-		tlog.loop(4,i,"Processing character #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),")")
 		
 		# scenes where char i appears
 		#i.sc.ids <- which(sapply(scene.chars, function(chars) i.name %in% chars))
 		i.sc.ids <- which(scene.mat[i.name,])
 		
 		# loop over the remaining characters for the second end point
-		tlog.start.loop(4,(i+1):nrow(char.stats),"Looping over characters (second character)")
 		for(j in (i+1):nrow(char.stats))
 		{	j.name <- char.stats[j,COL_NAME]
-			tlog.loop(6,j,"Processing character pair #i=\"",i.name,"\" (",i,"/",(nrow(char.stats)),") -- #j=",j.name," (",j,"/",nrow(char.stats),")")
+			pair.count <- pair.count + 1
+			tlog.loop(6,pair.count,"Processing character pair #i=\"",i.name,"\" -- #j=",j.name," (",pair.count,"/",pair.nbr,")")
 			
 			# scenes where char j appears
 			#j.sc.ids <- which(sapply(scene.chars, function(chars) j.name %in% chars))
@@ -299,9 +300,8 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 				}
 			}
 		}
-		tlog.end.loop(4,"Finished the second character loop")
 	}
-	tlog.end.loop(2,"Finished the first character loop")
+	tlog.end.loop(2,"Finished the both character loops")
 	
 	return(res)
 }

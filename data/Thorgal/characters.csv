@@ -101,11 +101,13 @@ Alfes noirs_L7.11,,Mixed,FALSE
 Alfes noirs_L7.27,,Male,FALSE
 Alfes rebelles_L7.10,,Male,FALSE
 Alf'Lolth,,Female,TRUE
+Alföng,,Male,TRUE
 Alinoë,,Male,TRUE
 Alkant,,Male,TRUE
 Althar,,Male,TRUE
 Althing_38.28,,Male,FALSE
 Amalrik,,Male,TRUE
+Amants_J10.16,,Male,FALSE
 Ami d'Argun_K1.20.1,,Male,FALSE
 Ami d'Argun_K1.20.2,,Male,FALSE
 Amos,,Male,TRUE
@@ -126,6 +128,8 @@ Archers_25.37,,Male,FALSE
 Archers_27.35,,Male,FALSE
 Archers_27.39,,Male,FALSE
 Archers_9.29,,Male,FALSE
+Archers_J10.22,,Male,FALSE
+Archers_J10.29,,Male,FALSE
 Argun Pied d'Arbre,Argun,Male,TRUE
 Arisön,,Male,TRUE
 Arkadès,,Male,TRUE
@@ -170,6 +174,7 @@ Aubergiste_K1.33,,Male,FALSE
 Aubergiste_K3.35,,Male,FALSE
 Ava,,Female,TRUE
 Avrenim,,Unknown,TRUE
+Ayyur,,Female,TRUE
 Azkel,,Male,TRUE
 Azzalepstön,,Male,TRUE
 Baalds_1.21,,Mixed,FALSE
@@ -202,6 +207,7 @@ Binôme_27.9,,Male,FALSE
 Birbu,,Male,TRUE
 Björg,,Male,TRUE
 Björn Gandalfson,Björn,Male,TRUE
+Bjorn_J10.54,,Male,TRUE
 Björn_J9,,Male,TRUE
 Björnulf,,Male,TRUE
 Bohr,,Male,TRUE
@@ -313,6 +319,7 @@ Courtisanes_J7.38,,Female,FALSE
 Courtisans_25.5,,Mixed,FALSE
 Courtisans_6.12,,Mixed,FALSE
 Courtisans_6.21,,Mixed,FALSE
+Courtisans_J10.16,,Male,FALSE
 Crabes_29.31,,Male,FALSE
 Croisés_35.35,,Male,FALSE
 Croisés_35.36,,Male,FALSE
@@ -324,6 +331,7 @@ Cuisinier_J8.35,,Male,FALSE
 Cuisiniers_J7.40,,Mixed,FALSE
 Cul-de-jatte_23.16,,Male,FALSE
 Cybèle,,Female,TRUE
+Dame Le Devehat,Devehat,Female,TRUE
 Darek le Svéar,Darek,Male,TRUE
 Déesse_30.42,,Female,FALSE
 Démon de lave_L6.9,,Unknown,FALSE
@@ -391,8 +399,10 @@ Enyd,,Female,TRUE
 Équipage_22.4,,Male,FALSE
 Équipage_33.3,,Male,FALSE
 Équipage_39.9,,Male,FALSE
+Équipage_J10.53,,Male,FALSE
 Équipage_J3.17,,Male,FALSE
-Erik,,Male,TRUE
+Erik_20.3,,Male,TRUE
+Erik_J10.5,,Male,TRUE
 Erika Einarson,,Female,TRUE
 Ernhild,,Female,TRUE
 Erwan,,Male,TRUE
@@ -456,6 +466,7 @@ Espion_34.4,,Male,FALSE
 Évêque_K5.8,,Male,FALSE
 Ewan,,Male,TRUE
 Ewing,,Male,TRUE
+Eyskil,,Male,TRUE
 Falster,,Male,TRUE
 Falstöf,,Male,TRUE
 Famille Karhamasönn,,Mixed,FALSE
@@ -475,9 +486,11 @@ Fermiers_18.7,,Mixed,FALSE
 Fêtards_L1.38,,Mixed,FALSE
 Fhropor,,Male,TRUE
 Fille de la Ramaha,,Female,FALSE
+Fille_J10.54,,Female,FALSE
 Fille_L4.2,,Female,FALSE
 Fille_L4.3,,Female,FALSE
 Fillette_22.3,,Female,FALSE
+Fillette_J10.36,,Female,FALSE
 Fillettes_J2.39,,Female,FALSE
 Fils Bossu,,Male,FALSE
 Finnbjorn,,Male,TRUE
@@ -547,6 +560,8 @@ Garde_4.26.2,,Male,FALSE
 Garde_6.19,,Male,FALSE
 Garde_6.36,,Male,FALSE
 Garde_9.4,,Male,FALSE
+Garde_J10.35,,Male,FALSE
+Garde_J10.52,,Male,FALSE
 Garde_J4.43,,Male,FALSE
 Garde_J7.46,,Male,FALSE
 Garde_J8.24,,Male,FALSE
@@ -592,6 +607,13 @@ Gardes_36.12,,Male,FALSE
 Gardes_37.15,,Male,FALSE
 Gardes_39.18,,Male,FALSE
 Gardes_6.17,,Male,FALSE
+Gardes_J10.10,,Male,FALSE
+Gardes_J10.15,,Male,FALSE
+Gardes_J10.16,,Male,FALSE
+Gardes_J10.33,,Male,FALSE
+Gardes_J10.36,,Male,FALSE
+Gardes_J10.39,,Male,FALSE
+Gardes_J10.40,,Male,FALSE
 Gardes_J7.27,,Male,FALSE
 Gardes_J7.34,,Male,FALSE
 Gardes_J7.38,,Male,FALSE
@@ -746,6 +768,11 @@ Jaffar,,Male,TRUE
 Japonais_3.19,,Male,FALSE
 Jeunes nobles_27.7,,Male,FALSE
 Jolan Thorgalsson,Jolan,Male,TRUE
+Jómsvikings_J10.42.1,,Male,FALSE
+Jómsvikings_J10.42.2,,Male,FALSE
+Jómsvikings_J10.42.3,,Male,FALSE
+Jómsvikings_J10.42.4,,Male,FALSE
+Jómsvikings_J10.45,,Male,FALSE
 Joril-le-Sacré,Joril,Male,TRUE
 Jorund-le-taureau,Jorund,Male,TRUE
 Judith Minkelsönn,,Female,TRUE
@@ -767,6 +794,7 @@ Kopakonan,,Female,TRUE
 Kratchik,,Male,TRUE
 Kriss de Valnor,Kriss,Female,TRUE
 Kritchak,,Male,TRUE
+Kurt,,Male,TRUE
 Kyrstell,,Female,TRUE
 La faucheuse,,Unknown,TRUE
 Lanfeustsön,,Male,TRUE
@@ -840,6 +868,7 @@ Marchand_34.8,,Male,FALSE
 Marchand_K1.18,,Male,FALSE
 Marchand_K2.37,,Male,FALSE
 Marchand_L4.43,,Male,FALSE
+Marchands_J10.15,,Male,FALSE
 Marchands_K1.18,,Mixed,FALSE
 Marchands_K3.6,,Male,FALSE
 Margoulins_34.29,,Male,FALSE
@@ -881,6 +910,7 @@ Messager_K4.37,,Male,FALSE
 Meute de Griz_L1.19,,Mixed,FALSE
 Migaïl,,Male,TRUE
 Mimir,,Male,TRUE
+Mire_J10.52,,Male,FALSE
 Misha,,Male,TRUE
 Modgud,,Female,TRUE
 Moldi-le-furieux,Moldi,Male,TRUE
@@ -921,6 +951,7 @@ Nigürd Holgersön Ratatösk,Nigürd,Male,TRUE
 Nils,,Male,TRUE
 Nixe_14.10,,Male,FALSE
 Nixe_J1.41,,Female,FALSE
+Nixe_J10.13,,Female,FALSE
 Nixes_J2.20,,Unknown,FALSE
 Nobles_27.14,,Mixed,FALSE
 Nobles_27.15,,Mixed,FALSE
@@ -936,11 +967,13 @@ Nouvelle gardienne des clés,,Female,FALSE
 Oddmar,,Male,TRUE
 Oddmar_J8.4,,Male,TRUE
 Odin,,Male,TRUE
+Odinkar,,Male,TRUE
 Officier_27.48,,Male,FALSE
 Officier_28.11,,Male,FALSE
 Officier_4.25,,Male,FALSE
 Olaf,,Male,TRUE
 Olaf Einarson,,Male,TRUE
+Olaf_J10.54,,Male,TRUE
 Oldarik,,Male,TRUE
 Olenk,,Male,TRUE
 Olev,,Male,TRUE
@@ -1026,6 +1059,7 @@ Quarl,,Male,TRUE
 Rabatteurs_29.3,,Male,FALSE
 Rafat,,Male,TRUE
 Ragna,,Female,TRUE
+Ragnar_J10.39,,Male,TRUE
 Ragnhild,,Female,TRUE
 Rahmi,,Male,TRUE
 Raïssa,,Female,TRUE
@@ -1040,6 +1074,7 @@ Remik,,Male,TRUE
 Reynöld,,Male,TRUE
 Roi d'Umbria,,Male,FALSE
 Roi Geirroed,,Male,TRUE
+Rorik,,Male,TRUE
 Runa,,Female,TRUE
 Rylynn,,Male,TRUE
 Sacrifiés_10.25,,Mixed,FALSE
@@ -1083,11 +1118,14 @@ Servantes_34.42,,Female,FALSE
 Servantes_37.20,,Female,FALSE
 Servantes_K4.27,,Female,FALSE
 Servantes_K4.34,,Female,FALSE
+Servants_J10.13,,Male,FALSE
+Servants_J10.38,,Mixed,FALSE
 Serveuse_K1.33,,Female,FALSE
 Serviteur_21.3,,Male,FALSE
 Serviteur_34.27,,Male,FALSE
 Serviteur_34.32,,Male,FALSE
 Serviteur_34.40,,Male,FALSE
+Serviteur_J10.36,,Male,FALSE
 Serviteur_J5.48,,Male,FALSE
 Serviteur_K4.29,,Male,FALSE
 Serviteurs_25.44,,Male,FALSE
@@ -1111,6 +1149,7 @@ Sigurd_3.19,,Female,TRUE
 Sigurd_J1.36,,Male,TRUE
 Sigurd_J7.15,,Male,TRUE
 Sigvalda,,Female,TRUE
+Sigvaldi,,Male,TRUE
 Sigwald-le-Brûlé,Sigwald,Male,TRUE
 Siloé,,Female,TRUE
 Skadia,,Female,TRUE
@@ -1142,6 +1181,7 @@ Soldat_23.33.6,,Male,FALSE
 Soldat_28.10.1,,Male,FALSE
 Soldat_28.10.2,,Male,FALSE
 Soldat_34.7,,Male,FALSE
+Soldat_J10.40,,Male,FALSE
 Soldat_J3.25,,Male,FALSE
 Soldat_K2.10.1,,Male,FALSE
 Soldat_K2.10.2,,Male,FALSE
@@ -1182,6 +1222,9 @@ Soldats_4.28,,Male,FALSE
 Soldats_4.31,,Male,FALSE
 Soldats_4.36,,Male,FALSE
 Soldats_6.15,,Male,FALSE
+Soldats_J10.23,,Male,FALSE
+Soldats_J10.42.1,,Male,FALSE
+Soldats_J10.42.2,,Male,FALSE
 Soldats_J3.35,,Male,FALSE
 Soldats_J5.18,,Male,FALSE
 Soldats_J7.20,,Male,FALSE
@@ -1216,7 +1259,9 @@ Spectateurs_J3.20,,Mixed,FALSE
 Spectateurs_J3.23,,Mixed,FALSE
 Stieg,,Male,TRUE
 Storböndi_38.11,,Male,TRUE
+Störbondi_J10.15,,Male,FALSE
 Suivantes_34.11,,Female,FALSE
+Suivantes_J10.10,,Female,FALSE
 Sven,,Male,TRUE
 Sveynn Tiuguskegg,Sveynn,Male,TRUE
 Swanée,,Female,TRUE
@@ -1271,6 +1316,7 @@ Verdandi,,Female,TRUE
 Véronar,,Male,TRUE
 Vialane,,Female,TRUE
 Victimes_K8.45,,Mixed,FALSE
+Vidkunn,,Male,TRUE
 Vieillard_2.28,,Male,FALSE
 Vieillard_31.36,,Male,FALSE
 Vieillard_K3.30,,Male,FALSE
@@ -1280,6 +1326,7 @@ Vigrid_20.3,,Female,TRUE
 Viking roux_J9.7,,Male,FALSE
 Viking_14.19,,Male,FALSE
 Viking_J1.3,,Male,FALSE
+Viking_J10.54,,Male,FALSE
 Viking_J2.44,,Male,FALSE
 Viking_K5.27,,Male,FALSE
 Viking_L2.8,,Male,FALSE
@@ -1314,6 +1361,11 @@ Vikings_7.3,,Male,FALSE
 Vikings_7.4,,Male,FALSE
 Vikings_J1.36,,Male,FALSE
 Vikings_J1.5,,Male,FALSE
+Vikings_J10.3.1,,Male,FALSE
+Vikings_J10.3.2,,Male,FALSE
+Vikings_J10.45,,Male,FALSE
+Vikings_J10.48,,Male,FALSE
+Vikings_J10.54,,Male,FALSE
 Vikings_J2.45,,Male,FALSE
 Vikings_J3.20,,Male,FALSE
 Vikings_J3.29,,Mixed,FALSE
@@ -1336,7 +1388,6 @@ Vikings_L1.7.3,,Male,FALSE
 Vikings_L2.42,,Male,FALSE
 Vikings_L4.43,,Male,FALSE
 Vikings_L5.3,,Male,FALSE
-Villageois_J.4,,Mixed,FALSE
 Villageois_10.36,,Mixed,FALSE
 Villageois_11.13,,Mixed,FALSE
 Villageois_16.3,,Female,FALSE
@@ -1373,6 +1424,14 @@ Villageois_4.5,,Mixed,FALSE
 Villageois_J1.10,,Mixed,FALSE
 Villageois_J1.3,,Mixed,FALSE
 Villageois_J1.4,,Mixed,FALSE
+Villageois_J10.15,,Male,FALSE
+Villageois_J10.3,,Mixed,FALSE
+Villageois_J10.41,,Mixed,FALSE
+Villageois_J10.42.1,,Mixed,FALSE
+Villageois_J10.42.2,,Mixed,FALSE
+Villageois_J10.42.3,,Mixed,FALSE
+Villageois_J10.47,,Mixed,FALSE
+Villageois_J10.5,,Male,FALSE
 Villageois_J2.27.1,,Male,FALSE
 Villageois_J2.27.2,,Male,FALSE
 Villageois_J2.27.3,,Male,FALSE
@@ -1386,6 +1445,7 @@ Villageois_J3.17,,Mixed,FALSE
 Villageois_J3.3,,Mixed,FALSE
 Villageois_J3.9,,Mixed,FALSE
 Villageois_J4.32,,Male,FALSE
+Villageois_J5.4,,Mixed,FALSE
 Villageois_J5.41,,Mixed,FALSE
 Villageois_J6.11,,Mixed,FALSE
 Villageois_K1.22,,Male,FALSE

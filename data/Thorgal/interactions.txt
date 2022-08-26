@@ -1123,26 +1123,26 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 19	45	9	46	7	Thorgal Aegirsson	Alayin / Taïmyr
 19	47	1	48	8	Shaïgan / Thorgal Aegirsson	Kriss de Valnor
 20	3	1	3	2	Villageoises_20.3	Vigrid_20.3	Ernhild
-20	3	3	3	3	Erik
+20	3	3	3	3	Erik_20.3
 20	3	4	4	5	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
-20	4	6	4	7	Erik	Loups_20.4
+20	4	6	4	7	Erik_20.3	Loups_20.4
 20	4	8	5	4	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir
-20	5	5	5	8	Erik	Loups_20.4
+20	5	5	5	8	Erik_20.3	Loups_20.4
 20	6	1	7	5	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 20	7	6	7	9	Jolan Thorgalsson	Muff
 20	7	10	8	1	Jolan Thorgalsson	Louve Thorgalsdottir	Muff	Loups_20.4
 20	8	2	8	3	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
-20	8	4	8	4	Erik
-20	8	5	9	1	Villageois_20.8	Vigrid_20.3	Erik
+20	8	4	8	4	Erik_20.3
+20	8	5	9	1	Villageois_20.8	Vigrid_20.3	Erik_20.3
 20	9	2	9	2	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8
 20	9	3	9	3	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Villageois_20.8
-20	9	4	9	4	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+20	9	4	9	4	Erik_20.3	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 20	9	5	9	5	Vikings_20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers_20.9
-20	9	6	9	7	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+20	9	6	9	7	Erik_20.3	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 20	9	8	9	8	Vikings_20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers_20.9
-20	10	1	10	1	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+20	10	1	10	1	Erik_20.3	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 20	10	2	10	4	Vikings_20.9	Kriss de Valnor	Shaïgan / Thorgal Aegirsson	Guerriers_20.9
-20	10	5	11	7	Erik	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+20	10	5	11	7	Erik_20.3	Vigrid_20.3	Villageois_20.8	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 20	12	1	12	6	Villageoises_20.3	Villageois_20.3	Vigrid_20.3	Ernhild	Solveig	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Thing_20.10	Muff
 20	13	1	13	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 20	13	7	14	7	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Vigrid_20.3	Villageoises_20.13	Muff
@@ -1185,8 +1185,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 20	27	7	27	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Muff
 20	28	1	28	2	Jolan Thorgalsson	Darek le Svéar	Villageois_20.28
 20	28	3	28	6	Jolan Thorgalsson	Darek le Svéar
-20	28	7	29	6	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Erik	Muff
-20	29	7	29	8	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Erik	Muff	Kriss de Valnor	Arkadès
+20	28	7	29	6	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Erik_20.3	Muff
+20	29	7	29	8	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Erik_20.3	Muff	Kriss de Valnor	Arkadès
 20	30	1	30	4	Jolan Thorgalsson	Darek le Svéar
 20	30	5	31	5	Jolan Thorgalsson	Darek le Svéar	Muff
 20	31	6	31	6	Jolan Thorgalsson	Darek le Svéar	Muff
@@ -3806,9 +3806,9 @@ L7	46	2	46	2	Nidhogg / Vigrid	Aaricia Gandalfsdottir
 L7	46	3	48	7	Nidhogg / Vigrid	Aaricia Gandalfsdottir
 L7	48	8	48	8	Nidhogg	Volsung de Nichor
 J5	3	1	3	4	Thorgal Aegirsson	Fural
-J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois_J.4
+J5	4	1	4	1	Enyd	Björn Gandalfson	Villageois_J5.4
 J5	4	2	4	2	Aaricia Gandalfsdottir	Solveig
-J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois_J.4	Aaricia Gandalfsdottir	Solveig
+J5	4	3	5	6	Enyd	Björn Gandalfson	Villageois_J5.4	Aaricia Gandalfsdottir	Solveig
 J5	5	7	5	7	Aaricia Gandalfsdottir	Solveig
 J5	6	1	6	2	Skald
 J5	6	3	6	7	Thorgal Aegirsson	Skald	Fural
@@ -4619,3 +4619,95 @@ J9	48	4	48	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Aaricia Gandalfsdottir
 39	48	6	48	8	Thorgal Aegirsson	Atlantes_39.48
 39	49	1	50	1	Thorgal Aegirsson
 39	50	2	50	2	Thorgal Aegirsson	Neokóra
+J10	3	1	3	1	Vikings_J10.3.1	Vikings_J10.3.2	Villageois_J10.3
+J10	3	2	3	3	Seck
+J10	3	4	3	7	Seck	Thorgal Aegirsson
+J10	4	1	4	3	Thorgal Aegirsson
+J10	4	4	4	9	Thorgal Aegirsson	Aaricia Gandalfsdottir
+J10	5	1	5	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Seck	Vikings_J10.3.1	Vikings_J10.3.2	Villageois_J10.5	Eyskil	Erik_J10.5	Alföng	Rorik	Vidkunn	Kurt
+J10	5	3	5	4	Thorgal Aegirsson	Sveynn Tiuguskegg	Seck	Vikings_J10.3.1	Vikings_J10.3.2	Eyskil	Erik_J10.5	Alföng	Rorik	Vidkunn	Kurt
+J10	5	5	5	8	Thorgal Aegirsson	Aaricia Gandalfsdottir
+J10	5	9	9	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Seck	Vikings_J10.3.1	Vikings_J10.3.2	Eyskil	Erik_J10.5	Alföng	Rorik	Vidkunn	Kurt
+J10	10	1	10	2
+J10	10	3	11	7	Sydönia	Dame Le Devehat	Suivantes_J10.10	Gardes_J10.10
+J10	12	1	12	2	Sydönia	Dame Le Devehat
+J10	12	3	12	7	Sydönia	Gunhilda Görmsson	Thyra	Gardes_J10.10
+J10	12	8	12	9	Gunhilda Görmsson	Thyra
+J10	13	1	13	1	Sydönia
+J10	13	2	13	3	Sydönia	Servants_J10.13
+J10	13	4	14	10	Sydönia	Fylgja / Nixe_J10.13
+J10	15	1	15	1	Sydönia	Gardes_J10.15
+J10	15	2	15	3	Sydönia	Fylgja / Nixe_J10.13
+J10	15	4	15	4	Sydönia
+J10	15	5	15	5	Sydönia	Gardes_J10.15
+J10	15	6	15	6	Sydönia	Villageois_J10.15
+J10	15	7	15	8	Sydönia	Marchands_J10.15	Störbondi_J10.15
+J10	16	1	16	6	Gunhilda Görmsson	Thyra	Sydönia	Gardes_J10.16	Marchands_J10.15	Courtisans_J10.16	Amants_J10.16	Oldarik	Odinkar
+J10	16	7	16	7	Gunhilda Görmsson	Thyra	Gardes_J10.16	Marchands_J10.15	Courtisans_J10.16	Amants_J10.16	Oldarik	Odinkar
+J10	16	8	16	9	Gunhilda Görmsson	Thyra	Gardes_J10.16	Marchands_J10.15	Amants_J10.16
+J10	17	1	17	9	Sydönia	Fylgja / Nixe_J10.13
+J10	18	1	18	9	Sydönia	Courtisans_J10.16	Oldarik	Odinkar
+J10	19	1	19	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Seck	Vikings_J10.3.1	Vikings_J10.3.2	Eyskil	Erik_J10.5	Alföng	Rorik	Vidkunn	Kurt
+J10	20	1	20	9	Sydönia	Courtisans_J10.16	Oldarik	Odinkar
+J10	21	1	22	5	Thorgal Aegirsson	Sveynn Tiuguskegg	Seck	Vikings_J10.3.1	Vikings_J10.3.2	Eyskil	Erik_J10.5	Alföng	Rorik	Vidkunn	Kurt
+J10	22	6	23	4	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Archers_J10.22
+J10	23	5	24	4	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Archers_J10.22	Soldats_J10.23
+J10	24	5	24	8	Seck	Eyskil	Vikings_J10.3.2	Alföng	Rorik
+J10	25	1	25	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Soldats_J10.23	Seck	Eyskil	Vikings_J10.3.2	Alföng	Rorik	Vidkunn	Kurt
+J10	26	1	26	1	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Soldats_J10.23	Seck	Eyskil	Vikings_J10.3.2	Alföng	Rorik	Vidkunn	Kurt
+J10	26	2	27	2	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Vikings_J10.3.2	Odinkar	Alföng	Rorik	Vidkunn	Kurt
+J10	27	3	27	3	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Vikings_J10.3.2	Odinkar	Alföng	Archers_J10.22	Rorik	Vidkunn	Kurt
+J10	27	4	29	1	Thorgal Aegirsson	Sveynn Tiuguskegg	Eyskil	Alföng
+J10	29	2	29	3	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Vikings_J10.3.2	Odinkar	Alföng	Archers_J10.29	Rorik	Vidkunn	Kurt
+J10	29	4	29	7	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Vikings_J10.3.2	Odinkar	Alföng	Rorik	Vidkunn	Kurt
+J10	30	1	31	7	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Vikings_J10.3.2	Odinkar	Alföng	Rorik	Vidkunn	Kurt
+J10	32	1	32	8	Thorgal Aegirsson	Sveynn Tiuguskegg	Vikings_J10.3.1	Vikings_J10.3.2	Erik_J10.5	Seck	Eyskil	Odinkar	Alföng	Rorik	Vidkunn	Kurt
+J10	33	1	34	6	Sveynn Tiuguskegg	Vikings_J10.3.1	Vikings_J10.3.2	Erik_J10.5	Seck	Eyskil	Odinkar	Alföng	Rorik	Sydönia	Gardes_J10.33	Oldarik
+J10	34	7	34	10	Sydönia	Gardes_J10.33	Oldarik
+J10	35	1	35	1	Sveynn Tiuguskegg	Vikings_J10.3.1	Vikings_J10.3.2	Erik_J10.5	Seck	Eyskil	Odinkar	Alföng	Rorik	Thorgal Aegirsson	Vidkunn	Kurt
+J10	35	2	35	6	Thorgal Aegirsson	Vikings_J10.3.2	Vidkunn	Kurt
+J10	35	7	35	8	Thorgal Aegirsson	Garde_J10.35
+J10	35	9	35	10	Thorgal Aegirsson	Vikings_J10.3.2	Garde_J10.35	Vidkunn	Kurt
+J10	36	1	36	6	Thorgal Aegirsson	Vikings_J10.3.2	Serviteur_J10.36	Vidkunn	Kurt
+J10	36	7	36	8	Thorgal Aegirsson	Vikings_J10.3.2	Serviteur_J10.36	Gardes_J10.36	Vidkunn	Kurt
+J10	36	9	36	10	Thorgal Aegirsson	Vikings_J10.3.2	Serviteur_J10.36	Gardes_J10.36	Vidkunn	Fillette_J10.36	Kurt
+J10	37	1	37	3	Thorgal Aegirsson	Vikings_J10.3.2	Serviteur_J10.36	Gardes_J10.36	Vidkunn	Fillette_J10.36	Sydönia	Kurt
+J10	37	4	37	6	Thorgal Aegirsson	Kurt	Sydönia	Gardes_J10.36	Fillette_J10.36
+J10	37	7	37	8	Sydönia	Fillette_J10.36	Fylgja / Nixe_J10.13
+J10	37	8	37	10	Sydönia	Fillette_J10.36	Fylgja / Nixe_J10.13	Oldarik
+J10	38	1	38	1	Sveynn Tiuguskegg	Vikings_J10.3.1	Erik_J10.5	Seck	Eyskil	Odinkar	Alföng	Rorik
+J10	38	2	38	2	Sigvalda	Remik	Servants_J10.38
+J10	38	3	38	6	Sigvalda	Remik	Servants_J10.38	Thorgal Aegirsson	Kurt	Gardes_J10.36
+J10	38	7	38	8	Thorgal Aegirsson	Kurt
+J10	39	1	39	3	Ragnar_J10.39	Gardes_J10.39	Thorgal Aegirsson	Kurt
+J10	39	4	39	7	Thorgal Aegirsson	Kurt
+J10	40	1	40	6	Thorgal Aegirsson	Kurt
+J10	40	7	41	3	Thorgal Aegirsson	Kurt	Soldat_J10.40	Gardes_J10.40
+J10	41	4	41	8	Thorgal Aegirsson	Villageois_J10.41
+J10	42	1	42	1	Jómsvikings_J10.42.1	Soldats_J10.42.1	Villageois_J10.42.1
+J10	42	2	42	2	Jómsvikings_J10.42.2		Villageois_J10.42.2
+J10	42	3	42	3	Jómsvikings_J10.42.3		Villageois_J10.42.3
+J10	42	4	42	4	Jómsvikings_J10.42.4	Soldats_J10.42.2
+J10	42	5	42	6	Courtisans_J10.16	Oldarik	Sydönia
+J10	43	1	44	10	Sydönia	Fylgja / Nixe_J10.13
+J10	45	1	46	5	Sveynn Tiuguskegg	Vikings_J10.45	Sigvaldi	Jómsvikings_J10.45
+J10	46	6	46	9	Sveynn Tiuguskegg	Vikings_J10.45	Jómsvikings_J10.45
+J10	47	1	47	1	Villageois_J10.47
+J10	47	2	47	2	Villageois_J10.47	Seck
+J10	47	3	47	6	Seck	Thorgal Aegirsson
+J10	48	1	48	2	Sveynn Tiuguskegg	Vikings_J10.48	Courtisans_J10.16	Oldarik
+J10	48	3	48	5	Sveynn Tiuguskegg	Vikings_J10.48	Courtisans_J10.16
+J10	48	6	48	9	Sveynn Tiuguskegg	Vikings_J10.48	Courtisans_J10.16	Seck	Thorgal Aegirsson
+J10	49	1	49	9	Seck	Thorgal Aegirsson
+J10	50	1	51	4	Seck	Thorgal Aegirsson	Ayyur
+J10	51	5	51	8	Seck	Thorgal Aegirsson
+J10	52	1	52	3	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Mire_J10.52
+J10	52	4	52	7	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Garde_J10.52
+J10	52	8	52	9	Seck	Thorgal Aegirsson
+J10	53	1	53	4	Seck	Thorgal Aegirsson	Sveynn Tiuguskegg	Équipage_J10.53
+J10	53	5	53	8	Thorgal Aegirsson
+J10	54	1	54	1	Sveynn Tiuguskegg	Vikings_J10.54
+J10	54	2	54	4	Thorgal Aegirsson	Olaf_J10.54	Bjorn_J10.54	Viking_J10.54	Fille_J10.54
+J10	54	5	55	9	Sveynn Tiuguskegg	Thorgal Aegirsson
+J10	56	1	56	1	Thorgal Aegirsson
+J10	56	2	56	7	Seck	Thorgal Aegirsson

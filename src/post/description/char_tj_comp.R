@@ -28,7 +28,6 @@ meass <- c(MEAS_DEGREE, MEAS_BETWEENNESS, MEAS_CLOSENESS, MEAS_EIGENCNTR, MEAS_S
 
 
 ################################################################################
-filt.txt <- if(filtered) "filtered" else "unfiltered"
 tlog(0,"Load data and network")
 
 # read raw data
@@ -80,7 +79,7 @@ for(filt.txt in c("unfiltered","filtered"))
 		{	tlog(7,"For weight \"",w,"\"")
 			stats <- list() 
 			for(v in 1:nrow(volume.stats))
-			{	table.file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=w, vol=paste0(v,"_",volume.stats[v,COL_VOLUME]), filtered=filt.txt)
+			{	table.file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=w, vol=paste0(v,"_",volume.stats[v,COL_VOLUME]), filtered=filt.txt, compare=FALSE)
 				tlog(8,"Reading table \"",table.file,"\"")
 				tt <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 				idx <- match(chars,rownames(tt))

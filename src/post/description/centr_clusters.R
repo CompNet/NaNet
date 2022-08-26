@@ -34,8 +34,8 @@ vals.unf <- matrix(NA, nrow=nrow(data$char.stats), ncol=length(centr.names), dim
 vals.flt <- matrix(NA, nrow=length(kept), ncol=length(centr.names), dimnames=list(data$char.stats[kept,COL_FILTER]=="Keep",centr.names))
 for(centr.name in centr.names)
 {	tlog(2, "Centrality ",centr.name)
-	vals.unf[,centr.name] <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="unfiltered")
-	vals.flt[,centr.name] <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered")
+	vals.unf[,centr.name] <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="unfiltered", compare=FALSE)
+	vals.flt[,centr.name] <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered", compare=FALSE)
 }
 
 # filter NA values

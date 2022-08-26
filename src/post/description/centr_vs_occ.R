@@ -66,8 +66,8 @@ for(centr.name in centr.names)
 	{	tlog(4, "Processing mode ",occ.name)
 		
 		# get centrality values
-		centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="unfiltered")
-		centr.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered")
+		centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="unfiltered", compare=FALSE)
+		centr.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered", compare=FALSE)
 		
 		# get occurrence values
 		file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
@@ -245,7 +245,7 @@ print(corr.mat.flt.clean)
 ###############################################################################
 # check the outliers according to Eigencentrality
 tlog(0,"Checking the outliers according to the Eigenvector centrality:")
-centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure="eigenvector", filtered="unfiltered")
+centr.vals.unf <- load.static.nodelink.stats.scenes(weights="none", measure="eigenvector", filtered="unfiltered", compare=FALSE)
 filtered <- data$char.stats[,COL_FILTER]=="Discard"
 idx <- order(centr.vals.unf, decreasing=FALSE)
 tlog(2,"List of characters by decreasing Eigenvector centrality:")
