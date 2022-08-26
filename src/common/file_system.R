@@ -333,7 +333,7 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 	# possibly add prefix
 	if(!is.na(pref))
 		fname <- paste0(fname, pref)
-	# add measure
+	# possibly add measure
 	if(!is.na(meas.name))
 	{	if(fname!="") fname <- paste0(fname,"_")
 		fname <- paste0(fname, meas.name)
@@ -415,6 +415,11 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 	# possibly add prefix
 	if(!is.na(pref))
 		fname <- paste0(fname, pref)
+	# possibly add measure
+	if(!is.na(meas.name))
+	{	if(fname!="") fname <- paste0(fname,"_")
+		fname <- paste0(fname, meas.name)
+	}
 	# possibly add window size
 	if(!is.na(window.size))
 	{	if(fname!="") fname <- paste0(fname,"_")
