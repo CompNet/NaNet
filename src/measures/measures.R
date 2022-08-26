@@ -45,6 +45,8 @@ MEAS_MULTI_NODES <- "multi-nodes"
 MEAS_MULTI_LINKS <- "multi-links"
 MEAS_MULTI_NODEPAIRS <- "multi-nodepairs"
 MEAS_MULTI_GRAPH <- "multi-graph"
+MEAS_TFPN_NODES <- "tfpn-nodes"
+MEAS_TFPN_GRAPH <- "tfpn-graph"
 
 
 
@@ -118,6 +120,8 @@ ALL_MEASURES[[MEAS_MULTI_NODES]] <- list(folder="multiple", object="nodes")
 ALL_MEASURES[[MEAS_MULTI_LINKS]] <- list(folder="multiple", object="links")
 ALL_MEASURES[[MEAS_MULTI_NODEPAIRS]] <- list(folder="multiple", object="nodepairs")
 ALL_MEASURES[[MEAS_MULTI_GRAPH]] <- list(folder="multiple", object="graph")
+ALL_MEASURES[[MEAS_TFPN_NODES]] <- list(folder="tfpn", object="nodecomp")
+ALL_MEASURES[[MEAS_TFPN_GRAPH]] <- list(folder="tfpn", object="graphcomp")
 
 
 

@@ -84,7 +84,7 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 {	res <- c()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+		table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res <- rbind(res, tmp.tab[measure,])
 	}
@@ -111,7 +111,7 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 {	res <- c()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+		table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res <- rbind(res, tmp.tab[measure,])
 	}
@@ -134,7 +134,7 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 # returns: a vector of values representing the desired series.
 ###############################################################################
 load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
-{	table.file <- get.path.stat.table(object="corr", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=TRUE)
+{	table.file <- get.path.stat.table(object="correlation", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=TRUE)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -790,7 +790,9 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			#cols <- get.palette(length(data))
 			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=file.path("corr",ALL_MEASURES[[meas.name]]$folder), window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			fake.meas <- paste0("corr_",meas.name)
+			ALL_MEASURES[[fake.meas]] <- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
+			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -861,7 +863,9 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			#cols <- get.palette(length(data))
 			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=file.path("corr",ALL_MEASURES[[meas.name]]$folder), overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			fake.meas <- paste0("corr_",meas.name)
+			ALL_MEASURES[[fake.meas]] <- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
+			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -1138,7 +1142,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 						ylab <- "Frequency"
 					}
 					
-					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name="graphcomp/tfpn", window.size=window.size, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
+					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_GRAPH, window.size=window.size, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -1186,7 +1190,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 						ylab <- "Frequency"
 					}
 					
-					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name="graphcomp/tfpn", overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
+					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_GRAPH, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)

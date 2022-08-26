@@ -178,7 +178,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 					subf <- paste0(subf,"_norm")
 				else
 					subf <- paste0(subf,"_raw")
-				plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name="nodecomp/tfpn", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md2,"_",md1,"_barplot"))
+				plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_NODES, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md2,"_",md1,"_barplot"))
 				tlog(7,"Plotting in file '",plot.file,"'")
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
@@ -308,7 +308,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 ###############################################################################
 compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object="corr", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=TRUE)
+	table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	# select measures
