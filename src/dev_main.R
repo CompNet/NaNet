@@ -84,50 +84,50 @@ start.rec.log(text=SERIES)
 data <- read.corpus.data()
 
 # compute corpus stats
-data <- compute.corpus.stats(data)
+#data <- compute.corpus.stats(data)
 
 # plot these stats
-plot.corpus.stats(data)
+#plot.corpus.stats(data)
 
 
 
 
 ###############################################################################
 # extract static scene-based networks
-data <- extract.static.graphs.base(data)
+#data <- extract.static.graphs.base(data)
 
 # plot these graphs
-plot.static.graphs(data)
+#plot.static.graphs(data)
 
 
 
 
 ###############################################################################
 # compute scene-based graph stats
-compute.static.statistics.base(data)
+#compute.static.statistics.base(data)
 
 # plot these stats
-generate.static.plots.base(data)
+#generate.static.plots.base(data)
 
 
 
 
 ###############################################################################
 # extract static panel- and page-based networks
-extract.static.graphs.window(data, panel.params, page.params)
+#extract.static.graphs.window(data, panel.params, page.params)
 
 # compute their stats
-compute.static.statistics.window(panel.params, page.params)
+#compute.static.statistics.window(panel.params, page.params)
 
 # plot these stats
-generate.static.plots.window(panel.params, page.params)
+#generate.static.plots.window(panel.params, page.params)
 
 
 
 
 ###############################################################################
 # compute comparison stats
-compute.static.statistics.comparison(data, panel.params, page.params)
+#compute.static.statistics.comparison(data, panel.params, page.params)
 
 # plot these stats
 generate.static.plots.comparison(data, panel.params, page.params)

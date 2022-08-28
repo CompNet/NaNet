@@ -241,10 +241,11 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		cmn <- names(NODECOMP_MEASURES)
 	}
 	if(compare)
-	{	if(filtered)
-			mn <- cmn[sapply(cmn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	{	mn <- c(nmn, lmn, cmn)
+		if(filtered)
+			mn <- mn[sapply(mn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 		else
-			mn <- cmn[sapply(cmn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+			mn <- mn[sapply(mn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 	}
 	else
 		mn <- c(nmn, lmn)
@@ -258,15 +259,15 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		
 		# load the reference values (scene-based graph)
 		if(is.na(weights) || weights=="none")
-		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.none.vals[!is.na(seg.none.vals)]
 			snames <- c("S")
 			ltys <- c(2)
 		}
 		else
-		{	seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=compare)
-			seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
+			seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.occ.vals[!is.na(seg.occ.vals)]
 			seg.vals[[2]] <- seg.dur.vals[!is.na(seg.dur.vals)]
@@ -279,7 +280,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
 			tlog(5,"Dealing with window.size=",window.size)
-			values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=compare)
+			values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -375,7 +376,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 			
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			values <- load.static.nodelink.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=compare)
+			values <- load.static.nodelink.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -495,10 +496,11 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		cmn <- names(GRAPHCOMP_MEASURES)
 	}
 	if(compare)
-	{	if(filtered)
-			mn <- cmn[sapply(cmn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	{	mn <- c(gmn, cmn)
+		if(filtered)
+			mn <- mn[sapply(mn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 		else
-			mn <- cmn[sapply(cmn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+			mn <- mn[sapply(mn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 	}
 	else
 		mn <- gmn
@@ -516,15 +518,15 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		
 		# load the reference values (scene-based graph)
 		if(is.na(weights) || weights=="none")
-		{	seg.none.vals <- load.static.graph.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.none.vals <- load.static.graph.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.none.vals
 			snames <- c("Scenes")
 			ltys <- c(2)
 		}
 		else
-		{	seg.occ.vals <- load.static.graph.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=compare)
-			seg.dur.vals <- load.static.graph.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.occ.vals <- load.static.graph.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
+			seg.dur.vals <- load.static.graph.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.occ.vals
 			seg.vals[[2]] <- seg.dur.vals
@@ -538,7 +540,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
-			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=compare)
+			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			data[[i]][is.infinite(data[[i]])] <- NA
 		}
 		# generate a plot containing each window size value as a series
@@ -626,7 +628,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		{	# the series corresponds to the values of the window sizes
 			overlap <- common.overlaps[i]
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=compare)
+			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			data[[i]][is.infinite(data[[i]])] <- NA
 			axis[[i]] <- window.sizes[idx]
 		}
@@ -791,7 +793,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
-			ALL_MEASURES[[fake.meas]] <- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
+			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
 			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
@@ -864,7 +866,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			cols <- viridis(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
-			ALL_MEASURES[[fake.meas]] <- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
+			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
 			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
@@ -952,10 +954,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 	{	nmn <- names(NODE_MEASURES)
 		pmn <- names(NODEPAIR_MEASURES)
 	}
-	if(compare)
-		mn <- c()
-	else
-		mn <- c(nmn, pmn)
+	mn <- c(nmn, pmn)
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
@@ -966,7 +965,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 		
 		# load the reference values (scene-based graph)
 		if(is.na(weights) || weights=="none")
-		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=FALSE)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.none.vals
 			seg.none.ranks <- rank(seg.none.vals, ties.method="min")
@@ -976,8 +975,8 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 			ylabs <- c("Rank difference with Scene-Based Graph")
 		}
 		else
-		{	seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=compare)
-			seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=compare)
+		{	seg.occ.vals <- load.static.nodelink.stats.scenes(weights="occurrences", measure=meas.name, filtered=filt.txt, compare=FALSE)
+			seg.dur.vals <- load.static.nodelink.stats.scenes(weights="duration", measure=meas.name, filtered=filt.txt, compare=FALSE)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.occ.vals
 			seg.vals[[2]] <- seg.dur.vals
@@ -996,7 +995,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 			# loop over window size values
 			for(i in 1:length(window.sizes))
 			{	window.size <- window.sizes[i]
-				lst.values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=compare)
+				lst.values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=FALSE)
 				
 				# loop over each corresponding overlap value
 				for(j in 1:length(overlaps[[i]]))
