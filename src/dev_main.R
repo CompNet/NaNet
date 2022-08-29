@@ -120,14 +120,14 @@ data <- read.corpus.data()
 #compute.static.statistics.window(panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.window(panel.params, page.params)
+generate.static.plots.window(panel.params, page.params)
 
 
 
 
 ###############################################################################
 # compute comparison stats
-#compute.static.statistics.comparison(data, panel.params, page.params)
+compute.static.statistics.comparison(data, panel.params, page.params)
 
 # plot these stats
 generate.static.plots.comparison(data, panel.params, page.params)

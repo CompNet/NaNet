@@ -241,11 +241,10 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		cmn <- names(NODECOMP_MEASURES)
 	}
 	if(compare)
-	{	mn <- c(nmn, lmn, cmn)
-		if(filtered)
-			mn <- mn[sapply(mn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	{	if(filtered)
+			mn <- cmn[sapply(cmn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 		else
-			mn <- mn[sapply(mn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+			mn <- cmn[sapply(cmn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 	}
 	else
 		mn <- c(nmn, lmn)
@@ -259,7 +258,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		
 		# load the reference values (scene-based graph)
 		if(is.na(weights) || weights=="none")
-		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
+		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=TRUE)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.none.vals[!is.na(seg.none.vals)]
 			snames <- c("S")
@@ -496,11 +495,10 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		cmn <- names(GRAPHCOMP_MEASURES)
 	}
 	if(compare)
-	{	mn <- c(gmn, cmn)
-		if(filtered)
-			mn <- mn[sapply(mn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+	{	if(filtered)
+			mn <- cmn[sapply(cmn, function(meas.name) grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 		else
-			mn <- mn[sapply(mn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
+			mn <- cmn[sapply(cmn, function(meas.name) !grepl(SFX_FILTERED, meas.name, fixed=TRUE))]
 	}
 	else
 		mn <- gmn
@@ -954,7 +952,10 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 	{	nmn <- names(NODE_MEASURES)
 		pmn <- names(NODEPAIR_MEASURES)
 	}
-	mn <- c(nmn, pmn)
+	if(compare)
+		mn <- c()
+	else
+		mn <- c(nmn, pmn)
 	
 	# identify common overlap values (over window sizes)
 	common.overlaps <- sort(unique(unlist(overlaps)))
