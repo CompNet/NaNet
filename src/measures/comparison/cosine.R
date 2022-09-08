@@ -13,10 +13,10 @@ graph.cosine.similarityilarity <- function(graph1, graph2, weighted, normalized)
 	
 	# vector representing the first graph
 	x1 <- as_adjacency_matrix(graph=graph1, type="upper", attr=attr, names=FALSE)
-	x1 <- x1[upper.tri(x1,diag=F)]
+	x1 <- x1[upper.tri(x1,diag=FALSE)]
 	# vector representing the second graph
 	x2 <- as_adjacency_matrix(graph=graph2, type="upper", attr=attr, names=FALSE)
-	x2 <- x2[upper.tri(x2,diag=F)]
+	x2 <- x2[upper.tri(x2,diag=FALSE)]
 	# normalization
 	if(normalized)
 	{	x1 <- x1 / max(x1)
