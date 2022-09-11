@@ -258,7 +258,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		
 		# load the reference values (scene-based graph)
 		if(is.na(weights) || weights=="none")
-		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=TRUE)
+		{	seg.none.vals <- load.static.nodelink.stats.scenes(weights="none", measure=meas.name, filtered=filt.txt, compare=meas.name %in% cmn)
 			seg.vals <- list()
 			seg.vals[[1]] <- seg.none.vals[!is.na(seg.none.vals)]
 			snames <- c("S")
