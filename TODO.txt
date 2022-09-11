@@ -101,3 +101,9 @@ TODO
   https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#network-reconstruction
 
 - alt repo y.rochat data: https://github.com/mtriclot/Belfort
+
+TODO (after reannotation)
+1) export character list
+2) retrieve extra characters
+3) manually add to layout
+4) update interaction csv
