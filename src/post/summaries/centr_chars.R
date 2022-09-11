@@ -8,7 +8,7 @@
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/centr_chars.R")
+# source("src/post/summaries/centr_chars.R")
 ###############################################################################
 source("src/common/_include.R")
 library("stringr")

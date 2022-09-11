@@ -49,7 +49,7 @@ options(error=recover)		# debug
 
 #SERIES <- "Test"
 #SERIES <- "Ralph_Azham"
-#SERIES <- "Thorgal"
+SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
 
 
