@@ -113,3 +113,5 @@ TODO
 scripts: one panel can belong to several scenes (parallel scenes)
          >> need to consider that when extracting panel stats. 
             it seems that chars just correspond to the last scene considered, not all of them
+
+rajouter Huginn	Muninn
