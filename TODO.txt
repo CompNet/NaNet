@@ -113,3 +113,7 @@ TODO
 scripts: one panel can belong to several scenes (parallel scenes)
          >> need to consider that when extracting panel stats. 
             it seems that chars just correspond to the last scene considered, not all of them
+
+- rajouter arison dans les réfs à slive
+- gérer tous les flashbacks avec leif (même vikings autour de lui)
+- qui est Freyr ?
