@@ -108,8 +108,3 @@ TODO (after reannotation)
 2) retrieve extra characters
 3) manually add to layout
 4) update interaction csv
-
-TODO
-scripts: one panel can belong to several scenes (parallel scenes)
-         >> need to consider that when extracting panel stats. 
-            it seems that chars just correspond to the last scene considered, not all of them

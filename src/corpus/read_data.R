@@ -479,6 +479,10 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			tlog(3,msg)
 			#warning(msg)
 		}
+		if(prev.end.panel.id>start.panel.id)
+		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Panel overlap (",prev.end.panel.id," vs. ",start.panel.id,") between two consecutive scenes, at line: \"",paste(line,collapse=","),"\"")
+			tlog(3,msg)
+		}
 		
 		# get end page and panel
 		end.page <- line[4]
@@ -580,9 +584,6 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			}
 		}
 		
-		# update panel stats
-		panel.stats[start.panel.id:end.panel.id,COL_CHARS] <- length(chars)
-		
 		# update scene stats
 		match.start <- start.panel==1
 		match.end <- end.panel==page.stats[end.page.id,COL_PANELS]
@@ -611,6 +612,9 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 			volume.chars[[volume.id]] <- sort(union(volume.chars[[volume.id]], chars))
 			arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
 		}
+		
+		# update panel stats
+		panel.stats[start.panel.id:end.panel.id,COL_CHARS] <- sapply(panel.chars[start.panel.id:end.panel.id], length)
 	}
 	
 	# update scene and interaction ranks
