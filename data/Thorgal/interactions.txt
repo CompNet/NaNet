@@ -982,7 +982,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 17	31	7	31	7	Thorgal Aegirsson	Tjahzi
 17	32	1	32	6	Thorgal Aegirsson	Tjahzi
 17	33	1	35	7	Thorgal Aegirsson	Tjahzi
-17	35	6	37	3	Thorgal Aegirsson	Tjahzi	Cléo / Nidhogg
+17	35	8	37	3	Thorgal Aegirsson	Tjahzi	Cléo / Nidhogg
 17	37	4	37	5
 17	38	1	39	3	Thorgal Aegirsson	Tjahzi
 17	39	4	41	4	Thorgal Aegirsson	Tjahzi	Ivaldir	Nains_17.39
@@ -1496,7 +1496,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 24	15	4	15	4
 24	15	5	16	3	Thorgal Aegirsson
 24	16	4	17	7	Thorgal Aegirsson	Garçon_24.16
-24	17	8	20	7	Louve Thorgalsdottir
+24	17	8	19	7	Louve Thorgalsdottir
 24	20	1	20	4	Louve Thorgalsdottir	Araignée_24.20
 24	20	5	20	7	Louve Thorgalsdottir	Araignée_24.20	Vieillarde_24.20 / Séréna
 24	20	8	20	8	Thorgal Aegirsson	Garçon_24.16
@@ -1698,11 +1698,11 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 26	36	1	36	3	Thorgal Aegirsson	Sargon	Ileniya	Chrysios	2 gardes_26.35	Orchias
 26	36	4	37	4	Thorgal Aegirsson	Sargon	Ileniya	Chrysios	2 gardes_26.35	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Orchias
 26	37	5	37	10	Sargon	Ileniya	2 gardes_26.35	Orchias
-26	36	1	36	1	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
-26	36	2	36	2	Sargon	2 gardes_26.35	Orchias
-26	36	3	36	6	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
-26	36	7	36	7	Sargon	2 gardes_26.35	Orchias
-26	37	1	40	5	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+26	38	1	38	1	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+26	38	2	38	2	Sargon	2 gardes_26.35	Orchias
+26	38	3	38	6	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+26	38	7	38	7	Sargon	2 gardes_26.35	Orchias
+26	39	1	40	5	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir
 26	40	6	43	5	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Tiago
 26	43	6	44	2	Chrysios
 26	44	3	45	2	Thorgal Aegirsson	Ileniya	Chrysios	Jolan Thorgalsson	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Tiago
@@ -2377,7 +2377,7 @@ L1	3	6	4	6	Louve Thorgalsdottir	Zaya	Misha	Gürt	2 garçons_L1.3	Knorr
 L1	4	7	5	8	Louve Thorgalsdottir
 L1	5	9	6	3	Louve Thorgalsdottir	Misha
 L1	6	4	6	7	Louve Thorgalsdottir	Misha	Arn Sakknüssen
-L1	6	4	7	2	Louve Thorgalsdottir	Arn Sakknüssen
+L1	6	8	7	2	Louve Thorgalsdottir	Arn Sakknüssen
 L1	7	3	7	3	Leif Haraldson	Arn Sakknüssen	Gandalf-le-fou	Vikings_7.4
 L1	7	4	7	5	Leif Haraldson	Arn Sakknüssen	Thorgal Aegirsson	Gandalf-le-fou	Vikings_7.4
 L1	7	6	7	8	Louve Thorgalsdottir	Arn Sakknüssen
@@ -2568,7 +2568,7 @@ K3	7	6	7	6	Freyja	Brünhild	Walkyrie_K3.7	Kriss de Valnor
 K3	7	7	7	7	Kriss de Valnor	Hildebrün
 K3	8	1	8	6	Kriss de Valnor	Hildebrün
 K3	9	1	10	9	Kriss de Valnor	Hildebrün
-K3	10	1	11	3	Kriss de Valnor	Hildebrün
+K3	11	1	11	3	Kriss de Valnor	Hildebrün
 K3	11	4	11	6	Kriss de Valnor	Hildebrün	Björg	Lieks	Stieg
 K3	12	1	12	1	Kriss de Valnor	Hildebrün
 K3	12	2	13	7	Kriss de Valnor	Hildebrün	Björg	Lieks	Stieg
@@ -2666,7 +2666,7 @@ L2	11	4	13	8	Louve yin / Louve Thorgalsdottir	Hicham yin / Hicham
 L2	14	1	14	3	Aaricia Gandalfsdottir
 L2	14	4	14	6	Aaricia Gandalfsdottir	Lundgen
 L2	14	7	14	9	Aaricia Gandalfsdottir	Lundgen	Ours / Vigrid
-L2	14	1	15	10	Aaricia Gandalfsdottir	Vigrid
+L2	15	1	15	10	Aaricia Gandalfsdottir	Vigrid
 L2	16	1	16	9	Louve yin / Louve Thorgalsdottir	Hicham yin / Hicham
 L2	17	1	17	6	Louve yang / Louve Thorgalsdottir
 L2	18	1	18	5	Lundgen	Aaricia Gandalfsdottir	Vigrid
@@ -2880,7 +2880,7 @@ K4	14	4	15	4	Taljar Sologhonn / Jolan Thorgalsson	Hungfold	Gouverneur / Ingvild	
 K4	15	5	15	5	Villageois_K4.15	Hungfold
 K4	15	6	15	7	Taljar Sologhonn / Jolan Thorgalsson	Gouverneur / Ingvild	Gouverneur / Xia
 K4	15	8	18	4	Taljar Sologhonn / Jolan Thorgalsson	Kriss de Valnor	Gouverneur / Draye	Gouverneur / Ingvild	Gouverneur / Xia
-K4	18	5	19	5	Gouverneur / Draye	Gouverneur / Ingvild	Gouverneur / Xia
+K4	18	5	18	5	Gouverneur / Draye	Gouverneur / Ingvild	Gouverneur / Xia
 K4	18	6	19	2	Kriss de Valnor	Taljar Sologhonn / Jolan Thorgalsson
 K4	19	3	19	3	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Aniel de Valnor	Thorgal Aegirsson
 K4	19	4	19	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Aniel de Valnor	Thorgal Aegirsson	Vigrid
@@ -3456,7 +3456,7 @@ J3	44	6	44	8	Thorgal Aegirsson	Fural
 J3	45	1	45	1	Aaricia Gandalfsdottir	Thorfil	Runa	Guerriers_J3.9	Berserkers_J3.35	Moldi-le-furieux	Fural
 J3	45	2	45	6	Gandalf-le-fou	Hiérulf-le-penseur	Prétendants_J3.23	Holger
 J3	46	1	46	5	Thorgal Aegirsson	Fural
-J3	45	6	48	6	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers_J3.45.1	Guerriers_J3.45.2
+J3	46	6	48	6	Thorgal Aegirsson	Sigurd Danysön	Nigürd Holgersön Ratatösk	Wulf	Guerriers_J3.45.1	Guerriers_J3.45.2
 J3	48	7	48	7	Thorgal Aegirsson	Fural
 K6	2	1	2	4	Kriss de Valnor
 K6	3	1	4	2	Kriss de Valnor
@@ -3487,7 +3487,7 @@ K6	21	8	21	8	Erwin	Osian	Kriss de Valnor
 K6	22	1	22	2	Osian
 K6	22	3	22	5	Erwin	Kriss de Valnor
 K6	22	6	23	6	Erwin	Osian	Kriss de Valnor
-K6	22	7	23	8	Erwin	Kriss de Valnor
+K6	23	7	23	8	Erwin	Kriss de Valnor
 K6	24	1	24	11	Erwin	Kriss de Valnor
 K6	25	1	25	5	Erwin	Kriss de Valnor	Enfants_K6.19	Chef enfant_K6.19
 K6	25	6	25	10	Erwin	Osian	Kriss de Valnor
@@ -3598,7 +3598,7 @@ J4	39	6	39	8	Sigurd Danysön	Runa	Guerriers_J3.45.2	Wulf	Vikings_J4.28	Nigürd H
 J4	40	1	40	2	Thorgal Aegirsson	Aaricia Gandalfsdottir	Isoline	Enyd	2 guerriers_J4.40
 J4	40	3	40	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Isoline	Enyd	2 guerriers_J4.40	Nigürd Holgersön Ratatösk
 J4	41	1	41	2	Sigurd Danysön	Runa	Guerriers_J3.45.1	Guerriers_J3.45.2	Wulf
-J4	41	3	41	5	Sigurd Danysön	Runa	Guerriers_J3.45.1	Guerriers_J3.45.2	Wulf	Thorgal Aegirsson	Aaricia Gandalfsdottir	Isoline	Enyd
+J4	41	3	41	3	Sigurd Danysön	Runa	Guerriers_J3.45.1	Guerriers_J3.45.2	Wulf	Thorgal Aegirsson	Aaricia Gandalfsdottir	Isoline	Enyd
 J4	41	4	41	4	Sigurd Danysön	Runa	Guerriers_J3.45.1	Guerriers_J3.45.2	Wulf	Thorgal Aegirsson	Aaricia Gandalfsdottir	Isoline	Enyd	2 guerriers_J4.41
 J4	41	5	41	5	Sigurd Danysön	Runa	Guerriers_J3.45.1	Guerriers_J3.45.2	Wulf	Aaricia Gandalfsdottir	Isoline	Enyd
 J4	41	6	41	6	Thorgal Aegirsson
@@ -4465,7 +4465,7 @@ J8	48	8	48	10	Aaricia Gandalfsdottir	Thorgal Aegirsson
 38	19	1	19	9	Louve Thorgalsdottir	Ava	Gilli
 38	20	1	21	4	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn	Pêcheurs_38.20	Tjodrik	Guenon / Yasmina
 38	21	5	23	7	Thorgal Aegirsson	Jolan Thorgalsson	Finnbjorn	Pêcheurs_38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
-38	23	6	23	8	Thorgal Aegirsson	Jolan Thorgalsson	Pêcheurs_38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
+38	23	8	23	8	Thorgal Aegirsson	Jolan Thorgalsson	Pêcheurs_38.20	Trondur Gotuskegg	Grimur	Gaut	Tjodrik
 38	24	1	24	3	Thorgal Aegirsson	Jolan Thorgalsson	Huginn	Muninn
 38	24	4	24	5	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg	Huginn	Muninn
 38	24	6	24	8	Thorgal Aegirsson	Jolan Thorgalsson	Vieille femme / Frigg
