@@ -6,7 +6,7 @@
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/summaries/annotation_expl_chars.R")
+# source("src/post/explicit/annotation_chars.R")
 ###############################################################################
 source("src/common/_include.R")
 
@@ -34,7 +34,7 @@ init.annotation.file <- function()
 	colnames(data)[ncol(data)] <- COL_CHARS
 	
 	# record new table
-	tab.file <- file.path(ANNOTATIONS_FOLDER, "explicit_chars.csv")
+	tab.file <- file.path(ANN_EXPLICIT_FOLDER, "chars_by_panel.csv")
 	write.csv(x=data, file=tab.file, row.names=FALSE, fileEncoding="UTF-8")#, col.names=TRUE)
 }
 
@@ -42,4 +42,4 @@ init.annotation.file <- function()
 
 
 ###############################################################################
-# init.annotation.file()
+ init.annotation.file()

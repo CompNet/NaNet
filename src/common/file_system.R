@@ -17,6 +17,8 @@ LOG_FOLDER <- "log"
 ANNOTATIONS_FOLDER <- file.path(DATA_FOLDER,"annotations")
 	# folder containing interaction annotations
 	ANN_AGREEMENT_FOLDER <- file.path(ANNOTATIONS_FOLDER,"agreement")
+	# folder containing explicit character annotations
+	ANN_EXPLICIT_FOLDER <- file.path(ANNOTATIONS_FOLDER,"explicit")
 	# folder containing hand-made summaries
 	ANN_SUMMARIES_FOLDER <- file.path(ANNOTATIONS_FOLDER,"summaries")
 	
