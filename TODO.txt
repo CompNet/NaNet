@@ -103,8 +103,9 @@ TODO
 - alt repo y.rochat data: https://github.com/mtriclot/Belfort
 
 TODO (after reannotation)
-0) occurrences : check panels id (new panels have the same id >> cannot use them. regenerate the empty table with corrected original annotations, then copy paste in degraded annotation file)
 1) export character list
 2) retrieve extra characters
 3) manually add to layout
-4) update interaction csv
+
+- check that the file paths in post are all built using functions (and not by hand)
+- change all such function calls in order to handle the new parameter char.det

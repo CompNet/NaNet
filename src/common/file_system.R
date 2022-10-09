@@ -35,28 +35,12 @@ NET_FOLDER <- file.path(DATA_FOLDER,"networks")
 STAT_FOLDER <- file.path(DATA_FOLDER,"stats")
 	# folder containing the corpus stat files
 	STAT_CORPUS_FOLDER <- file.path(STAT_FOLDER,"corpus")
-		# folder containing the corpus arc stat files
-		STAT_CORPUS_ARCS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"arcs")
-		# folder containing the corpus character stat files
-		STAT_CORPUS_CHARS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"characters")
-		# folder containing the corpus page stat files
-		STAT_CORPUS_PAGES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"pages")
-		# folder containing the corpus panel stat files
-		STAT_CORPUS_PANELS_FOLDER <- file.path(STAT_CORPUS_FOLDER,"panels")
-		# folder containing the corpus scene stat files
-		STAT_CORPUS_SCENES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"scenes")
-		# folder containing the corpus volume stat files
-		STAT_CORPUS_VOLUMES_FOLDER <- file.path(STAT_CORPUS_FOLDER,"volumes")
 	# folder containing the page stat files
 	STAT_PAGES_FOLDER <- file.path(STAT_FOLDER,"pages")
 	# folder containing the panel stat files
 	STAT_PANELS_FOLDER <- file.path(STAT_FOLDER,"panels")
 	# folder containing the scene stat files
 	STAT_SCENES_FOLDER <- file.path(STAT_FOLDER,"scenes")
-		# folder containing the scene stat files for duration weights
-		STAT_SCENES_DURATION_FOLDER <- file.path(STAT_SCENES_FOLDER,"duration")
-		# folder containing the scene stat files for occurrences weights
-		STAT_SCENES_OCCURRENCES_FOLDER <- file.path(STAT_SCENES_FOLDER,"occurrences")
 		
 # folder containing the produced comparison plots
 COMP_FOLDER <- file.path(DATA_FOLDER,"comparison")
@@ -66,10 +50,6 @@ COMP_FOLDER <- file.path(DATA_FOLDER,"comparison")
 	COMP_PANELS_FOLDER <- file.path(COMP_FOLDER,"panels")
 	# folder containing the scene comparison plots
 	COMP_SCENES_FOLDER <- file.path(COMP_FOLDER,"scenes")
-		# folder containing the scene comparison plots for duration weights
-		COMP_SCENES_DURATION_FOLDER <- file.path(COMP_SCENES_FOLDER,"duration")
-		# folder containing the scene comparison plots for occurrences weights
-		COMP_SCENES_OCCURRENCES_FOLDER <- file.path(COMP_SCENES_FOLDER,"occurrences")
 		
 
 
@@ -91,6 +71,7 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # Returns the full path for a graph file, based on the specified parameters. 
 #
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # net.type: "static", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter.
@@ -105,7 +86,7 @@ CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
 # 
 # returns: full path.
 ###############################################################################
-get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA, ext=NA)
+get.path.data.graph <- function(mode, char.det=NA, net.type, order=NA, window.size=NA, overlap=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA, ext=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- NET_PANELS_FOLDER
@@ -113,7 +94,10 @@ get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overla
 		folder <- NET_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- NET_SCENES_FOLDER
-	# add filtered folder
+	# possibly add char detection mode folder
+	if(!is.na(char.det))
+		folder <- file.path(folder, char.det)
+	# possibly add filtered folder
 	if(!is.na(filtered))
 		folder <- file.path(folder, if(filtered) "filtered" else "unfiltered")
 	# add network type folder
@@ -183,6 +167,7 @@ get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overla
 # 
 # object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # net.type: "static", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter (ignored for mode="scenes").
@@ -197,7 +182,7 @@ get.path.data.graph <- function(mode, net.type, order=NA, window.size=NA, overla
 # 
 # returns: full path.
 ###############################################################################
-get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, compare=FALSE)
+get.path.stat.table <- function(object, mode, char.det=NA, net.type, order=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, compare=FALSE)
 {	# base folder
 	if(!compare)
 	{	if(mode=="panel.window")
@@ -215,6 +200,9 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 		else if(mode=="scenes")
 			folder <- COMP_SCENES_FOLDER
 	}
+	# possibly add char detection mode folder
+	if(!is.na(char.det))
+		folder <- file.path(folder, char.det)
 	# possibly add filtered subfolder
 	if(!is.na(filtered))
 		folder <- file.path(folder, filtered)
@@ -269,6 +257,7 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 # a posteriori.
 # 
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # net.type: "static", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # att: vertex attribute concerned.
@@ -285,7 +274,7 @@ get.path.stat.table <- function(object, mode, net.type, order=NA, window.size=NA
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA)
+get.path.stats.topo <- function(mode, char.det=NA, net.type, order=NA, att=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, subfold=NA, pref=NA, suf=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- STAT_PANELS_FOLDER
@@ -293,6 +282,9 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 		folder <- STAT_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- STAT_SCENES_FOLDER
+	# possibly add char detection mode folder
+	if(!is.na(char.det))
+		folder <- file.path(folder, char.det)
 	# possibly add filtered subfolder
 	if(!is.na(filtered))
 		folder <- file.path(folder, filtered)
@@ -370,6 +362,7 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 # be added a posteriori.
 # 
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # net.type: "static", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # meas.name: name of the plot measure.
@@ -384,7 +377,7 @@ get.path.stats.topo <- function(mode, net.type, order=NA, att=NA, meas.name=NA, 
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
+get.path.stats.comp <- function(mode, char.det=NA, net.type, order=NA, meas.name=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA, pref=NA, suf=NA)
 {	# base folder
 	if(mode=="panel.window")
 		folder <- COMP_PANELS_FOLDER
@@ -392,6 +385,9 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 		folder <- COMP_PAGES_FOLDER
 	else if(mode=="scenes")
 		folder <- COMP_SCENES_FOLDER
+	# possibly add char detection mode folder
+	if(!is.na(char.det))
+		folder <- file.path(folder, char.det)
 	# possibly add filtered subfolder
 	if(!is.na(filtered))
 		folder <- file.path(folder, filtered)
@@ -471,6 +467,7 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 # extension is not included as the same basename can be used for both csv and plots.
 #
 # object: "panels", "scenes", "characters", etc.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # vol: id of the considered volume.
 # arc: id of the considered narrative arc.
 # subfold: additional folder.
@@ -481,14 +478,17 @@ get.path.stats.comp <- function(mode, net.type, order=NA, meas.name=NA, window.s
 # 
 # returns: full path.
 ###############################################################################
-get.path.stats.corpus <- function(object=NA, vol=NA, arc=NA, subfold=NA, att=NA, val=NA, pref=NA, suf=NA)
+get.path.stats.corpus <- function(object=NA, char.det=NA, vol=NA, arc=NA, subfold=NA, att=NA, val=NA, pref=NA, suf=NA)
 {	# base folder
+	folder <- STAT_CORPUS_FOLDER
+	# possibly add char detection mode folder
+	if(!is.na(char.det))
+		folder <- file.path(folder, char.det)
+	# possibly add volume or arc number folder
 	if(!is.na(vol))
-		folder <- file.path(STAT_CORPUS_VOLUMES_FOLDER, "separate", vol)
+		folder <- file.path("volumes", "separate", vol)
 	else if(!is.na(arc))
-		folder <- file.path(STAT_CORPUS_ARCS_FOLDER, "separate", arc)
-	else
-		folder <- STAT_CORPUS_FOLDER
+		folder <- file.path("arcs", "separate", arc)
 	# possibly add object
 	if(!is.na(object))
 		folder <- file.path(folder, object)
