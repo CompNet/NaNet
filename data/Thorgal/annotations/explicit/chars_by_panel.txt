@@ -83,19 +83,19 @@ Volume	Page	Panel	PanelId	Characters
 01	14	4	82	Sharn	Thorgal Aegirsson
 01	14	5	83	Sharn	Slive	Thorgal Aegirsson
 01	14	6	84	Slive
-01	15	1	85	Hériulf
-01	15	2	86	Gandalf-le-fou	Hériulf	Spectateurs_1.15	Palefrenier_1.15
-01	15	3	87	Hériulf
-01	15	4	88	Gandalf-le-fou	Hériulf	Spectateurs_1.15
-01	16	1	89	Gandalf-le-fou	Hériulf	Spectateurs_1.15
+01	15	1	85	Hériulf_1.15
+01	15	2	86	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15	Palefrenier_1.15
+01	15	3	87	Hériulf_1.15
+01	15	4	88	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15
+01	16	1	89	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15
 01	16	2	90	Gandalf-le-fou
 01	16	3	91	Gandalf-le-fou	Spectateurs_1.15
 01	16	4	92	Gandalf-le-fou
 01	16	5	93	Thorgal Aegirsson	Spectateurs_1.15	Palefrenier_1.15
-01	17	1	94	Gandalf-le-fou	Hériulf	Spectateurs_1.15	Thorgal Aegirsson
+01	17	1	94	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15	Thorgal Aegirsson
 01	17	2	95	Thorgal Aegirsson	Fural	Palefrenier_1.15
 01	17	3	96	Thorgal Aegirsson
-01	17	4	97	Gandalf-le-fou	Hériulf	Spectateurs_1.15	Thorgal Aegirsson	Fural	Palefrenier_1.15
+01	17	4	97	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15	Thorgal Aegirsson	Fural	Palefrenier_1.15
 01	17	5	98	Thorgal Aegirsson	Palefrenier_1.15	Fural
 01	17	6	99	Thorgal Aegirsson	Palefrenier_1.15	Fural
 01	17	7	100	Thorgal Aegirsson	Fural
@@ -118,7 +118,7 @@ Volume	Page	Panel	PanelId	Characters
 01	20	2	117	Gandalf-le-fou
 01	20	3	118	Spectateurs_1.15
 01	20	4	119	Slive
-01	20	5	120	Aaricia Gandalfsdottir	Gandalf-le-fou	Hériulf	Sharn	Slive	Spectateurs_1.15	Thorgal Aegirsson	Fural
+01	20	5	120	Aaricia Gandalfsdottir	Gandalf-le-fou	Hériulf_1.15	Sharn	Slive	Spectateurs_1.15	Thorgal Aegirsson	Fural
 01	20	6	121	Aaricia Gandalfsdottir	Thorgal Aegirsson	Fural
 01	20	7	122	Aaricia Gandalfsdottir	Thorgal Aegirsson	Fural
 01	21	1	123	Gandalf-le-fou	Sharn	Slive	Thorgal Aegirsson	Fural

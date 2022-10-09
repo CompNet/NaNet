@@ -16,8 +16,8 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 01	13	7	14	2	Thorgal Aegirsson	Gardien nain_1.12	Sharn
 01	14	3	14	4	Thorgal Aegirsson	Sharn
 01	14	5	14	6	Thorgal Aegirsson	Slive	Sharn
-01	15	1	16	4	Gandalf-le-fou	Hériulf	Spectateurs_1.15	Fural	Palefrenier_1.15
-01	16	5	18	5	Vieillard / Thorgal Aegirsson	Gandalf-le-fou	Hériulf	Spectateurs_1.15	Fural	Palefrenier_1.15
+01	15	1	16	4	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15	Fural	Palefrenier_1.15
+01	16	5	18	5	Vieillard / Thorgal Aegirsson	Gandalf-le-fou	Hériulf_1.15	Spectateurs_1.15	Fural	Palefrenier_1.15
 01	18	6	19	8	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Gandalfsdottir	Hiérulf-le-penseur	Spectateurs_1.15	Fural	Palefrenier_1.15
 01	19	9	20	5	Thorgal Aegirsson	Gandalf-le-fou	Aaricia Gandalfsdottir	Hiérulf-le-penseur	Slive	Sharn	Spectateurs_1.15	Fural	Palefrenier_1.15
 01	20	6	20	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Fural
