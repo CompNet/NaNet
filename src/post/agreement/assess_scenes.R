@@ -1,4 +1,9 @@
 # This script assesses the agreement over scene boundaries.
+#
+# IMPORTANT:
+# It is meant to be applied to the first version of the corpus, 
+# i.e. the one from v1.0.2 of the GitHub repository. These data
+# are also available directly on Zenodo: https://doi.org/10.5281/zenodo.6573491 
 # 
 # Vincent Labatut
 # 06/2022
