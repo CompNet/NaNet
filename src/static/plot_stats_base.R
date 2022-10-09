@@ -236,7 +236,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			for(i in 1:length(items))
 			{	vals[i] <- load.static.graph.stats.scenes(weights=wmode, measure=meas.name, 
 							arc=if(arcs) i else NA, vol=if(arcs) NA else items[i], 
-							filtered=filt.txt, compare=TRUE)
+							filtered=filt.txt, compare=FALSE)
 			}
 			
 			# generate barplots
