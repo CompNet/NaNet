@@ -302,10 +302,10 @@ write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=F
 #idx <- which(sc.ov.sexes=="Female" & sapply(sc.sexes, function(c) length(which(c=="Female"))>1))
 #tab <- cbind(data$scene.stats[idx,], sapply(data$scene.chars[idx], function(c) paste(c,collapse=",")))
 #colnames(tab)[ncol(tab)] <- "Characters"
-#write.csv(tab, file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"), fileEncoding="UTF-8")
+#write.csv(tab, file.path(STAT_CORPUS_FOLDER, "implicit", "women_interactions.csv"), fileEncoding="UTF-8")
 #tlog(4,"In the annotated file, TRUE means 'the females talk about a male';FALSE means 'the females do not talk about a male'; and 'NA' means 'the females do not talk at all'.")
 ###### read the annotated file
-tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"women_interactions.csv"))
+tab2 <- read.csv2(file.path(STAT_CORPUS_FOLDER,"implicit","women_interactions.csv"))
 ######
 tlog(4,"Bechdel test by scene:")
 tt <- table(tab2[,"Annotation"], useNA="always")
