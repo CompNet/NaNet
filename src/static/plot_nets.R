@@ -36,7 +36,7 @@ compute.graphical.params <- function(g=NA)
 #tab <- tab[idx,]
 ##tmp <- cbind(tab, LAYOUT)
 ##apply(tmp, 2, range)
-#tab[,2] <- (tab[,2] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
+#tab[,2] <- (tab[,2] - min(tab[,2])) / (max(tab[,2]) - min(tab[,2])) * (max(LAYOUT[,2])-min(LAYOUT[,2]))+min(LAYOUT[,2])
 #tab[,1] <- (tab[,1] - min(tab[,1])) / (max(tab[,1]) - min(tab[,1])) * (max(LAYOUT[,1])-min(LAYOUT[,1]))+min(LAYOUT[,1])
 #rownames(tab) <- V(gg)$name
 #colnames(tab) <- c("x","y")
