@@ -11,13 +11,14 @@
 # 
 # weights: desired weights (durations or occurrences).
 # filtered: whether to focus on the most important nodes, or not.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 #
 # returns: the reference graph.
 ###############################################################################
 get.ref.graph <- function(weights, filtered=FALSE)
 {	# load the graph
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
-	res <- read.graphml.file(file=graph.file) 
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+	res <- read.graphml.file(file=graph.file)
 
 	# possibly remove certain nodes
 	if(filtered)

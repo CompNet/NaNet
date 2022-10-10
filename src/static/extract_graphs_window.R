@@ -16,11 +16,12 @@
 #
 # inter.df: dataframe containing the pairwise interactions.
 # char.stats: table describing all the characters occurring in the BD series.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: size of the time window (expressed in panels).
 # overlap: how much consecutive windows overlap (expressed in panels). Must be strictly
 #          smaller than window.size.
 ###############################################################################
-extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=10, overlap=2)
+extract.static.graph.panel.window <- function(inter.df, char.stats, char.det=NA, window.size=10, overlap=2)
 {	# check the overlap parameter
 	if(overlap>=window.size)
 	{	msg <- paste0("ERROR: overlap parameter must be smaller than or equal to window.size: window.size=",window.size,", overlap=",overlap)
@@ -83,7 +84,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 	tlog(3,"Creating unfiltered graph")
 	g.unf <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.data.graph(mode="panel.window", net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="panel.window", char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g.unf, file=graph.file, format="graphml")
 	
@@ -94,7 +95,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 	tlog(3,"Creating filtered graph: discarding ",length(idx),"/",length(filt.names)," minor characters")
 	g.filt <- delete_vertices(g.unf, idx)
 	# write to file
-	graph.file <- get.path.data.graph(mode="panel.window", net.type="static", window.size=window.size, overlap=overlap, filtered=TRUE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="panel.window", char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, filtered=TRUE, pref="graph", ext=".graphml")
 	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g.filt, file=graph.file, format="graphml")
 
@@ -111,11 +112,12 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, window.size=
 # char.stats: table describing all the characters occurring in the BD series.
 # inter.df: dataframe containing the pairwise interactions.
 # page.stats: dataframe containing the number of panels in the pages.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: size of the time window (expressed in pages).
 # overlap: how much consecutive windows overlap (expressed in pages). Must be strictly
 #          smaller than window.size.
 ###############################################################################
-extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, window.size=2, overlap=1)
+extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, char.det=NA, window.size=2, overlap=1)
 {	# check the overlap parameter
 	if(overlap>=window.size)
 	{	msg <- paste0("ERROR: overlap must be smaller than window.size: window.size=",window.size,", overlap=",overlap)
@@ -183,7 +185,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 	tlog(3,"Creating unfiltered graph")
 	g.unf <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 	# write to file
-	graph.file <- get.path.data.graph(mode="page.window", net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="page.window", char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g.unf, file=graph.file, format="graphml")
 	
@@ -194,7 +196,7 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 	tlog(3,"Creating filtered graph: discarding ",length(idx),"/",length(filt.names)," minor characters")
 	g.filt <- delete_vertices(g.unf, idx)
 	# write to file
-	graph.file <- get.path.data.graph(mode="page.window", net.type="static", window.size=window.size, overlap=overlap, filtered=TRUE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="page.window", char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, filtered=TRUE, pref="graph", ext=".graphml")
 	tlog(3,"Recording graph in file '",graph.file,"'")
 	write_graph(graph=g.filt, file=graph.file, format="graphml")
 	
@@ -208,10 +210,11 @@ extract.static.graph.page.window <- function(inter.df, char.stats, page.stats, w
 # Main function for the extraction of graphs based on interaction tables.
 #
 # data: preprocessed data.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-extract.static.graphs.window <- function(data, panel.params, page.params)
+extract.static.graphs.window <- function(data, char.det=NA, panel.params, page.params)
 {	tlog(1,"Extracting static graphs")
 	
 	# retrieve data
@@ -240,6 +243,7 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 			extract.static.graph.panel.window(
 				inter.df=inter.df, 
 				char.stats=char.stats, 
+				char.det=char.det, 
 				window.size=panel.window.size, overlap=panel.overlap)
 		}
 	}#)
@@ -260,6 +264,7 @@ extract.static.graphs.window <- function(data, panel.params, page.params)
 				inter.df=inter.df, 
 				char.stats=char.stats, 
 				page.stats=page.stats, 
+				char.det=char.det,
 				window.size=page.window.size, overlap=page.overlap)
 		}
 	}#)

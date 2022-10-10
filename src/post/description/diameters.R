@@ -70,7 +70,7 @@ highlight.paths <- function(g, paths)
 
 ###############################################################################
 # read the graph
-graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 
 # compute graphical parameters
@@ -126,7 +126,7 @@ for(pp in 1:length(diam.paths))
 		if(p==-1)
 		{	tlog(4,"Plotting all diameters on the same graph")
 			paths <- unlist(diam.paths, recursive=FALSE)
-			plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold="diameters", pref="graph", suf="all_diameters")
+			plot.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=TRUE, subfold="diameters", pref="graph", suf="all_diameters")
 			tlog(6,"Producing file ",plot.file)
 			
 		}
@@ -134,7 +134,7 @@ for(pp in 1:length(diam.paths))
 		else if(p==0)
 		{	tlog(4,"Plotting all diameter variants at once")
 			paths <- diam.paths[[pp]]
-			plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp))
+			plot.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp))
 			tlog(6,"Producing file ",plot.file)
 		}
 		# draw each diameter variant separately
@@ -142,7 +142,7 @@ for(pp in 1:length(diam.paths))
 		{	tlog(4,"Plotting diameter variant ",p,"/",length(diam.paths[[pp]]))
 			if(p==1 || !all(diam.paths[[pp]][[p]]==diam.paths[[pp]][[p-1]]))
 			{	paths <- diam.paths[[pp]][[p]]
-				plot.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp,"_",q))
+				plot.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=TRUE, subfold=file.path("diameters",paste0("nodepair_",pp)), pref="graph", suf=paste0("diameter_",pp,"_",q))
 				tlog(6,"Producing file ",plot.file)
 				q <- q + 1
 			}

@@ -21,7 +21,7 @@ tlog(0,"Load data and network")
 data <- read.corpus.data()
 
 # read the graph
-graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 kept <- which(V(g)$Filter=="Keep")
 

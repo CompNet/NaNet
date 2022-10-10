@@ -25,7 +25,7 @@ tlog(0,"Extract two distinct networks from the narrative")
 data <- read.corpus.data()
 
 # load full graph
-graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 g <- read.graphml.file(file=graph.file)
 # get filtered characters
 filt.names <- V(g)$name[V(g)$Filter=="Discard"]
@@ -88,7 +88,7 @@ for(i in 1:length(gs))
 	ecols <- sapply(1:length(ecols), function(i) make.color.transparent(ecols[i],100-100*lame.normalize(nww[i],exp=3)))
 	
 	# plot whole unfiltered graph
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", suf=paste0("_part_",i))
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", suf=paste0("_part_",i))
 	tlog(6,"Plotting the whole unfiltered graph in file ",graph.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -116,7 +116,7 @@ for(i in 1:length(gs))
 	idx.efiltr <- which(el[,1] %in% idx.keep & el[,2] %in% idx.keep)
 	
 	# plot whole filtered graph
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph", suf=paste0("_part_",i))
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=TRUE, pref="graph", suf=paste0("_part_",i))
 	tlog(6,"Plotting the whole filtered graph in file ",graph.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)

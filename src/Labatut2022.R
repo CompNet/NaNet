@@ -59,7 +59,7 @@ plot.static.graphs(data)
 
 ###############################################################################
 # compute scene-based graph stats
-compute.static.statistics.base(data)
+compute.static.statistics.base(data, char.det="implicit")
 
 # plot these stats
 generate.static.plots.base(data)

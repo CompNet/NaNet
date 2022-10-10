@@ -453,6 +453,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # Computes all rank correlation measures for the specified static graph.
 #
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -461,8 +462,8 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether to use the filter version of the graph.
 ###############################################################################
-compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
-{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
+compute.all.static.corrs <- function(mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
+{	graph.file <- get.path.data.graph(mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all rank correlation measures for \"",graph.file,"\"")
 	
 #	# read the graph file
@@ -492,10 +493,11 @@ compute.all.static.corrs <- function(mode, window.size=NA, overlap=NA, weights=N
 # Main function for the computation of statistics describing static graphs.
 # The graphs must have been previously extracted.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-compute.static.statistics.window <- function(panel.params, page.params)
+compute.static.statistics.window <- function(char.det=NA, panel.params, page.params)
 {	tlog(1,"Computing statistics for window-based static graphs")
 	
 	# retrieve parameters
@@ -512,7 +514,7 @@ compute.static.statistics.window <- function(panel.params, page.params)
 		for(overlap in panel.overlaps[[i]])
 		{	for(weights in c("none","occurrences"))
 			{	for(filtered in c(FALSE,TRUE))
-					compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+					compute.static.all.statistics(mode="panel.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
 			}
 		}
 	}#)
@@ -525,7 +527,7 @@ compute.static.statistics.window <- function(panel.params, page.params)
 		for(overlap in page.overlaps[[i]])
 		{	for(weights in c("none","occurrences"))
 			{	for(filtered in c(FALSE,TRUE))
-					compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
+					compute.static.all.statistics(mode="page.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=FALSE)
 			}
 		}
 	}#)
@@ -541,10 +543,11 @@ compute.static.statistics.window <- function(panel.params, page.params)
 # beforehand.
 #
 # data: preprocessed data.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-compute.static.statistics.comparison <- function(data, panel.params, page.params)
+compute.static.statistics.comparison <- function(data, char.det=NA, panel.params, page.params)
 {	tlog(1,"Computing comparisons for static graphs")
 	
 	# retrieve parameters
@@ -561,22 +564,22 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 		
 		# comparison for the scene-based graphs
 		for(weights in c("none","occurrences","duration"))
-		{	compute.static.all.statistics(mode="scenes", weights=weights, filtered=filtered, compare=TRUE)
-			compute.all.static.corrs(mode="scenes", weights=weights, filtered=filtered)
+		{	compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, filtered=filtered, compare=TRUE)
+			compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, filtered=filtered)
 		}
 		
 		# correlations only for each narrative arc
 		arc.nbr <- nrow(data$arc.stats)
 		for(arc in 1:arc.nbr)
 		{	for(weights in c("none","occurrences","duration"))
-				compute.all.static.corrs(mode="scenes", weights=weights, arc=arc, filtered=filtered)
+				compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, arc=arc, filtered=filtered)
 		}
 		# correlations only for each volume
 		volume.nbr <- nrow(data$volume.stats)
 		for(v in 1:volume.nbr)
 		{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
 			for(weights in c("none","occurrences","duration"))
-				compute.all.static.corrs(mode="scenes", weights=weights, vol=vol, filtered=filtered)
+				compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, vol=vol, filtered=filtered)
 		}
 	}
 			
@@ -593,8 +596,8 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 			for(i in 1:length(panel.window.sizes))
 			{	window.size <- panel.window.sizes[i]
 				for(overlap in panel.overlaps[[i]])
-				{	compute.static.all.statistics(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
-					compute.all.static.corrs(mode="panel.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+				{	compute.static.all.statistics(mode="panel.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+					compute.all.static.corrs(mode="panel.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 				}
 			}#)
 			
@@ -603,8 +606,8 @@ compute.static.statistics.comparison <- function(data, panel.params, page.params
 			for(i in 1:length(page.window.sizes))
 			{	window.size <- page.window.sizes[i]
 				for(overlap in page.overlaps[[i]])
-				{	compute.static.all.statistics(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
-					compute.all.static.corrs(mode="page.window", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+				{	compute.static.all.statistics(mode="page.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+					compute.all.static.corrs(mode="page.window", char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 				}
 			}#)
 		}

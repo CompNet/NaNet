@@ -46,9 +46,10 @@ for(filtered in c(FALSE,TRUE))
 				scene.chars=scene.chars, scene.stats=scene.stats, 
 				volume.stats=volume.stats, 
 				filtered=filtered, 
-				pub.order=pub.order
+				pub.order=pub.order,
+				char.det="implicit"
 		)
-		ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order)
+		ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det="implicit")
 	}
 }
 
@@ -57,7 +58,7 @@ filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # read the graph
-graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 tlog(2,"Reading file \"",graph.file,"\"")
 g <- read.graphml.file(file=graph.file)
 kept <- which(V(g)$Filter=="Keep")
@@ -101,8 +102,8 @@ for(narr.smooth in c(FALSE,TRUE))
 			w.name <- "none"
 			if(narr.smooth)
 			{	net.type <- "narr_smooth"
-				gs[["unfiltered"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order)
-				gs[["filtered"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order)
+				gs[["unfiltered"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit")
+				gs[["filtered"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit")
 				if(weighted)
 					w.name <- "normalized"
 			}

@@ -189,7 +189,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	print(ttt)
 	tlog(4,"Interactions: number of characters the character of interest interacts with through the whole series (i.e. its degree in the graph)")
 	tlog(4,"Occurrences: number of scenes in which the character of interest appears through the whole series (i.e. its frequency)")
-	file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="filtering_criteria", ext=".csv")
+	file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="filtering_criteria", ext=".csv")
 	write.csv(x=ttt, file=file, fileEncoding="UTF-8", row.names=TRUE)
 	
 	# filtering by freq and occ
@@ -206,7 +206,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	g.cmp <- tmp$comp
 	
 	# write graph to file
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=TRUE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=TRUE, pref="graph", ext=".graphml")
 	tlog(4,"Recording filtered graph in \"",graph.file,"\"")
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	
@@ -214,7 +214,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	V(g)$Filter <- rep("Discard",gorder(g))
 	V(g)$Filter[idx.cmp] <- "Keep"
 	# record graph file
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(4,"Updating unfiltered graph file with new \"Filtered\" vertex attribute: \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
@@ -281,7 +281,7 @@ extract.static.graphs.base <- function(data)
 		volume.stats=volume.stats
 	)
 	# record to file
-	graph.file <- get.path.data.graph(mode="scenes", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	tlog(2,"Record to file \"",graph.file,"\"")
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
@@ -311,7 +311,7 @@ extract.static.graphs.base <- function(data)
 			arc=a
 		)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=a,  filtered=FALSE, pref="graph", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", arc=a,  filtered=FALSE, pref="graph", ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
@@ -319,7 +319,7 @@ extract.static.graphs.base <- function(data)
 		idx.remove <- which(V(g)$Filter=="Discard" | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", arc=a, filtered=TRUE, pref="graph", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", arc=a, filtered=TRUE, pref="graph", ext=".graphml")
 		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}
@@ -339,7 +339,7 @@ extract.static.graphs.base <- function(data)
 			vol=v
 		)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=FALSE, pref="graph", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", vol=vname, filtered=FALSE, pref="graph", ext=".graphml")
 		tlog(2,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g, file=graph.file, format="graphml")
 		
@@ -347,7 +347,7 @@ extract.static.graphs.base <- function(data)
 		idx.remove <- which(V(g)$Filter=="Discard" | degree(g)==0)
 		g.filtr <- delete_vertices(graph=g, v=idx.remove)
 		# record to file
-		graph.file <- get.path.data.graph(mode="scenes", net.type="static", vol=vname, filtered=TRUE, pref="graph", ext=".graphml")
+		graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", vol=vname, filtered=TRUE, pref="graph", ext=".graphml")
 		tlog(3,"Record to file \"",graph.file,"\"")
 		write_graph(graph=g.filtr, file=graph.file, format="graphml")
 	}

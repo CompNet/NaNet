@@ -393,6 +393,7 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 # Computes all preselected topological measures for the specified static graph.
 #
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit").
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -402,8 +403,8 @@ compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA,
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-compute.static.all.statistics <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, compare=FALSE)
-{	graph.file <- get.path.data.graph(mode=mode, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
+compute.static.all.statistics <- function(mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE, compare=FALSE)
+{	graph.file <- get.path.data.graph(mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, arc=arc, vol=vol, filtered=filtered, pref="graph", ext=".graphml")
 	tlog(3,"Computing all topological measures for \"",graph.file,"\"")
 	
 	# read the graph file
@@ -443,14 +444,15 @@ compute.static.all.statistics <- function(mode, window.size=NA, overlap=NA, weig
 # The graphs must have been previously extracted.
 #
 # data: preprocessed data.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 ###############################################################################
-compute.static.statistics.base <- function(data)
+compute.static.statistics.base <- function(data, char.det=NA)
 {	tlog(1,"Computing statistics for scene-based static graphs")
 	
 	# statistics for the scene-based graph
 	for(weights in c("none","occurrences","duration"))
 	{	for(filtered in c(FALSE,TRUE))
-			compute.static.all.statistics(mode="scenes", weights=weights, filtered=filtered, compare=FALSE)
+			compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, filtered=filtered, compare=FALSE)
 	}
 	
 	# same for each narrative arc
@@ -458,7 +460,7 @@ compute.static.statistics.base <- function(data)
 	for(arc in 1:arc.nbr)
 	{	for(weights in c("none","occurrences"))
 		{	for(filtered in c(FALSE,TRUE))
-				compute.static.all.statistics(mode="scenes", weights=weights, arc=arc, filtered=filtered, compare=FALSE)
+				compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, arc=arc, filtered=filtered, compare=FALSE)
 		}
 	}
 	
@@ -468,7 +470,7 @@ compute.static.statistics.base <- function(data)
 	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
 		for(weights in c("none","occurrences"))
 		{	for(filtered in c(FALSE,TRUE))
-				compute.static.all.statistics(mode="scenes", weights=weights, vol=vol, filtered=filtered, compare=FALSE)
+				compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, vol=vol, filtered=filtered, compare=FALSE)
 		}
 	}
 	

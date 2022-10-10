@@ -97,14 +97,14 @@ data <- read.corpus.data()
 #data <- extract.static.graphs.base(data)
 
 # plot these graphs
-#plot.static.graphs(data)
+plot.static.graphs(data)
 
 
 
 
 ###############################################################################
 # compute scene-based graph stats
-#compute.static.statistics.base(data)
+#compute.static.statistics.base(data, char.det="implicit")
 
 # plot these stats
 #generate.static.plots.base(data)
@@ -114,23 +114,23 @@ data <- read.corpus.data()
 
 ###############################################################################
 # extract static panel- and page-based networks
-#extract.static.graphs.window(data, panel.params, page.params)
+#extract.static.graphs.window(data, char.det="implicit", panel.params, page.params)
 
 # compute their stats
-#compute.static.statistics.window(panel.params, page.params)
+#compute.static.statistics.window(char.det="implicit", panel.params, page.params)
 
 # plot these stats
-generate.static.plots.window(panel.params, page.params)
+#generate.static.plots.window(panel.params, page.params)
 
 
 
 
 ###############################################################################
 # compute comparison stats
-compute.static.statistics.comparison(data, panel.params, page.params)
+#compute.static.statistics.comparison(data, char.det="implicit", panel.params, page.params)
 
 # plot these stats
-generate.static.plots.comparison(data, panel.params, page.params)
+#generate.static.plots.comparison(data, panel.params, page.params)
 
 
 

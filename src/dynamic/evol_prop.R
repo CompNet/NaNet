@@ -54,7 +54,7 @@ if(pub.order)	# by publication order
 # load the dynamic graph
 tlog(0, "Loading the dynamic graph as a sequence of static graphs")
 
-gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order)
+gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit")
 	
 sc.nbr <- length(gg)
 char.names <- data$char.stats[,COL_NAME]
