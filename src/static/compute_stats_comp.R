@@ -13,6 +13,7 @@
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -22,10 +23,10 @@
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=NA)
+compute.static.nodecomp.statistics <- function(g, mode, char.det=char.det, window.size=NA, overlap=NA, weights=NA, filtered=NA)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	object <- "nodecomp"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing nodal comparison measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -213,6 +214,7 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -221,10 +223,10 @@ compute.static.nodecomp.statistics <- function(g, mode, window.size=NA, overlap=
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, filtered=NA)
+compute.static.graphcomp.statistics <- function(g, mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, filtered=NA)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	object <- "graphcomp"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing graph comparison measures")
 	
 	if(!is.na(weights))
@@ -294,6 +296,7 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 # for the specified static graph.
 #
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -306,9 +309,9 @@ compute.static.graphcomp.statistics <- function(g, mode, window.size=NA, overlap
 #		   and the columns correspond to Spearman's correlation and the associated p-value,
 #          relatively to the duration and occurrences scene-based networks.
 ###############################################################################
-compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
+compute.static.correlations <- function(mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=NA)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=TRUE)
+	table.file <- get.path.stat.table(object="correlation", mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=TRUE)
 	tlog(4,"Computing rank correlation measures for \"",table.file,"\"")
 	
 	# select measures
@@ -363,7 +366,7 @@ compute.static.correlations <- function(mode, window.size=NA, overlap=NA, weight
 				object <- "links"
 			
 			# retrieve tested values
-			tab.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+			tab.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 			tmp.tab <- as.matrix(read.csv(tab.file, header=TRUE, check.names=FALSE, row.names=1))
 			vals.cur <- tmp.tab[,meas.name]
 			
@@ -481,7 +484,7 @@ compute.all.static.corrs <- function(mode, char.det=NA, window.size=NA, overlap=
 	cache <<- list()
 	
 	# compute its stats
-	compute.static.correlations(mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	compute.static.correlations(mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	
 	tlog(3,"Computation of all rank correlation measures complete")
 }

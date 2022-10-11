@@ -14,6 +14,7 @@
 # Loads a series corresponding to the specified parameters.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # weights: either "occurrences" or "duration".
@@ -23,12 +24,12 @@
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.window <- function(mode, window.size, overlaps, weights, filtered, measure, compare)
+load.static.graph.stats.by.window <- function(mode, char.det=NA, window.size, overlaps, weights, filtered, measure, compare)
 {	object <- ALL_MEASURES[[measure]]$object
 	res <- rep(NA, length(overlaps))
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
+		table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,1]
 	}
@@ -43,6 +44,7 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, weigh
 # Loads a series corresponding to the specified parameters.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # weights: either "occurrences" or "duration".
@@ -52,12 +54,12 @@ load.static.graph.stats.by.window <- function(mode, window.size, overlaps, weigh
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, weights, filtered, measure, compare)
+load.static.graph.stats.by.overlap <- function(mode, char.det=NA, window.sizes, overlap, weights, filtered, measure, compare)
 {	object <- ALL_MEASURES[[measure]]$object
 	res <- rep(NA, length(window.sizes))
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
+		table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[i] <- tmp.tab[measure,1]
 	}
@@ -72,6 +74,7 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, weig
 # Loads a series corresponding to the specified parameters.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # measure: name of the concerned topological measure.
@@ -80,11 +83,11 @@ load.static.graph.stats.by.overlap <- function(mode, window.sizes, overlap, weig
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.corr.by.window <- function(mode, window.size, overlaps, measure, weights, filtered)
+load.static.corr.by.window <- function(mode, char.det=NA, window.size, overlaps, measure, weights, filtered)
 {	res <- c()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+		table.file <- get.path.stat.table(object="correlation", mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res <- rbind(res, tmp.tab[measure,])
 	}
@@ -99,6 +102,7 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 # Loads a series corresponding to the specified parameters.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # measure: name of the concerned topological measure.
@@ -107,11 +111,11 @@ load.static.corr.by.window <- function(mode, window.size, overlaps, measure, wei
 #
 # returns: a vector of values representing the desired series.
 ###############################################################################
-load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, weights, filtered)
+load.static.corr.by.overlap <- function(mode, char.det=NA, window.sizes, overlap, measure, weights, filtered)
 {	res <- c()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object="correlation", mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
+		table.file <- get.path.stat.table(object="correlation", mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=TRUE)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res <- rbind(res, tmp.tab[measure,])
 	}
@@ -134,7 +138,7 @@ load.static.corr.by.overlap <- function(mode, window.sizes, overlap, measure, we
 # returns: a vector of values representing the desired series.
 ###############################################################################
 load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
-{	table.file <- get.path.stat.table(object="correlation", mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=TRUE)
+{	table.file <- get.path.stat.table(object="correlation", mode="scenes", char.det="implicit", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=TRUE)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,]
 	return(res)
@@ -148,6 +152,7 @@ load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
 # varying overlap.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.size: fixed value for this parameter.
 # overlaps: vector of values for this parameter.
 # weights: either "occurrences" or "duration".
@@ -158,12 +163,12 @@ load.static.corr.scenes <- function(weights, measure, arc=NA, vol=NA, filtered)
 # returns: a list of vectors, each one representing the link/node values for
 #          one parameter set.
 ###############################################################################
-load.static.nodelink.stats.by.window <- function(mode, window.size, overlaps, weights, filtered, measure, compare)
+load.static.nodelink.stats.by.window <- function(mode, char.det=NA, window.size, overlaps, weights, filtered, measure, compare)
 {	object <- ALL_MEASURES[[measure]]$object
 	res <- list()
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
-		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
+		table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
 		tlog(6,"Loading file \"",table.file,"\" (",j,"/",length(overlaps),")")
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
@@ -181,6 +186,7 @@ load.static.nodelink.stats.by.window <- function(mode, window.size, overlaps, we
 # fixed overlap.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlap: fixed value for this parameter.
 # weights: either "occurrences" or "duration".
@@ -191,12 +197,12 @@ load.static.nodelink.stats.by.window <- function(mode, window.size, overlaps, we
 # returns: a list of vectors, each one representing the link/node values for
 #          one parameter set.
 ###############################################################################
-load.static.nodelink.stats.by.overlap <- function(mode, window.sizes, overlap, weights, filtered, measure, compare)
+load.static.nodelink.stats.by.overlap <- function(mode, char.det=NA, window.sizes, overlap, weights, filtered, measure, compare)
 {	object <- ALL_MEASURES[[measure]]$object
 	res <- list()
 	for(i in 1:length(window.sizes))
 	{	window.size <- window.sizes[i]
-		table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
+		table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		values <- tmp.tab[,measure]
 		res[[i]] <- values
@@ -212,6 +218,7 @@ load.static.nodelink.stats.by.overlap <- function(mode, window.sizes, overlap, w
 # Generates the plots containing a single series as boxplots or violin plots.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -219,7 +226,7 @@ load.static.nodelink.stats.by.overlap <- function(mode, window.sizes, overlap, w
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, filtered, compare)
+generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overlaps, weights, filtered, compare)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	
 	# setup measure name lists
@@ -279,7 +286,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
 			tlog(5,"Dealing with window.size=",window.size)
-			values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
+			values <- load.static.nodelink.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -375,7 +382,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 			
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			values <- load.static.nodelink.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
+			values <- load.static.nodelink.stats.by.overlap(mode=mode, char.det=char.det, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
 			
@@ -469,6 +476,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 # Generates the plots containing several series at once, as lines.
 # 
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -476,7 +484,7 @@ generate.static.plots.single <- function(mode, window.sizes, overlaps, weights, 
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights, filtered, compare)
+generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, overlaps, weights, filtered, compare)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	
 	# setup measure name lists
@@ -538,7 +546,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
-			data[[i]] <- load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
+			data[[i]] <- load.static.graph.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			data[[i]][is.infinite(data[[i]])] <- NA
 		}
 		# generate a plot containing each window size value as a series
@@ -626,7 +634,7 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 		{	# the series corresponds to the values of the window sizes
 			overlap <- common.overlaps[i]
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
-			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
+			data[[i]] <- load.static.graph.stats.by.overlap(mode=mode, char.det=char.det, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			data[[i]][is.infinite(data[[i]])] <- NA
 			axis[[i]] <- window.sizes[idx]
 		}
@@ -717,13 +725,14 @@ generate.static.plots.multiple <- function(mode, window.sizes, overlaps, weights
 # correlation values.
 # 
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, filtered)
+generate.static.plots.corr <- function(mode, char.det=NA, window.sizes, overlaps, weights, filtered)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	
 	# setup measure name lists
@@ -782,7 +791,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			for(i in 1:length(window.sizes))
 			{	# the series corresponds to the values of the overlap
 				window.size <- window.sizes[i]
-				tmp <- load.static.corr.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt)
+				tmp <- load.static.corr.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt)
 				data[[i]] <- tmp[,colus[w]]
 			}
 			
@@ -854,7 +863,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 			{	# the series corresponds to the values of the window sizes
 				overlap <- common.overlaps[i]
 				idx <- sapply(overlaps, function(vect) overlap %in% vect)
-				tmp <- load.static.corr.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt)
+				tmp <- load.static.corr.by.overlap(mode=mode, char.det=char.det, window.sizes=window.sizes[idx], overlap=overlap, measure=meas.name, weights=weights, filtered=filt.txt)
 				data[[i]] <- tmp[,colus[w]]
 				axis[[i]] <- window.sizes[idx]
 			}
@@ -927,6 +936,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 # the ranking difference with the reference measure, and the result appears as the bar heights.
 # 
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -934,7 +944,7 @@ generate.static.plots.corr <- function(mode, window.sizes, overlaps, weights, fi
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 #############################################################################################
-generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, filtered, compare)
+generate.static.plots.ranks <- function(mode, char.det=NA, window.sizes, overlaps, weights, filtered, compare)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	
 	# setup measure name lists
@@ -996,7 +1006,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 			# loop over window size values
 			for(i in 1:length(window.sizes))
 			{	window.size <- window.sizes[i]
-				lst.values <- load.static.nodelink.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=FALSE)
+				lst.values <- load.static.nodelink.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=FALSE)
 				
 				# loop over each corresponding overlap value
 				for(j in 1:length(overlaps[[i]]))
@@ -1043,6 +1053,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 # Computes the TP/FP/FN graph comparison measures for the specified static graph.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -1050,7 +1061,7 @@ generate.static.plots.ranks <- function(mode, window.sizes, overlaps, weights, f
 # filtered: whether to consider the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 ###############################################################################
-generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weights, filtered, compare)
+generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overlaps=NA, weights, filtered, compare)
 {	if(compare)
 	{	filt.txt <- if(filtered) "filtered" else "unfiltered"
 		sfx.filt <- if(filtered) SFX_FILTERED else ""
@@ -1122,7 +1133,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 				tlog(5,"Dealing with window.size=",window.size)
 				
 				# load values for estimations
-				tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.window(mode=mode, window.size=window.size, overlaps=overlaps[[i]], measure=ms[m,j], weights=weights, filtered=filt.txt, compare=compare))
+				tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=ms[m,j], weights=weights, filtered=filt.txt, compare=compare))
 				if(length(overlaps[[i]])>1)
 					tmp <- t(tmp)
 				data <- cbind(data0, tmp)
@@ -1170,7 +1181,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 				
 				# the series corresponds to the values of the window sizes
 				idx <- sapply(overlaps, function(vect) overlap %in% vect)
-				tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.overlap(mode=mode, window.sizes=window.sizes[idx], overlap=overlap, measure=ms[m,j], weights=weights, filtered=filt.txt, compare=compare))
+				tmp <- sapply(1:ncol(ms), function(j) load.static.graph.stats.by.overlap(mode=mode, char.det=char.det, window.sizes=window.sizes[idx], overlap=overlap, measure=ms[m,j], weights=weights, filtered=filt.txt, compare=compare))
 				if(length(window.sizes[idx])>1)
 					tmp <- t(tmp)
 				data <- cbind(data0, tmp)
@@ -1222,6 +1233,7 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 # Generates the plots related to the statistics of static graphs.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # window.sizes: vector of values for this parameter.
 # overlaps: list of vectors of values for this parameter. Each vector matches a
 #           value of window.size.
@@ -1229,21 +1241,21 @@ generate.static.plots.tfpn <- function(mode, window.sizes=NA, overlaps=NA, weigh
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-generate.static.plots.all <- function(mode, window.sizes, overlaps, compare)
+generate.static.plots.all <- function(mode, char.det=NA, window.sizes, overlaps, compare)
 {	
 	for(weights in c("none","occurrences"))
 	{	for(filtered in c(FALSE,TRUE))
 		{	tlog(3,"Generating single plots for mode=",mode," weights=",weights," filtered=",filtered)
-			generate.static.plots.single(mode=mode, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
+			generate.static.plots.single(mode=mode, char.det=char.det, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
 			
 			tlog(3,"Generating multiple plots for mode=",mode," weights=",weights," filtered=",filtered)
-			generate.static.plots.multiple(mode=mode, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
+			generate.static.plots.multiple(mode=mode, char.det=char.det, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
 			
 			tlog(3,"Generating rank comparison plots for mode=",mode," weights=",weights," filtered=",filtered)
-			generate.static.plots.ranks(mode=mode, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
+			generate.static.plots.ranks(mode=mode, char.det=char.det, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
 			
 			tlog(3,"Generating comparison plots for mode=",mode," weights=",weights," filtered=",filtered)
-			generate.static.plots.tfpn(mode=mode, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
+			generate.static.plots.tfpn(mode=mode, char.det=char.det, window.sizes=window.sizes, overlaps=overlaps, weights=weights, filtered=filtered, compare=compare)
 		}
 	}
 }
@@ -1255,10 +1267,11 @@ generate.static.plots.all <- function(mode, window.sizes, overlaps, compare)
 # Main function for the generation of plots describing static graphs.
 # The statistics must have been previously computed.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-generate.static.plots.window <- function(panel.params, page.params)
+generate.static.plots.window <- function(char.det=char.det, panel.params, page.params)
 {	tlog(1,"Generating plots for window-based static graphs")
 	
 	# retrieve parameters
@@ -1269,11 +1282,11 @@ generate.static.plots.window <- function(panel.params, page.params)
 	
 	# panel-based windows
 	tlog(2,"Generating plots for static graphs with panel-based windows")
-	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps, compare=FALSE)
+	generate.static.plots.all(mode="panel.window", char.det=char.det, window.sizes=panel.window.sizes, overlaps=panel.overlaps, compare=FALSE)
 	
 	# page-based windows
 	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps, compare=FALSE)
+	generate.static.plots.all(mode="page.window", char.det=char.det, window.sizes=page.window.sizes, overlaps=page.overlaps, compare=FALSE)
 	
 	tlog(1,"Generation of plots for window-based static graphs complete")	
 }
@@ -1285,10 +1298,12 @@ generate.static.plots.window <- function(panel.params, page.params)
 # Main function for the generation of plots comparing graphs.
 # The statistics must have been previously computed.
 #
+# data: list of previously computed tables.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-generate.static.plots.comparison <- function(data, panel.params, page.params)
+generate.static.plots.comparison <- function(data, char.det=char.det, panel.params, page.params)
 {	tlog(1,"Generating plots for the comparison of static graphs")
 	
 	# retrieve parameters
@@ -1299,23 +1314,23 @@ generate.static.plots.comparison <- function(data, panel.params, page.params)
 	
 	# panel-based windows
 	tlog(3,"Generating plots for static graphs with panel-based windows")
-	generate.static.plots.all(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps, compare=TRUE)
+	generate.static.plots.all(mode="panel.window", char.det=char.det, window.sizes=panel.window.sizes, overlaps=panel.overlaps, compare=TRUE)
 	tlog(3,"Generating correlation plots for static graphs with panel-based windows")
 	for(filtered in c(FALSE,TRUE))
 	{	for(weights in c("none","occurrences"))
 		{	tlog(2,"Processing filtered=",filtered," weights=",weights)
-			generate.static.plots.corr(mode="panel.window", window.sizes=panel.window.sizes, overlaps=panel.overlaps, weights=weights, filtered=filtered)
+			generate.static.plots.corr(mode="panel.window", char.det=char.det, window.sizes=panel.window.sizes, overlaps=panel.overlaps, weights=weights, filtered=filtered)
 		}
 	}
 	
 	# page-based windows
 	tlog(2,"Generating plots for static graphs with page-based windows")
-	generate.static.plots.all(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps, compare=TRUE)
+	generate.static.plots.all(mode="page.window", char.det=char.det, window.sizes=page.window.sizes, overlaps=page.overlaps, compare=TRUE)
 	tlog(2,"Generating correlation plots for static graphs with page-based windows")
 	for(filtered in c(FALSE,TRUE))
 	{	for(weights in c("none","occurrences"))
 		{	tlog(2,"Processing filtered=",filtered," weights=",weights)
-			generate.static.plots.corr(mode="page.window", window.sizes=page.window.sizes, overlaps=page.overlaps, weights=weights, filtered=filtered)
+			generate.static.plots.corr(mode="page.window", char.det=char.det, window.sizes=page.window.sizes, overlaps=page.overlaps, weights=weights, filtered=filtered)
 		}
 	}
 	

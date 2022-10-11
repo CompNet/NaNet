@@ -24,7 +24,7 @@
 ###############################################################################
 load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=NA, compare=NA)
 {	object <- ALL_MEASURES[[measure]]$object
-	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
+	table.file <- get.path.stat.table(object=object, mode="scenes", char.det="implicit", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 	res <- tmp.tab[measure,1]
 	return(res)
@@ -47,7 +47,7 @@ load.static.graph.stats.scenes <- function(weights, measure, arc=NA, vol=NA, fil
 ###############################################################################
 load.static.nodelink.stats.scenes <- function(weights, measure, arc=NA, vol=NA, filtered=NA, compare=NA)
 {	object <- ALL_MEASURES[[measure]]$object
-	table.file <- get.path.stat.table(object=object, mode="scenes", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
+	table.file <- get.path.stat.table(object=object, mode="scenes", char.det="implicit", net.type="static", weights=weights, arc=arc, vol=vol, filtered=filtered, compare=compare)
 #print(table.file)
 	tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 #print(colnames(tmp.tab))

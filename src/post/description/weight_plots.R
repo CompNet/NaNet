@@ -44,11 +44,11 @@ for(wt in wts)
 	# load precomputed data
 	data <- list()
 	# unfiltered
-	file <- get.path.stat.table(object="links", mode="scenes", net.type="static", weights=wt, filtered="unfiltered", compare=FALSE)
+	file <- get.path.stat.table(object="links", mode="scenes", char.det="implicit", net.type="static", weights=wt, filtered="unfiltered", compare=FALSE)
 	tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 	data[[1]] <- tab[,meas]
 	# filtered
-	file <- get.path.stat.table(object="links", mode="scenes", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
+	file <- get.path.stat.table(object="links", mode="scenes", char.det="implicit", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
 	tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 	data[[2]] <- tab[,meas]
 	names(data) <- c("Unfiltered","Filtered")

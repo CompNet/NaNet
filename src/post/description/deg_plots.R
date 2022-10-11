@@ -65,7 +65,7 @@ for(meas in meass)
 		# load precomputed data
 		data <- list()
 		# unfiltered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="unfiltered", compare=FALSE)
+		file <- get.path.stat.table(object="nodes", mode="scenes", char.det="implicit", net.type="static", weights=wt, filtered="unfiltered", compare=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
@@ -73,7 +73,7 @@ for(meas in meass)
 #		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
-		file <- get.path.stat.table(object="nodes", mode="scenes", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
+		file <- get.path.stat.table(object="nodes", mode="scenes", char.det="implicit", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
 		tab <- as.matrix(read.csv(file, header=TRUE, check.names=FALSE, row.names=1))
 		data[[2]] <- tab[,meas]
 		filt.idx <- data[[2]] > 1

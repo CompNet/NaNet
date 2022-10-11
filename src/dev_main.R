@@ -120,7 +120,7 @@ plot.static.graphs(data)
 #compute.static.statistics.window(char.det="implicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.window(panel.params, page.params)
+#generate.static.plots.window(char.det="implicit", panel.params, page.params)
 
 
 
@@ -130,7 +130,7 @@ plot.static.graphs(data)
 #compute.static.statistics.comparison(data, char.det="implicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.comparison(data, panel.params, page.params)
+#generate.static.plots.comparison(data, char.det="implicit", panel.params, page.params)
 
 
 

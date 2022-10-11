@@ -17,6 +17,7 @@ FORCE <- TRUE
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit").
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -28,10 +29,10 @@ FORCE <- TRUE
 # returns: an nxk table containing all computed values, where n is the number of
 #          nodes and k the number of measures.
 ###############################################################################
-compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+compute.static.node.statistics <- function(g, mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodes"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing nodal topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -115,6 +116,7 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit").
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -126,10 +128,10 @@ compute.static.node.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 # returns: an n(n-1)/2 x k table containing all computed values, where n(n-1)/2 is the 
 # 	       number of pairs of nodes and k the number of measures.
 ###############################################################################
-compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+compute.static.nodepair.statistics <- function(g, mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "nodepairs"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing node-pair topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -217,6 +219,7 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit").
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -228,10 +231,10 @@ compute.static.nodepair.statistics <- function(g, mode, window.size=NA, overlap=
 # returns: an mxk table containing all computed values, where m is the number of
 #          links and k the number of measures.
 ###############################################################################
-compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+compute.static.link.statistics <- function(g, mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "links"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing link topological measures for \"",table.file,"\"")
 	
 	if(!is.na(weights))
@@ -315,6 +318,7 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 #
 # g: graph whose statistics must be computed.
 # mode: either "scenes", "panel.window", or "page.window".
+# char.det: character detection mode ("implicit" or "explicit").
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
@@ -325,10 +329,10 @@ compute.static.link.statistics <- function(g, mode, window.size=NA, overlap=NA, 
 #
 # returns: a kx1 table containing all computed values, where k is the number of measures.
 ###############################################################################
-compute.static.graph.statistics <- function(g, mode, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
+compute.static.graph.statistics <- function(g, mode, char.det=NA, window.size=NA, overlap=NA, weights=NA, arc=NA, vol=NA, filtered=FALSE)
 {	object <- "graph"
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	table.file <- get.path.stat.table(object=object, mode=mode, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
+	table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, compare=FALSE)
 	tlog(4,"Computing graph topological measures")
 	
 	if(!is.na(weights))
@@ -422,15 +426,15 @@ compute.static.all.statistics <- function(mode, char.det=NA, window.size=NA, ove
 	
 	# compute comparison measures
 	if(compare)
-	{	compute.static.nodecomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
-		compute.static.graphcomp.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+	{	compute.static.nodecomp.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
+		compute.static.graphcomp.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, filtered=filtered)
 	}
 	# compute regular topological measures
 	else
-	{	compute.static.node.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
-		compute.static.nodepair.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
-		compute.static.link.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
-		compute.static.graph.statistics(g, mode=mode, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+	{	compute.static.node.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.nodepair.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.link.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
+		compute.static.graph.statistics(g, mode=mode, char.det=char.det, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filtered)
 	}
 	
 	tlog(3,"Computation of all topological measures complete")
