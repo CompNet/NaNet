@@ -93,7 +93,7 @@ compute.static.nodecomp.statistics <- function(g, mode, char.det=char.det, windo
 			subf <- "occ"
 		else if(grepl(SFX_DUR, meas.name, fixed=TRUE))
 			subf <- "dur"
-		plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_histo"))
+		plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_histo"))
 		tlog(7,"Plotting in file '",plot.file,"'")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -179,7 +179,7 @@ compute.static.nodecomp.statistics <- function(g, mode, char.det=char.det, windo
 					subf <- paste0(subf,"_norm")
 				else
 					subf <- paste0(subf,"_raw")
-				plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_NODES, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md2,"_",md1,"_barplot"))
+				plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_TFPN_NODES, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md2,"_",md1,"_barplot"))
 				tlog(7,"Plotting in file '",plot.file,"'")
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)
