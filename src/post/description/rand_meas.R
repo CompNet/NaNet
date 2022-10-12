@@ -32,7 +32,7 @@ start.rec.log(text="RandMeas")
 ###############################################################################
 load.randmeas.stats <- function(filtered=FALSE)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	tab.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
+	tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
 	if(file.exists(tab.file))
 		res <- read.csv(tab.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE, row.names=1)
 	else
@@ -58,7 +58,7 @@ load.randmeas.stats <- function(filtered=FALSE)
 ###############################################################################
 record.randmeas.stats <- function(tab, filtered=FALSE)
 {	filt.txt <- if(filtered) "filtered" else "unfiltered"
-	tab.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
+	tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=NA, filtered=filt.txt, suf="rand.model.stats.csv")
 	write.csv(x=tab, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
 }
 

@@ -100,7 +100,7 @@ for(pub.order in c(FALSE, TRUE))
 		print(summary(fit))
 		
 		# plot distance as a function of graph order
-		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered=filt.txt, suf=paste0("distance-average_vs_nodes_",order.txt))
+		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered=filt.txt, suf=paste0("distance-average_vs_nodes_",order.txt))
 		tlog(2, "Plotting in file ",plot.file)
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -130,7 +130,7 @@ for(pub.order in c(FALSE, TRUE))
 	
 	###############################################################################
 	# same thing, but plots both unfiltered and filtered figures in the same file
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="both", suf=paste0("distance-average_vs_nodes_",order.txt))
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights="none", filtered="both", suf=paste0("distance-average_vs_nodes_",order.txt))
 	tlog(0, "Plotting both unfiltered and filtered results in file ",plot.file)
 	
 	# process all formats

@@ -90,7 +90,7 @@ compute.static.node.statistics <- function(g, mode, char.det=NA, window.size=NA,
 		}
 		
 		# plot
-		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
+		plot.file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -192,7 +192,7 @@ compute.static.nodepair.statistics <- function(g, mode, char.det=NA, window.size
 		
 		# plot
 		if(!all(is.na(values)))
-		{	plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
+		{	plot.file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
 					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
@@ -292,7 +292,7 @@ compute.static.link.statistics <- function(g, mode, char.det=NA, window.size=NA,
 		}
 		
 		# plot
-		plot.file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
+		plot.file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
 				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")

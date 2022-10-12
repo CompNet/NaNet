@@ -114,7 +114,7 @@ for(centr.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
-		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("occ_",occ.name,"_vs_",centr.name))
+		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("occ_",occ.name,"_vs_",centr.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(
