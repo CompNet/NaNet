@@ -37,7 +37,7 @@ laws["Filtered-strength-duration"] <- "truncated"
 tlog(0,"Producing degree & strength distribution plots")
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # get filtered characters
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
@@ -48,7 +48,7 @@ meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load numbers of occurrences of characters
-file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
+file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats.csv")
 sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
 
 # process each measure

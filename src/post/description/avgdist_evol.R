@@ -32,7 +32,7 @@ for(pub.order in c(FALSE, TRUE))
 	
 	# load corpus stats
 	tlog(0, "Read corpus stats")
-	data <- read.corpus.data()
+	data <- read.corpus.data(char.det="implicit")
 	
 	# get filtered characters
 	filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]

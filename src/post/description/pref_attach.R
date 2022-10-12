@@ -57,14 +57,14 @@ tlog(0,"Starting to produce the preferential attachment plots")
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # get filtered characters
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs.unf <- extract.static.graph.scenes(
 	inter.df=data$inter.df,

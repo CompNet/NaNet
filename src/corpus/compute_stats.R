@@ -11,13 +11,18 @@
 ###############################################################################
 # Computes some additional statistics regarding the panels.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.stats: table describing all the panels constituting the series.
 # panel.chars: list of characters involved in each panel.
 # char.stats: table describing all the characters.
+# volume.stats: table describing all the volumes constituting the series.
+# cur.vol: NA (regular mode) or id of the volume specifically processed.
+# cur.arc: NA (regular mode) or id of the arc specifically processed.
 #
 # returns: a list of tables.
 ###############################################################################
 compute.stats.panel <- function(
+		char.det=NA, 
 		panel.stats, panel.chars, 
 		char.stats, 
 		volume.stats, 
@@ -44,7 +49,7 @@ compute.stats.panel <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_panel_stats")
 		tlog(5,"Writing panel stats \"",file,"\"")
 		write.csv(x=panel.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
@@ -53,7 +58,7 @@ compute.stats.panel <- function(
 			sapply(panel.chars[panel.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_chars")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_panel_chars")
 		tlog(4,"Writing panel chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -93,7 +98,7 @@ compute.stats.panel <- function(
 			panel.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_panel_stats", att=att)
+			file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_panel_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=panel.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
@@ -111,13 +116,18 @@ compute.stats.panel <- function(
 ###############################################################################
 # Computes and records some statistics regarding the pages.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # page.stats: table describing all the pages constituting the series.
 # page.chars: list of characters involved in each page.
 # char.stats: table describing all the characters.
+# volume.stats: table describing all the volumes constituting the series.
+# cur.vol: NA (regular mode) or id of the volume specifically processed.
+# cur.arc: NA (regular mode) or id of the arc specifically processed.
 #
 # returns: a list of tables.
 ###############################################################################
 compute.stats.page <- function(
+		char.det=NA, 
 		page.stats, page.chars, 
 		char.stats, 
 		volume.stats, 
@@ -144,7 +154,7 @@ compute.stats.page <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_page_stats")
 		tlog(5,"Writing page stats \"",file,"\"")
 		write.csv(x=page.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
@@ -153,7 +163,7 @@ compute.stats.page <- function(
 			sapply(page.chars[page.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_chars")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_page_chars")
 		tlog(4,"Writing page chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -192,7 +202,7 @@ compute.stats.page <- function(
 			page.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_page_stats", att=att)
+			file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_page_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=page.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
@@ -210,13 +220,18 @@ compute.stats.page <- function(
 ###############################################################################
 # Computes and records some statistics regarding the scenes.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # scene.stats: table describing all the scene constituting the series.
 # scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
+# volume.stats: table describing all the volumes constituting the series.
+# cur.vol: NA (regular mode) or id of the volume specifically processed.
+# cur.arc: NA (regular mode) or id of the arc specifically processed.
 #
 # returns: a list of tables.
 ###############################################################################
 compute.stats.scene <- function(
+		char.det=NA, 
 		scene.stats, scene.chars, 
 		char.stats, 
 		volume.stats, 
@@ -243,7 +258,7 @@ compute.stats.scene <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_scene_stats")
 		tlog(5,"Writing scene stats \"",file,"\"")
 		write.csv(x=scene.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 		# record chars
@@ -252,7 +267,7 @@ compute.stats.scene <- function(
 			sapply(scene.chars[scene.idx], function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
-		file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_chars")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_scene_chars")
 		tlog(4,"Writing scene chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -292,7 +307,7 @@ compute.stats.scene <- function(
 			scene.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stats.corpus(object=object, vol=vname, arc=cur.arc, pref="_scene_stats", att=att)
+			file <- get.path.stats.corpus(object=object, char.det=char.det, vol=vname, arc=cur.arc, pref="_scene_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=scene.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
@@ -310,13 +325,23 @@ compute.stats.scene <- function(
 ###############################################################################
 # Plots the character statistics.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
+# panel.stats: table describing all the panels constituting the series.
+# panel.chars: list of characters involved in each panel.
+# page.stats: table describing all the pages constituting the series.
+# page.chars: list of characters involved in each page.
+# scene.stats: table describing all the scene constituting the series.
+# scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
 # volume.stats: table describing the series volumes.
+# volume.chars: list of characters involved in each volume.
 # cur.vol: NA (regular mode) or id of the volume specifically processed.
 # cur.arc: NA (regular mode) or id of the arc specifically processed.
-# filtered: whether to consider all characters (FALSE) or only the important ones (TRUE).
+#
+# returns: a list of tables.
 ###############################################################################
 compute.stats.char <- function(
+		char.det=NA, 
 		panel.stats, panel.chars, 
 		page.stats, page.chars, 
 		scene.stats, scene.chars, 
@@ -358,7 +383,7 @@ compute.stats.char <- function(
 	}
 	if(!is.na(cur.vol || !is.na(cur.arc)))
 	{	# record stats
-		file <- get.path.stats.corpus(object=object, subfold="unfiltered", vol=vname, arc=cur.arc, pref="_char_stats")
+		file <- get.path.stats.corpus(char.det=char.det, object=object, subfold="unfiltered", vol=vname, arc=cur.arc, pref="_char_stats")
 		tlog(5,"Writing char stats \"",file,"\"")
 		write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
@@ -388,6 +413,13 @@ compute.stats.char <- function(
 ###############################################################################
 # Computes and records some statistics regarding the volumes.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
+# panel.stats: table describing all the panels constituting the series.
+# panel.chars: list of characters involved in each panel.
+# page.stats: table describing all the pages constituting the series.
+# page.chars: list of characters involved in each page.
+# scene.stats: table describing all the scene constituting the series.
+# scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
 # volume.stats: table describing the series volumes.
 # volume.chars: list of characters involved in each volume.
@@ -395,6 +427,7 @@ compute.stats.char <- function(
 # returns: a list of tables.
 ###############################################################################
 compute.stats.volume <- function(
+		char.det=NA, 
 		panel.stats, panel.chars, 
 		page.stats, page.chars, 
 		scene.stats, scene.chars, 
@@ -434,25 +467,25 @@ compute.stats.volume <- function(
 	{	tlog(5,"Computing volume ",v,"/",volume.nbr)
 		
 		# panels
-		tmp <- compute.stats.panel(panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		tmp <- compute.stats.panel(char.det=char.det, panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
 		vol.panel.stats <- tmp$panel.stats
 		vol.panel.stats.atts <- tmp$panel.stats.atts
 		vol.panel.chars <- tmp$panel.chars
 			
 		# pages
-		tmp <- compute.stats.page(page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		tmp <- compute.stats.page(char.det=char.det, page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
 		vol.page.stats <- tmp$page.stats
 		vol.page.stats.atts <- tmp$page.stats.atts
 		vol.page.chars <- tmp$page.chars
 		
 		# scenes
-		tmp <- compute.stats.scene(scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
+		tmp <- compute.stats.scene(char.det=char.det, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.vol=v)
 		vol.scene.stats <- tmp$scene.stats
 		vol.scene.stats.atts <- tmp$scene.stats.atts
 		vol.scene.chars <- tmp$scene.chars
 		
 		# character
-		tmp <- compute.stats.char(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.vol=v)
+		tmp <- compute.stats.char(char.det=char.det, panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.vol=v)
 		vol.char.stats <- tmp$char.stats
 		
 		# add to result list
@@ -480,7 +513,7 @@ compute.stats.volume <- function(
 		volume.stats[v,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(vol.char.stats [,COL_SCENES],vol.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
 		
 		# record volume stat table
-		file <- get.path.stats.corpus(object=object, pref="_volume_stats")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, pref="_volume_stats")
 		tlog(4,"Writing volume stats \"",file,"\"")
 		write.csv(x=volume.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
@@ -515,7 +548,7 @@ compute.stats.volume <- function(
 			volume.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stats.corpus(object=object, pref="_volume_stats", att=att)
+			file <- get.path.stats.corpus(object=object, char.det=char.det, pref="_volume_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=volume.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
@@ -533,6 +566,7 @@ compute.stats.volume <- function(
 ###############################################################################
 # Computes and records some statistics regarding the narrative arcs.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.stats: table describing all the panels constituting the series.
 # panel.chars: list of characters involved in each panel.
 # page.stats: table describing all the pages constituting the series.
@@ -541,6 +575,7 @@ compute.stats.volume <- function(
 # scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
 # volume.stats: table describing the series volumes.
+# volume.stats.atts: table describing the series attributes by volume.
 # volume.chars: list of characters involved in each volume.
 # arc.stats: table describing the series narrative arcs.
 # arc.chars: list of characters involved in each arc.
@@ -548,6 +583,7 @@ compute.stats.volume <- function(
 # returns: an updated list of tables.
 ###############################################################################
 compute.stats.arc <- function(
+		char.det=NA, 
 		panel.stats, panel.chars, 
 		page.stats, page.chars, 
 		scene.stats, scene.chars, 
@@ -590,29 +626,29 @@ compute.stats.arc <- function(
 	{	tlog(5,"Computing arc ",a,"/",arc.nbr)
 		
 		# panels
-		tmp <- compute.stats.panel(panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
+		tmp <- compute.stats.panel(char.det=char.det, panel.stats=panel.stats, panel.chars=panel.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
 		arc.panel.stats <- tmp$panel.stats
 		arc.panel.stats.atts <- tmp$panel.stats.atts
 		arc.panel.chars <- tmp$panel.chars
 		
 		# pages
-		tmp <- compute.stats.page(page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
+		tmp <- compute.stats.page(char.det=char.det, page.stats=page.stats, page.chars=page.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
 		arc.page.stats <- tmp$page.stats
 		arc.page.stats.atts <- tmp$page.stats.atts
 		arc.page.chars <- tmp$page.chars
 		
 		# scenes
-		tmp <- compute.stats.scene(scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
+		tmp <- compute.stats.scene(char.det=char.det, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
 		arc.scene.stats <- tmp$scene.stats
 		arc.scene.stats.atts <- tmp$scene.stats.atts
 		arc.scene.chars <- tmp$scene.chars
 		
 		# character
-		tmp <- compute.stats.char(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.arc=a)
+		tmp <- compute.stats.char(char.det=char.det, panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, volume.chars=volume.chars, arc.stats=arc.stats, arc.chars=arc.chars, cur.arc=a)
 		arc.char.stats <- tmp$char.stats
 		
 		# volumes
-#		tmp <- compute.stats.volume(panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
+#		tmp <- compute.stats.volume(char.det=char.det, panel.stats=panel.stats, panel.chars=panel.chars, page.stats=page.stats, page.chars=page.chars, scene.stats=scene.stats, scene.chars=scene.chars, char.stats=char.stats, volume.stats=volume.stats, cur.arc=a)
 #		arc.volume.stats <- tmp$volume.stats
 #		arc.volume.stats.atts <- tmp$volume.stats.atts
 #		arc.volume.chars <- tmp$volume.chars
@@ -653,7 +689,7 @@ compute.stats.arc <- function(
 		arc.stats[a,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(arc.char.stats [,COL_SCENES],arc.char.stats [,COL_PANELS])	# scenes by char vs. panels by char
 		
 		# record arc stat table
-		file <- get.path.stats.corpus(object=object, pref="_arc_stats")
+		file <- get.path.stats.corpus(object=object, char.det=char.det, pref="_arc_stats")
 		tlog(4,"Writing arc stats \"",file,"\"")
 		write.csv(x=arc.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	}
@@ -688,7 +724,7 @@ compute.stats.arc <- function(
 			arc.stats.atts[[att]] <- mat
 			
 			# record matrix
-			file <- get.path.stats.corpus(object=object, pref="_arc_stats", att=att)
+			file <- get.path.stats.corpus(object=object, char.det=char.det, pref="_arc_stats", att=att)
 			tlog(7,"Creating file \"",file,"\"")
 			write.csv(x=arc.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 		}
@@ -706,21 +742,18 @@ compute.stats.arc <- function(
 ###############################################################################
 # Computes and records some statistics regarding the series.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.stats: table describing all the panels constituting the series.
-# panel.chars: list of characters involved in each panel.
 # page.stats: table describing all the pages constituting the series.
-# page.chars: list of characters involved in each page.
 # scene.stats: table describing all the scene constituting the series.
-# scene.chars: list of characters involved in each scene.
 # char.stats: table describing all the characters.
 # volume.stats: table describing the series volumes.
-# volume.chars: list of characters involved in each volume.
 # arc.stats: table describing the series narrative arcs.
-# arc.chars: list of characters involved in each arc.
 #
 # returns: an updated list of tables.
 ###############################################################################
 compute.stats.series <- function(
+		char.det=char.det, 
 		panel.stats,  
 		page.stats,  
 		scene.stats,  
@@ -800,7 +833,7 @@ compute.stats.series <- function(
 	series.stats[1,COL_CORR_SCENES_PANELS_BY_CHAR] <- cor(char.stats[,COL_SCENES],char.stats[,COL_PANELS])
 	
 	# record stats
-	file <- get.path.stats.corpus(pref="_series_stats")
+	file <- get.path.stats.corpus(char.det=char.det, pref="_series_stats")
 	tlog(4,"Recording in ",file)
 	write.csv(x=series.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 	
@@ -831,7 +864,7 @@ compute.stats.series <- function(
 			series.stats.atts[[att]] <- mat
 			
 #			# record matrix
-#			file <- get.path.stats.corpus(pref="_series_stats", att=att)
+#			file <- get.path.stats.corpus(char.det=char.det, pref="_series_stats", att=att)
 #			tlog(7,"Creating file \"",file,"\"")
 #			write.csv(x=series.stats.atts[[att]], file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 # not needed: information already present in the characters folder
@@ -851,10 +884,11 @@ compute.stats.series <- function(
 # Computes and records some statistics regarding the parsed corpus.
 #
 # data: previously read raw data.
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 #
 # returns: same data, completed with stats.
 ###############################################################################
-compute.corpus.stats <- function(data)
+compute.corpus.stats <- function(data, char.det=NA)
 {	tlog(2,"Computing corpus stats")
 	inter.df <- data$inter.df
 	# panels
@@ -877,6 +911,7 @@ compute.corpus.stats <- function(data)
 		
 	# complete panel stats
 	tmp <- compute.stats.panel(
+		char.det=char.det, 
 		panel.stats=panel.stats, panel.chars=panel.chars, 
 		char.stats=char.stats,
 		cur.vol=NA, cur.arc=NA
@@ -885,6 +920,7 @@ compute.corpus.stats <- function(data)
 	
 	# complete page stats
 	tmp <- compute.stats.page(
+		char.det=char.det, 
 		page.stats=page.stats, page.chars=page.chars,
 		char.stats=char.stats,
 		cur.vol=NA, cur.arc=NA
@@ -893,6 +929,7 @@ compute.corpus.stats <- function(data)
 	
 	# complete scene stats
 	tmp <- compute.stats.scene(
+		char.det=char.det, 
 		scene.stats=scene.stats, scene.chars=scene.chars,
 		char.stats=char.stats, 
 		cur.vol=NA, cur.arc=NA
@@ -901,6 +938,7 @@ compute.corpus.stats <- function(data)
 	
 	# complete character stats
 	tmp <- compute.stats.char(
+		char.det=char.det, 
 		panel.stats=panel.stats, panel.chars=panel.chars, 
 		page.stats=page.stats, page.chars=page.chars, 
 		scene.stats=scene.stats, scene.chars=scene.chars, 
@@ -912,6 +950,7 @@ compute.corpus.stats <- function(data)
 	
 	# complete volume stats
 	tmp <- compute.stats.volume(
+		char.det=char.det, 
 		panel.stats=panel.stats, panel.chars=panel.chars, 
 		page.stats=page.stats, page.chars=page.chars, 
 		scene.stats=scene.stats, scene.chars=scene.chars, 
@@ -924,6 +963,7 @@ compute.corpus.stats <- function(data)
 	
 	# complete arc stats
 	tmp <- compute.stats.arc(
+		char.det=char.det, 
 		panel.stats=panel.stats, panel.chars=panel.chars,
 		page.stats=page.stats, page.chars=page.chars,
 		scene.stats=scene.stats, scene.chars=scene.chars,
@@ -937,6 +977,7 @@ compute.corpus.stats <- function(data)
 	
 	# compute series stats
 	tmp <- compute.stats.series(
+		char.det=char.det, 
 		panel.stats=panel.stats, 
 		page.stats=page.stats, 
 		scene.stats=scene.stats, 

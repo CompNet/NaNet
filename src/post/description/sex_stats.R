@@ -18,7 +18,7 @@ start.rec.log(text="SexStats")
 tlog(0,"Load data and network")
 
 # read raw data
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
@@ -54,7 +54,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -75,7 +75,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -96,7 +96,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -293,7 +293,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex","Count","FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -319,7 +319,7 @@ tab <- data.frame(tab)
 tab <- cbind(c("Success","Fail","NA"),tab)
 colnames(tab) <- c("BechdelTest","Count","Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -357,7 +357,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 

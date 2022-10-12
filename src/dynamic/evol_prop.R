@@ -28,7 +28,7 @@ pub.order <- FALSE
 
 ###############################################################################
 # read stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 volume.stats <- data$volume.stats
 
 

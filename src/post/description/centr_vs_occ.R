@@ -19,7 +19,7 @@ start.rec.log(text="CentrVsOcc")
 tlog(0, "Plotting centrality vs. occurrences")
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # plot parameters
 pal <- ATT_COLORS_FILT
@@ -70,9 +70,9 @@ for(centr.name in centr.names)
 		centr.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered", compare=FALSE)
 		
 		# get occurrence values
-		file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats.csv")
 		occ.vals.unf <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
-		file <- get.path.stats.corpus(object="characters", subfold="filtered", pref="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", pref="_char_stats.csv")
 		occ.vals.flt <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
 		
 		#### handle unfiltered data

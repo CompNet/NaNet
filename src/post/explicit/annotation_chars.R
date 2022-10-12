@@ -22,7 +22,7 @@ source("src/common/_include.R")
 ###############################################################################
 init.annotation.file <- function()
 {	# load series data
-	data <- read.corpus.data()
+	data <- read.corpus.data(char.det="implicit")
 	panel.stats <- data$panel.stats
 	panel.chars <- data$panel.chars
 	

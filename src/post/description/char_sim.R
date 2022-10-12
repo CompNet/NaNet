@@ -28,7 +28,7 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 char.stats <- data$char.stats
 scene.stats <- data$scene.stats
 scene.chars <- data$scene.chars

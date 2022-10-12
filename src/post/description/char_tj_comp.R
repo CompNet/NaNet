@@ -32,7 +32,7 @@ tlog(0,"Load data and network")
 
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 char.stats <- data$char.stats
 volume.stats <- data$volume.stats
 volume.chars <- data$volume.chars

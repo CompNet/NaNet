@@ -28,7 +28,7 @@ tlog(0, "Comparison of scene boundaries")
 # when the matching between scenes is good enough (which is the case here). 
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 panel.stats <- data$panel.stats
 
 # read the table from the main corpus

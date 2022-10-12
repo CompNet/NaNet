@@ -81,13 +81,13 @@ start.rec.log(text=SERIES)
 # read raw data
 #data <- read.raw.data()
 # OR, if already computed, read from file
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # compute corpus stats
-#data <- compute.corpus.stats(data)
+#data <- compute.corpus.stats(data, char.det="implicit")
 
 # plot these stats
-#plot.corpus.stats(data)
+#plot.corpus.stats(data, char.det="implicit")
 
 
 

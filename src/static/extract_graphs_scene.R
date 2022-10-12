@@ -228,12 +228,13 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	}
 	data$char.stats <- char.stats
 	# update stats file
-	file <- get.path.stats.corpus(object="characters",subfold="unfiltered",pref="_char_stats")
+	file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats")	#TODO not applicable to explicit version
 	tlog(4,"Writing character stats \"",file,"\"")
 	write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# plot corpus stats for unfiltered chars
 	plot.stats.char(
+		char.det="implicit", 	#TODO not applicable to explicit version
 		char.stats=char.stats, 
 		volume.stats=volume.stats, 
 		cur.vol=NA, cur.arc=NA,
@@ -241,6 +242,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	)
 	# plot corpus stats for filtered chars
 	plot.stats.char(
+		char.det="implicit", 	#TODO not applicable to explicit version
 		char.stats=char.stats, 
 		volume.stats=volume.stats, 
 		cur.vol=NA, cur.arc=NA,
