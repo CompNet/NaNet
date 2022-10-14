@@ -462,7 +462,7 @@ compute.static.statistics.base <- function(data, char.det=NA)
 	# same for each narrative arc
 	arc.nbr <- nrow(data$arc.stats)
 	for(arc in 1:arc.nbr)
-	{	for(weights in c("none","occurrences"))
+	{	for(weights in c("none","occurrences","duration"))
 		{	for(filtered in c(FALSE,TRUE))
 				compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, arc=arc, filtered=filtered, compare=FALSE)
 		}
@@ -472,7 +472,7 @@ compute.static.statistics.base <- function(data, char.det=NA)
 	volume.nbr <- nrow(data$volume.stats)
 	for(v in 1:volume.nbr)
 	{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
-		for(weights in c("none","occurrences"))
+		for(weights in c("none","occurrences","duration"))
 		{	for(filtered in c(FALSE,TRUE))
 				compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, vol=vol, filtered=filtered, compare=FALSE)
 		}
