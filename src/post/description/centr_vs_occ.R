@@ -19,7 +19,7 @@ start.rec.log(text="CentrVsOcc")
 tlog(0, "Plotting centrality vs. occurrences")
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # plot parameters
 pal <- ATT_COLORS_FILT
@@ -70,9 +70,9 @@ for(centr.name in centr.names)
 		centr.vals.flt <- load.static.nodelink.stats.scenes(weights="none", measure=centr.name, filtered="filtered", compare=FALSE)
 		
 		# get occurrence values
-		file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats.csv")
 		occ.vals.unf <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
-		file <- get.path.stats.corpus(object="characters", subfold="filtered", pref="_char_stats.csv")
+		file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", pref="_char_stats.csv")
 		occ.vals.flt <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_FREQ]
 		
 		#### handle unfiltered data
@@ -114,7 +114,7 @@ for(centr.name in centr.names)
 		col.sec <- combine.colors(col, "WHITE", transparency=20)
 		xlab <- paste0("Number of ",occ.proper.names[occ.name],"s")
 		ylab <- NODE_MEASURES[[centr.name]]$cname
-		plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("occ_",occ.name,"_vs_",centr.name))
+		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", filtered="both", suf=paste0("occ_",occ.name,"_vs_",centr.name))
 		tlog(8, "Plotting in file ",plot.file)
 		pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 		par(

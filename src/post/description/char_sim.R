@@ -28,7 +28,7 @@ tlog(0,"Evolution of similarity between pairs of characters")
 
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 char.stats <- data$char.stats
 scene.stats <- data$scene.stats
 scene.chars <- data$scene.chars
@@ -230,7 +230,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					# record results
 					if(is.na(sc.lim))
 					{	pt <- names(sim.meas)[m]
-						file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
+						file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(22,"Recording results to file \"",file,"\"")
 						write.csv(x=sims, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 					}
@@ -243,7 +243,7 @@ for(narr.smooth in c(FALSE,TRUE))
 						
 						# set file name
 						pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-						plot.file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
+						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(26,"Creating file \"",plot.file,"\"")
 						
 						# compute data ranges
@@ -294,7 +294,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					
 					# set file name
 					pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-					plot.file <- get.path.stats.topo(net.type=net.type, order=ord.fold, mode="scenes", weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
+					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
 					tlog(22,"Creating file \"",plot.file,"\"")
 					
 					# compute data ranges

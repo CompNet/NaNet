@@ -359,7 +359,7 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.d
 
 ################################################################################
 ## test
-#data <- read.corpus.data()
+#data <- read.corpus.data(char.det="implicit")
 #filtered <- FALSE
 #pub.order <- FALSE
 #gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order, char.det="implicit")

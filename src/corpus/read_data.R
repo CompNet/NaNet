@@ -144,7 +144,8 @@ read.volume.table <- function()
 # 
 # returns: arc stats table.
 ###############################################################################
-init.arc.table <- function(volume.stats)
+init.arc.table <- function(
+	volume.stats)
 {	tlog(2,"Initializing the arc table")
 	
 	arc.titles <- unique(volume.stats[,COL_ARC])
@@ -212,7 +213,9 @@ init.arc.table <- function(volume.stats)
 # 
 # returns: a list of dataframes.
 ###############################################################################
-read.page.table <- function(volume.stats, arc.stats)
+read.page.table <- function(
+	volume.stats, 
+	arc.stats)
 {	tlog(2,"Processing the page table")
 	
 	# read the proper table
@@ -306,7 +309,11 @@ read.page.table <- function(volume.stats, arc.stats)
 # 
 # returns: a list of dataframes.
 ###############################################################################
-init.panel.table <- function(page.stats, char.stats, volume.stats, arc.stats)
+init.panel.table <- function(
+	page.stats, 
+	char.stats, 
+	volume.stats, 
+	arc.stats)
 {	tlog(2,"Initializing the panel table")
 	
 	panel.nbr <- sum(page.stats[,COL_PANELS])
@@ -373,7 +380,12 @@ init.panel.table <- function(page.stats, char.stats, volume.stats, arc.stats)
 # 
 # returns: a list of dataframes.
 ###############################################################################
-read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, arc.stats)
+read.inter.table <- function(
+	panel.stats, 
+	page.stats, 
+	char.stats, 
+	volume.stats, 
+	arc.stats)
 {	# read the text file
 	tlog(2,"Reading the interaction file (",INTER_FILE,")")
 	con <- file(INTER_FILE, open="r")
@@ -663,7 +675,14 @@ read.inter.table <- function(panel.stats, page.stats, char.stats, volume.stats, 
 # arc.stats: table describing the series narrative arcs.
 # arc.chars: list of characters involved in each arc.
 ###############################################################################
-update.all.tables <- function(inter.df, panel.stats, panel.chars, page.stats, page.chars, scene.stats, scene.chars, char.stats, volume.stats, volume.chars, arc.stats, arc.chars)
+update.all.tables <- function(
+	inter.df, 
+	panel.stats, panel.chars, 
+	page.stats, page.chars, 
+	scene.stats, scene.chars, 
+	char.stats, 
+	volume.stats, volume.chars, 
+	arc.stats, arc.chars)
 {	tlog(2,"Updating all tables")
 	
 	# update scene start/end in volume table
@@ -715,6 +734,7 @@ update.all.tables <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 ###############################################################################
 # Records the tables and lists extracted from the raw data.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # inter.df: table of pairwise interactions.
 # panel.stats: table describing all the panels constituting the series.
 # panel.chars: list of characters involved in each panel.
@@ -728,16 +748,24 @@ update.all.tables <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 # arc.stats: table describing the series narrative arcs.
 # arc.chars: list of characters involved in each arc.
 ###############################################################################
-write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, page.chars, scene.stats, scene.chars, char.stats, volume.stats, volume.chars, arc.stats, arc.chars)
+write.corpus.data <- function(
+	char.det=NA, 
+	inter.df, 
+	panel.stats, panel.chars, 
+	page.stats, page.chars, 
+	scene.stats, scene.chars, 
+	char.stats, 
+	volume.stats, volume.chars, 
+	arc.stats, arc.chars)
 {	tlog(2,"Writing statistics and character lists")
 	
 	# interactions
-	file <- get.path.stats.corpus(pref="_interactions")
+	file <- get.path.stats.corpus(char.det=char.det, pref="_interactions")
 	tlog(4,"Writing interaction file \"",file,"\"")
 	write.csv(x=inter.df, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# panel stats
-	file <- get.path.stats.corpus(object="panels",pref="_panel_stats")
+	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_stats")
 	tlog(4,"Writing panel stats \"",file,"\"")
 	write.csv(x=panel.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# panel chars
@@ -746,12 +774,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 		sapply(panel.chars, function(chars) paste(chars,collapse="\t"))
 	)
 	colnames(tab) <- c(COL_PANEL_ID, COL_CHARS)
-	file <- get.path.stats.corpus(object="panels",pref="_panel_chars")
+	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_chars")
 	tlog(4,"Writing panel chars \"",file,"\"")
 	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# page stats
-	file <- get.path.stats.corpus(object="pages",pref="_page_stats")
+	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_stats")
 	tlog(4,"Writing page stats \"",file,"\"")
 	write.csv(x=page.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# page chars
@@ -760,12 +788,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 		sapply(page.chars, function(chars) paste(chars,collapse="\t"))
 	)
 	colnames(tab) <- c(COL_PAGE_ID, COL_CHARS)
-	file <- get.path.stats.corpus(object="pages",pref="_page_chars")
+	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_chars")
 	tlog(4,"Writing page chars \"",file,"\"")
 	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# scene stats
-	file <- get.path.stats.corpus(object="scenes",pref="_scene_stats")
+	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_stats")
 	tlog(4,"Writing scene stats \"",file,"\"")
 	write.csv(x=scene.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# scene chars
@@ -774,17 +802,17 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 		sapply(scene.chars, function(chars) paste(chars,collapse="\t"))
 	)
 	colnames(tab) <- c(COL_SCENE_ID, COL_CHARS)
-	file <- get.path.stats.corpus(object="scenes",pref="_scene_chars")
+	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_chars")
 	tlog(4,"Writing scene chars \"",file,"\"")
 	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# characters
-	file <- get.path.stats.corpus(object="characters",subfold="unfiltered",pref="_char_stats")
+	file <- get.path.stats.corpus(object="characters", char.det=char.det, subfold="unfiltered", pref="_char_stats")
 	tlog(4,"Writing character stats \"",file,"\"")
 	write.csv(x=char.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# volume stats
-	file <- get.path.stats.corpus(object="volumes",pref="_volume_stats")
+	file <- get.path.stats.corpus(object="volumes", char.det=char.det, pref="_volume_stats")
 	tlog(4,"Writing volume stats \"",file,"\"")
 	write.csv(x=volume.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# volume chars
@@ -793,12 +821,12 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 		sapply(volume.chars, function(chars) paste(chars,collapse="\t"))
 	)
 	colnames(tab) <- c(COL_VOLUME_ID, COL_CHARS)
-	file <- get.path.stats.corpus(object="volumes",pref="_volume_chars")
+	file <- get.path.stats.corpus(object="volumes", char.det=char.det, pref="_volume_chars")
 	tlog(4,"Writing volume chars \"",file,"\"")
 	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	
 	# arc stats
-	file <- get.path.stats.corpus(object="arcs",pref="_arc_stats")
+	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_stats")
 	tlog(4,"Writing arc stats \"",file,"\"")
 	write.csv(x=arc.stats, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	# arc chars
@@ -807,7 +835,7 @@ write.corpus.data <- function(inter.df, panel.stats, panel.chars, page.stats, pa
 		sapply(arc.chars, function(chars) paste(chars,collapse="\t"))
 	)
 	colnames(tab) <- c(COL_ARC_ID, COL_CHARS)
-	file <- get.path.stats.corpus(object="arcs",pref="_arc_chars")
+	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_chars")
 	tlog(4,"Writing arc chars \"",file,"\"")
 	write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
@@ -854,71 +882,73 @@ read.char.list <- function(file)
 # Reads the tables and lists previously extracted from the raw data and recorded
 # using function write.corpus.data.
 #
+# char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
+#
 # returns: list containing all the tables and character lists.
 ###############################################################################
-read.corpus.data <- function()
+read.corpus.data <- function(char.det=NA)
 {	tlog(2,"Reading statistics and character lists")
 	
 	# interactions
-	file <- get.path.stats.corpus(pref="_interactions")
+	file <- get.path.stats.corpus(char.det=char.det, pref="_interactions")
 	tlog(2,"Reading interaction file \"",file,"\"")
 	inter.df <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_CHAR_FROM, COL_CHAR_TO))
 		inter.df[,col] <- fix.encoding(strings=inter.df[,col])
 	
 	# panel stats
-	file <- get.path.stats.corpus(object="panels",pref="_panel_stats")
+	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_stats")
 	tlog(2,"Reading panel stats file \"",file,"\"")
 	panel.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# panel chars
-	file <- get.path.stats.corpus(object="panels",pref="_panel_chars")
+	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_chars")
 	tlog(2,"Reading panel chars file \"",file,"\"")
 	panel.chars <- read.char.list(file=paste0(file,".txt"))
 	
 	# page stats
-	file <- get.path.stats.corpus(object="pages",pref="_page_stats")
+	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_stats")
 	tlog(2,"Reading page stats file \"",file,"\"")
 	page.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# page chars
-	file <- get.path.stats.corpus(object="pages",pref="_page_chars")
+	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_chars")
 	tlog(2,"Reading page chars file \"",file,"\"")
 	page.chars <- read.char.list(file=paste0(file,".txt"))
 	
 	# scene stats
-	file <- get.path.stats.corpus(object="scenes",pref="_scene_stats")
+	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_stats")
 	tlog(2,"Reading scene stats file \"",file,"\"")
 	scene.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	# scene chars
-	file <- get.path.stats.corpus(object="scenes",pref="_scene_chars")
+	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_chars")
 	tlog(2,"Reading scene chars file \"",file,"\"")
 	scene.chars <- read.char.list(file=paste0(file,".txt"))
 	
 	# characters
-	file <- get.path.stats.corpus(object="characters",subfold="unfiltered",pref="_char_stats")
+	file <- get.path.stats.corpus(object="characters", char.det=char.det, subfold="unfiltered", pref="_char_stats")
 	tlog(2,"Reading char stats file \"",file,"\"")
 	char.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_NAME, COL_NAME_SHORT))
 		char.stats[,col] <- fix.encoding(strings=char.stats[,col])
 	
 	# volume stats
-	file <- get.path.stats.corpus(object="volumes",pref="_volume_stats")
+	file <- get.path.stats.corpus(object="volumes", char.det=char.det, pref="_volume_stats")
 	tlog(2,"Reading volume stats file \"",file,"\"")
 	volume.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_SERIES, COL_TITLE, COL_ARC))
 		volume.stats[,col] <- fix.encoding(strings=volume.stats[,col])
 	# volume chars
-	file <- get.path.stats.corpus(object="volumes",pref="_volume_chars")
+	file <- get.path.stats.corpus(object="volumes", char.det=char.det, pref="_volume_chars")
 	tlog(2,"Reading volume chars file \"",file,"\"")
 	volume.chars <- read.char.list(file=paste0(file,".txt"))
 	
 	# arc stats
-	file <- get.path.stats.corpus(object="arcs",pref="_arc_stats")
+	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_stats")
 	tlog(2,"Reading arc stats file \"",file,"\"")
 	arc.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_TITLE))
 		arc.stats[,col] <- fix.encoding(strings=arc.stats[,col])
 	# arc chars
-	file <- get.path.stats.corpus(object="arcs",pref="_arc_chars")
+	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_chars")
 	tlog(2,"Reading arc chars file \"",file,"\"")
 	arc.chars <- read.char.list(file=paste0(file,".txt"))
 	
@@ -1013,6 +1043,7 @@ read.raw.data <- function()
 	
 	# record the tables and lists
 	write.corpus.data(
+		char.det="implicit", 
 		inter.df=inter.df,
 		panel.stats=panel.stats, panel.chars=panel.chars,
 		page.stats=page.stats, page.chars=page.chars,

@@ -22,7 +22,7 @@ start.rec.log(text="PartialExtr")
 tlog(0,"Extract two distinct networks from the narrative")
 
 # load stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # load full graph
 graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")

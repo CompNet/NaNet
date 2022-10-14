@@ -32,7 +32,7 @@ tlog(0,"Load data and network")
 
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 char.stats <- data$char.stats
 volume.stats <- data$volume.stats
 volume.chars <- data$volume.chars
@@ -119,7 +119,7 @@ for(filt.txt in c("unfiltered","filtered"))
 				vals <- vals[!is.na(vals)]
 				
 				# create the plot
-				plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, vol=TRUE, filtered=filt.txt, weights=w.name, suf=paste0("evolution-",ch.order,"_",paste0(chars.short,collapse="--")))
+				plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=meas, vol=TRUE, filtered=filt.txt, weights=w.name, suf=paste0("evolution-",ch.order,"_",paste0(chars.short,collapse="--")))
 				tlog(10, "Plotting in file \"",plot.file,"\"")
 				for(fformat in PLOT_FORMAT)
 				{	if(fformat==PLOT_FORMAT_PDF)

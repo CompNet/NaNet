@@ -28,7 +28,7 @@ pub.order <- FALSE
 
 ###############################################################################
 # read stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 volume.stats <- data$volume.stats
 
 
@@ -125,7 +125,7 @@ for(m in 1:length(gr.meas))
 	ylim[2] <- ylim[2]*1.1	# add some space for volume names
 	
 	# plot the measure
-	plot.file <- get.path.stats.topo(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt)
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="narr_smooth", order=ord.fold, meas.name=meas, filtered=filt.txt)
 	tlog(6, "Plotting in file \"",plot.file,"\"")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -223,7 +223,7 @@ for(m in 1:length(vx.meas))
 			pt <- "_main_chars"
 		
 		# plot the measure
-		plot.file <- get.path.stats.topo(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt, suf=pt)
+		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="narr_smooth", order=ord.fold, meas.name=meas, filtered=filt.txt, suf=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)
@@ -332,7 +332,7 @@ for(m in 1:length(ed.meas))
 		}
 		
 		# plot the measure
-		plot.file <- get.path.stats.topo(net.type="narr_smooth", order=ord.fold, mode="scenes", meas.name=meas, filtered=filt.txt, suf=pt)
+		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="narr_smooth", order=ord.fold, meas.name=meas, filtered=filt.txt, suf=pt)
 		tlog(6, "Plotting in file \"",plot.file,"\"")
 		for(fformat in PLOT_FORMAT)
 		{	if(fformat==PLOT_FORMAT_PDF)

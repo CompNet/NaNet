@@ -18,7 +18,7 @@ start.rec.log(text="SexStats")
 tlog(0,"Load data and network")
 
 # read raw data
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # read the graph
 graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
@@ -54,7 +54,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -75,7 +75,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", att="Sex", pref="attr_distrib_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -96,7 +96,7 @@ df <- data.frame(tab)
 df <- cbind(c("Male","Female"),df)
 colnames(df) <- c("Sex","Count","OverallProportion","FM_Proportion")
 rownames(df) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="attr_distrib_onlyFM_named")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -156,7 +156,7 @@ tab.unf <- data.frame(tab.unf)
 tab.unf <- cbind(c("F--F","F--M","M--M","Overall"), tab.unf)
 colnames(tab.unf) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
 rownames(tab.unf) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_edges")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_edges")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
 write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 #
@@ -164,7 +164,7 @@ tab.flt <- data.frame(tab.flt)
 tab.flt <- cbind(c("F--F","F--M","M--M","Overall"), tab.flt)
 colnames(tab.flt) <- c("EdgeSex","EdgeNbr","EdgeProportion","FM_Ratio")
 rownames(tab.flt) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_edges")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_edges")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
 write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -241,7 +241,7 @@ tab.unf <- data.frame(tab.unf)
 tab.unf <- cbind(c("Male","Female","Mixed","Unknown","Overall"), tab.unf)
 colnames(tab.unf) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Dur","GenderStrengthRatio_Dur","TotalStrength_Occ","GenderStrengthRatio_Occ","Density")
 rownames(tab.unf) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
 write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 #
@@ -249,7 +249,7 @@ tab.flt <- data.frame(tab.flt)
 tab.flt <- cbind(c("Male","Female","Mixed","Unknown","Overall"), tab.flt)
 colnames(tab.flt) <- c("Sex","TotalDegree","GenderDegreeRatio","TotalStrength_Dur","GenderStrengthRatio_Dur","TotalStrength_Occ","GenderStrengthRatio_Occ","Density")
 rownames(tab.flt) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
 write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -293,7 +293,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex","Count","FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -319,7 +319,7 @@ tab <- data.frame(tab)
 tab <- cbind(c("Success","Fail","NA"),tab)
 colnames(tab) <- c("BechdelTest","Count","Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", att="Sex", pref="distrib_scenes-by-char_bechdel-test")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -357,7 +357,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.corpus(object="characters", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
+tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="filtered", att="Sex", pref="distrib_scenes-by-char_onlyFM")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -375,7 +375,7 @@ ass.unf <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FAL
 tlog(0,"Unfiltered network: ",ass.unf)
 tab.unf <- cbind(tab.unf, c(NA,NA,NA,NA,ass.unf))
 colnames(tab.unf)[ncol(tab.unf)] <- "Homophily"
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record unfiltered stats in \"",tab.file,"\"")
 write.csv(x=tab.unf, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -385,7 +385,7 @@ ass.flt <- assortativity_nominal(graph=gs, types=factor(V(gs)$Sex), directed=FAL
 tlog(0,"Filtered network: ",ass.flt)
 tab.flt <- cbind(tab.flt, c(NA,NA,NA,NA,ass.flt))
 colnames(tab.flt)[ncol(tab.flt)] <- "Homophily"
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_graph")
 tlog(4, "Record filtered stats in \"",tab.file,"\"")
 write.csv(x=tab.flt, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -411,7 +411,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_triangles")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="unfiltered", subfold="graph", pref="_stats_triangles")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -433,7 +433,7 @@ tab <- data.frame(tab)
 tab <- cbind(rownames(tab), tab)
 colnames(tab) <- c("Sex", "Count", "FM_Proportion")
 rownames(tab) <- NULL
-tab.file <- get.path.stats.topo(mode="scenes", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_triangles")
+tab.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", filtered="filtered", subfold="graph", pref="_stats_triangles")
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
@@ -548,11 +548,11 @@ for(m in 1:length(meas.names))
 	tab <- rbind(tab, df)
 	
 	# record test results
-	test.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="comparison_test")
+	test.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="comparison_test")
 	write.csv(x=tab, file=paste0(test.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 	
 	# set params
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="ccdf")
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", meas.name=meas.name, filtered="both", suf="ccdf")
 	#ml <- paste0(ALL_MEASURES[[meas.name]]$cname, " distribution")
 	xl <- paste0(ALL_MEASURES[[meas.name]]$cname)
 	
@@ -681,7 +681,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
+plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(
@@ -854,7 +854,7 @@ tra.avg.unf[["Mixed"]] <- NULL; tra.avg.unf[["Unknown"]] <- NULL
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
+plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", att="Sex", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
 tlog(2,"Plotting in file ",plot.file)
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(

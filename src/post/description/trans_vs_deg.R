@@ -65,7 +65,7 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Local Transitivity $C(v)$"
 #exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weight="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
+plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", weight="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="transitivity_vs_degree")
 tlog(2, "Plotting in file \"",plot.file,"\"")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(

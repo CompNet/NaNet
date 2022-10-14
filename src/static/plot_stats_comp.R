@@ -295,7 +295,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			names(values) <- nms
 			
 			# generate the boxplot plot
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="boxplot")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -321,7 +321,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="violin")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -347,7 +347,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="distrib")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
 			lty <- c(ltys, rep(1,length(values)-length(snames))) # not sure 
@@ -391,7 +391,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			names(values) <- nms
 			
 			# generate the boxplot
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="boxplot")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="boxplot")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -417,7 +417,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			}
 			
 			# generate the violin plot
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="violin")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="violin")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -438,7 +438,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			}
 			
 			# generate distribution plots
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="distrib")
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
 			cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
 			lty <- c(ltys, rep(1,length(values)-length(snames)))
@@ -552,7 +552,7 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 		# generate a plot containing each window size value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf="series")
+		plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -641,7 +641,7 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 		# generate a plot representing each overlap value as a series
 		#cols <- get.palette(length(data))
 		cols <- viridis(length(data))
-		plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf="series")
+		plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
 		{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -798,10 +798,10 @@ generate.static.plots.corr <- function(mode, char.det=NA, window.sizes, overlaps
 			# generating the plot
 			#cols <- get.palette(length(data))
 			cols <- viridis(length(data))
-			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			#plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
 			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=fake.meas, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -871,10 +871,10 @@ generate.static.plots.corr <- function(mode, char.det=NA, window.sizes, overlaps
 			# generating the plot
 			#cols <- get.palette(length(data))
 			cols <- viridis(length(data))
-			#plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			#plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
 			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
-			plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=fake.meas, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
+			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=fake.meas, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			tlog(6,"Plotting file \"",plot.file,"\"")
 			if(all(is.na(unlist(data))))
 			{	msg <- paste0("WARNING: All values are NA for ", plot.file)
@@ -1023,7 +1023,7 @@ generate.static.plots.ranks <- function(mode, char.det=NA, window.sizes, overlap
 					colors <- heat.colors(max(ranks))
 					
 					# generate the plot
-					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0("ranks=",substr(ww[w],1,3)))
+					plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0("ranks=",substr(ww[w],1,3)))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -1153,7 +1153,7 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 						ylab <- "Frequency"
 					}
 					
-					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_GRAPH, window.size=window.size, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
+					plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_TFPN_GRAPH, window.size=window.size, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)
@@ -1201,7 +1201,7 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 						ylab <- "Frequency"
 					}
 					
-					plot.file <- get.path.stats.comp(mode=mode, net.type="static", meas.name=MEAS_TFPN_GRAPH, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
+					plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_TFPN_GRAPH, overlap=overlap, weights=weights, filtered=filt.txt, suf=paste0(subf,"_",md,"_barplot"))
 					tlog(5,"Plotting file \"",plot.file,"\"")
 					for(fformat in PLOT_FORMAT)
 					{	if(fformat==PLOT_FORMAT_PDF)

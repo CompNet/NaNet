@@ -57,14 +57,14 @@ tlog(0,"Starting to produce the preferential attachment plots")
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # get filtered characters
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # load raw data
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # compute the sequence of scene-based graphs (possibly one for each scene)
 gs.unf <- extract.static.graph.scenes(
 	inter.df=data$inter.df,
@@ -273,7 +273,7 @@ for(mode in modes)
 		# create/complete figure
 		if(!filts[f])
 		{	# open plot file
-			plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("pref-attach-",mode,"_vs_degree"))
+			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf=paste0("pref-attach-",mode,"_vs_degree"))
 			tlog(2,"Plot in file ",plot.file)
 			pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 			# plot parameters

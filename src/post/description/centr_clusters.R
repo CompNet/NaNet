@@ -20,7 +20,7 @@ tlog(0, "Cluster analysis of the centrality measures")
 klim <- 20	# maximal k value when clustering the data
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 
 # get filtered characters
 kept <- which(data$char.stats[,COL_FILTER]=="Keep")

@@ -66,7 +66,7 @@ col.sec <- combine.colors(col, "WHITE", transparency=20)
 xlab <- "Degree $k$"
 ylab <- "Neighbors' average Degree $<k_{nn}>$"
 exponent <- summary(fit)$coefficients["c2","Estimate"]
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
+plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", weights="none", meas.name=MEAS_MULTI_NODES, filtered="both", suf="nei-degree_vs_degree")
 tlog(2,"Plot in \"",plot.file,"\"")
 pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
 par(

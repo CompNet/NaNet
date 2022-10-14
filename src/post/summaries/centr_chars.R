@@ -17,7 +17,7 @@ library("stringr")
 
 
 # load series data
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 volumes <- data$volume.stats[,COL_VOLUME]
 
 # load text files

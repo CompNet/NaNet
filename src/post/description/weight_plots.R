@@ -74,7 +74,7 @@ for(wt in wts)
 	print(pl)
 	
 	# plot distributions
-	file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="distrib_ccdf")
+	file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=meas, weights=wt, filtered="both", suf="distrib_ccdf")
 	tlog(6,"Plotting in file \"",file,"\"")
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)

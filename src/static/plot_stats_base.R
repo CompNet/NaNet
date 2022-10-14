@@ -78,6 +78,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 	}
 	tlog(3,"Generating plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
+	char.det <- "implicit"
 	
 	# list measures to plot
 	nmn <- names(NODE_MEASURES)
@@ -112,7 +113,7 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 			disc <- all(vals%%1==0) 
 			
 			# plot histogram
-			plot.file <- get.path.stats.topo(mode=mode, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
+			plot.file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, weights=wmode, arc=arc, vol=vol, filtered=filt.txt, suf="histo")
 			ml <- paste0("weights=",wmode)
 			xl <- ALL_MEASURES[[meas.name]]$cname
 			test <- is.na(arc) && is.na(vol)	# test the type of distribution: very slow, doing it only for the whole graph
@@ -153,10 +154,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		g.occ <- g; E(g.occ)$weight <- E(g)$Occurrences
 		
 		# degree vs. neighbors' degree
-		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
 		neigh.degree.vs.degree(g=g, weights=FALSE, filename=filename, col=col)
 		for(wmode in c("occurrences","duration"))
-		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+		{	filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
 			if(wmode=="duration")
 				neigh.degree.vs.degree(g=g.dur, weights=TRUE, filename=filename, col=col)
 			else if(wmode=="occurrences")
@@ -164,10 +165,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		}
 		
 		# degree vs. transitivity
-		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODES, weights="none", arc=arc, vol=vol, filtered=filt.txt)
 		transitivity.vs.degree(g=g, weights=FALSE, filename=filename, col=col)
 		for(wmode in c("occurrences","duration"))
-		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+		{	filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODES, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
 			if(wmode=="duration")
 				transitivity.vs.degree(g=g.dur, weights=TRUE, filename=filename, col=col)
 			else if(wmode=="occurrences")
@@ -175,10 +176,10 @@ generate.static.plots.scene <- function(arc=NA, vol=NA, filtered=FALSE)
 		}
 		
 		# hop plots
-		filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights="none", arc=arc, vol=vol, filtered=filt.txt)
+		filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights="none", arc=arc, vol=vol, filtered=filt.txt)
 		hop.plot(g=g, weights=FALSE, filename=filename, col=col)
 		for(wmode in c("occurrences","duration"))
-		{	filename <- get.path.stats.topo(mode=mode, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
+		{	filename <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=MEAS_MULTI_NODEPAIRS, weights=wmode, arc=arc, vol=vol, filtered=filt.txt)
 			if(wmode=="duration")
 				hop.plot(g=g.dur, weights=TRUE, filename=filename, col=col)
 			else if(wmode=="occurrences")
@@ -212,6 +213,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	# init other variables
 	tlog(3,"Generating ",emode,"-based evolution plots for the ",filt.txt," scene-based graphs")
 	mode <- "scenes"
+	char.det <- "implicit"
 	col <- ATT_COLORS_FILT[if(filtered) "Keep" else "Discard"]
 	
 	# list measures to plot
@@ -240,7 +242,7 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			}
 			
 			# generate barplots
-			file <- get.path.stats.topo(net.type="static", mode=mode, meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, suf="evolution")
+			file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, suf="evolution")
 			tlog(4,"Generating file ",file)
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)

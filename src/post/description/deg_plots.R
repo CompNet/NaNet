@@ -37,7 +37,7 @@ laws["Filtered-strength-duration"] <- "truncated"
 tlog(0,"Producing degree & strength distribution plots")
 
 # load corpus stats
-data <- read.corpus.data()
+data <- read.corpus.data(char.det="implicit")
 # get filtered characters
 filt.names <- data$char.stats[data$char.stats[,COL_FILTER]=="Discard",COL_NAME]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
@@ -48,7 +48,7 @@ meass <- c(MEAS_DEGREE,MEAS_STRENGTH)
 pal <- ATT_COLORS_FILT[c("Discard","Keep")]
 
 # load numbers of occurrences of characters
-file <- get.path.stats.corpus(object="characters", subfold="unfiltered", pref="_char_stats.csv")
+file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats.csv")
 sce.nbr <- read.csv(file=file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)[,COL_SCENES]
 
 # process each measure
@@ -70,7 +70,7 @@ for(meas in meass)
 		data[[1]] <- tab[,meas]
 		unfilt.idx <- data[[1]] > 0
 		data[[1]] <- data[[1]][unfilt.idx]	# remove isolates
-#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distr-test_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", char.det="implicit", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=FALSE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[1]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		# filtered
 		file <- get.path.stat.table(object="nodes", mode="scenes", char.det="implicit", net.type="static", weights=wt, filtered="filtered", compare=FALSE)
@@ -79,11 +79,11 @@ for(meas in meass)
 		filt.idx <- data[[2]] > 1
 		data[[2]] <- data[[2]][filt.idx]	# remove isolates
 		names(data) <- c("Unfiltered","Filtered")
-#		file <- get.path.stats.comp(mode="scenes", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="distr-test_noisolates")
+#		file <- get.path.stats.comp(mode="scenes", char.det="implicit", meas.name=meas, weights=if(is.na(wt)) "none" else wt, filtered=TRUE, suf="distr-test_noisolates")
 #		test.disc.distr(data[[2]], xlab=paste0("Unfiltered ",ALL_MEASURES[[meas]]$cname," (no isolates)"), return_stats=FALSE, sims=100, plot.file=file)
 		
 		# set params
-		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=meas, weights=wt, filtered="both", suf="ccdf")
+		file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=meas, weights=wt, filtered="both", suf="ccdf")
 		ml <- paste0(ALL_MEASURES[[meas]]$cname, " distribution")
 		if(wt!="none")
 			ml <- paste0(ml," (",wt,")")
@@ -131,7 +131,7 @@ for(meas in meass)
 		kend.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="kendall")
 		spear.cor <- cor(data[[1]],sce.nbr[unfilt.idx], method="spearman")
 		tlog(6,"Correlation between unfiltered degree and scene numbers: Pearson=",pear.cor,"Kendall=",kend.cor," Spearman=",spear.cor)
-		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="unfiltered", suf=paste0(meas,"_vs_scenes_correlation"))
+		file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="unfiltered", suf=paste0(meas,"_vs_scenes_correlation"))
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")
@@ -141,7 +141,7 @@ for(meas in meass)
 		kend.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="kendall")
 		spear.cor <- cor(data[[2]],sce.nbr[idx.keep][filt.idx], method="spearman")
 		tlog(6,"Correlation between filtered degree and scene numbers: Pearson=",pear.cor,"Kendall=",kend.cor," Spearman=",spear.cor)
-		file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="filtered", suf=paste0(meas,"_vs_scenes_correlation"))
+		file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_NODES, weights=wt, filtered="filtered", suf=paste0(meas,"_vs_scenes_correlation"))
 		tlog(8,"Recording in file \"",file,"\"")
 		tab <- data.frame(pear.cor, kend.cor, spear.cor)
 		colnames(tab) <- c("Pearson", "Kendall", "Spearman")

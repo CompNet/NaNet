@@ -65,7 +65,7 @@ for(wt in wts)
 	}
 	res[[paste0("Unfiltered-",wt)]] <- vals
 	# plot results
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="unfiltered", suf="giant-comp-size_vs_links")
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="unfiltered", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -101,7 +101,7 @@ for(wt in wts)
 	}
 	res[[paste0("Filtered-",wt)]] <- vals.filt
 	# plot result
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="filtered", suf="giant-comp-size_vs_links")
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="filtered", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -132,7 +132,7 @@ for(wt in wts)
 {	tlog(2, "Dealing with ",wt," weights")
 	xlab <- paste0("Number of edges, ordered by ",wt)
 	
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="both", suf="giant-comp-size_vs_links")
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights=tolower(wt), filtered="both", suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -185,7 +185,7 @@ for(filtered in c(FALSE,TRUE))
 	}
 	tlog(2, "Dealing with the ",tolower(fn)," network")
 	
-	plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered=filt.txt, suf="giant-comp-size_vs_links")
+	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered=filt.txt, suf="giant-comp-size_vs_links")
 	tlog(4, "Plotting in file ",plot.file)
 	for(fformat in PLOT_FORMAT)
 	{	if(fformat==PLOT_FORMAT_PDF)
@@ -220,7 +220,7 @@ for(filtered in c(FALSE,TRUE))
 }
 
 # all in the same figure
-plot.file <- get.path.stats.topo(net.type="static", mode="scenes", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered="both", suf="giant-comp-size_vs_links")
+plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type="static", meas.name=MEAS_MULTI_GRAPH, weights="both", filtered="both", suf="giant-comp-size_vs_links")
 xlab <- paste0("Number of edges ordered by weight")
 tlog(0, "Plot everything in the same file ",plot.file)
 for(fformat in PLOT_FORMAT)
