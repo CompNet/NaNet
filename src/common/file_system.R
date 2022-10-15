@@ -486,9 +486,9 @@ get.path.stats.corpus <- function(object=NA, char.det=NA, vol=NA, arc=NA, subfol
 		folder <- file.path(folder, char.det)
 	# possibly add volume or arc number folder
 	if(!is.na(vol))
-		folder <- file.path("volumes", "separate", vol)
+		folder <- file.path(folder, "volumes", "separate", vol)
 	else if(!is.na(arc))
-		folder <- file.path("arcs", "separate", arc)
+		folder <- file.path(folder, "arcs", "separate", arc)
 	# possibly add object
 	if(!is.na(object))
 		folder <- file.path(folder, object)
