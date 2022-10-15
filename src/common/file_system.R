@@ -59,10 +59,12 @@ COMP_FOLDER <- file.path(DATA_FOLDER,"comparison")
 PAGE_FILE <- file.path(DATA_FOLDER,"pages.csv")
 # file containing the volume information (number of pages, etc.) 
 VOLUME_FILE <- file.path(DATA_FOLDER,"volumes.csv")
-# file containing character (co-)occurrences
-INTER_FILE <- file.path(DATA_FOLDER,"interactions.txt")
+# file containing implicit character (co-)occurrences
+INTER_IMPL_FILE <- file.path(DATA_FOLDER,"interactions.txt")
 # file containing character descriptions
 CHAR_FILE <- file.path(DATA_FOLDER,"characters.csv")
+# file containing explicit character (co-)occurrences
+INTER_EXPL_FILE <- file.path(ANN_EXPLICIT_FOLDER,"chars_by_panel.txt")
 
 
 
@@ -486,9 +488,9 @@ get.path.stats.corpus <- function(object=NA, char.det=NA, vol=NA, arc=NA, subfol
 		folder <- file.path(folder, char.det)
 	# possibly add volume or arc number folder
 	if(!is.na(vol))
-		folder <- file.path("volumes", "separate", vol)
+		folder <- file.path(folder, "volumes", "separate", vol)
 	else if(!is.na(arc))
-		folder <- file.path("arcs", "separate", arc)
+		folder <- file.path(folder, "arcs", "separate", arc)
 	# possibly add object
 	if(!is.na(object))
 		folder <- file.path(folder, object)
