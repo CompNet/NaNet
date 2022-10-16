@@ -32,8 +32,8 @@ data <- read.corpus.data(char.det="implicit")
 panel.stats <- data$panel.stats
 
 # read the table from the main corpus
-tlog(2,"Reading the interaction file '",INTER_FILE,"'")
-con <- file(INTER_FILE, open="r")
+tlog(2,"Reading the interaction file '",INTER_IMPL_FILE,"'")
+con <- file(INTER_IMPL_FILE, open="r")
 temp <- readLines(con)
 close(con)
 temp <- fix.encoding(strings=temp)

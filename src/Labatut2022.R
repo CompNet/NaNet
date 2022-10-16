@@ -34,7 +34,7 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # read raw data
-data <- read.raw.data()
+data <- read.raw.data(char.det="implicit")
 # OR, if already computed, read from file
 #data <- read.corpus.data(char.det="implicit")
 

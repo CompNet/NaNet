@@ -14,7 +14,7 @@
 # whether some character misses from the table based on the previously loaded
 # interactions, and vice-versa.
 #
-# returns: a dataframe containing the character information.
+# returns: a list of dataframes.
 ###############################################################################
 read.char.table <- function()
 {	if(file.exists(CHAR_FILE))
@@ -92,7 +92,7 @@ read.char.table <- function()
 # Reads the table describing the volumes of the BD series: starting page, ending
 # page, etc.
 #
-# returns: a dataframe listing the volume information.
+# returns: a list of dataframes.
 ###############################################################################
 read.volume.table <- function()
 {	tlog(2,"Trying to read the volume file (",VOLUME_FILE,")")
@@ -142,7 +142,7 @@ read.volume.table <- function()
 #
 # volume.stats: table describing the series volumes.
 # 
-# returns: arc stats table.
+# returns: a list of dataframes.
 ###############################################################################
 init.arc.table <- function(
 	volume.stats)
@@ -369,9 +369,11 @@ init.panel.table <- function(
 
 	
 ###############################################################################
-# Reads the table describing the interactions between characters, and coverts
-# them into an edge list while performing some verifications.
+# Reads the table describing the interactions between characters for each scene, 
+# and coverts them into an edge list while performing some verifications. 
+# Only for implicit character annotations.
 #
+# char.det: character detection mode ("implicit" or "explicit").
 # panel.stats: table describing all the panels constituting the series.
 # page.stats: table describing all the pages constituting the series.
 # char.stats: table describing all the characters.
@@ -381,14 +383,21 @@ init.panel.table <- function(
 # returns: a list of dataframes.
 ###############################################################################
 read.inter.table <- function(
+	char.det,
 	panel.stats, 
 	page.stats, 
 	char.stats, 
 	volume.stats, 
 	arc.stats)
-{	# read the text file
-	tlog(2,"Reading the interaction file (",INTER_FILE,")")
-	con <- file(INTER_FILE, open="r")
+{	# set input file
+	if(char.det=="implicit")
+		inter.file <- INTER_IMPL_FILE
+	else
+		inter.file <- INTER_EXPL_FILE
+	
+	# read the text file
+	tlog(2,"Reading the interaction file (",inter.file,")")
+	con <- file(inter.file, open="r")
 	temp <- readLines(con)
 	close(con)
 	temp <- fix.encoding(strings=temp)
@@ -475,24 +484,24 @@ read.inter.table <- function(
 		start.page <- line[2]
 		start.page.id <- which(page.stats[,COL_PAGE]==start.page & page.stats[,COL_VOLUME_ID]==volume.id)
 		if(length(start.page.id)==0)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting page not found in line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Starting page not found in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			stop(msg)
 		}
 		start.panel <-  as.integer(line[3])
 		if(start.panel>page.stats[start.page.id,COL_PANELS])
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Starting panel is out of page in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			stop(msg)
 		}
 		start.panel.id <- page.stats[start.page.id,COL_PANEL_START_ID] + start.panel - 1
 		if(prev.end.panel.id>0 && start.panel.id>(prev.end.panel.id+1))
-		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("WARNING while reading file \"",inter.file,"\". Missing panel(s) between this scene and the previous one, at line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			#warning(msg)
 		}
 		if(prev.end.panel.id>start.panel.id)
-		{	msg <- paste0("WARNING while reading file \"",INTER_FILE,"\". Panel overlap (",prev.end.panel.id," vs. ",start.panel.id,") between two consecutive scenes, at line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("WARNING while reading file \"",inter.file,"\". Panel overlap (",prev.end.panel.id," vs. ",start.panel.id,") between two consecutive scenes, at line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 		}
 		
@@ -500,13 +509,13 @@ read.inter.table <- function(
 		end.page <- line[4]
 		end.page.id <- which(page.stats[,COL_PAGE]==end.page & page.stats[,COL_VOLUME_ID]==volume.id)
 		if(length(end.page.id)==0)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending page not found in line: \"",paste(line,collapse=","),"\"") 
+		{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Ending page not found in line: \"",paste(line,collapse=","),"\"") 
 			tlog(3,msg)
 			stop(msg)
 		}
 		end.panel <- as.integer(line[5])
 		if(end.panel>page.stats[end.page.id,COL_PANELS])
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Ending panel is out of page in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			stop(msg)
 		}
@@ -515,7 +524,7 @@ read.inter.table <- function(
 		
 		# check that the end is after the start
 		if(start.panel.id>end.panel.id)
-		{	msg <- paste0("ERROR while reading file \"",INTER_FILE,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\"")
+		{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Starting panel located after ending panel in line: \"",paste(line,collapse=","),"\"")
 			tlog(3,msg)
 			stop(msg)
 		}
@@ -674,6 +683,8 @@ read.inter.table <- function(
 # volume.chars: list of characters involved in each volume.
 # arc.stats: table describing the series narrative arcs.
 # arc.chars: list of characters involved in each arc.
+#
+# returns: a list of dataframes.
 ###############################################################################
 update.all.tables <- function(
 	inter.df, 
@@ -728,9 +739,9 @@ update.all.tables <- function(
 	return(res)	
 }
 
-	
-	
-	
+
+
+
 ###############################################################################
 # Records the tables and lists extracted from the raw data.
 #
@@ -749,7 +760,7 @@ update.all.tables <- function(
 # arc.chars: list of characters involved in each arc.
 ###############################################################################
 write.corpus.data <- function(
-	char.det=NA, 
+	char.det, 
 	inter.df, 
 	panel.stats, panel.chars, 
 	page.stats, page.chars, 
@@ -886,7 +897,7 @@ read.char.list <- function(file)
 #
 # returns: list containing all the tables and character lists.
 ###############################################################################
-read.corpus.data <- function(char.det=NA)
+read.corpus.data <- function(char.det)
 {	tlog(2,"Reading statistics and character lists")
 	
 	# interactions
@@ -970,14 +981,13 @@ read.corpus.data <- function(char.det=NA)
 
 ###############################################################################
 # Reads the raw data contained in several tables, and returns them under the
-# form of data frames.
+# form of data frames. It focuses on the implicit version of the annotations.
 #
-# returns: a list of 4 dataframes, volume.stats (information related to the
-#          volumes), page.stats (information related to the pages), inter.df
-#          (interactions between the characters), and char.stats (character
-#		   information).
+# char.det: character detection mode ("implicit" or "explicit").
+#
+# returns: a list of dataframes.
 ###############################################################################
-read.raw.data <- function()
+read.raw.data <- function(char.det)
 {	tlog(1,"Reading data files")
 	
 	# read the file describing the characters
@@ -1005,7 +1015,7 @@ read.raw.data <- function()
 	arc.stats <- tmp$arc.stats
 	
 	# read the file describing the interactions
-	tmp <- read.inter.table(panel.stats, page.stats, char.stats, volume.stats, arc.stats)
+	tmp <- read.inter.table(char.det, panel.stats, page.stats, char.stats, volume.stats, arc.stats)
 	inter.df <- tmp$inter.df
 	panel.stats <- tmp$panel.stats; panel.chars <- tmp$panel.chars
 	page.stats <- tmp$page.stats; page.chars <- tmp$page.chars
@@ -1043,7 +1053,7 @@ read.raw.data <- function()
 	
 	# record the tables and lists
 	write.corpus.data(
-		char.det="implicit", 
+		char.det=char.det, 
 		inter.df=inter.df,
 		panel.stats=panel.stats, panel.chars=panel.chars,
 		page.stats=page.stats, page.chars=page.chars,

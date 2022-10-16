@@ -753,9 +753,10 @@ plot.stats.char <- function(
 				tlog(5,"Distribution of arc numbers by attribute: producing files \"",file,"\"")
 				write.csv(x=vals, paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 				#
-				data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+				xs <- min(vals[,COL_ARCS]):max(vals[,COL_ARCS])
+				data <-  matrix(0, nrow=ncol(vals)-1, ncol=length(xs))
 				rownames(data) <- colnames(vals)[2:ncol(vals)]
-				data[,vals[,1]] <- t(vals[,-1,drop=FALSE])
+				data[,match(vals[,1],xs)] <- t(vals[,-1,drop=FALSE])
 				#
 				ml <- paste0("Arc number distribution over ",filt.txt," characters")
 				xl <- paste0("Number of arcs by ",filt.txt," character")
@@ -768,7 +769,7 @@ plot.stats.char <- function(
 						# barplots
 						barplot(
 							height=data,
-							names.arg=1:ncol(data),
+							names.arg=xs,
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal, 
@@ -791,7 +792,7 @@ plot.stats.char <- function(
 						# barplots
 						barplot(
 							height=data[d,],
-							names.arg=1:ncol(data),
+							names.arg=xs,
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal[d],
@@ -801,7 +802,7 @@ plot.stats.char <- function(
 					}
 				}
 			}
-
+			
 			# distribution of volumes by character attribute
 			if(is.na(cur.vol))
 			{	vals <- table(char.stats[char.idx,COL_VOLUMES],char.stats[char.idx,atts[a]])
@@ -813,9 +814,10 @@ plot.stats.char <- function(
 				tlog(5,"Distribution of volume numbers by attribute: producing files \"",file,"\"")
 				write.csv(x=vals, paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 				#
-				data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+				xs <- min(vals[,COL_VOLUMES]):max(vals[,COL_VOLUMES])
+				data <-  matrix(0, nrow=ncol(vals)-1, ncol=length(xs))
 				rownames(data) <- colnames(vals)[2:ncol(vals)]
-				data[,vals[,1]] <- t(vals[,-1,drop=FALSE])
+				data[,match(vals[,1],xs)] <- t(vals[,-1,drop=FALSE])
 				#
 				ml <- paste0("Volume number distribution over ",filt.txt," characters")
 				xl <- paste0("Number of volumes by ",filt.txt," character")
@@ -828,7 +830,7 @@ plot.stats.char <- function(
 						# barplots
 						barplot(
 							height=data,
-							names.arg=1:ncol(data),
+							names.arg=xs,
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal,
@@ -851,7 +853,7 @@ plot.stats.char <- function(
 						# barplots
 						barplot(
 							height=data[d,],
-							names.arg=1:ncol(data),
+							names.arg=xs,
 							xlab=xl, ylab=yl, main=paste0(ml,")"),
 							beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 							col=pal[d],
@@ -872,9 +874,10 @@ plot.stats.char <- function(
 			tlog(5,"Distribution of scene numbers by attribute: producing files \"",file,"\"")
 			write.csv(x=vals, paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 			#
-			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			xs <- min(vals[,COL_SCENES]):max(vals[,COL_SCENES])
+			data <-  matrix(0, nrow=ncol(vals)-1, ncol=length(xs))
 			rownames(data) <- colnames(vals)[2:ncol(vals)]
-			data[,vals[,1]] <- t(vals[,-1,drop=FALSE])
+			data[,match(vals[,1],xs)] <- t(vals[,-1,drop=FALSE])
 			#
 			ml <- paste0("Scene number distribution over ",filt.txt," characters")
 			xl <- paste0("Number of scenes by ",filt.txt," character")
@@ -887,7 +890,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data,
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal, border=NA,
@@ -910,7 +913,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data[d,],
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal[d], border=NA,
@@ -930,9 +933,10 @@ plot.stats.char <- function(
 			tlog(5,"Distribution of page numbers by attribute: producing files \"",file,"\"")
 			write.csv(x=vals, paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 			#
-			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			xs <- min(vals[,COL_PAGES]):max(vals[,COL_PAGES])
+			data <-  matrix(0, nrow=ncol(vals)-1, ncol=length(xs))
 			rownames(data) <- colnames(vals)[2:ncol(vals)]
-			data[,vals[,1]] <- t(vals[,-1,drop=FALSE])
+			data[,match(vals[,1],xs)] <- t(vals[,-1,drop=FALSE])
 			#
 			ml <- paste0("Page number distribution over ",filt.txt," characters")
 			xl <- paste0("Number of pages by ",filt.txt," character")
@@ -945,7 +949,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data,
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal, border=NA,
@@ -968,7 +972,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data[d,],
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal[d], border=NA,
@@ -988,9 +992,10 @@ plot.stats.char <- function(
 			tlog(5,"Distribution of panel numbers by attribute: producing files \"",file,"\"")
 			write.csv(x=vals, paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)#, col.names=TRUE)
 			#
-			data <-  matrix(NA, nrow=ncol(vals)-1, ncol=max(vals[,1]))
+			xs <- min(vals[,COL_PANELS]):max(vals[,COL_PANELS])
+			data <-  matrix(0, nrow=ncol(vals)-1, ncol=length(xs))
 			rownames(data) <- colnames(vals)[2:ncol(vals)]
-			data[,vals[,1]] <- t(vals[,-1,drop=FALSE])
+			data[,match(vals[,1],xs)] <- t(vals[,-1,drop=FALSE])
 			#
 			ml <- paste0("Panel number distribution over ",filt.txt," characters")
 			xl <- paste0("Number of panels by ",filt.txt," character")
@@ -1003,7 +1008,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data,
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal, border=NA,
@@ -1026,7 +1031,7 @@ plot.stats.char <- function(
 					# barplots
 					barplot(
 						height=data[d,],
-						names.arg=1:ncol(data),
+						names.arg=xs,
 						xlab=xl, ylab=yl, main=paste0(ml,")"),
 						beside=FALSE, 							# stacked (FALSE) vs. grouped (TRUE) bars
 						col=pal[d], border=NA,
@@ -1055,7 +1060,7 @@ plot.stats.char <- function(
 ###############################################################################
 plot.stats.volume <- function(
 		char.det=NA, 
-		volume.stats, volume.stats.atts, volume.stats.indiv=NA, 
+		volume.stats, volume.stats.atts, volume.stats.indiv, 
 		cur.arc=NA)
 {	object <- "volumes"
 	
@@ -1239,22 +1244,24 @@ plot.stats.volume <- function(
 	)
 	tlog(4,"Generating the evolution plots")
 	for(v in 1:length(vol.cols))
-	{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
+	{	if(!all(is.na(volume.stats[,vol.cols[v]])))
+		{	tlog(5,"Processing column \"",vol.cols[v],"\" (",v,"/",length(vol.cols),")")
 		
-		file <- get.path.stats.corpus(object=object, char.det=char.det, subfold="evolution", arc=cur.arc, pref=vol.fnames[v])
-		tlog(4,"Producing files \"",file,"\"")
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				barplot(
-					height=volume.stats[,vol.cols[v]],
-					names.arg=volume.stats[,COL_VOLUME],
-					main=paste0("Evolution of the ",vol.titles[v]),
-					col=col
-				)
-			dev.off()
+			file <- get.path.stats.corpus(object=object, char.det=char.det, subfold="evolution", arc=cur.arc, pref=vol.fnames[v])
+			tlog(4,"Producing files \"",file,"\"")
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					barplot(
+						height=volume.stats[,vol.cols[v]],
+						names.arg=volume.stats[,COL_VOLUME],
+						main=paste0("Evolution of the ",vol.titles[v]),
+						col=col
+					)
+				dev.off()
+			}
 		}
 	}
 	
@@ -1303,7 +1310,7 @@ plot.stats.volume <- function(
 #					# others?
 #				}
 #			}
-#vTODO already plotted in the characters subfolder
+#TODO already plotted in the characters subfolder
 			
 			# plot for the attribute
 			file <- get.path.stats.corpus(object=object, char.det=char.det, arc=cur.arc, pref="distrib_chars-by-volume", att=att)
@@ -1542,21 +1549,23 @@ plot.stats.arc <- function(
 	)
 	tlog(4,"Generating the plots")
 	for(a in 1:length(arc.cols))
-	{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
-		
-		file <- get.path.stats.corpus(object=object, char.det=char.det, subfold="evolution", pref=arc.fnames[a])
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-				barplot(
-					height=arc.stats[,arc.cols[a]],
-					names.arg=arc.stats[,COL_ARC_ID],
-					main=paste0("Evolution of the ",arc.ttls[a]),
-					col=col
-				)
-			dev.off()
+	{	if(!all(is.na(arc.stats[,arc.cols[a]])))
+		{	tlog(5,"Processing column \"",arc.cols[a],"\" (",a,"/",length(arc.cols),")")
+			
+			file <- get.path.stats.corpus(object=object, char.det=char.det, subfold="evolution", pref=arc.fnames[a])
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+					barplot(
+						height=arc.stats[,arc.cols[a]],
+						names.arg=arc.stats[,COL_ARC_ID],
+						main=paste0("Evolution of the ",arc.ttls[a]),
+						col=col
+					)
+				dev.off()
+			}
 		}
 	}
 	
