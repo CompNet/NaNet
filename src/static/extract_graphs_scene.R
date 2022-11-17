@@ -194,8 +194,8 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	
 	# filtering by freq and occ
 	crit <- degree(g)<=1 | V(g)$Frequency<=3
-	idx.remove <- which(crit)
-	idx.keep <- which(!crit)
+	idx.remove <- which(crit); names(idx.remove) <- NULL
+	idx.keep <- which(!crit); names(idx.keep) <- NULL
 	g.filtr <- delete_vertices(graph=g, v=idx.remove)
 	tlog(2,"Named characters among those meeting the criteria: ",length(which(V(g.filtr)$Named)))
 	
@@ -211,7 +211,7 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	write_graph(graph=g.cmp, file=graph.file, format="graphml")
 	
 	# add new attribute to unfiltered graph
-	V(g)$Filter <- rep("Discard",gorder(g))
+	V(g)$Filter <- rep("Discard", gorder(g))
 	V(g)$Filter[idx.cmp] <- "Keep"
 	# record graph file
 	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
@@ -219,14 +219,12 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 	write_graph(graph=g, file=graph.file, format="graphml")
 	
 	# add col to char stats table and record
-	char.stats <- data$char.stats
 	if(COL_FILTER %in% colnames(char.stats))
 		char.stats[,COL_FILTER] <- V(g)$Filter
 	else
 	{	char.stats <- cbind(char.stats, V(g)$Filter)
 		colnames(char.stats)[ncol(char.stats)] <- COL_FILTER
 	}
-	data$char.stats <- char.stats
 	# update stats file
 	file <- get.path.stats.corpus(object="characters", char.det="implicit", subfold="unfiltered", pref="_char_stats")	#TODO not applicable to explicit version
 	tlog(4,"Writing character stats \"",file,"\"")
@@ -254,6 +252,32 @@ extract.static.graph.filtered <- function(g, char.stats, volume.stats)
 		char.stats=char.stats
 	)
 	return(res)
+}
+
+
+
+
+###############################################################################
+# Adds the filtered/not filtered status of each character to the the char.stats
+# table of the explicit annotation mode, based on the table of the implicit 
+# annotation mode.
+#
+# data.impl: data from the implicit annotation mode.
+# data.expl: data from the explicit annotation mode.
+#
+# returns: updated data.expl list.
+###############################################################################
+include.filtered.chars <- function(data.impl, data.expl)
+{	char.stats <- data.expl$char.stats
+	
+	vals <- data.impl$char.stats[,COL_FILTER]
+	if(any(is.na(vals)))
+		stop("NA detected in include.filtered.chars")
+	idx <- match(char.stats[,COL_NAME], data.impl$char.stats[,COL_NAME])
+	char.stats[,COL_FILTER] <- data.impl$char.stats[idx,COL_FILTER]
+	
+	data.expl$char.stats <- char.stats
+	return(data.expl)
 }
 
 
