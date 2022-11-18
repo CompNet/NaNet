@@ -2580,8 +2580,7 @@ K3	17	6	18	3	Kriss de Valnor	Hildebrün
 K3	18	4	18	4	Guustavson	Gardes_K3.18
 K3	18	5	19	1	Guustavson	Gardes_K3.18	Vassaux_K3.18
 K3	19	2	19	3	Guustavson	Althar	Reine Guustavson_K3.19	Lars Druknar	Gardes_K3.19
-K3	19	4	19	4	Kriss de Valnor	Hildebrün
-K3	19	5	19	7	Kriss de Valnor	Hildebrün
+K3	19	4	19	7	Kriss de Valnor	Hildebrün
 K3	20	1	20	3	Soldats_K3.20	Villageois_K3.20
 K3	20	4	20	6	Kriss de Valnor	Hildebrün
 K3	20	7	20	7	Iourov	Esclave_K3.6.1	Esclave_K3.6.2
