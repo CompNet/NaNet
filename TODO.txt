@@ -125,3 +125,5 @@ TODO (after reannotation)
   x Suppliciés_12.4
 
 Export annotation agreement as files (for history)
+
+NOTE: aaricia present in each arc, but not Thorgal?!
