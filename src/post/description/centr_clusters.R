@@ -72,8 +72,10 @@ tmp <- silhouette(x=best.membership, dist=dd)
 #res <- hclust(d=dd)	# dataset is too large
 
 # plot silhouette values
+par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 plot(2:klim, sils, ylim=0:1, xlab="Number of clusters (k)", ylab="Average Silhouette Width", col="RED")
 # plot silhouette profiles
+par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
 plot(tmp, border=NA, main="Silhouette plot", col=CAT_COLORS_8[1:best.k])
 
 # display the average centrality measures for each cluster
