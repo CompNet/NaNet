@@ -20,6 +20,12 @@ compute.graphical.params <- function(g=NA)
 	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g0 <- read.graphml.file(file=graph.file)
 	
+# to update the layout when adding a new volume:
+# 1) run the setup.graph.layout function below
+# 2) export as a graphml file (commented code below)
+# 3) open in gephi and adjust vertex position, record as graphml
+# 4) open with the second block of commented code below
+	
 	# set up layout
 	if(any(is.na(LAYOUT)))
 		setup.graph.layout(g0, NET_FOLDER)
@@ -137,7 +143,7 @@ plot.static.graph.scenes.all <- function(data)
 	# get vertex attributes
 	attrs <- vertex_attr_names(graph=g)
 	attrs <- setdiff(attrs, c(COL_NAME, COL_NAME_SHORT, "id", "name"))
-	attrs <- c(attrs, NA)
+	attrs <- c(NA, attrs)
 	
 	# plot the graph alone, and also depending on each vertex attribute
 	for(a in 1:length(attrs))

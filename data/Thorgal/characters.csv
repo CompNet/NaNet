@@ -44,6 +44,8 @@ Name,ShortName,Sex,Named
 2 serviteurs Ingvild_31.10,,Male,FALSE
 2 serviteurs Xia_31.10,,Male,FALSE
 2 serviteurs_30.48,,Unknown,FALSE
+2 Skraëlings_40.21,,Male,FALSE
+2 Slugs_40.40,,Male,FALSE
 2 soldats_23.8,,Male,FALSE
 2 soldats_33.43,,Male,FALSE
 2 soldats_39.13,,Male,FALSE
@@ -110,6 +112,7 @@ Ami d'Argun_K1.20.1,,Male,FALSE
 Ami d'Argun_K1.20.2,,Male,FALSE
 Amos,,Male,TRUE
 Amoureux de Yasmina,,Male,FALSE
+Angakkuq,,Male,TRUE
 Ange_4.34,,Male,FALSE
 Ange_4.35,,Male,FALSE
 Angrboda,,Female,TRUE
@@ -163,8 +166,12 @@ Asketill,,Male,TRUE
 Aslak,,Male,TRUE
 Astronautes_7.39.1,,Mixed,FALSE
 Astronautes_7.39.2,,Mixed,FALSE
+Atlante_40.41,,Female,FALSE
 Atlantes_39.43,,Mixed,FALSE
 Atlantes_39.48,,Mixed,FALSE
+Atlantes_40.15,,Mixed,FALSE
+Atlantes_40.25,,Mixed,FALSE
+Atlantes_40.35,,Male,FALSE
 Aubergiste_12.9,,Male,FALSE
 Aubergiste_32.28,,Male,FALSE
 Aubergiste_5.4,,Male,FALSE
@@ -209,6 +216,7 @@ Bjorn_J10.54,,Male,TRUE
 Björn_J9,,Male,TRUE
 Björnulf,,Male,TRUE
 Bohr,,Male,TRUE
+Boréale,,Female,TRUE
 Bourreau_35.6,,Male,FALSE
 Bourreau_K5.8,,Male,FALSE
 Brigand_K3.38.1,,Male,FALSE
@@ -303,6 +311,7 @@ Commandant_K8.38,,Male,FALSE
 Concubines_34.9,,Female,FALSE
 Conducteur d'Héraclius_27.7,,Male,FALSE
 Conducteurs_27.35,,Male,FALSE
+Conseil Atlante_40.13,,Mixed,FALSE
 Contarque_J6.3,,Male,FALSE
 Convives_9.39,,Mixed,FALSE
 Cosmonautes_26.19,,Mixed,FALSE
@@ -362,6 +371,7 @@ Draye,,Male,TRUE
 Driss Ibn Fadlân,Driss,Male,TRUE
 Driss_L1,,Male,TRUE
 Duhedos,,Male,TRUE
+Dzjaïn_40.3,,Mixed,FALSE
 Ecuyer_K4.30,,Male,FALSE
 Egiwde,,Unknown,TRUE
 Einar,,Male,TRUE
@@ -399,6 +409,8 @@ Enyd,,Female,TRUE
 Équipage_22.4,,Male,FALSE
 Équipage_33.3,,Male,FALSE
 Équipage_39.9,,Male,FALSE
+Equipage_40.5,,Mixed,FALSE
+Equipage_40.7,,Mixed,FALSE
 Équipage_J10.53,,Male,FALSE
 Équipage_J3.17,,Male,FALSE
 Erik_20.3,,Male,TRUE
@@ -556,6 +568,7 @@ Garde_35.12.2,,Male,FALSE
 Garde_39.22,,Male,FALSE
 Garde_4.26.1,,Male,FALSE
 Garde_4.26.2,,Male,FALSE
+Garde_40.14,,Male,FALSE
 Garde_6.19,,Male,FALSE
 Garde_6.20,,Male,FALSE
 Garde_6.36,,Male,FALSE
@@ -606,6 +619,9 @@ Gardes_34.14,,Male,FALSE
 Gardes_36.12,,Male,FALSE
 Gardes_37.15,,Male,FALSE
 Gardes_39.18,,Male,FALSE
+Gardes_40.23,,Male,FALSE
+Gardes_40.24,,Male,FALSE
+Gardes_40.37,,Male,FALSE
 Gardes_6.17,,Male,FALSE
 Gardes_J10.10,,Male,FALSE
 Gardes_J10.15,,Male,FALSE
@@ -725,6 +741,8 @@ Hanouar,,Male,TRUE
 Harald Görmsson,Harald,Male,TRUE
 Harâm_34.16,,Female,TRUE
 Haynée,,Female,TRUE
+Hazmat_40.22.1,,Male,FALSE
+Hazmat_40.22.2,,Male,FALSE
 Heidrun,,Female,TRUE
 Helgi,,Female,TRUE
 Helgith,,Male,TRUE
@@ -747,6 +765,7 @@ Hrafn,,Male,TRUE
 Hrun,,Male,TRUE
 Hsrak,,Male,TRUE
 Huginn,,Unknown,TRUE
+Hugön,,Male,TRUE
 Hungfold,,Male,TRUE
 Hydalgor,,Male,TRUE
 Ibissan,,Male,TRUE
@@ -911,14 +930,15 @@ Mercenaires_4.44,,Male,FALSE
 Mère d'Anina,,Female,FALSE
 Messager_3.32,,Male,FALSE
 Messager_K4.37,,Male,FALSE
+Mestor,,Male,TRUE
 Meute de Griz_L1.19,,Mixed,FALSE
 Migaïl,,Male,TRUE
 Mimir,,Male,TRUE
+Minoë,,Male,TRUE
 Mire_J10.52,,Male,FALSE
 Misha,,Male,TRUE
 Modgud,,Female,TRUE
 Moldi-le-furieux,Moldi,Male,TRUE
-Monstre désarticulé_39.5,,Unknown,FALSE
 Monstre_29.13,,Unknown,FALSE
 Monstre_29.14,,Unknown,FALSE
 Monstre_30.20,,Unknown,FALSE
@@ -975,6 +995,7 @@ Odinkar,,Male,TRUE
 Officier_27.48,,Male,FALSE
 Officier_28.11,,Male,FALSE
 Officier_4.25,,Male,FALSE
+Officier_40.14,,Unknown,FALSE
 Olaf,,Male,TRUE
 Olaf Einarson,,Male,TRUE
 Olaf_J10.54,,Male,TRUE
@@ -1032,6 +1053,9 @@ Pélerins_37.9,,Mixed,FALSE
 Père_J8.4,,Male,FALSE
 Petrov,,Male,TRUE
 Peuple du nord_33.8,,Mixed,FALSE
+Phulos_40.17,,Male,FALSE
+Phulos_40.35.1,,Male,FALSE
+Phulos_40.35.2,,Male,FALSE
 Pier,,Male,TRUE
 Pirates_25.28,,Male,FALSE
 Pirates_25.31,,Male,FALSE
@@ -1075,6 +1099,7 @@ Ran le homard,,Female,TRUE
 Rebelles_18.21,,Male,FALSE
 Rebelles_18.25,,Mixed,FALSE
 Rebelles_18.42,,Male,FALSE
+Rebelles_40.24,,Mixed,FALSE
 Reine d'Umbria,,Female,TRUE
 Reine Guustavson_K3.19,,Female,FALSE
 Religieux_K4.32,,Male,FALSE
@@ -1098,6 +1123,7 @@ Savant_6.3,,Male,FALSE
 Saxons_J7.17,,Male,FALSE
 Sbire_6.20,,Male,FALSE
 Schwitz,,Male,TRUE
+Scientifiques_40.22,,Male,FALSE
 Scientifiques_6.7,,Male,FALSE
 Seck,,Male,TRUE
 Second d'Harald_J7.35.1,,Male,FALSE
@@ -1164,6 +1190,9 @@ Skald,,Male,TRUE
 Skraëlings_39.31,,Male,FALSE
 Skraëlings_39.38,,Female,FALSE
 Skraëlings_39.44,,Male,FALSE
+Skraëlings_40.20,,Mixed,FALSE
+Skraëlings_40.27,,Male,FALSE
+Skraëlings_40.36,,Male,FALSE
 Skuld,,Female,TRUE
 Skuli,,Male,TRUE
 Slargh Vensson,Slargh,Male,TRUE
@@ -1172,6 +1201,9 @@ Slugs_2.33,,Mixed,FALSE
 Slugs_2.34,,Mixed,FALSE
 Slugs_2.38,,Male,FALSE
 Slugs_2.40,,Mixed,FALSE
+Slugs_40.14,,Mixed,FALSE
+Slugs_40.16,,Mixed,FALSE
+Slugs_40.25,,Male,FALSE
 Soldat_12.8,,Male,FALSE
 Soldat_16.31.2,,Male,FALSE
 Soldat_16.31.3,,Male,FALSE
@@ -1301,6 +1333,8 @@ Triesse,,Male,TRUE
 Trondur Gotuskegg,Trondur ,Male,TRUE
 Troy,,Male,TRUE
 Trygve Karhamasönn,Trygve,Male,TRUE
+Tupilak_39.5,,Unknown,FALSE
+Tupilaks_40.30,,Unknown,FALSE
 Turban_3.19,,Male,FALSE
 Tyr,,Male,TRUE
 Uébac,,Male,TRUE

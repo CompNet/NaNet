@@ -560,29 +560,31 @@ compute.static.statistics.comparison <- function(data, char.det=NA, panel.params
 	page.overlaps <- page.params$overlaps
 	
 	#### scene-based graphs
-	tlog(1,"Dealing with scene-based graphs")
-	# loop over unfiltered/filtered networks
-	for(filtered in c(FALSE,TRUE))
-	{	tlog(2,"Processing filtered=",filtered)
-		
-		# comparison for the scene-based graphs
-		for(weights in c("none","occurrences","duration"))
-		{	compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, filtered=filtered, compare=TRUE)
-			compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, filtered=filtered)
-		}
-		
-		# correlations only for each narrative arc
-		arc.nbr <- nrow(data$arc.stats)
-		for(arc in 1:arc.nbr)
-		{	for(weights in c("none","occurrences","duration"))
-				compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, arc=arc, filtered=filtered)
-		}
-		# correlations only for each volume
-		volume.nbr <- nrow(data$volume.stats)
-		for(v in 1:volume.nbr)
-		{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
+	if(char.det=="implicit")
+	{	tlog(1,"Dealing with scene-based graphs")
+		# loop over unfiltered/filtered networks
+		for(filtered in c(FALSE,TRUE))
+		{	tlog(2,"Processing filtered=",filtered)
+			
+			# comparison for the scene-based graphs
 			for(weights in c("none","occurrences","duration"))
-				compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, vol=vol, filtered=filtered)
+			{	compute.static.all.statistics(mode="scenes", char.det=char.det, weights=weights, filtered=filtered, compare=TRUE)
+				compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, filtered=filtered)
+			}
+			
+			# correlations only for each narrative arc
+			arc.nbr <- nrow(data$arc.stats)
+			for(arc in 1:arc.nbr)
+			{	for(weights in c("none","occurrences","duration"))
+					compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, arc=arc, filtered=filtered)
+			}
+			# correlations only for each volume
+			volume.nbr <- nrow(data$volume.stats)
+			for(v in 1:volume.nbr)
+			{	vol <- paste0(v,"_",data$volume.stats[v, COL_VOLUME])
+				for(weights in c("none","occurrences","duration"))
+					compute.all.static.corrs(mode="scenes", char.det=char.det, weights=weights, vol=vol, filtered=filtered)
+			}
 		}
 	}
 			
