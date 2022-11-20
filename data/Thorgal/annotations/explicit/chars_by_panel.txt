@@ -21197,7 +21197,7 @@ J9	48	8	48	8	Huginn	Muninn
 39	38	8	38	8	Jolan Thorgalsson	Thorgal Aegirsson
 39	38	9	38	9	Jolan Thorgalsson	Kriss de Valnor	Thorgal Aegirsson
 39	39	1	39	1	Arisön	Kriss de Valnor	Thorgal Aegirsson
-39	39	2	39	2	Jolan Thorgalsson	Thorgal Aegirsson
+39	39	2	39	2	Thorgal Aegirsson
 39	39	3	39	3	Jolan Thorgalsson	Thorgal Aegirsson
 39	39	4	39	4	Jolan Thorgalsson	Thorgal Aegirsson
 39	39	5	39	5	Jolan Thorgalsson	Thorgal Aegirsson
@@ -21727,3 +21727,358 @@ J10	56	4	56	4	Seck
 J10	56	5	56	5	Thorgal Aegirsson
 J10	56	6	56	6	Seck	Thorgal Aegirsson
 J10	56	7	56	7	Équipage_J10.53
+40	3	1	3	1	Thorgal Aegirsson
+40	3	2	3	2	Dzjaïn_40.3
+40	3	3	3	3	Dzjaïn_40.3
+40	3	4	3	4	Dzjaïn_40.3
+40	3	5	3	5	Thorgal Aegirsson	Neokóra
+40	3	6	3	6	Thorgal Aegirsson
+40	3	7	3	7	Thorgal Aegirsson	Neokóra
+40	4	1	4	1	Thorgal Aegirsson	Neokóra
+40	4	2	4	2	Thorgal Aegirsson
+40	4	3	4	3	Thorgal Aegirsson	Neokóra
+40	4	4	4	4	Thorgal Aegirsson
+40	4	5	4	5	Thorgal Aegirsson	Neokóra
+40	4	6	4	6	Neokóra
+40	4	7	4	7	Thorgal Aegirsson	Neokóra
+40	4	8	4	8
+40	4	9	4	9	Thorgal Aegirsson
+40	5	1	5	1	Dzjaïn_40.3	Equipage_40.5	Jolan Thorgalsson
+40	5	2	5	2	Dzjaïn_40.3	Jolan Thorgalsson	Thorgal Aegirsson
+40	5	3	5	3	Jolan Thorgalsson	Neokóra	Thorgal Aegirsson
+40	5	4	5	4	Thorgal Aegirsson
+40	5	5	5	5	Jolan Thorgalsson	Neokóra	Thorgal Aegirsson
+40	5	6	5	6	Neokóra	Thorgal Aegirsson
+40	5	7	5	7
+40	5	8	5	8
+40	5	9	5	9	Jolan Thorgalsson	Thorgal Aegirsson
+40	6	1	6	1	Jolan Thorgalsson	Thorgal Aegirsson
+40	6	2	6	2	Thorgal Aegirsson	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
+40	6	3	6	3	Thorgal Aegirsson
+40	6	4	6	4	Dzjaïn_40.3	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
+40	6	5	6	5	Dzjaïn_40.3	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
+40	6	6	6	6	Jolan Thorgalsson	Thorgal Aegirsson
+40	6	7	6	7
+40	6	8	6	8	Jolan Thorgalsson	Thorgal Aegirsson
+40	7	1	7	1	Equipage_40.7	Jolan Thorgalsson	Thorgal Aegirsson
+40	7	2	7	2	Jolan Thorgalsson	Thorgal Aegirsson
+40	7	3	7	3	Jolan Thorgalsson	Thorgal Aegirsson
+40	7	4	7	4	Jolan Thorgalsson	Thorgal Aegirsson
+40	7	5	7	5	Slive
+40	7	6	7	6	Boréale	Slive
+40	7	7	7	7	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	7	8	7	8	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	7	9	7	9
+40	8	1	8	1	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	8	2	8	2	Slive	Thorgal Aegirsson
+40	8	3	8	3	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	8	4	8	4	Thorgal Aegirsson	Slive
+40	8	5	8	5	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	8	6	8	6	Thorgal Aegirsson	Slive
+40	8	7	8	7	Boréale	Jolan Thorgalsson
+40	8	8	8	8	Boréale
+40	9	1	9	1	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	9	2	9	2	Boréale	Slive
+40	9	3	9	3	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	9	4	9	4	Slive
+40	9	5	9	5
+40	9	6	9	6	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	9	7	9	7	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	10	1	10	1	Dzjaïn_40.3	Mestor	Neokóra
+40	10	2	10	2	Dzjaïn_40.3	Mestor
+40	10	3	10	3	Neokóra
+40	10	4	10	4	Mestor
+40	10	5	10	5	Neokóra
+40	10	6	10	6	Mestor
+40	10	7	10	7	Neokóra
+40	10	8	10	8	Dzjaïn_40.3	Mestor
+40	10	9	10	9
+40	11	1	11	1	Dzjaïn_40.3	Mestor
+40	11	2	11	2	Dzjaïn_40.3	Mestor
+40	11	3	11	3	Dzjaïn_40.3	Mestor
+40	11	4	11	4	Dzjaïn_40.3	Mestor
+40	11	5	11	5	Dzjaïn_40.3	Mestor	Neokóra
+40	11	6	11	6	Neokóra
+40	11	7	11	7	Dzjaïn_40.3	Mestor
+40	11	8	11	8	Neokóra
+40	12	1	12	1	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	12	2	12	2	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	12	3	12	3	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	12	4	12	4	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	12	5	12	5
+40	12	6	12	6	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	12	7	12	7	Jolan Thorgalsson	Thorgal Aegirsson
+40	12	8	12	8	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	13	1	13	1	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	13	2	13	2	Slive
+40	13	3	13	3
+40	13	4	13	4	Conseil Atlante_40.13
+40	13	5	13	5
+40	13	6	13	6	Astronautes_7.39.1	Astronautes_7.39.2	Haynée	Varth	Xargos
+40	13	7	13	7
+40	14	1	14	1
+40	14	2	14	2	Garde_40.14	Officier_40.14	Slugs_40.14
+40	14	3	14	3	Garde_40.14	Slugs_40.14
+40	14	4	14	4	Dzjaïn_40.3	Varth
+40	14	5	14	5	Haynée	Slive
+40	14	6	14	6	Slive	Thorgal Aegirsson
+40	15	1	15	1	Slive	Thorgal Aegirsson
+40	15	2	15	2	Astronautes_7.39.1	Astronautes_7.39.2
+40	15	3	15	3	Haynée	Varth
+40	15	4	15	4	Atlantes_40.15	Haynée	Mestor	Varth
+40	15	5	15	5	Cosmonautes_26.19	Haynée	Thorgal Aegirsson	Varth
+40	15	6	15	6	Thorgal Aegirsson
+40	16	1	16	1	Jolan Thorgalsson
+40	16	2	16	2	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	16	3	16	3	Slive	Thorgal Aegirsson
+40	16	4	16	4	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	16	5	16	5
+40	16	6	16	6	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	16	7	16	7	Boréale	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	16	8	16	8	Boréale	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	16	9	16	9	Boréale	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	17	1	17	1	Hugön	Phulos_40.17
+40	17	2	17	2	Hugön
+40	17	3	17	3	Hugön	Neokóra	Phulos_40.17
+40	17	4	17	4	Neokóra
+40	17	5	17	5
+40	17	6	17	6	Phulos_40.17
+40	17	7	17	7	Neokóra
+40	17	8	17	8	Hugön	Neokóra	Phulos_40.17
+40	17	9	17	9	Hugön	Phulos_40.17
+40	18	1	18	1	Garn
+40	18	2	18	2	Boréale	Garn	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	18	3	18	3	Garn	Jolan Thorgalsson	Thorgal Aegirsson
+40	18	4	18	4	Garn	Thorgal Aegirsson
+40	18	5	18	5	Garn	Jolan Thorgalsson	Thorgal Aegirsson
+40	18	6	18	6	Garn	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	19	1	19	1	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	19	2	19	2	Angakkuq
+40	19	3	19	3	Angakkuq
+40	19	4	19	4	Thorgal Aegirsson
+40	19	5	19	5	Angakkuq	Thorgal Aegirsson
+40	19	6	19	6	Garn
+40	20	1	20	1	Angakkuq	Garn	Slive	Slugs_40.16	Thorgal Aegirsson
+40	20	2	20	2	Thorgal Aegirsson
+40	20	3	20	3	Angakkuq
+40	20	4	20	4	2 Skraëlings_40.21	Hugön	Phulos_40.17	Skraëlings_40.20
+40	20	5	20	5
+40	20	6	20	6	Arisön	Hugön	Kriss de Valnor	Phulos_40.17	Skraëlings_40.20
+40	20	7	20	7	Arisön	Kriss de Valnor
+40	20	8	20	8	2 Skraëlings_40.21	Arisön	Hugön	Kriss de Valnor	Neokóra	Phulos_40.17	Skraëlings_40.20
+40	21	1	21	1	2 Skraëlings_40.21	Phulos_40.17
+40	21	2	21	2	2 Skraëlings_40.21
+40	21	3	21	3
+40	21	4	21	4	2 Skraëlings_40.21
+40	21	5	21	5	2 Skraëlings_40.21
+40	21	6	21	6	2 Skraëlings_40.21
+40	21	7	21	7	2 Skraëlings_40.21
+40	21	8	21	8	2 Skraëlings_40.21
+40	21	9	21	9	2 Skraëlings_40.21
+40	22	1	22	1	2 Skraëlings_40.21	Scientifiques_40.22
+40	22	2	22	2	Scientifiques_40.22
+40	22	3	22	3	2 Skraëlings_40.21
+40	22	4	22	4	2 Skraëlings_40.21
+40	22	5	22	5	2 Skraëlings_40.21
+40	22	6	22	6	2 Skraëlings_40.21
+40	22	7	22	7	Scientifiques_40.22
+40	22	8	22	8	Neokóra	Scientifiques_40.22
+40	22	9	22	9	Hazmat_40.22.1
+40	23	1	23	1
+40	23	2	23	2	Boréale	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson	Angakkuq	Garn
+40	23	3	23	3	Angakkuq
+40	23	4	23	4	Slive	Thorgal Aegirsson
+40	23	5	23	5	Slive
+40	23	6	23	6	Slive	Thorgal Aegirsson
+40	23	7	23	7	Slive	Thorgal Aegirsson
+40	23	8	23	8	Gardes_40.23	Mestor
+40	24	1	24	1	Minoë	Slive
+40	24	2	24	2	Rebelles_40.24	Slive
+40	24	3	24	3	Rebelles_40.24	Slive
+40	24	4	24	4	Gardes_40.24	Minoë
+40	24	5	24	5	Gardes_40.24	Minoë
+40	24	6	24	6	Gardes_40.24	Minoë
+40	24	7	24	7	Minoë
+40	25	1	25	1	Slive
+40	25	2	25	2
+40	25	3	25	3	Slive
+40	25	4	25	4	Akwila	Atlantes_40.25	Slive
+40	25	5	25	5	Slugs_40.25
+40	25	6	25	6	Akwila	Atlantes_40.25	Slive
+40	25	7	25	7	Slive	Slugs_40.16	Thorgal Aegirsson
+40	25	8	25	8	Slive
+40	26	1	26	1	Angakkuq	Garn	Slive	Slugs_40.16	Thorgal Aegirsson
+40	26	2	26	2	Thorgal Aegirsson
+40	26	3	26	3	Thorgal Aegirsson	Garn
+40	26	4	26	4	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	26	5	26	5	Angakkuq	Jolan Thorgalsson	Thorgal Aegirsson
+40	26	6	26	6	Angakkuq	Thorgal Aegirsson
+40	26	7	26	7	Garn	Thorgal Aegirsson
+40	26	8	26	8	Boréale	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	26	9	26	9	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	27	1	27	1	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	27	2	27	2	Slive	Thorgal Aegirsson
+40	27	3	27	3	Slive	Thorgal Aegirsson	Jolan Thorgalsson
+40	27	4	27	4	Slugs_40.16
+40	27	5	27	5	Garn	Slugs_40.16
+40	27	6	27	6	Jolan Thorgalsson	Skraëlings_40.27	Slive	Slugs_40.16	Thorgal Aegirsson
+40	27	7	27	7	Skraëlings_40.27
+40	27	8	27	8	Skraëlings_40.27	Slugs_40.16
+40	28	1	28	1	Hazmat_40.22.1	Hazmat_40.22.2
+40	28	2	28	2	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	28	3	28	3	Hugön
+40	28	4	28	4	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	28	5	28	5	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	28	6	28	6	Hazmat_40.22.1	Hazmat_40.22.2
+40	29	1	29	1	Garn	Jolan Thorgalsson	Skraëlings_40.27	Slive	Slugs_40.16	Thorgal Aegirsson
+40	29	2	29	2	Skraëlings_40.27	Slugs_40.16
+40	29	3	29	3	Skraëlings_40.27	Slugs_40.16
+40	29	4	29	4	Skraëlings_40.27	Slugs_40.16
+40	29	5	29	5	Garn	Jolan Thorgalsson	Skraëlings_40.27	Slive	Slugs_40.16	Thorgal Aegirsson
+40	29	6	29	6	Garn	Jolan Thorgalsson	Skraëlings_40.27	Slive	Slugs_40.16	Thorgal Aegirsson
+40	29	7	29	7	Skraëlings_40.27
+40	30	1	30	1	Angakkuq	Jolan Thorgalsson	Skraëlings_40.27	Slugs_40.16	Thorgal Aegirsson	Tupilaks_40.30
+40	30	2	30	2	Angakkuq	Tupilaks_40.30
+40	30	3	30	3	Angakkuq	Skraëlings_40.27	Tupilaks_40.30	Slugs_40.16
+40	30	4	30	4	Skraëlings_40.27	Tupilaks_40.30
+40	30	5	30	5	Skraëlings_40.27	Tupilaks_40.30
+40	31	1	31	1	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	31	2	31	2	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	31	3	31	3	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	31	4	31	4	Hugön	Skraëlings_40.27
+40	31	5	31	5	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17	Skraëlings_40.27
+40	31	6	31	6	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17	Skraëlings_40.27
+40	31	7	31	7	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17	Skraëlings_40.27
+40	31	8	31	8	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17	Tupilaks_40.30
+40	32	1	32	1	Hazmat_40.22.1	Hazmat_40.22.2	Hugön	Phulos_40.17	Tupilaks_40.30
+40	32	2	32	2	Hazmat_40.22.1	Tupilaks_40.30
+40	32	3	32	3	Hazmat_40.22.1	Tupilaks_40.30
+40	32	4	32	4	Hazmat_40.22.1	Hazmat_40.22.2	Phulos_40.17	Tupilaks_40.30
+40	32	5	32	5	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	32	6	32	6	Hazmat_40.22.1	Hugön	Phulos_40.17
+40	32	7	32	7	Hazmat_40.22.1	Hugön	Phulos_40.17
+40	33	1	33	1	Tupilaks_40.30
+40	33	2	33	2	Tupilaks_40.30
+40	33	3	33	3	Tupilaks_40.30
+40	33	4	33	4	Angakkuq	Garn	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	33	5	33	5	Angakkuq	Garn	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	33	6	33	6	Jolan Thorgalsson	Slive	Garn	Thorgal Aegirsson	Boréale
+40	33	7	33	7	Hazmat_40.22.1	Thorgal Aegirsson	Slive
+40	33	8	33	8
+40	33	9	33	9	Slive
+40	34	1	34	1	Slive
+40	34	2	34	2	Slive	Thorgal Aegirsson
+40	34	3	34	3	Thorgal Aegirsson
+40	34	4	34	4	Garn	Hazmat_40.22.1	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	34	5	34	5	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	34	6	34	6	Garn	Jolan Thorgalsson	Thorgal Aegirsson
+40	34	7	34	7	Thorgal Aegirsson
+40	34	8	34	8	Garn	Hazmat_40.22.1	Jolan Thorgalsson	Slive	Slugs_40.16	Thorgal Aegirsson
+40	35	1	35	1	Mestor	Neokóra
+40	35	2	35	2	Hazmat_40.22.2	Hugön	Phulos_40.17
+40	35	3	35	3	Boréale	Hazmat_40.22.1	Hazmat_40.22.2	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	35	4	35	4	Neokóra
+40	35	5	35	5	Atlantes_40.35	Mestor	Neokóra	Phulos_40.35.1
+40	35	6	35	6	Mestor	Phulos_40.35.2
+40	35	7	35	7	Boréale	Hazmat_40.22.2	Jolan Thorgalsson	Phulos_40.35.2	Slive	Thorgal Aegirsson
+40	35	8	35	8	Boréale	Hazmat_40.22.2	Jolan Thorgalsson	Phulos_40.35.2	Slive	Thorgal Aegirsson
+40	35	9	35	9	Boréale	Jolan Thorgalsson	Phulos_40.35.2	Slive	Thorgal Aegirsson
+40	36	1	36	1	Hazmat_40.22.2	Phulos_40.35.2	Skraëlings_40.36
+40	36	2	36	2	Hazmat_40.22.2	Skraëlings_40.36
+40	36	3	36	3	Hazmat_40.22.2
+40	36	4	36	4	Hazmat_40.22.2	Phulos_40.35.2	Skraëlings_40.36
+40	36	5	36	5	Hazmat_40.22.2	Phulos_40.35.2	Skraëlings_40.36
+40	36	6	36	6	Phulos_40.35.2
+40	36	7	36	7	Atlantes_40.35	Neokóra
+40	36	8	36	8	Atlantes_40.35	Neokóra
+40	36	9	36	9	Atlantes_40.35
+40	37	1	37	1	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	37	2	37	2	Slive	Thorgal Aegirsson
+40	37	3	37	3	Slive	Thorgal Aegirsson
+40	37	4	37	4	Boréale	Gardes_40.37	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	37	5	37	5	Boréale	Gardes_40.37	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	37	6	37	6	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	37	7	37	7	Slive	Thorgal Aegirsson
+40	37	8	37	8	Slive	Thorgal Aegirsson
+40	37	9	37	9	Slive
+40	38	1	38	1
+40	38	2	38	2	Atlantes_40.35	Mestor	Neokóra
+40	38	3	38	3	Neokóra
+40	38	4	38	4	Atlantes_40.35	Mestor	Neokóra
+40	38	5	38	5	Neokóra
+40	38	6	38	6	Mestor
+40	38	7	38	7	Neokóra
+40	38	8	38	8
+40	38	9	38	9
+40	38	10	38	10	Atlantes_40.35	Mestor
+40	39	1	39	1	Thorgal Aegirsson
+40	39	2	39	2	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	39	3	39	3	Slive
+40	39	4	39	4	Slive	Thorgal Aegirsson
+40	39	5	39	5	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	39	6	39	6	Boréale	Slive
+40	39	7	39	7	Boréale	Jolan Thorgalsson	Slive	Thorgal Aegirsson
+40	39	8	39	8	Slive
+40	39	9	39	9	Slive
+40	40	1	40	1	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	40	2	40	2	Boréale	Jolan Thorgalsson
+40	40	3	40	3	Boréale	Jolan Thorgalsson
+40	40	4	40	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	40	5	40	5	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	40	6	40	6
+40	40	7	40	7
+40	40	8	40	8	2 Slugs_40.40	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	40	9	40	9	2 Slugs_40.40	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Thorgal Aegirsson
+40	41	1	41	1	Arisön	Kriss de Valnor
+40	41	2	41	2	Arisön	Kriss de Valnor
+40	41	3	41	3	Arisön	Kriss de Valnor
+40	41	4	41	4	Arisön	Kriss de Valnor
+40	41	5	41	5	Kriss de Valnor
+40	41	6	41	6	Arisön	Kriss de Valnor
+40	41	7	41	7	Kriss de Valnor
+40	41	8	41	8	Arisön	Atlante_40.41	Kriss de Valnor
+40	42	1	42	1	Atlante_40.41
+40	42	2	42	2	Arisön	Atlante_40.41	Kriss de Valnor
+40	42	3	42	3	Arisön	Atlante_40.41	Kriss de Valnor
+40	42	4	42	4
+40	42	5	42	5	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	42	6	42	6	Angakkuq	Slugs_40.16	Thorgal Aegirsson
+40	42	7	42	7	Angakkuq
+40	42	8	42	8	Angakkuq	Slugs_40.16	Thorgal Aegirsson
+40	43	1	43	1	Angakkuq	Slugs_40.16	Thorgal Aegirsson
+40	43	2	43	2	Angakkuq	Slugs_40.16	Thorgal Aegirsson
+40	43	3	43	3	Angakkuq	Boréale	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	43	4	43	4	Angakkuq	Thorgal Aegirsson
+40	43	5	43	5
+40	44	1	44	1	Arisön	Kriss de Valnor
+40	44	2	44	2	Arisön	Kriss de Valnor
+40	44	3	44	3	Arisön	Kriss de Valnor
+40	44	4	44	4	Arisön	Kriss de Valnor
+40	44	5	44	5	Kriss de Valnor
+40	44	6	44	6	Arisön	Kriss de Valnor
+40	45	1	45	1	Arisön	Kriss de Valnor
+40	45	2	45	2	Arisön	Kriss de Valnor
+40	45	3	45	3	Arisön	Kriss de Valnor
+40	45	4	45	4	Arisön	Kriss de Valnor
+40	45	5	45	5	Arisön	Kriss de Valnor
+40	45	6	45	6	Arisön	Kriss de Valnor
+40	45	7	45	7
+40	45	8	45	8
+40	46	1	46	1
+40	46	2	46	2	Boréale	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	46	3	46	3	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	46	4	46	4	Angakkuq
+40	46	5	46	5	Angakkuq	Garn	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	46	6	46	6	Angakkuq
+40	46	7	46	7	Angakkuq	Boréale	Garn	Jolan Thorgalsson	Slugs_40.16	Thorgal Aegirsson
+40	47	1	47	1	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	47	2	47	2
+40	47	3	47	3	Jolan Thorgalsson	Thorgal Aegirsson
+40	47	4	47	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+40	47	5	47	5	Jolan Thorgalsson	Thorgal Aegirsson
+40	47	6	47	6	Boréale	Jolan Thorgalsson
+40	47	7	47	7	Boréale	Jolan Thorgalsson
+40	47	8	47	8	Boréale	Jolan Thorgalsson
+40	47	9	47	9	Boréale	Jolan Thorgalsson
+40	48	1	48	1
+40	48	2	48	2	Boréale
