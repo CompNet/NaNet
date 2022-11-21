@@ -4780,7 +4780,7 @@ J10	56	7	56	7	Équipage_J10.53
 40	21	2	22	6	2 Skraëlings_40.21	Scientifiques_40.22	Neokóra
 40	22	7	22	8	Scientifiques_40.22	Neokóra
 40	22	9	22	9	Hazmat_40.22.1	Neokóra
-40	23	1	23	3	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Boréale	Slugs_40.16
+40	23	1	23	3	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Boréale	Slugs_40.16	Garn	Angakkuq
 40	23	4	23	7	Thorgal Aegirsson	Slive
 40	23	8	23	8	Mestor	Gardes_40.23
 40	24	1	24	1	Slive	Minoë
@@ -4809,14 +4809,14 @@ J10	56	7	56	7	Équipage_J10.53
 40	32	7	32	7	Phulos_40.17	Hazmat_40.22.1	Hazmat_40.22.2	Hugön
 40	33	1	33	3	Tupilaks_40.30
 40	33	4	33	5	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Slugs_40.16	Garn	Angakkuq
-40	33	6	33	6	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Slugs_40.16
+40	33	6	33	6	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Garn	Boréale
 40	33	7	34	3	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Hazmat_40.22.1
 40	34	4	34	8	Thorgal Aegirsson	Jolan Thorgalsson	Slive	Slugs_40.16	Garn	Hazmat_40.22.1
 40	35	1	35	1	Mestor	Phulos_40.17	Hazmat_40.22.2	Hugön	Neokóra
 40	35	2	35	4	Mestor	Phulos_40.17	Hazmat_40.22.2	Hugön	Neokóra	Scientifique / Thorgal Aegirsson	Scientifique / Slive	Scientifique / Jolan Thorgalsson	Scientifique / Boréale
 40	35	5	35	5	Mestor	Neokóra	Phulos_40.35.1	Atlantes_40.35
 40	35	6	35	6	Mestor	Phulos_40.35.2
-40	35	7	35	9	Phulos_40.35.2	Scientifique / Thorgal Aegirsson	Scientifique / Slive	Scientifique / Jolan Thorgalsson	Scientifique / Boréale	Hazmat_40.22.2
+40	35	7	35	9	Phulos_40.35.2	Scientifique / Thorgal Aegirsson	Scientifique / Slive	Scientifique / Jolan Thorgalsson	Scientifique / Boréale	Hazmat_40.22.1
 40	36	1	36	3	Phulos_40.35.2	Hazmat_40.22.2	Skraëlings_40.36
 40	36	4	36	6	Phulos_40.35.2	Hazmat_40.22.2	Skraëlings_40.36	Mestor
 40	36	7	36	8	Neokóra	Atlantes_40.35
