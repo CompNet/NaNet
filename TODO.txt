@@ -93,37 +93,18 @@ Clean code:
 
 - use nbr of occurrences (scenes) to plot vertex size (by default)? (instead of betweenness)
 
+- externalize plot paramaters in configuration file (so that one can adapt to their own data)
+
 TODO
-- should separate the extraction of the static graph vs. graph sequence
-  >> maybe not a good idea: better to mutualize this code (or maybe separate the core loop in a different function ?)
 - community detection by block models?
   https://cran.r-project.org/web/packages/sbm/
   https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#network-reconstruction
 
 - alt repo y.rochat data: https://github.com/mtriclot/Belfort
 
-TODO (after reannotation)
-1) export character list
-2) retrieve extra characters
-3) manually add to layout
 
-- check that the file paths in post are all built using functions (and not by hand)
-- change all such function calls in order to handle the new parameter char.det
-- positions à vérifier :
-  x Armée de Magnus_K4.45
-  x Croc-Bleu
-  x Dominants_2.31
-  x Garde_6.20
-  x Gardes_J10.20 (isolé)
-  x Gardes_K3.37
-  x Gareth_6.20
-  x Hériulf_1.15
-  x Koltar l'aigle, Radon l'aigle, Tabor l'aigle
-  x Ornulla
-  x Palefrenier_1.15
-  x Rebelles_18.25
-  x Suppliciés_12.4
 
-Export annotation agreement as files (for history)
+- Export annotation agreement results as log files (for history)
+- record law id testing as separate value in order to use when plotting both series (filt vs. unfilt) in post
 
 NOTE: aaricia present in each arc, but not Thorgal?!
