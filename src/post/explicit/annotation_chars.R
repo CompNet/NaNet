@@ -14,8 +14,8 @@ source("src/common/_include.R")
 
 
 ###############################################################################
-# Reads the original interaction file and produces a based version for the
-# annotation of the explicit character occurrences. All the characters appearing
+# Reads the original interaction file and produces a panel-based version for the
+# annotation of explicit character occurrences. All the characters appearing
 # in a scene are associated to each panel constituting this scene. The annotation
 # is then conducted by removing the characters that are not actuall shown in the
 # panels.
