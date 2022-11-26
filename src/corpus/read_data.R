@@ -371,7 +371,6 @@ init.panel.table <- function(
 ###############################################################################
 # Reads the table describing the interactions between characters for each scene, 
 # and coverts them into an edge list while performing some verifications. 
-# Only for implicit character annotations.
 #
 # char.det: character detection mode ("implicit" or "explicit").
 # panel.stats: table describing all the panels constituting the series.
