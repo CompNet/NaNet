@@ -20924,24 +20924,24 @@ J9	48	8	48	8	Huginn	Muninn
 39	4	6	4	6
 39	4	7	4	7	Ava	Jolan Thorgalsson	Louve Thorgalsdottir	Thorgal Aegirsson
 39	4	8	4	8	Jolan Thorgalsson	Thorgal Aegirsson
-39	5	1	5	1	Jolan Thorgalsson	Louve Thorgalsdottir	Monstre désarticulé_39.5	Thorgal Aegirsson	Gilli
+39	5	1	5	1	Jolan Thorgalsson	Louve Thorgalsdottir	Tupilak_39.5	Thorgal Aegirsson	Gilli
 39	5	2	5	2	Jolan Thorgalsson	Thorgal Aegirsson
-39	5	3	5	3	Jolan Thorgalsson	Thorgal Aegirsson	Monstre désarticulé_39.5
-39	5	4	5	4	Jolan Thorgalsson	Thorgal Aegirsson	Monstre désarticulé_39.5
+39	5	3	5	3	Jolan Thorgalsson	Thorgal Aegirsson	Tupilak_39.5
+39	5	4	5	4	Jolan Thorgalsson	Thorgal Aegirsson	Tupilak_39.5
 39	5	5	5	5
-39	5	6	5	6	Louve Thorgalsdottir	Monstre désarticulé_39.5
+39	5	6	5	6	Louve Thorgalsdottir	Tupilak_39.5
 39	5	7	5	7
 39	6	1	6	1
-39	6	2	6	2	Jolan Thorgalsson	Monstre désarticulé_39.5	Thorgal Aegirsson
-39	6	3	6	3	Jolan Thorgalsson	Monstre désarticulé_39.5	Thorgal Aegirsson
+39	6	2	6	2	Jolan Thorgalsson	Tupilak_39.5	Thorgal Aegirsson
+39	6	3	6	3	Jolan Thorgalsson	Tupilak_39.5	Thorgal Aegirsson
 39	6	4	6	4	Jolan Thorgalsson
-39	6	5	6	5	Jolan Thorgalsson	Monstre désarticulé_39.5	Thorgal Aegirsson	Louve Thorgalsdottir
-39	6	6	6	6	Monstre désarticulé_39.5	Thorgal Aegirsson
-39	6	7	6	7	Monstre désarticulé_39.5	Louve Thorgalsdottir
-39	6	8	6	8	Ava	Gilli	Monstre désarticulé_39.5	Louve Thorgalsdottir
+39	6	5	6	5	Jolan Thorgalsson	Tupilak_39.5	Thorgal Aegirsson	Louve Thorgalsdottir
+39	6	6	6	6	Tupilak_39.5	Thorgal Aegirsson
+39	6	7	6	7	Tupilak_39.5	Louve Thorgalsdottir
+39	6	8	6	8	Ava	Gilli	Tupilak_39.5	Louve Thorgalsdottir
 39	6	9	6	9
-39	7	1	7	1	Louve Thorgalsdottir	Monstre désarticulé_39.5
-39	7	2	7	2	Ava	Gilli	Louve Thorgalsdottir	Monstre désarticulé_39.5
+39	7	1	7	1	Louve Thorgalsdottir	Tupilak_39.5
+39	7	2	7	2	Ava	Gilli	Louve Thorgalsdottir	Tupilak_39.5
 39	7	3	7	3	Ava	Gilli	Jolan Thorgalsson	Louve Thorgalsdottir	Thorgal Aegirsson	Yasmina
 39	7	4	7	4	Louve Thorgalsdottir
 39	7	5	7	5	Jolan Thorgalsson	Louve Thorgalsdottir	Thorgal Aegirsson
@@ -20961,9 +20961,9 @@ J9	48	8	48	8	Huginn	Muninn
 39	9	2	9	2	Arisön	Ava	Gilli	Jolan Thorgalsson	Louve Thorgalsdottir	Thorgal Aegirsson
 39	9	3	9	3
 39	9	4	9	4	Arisön	Équipage_39.9
-39	9	5	9	5	Arisön	Équipage_39.9	Monstre désarticulé_39.5
-39	9	6	9	6	Équipage_39.9	Monstre désarticulé_39.5
-39	9	7	9	7	Arisön	Monstre désarticulé_39.5
+39	9	5	9	5	Arisön	Équipage_39.9	Tupilak_39.5
+39	9	6	9	6	Équipage_39.9	Tupilak_39.5
+39	9	7	9	7	Arisön	Tupilak_39.5
 39	9	8	9	8	Louve Thorgalsdottir	Thorgal Aegirsson
 39	10	1	10	1	Ava
 39	10	2	10	2	Ava
@@ -21753,7 +21753,7 @@ J10	56	7	56	7	Équipage_J10.53
 40	5	8	5	8
 40	5	9	5	9	Jolan Thorgalsson	Thorgal Aegirsson
 40	6	1	6	1	Jolan Thorgalsson	Thorgal Aegirsson
-40	6	2	6	2	Thorgal Aegirsson	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
+40	6	2	6	2	Thorgal Aegirsson	Equipage_40.5	Jolan Thorgalsson	Mestor
 40	6	3	6	3	Thorgal Aegirsson
 40	6	4	6	4	Dzjaïn_40.3	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
 40	6	5	6	5	Dzjaïn_40.3	Equipage_40.5	Jolan Thorgalsson	Mestor	Thorgal Aegirsson
