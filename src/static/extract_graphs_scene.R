@@ -277,6 +277,19 @@ include.filtered.chars <- function(data.impl, data.expl)
 	char.stats[,COL_FILTER] <- data.impl$char.stats[idx,COL_FILTER]
 	
 	data.expl$char.stats <- char.stats
+	
+	# record
+	write.corpus.data(
+		char.det="explicit", 
+		inter.df=data.expl$inter.df,
+		panel.stats=data.expl$panel.stats, panel.chars=data.expl$panel.chars,
+		page.stats=data.expl$page.stats, page.chars=data.expl$page.chars,
+		scene.stats=data.expl$scene.stats, scene.chars=data.expl$scene.chars,
+		char.stats=data.expl$char.stats, 
+		volume.stats=data.expl$volume.stats, volume.chars=data.expl$volume.chars, 
+		arc.stats=data.expl$arc.stats, arc.chars=data.expl$arc.chars
+	)
+	
 	return(data.expl)
 }
 
