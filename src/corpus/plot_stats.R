@@ -1117,16 +1117,17 @@ plot.stats.volume <- function(
 					yvals <- vol.scene.stats[,COL_PANELS]
 					xlab <- "Number of characters by scene"
 					ylab <- "Number of panels by scene"
-					p=ggplot(vol.scene.stats, aes(x=xvals, y=yvals)) +
+					p <- ggplot(vol.scene.stats, aes(x=xvals, y=yvals)) +
 						geom_hex(binwidth=1) + 
 						coord_fixed() +
 						scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
 						theme_bw() +
 						theme_classic() +	# base_size=18
 						labs(fill="Frequency",x=xlab, y=ylab) +
-						theme(legend.position="left") +
+#						theme(legend.position="left") +
+						theme(legend.position=c(0.85,0.85)) +		# inner top right position
 						geom_point(aes(x=xvals, y=yvals), alpha=0)
-					ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
+					p <- ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
 					print(p)
 				dev.off()
 			}
@@ -1420,16 +1421,17 @@ plot.stats.arc <- function(
 			yvals <- arc.scene.stats[,COL_PANELS]
 			xlab <- "Number of characters by scene"
 			ylab <- "Number of panels by scene"
-			p=ggplot(arc.scene.stats, aes(x=xvals, y=yvals)) +
+			p <- ggplot(arc.scene.stats, aes(x=xvals, y=yvals)) +
 				geom_hex(binwidth=1) + 
 				coord_fixed() +
 				scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
 				theme_bw() +
 				theme_classic() +	# base_size=18
 				labs(fill="Frequency",x=xlab, y=ylab) +
-				theme(legend.position="left") +
+#				theme(legend.position="left") +
+				theme(legend.position=c(0.85,0.85)) +		# inner top right position
 				geom_point(aes(x=xvals, y=yvals), alpha=0)
-			ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
+			p <- ggMarginal(p, type="histogram", xparams=list(binwidth=1), yparams=list(binwidth=1), fill=MAIN_COLOR)
 			print(p)
 			dev.off()
 		}
@@ -1663,16 +1665,17 @@ plot.stats.series <- function(
 			yvals <- scene.stats[,COL_PANELS]
 			xlab <- "Number of characters by scene"
 			ylab <- "Number of panels by scene"
-			p=ggplot(scene.stats, aes(x=xvals, y=yvals)) +
+			p <- ggplot(scene.stats, aes(x=xvals, y=yvals)) +
 				geom_hex(binwidth=2) + 
 				coord_fixed() +
 				scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
 				theme_bw() +
 				theme_classic() +	# base_size=18
 				labs(fill="Frequency",x=xlab, y=ylab) +
-				theme(legend.position="left") +
+#				theme(legend.position="left") +
+				theme(legend.position=c(0.85,0.85)) +		# inner top right position
 				geom_point(aes(x=xvals, y=yvals), alpha=0)
-			ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill=MAIN_COLOR)
+			p <- ggMarginal(p, type="histogram", xparams=list(binwidth=2), yparams=list(binwidth=2), fill=MAIN_COLOR)
 			print(p)
 		dev.off()
 	}
@@ -1688,16 +1691,17 @@ plot.stats.series <- function(
 			yvals <- char.stats[,COL_PANELS]
 			xlab <- "Number of scenes by character"
 			ylab <- "Number of panels by character"
-			p=ggplot(char.stats, aes(x=xvals, y=yvals)) +
+			p <- ggplot(char.stats, aes(x=xvals, y=yvals)) +
 				geom_hex(binwidth=100) + 
 				coord_fixed() +
 				scale_fill_viridis(begin=0.1, limits=c(0,NA),) + 
 				theme_bw() +
 				theme_classic() +	# base_size=18
 				labs(fill="Frequency",x=xlab, y=ylab) +
-				theme(legend.position="left") +
+#				theme(legend.position="left") +
+				theme(legend.position=c(0.85,0.85)) +		# inner top right position
 				geom_point(aes(x=xvals, y=yvals), alpha=0)
-			ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill=MAIN_COLOR)
+			p <- ggMarginal(p, type="histogram", xparams=list(binwidth=100), yparams=list(binwidth=100), fill=MAIN_COLOR)
 			print(p)
 		dev.off()
 	}
