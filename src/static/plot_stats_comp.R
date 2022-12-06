@@ -609,7 +609,7 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 							#)
 							gradientLegend(
 								range(overlaps[[i]]), 
-								color=viridis(25,direction=-1), 
+								color=viridis(25),	#,direction=-1), 
 								inside=TRUE
 							)
 						}
@@ -698,7 +698,7 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 							#)
 							gradientLegend(
 								range(overlaps[[i]]), 
-								color=viridis(25,direction=-1), 
+								color=viridis(25), #,direction=-1), 
 								inside=TRUE
 							)
 						}
