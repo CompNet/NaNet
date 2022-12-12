@@ -10,7 +10,7 @@
 
 
 #############################################################################################
-# Corrects encoding problems when diacritics appear in text.
+# Corrects encoding problems when diacritics appear in some text.
 # 
 # strings: text to process.
 #
@@ -95,6 +95,99 @@ fix.encoding <- function(strings)
 	
 	strings <- gsub(pattern="Ãž",replacement="Þ",x=strings,fixed=TRUE)
 	strings <- gsub(pattern="Ã¾",replacement="þ",x=strings,fixed=TRUE)
+	
+	return(strings)
+}
+
+
+
+
+#############################################################################################
+# Removes diacritics.
+# 
+# strings: text to process.
+#
+# returns: same text, but without the diacritics.
+#############################################################################################
+remove.diacritics <- function(strings)
+{	
+	strings <- gsub(pattern="À",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="à",replacement="a",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Á",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="á",replacement="a",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Â",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="â",replacement="a",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ã",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ã",replacement="a",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ä",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ä",replacement="a",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Å",replacement="A",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="å",replacement="a",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Æ",replacement="Ae",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="æ",replacement="ae",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Ç",replacement="C",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ç",replacement="c",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Ð",replacement="D",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ð",replacement="d",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="È",replacement="E",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="è",replacement="e",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="É",replacement="E",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="é",replacement="e",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ê",replacement="E",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ê",replacement="e",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ë",replacement="E",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ë",replacement="e",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Ì",replacement="I",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ì",replacement="i",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Í",replacement="I",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="í",replacement="i",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Î",replacement="I",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="î",replacement="i",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ï",replacement="I",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ï",replacement="i",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Ñ",replacement="N",x=strings,fixed=TRUE)	
+	strings <- gsub(pattern="ñ",replacement="n",x=strings,fixed=TRUE)	
+	
+	strings <- gsub(pattern="Ò",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ò",replacement="o",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ó",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ó",replacement="o",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ô",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ô",replacement="o",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Õ",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="õ",replacement="o",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ö",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ö",replacement="o",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ø",replacement="O",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ø",replacement="o",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Œ",replacement="Oe",x=strings,fixed=TRUE)	
+	strings <- gsub(pattern="œ",replacement="oe",x=strings,fixed=TRUE)	
+	
+	strings <- gsub(pattern="ß",replacement="ss",x=strings,fixed=TRUE)	
+	
+	strings <- gsub(pattern="Ù",replacement="U",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ù",replacement="u",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ú",replacement="U",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ú",replacement="u",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Û",replacement="U",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="û",replacement="u",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ü",replacement="U",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ü",replacement="u",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Ý",replacement="Y",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ý",replacement="y",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="Ÿ",replacement="Y",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="ÿ",replacement="y",x=strings,fixed=TRUE)
+	
+	strings <- gsub(pattern="Þ",replacement="Th",x=strings,fixed=TRUE)
+	strings <- gsub(pattern="þ",replacement="th",x=strings,fixed=TRUE)
 	
 	return(strings)
 }
