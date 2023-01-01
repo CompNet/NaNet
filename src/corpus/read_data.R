@@ -400,7 +400,7 @@ read.inter.table <- function(
 	temp <- readLines(con)
 	close(con)
 	temp <- fix.encoding(strings=temp)
-	lines <- strsplit(temp, split='\t', fixed=TRUE)
+	lines <- strsplit(temp, split="\t", fixed=TRUE)
 	tlog(4,"File read: ",length(lines)," lines)")
 	
 	# init scene table
