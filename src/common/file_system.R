@@ -179,7 +179,6 @@ get.path.data.graph <- function(mode, char.det=NA, net.type, order=NA, window.si
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
-# filtered: whether this concerns the filtered version of the graph.
 # compare: whether to compute the regular stats or to compare with reference graphs.
 # 
 # returns: full path.
