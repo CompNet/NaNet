@@ -17,22 +17,6 @@ start.rec.log(text="DegDistr")
 
 
 ###############################################################################
-# note: result of Clauset et al.'s method (already computed in the main script)
-# TODO: automate the retrieval of this information
-laws <- c()
-# unfiltered 
-laws["Unfiltered-degree"] <- "good"
-laws["Unfiltered-strength-occurrences"] <- "no fit"
-laws["Unfiltered-strength-duration"] <- "no fit"
-# filtered 
-laws["Filtered-degree"] <- "no fit"
-laws["Filtered-strength-occurrences"] <- "no fit"
-laws["Filtered-strength-duration"] <- "truncated"
-
-
-
-
-###############################################################################
 # distribution plots
 tlog(0,"Producing degree distribution plots")
 
