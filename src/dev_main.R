@@ -85,7 +85,7 @@ start.rec.log(text=SERIES)
 data.impl <- read.corpus.data(char.det="implicit")
 
 # compute corpus stats
-data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
+#data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
 
 # plot these stats
 #plot.corpus.stats(data=data.impl, char.det="implicit")
@@ -131,7 +131,7 @@ data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
 #compute.static.statistics.comparison(data=data.impl, char.det="implicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.comparison(data=data.impl, char.det="implicit", panel.params, page.params)
+#generate.static.plots.comparison(char.det="implicit", panel.params, page.params)
 
 
 
@@ -145,7 +145,7 @@ data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
 data.expl <- read.corpus.data(char.det="explicit")
 
 # compute explicit annotation stats
-data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")
+#data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")
 
 # plot these stats
 #plot.corpus.stats(data=data.expl, char.det="explicit")
@@ -161,7 +161,7 @@ data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")
 #compute.static.statistics.window(char.det="explicit", panel.params, page.params)
 
 # plot these stats
-generate.static.plots.window(char.det="explicit", panel.params, page.params)
+#generate.static.plots.window(char.det="explicit", panel.params, page.params)
 
 
 
@@ -171,7 +171,7 @@ generate.static.plots.window(char.det="explicit", panel.params, page.params)
 #compute.static.statistics.comparison(data=data.expl, char.det="explicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.comparison(data=data.expl, char.det="explicit", panel.params, page.params)
+#generate.static.plots.comparison(char.det="explicit", panel.params, page.params)
 
 
 
