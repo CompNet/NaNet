@@ -215,7 +215,8 @@ load.static.nodelink.stats.by.overlap <- function(mode, char.det=NA, window.size
 
 
 ###############################################################################
-# Generates the plots containing a single series as boxplots or violin plots.
+# Generates the plots containing a single series as boxplots, violin plots and
+# distribution plots.
 #
 # mode: either "panel.window" or "page.window" (not "scenes").
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
@@ -349,7 +350,10 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			# generate distribution plots
 			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size=window.size, weights=weights, filtered=filt.txt, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
+			if(char.det=="implicit")
+				cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
+			else
+				cols <- c(rep("BLACK",length(snames)), plasma(length(values)-length(snames)))
 			lty <- c(ltys, rep(1,length(values)-length(snames))) # not sure 
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -440,7 +444,10 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 			# generate distribution plots
 			plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap=overlap, weights=weights, filtered=filt.txt, suf="distrib")
 			tlog(5,"Plotting file \"",plot.file,"\"")
-			cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
+			if(char.det=="implicit")
+				cols <- c(rep("BLACK",length(snames)), viridis(length(values)-length(snames)))
+			else
+				cols <- c(rep("BLACK",length(snames)), plasma(length(values)-length(snames)))
 			lty <- c(ltys, rep(1,length(values)-length(snames)))
 			for(fformat in PLOT_FORMAT)
 			{	if(fformat==PLOT_FORMAT_PDF)
@@ -551,7 +558,10 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 		}
 		# generate a plot containing each window size value as a series
 		#cols <- get.palette(length(data))
-		cols <- viridis(length(data))
+		if(char.det=="implicit")
+			cols <- viridis(length(data))
+		else
+			cols <- plasma(length(data))
 		plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
@@ -600,16 +610,20 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						}
 						# or continuous if too many series
 						else
-						{	#legend.gradient(
+						{	if(char.det=="implicit")
+								lcols <- viridis(25)
+							else
+								lcols <- plasma(25)
+							#legend.gradient(
 							#	pnts="topright",
-							#	cols=viridis(25),
+							#	cols=lcols,
 							#	limits=range(window.sizes),
 							#	title="Window Size",
 							#	#cex=0.8
 							#)
 							gradientLegend(
 								range(window.sizes), 
-								color=viridis(25),	#,direction=-1), 
+								color=lcols,	#,direction=-1), 
 								inside=TRUE
 							)
 						}
@@ -640,7 +654,10 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 		}
 		# generate a plot representing each overlap value as a series
 		#cols <- get.palette(length(data))
-		cols <- viridis(length(data))
+		if(char.det=="implicit")
+			cols <- viridis(length(data))
+		else
+			cols <- plasma(length(data))
 		plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf="series")
 		tlog(5,"Plotting file \"",plot.file,"\"")
 		if(all(is.na(unlist(data))))
@@ -689,16 +706,20 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						}
 						# or continuous if too many series
 						else
-						{	#legend.gradient(
+						{	if(char.det=="implicit")
+								lcols <- viridis(25)
+							else
+								lcols <- plasma(25)
+							#legend.gradient(
 							#	pnts="topright",
-							#	cols=viridis(25),
+							#	cols=lcols,
 							#	limits=range(common.overlaps),
 							#	title="Overlap",
 							#	#cex=0.8
 							#)
 							gradientLegend(
 								range(common.overlaps), 
-								color=viridis(25), #,direction=-1), 
+								color=lcols, #,direction=-1), 
 								inside=TRUE
 							)
 						}
@@ -797,7 +818,10 @@ generate.static.plots.corr <- function(mode, char.det=NA, window.sizes, overlaps
 			
 			# generating the plot
 			#cols <- get.palette(length(data))
-			cols <- viridis(length(data))
+			if(char.det=="implicit")
+				cols <- viridis(length(data))
+			else
+				cols <- plasma(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, window.size="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
 			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
@@ -870,7 +894,10 @@ generate.static.plots.corr <- function(mode, char.det=NA, window.sizes, overlaps
 			
 			# generating the plot
 			#cols <- get.palette(length(data))
-			cols <- viridis(length(data))
+			if(char.det=="implicit")
+				cols <- viridis(length(data))
+			else
+				cols <- plasma(length(data))
 			#plot.file <- get.path.stats.comp(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, overlap="", weights=weights, filtered=filt.txt, suf=paste0("corr=",substr(ww[w],1,3)))
 			fake.meas <- paste0("corr_",meas.name)
 			ALL_MEASURES[[fake.meas]] <<- list(folder=ALL_MEASURES[[meas.name]]$folder, object="correlation")
