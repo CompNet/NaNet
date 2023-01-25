@@ -603,12 +603,12 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						{	#legend.gradient(
 							#	pnts="topright",
 							#	cols=viridis(25),
-							#	limits=range(overlaps[[i]]),
-							#	title="Overlap",
+							#	limits=range(window.sizes),
+							#	title="Window Size",
 							#	#cex=0.8
 							#)
 							gradientLegend(
-								range(overlaps[[i]]), 
+								range(window.sizes), 
 								color=viridis(25),	#,direction=-1), 
 								inside=TRUE
 							)
@@ -692,12 +692,12 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						{	#legend.gradient(
 							#	pnts="topright",
 							#	cols=viridis(25),
-							#	limits=range(overlaps[[i]]),
+							#	limits=range(common.overlaps),
 							#	title="Overlap",
 							#	#cex=0.8
 							#)
 							gradientLegend(
-								range(overlaps[[i]]), 
+								range(common.overlaps), 
 								color=viridis(25), #,direction=-1), 
 								inside=TRUE
 							)
@@ -705,10 +705,10 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						# add line legend
 						if(length(seg.vals)>1)
 						{	legend(
-									x="bottomright",
-									lty=ltys,
-									legend=snames,
-									title="Scene-Based"
+								x="bottomright",
+								lty=ltys,
+								legend=snames,
+								title="Scene-Based"
 							)
 						}
 					dev.off()
@@ -1298,12 +1298,11 @@ generate.static.plots.window <- function(char.det=char.det, panel.params, page.p
 # Main function for the generation of plots comparing graphs.
 # The statistics must have been previously computed.
 #
-# data: list of previously computed tables.
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
 # panel.params: panel-related parameters.
 # page.params: page-related parameters.
 ###############################################################################
-generate.static.plots.comparison <- function(data, char.det=char.det, panel.params, page.params)
+generate.static.plots.comparison <- function(char.det=char.det, panel.params, page.params)
 {	tlog(1,"Generating plots for the comparison of static graphs")
 	
 	# retrieve parameters

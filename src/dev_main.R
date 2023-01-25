@@ -79,42 +79,42 @@ start.rec.log(text=SERIES)
 
 ###############################################################################
 # read raw data
-#data <- read.raw.data(char.det="implicit")
+#data.impl <- read.raw.data(char.det="implicit")
 # OR, if already computed, read from file
-data <- read.corpus.data(char.det="implicit")
+data.impl <- read.corpus.data(char.det="implicit")
 
 # compute corpus stats
-#data <- compute.corpus.stats(data, char.det="implicit")
+#data.impl <- compute.corpus.stats(data.impl, char.det="implicit")
 
 # plot these stats
-#plot.corpus.stats(data, char.det="implicit")
+#plot.corpus.stats(data.impl, char.det="implicit")
 
 
 
 
 ###############################################################################
 # extract static scene-based networks
-#data <- extract.static.graphs.base(data)
+#data.impl <- extract.static.graphs.base(data.impl)
 
 # plot these graphs
-#plot.static.graphs(data)
+#plot.static.graphs(data.impl)
 
 
 
 
 ###############################################################################
 # compute scene-based graph stats
-#compute.static.statistics.base(data, char.det="implicit")
+#compute.static.statistics.base(data.impl, char.det="implicit")
 
 # plot these stats
-#generate.static.plots.base(data)
+#generate.static.plots.base(data.impl)
 
 
 
 
 ###############################################################################
 # extract static panel- and page-based networks
-#extract.static.graphs.window(data, char.det="implicit", panel.params, page.params)
+#extract.static.graphs.window(data.impl, char.det="implicit", panel.params, page.params)
 
 # compute their stats
 #compute.static.statistics.window(char.det="implicit", panel.params, page.params)
@@ -127,10 +127,10 @@ data <- read.corpus.data(char.det="implicit")
 
 ###############################################################################
 # compute comparison stats
-#compute.static.statistics.comparison(data, char.det="implicit", panel.params, page.params)
+#compute.static.statistics.comparison(data.impl, char.det="implicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.comparison(data, char.det="implicit", panel.params, page.params)
+#generate.static.plots.comparison(char.det="implicit", panel.params, page.params)
 
 
 
@@ -139,7 +139,7 @@ data <- read.corpus.data(char.det="implicit")
 # read raw explicit annotations
 #data.expl <- read.raw.data(char.det="explicit")
 # OR, if already computed, read from file
-#data.expl <- read.corpus.data(char.det="explicit")
+data.expl <- read.corpus.data(char.det="explicit")
 
 # compute explicit annotation stats
 #data.expl <- compute.corpus.stats(data.expl, char.det="explicit")
@@ -152,7 +152,7 @@ data <- read.corpus.data(char.det="implicit")
 
 ###############################################################################
 # extract static panel- and page-based networks
-extract.static.graphs.window(data.expl, char.det="explicit", panel.params, page.params)
+#extract.static.graphs.window(data.expl, char.det="explicit", panel.params, page.params)
 
 # compute their stats
 #compute.static.statistics.window(char.det="explicit", panel.params, page.params)
@@ -165,10 +165,10 @@ extract.static.graphs.window(data.expl, char.det="explicit", panel.params, page.
 
 ###############################################################################
 # compute comparison stats
-#compute.static.statistics.comparison(data, char.det="explicit", panel.params, page.params)
+#compute.static.statistics.comparison(data.impl, char.det="explicit", panel.params, page.params)
 
 # plot these stats
-#generate.static.plots.comparison(data, char.det="explicit", panel.params, page.params)
+#generate.static.plots.comparison(char.det="explicit", panel.params, page.params)
 
 
 
