@@ -611,9 +611,9 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						# or continuous if too many series
 						else
 						{	if(char.det=="implicit")
-								lcols <- viridis(25)
+								lcols <- viridis(100)
 							else
-								lcols <- plasma(25)
+								lcols <- plasma(100)
 							#legend.gradient(
 							#	pnts="topright",
 							#	cols=lcols,
@@ -707,9 +707,9 @@ generate.static.plots.multiple <- function(mode, char.det=NA, window.sizes, over
 						# or continuous if too many series
 						else
 						{	if(char.det=="implicit")
-								lcols <- viridis(25)
+								lcols <- viridis(100)
 							else
-								lcols <- plasma(25)
+								lcols <- plasma(100)
 							#legend.gradient(
 							#	pnts="topright",
 							#	cols=lcols,
