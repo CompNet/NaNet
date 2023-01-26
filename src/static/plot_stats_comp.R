@@ -30,6 +30,7 @@ load.static.graph.stats.by.window <- function(mode, char.det=NA, window.size, ov
 	for(j in 1:length(overlaps))
 	{	overlap <- overlaps[j]
 		table.file <- get.path.stat.table(object=object, mode=mode, char.det=char.det, net.type="static", window.size=window.size, overlap=overlap, weights=weights, filtered=filtered, compare=compare)
+		#print(table.file)
 		tmp.tab <- as.matrix(read.csv(table.file, header=TRUE, check.names=FALSE, row.names=1))
 		res[j] <- tmp.tab[measure,1]
 	}
