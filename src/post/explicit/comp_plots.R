@@ -4,7 +4,7 @@
 # 01/2023
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
-# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/explicit/comp_plots.R")
 ###############################################################################
 SERIES <- "Thorgal"
@@ -104,7 +104,7 @@ for(char.det in char.dets)
 			}
 			common.overlaps <- sort(unique(unlist(overlaps)))
 			
-			# loop over weighting schemes
+			# loop over reference weighting schemes
 			if(compare)
 				ws <- c("none","duration","occurrences")
 			else
@@ -113,14 +113,14 @@ for(char.det in char.dets)
 			{	tlog(8,"Processing weighting scheme \"",weights,"\"")
 				
 				if(weights=="none")
-				{	ww <- "none"
+				{	ww <- "none"			# considered weighting scheme
 					if(compare)
-						meas.name.alt <- paste0(meas.name, SFX_DUR)
+						meas.name.alt <- paste0(meas.name, SFX_DUR)	# DUR or OCC are the same in this case
 					else
 						meas.name.alt <- meas.name
 				}
 				else 
-				{	ww <- "occurrences"
+				{	ww <- "occurrences"		# considered weighting scheme
 					if(compare)
 					{	if(weights=="duration")
 							meas.name.alt <- paste0(meas.name, SFX_WEIGHT, SFX_NORM, SFX_DUR)
@@ -351,31 +351,39 @@ for(char.det in char.dets)
 		#common.overlaps <- sort(unique(unlist(overlaps)))
 		common.overlaps <- c(0, 5)	# fixed overlaps of interest
 		
-		# loop over weighting schemes
+		# loop over reference weighting schemes
+		ws <- c("none","duration","occurrences")
 		for(weights in ws)	
 		{	tlog(8,"Processing weighting scheme \"",weights,"\"")
 						
 			# setup measure name lists
 			if(weights=="none")
-			{	ww <- "none"
+			{	ww <- "none"			# considered weighting scheme
 				ms <- rbind(
 					c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR))
 				)
 				rownames(ms) <- c(
 					paste0("tfpn", SFX_TOTAL, SFX_DUR)
 				)
-				
 			}
 			else
-			{	ww <- "occurrences"
-				ms <- rbind(
-					c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
-					c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC))
-				)
-				rownames(ms) <- c(
-					paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR),
-					paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)
-				)
+			{	ww <- "occurrences"		# considered weighting scheme
+				if(weights=="duration")
+				{	ms <- rbind(
+						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+					)
+					rownames(ms) <- c(
+						paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)
+					)
+				}
+				else if(weights=="occurrences")
+				{	ms <- rbind(
+						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+					)
+					rownames(ms) <- c(
+						paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)
+					)
+				}
 			}
 			
 			for(m in 1:nrow(ms))
@@ -408,14 +416,20 @@ for(char.det in char.dets)
 							ylim=c(0,max(colSums(data))),
 							#xlab=paste0("Window Size (",txt.modes[mode],")"),
 							ylab=paste0(if(weights=="none") "" else "Weighted ", "Frequency (",txt.ws[weights],")"),
-							legend.text=c("TP","FP","FN"),
-							args.legend=list(x="topleft"),
+							legend=FALSE,
 							names.arg=window.sizes[idx],
 							main=NA,
 							xaxt="n"
 						)
+						rx <- x[length(x)]+x[1]
+						legend(
+							x=rx*0.001, y=max(colSums(data)),
+							fill=cols,
+							legend=c("TP","FP","FN"),
+						)
 						axis(1, x, window.sizes[idx], tick=FALSE, mgp=c(1,0.05,0), cex.axis=if(overlap==0) 0.6 else 0.7)
 						title(xlab=paste0("Window Size (",txt.modes[mode],")"), line=1.2)
+						text(rx*0.065, max(colSums(data))*0.84, paste0("Overlap: ",overlap))
 						dev.off()
 					}
 				}
@@ -427,9 +441,8 @@ for(char.det in char.dets)
 
 
 
+
 # TODO
-# est-ce qu'on prend bien les versions normalisées quand il y a des poids ? (à chaque plot)
-# vérifier que si le même plot en dur vs occ est identique (normal ça ?)
 # rajouter dans le papier les nouvelle pages correspondant à explicit
 # mettre à jour les stats de référence dans les légendes de ces pages-figures
 
