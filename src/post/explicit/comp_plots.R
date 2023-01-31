@@ -43,7 +43,7 @@ fn.modes <- c()
 fn.ws <- c()
 	fn.ws["none"] <- ""
 	fn.ws["duration"] <- "Wdu"
-	fn.ws["occurrrences"] <- "Woc"
+	fn.ws["occurrences"] <- "Woc"
 
 # plot text
 txt.modes <- c()
@@ -52,7 +52,7 @@ txt.modes <- c()
 txt.ws <- c()
 	txt.ws["none"] <- "Edges"
 	txt.ws["duration"] <- "Duration"
-	txt.ws["occurrrences"] <- "Occurrences"
+	txt.ws["occurrences"] <- "Occurrences"
 
 
 
@@ -106,9 +106,9 @@ for(char.det in char.dets)
 			
 			# loop over weighting schemes
 			if(compare)
-				ws <- c("none","duration","occurrrences")
+				ws <- c("none","duration","occurrences")
 			else
-				ws <- c("duration")
+				ws <- c("occurrences")
 			for(weights in ws)	
 			{	tlog(8,"Processing weighting scheme \"",weights,"\"")
 				
@@ -196,7 +196,7 @@ for(char.det in char.dets)
 											else
 												ALL_MEASURES[[meas.name.alt]]$bounds[2]),
 							xlab=paste0("Overlap (",txt.modes[mode],")"),
-							ylab=paste0(if(weights=="none") "" else "Weighted ", txt.meass[meas.name], " (",txt.ws[weights],")"),
+							ylab=paste0(if(weights=="none" || !compare) "" else "Weighted ", txt.meass[meas.name], " (",txt.ws[weights],")"),
 							main=NA
 						)
 						# draw reference lines
