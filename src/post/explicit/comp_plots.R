@@ -4,7 +4,7 @@
 # 01/2023
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
-# setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/explicit/comp_plots.R")
 ###############################################################################
 SERIES <- "Thorgal"
@@ -173,9 +173,9 @@ for(char.det in char.dets)
 					#warning(msg)
 				}
 				else
-				{	for(fformat in PLOT_FORMAT)
+				{	for(fformat in c(PLOT_FORMAT_PDF))	# PLOT_FORMAT
 					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=7/17.778*16.576, height=7/17.778*15.426)
 						else if(fformat==PLOT_FORMAT_PNG)
 							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 						par(mar=c(3.5,3.2,0.7,0.7)+0.1)		# plot margins: Bottom=5 Left=4 Top=4 Right=2
@@ -258,9 +258,9 @@ for(char.det in char.dets)
 					#warning(msg)
 				}
 				else
-				{	for(fformat in PLOT_FORMAT)
+				{	for(fformat in c(PLOT_FORMAT_PDF))	# PLOT_FORMAT
 					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=7/17.778*16.576, height=7/17.778*15.426)
 						else if(fformat==PLOT_FORMAT_PNG)
 							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 						par(mar=c(3.5,3.2,0.7,0.7)+0.1)		# plot margins: Bottom=5 Left=4 Top=4 Right=2
@@ -403,9 +403,9 @@ for(char.det in char.dets)
 					# produce plot files
 					plot.file <- file.path(out.folder, char.det, fn.modes[mode], paste0("tfpn", fn.ws[weights], "_", fn.modes[mode], "_ol",overlap))
 					tlog(14,"Plotting file \"",plot.file,"\"")
-					for(fformat in PLOT_FORMAT)
+					for(fformat in c(PLOT_FORMAT_PDF))	# PLOT_FORMAT
 					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white")
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=7/17.778*16.576, height=7/17.778*15.426)
 						else if(fformat==PLOT_FORMAT_PNG)
 							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
 						par(mar=c(2.8,3.3,0.8,0.0))			# plot margins: Bottom=5 Left=4 Top=4 Right=2
@@ -443,7 +443,6 @@ for(char.det in char.dets)
 
 
 # TODO
-# rajouter dans le papier les nouvelle pages correspondant à explicit
 # mettre à jour les stats de référence dans les légendes de ces pages-figures
 
 
