@@ -429,7 +429,7 @@ for(char.det in char.dets)
 						)
 						axis(1, x, window.sizes[idx], tick=FALSE, mgp=c(1,0.05,0), cex.axis=if(overlap==0) 0.6 else 0.7)
 						title(xlab=paste0("Window Size (",txt.modes[mode],")"), line=1.2)
-						text(rx*0.065, max(colSums(data))*0.84, paste0("Overlap: ",overlap))
+						text(rx*0.067, max(colSums(data))*0.82, paste0("Overlap: ",overlap))
 						dev.off()
 					}
 				}
