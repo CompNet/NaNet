@@ -1098,8 +1098,8 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 		if(!is.na(weights))
 		{	if(weights=="none")
 			{	ms <- rbind(
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_DUR)), 
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_OCC))
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_OCC))
 				)
 				rownames(ms) <- c(
 					paste0("tfpn", sfx.filt, SFX_TOTAL, SFX_DUR),
@@ -1109,10 +1109,10 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 			}
 			else
 			{	ms <- rbind(
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)), 
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)), 
-					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_OCC)), 
+					c(paste0(MEAS_TRUEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)) 
 				)
 				rownames(ms) <- c(
 					paste0("tfpn", sfx.filt, SFX_TOTAL, SFX_WEIGHT, SFX_DUR),
@@ -1194,7 +1194,7 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 									ylim=ylim,
 									xlab="Overlap",
 									ylab=ylab,
-									legend.text=c("TP","FP","FN"),
+									legend.text=c("TP","FN","FP"),
 									names.arg=nms,
 									main=paste0("mode=",mode," window.size=",window.size)
 								)
@@ -1242,7 +1242,7 @@ generate.static.plots.tfpn <- function(mode, char.det=NA, window.sizes=NA, overl
 									ylim=ylim,
 									xlab="Window size",
 									ylab=ylab,
-									legend.text=c("TP","FP","FN"),
+									legend.text=c("TP","FN","FP"),
 									names.arg=nms,
 									main=paste0("mode=",mode," overlap=",overlap)
 								)

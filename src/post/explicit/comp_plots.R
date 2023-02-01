@@ -360,7 +360,7 @@ for(char.det in char.dets)
 			if(weights=="none")
 			{	ww <- "none"			# considered weighting scheme
 				ms <- rbind(
-					c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR))
+					c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_DUR))
 				)
 				rownames(ms) <- c(
 					paste0("tfpn", SFX_TOTAL, SFX_DUR)
@@ -370,7 +370,7 @@ for(char.det in char.dets)
 			{	ww <- "occurrences"		# considered weighting scheme
 				if(weights=="duration")
 				{	ms <- rbind(
-						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR))
+						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR))
 					)
 					rownames(ms) <- c(
 						paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_DUR)
@@ -378,7 +378,7 @@ for(char.det in char.dets)
 				}
 				else if(weights=="occurrences")
 				{	ms <- rbind(
-						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC))
+						c(paste0(MEAS_TRUEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSENEG, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC))
 					)
 					rownames(ms) <- c(
 						paste0("tfpn", SFX_TOTAL, SFX_WEIGHT, SFX_NORM, SFX_OCC)
@@ -425,7 +425,7 @@ for(char.det in char.dets)
 						legend(
 							x=rx*0.001, y=max(colSums(data)),
 							fill=cols,
-							legend=c("TP","FP","FN"),
+							legend=c("TP","FN","FP"),
 						)
 						axis(1, x, window.sizes[idx], tick=FALSE, mgp=c(1,0.05,0), cex.axis=if(overlap==0) 0.6 else 0.7)
 						title(xlab=paste0("Window Size (",txt.modes[mode],")"), line=1.2)
@@ -437,13 +437,6 @@ for(char.det in char.dets)
 		}
 	}
 }
-
-
-
-
-
-# TODO
-# mettre à jour les stats de référence dans les légendes de ces pages-figures
 
 
 
