@@ -547,7 +547,7 @@ read.inter.table <- function(
 				else if(length(v)==2)
 					return(trimws(v[2]))
 				else
-				{	msg <- paste0("ERROR when splitting the names: ",v)
+				{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Problem when splitting the names: ",v)
 					tlog(4,msg)
 					stop(msg)
 				}
@@ -556,29 +556,29 @@ read.inter.table <- function(
 			
 			# check the character names
 			if(length(chars)==0)
-				msg <- paste0("WARNING there is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
+				msg <- paste0("WARNING while reading file \"",inter.file,"\". There is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
 			else 
 			{	# check whether some characters miss from the table
 				pb.chars <- setdiff(chars,char.stats[,COL_NAME])
 				if(length(pb.chars)>0)
-				{	msg <- paste0("ERROR: The following names appear in scene \"",paste(line,collapse=","),"\" but miss from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+				{	msg <- paste0("ERROR: while reading file \"",inter.file,"\". The following names appear in scene \"",paste(line,collapse=","),"\" but miss from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
 					tlog(3,msg)
 					#stop(msg)
 				}
 				else if(length(chars)==1)
-				{	msg <- paste0("WARNING there are fewer than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
+				{	msg <- paste0("WARNING while reading file \"",inter.file,"\". There are fewer than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
 					tlog(3,msg)
 					#warning(msg)
 				}
 				else
 				{	if(length(chars)>length(unique(chars)))
-					{	msg <- paste0("WARNING the same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
+					{	msg <- paste0("WARNING while reading file \"",inter.file,"\". The same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
 						tlog(3,msg)
 						#stop(msg)
 						chars <- unique(chars)
 					}
 					if(length(chars)<=1)
-					{	msg <- paste0("WARNING after having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
+					{	msg <- paste0("WARNING while reading file \"",inter.file,"\". After having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
 						tlog(3,msg)
 						#warning(msg)
 					}
@@ -645,7 +645,7 @@ read.inter.table <- function(
 	pb.char <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
 	if(length(pb.chars)>0)
 	{	#cat(paste(pb.chars,collapse="\n"))
-		msg <- paste0("WARNING: The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,colapse=","))
+		msg <- paste0("WARNING: while reading file \"",inter.file,"\". The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,colapse=","))
 		tlog(3,msg)
 		#stop(msg)
 		#warning(msg)
