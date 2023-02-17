@@ -46,10 +46,6 @@ options(error=recover)		# debug
 
 ###############################################################################
 # init folder path
-
-#SERIES <- "Test"
-#SERIES <- "Ralph_Azham"
-SERIES <- "Thorgal"
 DATA_FOLDER <- file.path("data",SERIES)
 
 
