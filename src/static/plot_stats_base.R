@@ -242,22 +242,26 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 			}
 			
 			# generate barplots
-			file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, suf="evolution")
-			tlog(4,"Generating file ",file)
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
-					barplot(
-						height=vals,
-						names.arg=if(arcs) 1:length(items) else items,
-						ylab=ALL_MEASURES[[meas.name]]$cname,
-						xlab=if(arcs) "Narrative Arcs" else "Volumes",
-						main=paste0("Evolution of ",ALL_MEASURES[[meas.name]]$cname," by ",if(arcs) "arc" else "volume"),
-						col=col
-					)
-				dev.off()
+			if(all(is.na(vals)))
+				tlog(6,"WARNING: nothing to plot, all values are NAs")
+			else
+			{	file <- get.path.stats.topo(mode=mode, char.det=char.det, net.type="static", meas.name=meas.name, weights=wmode, arc=if(arcs) TRUE else NA, vol=if(arcs) NA else TRUE, filtered=filt.txt, suf="evolution")
+				tlog(4,"Generating file ",file)
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(file,PLOT_FORMAT_PDF), bg="white")
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(file,PLOT_FORMAT_PNG), width=800, height=800, units="px", pointsize=20, bg="white")
+						barplot(
+							height=vals,
+							names.arg=if(arcs) 1:length(items) else items,
+							ylab=ALL_MEASURES[[meas.name]]$cname,
+							xlab=if(arcs) "Narrative Arcs" else "Volumes",
+							main=paste0("Evolution of ",ALL_MEASURES[[meas.name]]$cname," by ",if(arcs) "arc" else "volume"),
+							col=col
+						)
+					dev.off()
+				}
 			}
 		}
 	}
