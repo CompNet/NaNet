@@ -311,7 +311,7 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 
 
 ###############################################################################
-# Record a dynamic graph as a series of graph.
+# Record a dynamic graph as a series of graphs.
 #
 # gs: list of igraph objects representing a dynamic graph.
 # filtered: whether the characters have been filtered or not.

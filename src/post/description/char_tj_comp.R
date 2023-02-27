@@ -1,4 +1,4 @@
-# Compares the centrality of Thorgal and Jolan on certain volumes of interest.
+# Compares the centrality of Thorgal and Jolan in certain volumes of interest.
 # 
 # Vincent Labatut
 # 03/2022

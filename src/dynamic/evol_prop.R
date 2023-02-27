@@ -2,7 +2,7 @@
 # for a pre-computed sequence of igraph objects representing a dynamic graph.
 # 
 # TODO
-# As of now just using narrative smoothing: we could switch to other dynamic graph,
+# As of now just using narrative smoothing: we could switch to other dynamic graphs,
 # scene-cumulative or even volumes or arcs.
 # 
 # Vincent Labatut

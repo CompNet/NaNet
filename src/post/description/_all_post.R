@@ -12,6 +12,7 @@
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/description/_all_post.R")
 ###############################################################################
+SERIES <- "Thorgal"
 
 
 
