@@ -1,5 +1,5 @@
 #############################################################################################
-# Functions used to handle various graph-related tasks.
+# Functions used to study the small-world property.
 # 
 # 06/2014 Vincent Labatut
 #
