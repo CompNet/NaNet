@@ -420,6 +420,11 @@ compute.static.all.statistics <- function(mode, char.det=NA, window.size=NA, ove
 		else if(weights=="duration")
 			E(g)$weight <- E(g)$Duration
 	}
+	# possibly remove isolates
+	if(!is.na(vol) || !is.na(arc))
+	{	deg <- degree(graph=g, mode="all")
+		g <- delete_vertices(graph=g, v=which(deg==0))
+	}
 	
 	# init cache
 	cache <<- list()
