@@ -209,6 +209,9 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 	{	emode <- "volume"
 		items <- paste(1:nrow(data$volume.stats),"_",data$volume.stats[,COL_VOLUME],sep="")
 	}
+	# whether x labels are long or not
+	long <- max(nchar(items)) > 2
+		
 	
 	# init other variables
 	tlog(3,"Generating ",emode,"-based evolution plots for the ",filt.txt," scene-based graphs")
@@ -258,7 +261,8 @@ generate.static.plots.evol <- function(data, arcs, filtered)
 							ylab=ALL_MEASURES[[meas.name]]$cname,
 							xlab=if(arcs) "Narrative Arcs" else "Volumes",
 							main=paste0("Evolution of ",ALL_MEASURES[[meas.name]]$cname," by ",if(arcs) "arc" else "volume"),
-							col=col
+							col=col,
+							las=if(long) 2 else 3
 						)
 					dev.off()
 				}

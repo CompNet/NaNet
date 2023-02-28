@@ -106,17 +106,16 @@ ns.normalization <- function(x, mu=0.01)
 # volume.stats: allows ordering volumes by publication date or story-wise.
 # filtered: whether characters should be filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
-# char.det: character detection mode ("implicit" or "explicit").
 # 
 # returns: a sequence of graphs corresponding to a dynamic graph.
 ###############################################################################
-ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.stats, filtered=FALSE, pub.order=TRUE, char.det=NA)
+ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.stats, filtered=FALSE, pub.order=TRUE)
 {	tlog(2, "Extracting a dynamic network using narrative smoothing")
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
 	# read the whole graph
-	graph.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
+	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
 	g <- read.graphml.file(file=graph.file)
 	atts <- vertex_attr_names(graph=g)
 	
@@ -362,5 +361,5 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.d
 #data <- read.corpus.data(char.det="implicit")
 #filtered <- FALSE
 #pub.order <- FALSE
-#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order, char.det="implicit")
+#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
 #ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det="implicit")

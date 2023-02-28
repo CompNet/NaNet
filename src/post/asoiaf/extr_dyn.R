@@ -35,8 +35,7 @@ for(filtered in c(FALSE,TRUE))
 			scene.chars=scene.chars, scene.stats=scene.stats, 
 			volume.stats=volume.stats, 
 			filtered=filtered, 
-			pub.order=pub.order,
-			char.det="implicit"
+			pub.order=pub.order
 	)
 	ns.write.graph(gs=gg, filtered=filtered, pub.order="publication", char.det="implicit")
 }

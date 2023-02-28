@@ -32,35 +32,35 @@ start.rec.log(text=SERIES)
 ###############################################################################
 ###############################################################################
 # read raw data
-data.impl <- read.raw.data(char.det="implicit")
+data <- read.raw.data(char.det="implicit")
 # OR, if already computed, read from file
-#data.impl <- read.corpus.data(char.det="implicit")
+#data <- read.corpus.data(char.det="implicit")
 
 # compute corpus stats
-data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
+data <- compute.corpus.stats(data=data, char.det="implicit")
 
 # plot these stats
-plot.corpus.stats(data=data.impl, char.det="implicit")
+plot.corpus.stats(data=data, char.det="implicit")
 
 
 
 
 ###############################################################################
 # extract scene-based networks
-data.impl <- extract.static.graphs.base(data=data.impl)
+data <- extract.static.graphs.base(data=data)
 
 # plot these graphs
-plot.static.graphs(data=data.impl)
+plot.static.graphs(data=data)
 
 
 
 
 ###############################################################################
 # compute scene-based graph stats
-compute.static.statistics.base(data=data.impl, char.det="implicit")
+compute.static.statistics.base(data=data, char.det="implicit")
 
 # plot these stats
-generate.static.plots.base(data=data.impl)
+generate.static.plots.base(data=data)
 
 
 
@@ -70,6 +70,5 @@ generate.static.plots.base(data=data.impl)
 end.rec.log()
 
 # TODO
-# - fix x labels on histos in "by volume" stats
 # - see if cum net src aleady exists, otherwise implement
 # - code novel order dyn net extr and anal
