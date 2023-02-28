@@ -71,6 +71,5 @@ end.rec.log()
 
 # TODO
 # - fix x labels on histos in "by volume" stats
-# - fine tune layout
 # - see if cum net src aleady exists, otherwise implement
 # - code novel order dyn net extr and anal
