@@ -70,5 +70,7 @@ generate.static.plots.base(data=data)
 end.rec.log()
 
 # TODO
-# - see if cum net src aleady exists, otherwise implement
-# - code novel order dyn net extr and anal
+# - cum net: 
+#   1) adapt static extraction to extract seq instead of cum
+#   2) define an integration function that can produce cum nets for any unit (panel, scene, volume, arc) based on these seq nets
+# - code novel order dyn net extr, and anal

@@ -24,7 +24,7 @@
 # volume.stats: table describing all the volumes constituting the BD series.
 # vol: volume of interest (optional, and ignored if arc is specififed or if ret.seq is TRUE).
 # arc: narrative arc of interest (optional, and ignored if ret.seq is TRUE).
-# ret.set: whether to return the full sequence of incremental graphs (longer computation).
+# ret.set: whether to return the full sequence of scene graphs (longer computation).
 # pub.order: whether to consider volumes in publication vs. story order.
 #
 # returns: the corresponding static graph. It contains several edge weights:
@@ -83,6 +83,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 			g <- set_edge_attr(g, name=COL_OCCURRENCES, value=NA)
 			g <- set_edge_attr(g, name=COL_DURATION, value=NA)
 			res[[s]] <- g
+			g$SceneId <- s
 			s <- s + 1
 		}
 	}
@@ -124,9 +125,10 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 		if(ret.seq)
 		{	# possibly copy previous graph
 			if(!is.na(prev.scene) && cur.scene!=prev.scene)
-			{	# possibly several times, to represent interaction-less scenes
+			{	tlog(4,"prev.scene=",prev.scene," cur.scene=",cur.scene)
+				# possibly several times, to represent interaction-less scenes
 				for(s in (prev.scene.idx+1):(cur.scene.idx-1))
-				{	#tlog(6,"s=",s," scenes.ord[s-1]=",scenes.ord[s-1]," length(res)=",length(res))
+				{	tlog(6,"s=",s," scenes.ord[s-1]=",scenes.ord[s-1]," length(res)=",length(res))
 					g <- res[[s-1]]
 					g <- set_graph_attr(graph=g, name="SceneId", value=scene.stats[scenes.ord[s],COL_SCENE_ID])
 					res[[s]] <- g
@@ -136,7 +138,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 			static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
 			idx <- which(char.stats[,COL_NAME] %in% c(cbind(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO])))
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
-			g$Scene <- cur.scene
+#			g$Scene <- cur.scene
 			res[[cur.scene.idx]] <- g
 		}
 		

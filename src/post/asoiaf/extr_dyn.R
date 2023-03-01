@@ -30,14 +30,15 @@ scene.stats <- data$scene.stats
 tlog(2,"Extracting publication-ordered dynamic networks")
 for(filtered in c(FALSE,TRUE))
 {	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
-	gg <- ns.graph.extraction(
+	gg <- cum.graph.extraction(
 			char.stats=char.stats, 
 			scene.chars=scene.chars, scene.stats=scene.stats, 
 			volume.stats=volume.stats, 
 			filtered=filtered, 
-			pub.order=pub.order
+			pub.order=pub.order, 
+			char.det="implicit"
 	)
-	ns.write.graph(gs=gg, filtered=filtered, pub.order="publication", char.det="implicit")
+	cum.write.graph(gs=gg, filtered=filtered, pub.order="publication", char.det="implicit")
 }
 
 # extract dynamic networks using the novel publication order (slightly different from the comic's)

@@ -34,15 +34,14 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 			scene.stats=scene.stats, scene.chars=scene.chars,
 			ret.seq=TRUE, pub.order=pub.order
 	)
-	# possibly set weights
-	if(weighted)
-	{	g <- future_lapply(g, function(g) {E(g)$weight <- E(g)$Occurrences; return(g)})
-		w.name <- "occurrences"
-	}
 	
-	# compute the filtered version
-	tlog(14,"Same thing for filtered graphs")
-	g <- future_lapply(g, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+	# possiby compute the filtered version
+	if(filtered)
+	{	tlog(2,"Filtering the characters")
+		filt.names <- char.stats[char.stats[,COL_FILTER]=="Discard",COL_NAME]
+		if(length(filt.names)==0) stop("Empty list of filtered characters")
+		g <- future_lapply(g, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
+	}
 	
 	return(res)
 }
@@ -51,20 +50,20 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 
 
 ###############################################################################
-# Record a dynamic graph as a series of graphs.
+# Record a cumulative dynamic graph as a series of graphs.
 #
 # gs: list of igraph objects representing a dynamic graph.
 # filtered: whether the characters have been filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
 # char.det: character detection mode ("implicit" or "explicit").
 ###############################################################################
-ns.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
+cum.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 {	if(pub.order)	# by publication order
 		ord.fold <- "publication"
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, pref="cum")
 	write.dynamic.graph(gs=gs, base.path=base.file)
 }
 
@@ -72,8 +71,8 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 
 
 ###############################################################################
-# Read sequence of graphs representing a dynamic graph, based on a sequence of
-# graphml files, each one representing one step of the dynamic graph.
+# Read sequence of graphs representing a cumulative dynamic graph, based on a 
+# sequence of graphml files, each one representing one step of the dynamic graph.
 #
 # filtered: whether the characters have been filtered or not.
 # remove.isolates: whether to remove isolates in each time slice.
@@ -82,13 +81,13 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 #
 # returns: list of igraph objects representing a dynamic graph.
 ###############################################################################
-ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA)
+cum.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA)
 {	if(pub.order)	# by publication order
 		ord.fold <- "publication"
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, pref="cum")
 	gs <- read.dynamic.graph(base.file=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)
@@ -102,5 +101,5 @@ ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.d
 #data <- read.corpus.data(char.det="implicit")
 #filtered <- FALSE
 #pub.order <- FALSE
-#gg <- ns.graph.extraction(char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
-#ns.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det="implicit")
+#gg <- cum.graph.extraction(inter.df=data$inter.df, char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
+#cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det="implicit")
