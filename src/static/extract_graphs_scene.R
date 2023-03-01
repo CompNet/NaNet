@@ -72,10 +72,12 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	if(ret.seq)
 	{	#tlog(2,"Initializing the graph list")
 		s <- 1
-		while(scenes.ord[s]!=inter.df[is[1],COL_SCENE_ID])
+		while(scene.stats[scenes.ord[s],COL_SCENE_ID]!=inter.df[is[1],COL_SCENE_ID])
 		{	#tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
+			# no character: empty graph
 			if(length(scene.chars[[scenes.ord[s]]])==0)
 				g <- make_empty_graph(n=0, directed=FALSE)
+			# a single character: single vertex graph
 			else if(length(scene.chars[[scenes.ord[s]]])==1)
 			{	idx <- which(char.stats[,COL_NAME]==scene.chars[[scenes.ord[s]]])
 				g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
@@ -83,7 +85,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 			g <- set_edge_attr(g, name=COL_OCCURRENCES, value=NA)
 			g <- set_edge_attr(g, name=COL_DURATION, value=NA)
 			res[[s]] <- g
-			g$SceneId <- s
+			g$SceneId <- scene.stats[scenes.ord[s],COL_SCENE_ID]
 			s <- s + 1
 		}
 	}
@@ -125,7 +127,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 		if(ret.seq)
 		{	# possibly copy previous graph
 			if(!is.na(prev.scene) && cur.scene!=prev.scene)
-			{	tlog(4,"prev.scene=",prev.scene," cur.scene=",cur.scene)
+			{	#tlog(4,"prev.scene=",prev.scene," cur.scene=",cur.scene)
 				# possibly several times, to represent interaction-less scenes
 				for(s in (prev.scene.idx+1):(cur.scene.idx-1))
 				{	tlog(6,"s=",s," scenes.ord[s-1]=",scenes.ord[s-1]," length(res)=",length(res))
@@ -138,7 +140,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 			static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
 			idx <- which(char.stats[,COL_NAME] %in% c(cbind(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO])))
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats[idx,])
-#			g$Scene <- cur.scene
+			g$SceneId <- cur.scene
 			res[[cur.scene.idx]] <- g
 		}
 		
