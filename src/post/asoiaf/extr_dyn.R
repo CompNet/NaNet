@@ -24,6 +24,7 @@ inter.df <- data$inter.df
 char.stats <- data$char.stats
 scene.stats <- data$scene.stats
 scene.chars <- data$scene.chars
+page.stats <- data$page.stats
 volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
@@ -46,6 +47,18 @@ for(filtered in c(FALSE,TRUE))
 
 # extract dynamic networks using the novel publication order (slightly different from the comic's)
 tlog(2,"Extracting novel-ordered dynamic networks")
+
+# read map file
+map.file <- file.path(DATA_FOLDER,"mapping.csv")
+map <- read.csv(map.file, header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+# compute page ranks
+parts <- sapply(1:nrow(page.stats), function(p) map[map[,COL_VOLUME]==page.stats[p,COL_VOLUME] & map[,COL_PAGE_START]<=page.stats[p,COL_PAGE] & map[,COL_PAGE_END]>=page.stats[p,COL_PAGE], COL_RANK])
+page.stats[,COL_RANK] <- rank(parts*(nrow(page.stats)+1) + page.stats[,COL_PAGE])
+# compute other ranks
+panel.stats[,COL_RANK] <- rank(page.stats[panel.stats[,COL_PAGE_ID],COL_RANK]*(nrow(panel.stats)+1) + panel.stats[,COL_PANEL])
+# TODO
+scene.stats[,COL_RANK] <- rank(volume.stats[scene.stats[,COL_VOLUME_ID],COL_RANK]*(nrow(scene.stats)+1) + scene.stats[,COL_SCENE_ID], ties.method="first")
+inter.df[,COL_RANK] <- rank(volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]*(nrow(inter.df)+1) + 1:nrow(inter.df), ties.method="first")
 
 
 
