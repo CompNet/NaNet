@@ -66,13 +66,16 @@ if(length(filt.names)==0) stop("Empty list of filtered characters")
 tlog(0,"Extract the sequence of scene-related cumulative graphs")
 data <- read.corpus.data(char.det="implicit")
 # compute the sequence of scene-based graphs (possibly one for each scene)
-gs.unf <- extract.static.graph.scenes(
+gs.unf <- cum.graph.extraction(
 	inter.df=data$inter.df,
 	char.stats=data$char.stats, 
 	scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 	volume.stats=data$volume.stats, 
-	ret.seq=TRUE, pub.order=TRUE	# TODO check that this parm is used in the rest of the graph (should be a main script param)
+	filtered=FALSE, 
+	pub.order=TRUE,  
+	narr.unit="scene"
 )
+	
 gs.filt <- future_lapply(gs.unf, function(g) delete_vertices(g, v=intersect(filt.names,V(g)$name)))
 # build the list for latter use
 gsl <- list()

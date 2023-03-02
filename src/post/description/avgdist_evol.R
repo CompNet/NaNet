@@ -40,12 +40,14 @@ for(pub.order in c(FALSE, TRUE))
 	
 	# compute the sequence of scene-based graphs (possibly one for each scene)
 	tlog(0, "Extract graph sequence")
-	gs <- extract.static.graph.scenes(
+	gs <- cum.graph.extraction(
 		inter.df=data$inter.df, 
 		char.stats=data$char.stats, 
 		scene.stats=data$scene.stats, scene.chars=data$scene.chars,
 		volume.stats=data$volume.stats, 
-		ret.seq=TRUE, pub.order=pub.order
+		filtered=FALSE, 
+		pub.order=pub.order,  
+		narr.unit="scene"
 	)
 	
 	# init lists

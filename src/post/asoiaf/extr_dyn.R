@@ -20,6 +20,7 @@ tlog(0,"Extract dynamic networks for ASOIAF")
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
 data <- read.corpus.data(char.det="implicit")
+inter.df <- data$inter.df
 char.stats <- data$char.stats
 scene.stats <- data$scene.stats
 scene.chars <- data$scene.chars
@@ -31,15 +32,17 @@ tlog(2,"Extracting publication-ordered dynamic networks")
 for(filtered in c(FALSE,TRUE))
 {	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
 	gg <- cum.graph.extraction(
+			inter.df=inter.df,
 			char.stats=char.stats, 
 			scene.chars=scene.chars, scene.stats=scene.stats, 
 			volume.stats=volume.stats, 
 			filtered=filtered, 
-			pub.order=pub.order, 
-			char.det="implicit"
+			pub.order=FALSE
 	)
-	cum.write.graph(gs=gg, filtered=filtered, pub.order="publication", char.det="implicit")
+	cum.write.graph(gs=gg, filtered=filtered, pub.order=FALSE, char.det="implicit")
+	gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=FALSE, char.det="implicit")
 }
+	
 
 # extract dynamic networks using the novel publication order (slightly different from the comic's)
 tlog(2,"Extracting novel-ordered dynamic networks")

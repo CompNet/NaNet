@@ -110,13 +110,16 @@ for(narr.smooth in c(FALSE,TRUE))
 			else
 			{	net.type <- "cumulative"
 				tlog(14,"Extracting the sequence of graphs")
-				gs[["unfiltered"]] <- extract.static.graph.scenes(
+				gs[["unfiltered"]] <- cum.graph.extraction(
 					inter.df=data$inter.df, 
 					char.stats=char.stats, 
 					volume.stats=volume.stats, 
 					scene.stats=scene.stats, scene.chars=scene.chars,
-					ret.seq=TRUE, pub.order=pub.order
+					filtered=FALSE, 
+					pub.order=pub.order,  
+					narr.unit="scene"
 				)
+					
 				# possibly set weights
 				if(weighted)
 				{	gs[["unfiltered"]] <- future_lapply(gs[["unfiltered"]], function(g) {E(g)$weight <- E(g)$Occurrences; return(g)})
