@@ -34,7 +34,6 @@
 ###############################################################################
 extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene.chars, volume.stats, vol=NA, arc=NA, ret.seq=FALSE, pub.order=TRUE)
 {	tlog(2,"Extracting the scene-based static graph")
-	res <- list()
 	vname <- NA
 	
 	# init the dataframe
@@ -70,15 +69,16 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 		
 	# possibly init the list with empty graphs or isolates
 	if(ret.seq)
-	{	#tlog(2,"Initializing the graph list")
+	{	gg <- list()
+		tlog(2,"Initializing the graph list")
 		for(s in 1:length(scenes.ord))
-		{	#tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
+		{	tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
 			# init graph with all vertices (characters) and no edge
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 			g <- set_edge_attr(g, name=COL_OCCURRENCES, value=NA)
 			g <- set_edge_attr(g, name=COL_DURATION, value=NA)
-			res[[s]] <- g
 			g$SceneId <- scene.stats[scenes.ord[s],COL_SCENE_ID]
+			gg[[s]] <- g
 			s <- s + 1
 		}
 	}
@@ -91,7 +91,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	{	# get the current scene id
 		cur.scene <- inter.df[i,COL_SCENE_ID]
 		cur.scene.idx <- which(scene.stats[scenes.ord,COL_RANK]==cur.scene)
-		#tlog(4,"Processing interaction #",i,"/",length(is)," from scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
+		tlog(4,"Processing interaction #",i,"/",length(is)," from scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
 		
 		# get the characters
 		from.char <- inter.df[i,COL_CHAR_FROM]
@@ -119,11 +119,11 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 		# if graph sequence required
 		if(ret.seq)
 		{	# retrieve existing graph for the current scene
-			g <- res[[cur.scene.idx]]
+			g <- gg[[cur.scene.idx]]
 			# update with current interaction
 			g <- add_edges(graph=g, edges=c(from.char,to.char), attr=list(Occurrences=1, Duration=length))
 			# update result list
-			res[[cur.scene.idx]] <- g
+			gg[[cur.scene.idx]] <- g
 		}
 		
 		prev.scene <- cur.scene
@@ -132,7 +132,8 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	
 	# set up result variable
 	if(ret.seq)
-	{	msg <- paste0("returning a series of ",length(res)," graphs")
+	{	msg <- paste0("returning a series of ",length(gg)," graphs")
+		res <- gg
 	}
 	else
 	{	static.df <- static.df[order(static.df[,COL_CHAR_FROM],static.df[,COL_CHAR_TO]),]
