@@ -120,12 +120,12 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 	last.g <- delete_vertices(graph=last.g, v=last.isolates)
 	res[[length(res)]] <- last.g
 	
-	# test
-	v.nbr <- sapply(res, gorder)
-	units <- 1:length(res)
-	x.labels <- sapply(res, function(g) g$NarrUnit)
-	plot(x=units, y=v.nbr, xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
-	axis(side=1, at=units, labels=x.labels, las=2)
+	# test: plot evolution of nbr of vertices
+#	v.nbr <- sapply(res, gorder)
+#	units <- 1:length(res)
+#	x.labels <- sapply(res, function(g) g$NarrUnit)
+#	plot(x=units, y=v.nbr, xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
+#	axis(side=1, at=units, labels=x.labels, las=2)
 	
 	return(res)
 }
