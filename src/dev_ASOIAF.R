@@ -70,5 +70,5 @@ generate.static.plots.base(data=data)
 end.rec.log()
 
 # TODO
-# - cum net: test if pub order extr works
-# - code novel order dyn net extr, and anal
+# - sortir mêmes figures que padraig
+# - transformer chapitres en volumes ?

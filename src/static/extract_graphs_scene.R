@@ -70,9 +70,9 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	# possibly init the list with empty graphs or isolates
 	if(ret.seq)
 	{	gg <- list()
-		tlog(2,"Initializing the graph list")
+		#tlog(2,"Initializing the graph list")
 		for(s in 1:length(scenes.ord))
-		{	tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
+		{	#tlog(4,"Processing s=",s," (scenes.ord[s]=",scenes.ord[s]," and inter.df[is[1],COL_SCENE_ID]=",inter.df[is[1],COL_SCENE_ID],") -- (length(scene.chars[[s]]=",length(scene.chars[[s]]),")")
 			# init graph with all vertices (characters) and no edge
 			g <- graph_from_data_frame(d=static.df, directed=FALSE, vertices=char.stats)
 			g <- set_edge_attr(g, name=COL_OCCURRENCES, value=NA)
@@ -91,7 +91,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	{	# get the current scene id
 		cur.scene <- inter.df[i,COL_SCENE_ID]
 		cur.scene.idx <- which(scene.stats[scenes.ord,COL_RANK]==cur.scene)
-		tlog(4,"Processing interaction #",i,"/",length(is)," from scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
+		#tlog(4,"Processing interaction #",i,"/",length(is)," from scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
 		
 		# get the characters
 		from.char <- inter.df[i,COL_CHAR_FROM]
