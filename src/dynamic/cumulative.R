@@ -147,7 +147,10 @@ cum.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, pref="cum")
+	# retrieve narrative unit
+	narr.unit <- strsplit(gs[[1]]$NarrUnit, split="_")[[1]][1]
+	
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, subfold=narr.unit, pref="cum")
 	write.dynamic.graph(gs=gs, base.path=base.file)
 }
 
@@ -162,16 +165,17 @@ cum.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 # remove.isolates: whether to remove isolates in each time slice.
 # pub.order: whether to consider volumes in publication vs. story order.
 # char.det: character detection mode ("implicit" or "explicit").
+# narr.unit: narrative unit used to extract the dynamic network (scene, volume, etc.).
 #
 # returns: list of igraph objects representing a dynamic graph.
 ###############################################################################
-cum.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA)
+cum.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA, narr.unit=NA)
 {	if(pub.order)	# by publication order
 		ord.fold <- "publication"
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, pref="cum")
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="cumulative", order=ord.fold, filtered=filtered, subfold=narr.unit, pref="cum")
 	gs <- read.dynamic.graph(base.file=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)

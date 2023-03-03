@@ -71,4 +71,4 @@ end.rec.log()
 
 # TODO
 # - sortir mêmes figures que padraig
-# - transformer chapitres en volumes ?
+# - extraire cum net par chap au lieu de scènes

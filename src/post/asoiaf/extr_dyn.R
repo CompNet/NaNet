@@ -18,6 +18,8 @@ start.rec.log(text="ExtrDyn")
 
 ################################################################################
 tlog(0,"Extract dynamic networks for ASOIAF")
+char.det <- "implicit"
+narr.unit <- "scene"
 
 # read raw data
 tlog(2,"Reading previously computed corpus stats")
@@ -33,6 +35,7 @@ scene.stats <- data$scene.stats
 
 # extract dynamic networks using the comic publication order (=comic story order)
 tlog(2,"Extracting publication-ordered dynamic networks")
+pub.order <- TRUE
 for(filtered in c(FALSE,TRUE))
 {	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
 	gg <- cum.graph.extraction(
@@ -41,11 +44,11 @@ for(filtered in c(FALSE,TRUE))
 			scene.chars=scene.chars, scene.stats=scene.stats, 
 			volume.stats=volume.stats, 
 			filtered=filtered, 
-			pub.order=TRUE,
-			narr.unit="scene"
+			pub.order=pub.order,
+			narr.unit=narr.unit
 	)
-	cum.write.graph(gs=gg, filtered=filtered, pub.order=TRUE, char.det="implicit")
-	gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=TRUE, char.det="implicit")
+	cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det=char.det)
+	gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
 }
 	
 
@@ -68,6 +71,7 @@ inter.df[,COL_RANK] <- rank(page.stats[inter.df[,COL_PAGE_START_ID],COL_RANK]*(n
 
 # extract dynamic networks using the novel chapter order
 tlog(2,"Extracting publication-ordered dynamic networks")
+pub.order <- FALSE
 for(filtered in c(FALSE,TRUE))
 {	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
 	gg <- cum.graph.extraction(
@@ -76,12 +80,24 @@ for(filtered in c(FALSE,TRUE))
 			scene.chars=scene.chars, scene.stats=scene.stats, 
 			volume.stats=volume.stats, 
 			filtered=filtered, 
-			pub.order=FALSE,
-			narr.unit="scene"
+			pub.order=pub.order,
+			narr.unit=narr.unit
 	)
-	cum.write.graph(gs=gg, filtered=filtered, pub.order=FALSE, char.det="implicit")
-	gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=FALSE, char.det="implicit")
+	cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det=char.det)
+	gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
 }
+
+
+
+
+###############################################################################
+# alternative: replace volumes by chapters
+
+# create new volume table
+# replace each volume and volume id in all the other tables
+# problem: cannot process all the volume stats
+
+# alt: create a new narrative unit "chapter"?
 
 
 
