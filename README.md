@@ -2,7 +2,7 @@ NaNet
 =======
 *Extraction and analysis of character networks from bandes dessinées, comics, mangas, and such*
 
-* Copyright 2018-2022 Vincent Labatut 
+* Copyright 2018-2023 Vincent Labatut 
 
 NaNet is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation. For source availability and license information see `licence.txt`
 
@@ -42,6 +42,17 @@ Here are the folders composing the project:
 * Folder `log`: logs produced when running the scripts.
 * Folder `res`: resources used by the `R` scripts.
 * Folder `src`: contains the `R` source code.
+
+The various narrative units used in the scripts are as follows:
+* Panel: the smallest unit, a single panel from the comic. It belongs to a single page, and therefore a single volume, and therefore a single narrative arc.
+* Page: all the panels present on the same page. It contains panels, and belongs to a single volume, and therefore a single arc.
+* Scene: a sequence of panels, which can span several pages but not volumes. It contains panels, and belongs to a single volume, and therefore a single arc. Several scenes can take place in parallel, so a panel can belong to several scenes at once.
+* Volume: all the pages of a comic book issue. It contains panels, pages and scenes, and belongs to a single arc.
+* Arc: narrative arc constituting the whole story. It contains panels, pages, scenes and volumes.
+
+We also initially defined the notion of series (subseries), which could be a sequence of volumes, but did not need it in the end, and therefore the implementation is not complete for this narrative unit.
+
+In addition, for ASOIAF, we had to add another narrative unit to match the novels: chapters. A chapter is a part of a volume. It contains panels, pages and scenes (a scene cannot span several chapters, like for volumes), and belongs to a single volume and a single arc. 
 
 
 # Installation
