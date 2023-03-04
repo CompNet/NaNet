@@ -642,7 +642,7 @@ read.inter.table <- function(
 	inter.df[,COL_RANK] <- rank(volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]*(nrow(inter.df)+1) + 1:nrow(inter.df), ties.method="first")
 	
 	# check unused characters
-	pb.char <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
+	pb.chars <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
 	if(length(pb.chars)>0)
 	{	#cat(paste(pb.chars,collapse="\n"))
 		msg <- paste0("WARNING: while reading file \"",inter.file,"\". The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,colapse=","))
@@ -918,6 +918,7 @@ read.char.list <- function(file)
 ###############################################################################
 read.corpus.data <- function(char.det)
 {	tlog(2,"Reading statistics and character lists")
+	result <- list()
 	
 	# interactions
 	file <- get.path.stats.corpus(char.det=char.det, pref="_interactions")
@@ -925,33 +926,40 @@ read.corpus.data <- function(char.det)
 	inter.df <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_CHAR_FROM, COL_CHAR_TO))
 		inter.df[,col] <- fix.encoding(strings=inter.df[,col])
+	result$inter.df <- inter.df
 	
 	# panel stats
 	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_stats")
 	tlog(2,"Reading panel stats file \"",file,"\"")
 	panel.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+	result$panel.stats <- panel.stats
 	# panel chars
 	file <- get.path.stats.corpus(object="panels", char.det=char.det, pref="_panel_chars")
 	tlog(2,"Reading panel chars file \"",file,"\"")
 	panel.chars <- read.char.list(file=paste0(file,".txt"))
+	result$panel.chars <- panel.chars
 	
 	# page stats
 	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_stats")
 	tlog(2,"Reading page stats file \"",file,"\"")
 	page.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+	result$page.stats <- page.stats
 	# page chars
 	file <- get.path.stats.corpus(object="pages", char.det=char.det, pref="_page_chars")
 	tlog(2,"Reading page chars file \"",file,"\"")
 	page.chars <- read.char.list(file=paste0(file,".txt"))
+	result$page.chars <- page.chars
 	
 	# scene stats
 	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_stats")
 	tlog(2,"Reading scene stats file \"",file,"\"")
 	scene.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
+	result$scene.stats <- scene.stats
 	# scene chars
 	file <- get.path.stats.corpus(object="scenes", char.det=char.det, pref="_scene_chars")
 	tlog(2,"Reading scene chars file \"",file,"\"")
 	scene.chars <- read.char.list(file=paste0(file,".txt"))
+	result$scene.chars <- scene.chars
 	
 	# characters
 	file <- get.path.stats.corpus(object="characters", char.det=char.det, subfold="unfiltered", pref="_char_stats")
@@ -959,6 +967,7 @@ read.corpus.data <- function(char.det)
 	char.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_NAME, COL_NAME_SHORT))
 		char.stats[,col] <- fix.encoding(strings=char.stats[,col])
+	result$char.stats <- char.stats
 	
 	# possibly deal with chapters
 	file <- get.path.stats.corpus(object="chapters", char.det=char.det, pref="_chapter_stats")
@@ -968,10 +977,12 @@ read.corpus.data <- function(char.det)
 		chapter.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 		for(col in c(COL_TITLE, COL_VOLUME, COL_ARC))
 			chapter.stats[,col] <- fix.encoding(strings=chapter.stats[,col])
+		result$chapter.stats <- chapter.stats
 		# chapter chars
 		file <- get.path.stats.corpus(object="chapters", char.det=char.det, pref="_chapter_chars")
 		tlog(2,"Reading chapter chars file \"",file,"\"")
 		chapter.chars <- read.char.list(file=paste0(file,".txt"))
+		result$chapter.chars <- chapter.chars
 	}
 	
 	# volume stats
@@ -980,10 +991,12 @@ read.corpus.data <- function(char.det)
 	volume.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_SERIES, COL_TITLE, COL_ARC))
 		volume.stats[,col] <- fix.encoding(strings=volume.stats[,col])
+	result$volume.stats <- volume.stats
 	# volume chars
 	file <- get.path.stats.corpus(object="volumes", char.det=char.det, pref="_volume_chars")
 	tlog(2,"Reading volume chars file \"",file,"\"")
 	volume.chars <- read.char.list(file=paste0(file,".txt"))
+	result$volume.chars <- volume.chars
 	
 	# arc stats
 	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_stats")
@@ -991,22 +1004,14 @@ read.corpus.data <- function(char.det)
 	arc.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
 	for(col in c(COL_TITLE))
 		arc.stats[,col] <- fix.encoding(strings=arc.stats[,col])
+	result$arc.stats <- arc.stats
 	# arc chars
 	file <- get.path.stats.corpus(object="arcs", char.det=char.det, pref="_arc_chars")
 	tlog(2,"Reading arc chars file \"",file,"\"")
 	arc.chars <- read.char.list(file=paste0(file,".txt"))
+	result$arc.chars <- arc.chars
 	
-	# build result list and return
-	result <- list(
-		inter.df=inter.df,											# interactions
-		panel.stats=panel.stats, panel.chars=panel.chars,			# panels
-		page.stats=page.stats, page.chars=page.chars,				# pages
-		scene.stats=scene.stats, scene.chars=scene.chars,			# scenes
-		char.stats=char.stats,										# characters 
-		chapter.stats=chapter.stats, chapter.chars=chapter.chars,	# chapters
-		volume.stats=volume.stats, volume.chars=volume.chars,		# volumes 
-		arc.stats=arc.stats, arc.chars=arc.chars					# arcs
-	)
+	# return result list
 	return(result)
 }
 

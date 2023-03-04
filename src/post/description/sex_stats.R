@@ -60,11 +60,11 @@ write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=F
 
 # filtered data
 tlog(2, "Filtered data:")
-cnt.m <- length(which(char.stats[,"Sex"]=="Male" & char.stats[,"Filter"]=="Keep"))
-cnt.f <- length(which(char.stats[,"Sex"]=="Female" & char.stats[,"Filter"]=="Keep"))
+cnt.m <- length(which(char.stats[,"Sex"]=="Male" & char.stats[,COL_FILTER]=="Keep"))
+cnt.f <- length(which(char.stats[,"Sex"]=="Female" & char.stats[,COL_FILTER]=="Keep"))
 tab <- c(cnt.m,cnt.f)
-per.m <- cnt.m/length(which(char.stats[,"Filter"]=="Keep"))*100
-per.f <- cnt.f/length(which(char.stats[,"Filter"]=="Keep"))*100
+per.m <- cnt.m/length(which(char.stats[,COL_FILTER]=="Keep"))*100
+per.f <- cnt.f/length(which(char.stats[,COL_FILTER]=="Keep"))*100
 tab <- cbind(tab, c(per.m,per.f))
 tlog(4, "Proportions of: males=",per.m,", females=",per.f)
 per.m <- cnt.m/(cnt.m+cnt.f)*100

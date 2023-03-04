@@ -50,7 +50,7 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 	res <- list()
 	prev.unit <- NA
 	for(s in 1:length(gg))
-	{	tlog(4,"Processing scene ",s,"/",length(gg))
+	{	#tlog(4,"Processing scene ",s,"/",length(gg))
 		
 		# retrieve current scene graph
 		sc.g <- gg[[s]]
@@ -60,11 +60,13 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 		sc.idx <- which(scene.stats[,COL_SCENE_ID]==sc.id)
 		if(narr.unit=="scene")
 			cur.unit <- sc.id
+		else if(narr.unit=="chapter")
+			cur.unit <- scene.stats[sc.idx,COL_CHAP_ID]
 		else if(narr.unit=="volume")
 			cur.unit <- scene.stats[sc.idx,COL_VOLUME_ID]
 		else if(narr.unit=="arc")
 			cur.unit <- scene.stats[sc.idx,COL_ARC_ID]
-		tlog(4,"Current ",narr.unit,": ",cur.unit," (previous ",narr.unit,": ",prev.unit,")")
+		#tlog(4,"Current ",narr.unit,": ",cur.unit," (previous ",narr.unit,": ",prev.unit,")")
 		
 		# very first graph of the sequence
 		if(s==1)
@@ -180,14 +182,3 @@ cum.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.
 	
 	return(gs)
 }
-
-
-
-
-################################################################################
-## test
-#data <- read.corpus.data(char.det="implicit")
-#filtered <- FALSE
-#pub.order <- FALSE
-#gg <- cum.graph.extraction(inter.df=data$inter.df, char.stats=data$char.stats, scene.chars=data$scene.chars, scene.stats=data$scene.stats, volume.stats=data$volume.stats, filtered=filtered, pub.order=pub.order)
-#cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order, char.det="implicit")

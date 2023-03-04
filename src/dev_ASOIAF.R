@@ -22,6 +22,8 @@ SERIES <- "ASOIAF"
 ###############################################################################
 # load scripts
 source("src/common/_include.R")
+source("src/post/asoiaf/add_chapters.R")
+source("src/post/asoiaf/extr_dyn.R")
 
 # start logging
 start.rec.log(text=SERIES)
@@ -32,7 +34,7 @@ start.rec.log(text=SERIES)
 ###############################################################################
 ###############################################################################
 # read raw data
-data <- read.raw.data(char.det="implicit")
+data <- read.raw.data.asoiaf()
 # OR, if already computed, read from file
 #data <- read.corpus.data(char.det="implicit")
 
@@ -66,9 +68,18 @@ generate.static.plots.base(data=data)
 
 
 ###############################################################################
+# extract dynamic networks
+extract.dyn.nets.asoiaf(data)
+
+# compute and plot their stats
+# TODO
+
+
+
+
+###############################################################################
 # stop logging
 end.rec.log()
 
 # TODO
 # - sortir mêmes figures que padraig
-# - extraire cum net par chap au lieu de scènes
