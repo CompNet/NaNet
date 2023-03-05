@@ -37,6 +37,8 @@ COL_VOLUMES_BY_ARC <- "AvgVolumesByArc"			# average number of volumes by arc
 COL_CHAPTER <- "Chapter" 							# chapter number, relative to a (novel) volume
 COL_CHAPTER_ID <- "ChapterId"						# unique chapter id (overall)
 COL_CHAPTERS <- "Chapters"							# number of chapters in a volume/arc
+COL_CHAPTER_END_ID <- "EndChapterId"				# unique id of an end chapter (overall)
+COL_CHAPTER_START_ID <- "StartChapterId"			# unique id of an start chapter (overall)
 # TODO implement stat computation for chapters, which were added afterwards (to handle ASOIAF)
 
 
@@ -49,7 +51,7 @@ COL_PAGE_ID <- "PageId"							# unique page id (overall)
 COL_PAGE_END <- "EndPage"						# end page number, relative to a volume
 COL_PAGE_END_ID <- "EndPageId"					# unique id of an end page (overall)
 COL_PAGE_START <- "StartPage"					# start page number, relative to a volume
-COL_PAGE_START_ID <- "StartPageId"				# unique id of an end page (overall)
+COL_PAGE_START_ID <- "StartPageId"				# unique id of an start page (overall)
 COL_PAGES <- "Pages"							# number of pages
 
 # page stats

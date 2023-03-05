@@ -103,6 +103,7 @@ ns.normalization <- function(x, mu=0.01)
 # TODO: 
 # - test thoroughly
 # - include other narrative units than "scene"
+# - don't remember if weights are based on occ or dur?
 # 
 # char.stats: list of characters with their attributes.
 # scene.chars: which character appears in which scene.

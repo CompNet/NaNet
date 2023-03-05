@@ -77,7 +77,7 @@ for(narr.smooth in c(FALSE,TRUE))
 	# loop over the chronological order of volumes: use the publication vs. story order
 	tlog(6,"Loop over chronological order")
 	for(pub.order in c(FALSE,TRUE))
-	{	# subfolder
+	{	# order folder
 		if(pub.order)
 			ord.fold <- "publication"
 		else
@@ -234,7 +234,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					# record results
 					if(is.na(sc.lim))
 					{	pt <- names(sim.meas)[m]
-						file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, subfolder=narr.unit, suf=pt)
+						file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(22,"Recording results to file \"",file,"\"")
 						write.csv(x=sims, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 					}
@@ -247,7 +247,7 @@ for(narr.smooth in c(FALSE,TRUE))
 						
 						# set file name
 						pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, subfolder=narr.unit, suf=pt)
+						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
 						tlog(26,"Creating file \"",plot.file,"\"")
 						
 						# compute data ranges
@@ -271,7 +271,7 @@ for(narr.smooth in c(FALSE,TRUE))
 							)
 							# add volume representations
 							if(wide)
-								draw.volume.rects(ylim, volume.stats)
+								draw.volume.rects(ylim, volume.stats, narr.unit=narr.unit)
 							# horizontal dotted line
 							if(names(sim.meas)[m]=="sim-pearson")
 								abline(h=0, lty=2)
@@ -298,7 +298,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					
 					# set file name
 					pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", subfolder=narr.unit, suf=pt)
+					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
 					tlog(22,"Creating file \"",plot.file,"\"")
 					
 					# compute data ranges
@@ -322,7 +322,7 @@ for(narr.smooth in c(FALSE,TRUE))
 						)
 						# add volume representations
 						if(wide)
-							draw.volume.rects(ylim, volume.stats)
+							draw.volume.rects(ylim, volume.stats, narr.unit=narr.unit)
 						# add line
 						for(filt in c("unfiltered","filtered"))
 						{	if(filt=="unfiltered")

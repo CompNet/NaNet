@@ -22,7 +22,7 @@ char.det <- "implicit"
 narr.unit <- "scene"
 
 # define the characters of interest for vertex and edge measures
-vtx.plot <- c("Thorgal Aegirsson","Aaricia Ganfalfsdottir","Kriss de Valnor","Jolan Thorgalsson","Louve Thorgalsdottir")
+vtx.plot <- c("Thorgal Aegirsson","Aaricia Gandalfsdottir","Kriss de Valnor","Jolan Thorgalsson","Louve Thorgalsdottir")
 
 # read stats
 data <- read.corpus.data(char.det=char.det)
@@ -81,7 +81,7 @@ for(filtered in c(FALSE,TRUE))
 
 ###############################################################################
 # compute and plot the evolution of the topological measures
-for(net.type in c("instant","cumulative"))
+for(net.type in c("instant","cumulative","narr_smooth"))
 {	tlog(2, "Dealing with net.type=",net.type)
 	
 	for(filtered in c(FALSE,TRUE))

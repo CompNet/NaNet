@@ -175,7 +175,7 @@ get.path.data.graph <- function(mode, char.det=NA, net.type, order=NA, window.si
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: "occurrences", "duration", "none" (ignored for mode="window.xxx").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.
@@ -266,7 +266,7 @@ get.path.stat.table <- function(object, mode, char.det=NA, net.type, order=NA, w
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
 #          (also ignored for mode="scenes").
-# weights: either "occurrences" or "duration" (ignored for mode="window.xxx").
+# weights: "occurrences", "duration", "none" (ignored for mode="window.xxx").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph (or NA if not applicable).
@@ -369,7 +369,7 @@ get.path.stats.topo <- function(mode, char.det=NA, net.type, order=NA, att=NA, m
 # meas.name: name of the plot measure.
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
-# weights: value for this parameters, either "duration" or "occurrences".
+# weights: value for this parameters ("occurrences", "duration", "none").
 # arc: the narrative arc to plot (optional).
 # vol: the volume to plot (optional, and ignored if arc is specified).
 # filtered: whether this concerns the filtered version of the graph.

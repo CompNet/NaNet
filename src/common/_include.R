@@ -90,5 +90,6 @@ source("src/static/plot_stats_base.R")
 source("src/static/plot_stats_comp.R")
 
 source("src/dynamic/cumulative.R")
+source("src/dynamic/evol_prop.R")
 source("src/dynamic/instant.R")
 source("src/dynamic/narr_smooth.R")

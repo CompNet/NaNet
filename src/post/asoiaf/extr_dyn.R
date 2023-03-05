@@ -17,10 +17,12 @@
 # Extracts various dynamic networks used when studying the ASOIAF comic books.
 #
 # data: previously computed or loaded stats.
+# narr.units: vector of narrative units to use during the extraction of the dynamic
+#             networks (scene, chapter, volume, arc).
 #
 # returns: nothing, the dynamic networks are directly recorded as sequences of graphs.
 ################################################################################
-extract.dyn.nets.asoiaf <- function(data)
+extract.dyn.nets.asoiaf <- function(data, narr.units)
 {	tlog(2,"Extracting dynamic networks")
 	char.det <- "implicit"
 	narr.unit <- "scene"
@@ -37,7 +39,7 @@ extract.dyn.nets.asoiaf <- function(data)
 	arc.stats <- data$arc.stats
 	
 	# extract dynamic networks
-	for(narr.unit in c("scene","chapter"))
+	for(narr.unit in narr.units)
 	{	tlog(3,"Dealing with narrative unit \"",narr.unit,"\"")
 		
 		for(pub.order in c("publication","story"))
@@ -82,4 +84,53 @@ extract.dyn.nets.asoiaf <- function(data)
 
 
 ################################################################################
+# Computes the properties of the dynamic networks.
+#
+# data: list of tables, previously computed.
+# narr.units: vector of narrative units used to extract the dynamic networks.
 ################################################################################
+plot.dyn.props.asoiaf <- function(data, narr.units)
+{	# selected characters
+	vtx.plot <- c("Tyrion Lannister", "Arya Stark", "Catelyn Stark", "Jon Snow", "Daenerys Targaryen", "Eddard Stark")
+	char.det <- "implicit"
+	
+	# retrieve stats
+	inter.df <- data$inter.df
+	char.stats <- data$char.stats
+	scene.chars <- data$scene.chars
+	scene.stats <- data$scene.stats
+	volume.stats <- data$volume.stats
+	
+	for(narr.unit in narr.units)
+	{	tlog(2, "Dealing with narr.unit=",narr.unit)
+		
+		for(net.type in c("instant","cumulative"))
+		{	tlog(4, "Dealing with net.type=",net.type)
+			
+			for(filtered in c(FALSE,TRUE))
+			{	tlog(6, "Dealing with filtered=",filtered)
+				
+				for(pub.order in c(FALSE, TRUE))
+				{	tlog(8, "Dealing with pub.order=",pub.order)
+					
+					# reading dynamic graph
+					if(net.type=="instant")
+						gg <- inst.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
+					else if(net.type=="cumulative")
+						gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
+					else if(net.type=="narr_smooth")
+						gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
+					
+					# for the whole graph
+					evol.prop.graph(gg=gg, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order, plot.vols=pub.order)
+					
+					# for a selection of characters
+					evol.prop.vertices(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order, plot.vols=pub.order)
+					
+					# for a selection of character edges
+					evol.prop.edges(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order, plot.vols=pub.order)
+				}
+			}
+		}
+	}
+}

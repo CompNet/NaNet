@@ -68,10 +68,10 @@ generate.static.plots.base(data=data)
 
 ###############################################################################
 # extract dynamic networks
-extract.dyn.nets.asoiaf(data)
+extract.dyn.nets.asoiaf(data, narr.units=c("scene", "chapter"))
 
 # compute and plot a few measures
-# TODO
+plot.dyn.props.asoiaf(data, narr.units=c("scene", "chapter"))
 
 
 

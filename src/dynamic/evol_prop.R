@@ -20,14 +20,14 @@
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
-# narr.unit: narrative unit used to extract the dynamic networks.
 # plot.vols: whether to plot the volumes as rectangles.
 ###############################################################################
 # compute the graph measures
-evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, narr.unit, plot.vols=TRUE)
+evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	tlog(2, "Computing the graph measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
+	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
 	
 	# order volumes
 	if(pub.order)	# by publication order
@@ -74,7 +74,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, nar
 		paste0(MEAS_EIGENCNTR,SFX_AVG), paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_AVG),
 		paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_AVG)
 	)
-	gr.stats <- matrix(NA, nrow=sc.nbr, ncol=length(gr.meas), dimnames=list(c(),gr.meas))
+	gr.stats <- matrix(nrow=sc.nbr, ncol=0) #length(gr.meas), dimnames=list(c(),gr.meas))
 	
 	# color palette
 	pal <- ATT_COLORS_FILT
@@ -86,51 +86,86 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, nar
 	{	meas <- gr.meas[m]
 		tlog.loop(6, m, "Computing measure ",meas," (",m,"/",length(gr.meas),")")
 		
-		# compute the measure for each time slice
-		for(i in 1:length(gg))
-		{	cache <<- list()
-			gr.stats[i,m] <- GRAPH_MEASURES[[meas]]$foo(gg[[i]])
+		# set up edge weight parameter
+		if(GRAPH_MEASURES[[meas]]$weighted)
+		{	e.attr <- sort(unique(unlist(sapply(gg, edge_attr_names))))
+			ws <- intersect(c("Duration","Occurrences"), e.attr)
+			if(length(ws)==0)
+			{	if("weight" %in% e.attr)
+					ws <- "weight"
+				else
+					ws <- c()
+			}
 		}
+		else
+			ws <- "none"
 		
-		# compute y range
-		tmp <- gr.stats[,m]
-		tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
-		ylim <- range(tmp)
-		ylim[2] <- ylim[2]*1.1	# add some space for volume names
-		
-		# plot the measure
-		plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, meas.name=meas, filtered=filt.txt, subfold=narr.unit)
-		tlog(8, "Plotting in file \"",plot.file,"\"")
-		for(fformat in PLOT_FORMAT)
-		{	if(fformat==PLOT_FORMAT_PDF)
-				pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-			else if(fformat==PLOT_FORMAT_PNG)
-				png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-			par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-			# init empty plot
-			plot(
-				NULL, 
-#				ylim=GRAPH_MEASURES[[meas]]$bounds, 
-				xlim=c(1,sc.nbr), ylim=ylim,
-				log=if(meas %in% log.y) "y" else "",
-				xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname
-			)
-			# possibly add volume representations
-			if(plot.vols)
-				draw.volume.rects(ylim, volume.stats[ord.vols,])
-			# add line
-			lines(
-				x=1:sc.nbr, y=gr.stats[,m], 
-				#xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
-				col=col
-			)
-			# close file
-			dev.off()
+		for(w in ws)
+		{	# handle weights if needed
+			if(w=="Duration")
+			{	gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Duration;return(g)})
+				wtext <- "_w=dur"
+			}
+			else if(w=="Occurrences")
+			{	gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Occurrences;return(g)})
+				wtext <- "_w=occ"
+			}
+			else
+			{	gg0 <- gg
+				if(w=="ns")
+					wtext <- "_w=ns"
+				else
+					wtext <- ""
+			}
+			
+			# compute the measure for each time slice
+			vals <- rep(NA,sc.nbr)
+			for(i in 1:length(gg0))
+			{	cache <<- list()
+				vals[i] <- GRAPH_MEASURES[[meas]]$foo(gg0[[i]])
+			}
+			gr.stats <- cbind(gr.stats, vals)
+			colnames(gr.stats)[ncol(gr.stats)] <- paste0(meas,wtext)
+			
+			# compute y range
+			ylim <- range(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
+			ylim[2] <- ylim[2]*1.1	# add some space for volume names
+			
+			# plot the measure
+			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt)
+			tlog(8, "Plotting in file \"",plot.file,"\"")
+			for(fformat in PLOT_FORMAT)
+			{	if(fformat==PLOT_FORMAT_PDF)
+					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+				else if(fformat==PLOT_FORMAT_PNG)
+					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+				# init empty plot
+				plot(
+					NULL, 
+#					ylim=GRAPH_MEASURES[[meas]]$bounds, 
+					xlim=c(1,sc.nbr), ylim=ylim,
+					log=if(meas %in% log.y) "y" else "",
+					xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname
+				)
+				# possibly add volume representations
+				if(plot.vols)
+					draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+				# add line
+				lines(
+					x=1:sc.nbr, y=vals, 
+					#xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
+					col=col
+				)
+				# close file
+				dev.off()
+			}
 		}
 	}
 	
 	# record the stats as a CSV file
-	tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, filtered=filt.txt, subfold=narr.unit),".csv")
+	tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=tolower(w), filtered=filt.txt),".csv")
+	tlog(8, "Recording stats in file \"",tab.file,"\"")
 	write.csv(x=gr.stats, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
 	
 	tlog.end.loop(4, "Computation of graph measures over")
@@ -149,14 +184,14 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, nar
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
-# narr.unit: narrative unit used to extract the dynamic networks.
 # plot.vols: whether to plot the volumes as rectangles.
 ###############################################################################
-evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, narr.unit, plot.vols=TRUE)
+evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	# compute the vertex measures
 	tlog(2, "Computing the vertex measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
+	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
 	
 	# character names
 	char.names <- data$char.stats[,COL_NAME]
@@ -190,7 +225,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 		MEAS_CLOSENESS, paste0(MEAS_CLOSENESS,SFX_WEIGHT),
 		paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT)
 	)
-	vs.stats <- list()
+	#vs.stats <- list()
 	
 	# build character list
 	tmp <- t(combn(vtx.plot,2))									# all pairs of chars
@@ -206,70 +241,94 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 	{	meas <- vx.meas[m]
 		tlog.loop(6, m, "Computing measure ",meas," (",m,"/",length(vx.meas),")")
 		
-		# init stat matrix
-		mat <- matrix(NA, nrow=sc.nbr, ncol=length(char.names), dimnames=list(c(),char.names))
-		
-		# compute the measure for each time slice
-		for(i in 1:length(gg))
-		{	cache <<- list()
-			if(gorder(gg[[i]])>0)
-			{	vals <- NODE_MEASURES[[meas]]$foo(gg[[i]])
-				mat[i,V(gg[[i]])$name] <- vals
+		# set up edge weight parameter
+		if(NODE_MEASURES[[meas]]$weighted)
+		{	e.attr <- sort(unique(unlist(sapply(gg, edge_attr_names))))
+			ws <- intersect(c("Duration","Occurrences"), e.attr)
+			if(length(ws)==0)
+			{	if("weight" %in% e.attr)
+					ws <- "weight"
+				else
+					ws <- c()
 			}
 		}
-		# record the stats as a CSV file
-		tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, meas.name=meas, filtered=filt.txt, subfold=narr.unit),".csv")
-		write.csv(x=mat, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
-		# add to list of matrices
-		vs.stats[[meas]] <- mat
+		else
+			ws <- "none"
 		
-		for(vs in vss)
-		{	# compute y range
-			tmp <- c(mat[,vs])
-			tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
-			ylim <- range(tmp)
-			
-			# get short names
-			sn <- char.shortnames[match(vs,char.names)]
-			if(length(sn)==2)
-				pt <- paste(sn,collapse="_")
+		for(w in ws)
+		{	# handle weights if needed
+			if(w=="Duration")
+				gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Duration;return(g)})
+			else if(w=="Occurrences")
+				gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Occurrences;return(g)})
 			else
-				pt <- "_main_chars"
+				gg0 <- gg
 			
-			# plot the measure
-			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, meas.name=meas, filtered=filt.txt, subfold=narr.unit, suf=pt)
-			tlog(8, "Plotting in file \"",plot.file,"\"")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-				# init empty plot
-				plot(
-					NULL, 
-					ylim=ylim, xlim=c(1,sc.nbr),
-					log=if(meas %in% log.y) "y" else "",
-					xlab="Scenes", ylab=NODE_MEASURES[[meas]]$cname
-				)
-				# possibly add volume representations
-				if(plot.vols)
-					draw.volume.rects(ylim, volume.stats[ord.vols,])
-				# add a serie for each character
-				for(v in 1:length(vs))
-				{	lines(
-						x=1:sc.nbr, y=mat[,vs[v]], 
-						col=pal[vs][v],
-						type="l"
-					)
+			# init stat matrix
+			mat <- matrix(NA, nrow=sc.nbr, ncol=length(char.names), dimnames=list(c(),char.names))
+			
+			# compute the measure for each time slice
+			for(i in 1:length(gg0))
+			{	cache <<- list()
+				if(gorder(gg0[[i]])>0)
+				{	vals <- NODE_MEASURES[[meas]]$foo(gg0[[i]])
+					mat[i,V(gg0[[i]])$name] <- vals
 				}
-				# add legend
-				legend(
-					x="topright",
-					fill=pal[vs],
-					legend=sn
-				)
-				dev.off()
+			}
+			# record the stats as a CSV file
+			tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt),".csv")
+			write.csv(x=mat, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
+			# add to list of matrices
+			#vs.stats[[meas]] <- mat
+			
+			for(vs in vss)
+			{	# compute y range
+				tmp <- c(mat[,vs])
+				tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
+				ylim <- range(tmp)
+				
+				# get short names
+				sn <- char.shortnames[match(vs,char.names)]
+				if(length(sn)==2)
+					pt <- paste(sn,collapse="_")
+				else
+					pt <- "_main_chars"
+				
+				# plot the measure
+				plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
+				tlog(8, "Plotting in file \"",plot.file,"\"")
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+					# init empty plot
+					plot(
+						NULL, 
+						ylim=ylim, xlim=c(1,sc.nbr),
+						log=if(meas %in% log.y) "y" else "",
+						xlab="Scenes", ylab=NODE_MEASURES[[meas]]$cname
+					)
+					# possibly add volume representations
+					if(plot.vols)
+						draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+					# add a serie for each character
+					for(v in 1:length(vs))
+					{	lines(
+							x=1:sc.nbr, y=mat[,vs[v]], 
+							col=pal[vs][v],
+							type="l"
+						)
+					}
+					# add legend
+					legend(
+						x="topright",
+						fill=pal[vs],
+						legend=sn
+					)
+					dev.off()
+				}
 			}
 		}
 	}
@@ -292,11 +351,16 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 # narr.unit: narrative unit used to extract the dynamic networks.
 # plot.vols: whether to plot the volumes as rectangles.
 ###############################################################################
-evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, narr.unit, plot.vols=TRUE)
+evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	# compute the edge measures
 	tlog(2, "Computing the edge measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
+	
+	# handle narrative unit
+	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
+	if(narr.unit %in% c("volume",arc))
+		plot.vols <- FALSE
 	
 	# character names
 	char.names <- data$char.stats[,COL_NAME]
@@ -317,7 +381,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 		MEAS_LINKWEIGHT
 	)
 	log.y <- c()
-	es.stats <- list()
+	#es.stats <- list()
 	
 	# edges of interest
 	edg.plot <- t(combn(vtx.plot,2))
@@ -342,81 +406,111 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 	{	meas <- ed.meas[m]
 		tlog.loop(6, m, "Computing measure ",meas," (",m,"/",length(ed.meas),")")
 		
-		# init stat matrix
-		mat <- matrix(NA, nrow=sc.nbr, ncol=length(e.names), dimnames=list(c(),e.names))
-		
-		# compute the measure for each time slice
-		for(i in 1:length(gg))
-		{	cache <<- list()
-			vals <- LINK_MEASURES[[meas]]$foo(gg[[i]])
-			enm <- as_edgelist(graph=gg[[i]], names=TRUE)
-			idx <- sapply(1:nrow(edg.plot), function(r) 
-			{	idx <- which(enm[,1]==edg.plot[r,1] & enm[,2]==edg.plot[r,2] 
-								| enm[,1]==edg.plot[r,2] & enm[,2]==edg.plot[r,1])
-				if(length(idx)==0)
-					res <- NA
+		# set up edge weight parameter
+		if(LINK_MEASURES[[meas]]$weighted)
+		{	e.attr <- sort(unique(unlist(sapply(gg, edge_attr_names))))
+			ws <- intersect(c("duration","occurrences"), e.attr)
+			if(length(ws)==0)
+			{	if("weight" %in% e.attr)
+					ws <- "ns"
 				else
-					res <- idx[1]
-				return(res)
-			})
-			mat[i,!is.na(idx)] <- vals[idx[!is.na(idx)]]
-		}
-		# record the stats as a CSV file
-		tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, meas.name=meas, filtered=filt.txt, subfold=narr.unit),".csv")
-		write.csv(x=mat, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
-		# add to list of matrices
-		es.stats[[meas]] <- mat
-		
-		for(es in ess)
-		{	# compute y range
-			tmp <- c(mat[,e.names[es]])
-			tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
-			ylim <- range(tmp)
-			
-			# get short names
-			if(length(es)==1)
-				pt <- e.snames[es]
-			else
-			{	common <- which(sapply(vtx.plot, function(vname) all(grepl(vname, e.names[es], fixed=TRUE))))
-				pt <- char.shortnames[match(vtx.plot[common],char.names)]
+					ws <- c()
 			}
+		}
+		else
+			ws <- "none"
+		
+		for(w in ws)
+		{	# handle weights if needed
+			if(w=="duration")
+				gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Duration;return(g)})
+			else if(w=="occurrences")
+				gg0 <- future_lapply(gg, function(g) {E(g)$weight <- E(g)$Occurrences;return(g)})
+			else
+				gg0 <- gg
 			
-			# plot the measure
-			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, meas.name=meas, filtered=filt.txt, subfold=narr.unit, suf=pt)
-			tlog(8, "Plotting in file \"",plot.file,"\"")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-				# init empty plot
-				plot(
-					NULL, 
-					ylim=ylim, xlim=c(1,sc.nbr),
-					log=if(meas %in% log.y) "y" else "",
-					xlab="Scenes", ylab=LINK_MEASURES[[meas]]$cname
-				)
-				# possibly add volume representations
-				if(plot.vols)
-					draw.volume.rects(ylim, volume.stats[ord.vols,])
-				# add a serie for each edge
-				for(e in 1:length(es))
-				{	lines(
-						x=1:sc.nbr, y=mat[,e.names[es[e]]], 
-						col=e.pal[es[e]],
-						type="l"
-					)
+			# init stat matrix
+			mat <- matrix(NA, nrow=sc.nbr, ncol=length(e.names), dimnames=list(c(),e.names))
+			
+			# compute the measure for each time slice
+			for(i in 1:length(gg0))
+			{	cache <<- list()
+				vals <- LINK_MEASURES[[meas]]$foo(gg0[[i]])
+				enm <- as_edgelist(graph=gg0[[i]], names=TRUE)
+				idx <- sapply(1:nrow(edg.plot), function(r) 
+				{	idx <- which(enm[,1]==edg.plot[r,1] & enm[,2]==edg.plot[r,2] 
+									| enm[,1]==edg.plot[r,2] & enm[,2]==edg.plot[r,1])
+					if(length(idx)==0)
+						res <- NA
+					else
+						res <- idx[1]
+					return(res)
+				})
+				mat[i,!is.na(idx)] <- vals[idx[!is.na(idx)]]
+			}
+			# record the stats as a CSV file
+			tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt),".csv")
+			write.csv(x=mat, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
+			# add to list of matrices
+			#es.stats[[meas]] <- mat
+			
+			for(es in ess)
+			{	# only if at least one link over the narrative
+				tmp <- c(mat[,e.names[es]])
+				
+				if(all(is.na(tmp)))
+					tlog(8,"Measure \"",meas,"\" is NA at all times for characters \"",paste(e.names[es],sep="\" & \""),"\" >> no plot generated")
+				else
+				{	# compute y range
+					tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
+					ylim <- range(tmp)
+					
+					# get short names
+					if(length(es)==1)
+						pt <- e.snames[es]
+					else
+					{	common <- which(sapply(vtx.plot, function(vname) all(grepl(vname, e.names[es], fixed=TRUE))))
+						pt <- char.shortnames[match(vtx.plot[common],char.names)]
+					}
+					
+					# plot the measure
+					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
+					tlog(8, "Plotting in file \"",plot.file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+						par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+						# init empty plot
+						plot(
+							NULL, 
+							ylim=ylim, xlim=c(1,sc.nbr),
+							log=if(meas %in% log.y) "y" else "",
+							xlab="Scenes", ylab=LINK_MEASURES[[meas]]$cname
+						)
+						# possibly add volume representations
+						if(plot.vols)
+							draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+						# add a serie for each edge
+						for(e in 1:length(es))
+						{	lines(
+								x=1:sc.nbr, y=mat[,e.names[es[e]]], 
+								col=e.pal[es[e]],
+								type="l"
+							)
+						}
+						# add legend
+						if(length(es)>1)
+						{	legend(
+								x="topright",
+								fill=e.pal[es],
+								legend=e.snames[es]
+							)
+						}
+						dev.off()
+					}
 				}
-				# add legend
-				if(length(es)>1)
-				{	legend(
-						x="topright",
-						fill=e.pal[es],
-						legend=e.snames[es]
-					)
-				}
-				dev.off()
 			}
 		}
 	}

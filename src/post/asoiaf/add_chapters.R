@@ -83,6 +83,8 @@ add.chapters.asoiaf <- function(data)
 	chapter.vol.id <- match(map[,COL_VOLUME],volume.stats[,COL_VOLUME])
 	volume.stats <- cbind(
 		volume.stats,
+		StartChapterId=sapply(1:nrow(volume.stats), function(v) min(which(chapter.vol.id==v))),
+		EndChapterId=sapply(1:nrow(volume.stats), function(v) max(which(chapter.vol.id==v))),
 		Chapters=sapply(1:nrow(volume.stats), function(v) length(which(chapter.vol.id==v)))
 	)
 	
