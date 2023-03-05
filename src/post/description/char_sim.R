@@ -19,6 +19,7 @@ start.rec.log(text="CharSim")
 # main parameters
 wide <- TRUE				# wide plots showing volumes as rectangles
 sc.lim <- NA				# limit on the considered scenes (NA for no limit)
+narr.unit <- "scene"		# narrative unit used to extract the dynamic networks
 
 
 
@@ -35,7 +36,7 @@ scene.chars <- data$scene.chars
 volume.stats <- data$volume.stats
 scene.stats <- data$scene.stats
 
-# extract dynamic networks
+# extract dynamic networks using narrative smoothing
 tlog(2,"Extracting dynamic networks (may take a while)")
 for(filtered in c(FALSE,TRUE))
 {	tlog(4,"Dealing with ",if(filtered) "" else "un","filtered networks")
@@ -102,8 +103,8 @@ for(narr.smooth in c(FALSE,TRUE))
 			w.name <- "none"
 			if(narr.smooth)
 			{	net.type <- "narr_smooth"
-				gs[["unfiltered"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit")
-				gs[["filtered"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit")
+				gs[["unfiltered"]] <- ns.read.graph(filtered=FALSE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit", narr.unit=narr.unit)
+				gs[["filtered"]] <- ns.read.graph(filtered=TRUE, remove.isolates=TRUE, pub.order=pub.order, char.det="implicit", narr.unit=narr.unit)
 				if(weighted)
 					w.name <- "normalized"
 			}
@@ -233,7 +234,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					# record results
 					if(is.na(sc.lim))
 					{	pt <- names(sim.meas)[m]
-						file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
+						file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, subfolder=narr.unit, suf=pt)
 						tlog(22,"Recording results to file \"",file,"\"")
 						write.csv(x=sims, file=paste0(file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 					}
@@ -246,7 +247,7 @@ for(narr.smooth in c(FALSE,TRUE))
 						
 						# set file name
 						pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, suf=pt)
+						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered=filt, subfolder=narr.unit, suf=pt)
 						tlog(26,"Creating file \"",plot.file,"\"")
 						
 						# compute data ranges
@@ -297,7 +298,7 @@ for(narr.smooth in c(FALSE,TRUE))
 					
 					# set file name
 					pt <- paste0(names(sim.meas)[m],"_pair=", paste0(pairs[p,],collapse="--"), if(wide) "_wide" else "")
-					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", suf=pt)
+					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=ord.fold, weights=w.name, meas.name=MEAS_MULTI_NODEPAIRS, filtered="both", subfolder=narr.unit, suf=pt)
 					tlog(22,"Creating file \"",plot.file,"\"")
 					
 					# compute data ranges

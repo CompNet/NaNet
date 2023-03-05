@@ -94,11 +94,15 @@ ns.normalization <- function(x, mu=0.01)
 # Uses narrative smoothing to extract a dynamic network based on the specified
 # scenes. 
 # 
-# An similar Python function was proposed by Xavier Bost:
+# A similar Python function was proposed by Xavier Bost:
 # https://github.com/bostxavier/Narrative-Smoothing/blob/c306c5bd94240dfbc8f5ea918857c8acf392ed81/network_processing.py#L52
 # The difference is that we do not consider speech turns here: all characters
 # participating to the same scene are considered to interact with one another,
 # with a weight corresponding to the scene duration (expressesd in panels).
+#
+# TODO: 
+# - test thoroughly
+# - include other narrative units than "scene"
 # 
 # char.stats: list of characters with their attributes.
 # scene.chars: which character appears in which scene.
@@ -296,6 +300,7 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 			for(s in 1:length(scene.chars))
 			{	if(ij.weights[s]!=0)
 				{	g <- res[[s]]
+					g$NarrUnit <- paste0(narr.unit,"_",scene.stats[s,COL_SCENE_ID])
 					g <- add_edges(graph=g, edges=c(i,j), attr=list(weight=ij.weights[s]))
 					res[[s]] <- g
 				}
@@ -324,7 +329,10 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
+	# retrieve narrative unit
+	narr.unit <- strsplit(gs[[1]]$NarrUnit, split="_")[[1]][1]
+	
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, subfold=narr.unit, pref="ns")
 	write.dynamic.graph(gs=gs, base.path=base.file)
 }
 
@@ -339,16 +347,17 @@ ns.write.graph <- function(gs, filtered, pub.order=TRUE, char.det=NA)
 # remove.isolates: whether to remove isolates in each time slice.
 # pub.order: whether to consider volumes in publication vs. story order.
 # char.det: character detection mode ("implicit" or "explicit").
+# narr.unit: narrative unit used to extract the dynamic network (scene, volume, etc.).
 #
 # returns: list of igraph objects representing a dynamic graph.
 ###############################################################################
-ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA)
+ns.read.graph <- function(filtered, remove.isolates=TRUE, pub.order=TRUE, char.det=NA, narr.unit=NA)
 {	if(pub.order)	# by publication order
 		ord.fold <- "publication"
 	else			# by story order
 		ord.fold <- "story"
 	
-	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, pref="ns")
+	base.file <- get.path.data.graph(mode="scenes", char.det=char.det, net.type="narr_smooth", order=ord.fold, filtered=filtered, subfold=narr.unit, pref="ns")
 	gs <- read.dynamic.graph(base.file=base.file, remove.isolates=remove.isolates)
 	
 	return(gs)

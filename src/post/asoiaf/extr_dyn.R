@@ -58,20 +58,21 @@ extract.dyn.nets.asoiaf <- function(data)
 				)
 				# record files
 				inst.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
+				#gg <- inst.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order=="publication", char.det=char.det, narr.unit=narr.unit)
 				
-#				# extract cumulative dynamic graph
-#				gg <- cum.graph.extraction(
-#						inter.df=inter.df,
-#						char.stats=char.stats, 
-#						scene.chars=scene.chars, scene.stats=scene.stats, 
-#						volume.stats=volume.stats, 
-#						filtered=filtered, 
-#						pub.order=pub.order=="publication",
-#						narr.unit=narr.unit
-#				)
-#				# record files
-#				cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
-#				#gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order=="publication", char.det=char.det, narr.unit=narr.unit)
+				# extract cumulative dynamic graph
+				gg <- cum.graph.extraction(
+						inter.df=inter.df,
+						char.stats=char.stats, 
+						scene.chars=scene.chars, scene.stats=scene.stats, 
+						volume.stats=volume.stats, 
+						filtered=filtered, 
+						pub.order=pub.order=="publication",
+						narr.unit=narr.unit
+				)
+				# record files
+				cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
+				#gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order=="publication", char.det=char.det, narr.unit=narr.unit)
 			}
 		}
 	}

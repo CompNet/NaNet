@@ -74,7 +74,7 @@ INTER_EXPL_FILE <- file.path(ANN_EXPLICIT_FOLDER,"chars_by_panel.txt")
 #
 # mode: either "scenes", "panel.window", or "page.window".
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
-# net.type: "static", "cumulative", "narr_smooth".
+# net.type: "static", "instant", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter.
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -170,7 +170,7 @@ get.path.data.graph <- function(mode, char.det=NA, net.type, order=NA, window.si
 # object: "nodes", "nodepairs", "links", "graph"...
 # mode: either "scenes", "panel.window", or "page.window".
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
-# net.type: "static", "cumulative", "narr_smooth".
+# net.type: "static", "instant", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # window.size: value for this parameter (ignored for mode="scenes").
 # overlap: value for this parameter, specified for of the above parameter value.
@@ -259,7 +259,7 @@ get.path.stat.table <- function(object, mode, char.det=NA, net.type, order=NA, w
 # 
 # mode: either "scenes", "panel.window", or "page.window".
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
-# net.type: "static", "cumulative", "narr_smooth".
+# net.type: "static", "instant", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # att: vertex attribute concerned.
 # meas.name: file-ready name of the measure.
@@ -364,7 +364,7 @@ get.path.stats.topo <- function(mode, char.det=NA, net.type, order=NA, att=NA, m
 # 
 # mode: either "scenes", "panel.window", or "page.window".
 # char.det: character detection mode ("implicit" or "explicit", NA if not relevant).
-# net.type: "static", "cumulative", "narr_smooth".
+# net.type: "static", "instant", "cumulative", "narr_smooth".
 # order: "publication" vs. "story" order for the dynamic networks.
 # meas.name: name of the plot measure.
 # window.size: value for this parameter.
