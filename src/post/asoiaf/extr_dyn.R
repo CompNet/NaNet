@@ -46,19 +46,32 @@ extract.dyn.nets.asoiaf <- function(data)
 			for(filtered in c(FALSE,TRUE))
 			{	tlog(5,"Dealing with ",if(filtered) "" else "un","filtered networks")
 				
-				# extraction
-				gg <- cum.graph.extraction(
-						inter.df=inter.df,
-						char.stats=char.stats, 
-						scene.chars=scene.chars, scene.stats=scene.stats, 
-						volume.stats=volume.stats, 
-						filtered=filtered, 
-						pub.order=pub.order=="publication",
-						narr.unit=narr.unit
+				# extract dynamic graph
+				gg <- inst.graph.extraction(
+					inter.df=inter.df,
+					char.stats=char.stats, 
+					scene.chars=scene.chars, scene.stats=scene.stats, 
+					volume.stats=volume.stats, 
+					filtered=filtered, 
+					pub.order=pub.order=="publication",
+					narr.unit=narr.unit
 				)
 				# record files
-				cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
-				#gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order=="publication", char.det=char.det, narr.unit=narr.unit)
+				inst.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
+				
+#				# extract cumulative dynamic graph
+#				gg <- cum.graph.extraction(
+#						inter.df=inter.df,
+#						char.stats=char.stats, 
+#						scene.chars=scene.chars, scene.stats=scene.stats, 
+#						volume.stats=volume.stats, 
+#						filtered=filtered, 
+#						pub.order=pub.order=="publication",
+#						narr.unit=narr.unit
+#				)
+#				# record files
+#				cum.write.graph(gs=gg, filtered=filtered, pub.order=pub.order=="publication", char.det=char.det)
+#				#gg <- cum.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order=="publication", char.det=char.det, narr.unit=narr.unit)
 			}
 		}
 	}

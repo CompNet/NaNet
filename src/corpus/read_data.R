@@ -835,7 +835,7 @@ write.corpus.data <- function(
 			1:nrow(chapter.stats),
 			sapply(chapter.chars, function(chars) paste(chars,collapse="\t"))
 		)
-		colnames(tab) <- c(COL_CHAP_ID, COL_CHARS)
+		colnames(tab) <- c(COL_CHAPTER_ID, COL_CHARS)
 		file <- get.path.stats.corpus(object="chapter", char.det=char.det, pref="_chapter_chars")
 		tlog(4,"Writing chapter chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)

@@ -22,8 +22,7 @@ SERIES <- "ASOIAF"
 ###############################################################################
 # load scripts
 source("src/common/_include.R")
-source("src/post/asoiaf/add_chapters.R")
-source("src/post/asoiaf/extr_dyn.R")
+source("src/post/asoiaf/_all.R")
 
 # start logging
 start.rec.log(text=SERIES)
@@ -71,7 +70,7 @@ generate.static.plots.base(data=data)
 # extract dynamic networks
 extract.dyn.nets.asoiaf(data)
 
-# compute and plot their stats
+# compute and plot a few measures
 # TODO
 
 

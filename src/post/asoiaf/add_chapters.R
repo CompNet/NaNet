@@ -99,7 +99,7 @@ add.chapters.asoiaf <- function(data)
 	page.chapter.id <- sapply(1:nrow(page.stats), function(p) which(chapter.page.start.id<=p & chapter.page.end.id>=p))
 	page.stats <- cbind(
 		page.stats,
-		#Chapter=map[page.chapter.id,COL_CHAP],		# don't really need that, and moreover it's confusing
+		#Chapter=map[page.chapter.id,COL_CHAPTER],		# don't really need that, and moreover it's confusing
 		ChapterId=page.chapter.id
 	)
 	
@@ -109,7 +109,7 @@ add.chapters.asoiaf <- function(data)
 	panel.chapter.id <- sapply(1:nrow(panel.stats), function(p) which(chapter.page.start.id<=panel.stats[p,COL_PAGE_ID] & chapter.page.end.id>=panel.stats[p,COL_PAGE_ID]))
 	panel.stats <- cbind(
 		panel.stats,
-		#Chapter=map[panel.chapter.id,COL_CHAP],
+		#Chapter=map[panel.chapter.id,COL_CHAPTER],
 		ChapterId=panel.chapter.id
 	)
 	
@@ -117,32 +117,32 @@ add.chapters.asoiaf <- function(data)
 	scene.chapter.id <- sapply(1:nrow(scene.stats), function(s) which(chapter.page.start.id<=scene.stats[s,COL_PAGE_START_ID] & chapter.page.end.id>=scene.stats[s,COL_PAGE_END_ID]))
 	scene.stats <- cbind(
 		scene.stats,
-		#Chapter=map[scene.chapter.id,COL_CHAP],
+		#Chapter=map[scene.chapter.id,COL_CHAPTER],
 		ChapterId=scene.chapter.id
 	)
-	chapter.scene.start.id <- sapply(1:nrow(map), function(c) min(which(scene.stats[,COL_CHAP_ID]==c)))
-	chapter.scene.end.id <- sapply(1:nrow(map), function(c) max(which(scene.stats[,COL_CHAP_ID]==c)))
+	chapter.scene.start.id <- sapply(1:nrow(map), function(c) min(which(scene.stats[,COL_CHAPTER_ID]==c)))
+	chapter.scene.end.id <- sapply(1:nrow(map), function(c) max(which(scene.stats[,COL_CHAPTER_ID]==c)))
 			
 	# add chapter info to interaction table
 	inter.chapter.id <- sapply(1:nrow(inter.df), function(i) which(chapter.page.start.id<=inter.df[i,COL_PAGE_START_ID] & chapter.page.end.id>=inter.df[i,COL_PAGE_END_ID]))
 	inter.df <- cbind(
 		inter.df,
-		#Chapter=map[inter.chapter.id,COL_CHAP],
+		#Chapter=map[inter.chapter.id,COL_CHAPTER],
 		ChapterId=inter.chapter.id
 	)
 	
 	# build character list by chapter
-	chapter.chars <- sapply(1:nrow(map), function(c) sort(unique(unlist(scene.chars[scene.stats[,COL_CHAP_ID]==c]))))
+	chapter.chars <- sapply(1:nrow(map), function(c) sort(unique(unlist(scene.chars[scene.stats[,COL_CHAPTER_ID]==c]))))
 	
 	# add chapter info to character table
 	tt <- table(unlist(chapter.chars))
-	char.stats[match(names(tt),char.stats[,COL_NAME]),COL_CHAPS] <- tt
+	char.stats[match(names(tt),char.stats[,COL_NAME]),COL_CHAPTERS] <- tt
 	
 	
 	####################################
 	# create new chapter table
 	chapter.stats <- data.frame(
-			1:nrow(map), map[,COL_CHAP], paste(map[,"PoV"],map[,"Number"]),
+			1:nrow(map), map[,COL_CHAPTER], paste(map[,"PoV"],map[,"Number"]),
 			map[,COL_VOLUME],
 			map[,COL_PAGE_START], map[,COL_PAGE_END],
 			chapter.arc,
@@ -158,7 +158,7 @@ add.chapters.asoiaf <- function(data)
 			stringsAsFactors=FALSE, check.names=FALSE
 	)
 	colnames(chapter.stats) <- c(
-		COL_CHAP_ID, COL_CHAP, COL_TITLE,
+		COL_CHAPTER_ID, COL_CHAPTER, COL_TITLE,
 		COL_VOLUME,
 		COL_PAGE_START, COL_PAGE_END,
 		COL_ARC,

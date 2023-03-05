@@ -23,7 +23,7 @@
 # pub.order: whether to consider volumes in publication vs. story order.
 # narr.unit: narrative unit to perform the aggregation (scene, volume, arc).
 # 
-# returns: a sequence of graphs corresponding to a dynamic graph.
+# returns: a sequence of graphs corresponding to a cumulative dynamic graph.
 ###############################################################################
 cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats, volume.stats, filtered=FALSE, pub.order=TRUE,  narr.unit=NA)
 {	
@@ -61,7 +61,7 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 		if(narr.unit=="scene")
 			cur.unit <- sc.id
 		else if(narr.unit=="chapter")
-			cur.unit <- scene.stats[sc.idx,COL_CHAP_ID]
+			cur.unit <- scene.stats[sc.idx,COL_CHAPTER_ID]
 		else if(narr.unit=="volume")
 			cur.unit <- scene.stats[sc.idx,COL_VOLUME_ID]
 		else if(narr.unit=="arc")
