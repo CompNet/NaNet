@@ -27,7 +27,12 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 {	tlog(2, "Computing the graph measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
+
 	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
+	# handle narrative unit
+	if(narr.unit %in% c("volume","arc"))
+		plot.vols <- FALSE
+	narr.unit.map <- c(scene="Scenes", chapter="Chapters", volume="Volumes", arc="Arcs")
 	
 	# order volumes
 	if(pub.order)	# by publication order
@@ -146,7 +151,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 #					ylim=GRAPH_MEASURES[[meas]]$bounds, 
 					xlim=c(1,sc.nbr), ylim=ylim,
 					log=if(meas %in% log.y) "y" else "",
-					xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname
+					xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname
 				)
 				# possibly add volume representations
 				if(plot.vols)
@@ -154,7 +159,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 				# add line
 				lines(
 					x=1:sc.nbr, y=vals, 
-					#xlab="Scenes", ylab=GRAPH_MEASURES[[meas]]$cname,
+					#xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname,
 					col=col
 				)
 				# close file
@@ -191,7 +196,12 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 	tlog(2, "Computing the vertex measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
+
+	# handle narrative unit
 	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
+	if(narr.unit %in% c("volume","arc"))
+		plot.vols <- FALSE
+	narr.unit.map <- c(scene="Scenes", chapter="Chapters", volume="Volumes", arc="Arcs")
 	
 	# character names
 	char.names <- data$char.stats[,COL_NAME]
@@ -308,7 +318,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 						NULL, 
 						ylim=ylim, xlim=c(1,sc.nbr),
 						log=if(meas %in% log.y) "y" else "",
-						xlab="Scenes", ylab=NODE_MEASURES[[meas]]$cname
+						xlab=narr.unit.map[narr.unit], ylab=NODE_MEASURES[[meas]]$cname
 					)
 					# possibly add volume representations
 					if(plot.vols)
@@ -361,6 +371,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
 	if(narr.unit %in% c("volume","arc"))
 		plot.vols <- FALSE
+	narr.unit.map <- c(scene="Scenes", chapter="Chapters", volume="Volumes", arc="Arcs")
 	
 	# character names
 	char.names <- data$char.stats[,COL_NAME]
@@ -487,7 +498,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 							NULL, 
 							ylim=ylim, xlim=c(1,sc.nbr),
 							log=if(meas %in% log.y) "y" else "",
-							xlab="Scenes", ylab=LINK_MEASURES[[meas]]$cname
+							xlab=narr.unit.map[narr.unit], ylab=LINK_MEASURES[[meas]]$cname
 						)
 						# possibly add volume representations
 						if(plot.vols)
