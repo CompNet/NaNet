@@ -81,4 +81,3 @@ end.rec.log()
 
 # TODO
 # - sortir mêmes figures que padraig
-# - passer en branche dev
