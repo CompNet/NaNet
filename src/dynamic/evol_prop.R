@@ -359,7 +359,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 	
 	# handle narrative unit
 	narr.unit <- strsplit(gg[[1]]$NarrUnit, split="_")[[1]][1]
-	if(narr.unit %in% c("volume",arc))
+	if(narr.unit %in% c("volume","arc"))
 		plot.vols <- FALSE
 	
 	# character names
