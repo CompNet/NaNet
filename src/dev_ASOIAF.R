@@ -31,7 +31,6 @@ start.rec.log(text=SERIES)
 
 
 ###############################################################################
-###############################################################################
 # read raw data
 data <- read.raw.data.asoiaf()
 # OR, if already computed, read from file
@@ -82,3 +81,4 @@ end.rec.log()
 
 # TODO
 # - sortir mêmes figures que padraig
+# - passer en branche dev
