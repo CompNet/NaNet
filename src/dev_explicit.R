@@ -2,11 +2,11 @@
 # generate the corresponding plots.
 # 
 # Vincent Labatut
-# 11/2018
+# 10/2022
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
 # setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/dev_main.R")
+# source("src/dev_explicit.R")
 ###############################################################################
 
 
@@ -155,7 +155,7 @@ data.expl <- read.corpus.data(char.det="explicit")
 
 ###############################################################################
 # extract static panel- and page-based networks
-#extract.static.graphs.window(data=data.expl, char.det="explicit", panel.params, page.params)
+extract.static.graphs.window(data=data.expl, char.det="explicit", panel.params, page.params)
 
 # compute their stats
 #compute.static.statistics.window(char.det="explicit", panel.params, page.params)
