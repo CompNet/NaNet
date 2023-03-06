@@ -107,4 +107,4 @@ TODO
 - Export annotation agreement results as log files (for history)
 - record law id testing as separate value in order to use when plotting both series (filt vs. unfilt) in post
 
-NOTE: aaricia present in each arc, but not Thorgal?!
+NOTE: Aaricia present in each arc, but not Thorgal?!
