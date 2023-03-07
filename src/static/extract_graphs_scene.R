@@ -66,7 +66,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	{	is <- is[order(inter.df[is,COL_RANK])]
 		scenes.ord <- scenes.ord[order(scene.stats[scenes.ord,COL_RANK])]
 	}
-		
+	
 	# possibly init the list with empty graphs or isolates
 	if(ret.seq)
 	{	gg <- list()
@@ -90,7 +90,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	for(i in is)
 	{	# get the current scene id
 		cur.scene <- inter.df[i,COL_SCENE_ID]
-		cur.scene.idx <- which(scene.stats[scenes.ord,COL_RANK]==cur.scene)
+		cur.scene.idx <- which(scene.stats[scenes.ord,COL_SCENE_ID]==cur.scene)
 		#tlog(4,"Processing interaction #",i,"/",length(is)," from scene ",cur.scene," (",cur.scene.idx,"/",length(scenes.ord),")")
 		
 		# get the characters

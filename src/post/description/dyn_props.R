@@ -15,7 +15,7 @@ start.rec.log(text="DynProps")
 
 
 ###############################################################################
-tlog(0, "Evolution of the average distance over scenes")
+tlog(0, "Evolution of various measures over scenes")
 
 # define parameters
 char.det <- "implicit"
@@ -99,13 +99,13 @@ for(net.type in c("instant","cumulative","narr_smooth"))
 				gg <- ns.read.graph(filtered=filtered, remove.isolates=TRUE, pub.order=pub.order, char.det=char.det, narr.unit=narr.unit)
 			
 			# for the whole graph
-			evol.prop.graph(gg=gg, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
+			evol.prop.graph(gg=gg, unit.stats, unit.stats=scene.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
 			
 			# for a selection of characters
-			evol.prop.vertices(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
+			evol.prop.vertices(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, unit.stats=scene.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
 			
 			# for a selection of character edges
-			evol.prop.edges(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
+			evol.prop.edges(gg=gg, vtx.plot=vtx.plot, char.stats=char.stats, unit.stats=scene.stats, volume.stats=volume.stats, net.type=net.type, filtered=filtered, pub.order=pub.order)
 		}
 	}
 }

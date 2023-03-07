@@ -80,4 +80,5 @@ plot.dyn.props.asoiaf(data, narr.units=c("scene", "chapter"))
 end.rec.log()
 
 # TODO
-# - sortir mêmes figures que padraig
+# problems:
+# - correct Thorgal data by splitting the group scenes (memory/dreams)

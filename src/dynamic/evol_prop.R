@@ -13,9 +13,40 @@
 
 
 ###############################################################################
+# Compute the y range specifically for evolution plots from this script.
+#
+# vals: vector of y values.
+# log.axis: whether the axis is log or not.
+#
+# returns: y range for the plot. 
+###############################################################################
+evol.range.y <- function(vals, log.axis=FALSE)
+{	# base range
+	ylim <- range(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
+	
+	# possibly add depth if only one value
+	if(ylim[1]==ylim[2])
+		ylim[2] <- ylim[2] + 1
+	
+	# add some vertical space for the rectangles
+	ylim[1] <- ylim[1]-(ylim[2]-ylim[1])*0.05
+	if(log.axis && ylim[1]<=0) 
+		ylim[1] <- min(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
+	
+	# add some space for volume names
+	ylim[2] <- ylim[2]*1.1
+	
+	return(ylim)
+}
+
+
+
+
+###############################################################################
 # Compute and plots the evolution of graph topological measures.
 #
 # gg: list of static graphs representing a dynamic graph.
+# unit.stats: table containing the chapter or scene statistics.
 # volume.stats: table containing the volume statistics.
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
@@ -23,7 +54,7 @@
 # plot.vols: whether to plot the volumes as rectangles (only if scenes or chapters).
 ###############################################################################
 # compute the graph measures
-evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
+evol.prop.graph <- function(gg, unit.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	tlog(2, "Computing the graph measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
 	sc.nbr <- length(gg)
@@ -38,10 +69,12 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 	if(pub.order)	# by publication order
 	{	ord.vols <- 1:nrow(volume.stats)
 		ord.fold <- "publication"
+		ord.units <- 1:nrow(unit.stats)
 	}
 	else			# by story order
 	{	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
 		ord.fold <- "story"
+		ord.units <- (1:nrow(unit.stats))[order(unit.stats[,COL_RANK])]
 	}
 	
 	# selected measures
@@ -135,15 +168,9 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 			# add to overall matrix
 			#gr.stats <- cbind(gr.stats, vals)
 			#colnames(gr.stats)[ncol(gr.stats)] <- paste0(meas,wtext)
-	
+			
 			# compute y range
-			ylim <- range(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
-			# add some space for the rectangles
-			ylim[1] <- ylim[1]-(ylim[2]-ylim[1])*0.05
-			if(meas %in% log.y && ylim[1]<=0) 
-				ylim[1] <- min(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
-			# add some space for volume names
-			ylim[2] <- ylim[2]*1.1
+			ylim <- evol.range.y(vals, log.axis=meas %in% log.y)
 			
 			# plot the measure
 			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt)
@@ -164,7 +191,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 				)
 				# possibly add volume representations
 				if(plot.vols)
-					draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+					draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 				# add line
 				lines(
 					x=1:sc.nbr, y=vals, 
@@ -194,13 +221,14 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 # gg: list of static graphs representing a dynamic graph.
 # vtx.plot: characters of interest whose edges must be plot.
 # char.stats: list of characters with their attributes.
+# unit.stats: table containing the chapter or scene statistics.
 # volume.stats: table containing the volume statistics.
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
 # plot.vols: whether to plot the volumes as rectangles.
 ###############################################################################
-evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
+evol.prop.vertices <- function(gg, vtx.plot, char.stats, unit.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	# compute the vertex measures
 	tlog(2, "Computing the vertex measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
@@ -220,10 +248,12 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 	if(pub.order)	# by publication order
 	{	ord.vols <- 1:nrow(volume.stats)
 		ord.fold <- "publication"
+		ord.units <- 1:nrow(unit.stats)
 	}
 	else			# by story order
 	{	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
 		ord.fold <- "story"
+		ord.units <- (1:nrow(unit.stats))[order(unit.stats[,COL_RANK])]
 	}
 	
 	# selected measures
@@ -304,7 +334,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 			{	# compute y range
 				tmp <- c(mat[,vs])
 				tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
-				ylim <- range(tmp)
+				ylim <- evol.range.y(vals=tmp, log.axis=meas %in% log.y)
 				
 				# get short names
 				sn <- char.shortnames[match(vs,char.names)]
@@ -331,7 +361,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 					)
 					# possibly add volume representations
 					if(plot.vols)
-						draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+						draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 					# add a serie for each character
 					for(v in 1:length(vs))
 					{	lines(
@@ -363,6 +393,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 # gg: list of static graphs representing a dynamic graph.
 # vtx.plot: characters of interest whose edges must be plot.
 # char.stats: list of characters with their attributes.
+# unit.stats: table containing the chapter or scene statistics.
 # volume.stats: table containing the volume statistics.
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
@@ -370,7 +401,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 # narr.unit: narrative unit used to extract the dynamic networks.
 # plot.vols: whether to plot the volumes as rectangles.
 ###############################################################################
-evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
+evol.prop.edges <- function(gg, vtx.plot, char.stats, unit.stats, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
 {	# compute the edge measures
 	tlog(2, "Computing the edge measures")
 	filt.txt <- if(filtered) "filtered" else "unfiltered"
@@ -390,10 +421,12 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 	if(pub.order)	# by publication order
 	{	ord.vols <- 1:nrow(volume.stats)
 		ord.fold <- "publication"
+		ord.units <- 1:nrow(unit.stats)
 	}
 	else			# by story order
 	{	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
 		ord.fold <- "story"
+		ord.units <- (1:nrow(unit.stats))[order(unit.stats[,COL_RANK])]
 	}
 	
 	# selected measures
@@ -483,7 +516,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 				else
 				{	# compute y range
 					tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
-					ylim <- range(tmp)
+					ylim <- evol.range.y(vals=tmp, log.axis=meas %in% log.y)
 					
 					# get short names
 					if(length(es)==1)
@@ -511,7 +544,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 						)
 						# possibly add volume representations
 						if(plot.vols)
-							draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+							draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 						# add a serie for each edge
 						for(e in 1:length(es))
 						{	lines(

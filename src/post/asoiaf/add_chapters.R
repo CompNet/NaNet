@@ -25,6 +25,18 @@ read.raw.data.asoiaf <- function()
 	# add the chapter table and info
 	data <- add.chapters.asoiaf(data)
 	
+	# record all again
+	write.corpus.data(
+		char.det="implicit", 
+		inter.df=data$inter.df,
+		panel.stats=data$panel.stats, panel.chars=data$panel.chars,
+		page.stats=data$page.stats, page.chars=data$page.chars,
+		scene.stats=data$scene.stats, scene.chars=data$scene.chars,
+		char.stats=data$char.stats, 
+		volume.stats=data$volume.stats, volume.chars=data$volume.chars, 
+		arc.stats=data$arc.stats, arc.chars=data$arc.chars
+	)
+	
 	return(data)
 }
 
