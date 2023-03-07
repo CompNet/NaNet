@@ -82,3 +82,4 @@ end.rec.log()
 # TODO
 # problems:
 # - correct Thorgal data by splitting the group scenes (memory/dreams)
+#   >> apply the modifications to the explicit annotations too!
