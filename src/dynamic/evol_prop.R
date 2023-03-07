@@ -20,7 +20,7 @@
 # net.type: type of dynamic network ("instant", "cumulative", "narr_smooth").
 # filtered: whether characters should be filtered or not.
 # pub.order: whether to consider volumes in publication vs. story order.
-# plot.vols: whether to plot the volumes as rectangles.
+# plot.vols: whether to plot the volumes as rectangles (only if scenes or chapters).
 ###############################################################################
 # compute the graph measures
 evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plot.vols=TRUE)
@@ -79,7 +79,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 		paste0(MEAS_EIGENCNTR,SFX_AVG), paste0(MEAS_EIGENCNTR,SFX_WEIGHT,SFX_AVG),
 		paste0(MEAS_HARMO_CLOSENESS,SFX_WEIGHT,SFX_AVG)
 	)
-	gr.stats <- matrix(nrow=sc.nbr, ncol=0) #length(gr.meas), dimnames=list(c(),gr.meas))
+	#gr.stats <- matrix(nrow=sc.nbr, ncol=0) #length(gr.meas), dimnames=list(c(),gr.meas))
 	
 	# color palette
 	pal <- ATT_COLORS_FILT
@@ -129,12 +129,21 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 			{	cache <<- list()
 				vals[i] <- GRAPH_MEASURES[[meas]]$foo(gg0[[i]])
 			}
-			gr.stats <- cbind(gr.stats, vals)
-			colnames(gr.stats)[ncol(gr.stats)] <- paste0(meas,wtext)
-			
+			# record the stats as a CSV file
+			tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt),".csv")
+			write.csv(x=matrix(vals,ncol=1), file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
+			# add to overall matrix
+			#gr.stats <- cbind(gr.stats, vals)
+			#colnames(gr.stats)[ncol(gr.stats)] <- paste0(meas,wtext)
+	
 			# compute y range
 			ylim <- range(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
-			ylim[2] <- ylim[2]*1.1	# add some space for volume names
+			# add some space for the rectangles
+			ylim[1] <- ylim[1]-(ylim[2]-ylim[1])*0.05
+			if(meas %in% log.y && ylim[1]<=0) 
+				ylim[1] <- min(vals[!is.na(vals) & !is.nan(vals) & !is.infinite(vals)])
+			# add some space for volume names
+			ylim[2] <- ylim[2]*1.1
 			
 			# plot the measure
 			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt)
@@ -155,7 +164,7 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 				)
 				# possibly add volume representations
 				if(plot.vols)
-					draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+					draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 				# add line
 				lines(
 					x=1:sc.nbr, y=vals, 
@@ -169,9 +178,9 @@ evol.prop.graph <- function(gg, volume.stats, net.type, filtered, pub.order, plo
 	}
 	
 	# record the stats as a CSV file
-	tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=tolower(w), filtered=filt.txt),".csv")
-	tlog(8, "Recording stats in file \"",tab.file,"\"")
-	write.csv(x=gr.stats, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
+	#tab.file <- paste0(get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), weights=tolower(w), subfold="graph", filtered=filt.txt, pref="_stats_graph"),".csv")
+	#tlog(8, "Recording stats in file \"",tab.file,"\"")
+	#write.csv(x=gr.stats, file=tab.file, fileEncoding="UTF-8", row.names=TRUE)
 	
 	tlog.end.loop(4, "Computation of graph measures over")
 }
@@ -322,7 +331,7 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, volume.stats, net.type,
 					)
 					# possibly add volume representations
 					if(plot.vols)
-						draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+						draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 					# add a serie for each character
 					for(v in 1:length(vs))
 					{	lines(
@@ -502,7 +511,7 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, volume.stats, net.type, fi
 						)
 						# possibly add volume representations
 						if(plot.vols)
-							draw.volume.rects(ylim, volume.stats[ord.vols,], narr.unit=narr.unit)
+							draw.volume.rects(ylim, volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 						# add a serie for each edge
 						for(e in 1:length(es))
 						{	lines(

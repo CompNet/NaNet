@@ -33,6 +33,16 @@ draw.volume.rects <- function(ylim, volume.stats, narr.unit)
 		end.col <- COL_CHAPTER_END_ID
 	}
 	
+	# possible text rotation
+	angle <- 0
+	justf <- c(0.5, 1)
+	ymargin <- ""
+	if(max(sapply(volume.stats[,COL_VOLUME], nchar))>4)
+	{	angle <- -90
+		justf <- c(0, 0.5)
+		ymargin <- " "
+	}
+	
 	# compute x rectangle bounds
 	bounds.x <- c(
 		1, 
@@ -41,10 +51,11 @@ draw.volume.rects <- function(ylim, volume.stats, narr.unit)
 	)
 	# draw each volume
 	for(v in 1:nrow(volume.stats))
-	{	rect(
+	{	#cat(bounds.x[v],", ",bounds.x[v+1],", ",ylim[1]-(ylim[2]-ylim[1])*0.05,", ",ylim[2],"\n")
+		rect(
 			xleft=bounds.x[v], 
 			xright=bounds.x[v+1], 
-			ybottom=ylim[1]-(ylim[2]-ylim[1])*0.05, 
+			ybottom=ylim[1],#-(ylim[2]-ylim[1])*0.05, 
 			ytop=ylim[2], 
 			col=rec.pal[(v %% 2)+1], 
 			border=NA, density=NA
@@ -52,8 +63,9 @@ draw.volume.rects <- function(ylim, volume.stats, narr.unit)
 		text(
 			x=(volume.stats[v,start.col]+volume.stats[v,end.col])/2, 
 			y=ylim[2], 
-			labels=volume.stats[v,COL_VOLUME],
-			cex=0.55, adj=c(0.5,1)
+			labels=paste0(ymargin,volume.stats[v,COL_VOLUME]),
+			cex=0.55,
+			srt=angle, adj=justf
 		)
 	}
 }
