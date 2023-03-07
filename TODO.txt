@@ -1,6 +1,6 @@
 Dynamic network extraction
    - Implement window-based approach
-   x Implement narrative smoothing (or use Xavier's version)
+   ~ Implement narrative smoothing (or use Xavier's version)
 
 Stats part:
 - Goal: study the effect of the extraction parameters
