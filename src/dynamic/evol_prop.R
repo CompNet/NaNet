@@ -172,35 +172,39 @@ evol.prop.graph <- function(gg, unit.stats, volume.stats, net.type, filtered, pu
 			
 			# compute y range
 			ylim <- evol.range.y(vals, log.axis=meas %in% log.y)
+			if(all(is.infinite(ylim)))
+				tlog(8, "Only NA/Inf/NaN values: nothing to plot")
 			
 			# plot the measure
-			plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt)
-			tlog(8, "Plotting in file \"",plot.file,"\"")
-			for(fformat in PLOT_FORMAT)
-			{	if(fformat==PLOT_FORMAT_PDF)
-					pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-				else if(fformat==PLOT_FORMAT_PNG)
-					png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-				par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-				# init empty plot
-				plot(
-					NULL, 
-#					ylim=GRAPH_MEASURES[[meas]]$bounds, 
-					xlim=c(1,sc.nbr), ylim=ylim,
-					log=if(meas %in% log.y) "y" else "",
-					xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname
-				)
-				# possibly add volume representations
-				if(plot.vols)
-					draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
-				# add line
-				lines(
-					x=1:sc.nbr, y=vals, 
-					#xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname,
-					col=col
-				)
-				# close file
-				dev.off()
+			else
+			{	plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt)
+				tlog(8, "Plotting in file \"",plot.file,"\"")
+				for(fformat in PLOT_FORMAT)
+				{	if(fformat==PLOT_FORMAT_PDF)
+						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+					else if(fformat==PLOT_FORMAT_PNG)
+						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+					# init empty plot
+					plot(
+						NULL, 
+#						ylim=GRAPH_MEASURES[[meas]]$bounds, 
+						xlim=c(1,sc.nbr), ylim=ylim,
+						log=if(meas %in% log.y) "y" else "",
+						xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname
+					)
+					# possibly add volume representations
+					if(plot.vols)
+						draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+					# add line
+					lines(
+						x=1:sc.nbr, y=vals, 
+						#xlab=narr.unit.map[narr.unit], ylab=GRAPH_MEASURES[[meas]]$cname,
+						col=col
+					)
+					# close file
+					dev.off()
+				}
 			}
 		}
 	}
@@ -337,47 +341,51 @@ evol.prop.vertices <- function(gg, vtx.plot, char.stats, unit.stats, volume.stat
 				tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
 				ylim <- evol.range.y(vals=tmp, log.axis=meas %in% log.y)
 				
-				# get short names
-				sn <- char.shortnames[match(vs,char.names)]
-				if(length(sn)==2)
-					pt <- paste(sn,collapse="_")
+				if(all(is.infinite(ylim)))
+					tlog(8, "Only NA/Inf/NaN values: nothing to plot")
 				else
-					pt <- "_main_chars"
-				
-				# plot the measure
-				plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
-				tlog(8, "Plotting in file \"",plot.file,"\"")
-				for(fformat in PLOT_FORMAT)
-				{	if(fformat==PLOT_FORMAT_PDF)
-						pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-					else if(fformat==PLOT_FORMAT_PNG)
-						png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-					par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-					# init empty plot
-					plot(
-						NULL, 
-						ylim=ylim, xlim=c(1,sc.nbr),
-						log=if(meas %in% log.y) "y" else "",
-						xlab=narr.unit.map[narr.unit], ylab=NODE_MEASURES[[meas]]$cname
-					)
-					# possibly add volume representations
-					if(plot.vols)
-						draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
-					# add a serie for each character
-					for(v in 1:length(vs))
-					{	lines(
-							x=1:sc.nbr, y=mat[,vs[v]], 
-							col=pal[vs][v],
-							type="l"
+				{	# get short names
+					sn <- char.shortnames[match(vs,char.names)]
+					if(length(sn)==2)
+						pt <- paste(sn,collapse="_")
+					else
+						pt <- "_main_chars"
+					
+					# plot the measure
+					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
+					tlog(8, "Plotting in file \"",plot.file,"\"")
+					for(fformat in PLOT_FORMAT)
+					{	if(fformat==PLOT_FORMAT_PDF)
+							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+						else if(fformat==PLOT_FORMAT_PNG)
+							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+						par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+						# init empty plot
+						plot(
+							NULL, 
+							ylim=ylim, xlim=c(1,sc.nbr),
+							log=if(meas %in% log.y) "y" else "",
+							xlab=narr.unit.map[narr.unit], ylab=NODE_MEASURES[[meas]]$cname
 						)
+						# possibly add volume representations
+						if(plot.vols)
+							draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+						# add a serie for each character
+						for(v in 1:length(vs))
+						{	lines(
+								x=1:sc.nbr, y=mat[,vs[v]], 
+								col=pal[vs][v],
+								type="l"
+							)
+						}
+						# add legend
+						legend(
+							x="topright",
+							fill=pal[vs],
+							legend=sn
+						)
+						dev.off()
 					}
-					# add legend
-					legend(
-						x="topright",
-						fill=pal[vs],
-						legend=sn
-					)
-					dev.off()
 				}
 			}
 		}
@@ -519,50 +527,54 @@ evol.prop.edges <- function(gg, vtx.plot, char.stats, unit.stats, volume.stats, 
 					tmp <- tmp[!is.na(tmp) & !is.nan(tmp) & !is.infinite(tmp)]
 					ylim <- evol.range.y(vals=tmp, log.axis=meas %in% log.y)
 					
-					# get short names
-					if(length(es)==1)
-						pt <- e.snames[es]
+					if(all(is.infinite(ylim)))
+						tlog(8, "Only NA/Inf/NaN values: nothing to plot")
 					else
-					{	common <- which(sapply(vtx.plot, function(vname) all(grepl(vname, e.names[es], fixed=TRUE))))
-						pt <- char.shortnames[match(vtx.plot[common],char.names)]
-					}
-					
-					# plot the measure
-					plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
-					tlog(8, "Plotting in file \"",plot.file,"\"")
-					for(fformat in PLOT_FORMAT)
-					{	if(fformat==PLOT_FORMAT_PDF)
-							pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
-						else if(fformat==PLOT_FORMAT_PNG)
-							png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
-						par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
-						# init empty plot
-						plot(
-							NULL, 
-							ylim=ylim, xlim=c(1,sc.nbr),
-							log=if(meas %in% log.y) "y" else "",
-							xlab=narr.unit.map[narr.unit], ylab=LINK_MEASURES[[meas]]$cname
-						)
-						# possibly add volume representations
-						if(plot.vols)
-							draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
-						# add a serie for each edge
-						for(e in 1:length(es))
-						{	lines(
-								x=1:sc.nbr, y=mat[,e.names[es[e]]], 
-								col=e.pal[es[e]],
-								type="l"
-							)
+					{	# get short names
+						if(length(es)==1)
+							pt <- e.snames[es]
+						else
+						{	common <- which(sapply(vtx.plot, function(vname) all(grepl(vname, e.names[es], fixed=TRUE))))
+							pt <- char.shortnames[match(vtx.plot[common],char.names)]
 						}
-						# add legend
-						if(length(es)>1)
-						{	legend(
-								x="topright",
-								fill=e.pal[es],
-								legend=e.snames[es]
+						
+						# plot the measure
+						plot.file <- get.path.stats.topo(mode="scenes", char.det="implicit", net.type=net.type, order=file.path(ord.fold,narr.unit), meas.name=meas, weights=tolower(w), filtered=filt.txt, suf=pt)
+						tlog(8, "Plotting in file \"",plot.file,"\"")
+						for(fformat in PLOT_FORMAT)
+						{	if(fformat==PLOT_FORMAT_PDF)
+								pdf(file=paste0(plot.file,PLOT_FORMAT_PDF), bg="white", width=15, height=5)
+							else if(fformat==PLOT_FORMAT_PNG)
+								png(filename=paste0(plot.file,PLOT_FORMAT_PNG), width=2400, height=800, units="px", pointsize=20, bg="white")
+							par(mar=c(4,4,0,0)+0.1)	# remove the title space Bottom Left Top Right
+							# init empty plot
+							plot(
+								NULL, 
+								ylim=ylim, xlim=c(1,sc.nbr),
+								log=if(meas %in% log.y) "y" else "",
+								xlab=narr.unit.map[narr.unit], ylab=LINK_MEASURES[[meas]]$cname
 							)
+							# possibly add volume representations
+							if(plot.vols)
+								draw.volume.rects(ylim, unit.stats=unit.stats[ord.units,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
+							# add a serie for each edge
+							for(e in 1:length(es))
+							{	lines(
+									x=1:sc.nbr, y=mat[,e.names[es[e]]], 
+									col=e.pal[es[e]],
+									type="l"
+								)
+							}
+							# add legend
+							if(length(es)>1)
+							{	legend(
+									x="topright",
+									fill=e.pal[es],
+									legend=e.snames[es]
+								)
+							}
+							dev.off()
 						}
-						dev.off()
 					}
 				}
 			}

@@ -836,7 +836,7 @@ write.corpus.data <- function(
 			sapply(chapter.chars, function(chars) paste(chars,collapse="\t"))
 		)
 		colnames(tab) <- c(COL_CHAPTER_ID, COL_CHARS)
-		file <- get.path.stats.corpus(object="chapter", char.det=char.det, pref="_chapter_chars")
+		file <- get.path.stats.corpus(object="chapters", char.det=char.det, pref="_chapter_chars")
 		tlog(4,"Writing chapter chars \"",file,"\"")
 		write.table(tab, file=paste0(file,".txt"), fileEncoding="UTF-8", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 	}
@@ -971,7 +971,7 @@ read.corpus.data <- function(char.det)
 	
 	# possibly deal with chapters
 	file <- get.path.stats.corpus(object="chapters", char.det=char.det, pref="_chapter_stats")
-	if(file.exists(file))
+	if(file.exists(paste0(file,".csv")))
 	{	# chapter stats
 		tlog(2,"Reading chapter stats file \"",file,"\"")
 		chapter.stats <- read.csv(file=paste0(file,".csv"), header=TRUE, check.names=FALSE, stringsAsFactors=FALSE)
