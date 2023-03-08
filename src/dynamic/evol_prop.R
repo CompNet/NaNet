@@ -80,6 +80,7 @@ evol.prop.graph <- function(gg, unit.stats, volume.stats, net.type, filtered, pu
 	# selected measures
 	gr.meas <- c(
 		paste0(MEAS_DEGREE,SFX_AVG),
+		paste0(MEAS_DEGREE,SFX_ASSORT),
 		paste0(MEAS_STRENGTH,SFX_AVG),
 		paste0(MEAS_BETWEENNESS,SFX_AVG),
 		paste0(MEAS_BETWEENNESS,SFX_WEIGHT,SFX_AVG),
