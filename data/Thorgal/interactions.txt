@@ -619,12 +619,32 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 11	29	6	30	9	Tjall le Fougueux	Kriss de Valnor
 11	30	10	31	2	Aaricia Gandalfsdottir	Thorgal Aegirsson	Guerrier_11.24.2
 11	31	3	31	3	Aaricia Gandalfsdottir
-11	31	4	31	4	Haynée	Xargos	Varth	Jolan Thorgalsson
-11	31	5	32	8	Jolan Thorgalsson	Argun Pied d'Arbre
+11	31	4	31	4	Thorgal Aegirsson	Haynée
+11	31	5	31	5	Thorgal Aegirsson	Xargos
+11	31	6	31	6	Thorgal Aegirsson	Varth
+11	31	4	31	7	Thorgal Aegirsson	Jolan Thorgalsson
+11	31	8	32	8	Jolan Thorgalsson	Argun Pied d'Arbre
 11	32	9	34	4	Tjall le Fougueux	Kriss de Valnor
 11	34	5	34	6	Jolan Thorgalsson
 11	34	7	35	4	Jolan Thorgalsson	Tanatloc / Xargos
-11	35	5	36	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson
+11	35	5	35	5	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ivaldir
+11	35	6	35	6	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Akwila
+11	35	7	35	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ingrid	Skadia	Ragnhild
+11	35	8	35	8	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Shaniah
+11	35	9	35	9	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Gardien géant_1.11	Gardien nain_1.12
+11	35	10	35	10	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	3 bienveillants
+11	35	11	35	11	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Slive
+11	35	12	35	12	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Cléo
+11	35	13	35	13	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Galathorn	Wargan
+11	35	14	35	14	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Jadawin	3 bienveillants
+11	35	15	35	15	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Sigwald-le-Brûlé
+11	35	16	35	16	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Tjahzi
+11	35	17	35	17	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Gandalf-le-fou
+11	35	18	35	18	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	La faucheuse
+11	35	19	35	19	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Frigg
+11	35	20	35	20	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Véronar
+11	35	21	35	21	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Jorund-le-taureau
+11	36	1	36	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson
 11	37	1	37	6	Aaricia Gandalfsdottir	Thorgal Aegirsson
 11	37	7	38	3	Variay	Dignitaires_11.37	Servantes_11.37
 11	38	4	38	5	Variay
@@ -1669,7 +1689,35 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 26	19	5	19	5	Varth	Haynée	Cosmonautes_26.19
 26	19	6	19	6	Thorgal Aegirsson
 26	19	7	19	7	Thorgal Aegirsson	Leif Haraldson	Gandalf-le-fou	Vikings_7.4
-26	20	1	21	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Slive	Gandalf-le-fou	La faucheuse	Xargos	Haynée	Varth	Kriss de Valnor	Séréna	Frigg	Galathorn	Shaniah	Tjahzi	Hjalmgunnar	Alinoë	Tjall le Fougueux	Argun Pied d'Arbre	Volsung de Nichor	Véronar	Jorund-le-taureau	3 bienveillants	Jadawin	Darek le Svéar	Lehla	Taïmyr	Skadia	Ragnhild	Ingrid	Cléo	Nidhogg	Muff	Ivaldir	Shardar-le-puissant	Variay
+26	20	1	20	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Slive
+26	20	2	20	2	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Gandalf-le-fou
+26	20	3	20	3	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	La faucheuse
+26	20	4	20	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Xargos
+26	20	5	20	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Kriss de Valnor
+26	20	6	20	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Séréna
+26	20	7	20	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Frigg
+26	20	8	20	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Galathorn	Wargan
+26	20	9	20	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Shaniah
+26	20	10	20	10	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Tjahzi
+26	20	11	20	11	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Hjalmgunnar
+26	20	12	20	12	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Alinoë
+26	20	13	20	13	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Gardien géant_1.11	Gardien nain_1.12
+26	20	14	20	14	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Volsung de Nichor
+26	21	1	21	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Tjall le Fougueux	Argun Pied d'Arbre
+26	21	2	21	2	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Haynée	Varth
+26	21	3	21	3	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Véronar
+26	21	4	21	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Jorund-le-taureau
+26	21	5	21	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	3 bienveillants	Jadawin
+26	21	6	21	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Darek le Svéar	Lehla
+26	21	7	21	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Taïmyr
+26	21	8	21	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Skadia	Ragnhild	Ingrid
+26	21	9	21	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Cléo
+26	21	10	21	10	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Nidhogg
+26	21	11	21	11	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
+26	21	12	21	12	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Ivaldir
+26	21	13	21	13	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Shardar-le-puissant
+26	21	14	21	14	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Variay
+26	21	15	21	15	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Loup_16.34
 26	22	1	22	5	Thorgal Aegirsson	Jolan Thorgalsson	Louve Thorgalsdottir	Aaricia Gandalfsdottir	Sargon	Orchias	2 gardes_26.22
 26	23	1	23	4	Thorgal Aegirsson
 26	23	5	23	8	Thorgal Aegirsson	Orchias
