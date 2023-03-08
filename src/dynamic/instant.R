@@ -79,7 +79,7 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 					res[[length(res)]] <- prev.g
 				}
 				
-				# add current scene graph in the sequence
+				# add current instant graph in the sequence
 				sc.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
 				res[[length(res)+1]] <- sc.g
 				prev.unit <- cur.unit
