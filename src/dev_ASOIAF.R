@@ -69,6 +69,9 @@ generate.static.plots.base(data=data)
 # extract dynamic networks
 extract.dyn.nets.asoiaf(data, narr.units=c("scene", "chapter"))
 
+# plot these networks
+# TODO
+
 # compute and plot a few measures
 plot.dyn.props.asoiaf(data, narr.units=c("scene", "chapter"))
 
