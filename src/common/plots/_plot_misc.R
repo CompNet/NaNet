@@ -53,8 +53,8 @@ draw.volume.rects <- function(ylim, unit.stats, volume.stats, narr.unit)
 			+ match(volume.stats[2:nrow(volume.stats),start.col],unit.stats[,id.col]))/2,
 		match(volume.stats[nrow(volume.stats),end.col],unit.stats[,id.col])
 	)
-	text.x <- c((match(volume.stats[v,start.col],unit.stats[,id.col]) + 
-					match(volume.stats[v,end.col],unit.stats[,id.col]))/2)
+	text.x <- (match(volume.stats[,start.col],unit.stats[,id.col]) + 
+					match(volume.stats[,end.col],unit.stats[,id.col]))/2
 	# draw each volume
 	for(v in 1:nrow(volume.stats))
 	{	rect(
@@ -66,7 +66,7 @@ draw.volume.rects <- function(ylim, unit.stats, volume.stats, narr.unit)
 			border=NA, density=NA
 		)
 		text(
-			x=text.x, 
+			x=text.x[v], 
 			y=ylim[2], 
 			labels=paste0(ymargin,volume.stats[v,COL_VOLUME]),
 			cex=0.55,

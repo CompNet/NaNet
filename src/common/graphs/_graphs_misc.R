@@ -72,6 +72,7 @@ reverse.graph.weights <- function(g)
 # returns: reversed weights.
 #############################################################################################
 reverse.weights <- function(w)
-{	w <- (w-min(w))/(max(w)-min(w)) * (-1) * (max(w)-min(w)) + max(w)
+{	if(length(unique(w))>1)
+		w <- (w-min(w))/(max(w)-min(w)) * (-1) * (max(w)-min(w)) + max(w)
 	return(w)
 }
