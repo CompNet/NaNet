@@ -384,7 +384,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 		tlog.end.loop(4,"Loop over window sizes finished")
 		
 		# generate a plot for each overlap value appearing at least twice
-		tlog.start.loop(4,length(common.overlap),"Looping over overlaps")
+		tlog.start.loop(4,length(common.overlaps),"Looping over overlaps")
 		for(o in 1:length(common.overlaps))
 		{	overlap <- common.overlaps[o]
 			tlog.loop(5,o,"Dealing with overlap=",overlap)
