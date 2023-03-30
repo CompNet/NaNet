@@ -13,7 +13,7 @@ NaNet is free software: you can redistribute it and/or modify it under the terms
 
 -----------------------------------------------------------------------
 
-If you use this source code or the associated dataset, please cite reference [L'22].
+If you use this source code or the associated dataset, please cite reference [[L'22](#references)].
 
 # Description
 This set of R scripts aims at extracting and analyzing character networks extracted from graphic novels. It actually works on manually constituted CSV files, so in theory the work of fiction could be anything besides graphic novels, provided the input format is enforced.
