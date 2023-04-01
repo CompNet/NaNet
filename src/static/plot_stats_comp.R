@@ -1077,7 +1077,7 @@ generate.static.plots.ranks <- function(mode, char.det=NA, window.sizes, overlap
 							dev.off()
 					}
 				}
-				tlog.start.loop(5,"Loop over available overlaps finished")
+				tlog.end.loop(5,"Loop over available overlaps finished")
 			}
 			tlog.end.loop(4,"Loop over window sizes finished")
 		}

@@ -72,7 +72,7 @@ VOLUMES/ARCS
 - Or do the same thing with narrative arcs instead?
 
 Everything queries
-dm:<2021-12-04T14:44 | dc:<2021-12-04T14:44 D:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file:
+dm:<2023-03-08T00:00 | dc:<2023-03-08T00:00 D:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file:
 C:\Users\Vincent\eclipse\workspaces\Networks\NaNet\data\Thorgal file: !ext:pdf;graphml;png;csv;txt
 
 ..:: tentative alt names ::..
