@@ -57,6 +57,7 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 			
 			# retrieve current scene graph
 			sc.g <- gg[[s]]
+			sc.g <- delete_graph_attr(sc.g, COL_SCENE_ID)	# remove the scene id, irrelevant for larger narrative units
 			
 			# retrieve current narrative unit
 			sc.id <- gg[[s]]$SceneId

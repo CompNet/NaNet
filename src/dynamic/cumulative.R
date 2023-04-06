@@ -71,6 +71,7 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 		# very first graph of the sequence
 		if(s==1)
 		{	sc.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
+			sc.g <- delete_graph_attr(sc.g, COL_SCENE_ID)	# remove the scene id, now irrelevant
 			res[[1]] <- sc.g
 			prev.unit <- cur.unit
 		}
