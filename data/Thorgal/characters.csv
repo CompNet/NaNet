@@ -86,6 +86,7 @@ Aaricia Gandalfsdottir,Aaricia,Female,TRUE
 Abd El Bouheddi,Abd,Male,TRUE
 Abdel El Hal,,Male,TRUE
 Abdel Razek,,Male,TRUE
+Adolescents_J11.9,,Male,FALSE
 Adultes_K6.50,,Mixed,FALSE
 Africain_3.19,,Male,FALSE
 Agrippa,,Female,TRUE
@@ -280,6 +281,7 @@ Chats ailés_L7.44,,Unknown,FALSE
 Chef du village_19.15,,Male,FALSE
 Chef du village_L4.26,,Male,FALSE
 Chef enfant_K6.19,,Male,FALSE
+Chef troglodyte_J11.27,,Male,FALSE
 Chevalier_5.28,,Male,FALSE
 Chèvre_8.38,,Female,FALSE
 Chiens_L4.24,,Unknown,FALSE
@@ -339,6 +341,7 @@ Cuisinier_J8.35,,Male,FALSE
 Cuisiniers_J7.40,,Mixed,FALSE
 Cul-de-jatte_23.16,,Male,FALSE
 Cybèle,,Female,TRUE
+Dagmar_J11.37,,Female,TRUE
 Dame Le Devehat,Devehat,Female,TRUE
 Darek le Svéar,Darek,Male,TRUE
 Déesse_30.42,,Female,FALSE
@@ -471,6 +474,9 @@ Eskil,,Male,TRUE
 Espion_34.28,,Male,FALSE
 Espion_34.38,,Male,FALSE
 Espion_34.4,,Male,FALSE
+Esprits_J11.12,,Mixed,FALSE
+Esprits_J11.21,,Mixed,FALSE
+Esprits_J11.8,,Mixed,FALSE
 Être de glace_L6.9,,Unknown,FALSE
 Évêque_K4.10,,Male,FALSE
 Évêque_K5.45,,Male,FALSE
@@ -504,6 +510,7 @@ Fillette_22.3,,Female,FALSE
 Fillette_J10.36,,Female,FALSE
 Fillettes_J2.39,,Female,FALSE
 Fils Bossu,,Male,FALSE
+Fils de Grym,,Male,FALSE
 Finnbjorn,,Male,TRUE
 Floriane,,Female,TRUE
 Fmur,,Male,TRUE
@@ -631,6 +638,7 @@ Gardes_J10.33,,Male,FALSE
 Gardes_J10.36,,Male,FALSE
 Gardes_J10.39,,Male,FALSE
 Gardes_J10.40,,Male,FALSE
+Gardes_J11.30,,Male,FALSE
 Gardes_J7.27,,Male,FALSE
 Gardes_J7.34,,Male,FALSE
 Gardes_J7.38,,Male,FALSE
@@ -689,6 +697,7 @@ Grivine,,Male,TRUE
 Griz,,Female,TRUE
 Groupe_11.16,,Mixed,FALSE
 Groupe_6.20,,Male,FALSE
+Grym,,Male,TRUE
 Guerrier alfe noir_L6.8.1,,Male,FALSE
 Guerrier alfe noir_L6.8.2,,Male,FALSE
 Guerrier_11.24.1,,Male,FALSE
@@ -754,6 +763,7 @@ Hiemdal,,Male,TRUE
 Hiérulf-le-penseur,Hiérulf,Male,TRUE
 Hildebrün,,Female,TRUE
 Hildegunn,,Female,TRUE
+Himurdusens_J11.12,,Female,FALSE
 Hjalmgunnar,,Male,TRUE
 Hog,,Male,TRUE
 Hogrid,,Male,TRUE
@@ -788,6 +798,7 @@ Jabirah,,Female,TRUE
 Jadawin,,Male,TRUE
 Jaffar,,Male,TRUE
 Japonais_3.19,,Male,FALSE
+Jarl Zadig,,Male,TRUE
 Jeunes nobles_27.7,,Male,FALSE
 Jolan Thorgalsson,Jolan,Male,TRUE
 Jómsvikings_J10.42.1,,Male,FALSE
@@ -800,6 +811,7 @@ Jorund-le-taureau,Jorund,Male,TRUE
 Judith Minkelsönn,,Female,TRUE
 Kadir,,Male,TRUE
 Kahaniel de Valnor,Kahaniel,Male,TRUE
+Kahina,,Male,TRUE
 Kaléos,,Male,TRUE
 Karsh,,Male,TRUE
 Karshan d'Urizen,Karshan,Male,TRUE
@@ -809,6 +821,7 @@ Kheela,,Female,TRUE
 Kilda,,Female,TRUE
 Kisha,,Female,TRUE
 Klöd,,Male,TRUE
+Klothilde_J11.46,,Female,TRUE
 Knorr,,Male,TRUE
 Knut,,Male,TRUE
 Koltar l'aigle,,Male,TRUE
@@ -845,6 +858,7 @@ Loups_L2.8,,Mixed,FALSE
 Louve Thorgalsdottir,Louve,Female,TRUE
 Lundgen,,Male,TRUE
 Lutteurs_27.35,,Male,FALSE
+Lydia_J11.19,,Female,FALSE
 Lynx_J5.27,,Unknown,FALSE
 Lynx_J5.6,,Unknown,FALSE
 Mage rouge_32.29,,Male,FALSE
@@ -864,6 +878,7 @@ Mahara,,Female,TRUE
 Maïïa,,Female,TRUE
 Maïka,,Female,TRUE
 Maître de cérémonie_27.34,,Male,FALSE
+Maître Tyr,,Male,TRUE
 Malades_25.19,,Mixed,FALSE
 Malades_25.20.1,,Mixed,FALSE
 Malades_25.20.2,,Mixed,FALSE
@@ -928,6 +943,7 @@ Mehdi,,Male,TRUE
 Mélas,,Male,TRUE
 Mercenaires_4.44,,Male,FALSE
 Mère d'Anina,,Female,FALSE
+Mère de Grym,,Female,FALSE
 Messager_3.32,,Male,FALSE
 Messager_K4.37,,Male,FALSE
 Mestor,,Male,TRUE
@@ -1005,6 +1021,7 @@ Olev,,Male,TRUE
 Olgave,,Female,TRUE
 Olgir_J8.4,,Male,TRUE
 Oncle d'Isoline_J7.26,,Male,FALSE
+Oonila,,Female,TRUE
 Opale d'Alhard,,Female,TRUE
 Orchias,,Male,TRUE
 Orgoff,,Male,TRUE
@@ -1045,11 +1062,14 @@ Pêcheurs_38.11,,Male,FALSE
 Pêcheurs_38.20,,Male,FALSE
 Pêcheurs_38.27,,Male,FALSE
 Pêcheurs_38.28,,Male,FALSE
+Pêcheurs_J11.10,,Mixed,FALSE
+Pêcheuse_J11.11,,Female,FALSE
 Peläzza,,Male,TRUE
 Pélerins_37.16,,Mixed,FALSE
 Pélerins_37.3,,Male,FALSE
 Pélerins_37.47,,Mixed,FALSE
 Pélerins_37.9,,Mixed,FALSE
+Père de Grym,,Male,FALSE
 Père_J8.4,,Male,FALSE
 Petrov,,Male,TRUE
 Peuple du nord_33.8,,Mixed,FALSE
@@ -1140,6 +1160,7 @@ Servante_10.45,,Female,FALSE
 Servante_34.39,,Female,FALSE
 Servante_37.15,,Female,FALSE
 Servante_39.17,,Female,FALSE
+Servante_J11.10,,Female,FALSE
 Servante_J7.46,,Female,FALSE
 Servante_J8.16,,Female,FALSE
 Servante_K4.27,,Female,FALSE
@@ -1324,12 +1345,23 @@ Thraces_27.47,,Male,FALSE
 Thyra,,Female,TRUE
 Tiago,,Male,TRUE
 Tibrus,,Male,TRUE
+Tigurdemiwin,,Unknown,TRUE
 Tjahzi,,Male,TRUE
 Tjall le Fougueux,Tjall,Male,TRUE
 Tjodrik,,Male,TRUE
 Tlalac,,Male,TRUE
 Torric,,Male,TRUE
 Triesse,,Male,TRUE
+Troglodyte_J11.11,,Female,FALSE
+Troglodyte_J11.23.2,,Male,FALSE
+Troglodytes_J11.23.1,,Mixed,FALSE
+Troglodytes_J11.23.3,,Mixed,FALSE
+Troglodytes_J11.25,,Male,FALSE
+Troglodytes_J11.26,,Mixed,FALSE
+Troglodytes_J11.30,,Female,FALSE
+Troglodytes_J11.31,,Mixed,FALSE
+Troglodytes_J11.6,,Mixed,FALSE
+Trois Harpyvafas,,Female,FALSE
 Trondur Gotuskegg,Trondur ,Male,TRUE
 Troy,,Male,TRUE
 Trygve Karhamasönn,Trygve,Male,TRUE
@@ -1407,6 +1439,10 @@ Vikings_J10.3.2,,Male,FALSE
 Vikings_J10.45,,Male,FALSE
 Vikings_J10.48,,Male,FALSE
 Vikings_J10.54,,Male,FALSE
+Vikings_J11.10,,Male,FALSE
+Vikings_J11.11,,Male,FALSE
+Vikings_J11.23,,Male,FALSE
+Vikings_J11.6,,Mixed,FALSE
 Vikings_J2.45,,Male,FALSE
 Vikings_J3.20,,Male,FALSE
 Vikings_J3.29,,Mixed,FALSE
@@ -1471,6 +1507,8 @@ Villageois_J10.42.2,,Mixed,FALSE
 Villageois_J10.42.3,,Mixed,FALSE
 Villageois_J10.47,,Mixed,FALSE
 Villageois_J10.5,,Male,FALSE
+Villageois_J11.11,,Mixed,FALSE
+Villageois_J11.32,,Mixed,FALSE
 Villageois_J2.27.1,,Male,FALSE
 Villageois_J2.27.2,,Male,FALSE
 Villageois_J2.27.3,,Male,FALSE
@@ -1524,6 +1562,8 @@ Villageoise_K2.25.1,,Female,FALSE
 Villageoises_17.22,,Female,FALSE
 Villageoises_20.13,,Female,FALSE
 Villageoises_20.3,,Female,FALSE
+Villageoises_J11.34,,Female,FALSE
+Villageoises_J11.46,,Female,FALSE
 Villageoises_J7.32,,Female,FALSE
 Villageoises_K1.22,,Female,FALSE
 Vilnya,,Female,TRUE

@@ -4890,3 +4890,102 @@ J10	56	7	56	7	Équipage_J10.53
 40	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Slugs_40.16	Garn	Angakkuq
 40	47	1	47	5	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 40	47	6	48	2	Jolan Thorgalsson	Boréale
+J11	3	1	3	4	Équipage_J10.53	Seck	Thorgal Aegirsson
+J11	3	5	4	2	Équipage_J10.53
+J11	4	3	4	3	Équipage_J10.53	Seck
+J11	4	4	4	6	Seck	Thorgal Aegirsson
+J11	4	7	4	9	Équipage_J10.53	Seck
+J11	5	1	5	6	Équipage_J10.53	Seck	Thorgal Aegirsson
+J11	5	7	5	7	Équipage_J10.53	Seck
+J11	6	1	6	4	Aaricia Gandalfsdottir
+J11	6	5	6	5	Aaricia Gandalfsdottir	Troglodytes_J11.6
+J11	6	6	6	6	Aaricia Gandalfsdottir
+J11	6	7	7	1	Aaricia Gandalfsdottir	Vikings_J11.6	Isoline
+J11	7	2	7	6	Aaricia Gandalfsdottir	Isoline
+J11	7	7	7	9	Aaricia Gandalfsdottir	Vikings_J11.6	Isoline
+J11	8	1	8	5	Thorgal Aegirsson
+J11	8	6	8	6	Thorgal Aegirsson	Esprits_J11.8
+J11	8	7	8	8	Thorgal Aegirsson
+J11	9	1	9	7	Aaricia Gandalfsdottir	Maître Tyr	Adolescents_J11.9	Grym
+J11	10	1	11	8	Aaricia Gandalfsdottir	Maître Tyr	Servante_J11.10
+J11	10	8	10	8	Jarl Zadig
+J11	10	9	10	9	Jarl Zadig	Pêcheurs_J11.10	Vikings_J11.10
+J11	11	1	11	1	Pêcheurs_J11.10
+J11	11	3	11	3	Vikings_J11.10
+J11	11	4	11	4	Pêcheuse_J11.11
+J11	11	5	11	5	Troglodyte_J11.11	Villageois_J11.11
+J11	11	6	11	6	Vikings_J11.11
+J11	12	1	12	1	Thorgal Aegirsson	Esprits_J11.12
+J11	12	2	12	8	Thorgal Aegirsson	Esprits_J11.12	Himurdusens_J11.12
+J11	12	9	12	9	Thorgal Aegirsson	Esprits_J11.12
+J11	13	1	13	4	Aaricia Gandalfsdottir
+J11	13	5	13	11	Aaricia Gandalfsdottir	Grym
+J11	14	1	14	6	Thorgal Aegirsson	Esprits_J11.12	Himurdusens_J11.12
+J11	15	1	15	9	Aaricia Gandalfsdottir	Maître Tyr	Adolescents_J11.9	Grym
+J11	16	1	17	9	Thorgal Aegirsson	Trois Harpyvafas
+J11	18	1	18	9	Thorgal Aegirsson	Trois Harpyvafas	Tigurdemiwin
+J11	19	1	20	6	Aaricia Gandalfsdottir	Grym	Lydia_J11.19	Adolescents_J11.9
+J11	20	7	20	10	Aaricia Gandalfsdottir	Grym	Maître Tyr
+J11	21	1	21	8	Thorgal Aegirsson	Tigurdemiwin	Esprits_J11.21
+J11	22	1	22	1	Aaricia Gandalfsdottir
+J11	22	2	23	10	Aaricia Gandalfsdottir	Grym
+J11	23	1	23	1	Père de Grym	Mère de Grym
+J11	23	2	23	2	Père de Grym	Mère de Grym	Vikings_J11.23
+J11	23	3	23	3	Mère de Grym
+J11	23	4	23	4	Grym	Troglodytes_J11.23.1
+J11	23	5	23	5	Grym	Troglodyte_J11.23.2
+J11	23	6	23	6	Grym	Troglodytes_J11.23.3
+J11	23	7	23	7	Grym
+J11	23	8	23	8	Grym	Maître Tyr
+J11	24	1	24	10	Thorgal Aegirsson	Tigurdemiwin
+J11	25	1	25	6	Grym	Aaricia Gandalfsdottir
+J11	25	7	25	7	Grym	Aaricia Gandalfsdottir	Troglodytes_J11.25
+J11	25	8	26	1	Grym	Aaricia Gandalfsdottir
+J11	26	2	26	3	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym
+J11	26	4	27	5	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym	Lydia_J11.19	Troglodytes_J11.26
+J11	27	6	27	9	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym	Lydia_J11.19	Troglodytes_J11.26	Chef troglodyte_J11.27
+J11	27	10	27	11	Aaricia Gandalfsdottir
+J11	28	1	28	3	Thorgal Aegirsson	Tigurdemiwin
+J11	28	4	28	4	Thorgal Aegirsson
+J11	28	5	28	5	Thorgal Aegirsson	Équipage_J10.53
+J11	28	6	29	2	Thorgal Aegirsson	Seck
+J11	29	3	29	3	Thorgal Aegirsson	Seck	Équipage_J10.53
+J11	29	4	29	5	Thorgal Aegirsson	Seck	Équipage_J10.53	Tigurdemiwin
+J11	29	6	29	8	Thorgal Aegirsson	Seck	Équipage_J10.53
+J11	29	9	29	10	Thorgal Aegirsson	Équipage_J10.53
+J11	30	1	30	1	Gardes_J11.30
+J11	30	2	31	4	Gardes_J11.30	Troglodytes_J11.30
+J11	31	5	31	5	Troglodytes_J11.30
+J11	31	6	31	7	Troglodytes_J11.30	Troglodytes_J11.31	Lydia_J11.19
+J11	32	1	32	6	Aaricia Gandalfsdottir
+J11	32	3	32	3	Aaricia Gandalfsdottir	2 nixes_14.4
+J11	32	3	32	3	Aaricia Gandalfsdottir	Vigrid
+J11	32	7	33	4	Troglodytes_J11.31	Villageois_J11.32
+J11	33	5	34	1	Troglodytes_J11.31	Maître Tyr	Villageois_J11.32
+J11	34	2	34	2	Adolescents_J11.9	Maître Tyr
+J11	34	3	34	3	Aaricia Gandalfsdottir
+J11	34	4	34	4	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	34	5	35	6	Troglodytes_J11.31	Lydia_J11.19
+J11	35	1	35	2	Villageois_J11.32	Troglodytes_J11.31
+J11	35	3	36	1	Villageois_J11.32	Troglodytes_J11.31	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	36	2	36	4	Villageois_J11.32	Maître Tyr	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	36	5	36	6	Villageois_J11.32	Troglodytes_J11.31	Lydia_J11.19
+J11	36	7	37	6	Maître Tyr	Aaricia Gandalfsdottir	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	37	7	38	5	Aaricia Gandalfsdottir	Villageoises_J11.34	Dagmar_J11.37	Isoline
+J11	38	6	39	5	Aaricia Gandalfsdottir
+J11	39	6	39	7	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Lydia_J11.19
+J11	39	8	39	8	Aaricia Gandalfsdottir
+J11	40	1	40	9	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Villageois_J11.32	Villageoises_J11.34	Isoline	Maître Tyr	Dagmar_J11.37	Grym
+J11	41	1	42	2	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37	Grym
+J11	42	3	42	7	Aaricia Gandalfsdottir	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	42	8	42	10	Aaricia Gandalfsdottir	Isoline
+J11	43	1	43	3	Aaricia Gandalfsdottir
+J11	43	4	44	2	Aaricia Gandalfsdottir	Grym
+J11	44	3	44	3	Aaricia Gandalfsdottir
+J11	44	4	44	8	Grym
+J11	44	9	44	9	Aaricia Gandalfsdottir
+J11	45	1	45	9	Seck	Kahina
+J11	46	1	46	3	Aaricia Gandalfsdottir	Villageoises_J11.46	Klothilde_J11.46
+J11	46	4	46	9	Aaricia Gandalfsdottir	Thorgal Aegirsson
+J11	47	1	48	4	Aaricia Gandalfsdottir	Thorgal Aegirsson
+J11	48	5	48	9
