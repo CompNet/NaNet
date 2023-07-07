@@ -82,11 +82,3 @@ plot.dyn.props.asoiaf(data, narr.units=c("scene", "chapter"))
 ###############################################################################
 # stop logging
 end.rec.log()
-
-# TODO
-# problems:
-# - correct Thorgal data by splitting the group scenes (memory/dreams)
-#   >> apply the modifications to the explicit annotations too!
-
-# T: 08/03
-# ASOIAF: 09/03
