@@ -35,7 +35,7 @@ compute.graphical.params <- function(g=NA)
 #write.graph(g0,file=temp.file,format="graphml")
 	
 ## this piece of script was once used to manually fine tune vertex positions with gephi
-#gg <- read_graph(temp.file,format="graphml")
+#gg <- read.graphml.file(temp.file)
 #tab <- cbind(V(gg)$x, V(gg)$y)
 #ids <- as.integer(substr(V(gg)$id, 2, nchar(V(gg)$id)))
 #idx <- order(ids)
