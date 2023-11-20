@@ -3187,8 +3187,8 @@ L4	10	1	10	3	Mygg	Fille_L4.2	Fille_L4.3	Patö
 L4	10	4	12	6	Mygg	Fille_L4.2	Fille_L4.3	Patö	Crow / Raïssa
 L4	13	1	13	1	Louve Thorgalsdottir
 L4	13	2	16	7	Louve Thorgalsdottir	Aaricia Gandalfsdottir
-L4	17	1	17	2	Villageois_L4.17	Sven
-L4	17	3	17	8	Villageois_L4.17	Sven	Patö
+L4	17	1	17	2	Villageois_L4.17	Sven_L4.17
+L4	17	3	17	8	Villageois_L4.17	Sven_L4.17	Patö
 L4	18	1	18	6	Louve Thorgalsdottir
 L4	18	7	18	9	Louve Thorgalsdottir	Avrenim
 L4	19	1	19	5	Famille Karhamasönn	Knorr	Trygve Karhamasönn	Frère Karhamasönn_2	Frère Karhamasönn_3
@@ -4842,3 +4842,57 @@ J10	56	7	56	7	Équipage_J10.53
 40	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Slugs_40.16	Garn	Angakkuq
 40	47	1	47	5	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 40	47	6	48	2	Jolan Thorgalsson	Boréale
+41	3	1	6	10	Thorgal Aegirsson
+41	6	11	7	11	Thorgal Aegirsson	Mýsla	Mjöllnir_Tétras
+41	8	1	8	6	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sven_41.8
+41	9	1	9	4	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
+41	9	5	9	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sven_41.8
+41	10	1	10	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
+41	11	1	11	5	Thorgal Aegirsson
+41	11	6	12	8	Thorgal Aegirsson	Soldats_41.11
+41	13	1	16	4	Thorgal Aegirsson	Mýsla	Mjöllnir_Tétras
+41	14	5	14	5	Skaedhi	Guerriers_41.14
+41	14	6	14	7	Odin	Skaedhi	Dieux_41.14	Père de Skaedhi
+41	14	8	14	8	Skaedhi	Dieux_41.14	Géants_41.14
+41	15	1	15	1	Père de Skaedhi
+41	15	6	15	6	Odin	Skaedhi	Dieux_41.15
+41	15	7	15	8	Skaedhi
+41	16	5	17	6	Thorgal Aegirsson	Tómr_41.16
+41	17	7	21	9	Thorgal Aegirsson	Mýsla	Mjöllnir_Tétras
+41	18	7	18	7	Mýsla	Père de Mýsla
+41	18	8	18	8	Mýsla	Père de Mýsla
+41	19	2	19	2	Mýsla	Mère de Mýsla
+41	19	7	19	7	Oksekog	Frère de Mýsla	Gardes_41.19	Père de Mýsla
+41	20	1	20	1	Frère de Mýsla	Père de Mýsla
+41	22	1	22	2	Mýsla
+41	22	3	22	7	Thorgal Aegirsson	Mýsla
+41	22	8	22	9	Thorgal Aegirsson	Mjöllnir_Tétras
+41	23	1	24	9	Jolan Thorgalsson	Boréale
+41	25	1	26	8	Thorgal Aegirsson	Soldats_41.11	Oksekog	Villageois_41.25	Tómr_41.16
+41	27	1	27	8	Jolan Thorgalsson	Boréale
+41	28	1	28	9	Thorgal Aegirsson	Mýsla	Mjöllnir_Tétras
+41	29	1	29	9	Jolan Thorgalsson	Boréale
+41	30	1	30	11	Thorgal Aegirsson
+41	31	1	31	9	Thorgal Aegirsson	Mýsla
+41	32	1	32	8	Jolan Thorgalsson	Boréale
+41	33	1	33	7	Thorgal Aegirsson	Mýsla
+41	33	8	33	8	Thorgal Aegirsson
+41	34	1	34	7	Jolan Thorgalsson	Boréale
+41	34	8	36	1	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Munnin
+41	36	2	36	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Munnin
+41	37	1	37	5	Enfants_41.37
+41	37	6	37	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Enfants_41.37
+41	38	1	38	6	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Enfants_41.37	Sydöbalak
+41	39	1	40	6	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Mjöllnir_Tétras
+41	40	7	40	8	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
+41	41	1	41	9	Soldats_41.11	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
+41	41	10	41	10	Soldats_41.11
+41	42	1	43	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak	Mýsla
+41	43	9	43	11	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak
+41	44	1	44	8	Thorgal Aegirsson	Jolan Thorgalsson
+41	45	1	45	4	Jolan Thorgalsson	Huginn	Munnin
+41	45	5	46	5	Jolan Thorgalsson	Munnin
+41	46	6	46	6	Jolan Thorgalsson	Huginn	Munnin
+41	46	7	46	10	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak
+41	47	1	47	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
+41	48	1	48	7	Pallas	Aniel de Valnor	Soldats_41.48
