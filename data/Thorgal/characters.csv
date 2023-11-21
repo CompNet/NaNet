@@ -353,6 +353,8 @@ Dieux_19.14,,Mixed,FALSE
 Dieux_22.22,,Mixed,FALSE
 Dieux_32.43,,Mixed,FALSE
 Dieux_32.47,,Mixed,FALSE
+Dieux_41.14,,Mixed,FALSE
+Dieux_41.15,,Mixed,FALSE
 Dieux_L2.25,,Mixed,FALSE
 Dieux_L2.26,,Mixed,FALSE
 Dignitaires_11.37,,Mixed,FALSE
@@ -390,6 +392,7 @@ Enfant_K6.38,,Male,FALSE
 Enfant_K6.50,,Male,FALSE
 Enfants nobles_27.25,,Male,FALSE
 Enfants_4.3,,Mixed,FALSE
+Enfants_41.37,,Male,FALSE
 Enfants_7.32,,Mixed,FALSE
 Enfants_J4.32,,Male,FALSE
 Enfants_K6.19,,Male,FALSE
@@ -526,6 +529,7 @@ Francs_J7.33,,Male,FALSE
 Francus d'Auxaterra,Francus,Male,TRUE
 Fregg,,Female,TRUE
 Frère d'Anina,,Male,FALSE
+Frère de Mýsla,,Male,FALSE
 Frère Karhamasönn_2,,Male,FALSE
 Frère Karhamasönn_3,,Male,FALSE
 Freyja,,Female,TRUE
@@ -629,6 +633,7 @@ Gardes_39.18,,Male,FALSE
 Gardes_40.23,,Male,FALSE
 Gardes_40.24,,Male,FALSE
 Gardes_40.37,,Male,FALSE
+Gardes_41.19,,Male,FALSE
 Gardes_6.17,,Male,FALSE
 Gardes_J10.10,,Male,FALSE
 Gardes_J10.15,,Male,FALSE
@@ -683,6 +688,7 @@ Géant_L6.9,,Male,FALSE
 Géants_22.22,,Mixed,FALSE
 Géants_22.29,,Mixed,FALSE
 Géants_22.40,,Mixed,FALSE
+Géants_41.14,,Mixed,FALSE
 Geirroed_15.45,,Male,FALSE
 Gilli,,Male,TRUE
 Gladiateurs_27.35,,Male,FALSE
@@ -729,6 +735,7 @@ Guerriers_35.6,,Male,FALSE
 Guerriers_36.19,,Male,FALSE
 Guerriers_36.32,,Male,FALSE
 Guerriers_36.36,,Male,FALSE
+Guerriers_41.14,,Male,FALSE
 Guerriers_J3.31,,Male,FALSE
 Guerriers_J3.45.1,,Male,FALSE
 Guerriers_J3.45.2,,Male,FALSE
@@ -944,6 +951,7 @@ Mélas,,Male,TRUE
 Mercenaires_4.44,,Male,FALSE
 Mère d'Anina,,Female,FALSE
 Mère de Grym,,Female,FALSE
+Mère de Mýsla,,Female,FALSE
 Messager_3.32,,Male,FALSE
 Messager_K4.37,,Male,FALSE
 Mestor,,Male,TRUE
@@ -953,6 +961,7 @@ Mimir,,Male,TRUE
 Minoë,,Male,TRUE
 Mire_J10.52,,Male,FALSE
 Misha,,Male,TRUE
+Mjöllnir_Tétras,,Male,TRUE
 Modgud,,Female,TRUE
 Moldi-le-furieux,Moldi,Male,TRUE
 Monstre_29.13,,Unknown,FALSE
@@ -969,6 +978,7 @@ Muninn,,Unknown,TRUE
 Mygg,,Female,TRUE
 Myrms_36.16,,Female,FALSE
 Myrms_36.19,,Mixed,FALSE
+Mýsla,,Female,TRUE
 Nain_32.16,,Male,FALSE
 Nains_17.39,,Mixed,FALSE
 Nains_25.48,,Mixed,FALSE
@@ -1012,6 +1022,7 @@ Officier_27.48,,Male,FALSE
 Officier_28.11,,Male,FALSE
 Officier_4.25,,Male,FALSE
 Officier_40.14,,Unknown,FALSE
+Oksekog,,Male,TRUE
 Olaf,,Male,TRUE
 Olaf Einarson,,Male,TRUE
 Olaf_J10.54,,Male,TRUE
@@ -1036,6 +1047,7 @@ Ottar_J8.4,,Male,TRUE
 Ours_18.3,,Unknown,FALSE
 Ours_L5.29,,Unknown,FALSE
 Palefrenier_1.15,,Male,FALSE
+Pallas,,Female,TRUE
 Palnatoki,,Male,TRUE
 Panthères_27.22,,Unknown,FALSE
 Participants_27.34,,Male,FALSE
@@ -1070,6 +1082,8 @@ Pélerins_37.3,,Male,FALSE
 Pélerins_37.47,,Mixed,FALSE
 Pélerins_37.9,,Mixed,FALSE
 Père de Grym,,Male,FALSE
+Père de Mýsla,,Male,FALSE
+Père de Skaedhi,,Male,FALSE
 Père_J8.4,,Male,FALSE
 Petrov,,Male,TRUE
 Peuple du nord_33.8,,Mixed,FALSE
@@ -1207,6 +1221,7 @@ Sigvaldi,,Male,TRUE
 Sigwald-le-Brûlé,Sigwald,Male,TRUE
 Siloé,,Female,TRUE
 Skadia,,Female,TRUE
+Skaedhi,,Female,TRUE
 Skald,,Male,TRUE
 Skraëlings_39.31,,Male,FALSE
 Skraëlings_39.38,,Female,FALSE
@@ -1281,6 +1296,8 @@ Soldats_37.20,,Male,FALSE
 Soldats_4.28,,Male,FALSE
 Soldats_4.31,,Male,FALSE
 Soldats_4.36,,Male,FALSE
+Soldats_41.11,,Male,FALSE
+Soldats_41.48,,Male,FALSE
 Soldats_6.15,,Male,FALSE
 Soldats_J10.23,,Male,FALSE
 Soldats_J10.42.1,,Male,FALSE
@@ -1323,10 +1340,12 @@ Störbondi_J10.15,,Male,FALSE
 Suivantes_34.11,,Female,FALSE
 Suivantes_J10.10,,Female,FALSE
 Suppliciés_12.4,,Male,FALSE
-Sven,,Male,TRUE
+Sven_41.8,,Male,TRUE
+Sven_L4.17,,Male,TRUE
 Sveynn Tiuguskegg,Sveynn,Male,TRUE
 Swanée,,Female,TRUE
 Sy-Aesa,,Female,TRUE
+Sydöbalak,,Female,TRUE
 Sydönia,,Female,TRUE
 Syrane,,Female,TRUE
 Tabor l'aigle,,Unknown,TRUE
@@ -1350,6 +1369,7 @@ Tjahzi,,Male,TRUE
 Tjall le Fougueux,Tjall,Male,TRUE
 Tjodrik,,Male,TRUE
 Tlalac,,Male,TRUE
+Tómr_41.16,,Male,TRUE
 Torric,,Male,TRUE
 Triesse,,Male,TRUE
 Troglodyte_J11.11,,Female,FALSE
@@ -1496,6 +1516,7 @@ Villageois_38.28,,Male,FALSE
 Villageois_39.12,,Mixed,FALSE
 Villageois_4.3,,Mixed,FALSE
 Villageois_4.5,,Mixed,FALSE
+Villageois_41.25,,Mixed,FALSE
 Villageois_J1.10,,Mixed,FALSE
 Villageois_J1.3,,Mixed,FALSE
 Villageois_J1.4,,Mixed,FALSE
