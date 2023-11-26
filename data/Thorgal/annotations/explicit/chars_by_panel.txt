@@ -22522,3 +22522,397 @@ J11	48	6	48	6	Grym
 J11	48	7	48	7	Grym
 J11	48	8	48	8	Grym
 J11	48	9	48	9	Grym
+41	3	1	3	1
+41	3	2	3	2	Thorgal Aegirsson
+41	3	3	3	3	Thorgal Aegirsson
+41	3	4	3	4
+41	3	5	3	5	Thorgal Aegirsson
+41	3	6	3	6	Thorgal Aegirsson
+41	3	7	3	7	Thorgal Aegirsson
+41	3	8	3	8	Thorgal Aegirsson
+41	4	1	4	1
+41	4	2	4	2	Thorgal Aegirsson
+41	4	3	4	3	Thorgal Aegirsson
+41	4	4	4	4
+41	4	5	4	5	Thorgal Aegirsson
+41	4	6	4	6	Thorgal Aegirsson
+41	4	7	4	7	Thorgal Aegirsson
+41	5	1	5	1	Thorgal Aegirsson
+41	5	2	5	2
+41	5	3	5	3	Thorgal Aegirsson
+41	5	4	5	4	Thorgal Aegirsson
+41	5	5	5	5	Thorgal Aegirsson
+41	5	6	5	6	Thorgal Aegirsson
+41	5	7	5	7	Thorgal Aegirsson
+41	5	8	5	8	Thorgal Aegirsson
+41	5	9	5	9	Thorgal Aegirsson
+41	6	1	6	1
+41	6	2	6	2
+41	6	3	6	3
+41	6	4	6	4	Thorgal Aegirsson
+41	6	5	6	5
+41	6	6	6	6	Thorgal Aegirsson
+41	6	7	6	7
+41	6	8	6	8	Thorgal Aegirsson
+41	6	9	6	9	Thorgal Aegirsson
+41	6	10	6	10	Thorgal Aegirsson
+41	6	11	6	11	Thorgal Aegirsson
+41	7	1	7	1	Mýsla	Thorgal Aegirsson
+41	7	2	7	2
+41	7	3	7	3
+41	7	4	7	4	Thorgal Aegirsson
+41	7	5	7	5	Mjöllnir_Tétras
+41	7	6	7	6	Thorgal Aegirsson
+41	7	7	7	7	Thorgal Aegirsson
+41	7	8	7	8	Mjöllnir_Tétras
+41	7	9	7	9	Mjöllnir_Tétras
+41	7	10	7	10
+41	7	11	7	11
+41	8	1	8	1	Boréale	Jolan Thorgalsson	Sven_41.8	Thorgal Aegirsson
+41	8	2	8	2	Boréale	Jolan Thorgalsson	Sven_41.8	Thorgal Aegirsson
+41	8	3	8	3	Boréale	Jolan Thorgalsson	Sven_41.8
+41	8	4	8	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	8	5	8	5
+41	8	6	8	6	Boréale	Jolan Thorgalsson	Sven_41.8	Thorgal Aegirsson
+41	9	1	9	1	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	9	2	9	2	Boréale	Jolan Thorgalsson
+41	9	3	9	3	Boréale	Jolan Thorgalsson
+41	9	4	9	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	9	5	9	5	Sven_41.8	Thorgal Aegirsson
+41	9	6	9	6	Boréale	Jolan Thorgalsson	Sven_41.8	Thorgal Aegirsson
+41	9	7	9	7	Sven_41.8
+41	9	8	9	8	Thorgal Aegirsson
+41	10	1	10	1	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	10	2	10	2	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	10	3	10	3	Thorgal Aegirsson
+41	10	4	10	4	Boréale	Jolan Thorgalsson
+41	10	5	10	5	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	10	6	10	6	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	10	7	10	7
+41	10	8	10	8	Jolan Thorgalsson	Thorgal Aegirsson
+41	10	9	10	9	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	11	1	11	1	Thorgal Aegirsson
+41	11	2	11	2	Thorgal Aegirsson
+41	11	3	11	3	Thorgal Aegirsson
+41	11	4	11	4	Thorgal Aegirsson
+41	11	5	11	5	Thorgal Aegirsson
+41	11	6	11	6	Thorgal Aegirsson
+41	11	7	11	7	Soldats_41.11	Thorgal Aegirsson
+41	12	1	12	1	Thorgal Aegirsson
+41	12	2	12	2	Soldats_41.11	Thorgal Aegirsson
+41	12	3	12	3	Soldats_41.11	Thorgal Aegirsson
+41	12	4	12	4	Soldats_41.11	Thorgal Aegirsson
+41	12	5	12	5	Soldats_41.11	Thorgal Aegirsson
+41	12	6	12	6	Thorgal Aegirsson
+41	12	7	12	7	Soldats_41.11	Thorgal Aegirsson
+41	12	8	12	8	Soldats_41.11	Thorgal Aegirsson
+41	13	1	13	1	Thorgal Aegirsson
+41	13	2	13	2	Thorgal Aegirsson
+41	13	3	13	3	Mýsla
+41	13	4	13	4	Thorgal Aegirsson	Mýsla
+41	13	5	13	5	Mjöllnir_Tétras	Thorgal Aegirsson
+41	13	6	13	6	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	13	7	13	7	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	13	8	13	8	Mýsla	Thorgal Aegirsson
+41	13	9	13	9	Thorgal Aegirsson
+41	13	10	13	10	Thorgal Aegirsson
+41	13	11	13	11	Thorgal Aegirsson
+41	14	1	14	1	Mýsla	Thorgal Aegirsson
+41	14	2	14	2
+41	14	3	14	3	Thorgal Aegirsson	Mýsla
+41	14	4	14	4	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	14	5	14	5	Guerriers_41.14	Skaedhi
+41	14	6	14	6	Dieux_41.14	Odin	Père de Skaedhi
+41	14	7	14	7	Dieux_41.14	Père de Skaedhi
+41	14	8	14	8	Dieux_41.14	Géants_41.14
+41	15	1	15	1	Père de Skaedhi
+41	15	2	15	2	Mýsla	Thorgal Aegirsson
+41	15	3	15	3	Mýsla	Thorgal Aegirsson
+41	15	4	15	4	Mýsla	Thorgal Aegirsson
+41	15	5	15	5	Mýsla	Thorgal Aegirsson
+41	15	6	15	6	Dieux_41.15	Skaedhi
+41	15	7	15	7	Skaedhi
+41	15	8	15	8
+41	15	9	15	9	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	15	10	15	10	Mýsla	Thorgal Aegirsson
+41	16	1	16	1	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	16	2	16	2	Mýsla	Thorgal Aegirsson
+41	16	3	16	3	Mýsla	Thorgal Aegirsson
+41	16	4	16	4	Thorgal Aegirsson
+41	16	5	16	5	Tómr_41.16
+41	16	6	16	6	Thorgal Aegirsson	Tómr_41.16
+41	17	1	17	1	Thorgal Aegirsson
+41	17	2	17	2	Thorgal Aegirsson
+41	17	3	17	3	Thorgal Aegirsson
+41	17	4	17	4	Thorgal Aegirsson
+41	17	5	17	5	Thorgal Aegirsson
+41	17	6	17	6	Thorgal Aegirsson
+41	17	7	17	7	Thorgal Aegirsson
+41	17	8	17	8	Thorgal Aegirsson
+41	17	9	17	9	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	17	10	17	10	Mýsla
+41	17	11	17	11	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	18	1	18	1	Mýsla	Thorgal Aegirsson
+41	18	2	18	2	Mýsla	Thorgal Aegirsson
+41	18	3	18	3	Mýsla	Thorgal Aegirsson
+41	18	4	18	4	Mýsla	Thorgal Aegirsson
+41	18	5	18	5	Mýsla
+41	18	6	18	6	Mýsla	Thorgal Aegirsson
+41	18	7	18	7	Mýsla	Père de Mýsla
+41	18	8	18	8	Mýsla	Père de Mýsla
+41	19	1	19	1	Mýsla	Thorgal Aegirsson
+41	19	2	19	2	Mère de Mýsla	Mýsla
+41	19	3	19	3	Mýsla
+41	19	4	19	4	Mýsla	Thorgal Aegirsson
+41	19	5	19	5	Mýsla	Thorgal Aegirsson
+41	19	6	19	6
+41	19	7	19	7	Frère de Mýsla	Gardes_41.19	Oksekog	Père de Mýsla
+41	19	8	19	8	Mýsla
+41	20	1	20	1	Frère de Mýsla	Père de Mýsla
+41	20	2	20	2	Mýsla
+41	20	3	20	3	Mýsla	Thorgal Aegirsson
+41	20	4	20	4	Mýsla	Thorgal Aegirsson
+41	20	5	20	5	Thorgal Aegirsson
+41	20	6	20	6	Mýsla
+41	20	7	20	7
+41	20	8	20	8	Mýsla	Thorgal Aegirsson
+41	21	1	21	1
+41	21	2	21	2
+41	21	3	21	3	Mýsla	Thorgal Aegirsson
+41	21	4	21	4	Mýsla	Thorgal Aegirsson
+41	21	5	21	5	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	21	6	21	6	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	21	7	21	7	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	21	8	21	8	Mýsla
+41	21	9	21	9	Mjöllnir_Tétras	Mýsla	Thorgal Aegirsson
+41	22	1	22	1
+41	22	2	22	2	Mýsla
+41	22	3	22	3	Thorgal Aegirsson
+41	22	4	22	4	Mýsla
+41	22	5	22	5	Mýsla
+41	22	6	22	6	Mýsla
+41	22	7	22	7	Thorgal Aegirsson
+41	22	8	22	8	Thorgal Aegirsson
+41	22	9	22	9	Mjöllnir_Tétras	Thorgal Aegirsson
+41	23	1	23	1	Boréale
+41	23	2	23	2	Boréale	Jolan Thorgalsson
+41	23	3	23	3
+41	23	4	23	4	Boréale	Jolan Thorgalsson
+41	23	5	23	5
+41	23	6	23	6	Boréale	Jolan Thorgalsson
+41	23	7	23	7	Boréale	Jolan Thorgalsson
+41	24	1	24	1	Boréale	Jolan Thorgalsson
+41	24	2	24	2	Jolan Thorgalsson
+41	24	3	24	3	Boréale	Jolan Thorgalsson
+41	24	4	24	4	Boréale	Jolan Thorgalsson
+41	24	5	24	5	Boréale
+41	24	6	24	6	Boréale	Jolan Thorgalsson
+41	24	7	24	7	Boréale	Jolan Thorgalsson
+41	24	8	24	8	Boréale	Jolan Thorgalsson
+41	24	9	24	9	Boréale	Jolan Thorgalsson
+41	25	1	25	1	Oksekog	Soldats_41.11	Thorgal Aegirsson	Tómr_41.16	Villageois_41.25
+41	25	2	25	2
+41	25	3	25	3	Oksekog	Thorgal Aegirsson
+41	25	4	25	4	Thorgal Aegirsson
+41	25	5	25	5	Soldats_41.11	Villageois_41.25
+41	25	6	25	6	Oksekog
+41	25	7	25	7	Thorgal Aegirsson
+41	25	8	25	8	Thorgal Aegirsson
+41	26	1	26	1	Oksekog	Soldats_41.11
+41	26	2	26	2	Thorgal Aegirsson
+41	26	3	26	3	Oksekog	Thorgal Aegirsson
+41	26	4	26	4	Oksekog	Soldats_41.11
+41	26	5	26	5
+41	26	6	26	6	Oksekog
+41	26	7	26	7	Thorgal Aegirsson
+41	26	8	26	8	Oksekog	Soldats_41.11	Thorgal Aegirsson	Tómr_41.16	Villageois_41.25
+41	27	1	27	1
+41	27	2	27	2	Boréale	Jolan Thorgalsson
+41	27	3	27	3	Boréale	Jolan Thorgalsson
+41	27	4	27	4
+41	27	5	27	5	Boréale	Jolan Thorgalsson
+41	27	6	27	6	Boréale
+41	27	7	27	7	Boréale	Jolan Thorgalsson
+41	27	8	27	8
+41	28	1	28	1	Mjöllnir_Tétras	Thorgal Aegirsson
+41	28	2	28	2	Mýsla
+41	28	3	28	3	Mjöllnir_Tétras	Thorgal Aegirsson
+41	28	4	28	4	Mjöllnir_Tétras	Thorgal Aegirsson
+41	28	5	28	5	Thorgal Aegirsson
+41	28	6	28	6	Mjöllnir_Tétras	Mýsla
+41	28	7	28	7	Thorgal Aegirsson
+41	28	8	28	8	Mjöllnir_Tétras	Mýsla
+41	28	9	28	9	Thorgal Aegirsson
+41	29	1	29	1
+41	29	2	29	2	Boréale	Jolan Thorgalsson
+41	29	3	29	3	Boréale	Jolan Thorgalsson
+41	29	4	29	4
+41	29	5	29	5	Boréale	Jolan Thorgalsson
+41	29	6	29	6
+41	29	7	29	7	Boréale	Jolan Thorgalsson
+41	29	8	29	8	Boréale	Jolan Thorgalsson
+41	29	9	29	9
+41	30	1	30	1
+41	30	2	30	2
+41	30	3	30	3	Thorgal Aegirsson
+41	30	4	30	4	Thorgal Aegirsson
+41	30	5	30	5
+41	30	6	30	6	Thorgal Aegirsson
+41	30	7	30	7
+41	30	8	30	8
+41	30	9	30	9	Thorgal Aegirsson
+41	30	10	30	10	Thorgal Aegirsson
+41	30	11	30	11	Thorgal Aegirsson
+41	31	1	31	1	Thorgal Aegirsson
+41	31	2	31	2	Mýsla
+41	31	3	31	3	Thorgal Aegirsson
+41	31	4	31	4	Thorgal Aegirsson
+41	31	5	31	5	Thorgal Aegirsson
+41	31	6	31	6	Mýsla	Thorgal Aegirsson
+41	31	7	31	7	Mýsla	Thorgal Aegirsson
+41	31	8	31	8	Mýsla	Thorgal Aegirsson
+41	31	9	31	9	Thorgal Aegirsson
+41	32	1	32	1	Boréale
+41	32	2	32	2	Boréale	Jolan Thorgalsson
+41	32	3	32	3	Jolan Thorgalsson
+41	32	4	32	4	Boréale
+41	32	5	32	5	Boréale	Jolan Thorgalsson
+41	32	6	32	6	Boréale	Jolan Thorgalsson
+41	32	7	32	7	Boréale	Jolan Thorgalsson
+41	32	8	32	8	Boréale
+41	33	1	33	1
+41	33	2	33	2	Mýsla
+41	33	3	33	3	Mýsla	Thorgal Aegirsson
+41	33	4	33	4	Mýsla	Thorgal Aegirsson
+41	33	5	33	5	Mýsla	Thorgal Aegirsson
+41	33	6	33	6	Mýsla
+41	33	7	33	7	Mýsla	Thorgal Aegirsson
+41	33	8	33	8
+41	34	1	34	1	Boréale	Jolan Thorgalsson
+41	34	2	34	2	Boréale	Jolan Thorgalsson
+41	34	3	34	3	Boréale	Jolan Thorgalsson
+41	34	4	34	4	Boréale	Jolan Thorgalsson
+41	34	5	34	5	Boréale	Jolan Thorgalsson
+41	34	6	34	6	Boréale	Jolan Thorgalsson
+41	34	7	34	7	Boréale	Jolan Thorgalsson
+41	34	8	34	8	Boréale	Muninn	Jolan Thorgalsson
+41	35	1	35	1	Boréale	Huginn	Jolan Thorgalsson	Muninn
+41	35	2	35	2	Muninn
+41	35	3	35	3	Jolan Thorgalsson
+41	35	4	35	4	Boréale	Jolan Thorgalsson	Muninn
+41	35	5	35	5	Boréale	Muninn	Jolan Thorgalsson
+41	35	6	35	6	Boréale	Muninn	Jolan Thorgalsson
+41	35	7	35	7	Boréale	Muninn	Jolan Thorgalsson
+41	35	8	35	8	Boréale	Muninn	Jolan Thorgalsson
+41	36	1	36	1	Boréale	Muninn	Jolan Thorgalsson
+41	36	2	36	2	Boréale	Muninn	Jolan Thorgalsson	Thorgal Aegirsson
+41	36	3	36	3	Boréale	Muninn	Jolan Thorgalsson	Thorgal Aegirsson
+41	36	4	36	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	36	5	36	5
+41	36	6	36	6	Boréale
+41	36	7	36	7	Boréale	Muninn	Jolan Thorgalsson	Thorgal Aegirsson
+41	36	8	36	8	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	36	9	36	9	Muninn	Huginn
+41	37	1	37	1	Enfants_41.37
+41	37	2	37	2	Enfants_41.37
+41	37	3	37	3	Enfants_41.37
+41	37	4	37	4	Enfants_41.37
+41	37	5	37	5	Enfants_41.37
+41	37	6	37	6	Boréale	Enfants_41.37	Jolan Thorgalsson	Thorgal Aegirsson
+41	37	7	37	7	Boréale	Enfants_41.37	Jolan Thorgalsson	Thorgal Aegirsson
+41	37	8	37	8	Boréale	Enfants_41.37	Thorgal Aegirsson
+41	37	9	37	9	Boréale	Enfants_41.37	Jolan Thorgalsson
+41	38	1	38	1	Boréale	Enfants_41.37	Jolan Thorgalsson	Sydöbalak	Thorgal Aegirsson
+41	38	2	38	2	Sydöbalak
+41	38	3	38	3	Jolan Thorgalsson	Sydöbalak	Thorgal Aegirsson
+41	38	4	38	4	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	38	5	38	5	Boréale	Jolan Thorgalsson	Sydöbalak	Thorgal Aegirsson
+41	38	6	38	6	Thorgal Aegirsson
+41	39	1	39	1
+41	39	2	39	2	Oksekog	Soldats_41.11	Villageois_41.25
+41	39	3	39	3	Oksekog
+41	39	4	39	4	Mjöllnir_Tétras	Mýsla	Soldats_41.11	Villageois_41.25
+41	39	5	39	5	Mýsla	Oksekog	Soldats_41.11	Villageois_41.25
+41	39	6	39	6	Mýsla	Oksekog	Soldats_41.11	Villageois_41.25
+41	39	7	39	7	Mýsla
+41	39	8	39	8	Mýsla	Oksekog
+41	40	1	40	1	Oksekog
+41	40	2	40	2	Mýsla	Oksekog	Soldats_41.11	Villageois_41.25
+41	40	3	40	3	Oksekog
+41	40	4	40	4	Mýsla
+41	40	5	40	5	Mýsla
+41	40	6	40	6	Oksekog
+41	40	7	40	7	Mýsla	Oksekog	Soldats_41.11	Villageois_41.25
+41	40	8	40	8	Thorgal Aegirsson
+41	41	1	41	1	Thorgal Aegirsson	Soldats_41.11
+41	41	2	41	2	Thorgal Aegirsson	Soldats_41.11
+41	41	3	41	3	Mýsla
+41	41	4	41	4	Oksekog	Mýsla
+41	41	5	41	5	Thorgal Aegirsson	Soldats_41.11	Mýsla
+41	41	6	41	6	Mjöllnir_Tétras	Mýsla	Soldats_41.11	Thorgal Aegirsson
+41	41	7	41	7	Mjöllnir_Tétras	Mýsla	Soldats_41.11	Thorgal Aegirsson
+41	41	8	41	8	Mjöllnir_Tétras	Mýsla	Soldats_41.11	Thorgal Aegirsson
+41	41	9	41	9
+41	41	10	41	10	Soldats_41.11
+41	42	1	42	1	Mýsla	Thorgal Aegirsson
+41	42	2	42	2	Boréale	Jolan Thorgalsson	Mýsla	Sydöbalak	Thorgal Aegirsson
+41	42	3	42	3	Mýsla	Thorgal Aegirsson
+41	42	4	42	4	Mýsla	Sydöbalak
+41	42	5	42	5	Thorgal Aegirsson
+41	42	6	42	6	Boréale	Jolan Thorgalsson
+41	42	7	42	7	Thorgal Aegirsson	Sydöbalak
+41	42	8	42	8
+41	42	9	42	9	Boréale	Jolan Thorgalsson
+41	43	1	43	1	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	43	2	43	2
+41	43	3	43	3
+41	43	4	43	4
+41	43	5	43	5
+41	43	6	43	6	Jolan Thorgalsson	Thorgal Aegirsson
+41	43	7	43	7	Boréale
+41	43	8	43	8	Jolan Thorgalsson
+41	43	9	43	9	Sydöbalak	Thorgal Aegirsson
+41	43	10	43	10	Jolan Thorgalsson	Sydöbalak	Thorgal Aegirsson
+41	43	11	43	11
+41	44	1	44	1
+41	44	2	44	2	Jolan Thorgalsson	Thorgal Aegirsson
+41	44	3	44	3	Jolan Thorgalsson	Thorgal Aegirsson
+41	44	4	44	4
+41	44	5	44	5	Jolan Thorgalsson	Thorgal Aegirsson
+41	44	6	44	6	Jolan Thorgalsson	Thorgal Aegirsson
+41	44	7	44	7	Jolan Thorgalsson	Thorgal Aegirsson
+41	44	8	44	8	Jolan Thorgalsson
+41	45	1	45	1
+41	45	2	45	2	Huginn	Muninn
+41	45	3	45	3	Jolan Thorgalsson
+41	45	4	45	4	Huginn	Muninn
+41	45	5	45	5	Jolan Thorgalsson	Muninn
+41	45	6	45	6	Jolan Thorgalsson	Muninn
+41	45	7	45	7	Muninn
+41	45	8	45	8	Jolan Thorgalsson
+41	45	9	45	9	Jolan Thorgalsson	Muninn
+41	46	1	46	1	Muninn
+41	46	2	46	2
+41	46	3	46	3	Jolan Thorgalsson	Muninn
+41	46	4	46	4
+41	46	5	46	5	Jolan Thorgalsson	Muninn
+41	46	6	46	6	Huginn	Jolan Thorgalsson	Muninn
+41	46	7	46	7	Jolan Thorgalsson	Sydöbalak	Thorgal Aegirsson
+41	46	8	46	8	Jolan Thorgalsson	Thorgal Aegirsson
+41	46	9	46	9	Boréale	Jolan Thorgalsson
+41	46	10	46	10	Boréale
+41	47	1	47	1
+41	47	2	47	2	Boréale	Jolan Thorgalsson	Thorgal Aegirsson
+41	47	3	47	3	Boréale
+41	47	4	47	4	Boréale	Jolan Thorgalsson
+41	47	5	47	5	Boréale
+41	47	6	47	6	Boréale	Jolan Thorgalsson
+41	47	7	47	7	Boréale	Jolan Thorgalsson
+41	47	8	47	8	Thorgal Aegirsson
+41	48	1	48	1
+41	48	2	48	2
+41	48	3	48	3	Pallas
+41	48	4	48	4
+41	48	5	48	5
+41	48	6	48	6
+41	48	7	48	7	Aniel de Valnor

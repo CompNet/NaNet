@@ -5032,7 +5032,7 @@ J11	48	5	48	9
 41	38	1	38	6	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Enfants_41.37	Sydöbalak
 41	39	1	40	6	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Mjöllnir_Tétras
 41	40	7	40	8	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
-41	41	1	41	9	Soldats_41.11	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
+41	41	1	41	9	Soldats_41.11	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras	Oksekog
 41	41	10	41	10	Soldats_41.11
 41	42	1	43	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak	Mýsla
 41	43	9	43	11	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak

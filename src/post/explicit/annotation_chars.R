@@ -8,6 +8,7 @@
 # setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/post/explicit/annotation_chars.R")
 ###############################################################################
+SERIES <- "Thorgal"
 source("src/common/_include.R")
 
 
