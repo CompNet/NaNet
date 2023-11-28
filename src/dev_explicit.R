@@ -142,7 +142,7 @@ generate.static.plots.comparison(char.det="implicit", panel.params, page.params)
 data.expl <- read.raw.data(char.det="explicit", sc.stats=data.impl$scene.stats)
 data.expl <- include.filtered.chars(data.impl=data.impl, data.expl=data.expl)
 # OR, if already computed, read from file
-data.expl <- read.corpus.data(char.det="explicit")
+#data.expl <- read.corpus.data(char.det="explicit")
 
 # compute explicit annotation stats
 data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")

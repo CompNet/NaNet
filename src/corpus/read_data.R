@@ -377,12 +377,12 @@ init.panel.table <- function(
 #
 # returns: vector scene ids (one for each panel).
 ###############################################################################
-get.approxi.scenes.for.panels <- function(scene.stats)
+get.approx.scenes.for.panels <- function(scene.stats)
 {	last.panel <- max(scene.stats[,COL_PANEL_END_ID])
 	
 	result <- c()
 	for(panel.id in 1:last.panel)
-		result <- c(result, which(scene.stats[,COL_PANEL_START_ID]>=panel.id & scene.stats[,COL_PANEL_END_ID]<=panel.id)[1])
+		result <- c(result, which(scene.stats[,COL_PANEL_START_ID]<=panel.id & scene.stats[,COL_PANEL_END_ID]>=panel.id)[1])
 	
 	return(result)
 }
@@ -394,8 +394,6 @@ get.approxi.scenes.for.panels <- function(scene.stats)
 # Reads the table describing the interactions between characters for each scene, 
 # and coverts them into an edge list while performing some verifications. 
 #
-# char.det: character detection mode ("implicit" or "explicit").
-# sc.stats: scene stats table from "implicit" mode (only when processing "explicit" mode).
 # panel.stats: table describing all the panels constituting the series.
 # page.stats: table describing all the pages constituting the series.
 # char.stats: table describing all the characters.
@@ -404,20 +402,14 @@ get.approxi.scenes.for.panels <- function(scene.stats)
 # 
 # returns: a list of dataframes.
 ###############################################################################
-read.inter.table <- function(
-	char.det, sc.stats=NA,
+read.inter.table.implicit <- function(
 	panel.stats, 
 	page.stats, 
 	char.stats, 
 	volume.stats, 
 	arc.stats)
-{	# set input file
-	if(char.det=="implicit")
-		inter.file <- INTER_IMPL_FILE
-	else
-		inter.file <- INTER_EXPL_FILE
-	
-	# read the text file
+{	# read the text file
+	inter.file <- INTER_IMPL_FILE
 	tlog(2,"Reading the interaction file (",inter.file,")")
 	con <- file(inter.file, open="r")
 	temp <- readLines(con)
@@ -494,10 +486,7 @@ read.inter.table <- function(
 	prev.end.panel.id <- 0
 	for(l in 2:length(lines))	# skipping header line
 	{	line <- lines[[l]]
-		if(char.det=="implicit")
-			scene.id <- l - 1
-		else
-			scene.id <- sc.stats[]
+		scene.id <- l - 1
 		
 		# get volume
 		volume <- line[1]
@@ -671,7 +660,223 @@ read.inter.table <- function(
 	pb.chars <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
 	if(length(pb.chars)>0)
 	{	#cat(paste(pb.chars,collapse="\n"))
-		msg <- paste0("WARNING: while reading file \"",inter.file,"\". The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste(pb.chars,colapse=","))
+		msg <- paste0("WARNING while reading file \"",inter.file,"\". The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste0(pb.chars,collapse=", "))
+		tlog(3,msg)
+		#stop(msg)
+		#warning(msg)
+	}
+	
+	tlog(2,"Reading of the interaction file completed")
+	res <- list(
+		inter.df=inter.df,										# interactions
+		panel.stats=panel.stats, panel.chars=panel.chars,		# panels
+		page.stats=page.stats, page.chars=page.chars,			# pages
+		scene.stats=scene.stats, scene.chars=scene.chars,		# scenes
+		char.stats=char.stats,									# characters 
+		volume.stats=volume.stats, volume.chars=volume.chars,	# volumes 
+		arc.stats=arc.stats, arc.chars=arc.chars				# arcs
+	)
+	return(res)	
+}
+
+
+
+
+###############################################################################
+# Reads the table describing the interactions between characters for each scene, 
+# and coverts them into an edge list while performing some verifications. 
+#
+# sc.stats: scene stats table from "implicit" mode (only when processing "explicit" mode).
+# panel.stats: table describing all the panels constituting the series.
+# page.stats: table describing all the pages constituting the series.
+# char.stats: table describing all the characters.
+# volume.stats: table describing the series volumes.
+# arc.stats: table describing the series narrative arcs.
+# 
+# returns: a list of dataframes.
+###############################################################################
+read.inter.table.explicit <- function(
+		sc.stats,
+		panel.stats, 
+		page.stats, 
+		char.stats, 
+		volume.stats, 
+		arc.stats)
+{	# read the text file
+	inter.file <- INTER_EXPL_FILE
+	tlog(2,"Reading the interaction file (",inter.file,")")
+	con <- file(inter.file, open="r")
+	temp <- readLines(con)
+	close(con)
+	temp <- fix.encoding(strings=temp)
+	lines <- strsplit(temp, split="\t", fixed=TRUE)
+	tlog(4,"File read: ",length(lines)," lines)")
+	
+	# init scene table
+	scene.stats <- sc.stats
+	scene.stats[,COL_CHARS] <- rep(0,nrow(scene.stats))
+	
+	# init interaction dataframe
+	inter.df <- data.frame(
+		character(), character(),
+		integer(),
+		integer(),
+		character(), integer(),
+		integer(), integer(), 
+		integer(), integer(), 
+		integer(), integer(), 
+		integer(), integer(), 
+		integer(), integer(), 
+		integer(), 
+		stringsAsFactors=FALSE, check.names=FALSE)
+	inter.df.cn <- c(
+		COL_CHAR_FROM, COL_CHAR_TO, 
+		COL_SCENE_ID,
+		COL_ARC_ID,
+		COL_VOLUME, COL_VOLUME_ID,
+		COL_PAGE_START, COL_PAGE_START_ID, 
+		COL_PANEL_START, COL_PANEL_START_ID,
+		COL_PAGE_END, COL_PAGE_END_ID, 
+		COL_PANEL_END, COL_PANEL_END_ID,
+		COL_RANK,
+		COL_PANELS, COL_PAGES)
+	colnames(inter.df) <- inter.df.cn
+	Encoding(inter.df[,COL_CHAR_FROM]) <- "UTF-8"
+	Encoding(inter.df[,COL_CHAR_TO]) <- "UTF-8"
+	
+	# init character lists
+	panel.chars <- vector(mode="list", length=nrow(panel.stats))
+	page.chars <- vector(mode="list", length=nrow(page.stats))
+	scene.chars <- vector(mode="list", length=nrow(scene.stats))
+	volume.chars <- vector(mode="list", length=nrow(volume.stats))
+	arc.chars <- vector(mode="list", length=nrow(arc.stats))
+	
+	# loop over the scenes
+	tlog(2,"Looping over the lines (=panels)")
+	panel.sceneids <- get.approx.scenes.for.panels(sc.stats)
+	for(l in 2:length(lines))	# skipping header line
+	{	line <- lines[[l]]
+		scene.id <- panel.sceneids[l-1]
+		
+		# get volume
+		volume <- line[1]
+		volume.id <- which(volume.stats[,COL_VOLUME]==volume)
+		if(volume.id!=scene.stats[scene.id,COL_VOLUME_ID]) stop(paste0("Inconsistant volume id: ",scene.stats[scene.id,COL_VOLUME_ID]," vs. ",volume.id," \"",line,"\"\n"))
+		# get arc
+		arc.id <- volume.stats[volume.id,COL_ARC_ID]
+		if(arc.id!=scene.stats[scene.id,COL_ARC_ID]) stop(paste0("Inconsistant arc id: ",scene.stats[scene.id,COL_ARC_ID]," vs. ",arc.id," \"",line,"\"\n"))
+		
+		# get start page and panel
+		start.page <- line[2]
+		start.page.id <- which(page.stats[,COL_PAGE]==start.page & page.stats[,COL_VOLUME_ID]==volume.id)
+		if(start.page.id<scene.stats[scene.id,COL_PAGE_START_ID]) stop(paste0("Inconsistant start page id: ",scene.stats[scene.id,COL_PAGE_START_ID]," vs. ",start.page.id," \"",line,"\"\n"))
+		start.panel <-  as.integer(line[3])
+		start.panel.id <- page.stats[start.page.id,COL_PANEL_START_ID] + start.panel - 1
+		if(start.panel.id<scene.stats[scene.id,COL_PANEL_START_ID]) stop(paste0("Inconsistant start panel id: ",scene.stats[scene.id,COL_PANEL_START_ID]," vs. ",start.panel.id," \"",line,"\"\n"))
+		
+		# get end page and panel
+		end.page <- line[4]
+		end.page.id <- which(page.stats[,COL_PAGE]==end.page & page.stats[,COL_VOLUME_ID]==volume.id)
+		if(end.page.id>scene.stats[scene.id,COL_PAGE_END_ID]) stop(paste0("Inconsistant end page id: ",scene.stats[scene.id,COL_PAGE_END_ID]," vs. ",end.page.id," \"",line,"\"\n"))
+		end.panel <- as.integer(line[5])
+		end.panel.id <- page.stats[end.page.id,COL_PANEL_START_ID] + end.panel - 1
+		if(end.panel.id>scene.stats[scene.id,COL_PANEL_END_ID]) stop(paste0("Inconsistant end panel id: ",scene.stats[scene.id,COL_PANEL_END_ID]," vs. ",end.panel.id," \"",line,"\"\n"))
+		
+		# get all combinations of characters
+		if(length(line)<6)
+			chars <- c()
+		else
+		{	# retrieve the character names
+			chars <- line[6:length(line)]
+			chars <- gsub("[()]", "", chars)	# remove parentheses (representing ghost characters)
+			chars <- sapply(strsplit(chars,"/"), function(v)	# remove "/" corresponding to disguises
+					{	if(length(v)==0)
+							return("")
+						else if(length(v)==1)
+							return(trimws(v))
+						else if(length(v)==2)
+							return(trimws(v[2]))
+						else
+						{	msg <- paste0("ERROR while reading file \"",inter.file,"\". Problem when splitting the names: ",v)
+							tlog(4,msg)
+							stop(msg)
+						}
+					})
+			chars <- sort(chars[which(chars!="" & chars!=" ")])
+			
+			# check the character names
+			if(length(chars)==0)
+				msg <- paste0("WARNING while reading file \"",inter.file,"\". There is no character in the scene described in line: \"",paste(line,collapse=","),"\"")
+			else 
+			{	# check whether some characters miss from the table
+				pb.chars <- setdiff(chars,char.stats[,COL_NAME])
+				if(length(pb.chars)>0)
+				{	msg <- paste0("ERROR: while reading file \"",inter.file,"\". The following names appear in scene \"",paste(line,collapse=","),"\" but miss from file \"",CHAR_FILE,"\": ",paste(pb.chars,collapse=","))
+					tlog(3,msg)
+					#stop(msg)
+				}
+				else if(length(chars)==1)
+				{	msg <- paste0("WARNING while reading file \"",inter.file,"\". There are fewer than two characters in the scene described in line: \"",paste(line,collapse=","),"\"")
+					tlog(3,msg)
+					#warning(msg)
+				}
+				else
+				{	if(length(chars)>length(unique(chars)))
+					{	msg <- paste0("WARNING while reading file \"",inter.file,"\". The same character(s) appear(s) several times in line: \"",paste(line,collapse=","),"\"")
+						tlog(3,msg)
+						#stop(msg)
+						chars <- unique(chars)
+					}
+					if(length(chars)<=1)
+					{	msg <- paste0("WARNING while reading file \"",inter.file,"\". After having removed the multi-occurring character, only this character remains in the scene described in line: \"",paste(line,collapse=","),"\"")
+						tlog(3,msg)
+						#warning(msg)
+					}
+					else
+					{	chars.mat <- t(combn(x=chars,m=2))
+						rr <- nrow(chars.mat)
+						
+						# add interactions to dataframe
+						tmp.df <- data.frame(
+								chars.mat[,1], chars.mat[,2], 
+								as.integer(rep(scene.id,rr)), as.integer(rep(arc.id,rr)), rep(volume,rr), as.integer(rep(volume.id,rr)),
+								as.integer(rep(start.page,rr)), as.integer(rep(start.page.id,rr)), 
+								as.integer(rep(start.panel,rr)), as.integer(rep(start.panel.id,rr)),
+								as.integer(rep(end.page,rr)), as.integer(rep(end.page.id,rr)), 
+								as.integer(rep(end.panel,rr)), as.integer(rep(end.panel.id,rr)),
+								as.integer(NA),
+								as.integer(rep(1,rr)), as.integer(rep(1,rr)),
+								stringsAsFactors=FALSE, check.names=FALSE)
+						colnames(tmp.df) <- inter.df.cn
+						inter.df <- rbind(inter.df, tmp.df)
+					}
+				}
+			}
+		}
+		
+		# update character lists
+		if(length(chars)>0)
+		{	scene.chars[[scene.id]] <- sort(union(scene.chars[[scene.id]], chars))
+			panel.chars[[start.panel.id]] <- sort(union(panel.chars[[start.panel.id]], chars))
+			page.chars[[start.page.id]] <- sort(union(page.chars[[start.page.id]], chars))
+			volume.chars[[volume.id]] <- sort(union(volume.chars[[volume.id]], chars))
+			arc.chars[[arc.id]] <- sort(union(arc.chars[[arc.id]], chars))
+		}
+	
+		# update stats
+		scene.stats[scene.id,COL_CHARS] <- length(scene.chars[[scene.id]])
+		panel.stats[start.panel.id,COL_CHARS] <- length(panel.chars[[start.panel.id]])
+	}
+	
+	# update scene and interaction ranks
+	scene.stats[,COL_RANK] <- rank(volume.stats[scene.stats[,COL_VOLUME_ID],COL_RANK]*(nrow(scene.stats)+1) + scene.stats[,COL_SCENE_ID], ties.method="first")
+	inter.df[,COL_RANK] <- rank(volume.stats[inter.df[,COL_VOLUME_ID],COL_RANK]*(nrow(inter.df)+1) + 1:nrow(inter.df), ties.method="first")
+	
+	# check unused characters
+	pb.chars <- setdiff(char.stats[,COL_NAME], unique(unlist(scene.chars)))
+	if(length(pb.chars)>0)
+	{	#cat(paste(pb.chars,collapse="\n"))
+		msg <- paste0("WARNING while reading file \"",inter.file,"\". The following names are defined in file \"",CHAR_FILE,"\", but appear in no scene: ",paste0(pb.chars,collapse=","))
 		tlog(3,msg)
 		#stop(msg)
 		#warning(msg)
@@ -1081,7 +1286,10 @@ read.raw.data <- function(char.det, sc.stats)
 	arc.stats <- tmp$arc.stats
 	
 	# read the file describing the interactions
-	tmp <- read.inter.table(char.det, sc.stats, panel.stats, page.stats, char.stats, volume.stats, arc.stats)
+	if(char.det=="implicit")
+		tmp <- read.inter.table.implicit(panel.stats, page.stats, char.stats, volume.stats, arc.stats)
+	else if(char.det=="explicit")
+		tmp <- read.inter.table.explicit(sc.stats, panel.stats, page.stats, char.stats, volume.stats, arc.stats)
 	inter.df <- tmp$inter.df
 	panel.stats <- tmp$panel.stats; panel.chars <- tmp$panel.chars
 	page.stats <- tmp$page.stats; page.chars <- tmp$page.chars

@@ -51,7 +51,7 @@ extract.static.graph.panel.window <- function(inter.df, char.stats, char.det=NA,
 		cnt <- cnt + 1
 		if(cnt %% 1000 == 0)
 			tlog(3,"Current window: [",window.start,",",window.end,"]")
-		# scenes intersecting the window
+		# interactions intersecting the window
 		idx <- which(!(inter.df[,COL_PANEL_END_ID]<window.start | inter.df[,COL_PANEL_START_ID]>window.end))
 		# get all concerned chars
 		chars <- sort(unique(c(as.matrix(inter.df[idx,c(COL_CHAR_FROM,COL_CHAR_TO)]))))
