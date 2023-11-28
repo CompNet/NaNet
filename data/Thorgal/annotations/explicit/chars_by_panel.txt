@@ -3117,6 +3117,7 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 11	31	6	31	6	Thorgal Aegirsson	Varth
 11	31	7	31	7	Thorgal Aegirsson	Jolan Thorgalsson
 11	31	8	31	8	Argun Pied d'Arbre	Jolan Thorgalsson
+11	31	9	31	9	Argun Pied d'Arbre	Jolan Thorgalsson
 11	32	1	32	1	Argun Pied d'Arbre
 11	32	2	32	2	Argun Pied d'Arbre	Jolan Thorgalsson
 11	32	3	32	3	Jolan Thorgalsson
@@ -14260,14 +14261,14 @@ L4	16	4	16	4	Aaricia Gandalfsdottir
 L4	16	5	16	5	Aaricia Gandalfsdottir
 L4	16	6	16	6	Louve Thorgalsdottir
 L4	16	7	16	7	Louve Thorgalsdottir
-L4	17	1	17	1	Sven	Villageois_L4.17
-L4	17	2	17	2	Sven	Villageois_L4.17
+L4	17	1	17	1	Sven_L4.17	Villageois_L4.17
+L4	17	2	17	2	Sven_L4.17	Villageois_L4.17
 L4	17	3	17	3	Patö
-L4	17	4	17	4	Patö	Sven	Villageois_L4.17
-L4	17	5	17	5	Patö	Sven	Villageois_L4.17
-L4	17	6	17	6	Patö	Sven	Villageois_L4.17
-L4	17	7	17	7	Patö	Sven	Villageois_L4.17
-L4	17	8	17	8	Patö	Sven	Villageois_L4.17
+L4	17	4	17	4	Patö	Sven_L4.17	Villageois_L4.17
+L4	17	5	17	5	Patö	Sven_L4.17	Villageois_L4.17
+L4	17	6	17	6	Patö	Sven_L4.17	Villageois_L4.17
+L4	17	7	17	7	Patö	Sven_L4.17	Villageois_L4.17
+L4	17	8	17	8	Patö	Sven_L4.17	Villageois_L4.17
 L4	18	1	18	1	Louve Thorgalsdottir
 L4	18	2	18	2	Louve Thorgalsdottir
 L4	18	3	18	3	Louve Thorgalsdottir
