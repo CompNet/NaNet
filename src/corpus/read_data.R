@@ -367,12 +367,35 @@ init.panel.table <- function(
 
 
 
+
+###############################################################################
+# Returns the scene id for all panels in the comics. This is an approximation,
+# as a scene can belong to several overlapping scenes. We just take the first
+# scene that comes in the dataset.
+#
+# scene.stats: table containing the scene stats.
+#
+# returns: vector scene ids (one for each panel).
+###############################################################################
+get.approxi.scenes.for.panels <- function(scene.stats)
+{	last.panel <- max(scene.stats[,COL_PANEL_END_ID])
+	
+	result <- c()
+	for(panel.id in 1:last.panel)
+		result <- c(result, which(scene.stats[,COL_PANEL_START_ID]>=panel.id & scene.stats[,COL_PANEL_END_ID]<=panel.id)[1])
+	
+	return(result)
+}
+
+
+
 	
 ###############################################################################
 # Reads the table describing the interactions between characters for each scene, 
 # and coverts them into an edge list while performing some verifications. 
 #
 # char.det: character detection mode ("implicit" or "explicit").
+# sc.stats: scene stats table from "implicit" mode (only when processing "explicit" mode).
 # panel.stats: table describing all the panels constituting the series.
 # page.stats: table describing all the pages constituting the series.
 # char.stats: table describing all the characters.
@@ -382,7 +405,7 @@ init.panel.table <- function(
 # returns: a list of dataframes.
 ###############################################################################
 read.inter.table <- function(
-	char.det,
+	char.det, sc.stats=NA,
 	panel.stats, 
 	page.stats, 
 	char.stats, 
@@ -471,7 +494,10 @@ read.inter.table <- function(
 	prev.end.panel.id <- 0
 	for(l in 2:length(lines))	# skipping header line
 	{	line <- lines[[l]]
-		scene.id <- l - 1
+		if(char.det=="implicit")
+			scene.id <- l - 1
+		else
+			scene.id <- sc.stats[]
 		
 		# get volume
 		volume <- line[1]
@@ -1023,10 +1049,11 @@ read.corpus.data <- function(char.det)
 # form of data frames. It focuses on the implicit version of the annotations.
 #
 # char.det: character detection mode ("implicit" or "explicit").
+# sc.stats: scene stats table from "implicit" mode (only when processing "explicit" mode).
 #
 # returns: a list of dataframes.
 ###############################################################################
-read.raw.data <- function(char.det)
+read.raw.data <- function(char.det, sc.stats)
 {	tlog(1,"Reading data files")
 	
 	# read the file describing the characters
@@ -1054,7 +1081,7 @@ read.raw.data <- function(char.det)
 	arc.stats <- tmp$arc.stats
 	
 	# read the file describing the interactions
-	tmp <- read.inter.table(char.det, panel.stats, page.stats, char.stats, volume.stats, arc.stats)
+	tmp <- read.inter.table(char.det, sc.stats, panel.stats, page.stats, char.stats, volume.stats, arc.stats)
 	inter.df <- tmp$inter.df
 	panel.stats <- tmp$panel.stats; panel.chars <- tmp$panel.chars
 	page.stats <- tmp$page.stats; page.chars <- tmp$page.chars
