@@ -225,7 +225,7 @@ custom.gplot <- function(g, paths, col.att, size.att, cat.att=FALSE, v.hl, e.hl,
 				}
 				# numerical attribute
 				else
-				{	fine <- 500 									# granularity of the color gradient
+				{	fine <- 500 								# granularity of the color gradient
 					pal <- colorRampPalette(c("YELLOW","RED"))	# extreme colors of the gradient
 					finite <- !is.infinite(vvals)
 					vcols[connected & finite] <- pal(fine)[as.numeric(cut(vvals[connected & finite],breaks=fine))]
