@@ -86,6 +86,7 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	# build the edgelist by considering each line (i.e. interaction) in the dataframe
 	prev.scene <- NA
 	prev.scene.idx <- NA
+	cur.chars <- c()
 	tlog(2,"Building the edge list")
 	for(i in is)
 	{	# get the current scene id
@@ -132,7 +133,14 @@ extract.static.graph.scenes <- function(inter.df, char.stats, scene.stats, scene
 	
 	# set up result variable
 	if(ret.seq)
-	{	msg <- paste0("returning a series of ",length(gg)," graphs")
+	{	# remove superfluous characters
+		for(i in 1:length(gg))
+		{	g <- gg[[i]]
+			g <- delete_vertices(g, v=setdiff(V(g)$name,scene.chars[[g$SceneId]]))
+			gg[[i]] <- g
+		}
+		
+		msg <- paste0("returning a series of ",length(gg)," graphs")
 		res <- gg
 	}
 	else

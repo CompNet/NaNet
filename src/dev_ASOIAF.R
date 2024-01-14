@@ -15,7 +15,7 @@
 ###############################################################################
 # setup parameters
 SERIES <- "ASOIAF"
-# note on scene ordering: publication=as in comic books vs. story=as in novel chapters
+# note on scene ordering: publication="as in comic books" vs. story="as in novel chapters"
 
 
 
