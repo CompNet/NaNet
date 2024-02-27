@@ -1,7 +1,7 @@
 # Computes certain topological measures, estimated for a null model
-# that takes into account the bipartite nature of the graph. Could not
-# get usable results through Newman's formula (cf. rand_meas_archive.R 
-# for details), so using simulation instead.
+# that takes into account the bipartite nature of the graph. I could not
+# get usable results through Newman's formula (cf. rand_meas_model.R 
+# for details), so I am using simulation instead.
 #
 # Model taken from the following paper:
 #	M. E. J. Newman, S. H. Strogatz, and D. J. Watts, 
@@ -14,11 +14,11 @@
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/rand_meas.R.R")
+# source("src/post/description/rand_meas_simul.R")
 ###############################################################################
 SERIES <- "Thorgal"
 source("src/common/_include.R")
-start.rec.log(text="RandMeas")
+start.rec.log(text="RandMeasSimul")
 
 
 
