@@ -1,5 +1,6 @@
 # Computes certain topological measures, estimated for a null model
-# that takes into account the bipartite nature of the graph.
+# that takes into account the bipartite nature of the underlying 
+# scene-cooccurrence graph.
 #
 # Formulas taken from the following paper:
 #	M. E. J. Newman, S. H. Strogatz, and D. J. Watts, 
@@ -11,18 +12,20 @@
 # of the paper. First, some of the estimated values that I get just do not make any 
 # sense (ex. transitivity > 1). Second, they do not match the values obtained by simulation.
 # >> In the end end, I proceeded using simulations instead of using the closed forms.
+# The script for these simulation is rand_meas_simul.R
 #
 # Vincent Labatut
 # 11/2021
 #
 # setwd("~/eclipse/workspaces/Networks/NaNet")
 # setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
-# source("src/post/description/rand_meas_archive.R")
+# source("src/post/description/rand_meas_model.R")
 ###############################################################################
 library("polynom")
 
 SERIES <- "Thorgal"
 source("src/common/_include.R")
+start.rec.log(text="RandMeasModel")
 
 
 
@@ -279,3 +282,12 @@ tlog(4,"Simulation results: ",paste(apply(avg.trans, 2, mean),collapse=" "))
 
 ###############################################################################
 # record result table
+# TODO
+
+
+
+
+###############################################################################
+# end logging
+tlog(0,"Process complete")
+end.rec.log()

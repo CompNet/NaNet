@@ -1,5 +1,5 @@
-# Identifies and visualize the vertices and paths corresponding to the network
-# diameter(s).
+# Identifies the vertices and paths corresponding to the network diameter(s),
+# and plots them.
 #
 # Vincent Labatut
 # 02/2022
