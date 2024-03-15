@@ -361,7 +361,7 @@ tab.file <- get.path.stats.corpus(object="characters", char.det="implicit", subf
 tlog(4, "Record in \"",tab.file,"\"")
 write.csv(x=tab, file=paste0(tab.file,".csv"), fileEncoding="UTF-8", row.names=FALSE)
 
-# NOTE: no sense in doing Bechdel for filtered chars, as it requires 
+# NOTE: no sense in doing Bechdel for filtered chars, as this would require 
 # ignoring certain characters actively taking part in the scene
 
 

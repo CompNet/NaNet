@@ -125,7 +125,7 @@ CAT_COLORS_32 <- c(	# glasbey.colors(32) from package Polychrome
 #############################################################
 # colors used to render attributes in plots
 
-ATT_COLORS_SEX <- c(	# retrieved from https://blog.datawrapper.de/gendercolor/
+ATT_COLORS_SEX <- c(		# retrieved from https://blog.datawrapper.de/gendercolor/
 	"Male"="#19A0AA",		# turquoise
 	"Female"="#F15F36",		# salmon
 	"Mixed"="#730B6D", 		# purple
