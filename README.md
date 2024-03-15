@@ -95,7 +95,7 @@ Tested with `R` version 4.0.5, with the following packages:
 * [`future.apply`](https://cran.r-project.org/web/packages/future.apply/): version 1.6.0.
 * [`ggExtra`](https://cran.r-project.org/web/packages/ggExtra/): version 0.9.
 * [`ggplot2`](https://cran.r-project.org/web/packages/ggplot2/): version 3.3.3.
-* [`igraph`](http://igraph.org/r/) package: version 1.2.6.
+* [`igraph`](http://igraph.org/r/): version 1.2.6.
 * [`latex2exp`](https://cran.r-project.org/web/packages/latex2exp/): version 0.4.0.
 * [`minpack.lm`](https://cran.r-project.org/web/packages/minpack.lm/): version 1.2.1.
 * [`perm`](https://cran.r-project.org/web/packages/perm/): version 1.0.0.2.
