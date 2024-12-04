@@ -5043,3 +5043,58 @@ J11	48	5	48	9
 41	46	7	46	10	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak
 41	47	1	47	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 41	48	1	48	7	Pallas	Aniel de Valnor	Soldats_41.48
+42	3	1	3	1
+42	3	2	4	7	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Tentakl
+42	4	8	5	9	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Tentakl	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Aaricia Gandalfsdottir
+42	6	1	6	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Aaricia Gandalfsdottir
+42	7	1	7	7	Boréale	Aaricia Gandalfsdottir
+42	7	8	8	8	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7
+42	9	1	9	4	Lidvór	Fjójar
+42	9	5	10	4	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7	Lidvór	Fjójar
+42	10	5	10	6	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7	Lidvór	Fjójar	Bébé_42.10
+42	10	7	10	8	Fjójar
+42	11	1	11	8	Thorgal Aegirsson	Jolan Thorgalsson
+42	12	1	15	5	Villageois_42.12	Thorgal Aegirsson	Jolan Thorgalsson	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan
+42	15	6	15	7	Villageois_42.12	Thorgal Aegirsson	Jolan Thorgalsson	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Yngvild	Enfants d'Yngvild_42.15
+42	15	8	15	9	Özurr le Varègue	Viggo	Olan
+42	16	1	16	5	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir
+42	16	6	16	6	Thorgal Aegirsson	Jolan Thorgalsson
+42	16	7	16	9	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	17	1	18	2	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	18	3	18	4	Gilli	Ava	Louve Thorgalsdottir	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	18	5	18	9	Boréale	Jolan Thorgalsson
+42	19	1	21	5	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Aaricia Gandalfsdottir	Thorgal Aegirsson	Groj	Mundir	Skjor Jorundsson
+42	21	3	21	4	Jorund-le-taureau	Gandalf-le-fou	Vikings_42.21
+42	21	6	22	7	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Aaricia Gandalfsdottir	Thorgal Aegirsson	Fjójar	Groj	Mundir	Skjor Jorundsson
+42	22	2	22	2	Jorund-le-taureau	Gandalf-le-fou
+42	22	3	22	3	Gandalf-le-fou
+42	22	8	24	9	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Thorgal Aegirsson	Fjójar	Groj	Mundir	Skjor Jorundsson
+42	25	1	25	5	Aaricia Gandalfsdottir
+42	26	1	26	4	Fjójar
+42	26	5	26	9	Fjójar	Lidvór	Bébé_42.10
+42	27	1	28	4	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Skjor Jorundsson	Guenon / Yasmina
+42	28	5	28	8	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Jolan Thorgalsson	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Lidvór	Guenon / Yasmina
+42	29	1	29	7	Louve Thorgalsdottir	Guenon / Yasmina
+42	29	8	29	9	Louve Thorgalsdottir	Guenon / Yasmina	Gilli
+42	30	1	30	9	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Guenon / Yasmina
+42	31	1	31	3	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	31	4	31	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12
+42	31	8	32	8	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12	Thorgal Aegirsson	Skjor Jorundsson
+42	33	1	36	9	Thorgal Aegirsson	Özurr le Varègue
+42	37	1	37	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12	Thorgal Aegirsson	Skjor Jorundsson
+42	38	1	38	1	Gürd Nez-Plat	Halli le Sarcastique
+42	38	2	38	2	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12
+42	38	3	38	5	Gürd Nez-Plat	Halli le Sarcastique
+42	38	6	39	1	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Membre du Thing_42.19	Groj	Mundir
+42	39	2	39	7	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
+42	39	8	41	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Fjójar
+42	41	6	42	11	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
+42	43	1	43	8	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	44	1	44	5	Fjójar
+42	44	6	44	10	Fjójar	Lidvór
+42	45	1	45	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	45	6	45	7	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson
+42	45	8	46	6	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson	Fjójar
+42	46	7	46	9	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson
+42	47	1	47	9	Gilli	Kyrstell_42.7	Louve Thorgalsdottir	Guenon / Yasmina	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Gandalfsdottir
+42	48	1	48	7	Boréale
