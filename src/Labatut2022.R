@@ -1,8 +1,9 @@
 # This script reproduces the computations described in the following paper:
 #
-#	V. Labatut, 
+#	Vincent Labatut, 
 #	“Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal,” 
-#	Submitted, 2022.
+#	Advances in Complex Systems 28(2):2240003, 2022.
+#   DOI: 10.1142/S0219525922400033
 # 
 # Vincent Labatut
 # 03/2022

@@ -43,4 +43,4 @@ init.annotation.file <- function()
 
 
 ###############################################################################
- init.annotation.file()
+init.annotation.file()

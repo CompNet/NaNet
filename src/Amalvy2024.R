@@ -1,5 +1,9 @@
-# Main script to extract the networks, compute their topological measures, and 
-# generate the corresponding plots.
+# This script extracts the comics networks used in the following paper:
+#
+#	Arthur Amalvy, Madeleine Janickyj, Shane Mannion, Pádraig MacCarron & Vincent Labatut, 
+#	“Interconnected Kingdoms: comparing ‘A Song of Ice and Fire’ adaptations across media using complex networks,” 
+#	Social Network Analysis and Mining 14:199, 2024.
+#   DOI: 10.1007/s13278-024-01365-z
 # 
 # Vincent Labatut
 # 02/2023

@@ -5081,15 +5081,15 @@ J11	48	5	48	9
 42	31	4	31	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12
 42	31	8	32	8	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12	Thorgal Aegirsson	Skjor Jorundsson
 42	33	1	36	9	Thorgal Aegirsson	Özurr le Varègue
-42	37	1	37	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12	Thorgal Aegirsson	Skjor Jorundsson
+42	37	1	37	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Thorgal Aegirsson	Skjor Jorundsson
 42	38	1	38	1	Gürd Nez-Plat	Halli le Sarcastique
-42	38	2	38	2	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12
+42	38	2	38	2	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Kyrstell_42.7
 42	38	3	38	5	Gürd Nez-Plat	Halli le Sarcastique
 42	38	6	39	1	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Membre du Thing_42.19	Groj	Mundir
 42	39	2	39	7	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
 42	39	8	41	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Fjójar
 42	41	6	42	11	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
-42	43	1	43	8	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	43	1	43	8	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Kyrstell_42.7
 42	44	1	44	5	Fjójar
 42	44	6	44	10	Fjójar	Lidvór
 42	45	1	45	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
