@@ -144,7 +144,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	# bootstrap test
 	pl.bs <- tryCatch(expr={bootstrap_p(power.law, no_of_sims=sims, threads=8)}, 
 			error=function(e) NA)
-	if(is.na(pl.bs))
+	if(all(is.na(pl.bs)))
 	{	msg <- "ERROR could not apply the bootstrap test to the estimated power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -174,7 +174,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	# comparison
 	comp.ln <- tryCatch(expr={compare_distributions(power.law, log.normal)}, 
 			error=function(e) NA)
-	if(is.na(comp.ln))
+	if(all(is.na(comp.ln)))
 	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -207,7 +207,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 	# comparison
 	comp.el <- tryCatch(expr={compare_distributions(power.law, exp.law)}, 
 			error=function(e) NA)
-	if(is.na(comp.el))
+	if(all(is.na(comp.el)))
 	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -244,7 +244,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 		# comparison
 		weib.el <- tryCatch(expr={compare_distributions(power.law, weib.law)},
 			error=function(e) NA)
-		if(is.na(weib.el))
+		if(all(is.na(weib.el)))
 		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
@@ -300,7 +300,7 @@ test.cont.distr <- function(data, xlab=NA, return_stats=FALSE, sims=1000, plot.f
 		# comparison
 		comp.tl2 <- tryCatch(expr={power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)},
 				error=function(e) NA)
-		if(is.na(comp.tl2))
+		if(all(is.na(comp.tl2)))
 		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
@@ -419,7 +419,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	# bootstrap test
 	pl.bs <- tryCatch(expr={bootstrap_p(power.law, no_of_sims=sims, threads=8)}, 
 			error=function(e) NA)
-	if(is.na(pl.bs))
+	if(all(is.na(pl.bs)))
 	{	msg <- "ERROR could not apply the bootstrap test to the estimated power law";tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -448,7 +448,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	# comparison
 	comp.ln <- tryCatch(expr={compare_distributions(power.law, log.normal)}, 
 		error=function(e) NA)
-	if(is.na(comp.ln))
+	if(all(is.na(comp.ln)))
 	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -479,7 +479,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	# comparison
 	comp.el <- tryCatch(expr={compare_distributions(power.law, exp.law)}, 
 			error=function(e) NA)
-	if(is.na(comp.el))
+	if(all(is.na(comp.el)))
 	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -510,7 +510,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 	# comparison
 	comp.pl <- tryCatch(expr={compare_distributions(power.law, pois.law)}, 
 			error=function(e) NA)
-	if(is.na(comp.pl))
+	if(all(is.na(comp.pl)))
 	{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 	}
 	else
@@ -548,7 +548,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		# comparison
 		comp.wl2 <- tryCatch(expr={vuong(zeta.weib.llr(x=data, zeta.d=power.law2, weib.d=weib.law2))}, 
 				error=function(e) NA)
-		if(is.na(comp.wl2))
+		if(all(is.na(comp.wl2)))
 		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
@@ -583,7 +583,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		# comparison
 		comp.tl2 <- tryCatch(expr={power.powerexp.lrt(power.d=power.law2, powerexp.d=trunc.law2)}, 
 				error=function(e) NA)
-		if(is.na(comp.tl2))
+		if(all(is.na(comp.tl2)))
 		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
@@ -612,7 +612,7 @@ test.disc.distr <- function(data, xlab=NA, return_stats=FALSE, sims=100, plot.fi
 		# comparison
 		comp.ys2 <- tryCatch(expr={vuong(zeta.yule.llr(x=data, zeta.d=power.law2, yule.d=yusim.law2))}, 
 				error=function(e) NA)
-		if(is.na(comp.ys2))
+		if(all(is.na(comp.ys2)))
 		{	msg <- paste0("ERROR: could not perform the comparison test");tlog(4,msg);msgs <- c(msgs, paste0("....",msg))
 		}
 		else
