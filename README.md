@@ -1,19 +1,19 @@
-NaNet
+NaNet v1.1.0
 =======
 *Extraction and analysis of character networks from bandes dessinées, comics, mangas, and such*
 
-* Copyright 2018-2023 Vincent Labatut 
+* Copyright 2018-2024 Vincent Labatut 
 
 NaNet is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation. For source availability and license information see `licence.txt`
 
 * Lab site: http://lia.univ-avignon.fr/
 * GitHub repo: https://github.com/CompNet/NaNet
-* Data: https://doi.org/10.5281/zenodo.6395874
+* Data: see below
 * Contact: Vincent Labatut <vincent.labatut@univ-avignon.fr>
 
 -----------------------------------------------------------------------
 
-If you use this source code or the associated dataset, please cite reference [[L'22](#references)]:
+If you use this source code or the associated *Thorgal* dataset, please cite reference [[L'22](#references)]:
 
 ```bibtex
 @Article{Labatut2022,
@@ -27,24 +27,27 @@ If you use this source code or the associated dataset, please cite reference [[L
   doi           = {10.1142/S0219525922400033},
 }
 ```
+If you use the *Game of Thrones* dataset, please cite reference [[A'24](#references)].
 
 
-# Description
-This set of R scripts aims at extracting and analyzing character networks extracted from graphic novels. It actually works on manually constituted CSV files, so in theory the work of fiction could be anything besides graphic novels, provided the input format is enforced.
+## Description
+This set of `R` scripts aims at extracting and analyzing character networks extracted from graphic novels. It actually works on manually constituted `CSV` files, so in theory the work of fiction could be any media, provided the input format is enforced.
 
-The script does the following:
-1. Extracts various networks based on some tabular data containing individual and relational information.
-2. Computes a number of statistics and generates the corresponding plots.
-3. Performs additional analysis of the networks.
+These scripts do the following:
+1. Extract various networks based on some tabular data containing individual and relational information.
+2. Compute a number of statistics and generate the corresponding plots.
+3. Perform additional analysis of the networks.
 
 
-# Data
-The raw dataset was manually constituted based on bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The output files (graphs, plots, tables...) can be obtained by running the scripts, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
+## Data
+The *Thorgal* raw dataset was manually constituted based on bande dessinée [Thorgal](https://en.wikipedia.org/wiki/Thorgal). The output files (graphs, plots, tables...) can be obtained by running script `Labatut2022.R`, but they are also directly available on [Zenodo](https://doi.org/10.5281/zenodo.6395874).
 
 ![ThorgalStaticNet](/data/Thorgal/network.svg)
 
+The *Game of Thrones* dataset was also manually constituted, based on the comics adaptation of G.R.R. Martin's [A Song of Ice and Fire](https://en.wikipedia.org/wiki/A_Song_of_Ice_and_Fire) novels. The output files can be obtained by running script `Amalvy2024.R`, or directly on [Zenodo](https://doi.org/10.5281/zenodo.13893061). Note that this data repository set also contains other data and results, corresponding to the processing described in article [[A'24](#references)].
 
-# Organization
+
+## Organization
 Here are the folders composing the project:
 * Folder `data`: contains the data used by the R scripts, as well as produced by them. Each subfolder corresponds to a different series, and has the same structure:
   * File `characters.csv`: list of characters, see example in folder `Test`.
@@ -66,10 +69,10 @@ The various narrative units used in the scripts are as follows:
 
 We also initially defined the notion of series (subseries), which could be a sequence of volumes, but did not need it in the end, and therefore the implementation is not complete for this narrative unit.
 
-In addition, for ASOIAF, we had to add another narrative unit to match the novels: chapters. A chapter is a part of a volume. It contains panels, pages and scenes (a scene cannot span several chapters, like for volumes), and belongs to a single volume and a single arc. 
+In addition, for *Game of Thrones*, we had to add another narrative unit to match the novels: chapters. A chapter is a part of a volume. It contains panels, pages and scenes (a scene cannot span several chapters, like for volumes), and belongs to a single volume and a single arc. 
 
 
-# Installation
+## Installation
 You first need to install `R` and the required packages:
 
 1. Install the [`R` language](https://www.r-project.org/)
@@ -85,19 +88,20 @@ A part of the analysis requires to compile some `C` code. The main instructions 
 3. `src/common/stats/pli/discpowerexp.R`: concerns the file in folder `\src/common/stats/pli/discpowerexp`.
 
 
-# Use
+## Use
 In order to extract the networks from the raw data, compute the statistics, and generate the plots:
-
 1. Open the `R` console.
 2. Set the current directory as the working directory, using `setwd("<my directory>")`.
-3. Run the main script `src/dev_main.R`.
+3. Run the appropriate main script located in `src`.
 
 The scripts will produce a number of files in the subfolders of folder `nets`. They are grouped in subsubfolders, each one corresponding to a specific topological measure (degree, closeness, etc.). 
 
-The script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)]. Please, use [v1.0.2](https://github.com/CompNet/NaNet/releases/tag/v1.0.2) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6573491). 
+Main script `src/Labatut2022.R` reproduces the computations described in article [[L'22](#references)] for the *Thorgal* data. Please, use [v1.0.2](https://github.com/CompNet/NaNet/releases/tag/v1.0.2) of the source code in the *Releases* page. Be warned that this will take a while (possibly several days). You can directly retrieve the data resulting from this process on [Zenodo](https://doi.org/10.5281/zenodo.6573491). 
+
+Main script `Amalvy2024.R` extracts the *Game of Thrones* comics networks used in article [[A'24](#references)]. You should use [v1.1.1](https://github.com/CompNet/NaNet/releases/tag/v1.1.0) of the source code to reproduce this processing. It is much faster than for the *Thorgal* data.
 
 
-# Dependencies
+## Dependencies
 Tested with `R` version 4.0.5, with the following packages:
 * [`blockmodeling`](https://cran.r-project.org/web/packages/blockmodeling/): version 1.0.5.
 * [`CINNA`](https://cran.r-project.org/web/packages/CINNA/): version 1.1.54.
@@ -109,7 +113,7 @@ Tested with `R` version 4.0.5, with the following packages:
 * [`future.apply`](https://cran.r-project.org/web/packages/future.apply/): version 1.6.0.
 * [`ggExtra`](https://cran.r-project.org/web/packages/ggExtra/): version 0.9.
 * [`ggplot2`](https://cran.r-project.org/web/packages/ggplot2/): version 3.3.3.
-* [`igraph`](http://igraph.org/r/) package: version 1.2.6.
+* [`igraph`](http://igraph.org/r/): version 1.2.6.
 * [`latex2exp`](https://cran.r-project.org/web/packages/latex2exp/): version 0.4.0.
 * [`minpack.lm`](https://cran.r-project.org/web/packages/minpack.lm/): version 1.2.1.
 * [`perm`](https://cran.r-project.org/web/packages/perm/): version 1.0.0.2.
@@ -123,9 +127,10 @@ Tested with `R` version 4.0.5, with the following packages:
 * [`viridis`](https://cran.r-project.org/web/packages/viridis/): version 0.6.0.
 
 
-# To-do List
+## To-do List
 * ...
 
 
-# References
-* **[L'22]** Labatut, V. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, Advances in Complex Systems, p.22400033, 2022.  [⟨hal-03694768⟩](https://hal.archives-ouvertes.fr/hal-03694768) - DOI: [10.1142/S0219525922400033](http://doi.org/10.1142/S0219525922400033)
+## References
+* **[A'24]** A. Amalvy, M. Janickyj, S. Mannion, P. MacCarron & V. Labatut. *Interconnected Kingdoms: Comparing 'A Song of Ice and Fire' Crossmedia Adaptations Using Complex Networks*, Social Network Analysis and Mining 14:199, 2024. ⟨[hal-04722579](https://hal.archives-ouvertes.fr/hal-04722579)⟩ - DOI: [10.1007/s13278-024-01365-z](http://doi.org/10.1007/s13278-024-01365-z)
+* **[L'22]** V. Labatut. *Complex Network Analysis of a Graphic Novel: The Case of the Bande Dessinée Thorgal*, Advances in Complex Systems 25(5&6):22400033, 2022. ⟨[hal-03694768](https://hal.archives-ouvertes.fr/hal-03694768)⟩ - DOI: [10.1142/S0219525922400033](http://doi.org/10.1142/S0219525922400033)

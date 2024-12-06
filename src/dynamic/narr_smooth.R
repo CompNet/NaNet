@@ -117,6 +117,7 @@ ns.normalization <- function(x, mu=0.01)
 ###############################################################################
 ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.stats, filtered=FALSE, pub.order=TRUE, char.det=NA)
 {	tlog(2, "Extracting a dynamic network using narrative smoothing")
+	narr.unit <- "scene"
 	
 	# NOTE: we could remove scenes with zero or one characters, but that does not change the outcome
 	
@@ -157,7 +158,8 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 	for(s in 1:length(scene.chars))
 	{	# create empty graph (no edge)
 		gt <- make_empty_graph(n=nrow(char.stats), directed=FALSE)
-		gt <- set_vertex_attr(graph=gt, name=COL_SCENE_ID, value=scene.stats[s,COL_SCENE_ID])
+		gt <- set_graph_attr(graph=gt, name=COL_SCENE_ID, value=scene.stats[s,COL_SCENE_ID])
+		gt$NarrUnit <- paste0(narr.unit,"_",scene.stats[s,COL_SCENE_ID])
 		# copy the vertex attributes of the static graph
 		for(att in atts)
 			gt <- set_vertex_attr(graph=gt, name=att, value=vertex_attr(graph=g, name=att))
@@ -308,7 +310,7 @@ ns.graph.extraction <- function(char.stats, scene.chars, scene.stats, volume.sta
 			}
 		}
 	}
-	tlog.end.loop(2,"Finished the both character loops")
+	tlog.end.loop(2,"Finished both character loops")
 	
 	return(res)
 }

@@ -34,7 +34,7 @@ char.stats <- data$char.stats
 scene.stats <- data$scene.stats
 scene.chars <- data$scene.chars
 volume.stats <- data$volume.stats
-scene.stats <- data$scene.stats
+volume.chars <- data$volume.chars
 
 # extract dynamic networks using narrative smoothing
 tlog(2,"Extracting dynamic networks (may take a while)")
@@ -79,9 +79,15 @@ for(narr.smooth in c(FALSE,TRUE))
 	for(pub.order in c(FALSE,TRUE))
 	{	# order folder
 		if(pub.order)
+		{	ord.vols <- 1:nrow(volume.stats)
 			ord.fold <- "publication"
+			ord.scenes <- 1:nrow(scene.stats)
+		}
 		else
+		{	ord.vols <- (1:nrow(volume.stats))[order(volume.stats[,COL_RANK])]
 			ord.fold <- "story"
+			ord.scenes <- (1:nrow(scene.stats))[order(scene.stats[,COL_RANK])]
+		}
 		tlog(8,"Processing chronological order: ",ord.fold)
 		
 		# scene range
@@ -252,8 +258,9 @@ for(narr.smooth in c(FALSE,TRUE))
 						
 						# compute data ranges
 						xlim <- range(sc.rg)
-						ylim <- range(sims[,p], na.rm=TRUE)
-						ylim[2] <- ylim[2]*1.1	# add some space for volume names
+						tmp <- sims[,p]
+						tmp <- tmp[!is.na(tmp)]
+						ylim <- evol.range.y(tmp, log.axis=FALSE)
 						
 						# produce file
 						for(fformat in PLOT_FORMAT)
@@ -271,7 +278,7 @@ for(narr.smooth in c(FALSE,TRUE))
 							)
 							# add volume representations
 							if(wide)
-								draw.volume.rects(ylim, volume.stats, narr.unit=narr.unit)
+								draw.volume.rects(ylim, unit.stats=scene.stats[ord.scenes,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 							# horizontal dotted line
 							if(names(sim.meas)[m]=="sim-pearson")
 								abline(h=0, lty=2)
@@ -303,8 +310,9 @@ for(narr.smooth in c(FALSE,TRUE))
 					
 					# compute data ranges
 					xlim <- range(sc.rg)
-					ylim <- range(c(sim.vals[["unfiltered"]][,p], sim.vals[["filtered"]][,p]), na.rm=TRUE)
-					ylim[2] <- ylim[2]*1.1	# add some space for volume names
+					tmp <- c(sim.vals[["unfiltered"]][,p], sim.vals[["filtered"]][,p])
+					tmp <- tmp[!is.na(tmp)]
+					ylim <- evol.range.y(tmp, log.axis=FALSE)
 					
 					# produce file
 					for(fformat in PLOT_FORMAT)
@@ -322,7 +330,7 @@ for(narr.smooth in c(FALSE,TRUE))
 						)
 						# add volume representations
 						if(wide)
-							draw.volume.rects(ylim, volume.stats, narr.unit=narr.unit)
+							draw.volume.rects(ylim, unit.stats=scene.stats[ord.scenes,], volume.stats=volume.stats[ord.vols,], narr.unit=narr.unit)
 						# add line
 						for(filt in c("unfiltered","filtered"))
 						{	if(filt=="unfiltered")

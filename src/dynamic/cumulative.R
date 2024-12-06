@@ -50,7 +50,7 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 	res <- list()
 	prev.unit <- NA
 	for(s in 1:length(gg))
-	{	#tlog(4,"Processing scene ",s,"/",length(gg))
+	{	tlog(4,"Processing scene ",s,"/",length(gg))
 		
 		# retrieve current scene graph
 		sc.g <- gg[[s]]
@@ -71,16 +71,33 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 		# very first graph of the sequence
 		if(s==1)
 		{	sc.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
+			sc.g <- delete_graph_attr(sc.g, COL_SCENE_ID)	# remove the scene id, now irrelevant
 			res[[1]] <- sc.g
 			prev.unit <- cur.unit
 		}
 		# rest of the sequence
 		else
 		{	cur.g <- prev.g <- res[[length(res)]]
+
+			# add new vertices to current graph
+			new.names <- setdiff(V(sc.g)$name, V(cur.g)$name)
+			if(length(new.names)>0)
+			{	attr <- vertex_attr_names(sc.g)
+				for(nm in new.names)
+				{	# retrieve vertex attributes
+					vals <- lapply(attr, function(a) vertex_attr(graph=sc.g,name=a,index=nm))
+					names(vals) <- attr
+					# add new vertex to current graph
+					cur.g <- add_vertices(graph=cur.g, nv=1, attr=vals)
+				}
+				cur.g <- permute(graph=cur.g, permutation=rank(V(cur.g)$name))
+			}
 			
 			# add current edges to previous graph
 			if(gsize(sc.g)>0)
 			{	el <- as_edgelist(graph=sc.g, names=TRUE)
+				
+				# update the edges and weights
 				for(e in 1:nrow(el))
 				{	#tlog(6,"e=",e," nrow(el)=",nrow(el))
 					# edge already exists: increment weights
@@ -104,9 +121,10 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 			# otherwise: store as new graph
 			else
 			{	# remove isolates in previous graph
-				prev.isolates <- which(degree(prev.g,mode="all")==0)
-				prev.g <- delete_vertices(graph=prev.g, v=prev.isolates)
-				res[[length(res)]] <- prev.g
+				# note: not needed anymore, as extract.static.graph.scenes now only returns the required vertices
+#				prev.isolates <- which(degree(prev.g,mode="all")==0)
+#				prev.g <- delete_vertices(graph=prev.g, v=prev.isolates)
+#				res[[length(res)]] <- prev.g
 				
 				# add new graph in the sequence
 				cur.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
@@ -117,16 +135,17 @@ cum.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats,
 		}
 	}
 	# remove isolates in last graph
-	last.g <- res[[length(res)]]
-	last.isolates <- which(degree(last.g,mode="all")==0)
-	last.g <- delete_vertices(graph=last.g, v=last.isolates)
-	res[[length(res)]] <- last.g
+	# note: not needed anymore, see remark above
+#	last.g <- res[[length(res)]]
+#	last.isolates <- which(degree(last.g,mode="all")==0)
+#	last.g <- delete_vertices(graph=last.g, v=last.isolates)
+#	res[[length(res)]] <- last.g
 	
 	# test: plot evolution of nbr of vertices
 #	v.nbr <- sapply(res, gorder)
 #	units <- 1:length(res)
 #	x.labels <- sapply(res, function(g) g$NarrUnit)
-#	plot(x=units, y=v.nbr, xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
+#	plot(x=units, y=v.nbr, type="l", xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
 #	axis(side=1, at=units, labels=x.labels, las=2)
 	
 	return(res)

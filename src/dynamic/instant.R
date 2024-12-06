@@ -57,6 +57,7 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 			
 			# retrieve current scene graph
 			sc.g <- gg[[s]]
+			sc.g <- delete_graph_attr(sc.g, COL_SCENE_ID)	# remove the scene id, irrelevant for larger narrative units
 			
 			# retrieve current narrative unit
 			sc.id <- gg[[s]]$SceneId
@@ -72,14 +73,15 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 			# first graph of a narrative unit
 			if(is.na(prev.unit) || prev.unit!=cur.unit)
 			{	# possibly remove isolates in previous graph
-				if(!is.na(prev.unit))
-				{	prev.g <- res[[length(res)]]
-					prev.isolates <- which(degree(prev.g,mode="all")==0)
-					prev.g <- delete_vertices(graph=prev.g, v=prev.isolates)
-					res[[length(res)]] <- prev.g
-				}
+				# note: not needed anymore, as extract.static.graph.scenes now only returns the required vertices
+#				if(!is.na(prev.unit))
+#				{	prev.g <- res[[length(res)]]
+#					prev.isolates <- which(degree(prev.g,mode="all")==0)
+#					prev.g <- delete_vertices(graph=prev.g, v=prev.isolates)
+#					res[[length(res)]] <- prev.g
+#				}
 				
-				# add current scene graph in the sequence
+				# add current instant graph in the sequence
 				sc.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
 				res[[length(res)+1]] <- sc.g
 				prev.unit <- cur.unit
@@ -88,6 +90,20 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 			# rest of the narrative unit
 			else
 			{	prev.g <- res[[length(res)]]
+				
+				# add new vertices to previous graph
+				new.names <- setdiff(V(sc.g)$name, V(prev.g)$name)
+				if(length(new.names)>0)
+				{	attr <- vertex_attr_names(sc.g)
+					for(nm in new.names)
+					{	# retrieve vertex attributes
+						vals <- lapply(attr, function(a) vertex_attr(graph=sc.g,name=a,index=nm))
+						names(vals) <- attr
+						# add new vertex to current graph
+						prev.g <- add_vertices(graph=prev.g, nv=1, attr=vals)
+					}
+					prev.g <- permute(graph=prev.g, permutation=rank(V(prev.g)$name))
+				}
 				
 				# add current edges to previous graph
 				if(gsize(sc.g)>0)
@@ -112,11 +128,13 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 				res[[length(res)]] <- prev.g
 			}
 		}
+		
 		# remove isolates in last graph
-		last.g <- res[[length(res)]]
-		last.isolates <- which(degree(last.g,mode="all")==0)
-		last.g <- delete_vertices(graph=last.g, v=last.isolates)
-		res[[length(res)]] <- last.g
+		# note: not needed anymore, see remark above
+#		last.g <- res[[length(res)]]
+#		last.isolates <- which(degree(last.g,mode="all")==0)
+#		last.g <- delete_vertices(graph=last.g, v=last.isolates)
+#		res[[length(res)]] <- last.g
 	}
 	
 	# no aggregation needed for scenes, as it is the smallest narrative unit
@@ -124,9 +142,11 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 	{	for(s in 1:length(gg))
 		{	# get current graph
 			sc.g <- gg[[s]]
+			
 			# add narrative unit attribute to graph
 			cur.unit <- gg[[s]]$SceneId
 			sc.g$NarrUnit <- paste0(narr.unit,"_",cur.unit)
+			
 			# add graph to list
 			res[[length(res)+1]] <- sc.g
 		}
@@ -136,7 +156,7 @@ inst.graph.extraction <- function(inter.df, char.stats, scene.chars, scene.stats
 #	v.nbr <- sapply(res, gorder)
 #	units <- 1:length(res)
 #	x.labels <- sapply(res, function(g) g$NarrUnit)
-#	plot(x=units, y=v.nbr, xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
+#	plot(x=units, y=v.nbr, type="l", xaxt="n", xlab=paste0(narr.unit,"s"), ylab="Vertices", col="RED")
 #	axis(side=1, at=units, labels=x.labels, las=2)
 	
 	return(res)

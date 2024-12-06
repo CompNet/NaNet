@@ -29,13 +29,16 @@ compute.graphical.params <- function(g=NA)
 	# set up layout
 	if(any(is.na(LAYOUT)))
 		setup.graph.layout(g0, NET_FOLDER)
+	
+## BLock 1
 #V(g0)$x <- LAYOUT[,1]
 #V(g0)$y <- LAYOUT[,2]
 #temp.file <- paste0(graph.file,".temp.graphml")
+#cat("Recording graph in \"",temp.file,"\"\n")
 #write.graph(g0,file=temp.file,format="graphml")
 	
-## this piece of script was once used to manually fine tune vertex positions with gephi
-#gg <- read_graph(temp.file,format="graphml")
+## Block 2
+#gg <- read.graphml.file(temp.file)
 #tab <- cbind(V(gg)$x, V(gg)$y)
 #ids <- as.integer(substr(V(gg)$id, 2, nchar(V(gg)$id)))
 #idx <- order(ids)

@@ -1,2 +1,0 @@
-- Summaries available online typically cover only the first 10 pages (25% of the book), so I had to complete them manually.
-- I solved all anaphora (nicknames, pronouns, etc.) by replacing with the full character names, in order to ease occurrence counting.

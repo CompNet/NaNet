@@ -30,10 +30,9 @@
 #   Π(k) has significant fluctuations, particularly for large k. To reduce 
 #   the noise level, instead of Π(k) we study the cumulative function."
 # My issue was the normalization bit. I experimented with two alternatives,
-# and kept the one that gives results with the Barabasi-Albert which are
-# consistent with the theory. The selected normalization was found in 
+# and kept the one that gives results with the Barabasi-Albert model which 
+# are consistent with the theory. The selected normalization was found in 
 # Newman's paper.
-# 
 #
 # Vincent Labatut
 # 01/2022

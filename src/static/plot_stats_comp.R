@@ -284,10 +284,11 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 		}
 	
 		# generate a plot for each window size value
+		tlog.start.loop(4,length(window.sizes),"Looping over window sizes")
 		for(i in 1:length(window.sizes))
 		{	# the series corresponds to the values of the overlap
 			window.size <- window.sizes[i]
-			tlog(5,"Dealing with window.size=",window.size)
+			tlog.loop(5,i,"Dealing with window.size=",window.size)
 			values <- load.static.nodelink.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=meas.name %in% cmn)
 			values <- lapply(values, function(v) v[!is.na(v)])
 			values <- c(seg.vals, values)
@@ -380,10 +381,13 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 				dev.off()
 			}
 		}
+		tlog.end.loop(4,"Loop over window sizes finished")
 		
 		# generate a plot for each overlap value appearing at least twice
-		for(overlap in common.overlaps)
-		{	tlog(5,"Dealing with overlap=",overlap)
+		tlog.start.loop(4,length(common.overlaps),"Looping over overlaps")
+		for(o in 1:length(common.overlaps))
+		{	overlap <- common.overlaps[o]
+			tlog.loop(5,o,"Dealing with overlap=",overlap)
 			
 			# the series corresponds to the values of the window sizes
 			idx <- sapply(overlaps, function(vect) overlap %in% vect)
@@ -474,6 +478,7 @@ generate.static.plots.single <- function(mode, char.det=NA, window.sizes, overla
 					dev.off()
 			}
 		}
+		tlog.end.loop(4,"Loop over overlaps finished")
 	}
 }
 
@@ -1032,14 +1037,17 @@ generate.static.plots.ranks <- function(mode, char.det=NA, window.sizes, overlap
 		for(w in 1:length(ww))
 		{	
 			# loop over window size values
+			tlog.start.loop(4,length(window.sizes),"Looping over window sizes")
 			for(i in 1:length(window.sizes))
 			{	window.size <- window.sizes[i]
+				tlog.loop(5,i,"Dealing with window.size=",window.size)
 				lst.values <- load.static.nodelink.stats.by.window(mode=mode, char.det=char.det, window.size=window.size, overlaps=overlaps[[i]], measure=meas.name, weights=weights, filtered=filt.txt, compare=FALSE)
 				
 				# loop over each corresponding overlap value
+				tlog.start.loop(5,length(overlaps[[i]]),"Looping over available overlaps")
 				for(j in 1:length(overlaps[[i]]))
 				{	overlap <- overlaps[[i]][j]
-					tlog(5,"Dealing with window.size=",window.size," and overlap=",overlap," vs. weights=",ww[w])
+					tlog.loop(6,j,"Dealing with window.size=",window.size," and overlap=",overlap," vs. weights=",ww[w])
 					values <- lst.values[[j]]
 					ranks <- rank(values, ties.method="min")
 					
@@ -1069,7 +1077,9 @@ generate.static.plots.ranks <- function(mode, char.det=NA, window.sizes, overlap
 							dev.off()
 					}
 				}
+				tlog.end.loop(5,"Loop over available overlaps finished")
 			}
+			tlog.end.loop(4,"Loop over window sizes finished")
 		}
 	}
 }

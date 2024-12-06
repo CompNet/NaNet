@@ -1,0 +1,1438 @@
+Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
+AGOT01	3	1	4	5	Will_1.3	Waymar Royce	Gared
+AGOT01	5	1	5	2	Will_1.3	Waymar Royce
+AGOT01	5	3	5	3	Will_1.3
+AGOT01	5	4	5	4	Waymar Royce
+AGOT01	5	5	6	1	Waymar Royce	Other_1.5
+AGOT01	7	1	8	4	Will_1.3	Waymar Royce	Other_1.5	3 others_1.7
+AGOT01	8	5	9	2	Will_1.3
+AGOT01	9	3	9	5	Will_1.3	Waymar Royce
+AGOT01	10	1	11	1	Bran Stark	Robb Stark	Jon Snow	Eddard Stark	Gared	Theon Greyjoy	Stark soldiers_1.10	Jory Cassel
+AGOT01	11	2	11	4	Bran Stark	Robb Stark	Jon Snow	Eddard Stark	Theon Greyjoy	Stark soldiers_1.10	Jory Cassel
+AGOT01	12	1	12	1	Bran Stark	Robb Stark	Jon Snow	Eddard Stark	Theon Greyjoy	Stark soldiers_1.10	Jory Cassel
+AGOT01	12	2	12	2	Bran Stark	Robb Stark	Jon Snow
+AGOT01	12	3	13	3	Bran Stark	Eddard Stark
+AGOT01	13	4	13	4	Bran Stark	Robb Stark	Jon Snow	Eddard Stark
+AGOT01	13	5	13	5	Bran Stark	Eddard Stark	Jory Cassel
+AGOT01	14	1	17	5	Bran Stark	Robb Stark	Jon Snow	Eddard Stark	Theon Greyjoy	Stark soldiers_1.10	Grey Wind	Summer	Lady	Nymeria	Shaggydog	Jory Cassel
+AGOT01	18	1	18	1	Jon Snow	Eddard Stark	Stark soldiers_1.10
+AGOT01	18	2	18	2	Jon Snow
+AGOT01	18	3	18	4	Jon Snow	Eddard Stark	Ghost
+AGOT01	18	5	18	6	Jon Snow	Eddard Stark	Ghost	Theon Greyjoy
+AGOT01	19	1	23	5	Eddard Stark	Catelyn Stark
+AGOT01	24	1	25	5	Daenerys Targaryen	Viserys Targaryen
+AGOT01	26	1	26	2	Daenerys Targaryen
+AGOT01	26	3	28	5	Daenerys Targaryen	Slaves_1.26
+AGOT01	27	2	27	2	Rhaegar Targaryen	Lyanna Stark	Robert Baratheon
+AGOT01	27	3	27	3	Tywin Lannister	Eddard Stark
+AGOT01	27	4	27	4	Jaime Lannister	Aerys Targaryen
+AGOT01	28	2	28	2
+AGOT01	28	3	28	3	Willem Darry	Daenerys Targaryen	Viserys Targaryen
+AGOT01	28	4	28	4	Daenerys Targaryen	Viserys Targaryen
+AGOT01	29	1	29	2	Daenerys Targaryen	Viserys Targaryen	Illyrio Mopatis
+AGOT01	29	3	29	4	Daenerys Targaryen	Viserys Targaryen	Illyrio Mopatis	Illyrio's men_1.29
+AGOT01	30	1	31	3	Daenerys Targaryen	Viserys Targaryen	Illyrio Mopatis	Illyrio's men_1.29	Drogo's men_30.1	Drogo	Jorah Mormont
+AGOT02	3	1	3	1	King's soldiers_2.1	Kingsguards_2.3
+AGOT02	4	1	4	2	Robert Baratheon	Eddard Stark	Kingsguards_2.3
+AGOT02	4	3	4	4	Robert Baratheon	Eddard Stark	Cersei Lannister
+AGOT02	4	5	4	5	Robert Baratheon	Eddard Stark	Cersei Lannister	Jaime Lannister
+AGOT02	5	1	7	2	Robert Baratheon	Eddard Stark
+AGOT02	7	3	7	3	Lyanna Stark	Eddard Stark
+AGOT02	7	4	11	3	Robert Baratheon	Eddard Stark
+AGOT02	11	4	11	4	Eddard Stark
+AGOT02	12	1	12	2	Jon Snow	Theon Greyjoy	Robert Baratheon	Eddard Stark	Cersei Lannister	Catelyn Stark	Guests_2.12
+AGOT02	13	1	13	5	Jon Snow	Ghost
+AGOT02	14	1	16	4	Jon Snow	Ghost	Benjen Stark
+AGOT02	16	5	16	5	Jon Snow	Ghost	Benjen Stark	Guests_2.12
+AGOT02	16	6	16	6	Jon Snow	Ghost	Waitress_2.16	Guests_2.12
+AGOT02	17	1	21	1	Jon Snow	Ghost	Tyrion Lannister
+AGOT02	22	1	24	3	Eddard Stark	Catelyn Stark
+AGOT02	24	4	25	1	Eddard Stark	Catelyn Stark	Servant_2.24
+AGOT02	25	2	26	6	Eddard Stark	Catelyn Stark	Maester Luwin
+AGOT02	27	1	30	5	Eddard Stark	Catelyn Stark	Maester Luwin
+AGOT02	31	1	31	1	Jon Snow	Ghost
+AGOT03	3	1	5	5	Sansa Stark	Arya Stark	Septa Mordane	Beth Cassel	Myrcella Baratheon	Maiden_3.3
+AGOT03	6	1	6	2	Sansa Stark
+AGOT03	6	3	6	4	Sansa Stark	Lady
+AGOT03	7	1	7	1	Sansa Stark	Lady	Servant_3.6
+AGOT03	7	2	7	4	Sansa Stark	Lady	Jon Snow	Ghost
+AGOT03	8	1	10	1	Bran Stark	Robb Stark	Joffrey Baratheon	Tommen Baratheon	Theon Greyjoy	Rodrik Cassel	Guards_3.8	Sandor Clegane	Sansa Stark	Jon Snow
+AGOT03	10	2	10	4	Sansa Stark	Jon Snow
+AGOT03	11	1	11	2	Bran Stark	Summer
+AGOT03	11	3	13	1	Bran Stark
+AGOT03	13	2	16	1	Bran Stark	Cersei Lannister	Jaime Lannister
+AGOT03	17	1	17	2	Tyrion Lannister	Summer
+AGOT03	17	3	18	6	Tyrion Lannister	Joffrey Baratheon	Sandor Clegane
+AGOT03	19	1	19	1	Tyrion Lannister
+AGOT03	19	2	21	4	Tyrion Lannister	Maid_3.19	Cersei Lannister	Jaime Lannister	Myrcella Baratheon	Tommen Baratheon
+AGOT03	21	5	21	5	Summer
+AGOT03	22	1	22	5	Tyrion Lannister	Maid_3.19	Cersei Lannister	Jaime Lannister	Myrcella Baratheon	Tommen Baratheon
+AGOT03	23	1	23	6	Tyrion Lannister	Jaime Lannister
+AGOT03	24	1	28	4	Daenerys Targaryen	Drogo	Viserys Targaryen	Dothrakis_3.24	Illyrio Mopatis	Irri	Jhiqui	Doreah	Jorah Mormont
+AGOT03	28	5	28	6	Daenerys Targaryen	Drogo
+AGOT03	29	1	31	5	Daenerys Targaryen	Drogo
+AGOT04	3	1	3	3	Jon Snow	Ghost
+AGOT04	3	4	6	6	Jon Snow	Ghost	Catelyn Stark	Bran Stark
+AGOT04	7	1	7	1	Robb Stark	Grey Wind	Jon Snow	Ghost	Servants_4.7
+AGOT04	7	2	7	6	Robb Stark	Grey Wind	Jon Snow	Ghost
+AGOT04	8	1	9	6	Arya Stark	Nymeria	Jon Snow	Ghost
+AGOT04	10	1	14	4	Robert Baratheon	Eddard Stark
+AGOT04	11	4	11	4	Jorah Mormont	Daenerys Targaryen
+AGOT04	14	1	14	1	Robert Baratheon	Jaime Lannister	Soldiers_4.11
+AGOT04	15	1	15	2	Jon Snow	Tyrion Lannister	Benjen Stark	Soldiers_4.15	Yoren	Ghost
+AGOT04	15	3	19	6	Jon Snow	Tyrion Lannister	Ghost
+AGOT04	17	3	17	3	Benjen Stark	Soldiers_4.15	Yoren
+AGOT04	20	1	21	1	Bran Stark	Catelyn Stark	Maester Luwin
+AGOT04	21	2	21	3	Robb Stark	Bran Stark	Catelyn Stark	Maester Luwin
+AGOT04	21	4	22	1	Robb Stark	Bran Stark	Catelyn Stark
+AGOT04	22	2	23	5	Robb Stark	Bran Stark	Catelyn Stark	Summer	Shaggydog	Grey Wind
+AGOT04	23	6	23	6	Catelyn Stark	Bran Stark
+AGOT04	24	1	26	2	Catelyn Stark	Bran Stark	Catspaw assassin_4.24
+AGOT04	26	3	26	4	Catelyn Stark	Bran Stark	Catspaw assassin_4.24	Summer
+AGOT04	26	5	27	3	Catelyn Stark	Bran Stark	Summer
+AGOT04	28	1	31	3	Catelyn Stark	Robb Stark	Theon Greyjoy	Rodrik Cassel
+AGOT04	31	4	31	4	Bran Stark	Summer
+AGOT05	3	1	4	5	Nymeria	Arya Stark	Lady	Sansa Stark
+AGOT05	5	1	6	1	Cersei Lannister	Sansa Stark	Lady	Sandor Clegane	Renly Baratheon	Barristan Selmy	Villagers_5.5	Ilyn Payne
+AGOT05	6	2	6	3	Cersei Lannister	Sansa Stark	Lady	Sandor Clegane	Renly Baratheon	Barristan Selmy	Villagers_5.5	Ilyn Payne	Joffrey Baratheon
+AGOT05	6	4	7	6	Cersei Lannister	Sansa Stark	Lady	Renly Baratheon	Barristan Selmy	Villagers_5.5	Ilyn Payne	Joffrey Baratheon
+AGOT05	8	1	8	2	Cersei Lannister	Sansa Stark	Lady	Renly Baratheon	Joffrey Baratheon	Villagers_5.5
+AGOT05	8	3	8	5	Sansa Stark	Lady	Joffrey Baratheon	Villagers_5.5
+AGOT05	9	1	9	3	Sansa Stark	Joffrey Baratheon
+AGOT05	9	4	9	4	Sansa Stark	Joffrey Baratheon	Farmers_5.9
+AGOT05	9	5	9	5	Sansa Stark	Joffrey Baratheon
+AGOT05	9	6	12	5	Sansa Stark	Joffrey Baratheon	Arya Stark	Mycah	Nymeria
+AGOT05	13	1	13	2	Catelyn Stark	Rodrik Cassel	Stark soldier_5.13	Crowd_5.13
+AGOT05	14	1	14	3	Catelyn Stark	Rodrik Cassel
+AGOT05	14	4	14	4	Catelyn Stark	Petyr Baelish	Brandon Stark
+AGOT05	14	5	14	5	Catelyn Stark	Rodrik Cassel	Stark soldier_5.13	Clients_5.14
+AGOT05	15	1	15	1	Catelyn Stark
+AGOT05	15	2	15	5	Catelyn Stark	Gold cloaks_5.15
+AGOT05	16	1	17	1	Catelyn Stark	Petyr Baelish
+AGOT05	17	2	19	6	Catelyn Stark	Petyr Baelish	Lord Varys
+AGOT05	20	1	20	2	Eddard Stark	Jory Cassel
+AGOT05	20	3	20	3	Eddard Stark	Jory Cassel
+AGOT05	21	1	24	6	Cersei Lannister	Robert Baratheon	Joffrey Baratheon	Eddard Stark	Arya Stark	Guards_5.21	Sansa Stark	Lady	Jory Cassel
+AGOT05	25	1	25	5	Robert Baratheon	Jory Cassel	Lady
+AGOT05	26	1	26	3	Robert Baratheon	Jory Cassel	Sandor Clegane
+AGOT05	27	1	28	4	Bran Stark	Brynden Rivers
+AGOT05	28	3	28	3	Bran Stark	Jaime Lannister	Cersei Lannister
+AGOT05	29	1	29	1	Bran Stark	Brynden Rivers	Hodor	Robb Stark
+AGOT05	29	2	29	2	Bran Stark	Brynden Rivers	Rodrik Cassel
+AGOT05	29	3	29	3	Bran Stark	Brynden Rivers	Catelyn Stark
+AGOT05	29	4	29	4	Bran Stark	Brynden Rivers	Cersei Lannister	Robert Baratheon	Joffrey Baratheon	Eddard Stark	Arya Stark	Guards_5.21	Sansa Stark	Lady	Jory Cassel
+AGOT05	29	5	29	5	Bran Stark	Brynden Rivers	Ghost	Jon Snow
+AGOT05	29	6	30	4	Bran Stark	Brynden Rivers
+AGOT05	31	1	31	3	Bran Stark	Summer	Maid_5.31
+AGOT05	31	4	31	5	Bran Stark	Summer	Robb Stark
+AGOT06	3	1	4	4	Jon Snow	Grenn Aurochs	Alliser Thorne	Todder Toad	Halder Stone Head	Pypar Pyp Monkey
+AGOT06	5	1	5	4	Jon Snow	Grenn Aurochs	Todder Toad	Halder Stone Head	Pypar Pyp Monkey
+AGOT06	6	1	6	1	Jon Snow	Grenn Aurochs	Todder Toad	Halder Stone Head	Pypar Pyp Monkey	Donal Noye
+AGOT06	6	2	7	3	Jon Snow	Donal Noye
+AGOT06	7	4	7	5	Jon Snow
+AGOT06	8	1	8	4	Jon Snow	Tyrion Lannister
+AGOT06	8	5	9	1	Jon Snow	Tyrion Lannister	Alliser Thorne
+AGOT06	9	2	9	2	Jon Snow	Benjen Stark	Night's watch soldiers_6.9
+AGOT06	9	3	9	3	Jon Snow	Benjen Stark
+AGOT06	9	4	10	1	Jon Snow	Tyrion Lannister	Alliser Thorne
+AGOT06	10	2	10	2	Jon Snow	Night's watch soldiers_6.10
+AGOT06	10	3	10	6	Jon Snow	Jeor Mormont
+AGOT06	11	1	12	4	Jon Snow	Grenn Aurochs	Alliser Thorne	Todder Toad	Halder Stone Head	Pypar Pyp Monkey	Tyrion Lannister	Yoren
+AGOT06	13	1	13	2	Eddard Stark	Servant_6.12
+AGOT06	13	3	15	6	Eddard Stark	Petyr Baelish	Lord Varys	Maester Pycelle	Renly Baratheon
+AGOT06	16	1	17	1	Eddard Stark	Petyr Baelish
+AGOT06	17	2	17	3	Eddard Stark	Petyr Baelish	Rodrik Cassel
+AGOT06	17	4	17	4	Eddard Stark	Petyr Baelish	Prostitutes_6.17	Clients_6.17
+AGOT06	18	1	20	2	Eddard Stark	Petyr Baelish	Catelyn Stark
+AGOT06	20	3	20	4	Eddard Stark	Catelyn Stark
+AGOT06	21	1	22	1	Daenerys Targaryen	Jorah Mormont	Dothrakis_6.21	Jhogo
+AGOT06	22	2	22	2	Daenerys Targaryen	Jorah Mormont	Dothrakis_6.21	Viserys Targaryen	Jhogo
+AGOT06	22	3	22	3	Daenerys Targaryen	Jorah Mormont
+AGOT06	22	4	22	4	Daenerys Targaryen
+AGOT06	23	1	23	1	Daenerys Targaryen
+AGOT06	23	2	23	2	Daenerys Targaryen
+AGOT06	23	3	23	3	Daenerys Targaryen
+AGOT06	23	4	24	3	Daenerys Targaryen	Viserys Targaryen
+AGOT06	24	4	25	3	Daenerys Targaryen	Viserys Targaryen	Jhogo	Dothrakis_6.21	Jorah Mormont
+AGOT06	23	4	27	6	Daenerys Targaryen	Jorah Mormont
+AGOT06	28	1	28	1	Viserys Targaryen	Dothrakis_6.21
+AGOT06	28	2	29	3	Daenerys Targaryen	Irri	Jhiqui	Doreah
+AGOT06	28	4	28	4	Daenerys Targaryen
+AGOT06	29	2	29	2
+AGOT06	29	4	30	5	Daenerys Targaryen	Drogo
+AGOT06	31	1	31	1	Daenerys Targaryen	Irri	Jhiqui	Jhogo	Dothrakis_6.21
+AGOT06	31	2	31	4	Daenerys Targaryen	Jhiqui
+AGOT07	3	1	4	2	Alliser Thorne	Tyrion Lannister	Jeor Mormont	Night's watch men_7.3	Donal Noye	Maester Aemon	Bowen Marsh
+AGOT07	4	3	5	5	Tyrion Lannister	Jeor Mormont	Night's watch men_7.3	Donal Noye	Maester Aemon	Bowen Marsh
+AGOT07	6	1	7	4	Tyrion Lannister	Jeor Mormont
+AGOT07	7	5	7	5	Tyrion Lannister
+AGOT07	8	1	8	1
+AGOT07	9	1	9	2	Tyrion Lannister
+AGOT07	9	3	9	4	Tyrion Lannister	2 Night's watch men_7.9
+AGOT07	9	5	11	6	Tyrion Lannister	Jon Snow	Ghost
+AGOT07	12	1	13	4	Eddard Stark	Jory Cassel	Arya Stark	Septa Mordane	Sansa Stark	Crowd_7.12
+AGOT07	13	5	14	2	Jory Cassel	Arya Stark	Septa Mordane	Sansa Stark	Crowd_7.12
+AGOT07	14	3	14	3	Arya Stark	Servant_7.14
+AGOT07	14	4	15	1	Arya Stark
+AGOT07	15	2	18	5	Arya Stark	Eddard Stark
+AGOT07	17	3	17	3	Arya Stark	Nymeria
+AGOT07	19	1	20	6	Arya Stark	Syrio Forel
+AGOT07	21	1	21	1	Rickon Stark	Bran Stark	Grey Wind	Shaggydog	Summer
+AGOT07	21	2	22	6	Bran Stark	Old Nan
+AGOT07	23	1	23	1	Others_7.23.1
+AGOT07	23	2	23	2	Villagers_7.23	Others_7.23.2
+AGOT07	23	3	23	3	Children of the forest_7.23
+AGOT07	23	4	23	4	Last Hero	Last Hero's companions_7.23
+AGOT07	24	1	24	1	Last Hero	Last Hero's companions_7.23
+AGOT07	24	2	24	2	Last Hero
+AGOT07	24	3	24	3	Others_7.24
+AGOT07	24	4	24	5	Bran Stark	Old Nan	Hodor	Maester Luwin
+AGOT07	25	1	28	2	Robb Stark	Tyrion Lannister	Hodor	Maester Luwin	Bran Stark	Stark soldiers_7.25	Theon Greyjoy	Yoren
+AGOT07	28	3	29	5	Robb Stark	Tyrion Lannister	Hodor	Maester Luwin	Bran Stark	Stark soldiers_7.25	Theon Greyjoy	Grey Wind	Shaggydog	Summer	Rickon Stark	Yoren
+AGOT07	30	1	30	6	Bran Stark	Hodor	Summer
+AGOT08	3	1	3	2	Maester Pycelle	Eddard Stark	Maid_8.3
+AGOT08	3	3	3	3	Maester Pycelle	Eddard Stark
+AGOT08	3	4	3	4	Maester Pycelle	Eddard Stark	Maid_8.3
+AGOT08	3	5	5	5	Maester Pycelle	Eddard Stark
+AGOT08	6	1	6	1
+AGOT08	6	2	7	5	Eddard Stark	Arya Stark
+AGOT08	8	1	8	1	Eddard Stark	Servant_8.8
+AGOT08	8	2	8	2	Eddard Stark	Petyr Baelish
+AGOT08	8	3	8	3	Eddard Stark	Petyr Baelish	Barristan Selmy	Soldier_8.8
+AGOT08	8	4	10	1	Eddard Stark	Petyr Baelish
+AGOT08	9	4	9	4	Hugh of the Vale
+AGOT08	10	2	10	2	Eddard Stark	Petyr Baelish	3 soldiers_8.10
+AGOT08	10	3	10	3	Eddard Stark	Petyr Baelish	Soldier_8.10
+AGOT08	10	4	11	5	Eddard Stark	Petyr Baelish
+AGOT08	12	1	12	1	Jon Snow	Grenn Aurochs
+AGOT08	12	2	16	1	Jon Snow	Grenn Aurochs	Alliser Thorne	Pypar Pyp Monkey	Halder Stone Head	Samwell Tarly	Albett Pimple	Rast Rat
+AGOT08	16	2	16	6	Jon Snow	Grenn Aurochs	Pypar Pyp Monkey	Samwell Tarly
+AGOT08	17	1	17	1	Jon Snow
+AGOT08	17	2	17	2	Tyrion Lannister
+AGOT08	17	3	17	3	Jon Snow
+AGOT08	17	4	17	4	Jon Snow	Samwell Tarly	Ghost	Night's watch men_8.17
+AGOT08	18	1	18	6	Jon Snow	Samwell Tarly	Ghost
+AGOT08	19	1	19	1
+AGOT08	19	2	19	2	Samwell Tarly	Cook_8.19	Randyll Tarly
+AGOT08	19	3	19	3	Samwell Tarly	Tarly's master-at-arm_8.19
+AGOT08	19	4	19	4	Samwell Tarly	Qarth warlocks_8.19
+AGOT08	19	5	19	5	Samwell Tarly	Randyll Tarly	Dickon Tarly	Melessa Florent
+AGOT08	20	1	20	1	Samwell Tarly	Randyll Tarly	3 Tarly soldiers_8.20
+AGOT08	20	2	20	3	Samwell Tarly	Randyll Tarly	3 Tarly soldiers_8.20
+AGOT08	20	4	20	5	Jon Snow	Samwell Tarly	Ghost
+AGOT08	21	1	21	6	Jon Snow	Grenn Aurochs	Pypar Pyp Monkey	Halder Stone Head	Albett Pimple	Rast Rat	Todder Toad	Night's watch recruits_8.21
+AGOT08	22	1	22	4	Rast Rat	Jon Snow	Grenn Aurochs	Pypar Pyp Monkey
+AGOT08	22	5	22	5	Samwell Tarly	Night's watch recruits_8.22
+AGOT08	23	1	23	1	Samwell Tarly	Grenn Aurochs	Pypar Pyp Monkey	Night's watch recruits_8.21
+AGOT08	23	2	23	4	Samwell Tarly	Jon Snow
+AGOT08	24	1	24	4	Renly Baratheon	Eddard Stark	Lord Varys	Maester Pycelle	Petyr Baelish	Janos Slynt
+AGOT08	25	1	25	2	Renly Baratheon	Eddard Stark	Lord Varys	Maester Pycelle	Petyr Baelish
+AGOT08	25	3	25	3	Eddard Stark
+AGOT08	25	4	27	4	Eddard Stark	Jory Cassel
+AGOT08	28	1	28	1	Eddard Stark	Stark man_28.1	Crowd_8.28
+AGOT08	29	1	29	1	Eddard Stark	Stark man_28.1	Tobho Mott
+AGOT08	29	2	29	4	Eddard Stark	Tobho Mott
+AGOT08	30	1	30	5	Eddard Stark	Tobho Mott	Gendry	Blacksmiths_8.30
+AGOT08	31	1	31	3	Eddard Stark	Stark man_28.1
+AGOT08	31	4	31	4	Robert Baratheon	Gendry
+AGOT09	3	1	3	2	Catelyn Stark	Rodrik Cassel
+AGOT09	3	3	3	5	Catelyn Stark	Rodrik Cassel	Jason Mallister	Patrek Mallister	Mallister men_9.3
+AGOT09	4	1	4	1	Innkeeper_9.4	Catelyn Stark	Rodrik Cassel
+AGOT09	4	2	4	3	Catelyn Stark	Rodrik Cassel
+AGOT09	4	4	5	2	Catelyn Stark	Rodrik Cassel	Marillion	Clients_9.4
+AGOT09	5	3	6	3	Catelyn Stark	Rodrik Cassel	Marillion	Clients_9.4	Tyrion Lannister	Lannister men_9.5	Yoren
+AGOT09	6	4	7	5	Catelyn Stark	Rodrik Cassel	Marillion	Clients_9.4	Tyrion Lannister	Lannister men_9.5	Yoren	Bracken men_9.6	Whent men_9.6	Frey men_9.6
+AGOT09	8	1	8	1	Sansa Stark	Septa Mordane	Jeyne Poole	Crowd_9.8
+AGOT09	9	1	9	1	Jaime Lannister	Andar Royce
+AGOT09	9	2	9	2	Renly Baratheon	Sandor Clegane
+AGOT09	9	3	9	3	Thoros of Myr	Beric Dondarrion
+AGOT09	10	1	10	3	Gregor Clegane	Knight from the Vale_9.10	Sansa Stark	Septa Mordane	Jeyne Poole	Crowd_9.8
+AGOT09	10	4	10	4	Loras Tyrell
+AGOT09	11	1	11	1	Sansa Stark	Loras Tyrell	Waymar Royce	Crowd_9.8	Septa Mordane	Jeyne Poole
+AGOT09	11	2	11	3	Sansa Stark	Loras Tyrell	Crowd_9.8	Septa Mordane	Jeyne Poole
+AGOT09	11	4	12	3	Sansa Stark	Petyr Baelish	Crowd_9.8	Septa Mordane	Jeyne Poole
+AGOT09	12	4	12	4	Crowd_9.8
+AGOT09	13	1	13	1	Joffrey Baratheon	Cersei Lannister	Jaime Lannister	Robert Baratheon	Renly Baratheon	Septa Mordane	Sansa Stark
+AGOT09	13	2	13	4	Joffrey Baratheon	Sansa Stark
+AGOT09	13	4	13	4	Cersei Lannister	Jaime Lannister	Robert Baratheon	Renly Baratheon
+AGOT09	13	5	14	3	Cersei Lannister	Jaime Lannister	Robert Baratheon	Renly Baratheon
+AGOT09	14	4	14	4	Robert Baratheon	Renly Baratheon	Joffrey Baratheon	Sansa Stark
+AGOT09	14	5	14	5	Joffrey Baratheon	Sansa Stark	Septa Mordane
+AGOT09	15	1	15	4	Joffrey Baratheon	Sandor Clegane	Sansa Stark
+AGOT09	15	5	19	4	Sansa Stark	Sandor Clegane
+AGOT09	18	2	18	2	Gregor Clegane	Sandor Clegane
+AGOT09	18	4	18	4	Gregor Clegane	Rhaegar Targaryen
+AGOT09	20	1	20	2	Barristan Selmy	Eddard Stark
+AGOT09	20	3	20	3	Barristan Selmy	Eddard Stark	2 Septas_9.20
+AGOT09	20	4	20	4	Barristan Selmy	Eddard Stark	Baratheon men_9.20
+AGOT09	21	1	21	4	Barristan Selmy	Eddard Stark	Robert Baratheon	Robert's squires_9.21
+AGOT09	21	5	22	5	Barristan Selmy	Eddard Stark	Robert Baratheon
+AGOT09	23	1	23	6	Eddard Stark	Robert Baratheon
+AGOT09	24	1	24	5	Jaime Lannister	Sandor Clegane	Robert Baratheon	Crowd_9.24	Sansa Stark	Petyr Baelish	Renly Baratheon	Eddard Stark
+AGOT09	25	1	25	1	Eddard Stark	Sansa Stark	Loras Tyrell
+AGOT09	25	2	25	2	Gregor Clegane	Clegane's squire_9.25
+AGOT09	25	3	27	6	Sandor Clegane	Robert Baratheon	Crowd_9.24	Sansa Stark	Petyr Baelish	Renly Baratheon	Eddard Stark	Gregor Clegane	Loras Tyrell
+AGOT09	28	1	28	2	Eddard Stark	Petyr Baelish
+AGOT09	28	3	28	3	Thoros of Myr	Knights_9.28
+AGOT09	29	1	29	1	Eddard Stark
+AGOT09	29	2	29	3	Eddard Stark	Jory Cassel
+AGOT09	29	4	29	4	Eddard Stark	Jory Cassel	Lord Varys
+AGOT09	29	5	31	5	Eddard Stark	Lord Varys
+AGOT10	3	1	4	4	Catelyn Stark	Rodrik Cassel	Marillion	Clients_9.4	Tyrion Lannister	Lannister men_9.5	Yoren	Bracken men_9.6	Whent men_9.6	Frey men_9.6	Innkeeper_9.4	Bronn
+AGOT10	5	1	7	1	Catelyn Stark	Rodrik Cassel	Marillion	Tyrion Lannister	Sellswords_10.5	Bronn
+AGOT10	7	2	8	3	Catelyn Stark	Tyrion Lannister	Sellswords_10.5
+AGOT10	8	4	8	4	Catelyn Stark	Tyrion Lannister	Sellswords_10.5	Rodrik Cassel	Marillion	Bronn	Clansmen_10.8
+AGOT10	9	1	9	6	Catelyn Stark	Tyrion Lannister	Sellswords_10.5	Rodrik Cassel	Marillion	Bronn
+AGOT10	10	1	12	5	Catelyn Stark	Tyrion Lannister	Sellswords_10.5	Rodrik Cassel	Marillion	Bronn	Clansmen_10.8
+AGOT10	13	1	13	5	Catelyn Stark	Tyrion Lannister	Sellswords_10.5	Rodrik Cassel	Marillion	Bronn
+AGOT10	13	6	13	6	Tyrion Lannister	Catelyn Stark
+AGOT10	14	1	14	3	Arya Stark	Cat_10.14
+AGOT10	14	4	15	2	Arya Stark	Cat_10.14	Septa Eglantine	Tommen Baratheon	Myrcella Baratheon	Guard_10.14	Godwyn
+AGOT10	15	3	16	1	Arya Stark	Septa Eglantine	Tommen Baratheon	Myrcella Baratheon	Guard_10.14	Godwyn
+AGOT10	16	2	16	3	Arya Stark	Guard_10.14	Godwyn
+AGOT10	16	4	16	4	Arya Stark	Guard_10.14	Godwyn	Maid_10.16
+AGOT10	17	1	20	2	Arya Stark
+AGOT10	20	3	21	6	Arya Stark	Lord Varys	Illyrio Mopatis
+AGOT10	22	1	22	1	Arya Stark
+AGOT10	22	2	22	5	Arya Stark	Eddard Stark
+AGOT10	23	1	23	1	Arya Stark	Eddard Stark	Jory Cassel
+AGOT10	23	2	23	5	Arya Stark	Eddard Stark	Jory Cassel	Yoren
+AGOT10	24	1	24	5	Arya Stark	Jory Cassel
+AGOT10	25	1	28	5	Robert Baratheon	Eddard Stark	Maester Pycelle	Barristan Selmy	Renly Baratheon	Lord Varys	Petyr Baelish
+AGOT10	29	1	29	4	Eddard Stark	Jory Cassel
+AGOT10	30	1	30	2	Eddard Stark
+AGOT10	30	3	31	4	Eddard Stark	Jory Cassel	Petyr Baelish
+AGOT11	3	1	4	3	Donnel Waynwood	Catelyn Stark	Rodrik Cassel	Marillion	Tyrion Lannister	Sellswords_10.5	Bronn	Waynwood men_11.3
+AGOT11	5	1	5	5	Donnel Waynwood	Catelyn Stark	Rodrik Cassel	Marillion	Tyrion Lannister	Sellswords_10.5	Bronn	Waynwood men_11.3	Brynden Tully
+AGOT11	6	1	6	3	Donnel Waynwood	Catelyn Stark	Rodrik Cassel	Marillion	Tyrion Lannister	Sellswords_10.5	Bronn	Waynwood men_11.3	Brynden Tully
+AGOT11	7	1	8	4	Catelyn Stark	Brynden Tully
+AGOT11	7	6	7	6	Robert Arryn
+AGOT11	8	3	8	3	Lysa Arryn
+AGOT11	8	5	8	5	Catelyn Stark	Brynden Tully	Tyrion Lannister
+AGOT11	8	6	8	6	Catelyn Stark	Brynden Tully
+AGOT11	9	1	9	1
+AGOT11	10	1	10	2	Brynden Tully	Tyrion Lannister
+AGOT11	10	3	11	4	Catelyn Stark	Nestor Royce	Mya Stone	Brynden Tully	Tyrion Lannister	Bronn
+AGOT11	12	1	12	3	Catelyn Stark	Mya Stone
+AGOT11	12	4	12	4	Catelyn Stark	Mya Stone
+AGOT11	13	1	13	1	Knight_11.13	Stablehands_11.13	Catelyn Stark
+AGOT11	13	2	13	2	Catelyn Stark	Mya Stone
+AGOT11	13	3	13	3	Catelyn Stark	Mya Stone
+AGOT11	13	4	13	4	Catelyn Stark	Mya Stone
+AGOT11	14	1	16	2	Catelyn Stark	Mya Stone
+AGOT11	16	3	16	3	Catelyn Stark	Mya Stone	Guards_11.16
+AGOT11	16	4	16	4	Catelyn Stark	Mya Stone
+AGOT11	17	1	17	3	Catelyn Stark	Vardis Egen
+AGOT11	18	1	18	3	Catelyn Stark	Lysa Arryn	Vardis Egen	Maid_11.18
+AGOT11	18	4	18	5	Catelyn Stark	Lysa Arryn
+AGOT11	19	1	21	4	Catelyn Stark	Lysa Arryn	Robert Arryn
+AGOT11	22	1	24	3	Daenerys Targaryen	Dothrakis_11.22	Jorah Mormont	Viserys Targaryen
+AGOT11	24	4	25	5	Daenerys Targaryen	Jorah Mormont
+AGOT11	26	1	27	1	Dothrakis_11.26	Daenerys Targaryen	Jorah Mormont
+AGOT11	27	2	27	5	Daenerys Targaryen	Irri	Doreah
+AGOT11	28	1	30	3	Daenerys Targaryen	Doreah	Viserys Targaryen
+AGOT11	30	4	30	5	Daenerys Targaryen	Doreah
+AGOT11	31	1	31	3	Daenerys Targaryen
+AGOT12	3	1	4	1	Robb Stark	Bran Stark	Theon Greyjoy	Stark men_12.3	Maester Luwin
+AGOT12	4	2	4	2	Robb Stark	Bran Stark	Theon Greyjoy	Stark men_12.3	Villagers_12.4	Maester Luwin
+AGOT12	4	3	4	4	Robb Stark	Bran Stark	Theon Greyjoy	Stark men_12.3	Villagers_12.4	Kyra	Maester Luwin
+AGOT12	4	5	5	3	Robb Stark	Bran Stark	Theon Greyjoy	Stark men_12.3	Maester Luwin
+AGOT12	5	4	5	4	Robb Stark	Bran Stark
+AGOT12	6	1	6	1	Robb Stark	Bran Stark	Grey Wind	Summer
+AGOT12	6	2	6	3	Robb Stark	Bran Stark
+AGOT12	6	4	6	4	Bran Stark
+AGOT12	6	5	8	4	Bran Stark	Stiv	Wallen	Osha	Hali
+AGOT12	9	1	11	4	Bran Stark	Stiv	Wallen	Osha	Hali	Robb Stark	Grey Wind	Summer
+AGOT12	11	5	11	6	Bran Stark	Stiv	Wallen	Osha	Robb Stark	Grey Wind	Summer
+AGOT12	12	1	12	5	Bran Stark	Stiv	Osha	Robb Stark	Grey Wind	Summer
+AGOT12	12	6	13	1	Bran Stark	Stiv	Osha	Robb Stark	Grey Wind	Summer	Theon Greyjoy	Stark men_12.3	Maester Luwin
+AGOT12	13	2	14	5	Bran Stark	Osha	Robb Stark	Grey Wind	Summer	Theon Greyjoy	Stark men_12.3	Maester Luwin
+AGOT12	15	1	16	5	Tyrion Lannister	Robert Arryn	Lysa Arryn	Catelyn Stark	Vardis Egen	Arryn men_12.15
+AGOT12	17	1	17	2	Tyrion Lannister
+AGOT12	17	3	19	2	Tyrion Lannister	Mord
+AGOT12	19	3	19	5	Tyrion Lannister
+AGOT12	19	6	20	5	Tyrion Lannister	Mord
+AGOT12	21	1	24	5	Tyrion Lannister	Lysa Arryn	Catelyn Stark	Vardis Egen	Arryn men_12.21	Marillion	Bronn
+AGOT12	25	1	25	5	Eddard Stark	Barra	Chataya's prostitute_12.25
+AGOT12	26	1	26	1	Eddard Stark	Jory Cassel	Petyr Baelish	Stark men_12.26	Prostitutes_12.26
+AGOT12	26	2	26	4	Eddard Stark	Petyr Baelish	Jory Cassel
+AGOT12	27	1	28	5	Eddard Stark	Petyr Baelish	Jory Cassel	Lannister men_12.27	Jaime Lannister
+AGOT12	29	1	30	5	Eddard Stark	Jory Cassel	Lannister men_12.27	Jaime Lannister
+AGOT12	31	1	31	1	Eddard Stark
+AGOT13	3	1	4	2	Eddard Stark	Arthur Dayne	Oswell Whent	Gerold Hightower	Howland Reed	5 Stark men_13.3
+AGOT13	4	3	4	3	Eddard Stark	Howland Reed	Lyanna Stark
+AGOT13	4	4	5	4	Eddard Stark	Alyn
+AGOT13	6	1	7	5	Eddard Stark	Robert Baratheon	Cersei Lannister
+AGOT13	8	1	9	5	Eddard Stark	Robert Baratheon
+AGOT13	10	1	11	3	Jon Snow	Alliser Thorne	Todder Toad	Grenn Aurochs	Albett Pimple	Matthar	Night's watch recruits_13.10	Samwell Tarly	Pypar Pyp Monkey	Halder Stone Head
+AGOT13	11	4	11	4	Jon Snow	Samwell Tarly	Samwell Tarly
+AGOT13	12	1	12	1	Hobb Three-Finger	Jon Snow	Todder Toad	Grenn Aurochs	Albett Pimple	Matthar	Halder Stone Head	Pypar Pyp Monkey	Jeor Mormont	Alliser Thorne
+AGOT13	12	2	12	5	Jon Snow	Todder Toad	Grenn Aurochs	Albett Pimple	Matthar	Halder Stone Head	Pypar Pyp Monkey
+AGOT13	13	1	13	4	Jon Snow	Pypar Pyp Monkey
+AGOT13	14	1	15	4	Jon Snow	Ghost
+AGOT13	16	1	16	4	Jon Snow	Chett
+AGOT13	17	1	18	5	Jon Snow	Chett	Maester Aemon
+AGOT13	19	1	20	4	Catelyn Stark	Rodrik Cassel
+AGOT13	20	5	21	2	Catelyn Stark	Brynden Tully
+AGOT13	21	3	23	2	Catelyn Stark	Brynden Tully	Tully men_13.21	Lysa Arryn	Vale noblemen_13.21	Eon Hunter	Rodrik Cassel
+AGOT13	23	3	23	3	Catelyn Stark	Rodrik Cassel
+AGOT13	23	4	23	4	Catelyn Stark	Maester Luwin	Robert Arryn	Puppeteer_13.23	Maester Colemon
+AGOT13	23	5	24	1	Catelyn Stark	Maester Luwin	Maester Colemon
+AGOT13	24	2	24	3	Catelyn Stark	Brynden Tully	Tully men_13.21	Lysa Arryn	Vale noblemen_13.21	Eon Hunter	Rodrik Cassel	Maester Colemon	Tyrion Lannister
+AGOT13	25	1	25	5	Catelyn Stark	Brynden Tully	Tully men_13.21	Lysa Arryn	Vale noblemen_13.21	Eon Hunter	Rodrik Cassel	Maester Colemon	Tyrion Lannister	Vardis Egen	Bronn	Septon_13.24
+AGOT13	26	1	26	4	Brandon Stark	Catelyn Stark	Petyr Baelish
+AGOT13	27	1	30	4	Catelyn Stark	Brynden Tully	Tully men_13.21	Lysa Arryn	Vale noblemen_13.21	Eon Hunter	Rodrik Cassel	Maester Colemon	Tyrion Lannister	Vardis Egen	Bronn	Septon_13.24
+AGOT13	30	5	31	3	Catelyn Stark	Brynden Tully	Tully men_13.21	Lysa Arryn	Vale noblemen_13.21	Eon Hunter	Rodrik Cassel	Maester Colemon	Tyrion Lannister	Bronn	Septon_13.24
+AGOT14	3	1	8	4	Eddard Stark	Lord Varys	Joss	Girl_13.3	Maester Pycelle	Petyr Baelish	Renly Baratheon	Karyl Vance	Marq Piper	Raymun Darry	Loras Tyrell	Beric Dondarrion	Thoros of Myr	Gladden Wylde	Lothar Frey	Alyn	Ilyn Payne
+AGOT14	8	5	9	2	Eddard Stark	Lord Varys	Ilyn Payne
+AGOT14	9	3	9	3	Eddard Stark	Lord Varys
+AGOT14	9	4	9	4	Ilyn Payne
+AGOT14	10	1	10	6	Sansa Stark	Septa Mordane	Petyr Baelish
+AGOT14	11	1	11	4	Sansa Stark	Jeyne Poole
+AGOT14	11	3	11	3	Jeyne Poole	Arya Stark
+AGOT14	11	5	11	5	Sansa Stark	Jeyne Poole
+AGOT14	12	1	12	1	Sansa Stark	Beric Dondarrion	Thoros of Myr	Gladden Wylde	Lothar Frey	Soldiers_13.12
+AGOT14	12	2	13	5	Sansa Stark	Arya Stark	Septa Mordane
+AGOT14	14	1	15	6	Eddard Stark	Sansa Stark	Arya Stark
+AGOT14	16	1	19	5	Tyrion Lannister	Bronn
+AGOT14	20	1	21	6	Tyrion Lannister	Bronn
+AGOT14	20	4	20	4	Tyrion Lannister	Tysha
+AGOT14	20	6	20	6	Tyrion Lannister	Tysha
+AGOT14	21	2	21	2	Tyrion Lannister	Tysha
+AGOT14	21	4	21	4	Tyrion Lannister	Tysha	Tywin Lannister
+AGOT14	22	1	24	4	Tyrion Lannister	Bronn	Shagga	Gunthor	Conn	Torrek	Jaggot	Clansmen_13.22
+AGOT14	25	1	26	2	Petyr Baelish	Eddard Stark
+AGOT14	26	3	26	3	Eddard Stark
+AGOT14	26	4	26	4	Joffrey Baratheon
+AGOT14	26	5	26	5	Eddard Stark
+AGOT14	27	1	27	1
+AGOT14	27	2	27	3	Eddard Stark
+AGOT14	28	1	31	4	Eddard Stark	Cersei Lannister
+AGOT15	3	1	7	5	Samwell Tarly	Jon Snow	Septon Cellador	Jeor Mormont	Todder Toad	Grenn Aurochs	Albett Pimple	Matthar	Night's watch men_15.3	Pypar Pyp Monkey	Halder Stone Head	Dareon	Alliser Thorne	Maester Aemon
+AGOT15	8	1	8	6	Samwell Tarly	Jon Snow
+AGOT15	9	1	11	4	Samwell Tarly	Jon Snow	Ghost	Night's watch men_15.8
+AGOT15	12	1	12	2	Eddard Stark
+AGOT15	12	3	12	4	Eddard Stark	Alyn
+AGOT15	13	1	13	1	Barristan Selmy	Eddard Stark	2 Kingsguards_15.13
+AGOT15	13	2	14	1	Eddard Stark	Robert Baratheon	Renly Baratheon	Cersei Lannister	Maester Pycelle
+AGOT15	14	2	15	6	Eddard Stark	Robert Baratheon
+AGOT15	16	1	17	1	Eddard Stark	Renly Baratheon	Lord Varys	Barristan Selmy
+AGOT15	17	2	17	4	Eddard Stark	Renly Baratheon
+AGOT15	18	1	18	1
+AGOT15	18	2	18	3	Eddard Stark	Alyn
+AGOT15	18	4	18	4	Eddard Stark
+AGOT15	19	1	21	4	Eddard Stark	Petyr Baelish
+AGOT15	22	1	23	5	Daenerys Targaryen	Drogo	Dothrakis_15.22	4 crones
+AGOT15	24	1	24	1	Daenerys Targaryen	Drogo	4 crones
+AGOT15	24	2	24	3	Daenerys Targaryen	Drogo
+AGOT15	24	4	24	4	Daenerys Targaryen	Drogo	Dothrakis_15.22	4 crones
+AGOT15	25	1	25	2	Daenerys Targaryen	Drogo	Dothrakis_15.22
+AGOT15	25	3	25	4	Daenerys Targaryen	Jorah Mormont
+AGOT15	26	1	27	3	Daenerys Targaryen	Jorah Mormont
+AGOT15	27	4	27	4	Daenerys Targaryen	Jorah Mormont	Doreah
+AGOT15	27	5	27	5	Viserys Targaryen	Dothrakis_15.27
+AGOT15	28	1	28	5	Viserys Targaryen	Dothrakis_15.27	Jorah Mormont	Drogo
+AGOT15	29	1	29	4	Viserys Targaryen	Daenerys Targaryen	Jorah Mormont	Dothrakis_15.27
+AGOT15	30	1	31	3	Viserys Targaryen	Daenerys Targaryen	Jorah Mormont	Dothrakis_15.27	Drogo
+AGOT16	3	1	3	2	Eddard Stark	Lannister men_16.3	Sandor Clegane
+AGOT16	4	1	5	2	Arya Stark	Sansa Stark	Septa Mordane	Eddard Stark
+AGOT16	5	3	5	6	Eddard Stark	Maester Pycelle	Alyn
+AGOT16	6	1	7	3	Eddard Stark	Barristan Selmy	Lord Varys	Petyr Baelish	Maester Pycelle
+AGOT16	7	4	7	5	Eddard Stark	Barristan Selmy	Lord Varys	Petyr Baelish	Maester Pycelle	Alyn	King's stewart_16.7
+AGOT16	8	1	8	1	Soldiers_16.8
+AGOT16	8	2	8	2	Soldiers_16.8	Eddard Stark	Barristan Selmy	Lord Varys	Petyr Baelish	Maester Pycelle	Janos Slynt
+AGOT16	9	1	12	4	Soldiers_16.8	Eddard Stark	Barristan Selmy	Lord Varys	Petyr Baelish	Maester Pycelle	Cersei Lannister	Joffrey Baratheon	Janos Slynt	Sandor Clegane	Alyn
+AGOT16	13	1	15	5	Arya Stark	Syrio Forel
+AGOT16	15	1	15	2	Sealord_16.15	Syrio Forel
+AGOT16	16	1	19	1	Arya Stark	Syrio Forel	Meryn Trant	Lannister men_16.16
+AGOT16	19	2	19	7	Syrio Forel	Meryn Trant
+AGOT16	20	1	20	1	Maids_16.20	Arya Stark
+AGOT16	20	2	20	2	Arya Stark
+AGOT16	20	3	20	3	Arya Stark
+AGOT16	20	4	20	4	Arya Stark
+AGOT16	21	1	21	3	Arya Stark
+AGOT16	21	4	22	4	Arya Stark	Stableboy_16.21
+AGOT16	23	1	23	3	Arya Stark
+AGOT16	23	4	23	5	Arya Stark	Gold cloaks_16.23
+AGOT16	24	1	24	3	Arya Stark	Gold cloaks_16.23	Crowd_16.24
+AGOT16	24	4	25	5	Arya Stark
+AGOT16	26	1	26	2	Sansa Stark	Jeyne Poole
+AGOT16	26	3	26	4	Sansa Stark	Jeyne Poole	Boros Blount
+AGOT16	27	1	31	1	Sansa Stark	Boros Blount	Cersei Lannister	Lord Varys	Petyr Baelish	Maester Pycelle
+AGOT16	31	2	31	3	Sansa Stark
+AGOT16	31	4	31	4	Arya Stark
+AGOT17	3	1	6	4	Wight / Othor	Wight / Jafer Flowers	Night's watch men_17.3	Jon Snow	Samwell Tarly	Jeor Mormont
+AGOT17	7	1	7	1	Wight / Othor	Wight / Jafer Flowers	Night's watch men_17.3	Jon Snow	Samwell Tarly	Jeor Mormont
+AGOT17	7	2	7	3	Samwell Tarly	Jeor Mormont
+AGOT17	8	1	8	1	Jeor Mormont	Night's watch men_17.3
+AGOT17	8	2	8	2	Night's watch men_17.3	Jon Snow
+AGOT17	8	3	9	5	Jeor Mormont	Jon Snow
+AGOT17	10	1	10	1	Jon Snow	Night's watch man_17.10
+AGOT17	10	2	10	2	Jon Snow	Samwell Tarly	Grenn Aurochs	Night's watch men_17.10
+AGOT17	10	3	10	6	Alliser Thorne	Jon Snow	Samwell Tarly	Grenn Aurochs	Night's watch men_17.10
+AGOT17	11	1	11	3	Jon Snow	Jeor Mormont	Ghost
+AGOT17	11	4	12	3	Jon Snow	Ghost
+AGOT17	12	4	14	4	Jon Snow	Ghost	Wight / Othor
+AGOT17	15	1	15	5	Jon Snow	Ghost	Wight / Othor	Jeor Mormont
+AGOT17	16	1	16	1	Bran Stark	Hodor	Maester Luwin	Karstark men_17.16
+AGOT17	16	2	16	4	Bran Stark	Hodor	Maester Luwin
+AGOT17	16	5	17	4	Bran Stark	Hodor	Summer
+AGOT17	17	5	17	5	Bran Stark	Summer
+AGOT17	18	1	18	1	Robb Stark	Maege Mormont
+AGOT17	18	2	18	3	Robb Stark	Jon Umber	Grey Wind	Maege Mormont	Stark men_17.18
+AGOT17	18	4	18	5	Robb Stark	Bran Stark
+AGOT17	18	6	19	1	Bran Stark	Summer
+AGOT17	19	1	19	6	Bran Stark	Summer	Osha
+AGOT17	20	1	20	6	Bran Stark	Summer	Osha	Hodor
+AGOT17	20	4	20	4	Osha's brother_17.20	3 giants_17.20
+AGOT17	20	7	21	6	Bran Stark	Summer	Osha
+AGOT17	21	3	21	3	Wight_17.21
+AGOT17	21	4	21	4	2 Others_17.21
+AGOT17	22	1	22	4	Bran Stark	Hodor	Stark men_17.22	Rickard Karstark	Harrion Karstark	Torrhen Karstark	Maester Luwin
+AGOT17	23	1	23	6	Bran Stark	Maester Luwin
+AGOT17	24	1	24	3	Robb Stark	Bran Stark	Grey Wind	Summer
+AGOT17	24	4	24	4	Robb Stark	Robb's men_17.24
+AGOT17	25	1	25	5	Daenerys Targaryen	Drogo
+AGOT17	26	1	26	6	Daenerys Targaryen	Jorah Mormont	Jhiqui
+AGOT17	27	1	27	4	Daenerys Targaryen	Jorah Mormont	Jhiqui	Guards_17.27	Rakharo
+AGOT17	28	1	29	6	Daenerys Targaryen	Jorah Mormont	Jhiqui	Guards_17.27	Wine merchant_17.28	Rakharo
+AGOT17	30	1	30	3	Daenerys Targaryen	Jorah Mormont
+AGOT17	30	4	30	5	Daenerys Targaryen
+AGOT17	31	1	31	1	Drogo
+AGOT17	31	2	31	4	Drogo	Daenerys Targaryen	Jorah Mormont	Rakharo
+AGOT18	3	1	4	1	Catelyn Stark	Wendel Manderly	Wylis Manderly	Manderly men_18.3	Brynden Tully
+AGOT18	5	1	5	4	Catelyn Stark	Brynden Tully
+AGOT18	6	1	7	2	Catelyn Stark	Wendel Manderly	Wylis Manderly	Brynden Tully	Robb Stark	Jon Umber	Roose Bolton	Theon Greyjoy	Soldiers_18.6
+AGOT18	7	3	13	5	Catelyn Stark	Robb Stark	Grey Wind
+AGOT18	8	2	8	2	Brynden Tully	Jon Umber	Roose Bolton
+AGOT18	10	4	10	4	Marq Piper	Karyl Vance	Jaime Lannister
+AGOT18	11	1	11	2	Tywin Lannister	Lannister men_18.11
+AGOT18	12	5	12	5	Walder Frey
+AGOT18	14	1	14	3	Jalabhar Xho	Aron Santagar	Balon Swann	Dontos Hollard	Kingsguard_18.14	Crowd_18.14	Sansa Stark	Lord Varys	Petyr Baelish	Maester Pycelle	Janos Slynt
+AGOT18	15	1	19	6	Jalabhar Xho	Aron Santagar	Balon Swann	Dontos Hollard	Kingsguard_18.14	Crowd_18.14	Sansa Stark	Lord Varys	Petyr Baelish	Maester Pycelle	Janos Slynt	Barristan Selmy	Cersei Lannister	Joffrey Baratheon
+AGOT18	20	1	20	3	Jalabhar Xho	Aron Santagar	Balon Swann	Dontos Hollard	Kingsguard_18.14	Crowd_18.14	Sansa Stark	Lord Varys	Petyr Baelish	Maester Pycelle	Janos Slynt	Cersei Lannister	Joffrey Baratheon
+AGOT18	20	4	23	4	Jalabhar Xho	Aron Santagar	Balon Swann	Dontos Hollard	Kingsguard_18.14	Crowd_18.14	Sansa Stark	Lord Varys	Petyr Baelish	Maester Pycelle	Janos Slynt	Cersei Lannister	Sandor Clegane	Joffrey Baratheon
+AGOT18	24	1	24	2	Eddard Stark
+AGOT18	24	3	25	3	Eddard Stark	Jailer_18.24
+AGOT18	25	4	27	5	Eddard Stark
+AGOT18	26	2	26	3	Robert Baratheon	Eddard Stark
+AGOT18	26	4	26	4	Eddard Stark	Petyr Baelish
+AGOT18	26	5	26	5	Eddard Stark	Rhaegar Targaryen
+AGOT18	27	1	27	1	Lyanna Stark	Rhaegar Targaryen
+AGOT18	27	2	27	4	Lyanna Stark	Eddard Stark
+AGOT18	28	1	31	6	Eddard Stark	Lord Varys
+AGOT18	31	3	31	4	Rhaenys Targaryen
+AGOT19	3	1	4	5	Shagga	Timett	Chella	Crawn	Tyrion Lannister	Bronn
+AGOT19	5	1	5	4	Tyrion Lannister	Bronn	Shagga	Chella	Conn	Ulf the Ill	Timett
+AGOT19	6	1	7	4	Tyrion Lannister	Bronn	Shagga	Chella	Conn	Ulf the Ill	Timett	Flement Brax	Lannister men_19.6
+AGOT19	8	1	11	5	Tyrion Lannister	Kevan Lannister	Tywin Lannister
+AGOT19	11	6	14	1	Shagga	Timett	Chella	Crawn	Tyrion Lannister	Bronn	Kevan Lannister	Tywin Lannister	Lannister guard_19.11
+AGOT19	14	2	14	3	Shagga	Timett	Chella	Crawn	Tyrion Lannister	Bronn	Kevan Lannister	Tywin Lannister	Lannister guard_19.11	Lannister man_19.14
+AGOT19	14	4	15	6	Shagga	Timett	Chella	Crawn	Tyrion Lannister	Bronn	Kevan Lannister	Tywin Lannister
+AGOT19	16	1	18	3	Robb's host_19.16	Catelyn Stark	Robb Stark	Theon Greyjoy
+AGOT19	19	1	19	1	Robb's host_19.16
+AGOT19	19	2	19	4	Catelyn Stark	Robb Stark
+AGOT19	20	1	20	5	Stevron Frey	Frey men_19.20	Catelyn Stark	Robb Stark	Roose Bolton	Wylis Manderly
+AGOT19	21	1	22	5	Stevron Frey	Frey men_19.20	Catelyn Stark	Walder Frey	Frey's court_19.21	Joyeuse Erenford
+AGOT19	23	1	27	5	Catelyn Stark	Walder Frey
+AGOT19	24	4	24	4	Tywin Lannister
+AGOT19	28	1	28	4	Catelyn Stark	Stark men_19.28	Robb Stark
+AGOT19	28	5	30	1	Catelyn Stark	Robb Stark
+AGOT19	30	2	30	2	Robb's host_19.16	Catelyn Stark	Robb Stark	Theon Greyjoy	Roose Bolton	Wylis Manderly
+AGOT20	3	1	3	1	Daenerys Targaryen	Irri	Jhiqui	Doreah	Dothrakis_20.3	Jhogo
+AGOT20	4	1	4	1	Drogo
+AGOT20	4	2	4	2	Daenerys Targaryen
+AGOT20	4	3	4	3	Daenerys Targaryen	Dothraki_20.4.1	Ogo's khalasar_20.4
+AGOT20	4	4	4	4	Daenerys Targaryen	Dothraki_20.4.2	Villagers_20.4
+AGOT20	5	1	5	1	Dothrakis_20.3	Prisonner_20.5
+AGOT20	5	2	5	5	Daenerys Targaryen	Jorah Mormont	Dothraki_20.4.2
+AGOT20	6	1	6	1	Rapists_20.6	Victim_20.6
+AGOT20	6	2	6	5	Rapists_20.6	Victim_20.6	Daenerys Targaryen	Jorah Mormont
+AGOT20	7	1	7	3	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Doreah
+AGOT20	7	4	9	4	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Doreah	Rapists_20.6	Victim_20.6
+AGOT20	10	1	11	1	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Dothrakis_20.9	Villagers_20.9
+AGOT20	11	2	11	3	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Drogo	Qotho
+AGOT20	11	4	13	3	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Drogo	Qotho	Mago
+AGOT20	13	4	13	4	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Drogo	Qotho	Mago	Prisonners_20.11	Mirri Maz Duur
+AGOT20	14	1	16	5	Mirri Maz Duur	Daenerys Targaryen	Jorah Mormont	Jhogo	Quaro	Irri	Jhiqui	Drogo	Qotho	Prisonners_20.11
+AGOT20	17	1	18	6	Mirri Maz Duur	Daenerys Targaryen	Drogo	Qotho	Jhogo
+AGOT20	19	1	24	3	Jeor Mormont	Jon Snow
+AGOT20	21	1	21	1	Jon Snow	Samwell Tarly
+AGOT20	22	4	22	4	Wight / Othor
+AGOT20	24	4	24	4	Jon Snow	Donal Noye
+AGOT20	25	1	26	4	Jon Snow	Grenn Aurochs	Pypar Pyp Monkey	Todder Toad	Halder Stone Head	Night's watch men_20.25
+AGOT20	26	3	26	3	Wight / Jafer Flowers	Night's watch man_20.26
+AGOT20	26	5	26	5	Wight / Othor
+AGOT20	27	1	27	4	Jon Snow	Ghost
+AGOT20	27	2	27	2	Jon Snow	Eddard Stark
+AGOT20	27	5	28	5	Jon Snow	Ghost	Samwell Tarly
+AGOT20	29	1	31	6	Jon Snow	Maester Aemon
+AGOT21	3	1	4	7	Tyrion Lannister	Kevan Lannister	Tywin Lannister
+AGOT21	5	1	5	1	Tyrion Lannister	Lannister men_21.5
+AGOT21	5	2	5	2	Tyrion Lannister	Clansmen_21.5
+AGOT21	5	3	7	3	Tyrion Lannister	Bronn	Shae
+AGOT21	7	4	9	4	Tyrion Lannister	Shae
+AGOT21	10	1	10	2	Tyrion Lannister	Shae
+AGOT21	10	3	10	5	Tyrion Lannister	Shae	Bronn	Tyrion's squire_21.10
+AGOT21	11	1	11	4	Clansmen_21.11	Tyrion Lannister	Bronn	Shagga	Lannister men_21.11
+AGOT21	12	1	13	4	Clansmen_21.11	Tyrion Lannister	Bronn	Shagga	Lannister men_21.11	Stark men_21.12
+AGOT21	13	5	14	3	Tyrion Lannister	Bronn	Lannister men_21.11
+AGOT21	15	1	15	2	Tyrion Lannister	Kevan Lannister	Tywin Lannister
+AGOT21	15	3	15	5	Tyrion Lannister	Kevan Lannister	Tywin Lannister	Messenger_21.15
+AGOT21	16	1	16	5	Catelyn Stark	Stark men_21.16
+AGOT21	17	1	17	1	Robb Stark	Catelyn Stark
+AGOT21	17	2	17	3	Robb Stark	Stark men_21.16
+AGOT21	17	4	17	5	Catelyn Stark	Stark men_21.16
+AGOT21	18	1	18	2	Catelyn Stark	Jaime Lannister
+AGOT21	18	3	18	3	Catelyn Stark	Maege Mormont	Grey Wind
+AGOT21	18	4	18	4	Catelyn Stark	Robb Stark	Stark men_21.16	Grey Wind
+AGOT21	18	5	21	1	Catelyn Stark	Robb Stark	Stark men_21.16	Jaime Lannister	Wylis Manderly	Theon Greyjoy
+AGOT21	21	2	22	4	Catelyn Stark	Robb Stark	Theon Greyjoy
+AGOT21	23	1	23	1	Arya Stark	Crowd_21.23.1
+AGOT21	23	2	23	3	Arya Stark	Street merchant_21.23
+AGOT21	23	4	23	5	Arya Stark	Crowd_21.23.2	Gold cloaks_21.23
+AGOT21	23	6	23	6	Arya Stark
+AGOT21	24	1	24	2	Arya Stark	Sailor_21.24
+AGOT21	24	3	24	6	Arya Stark	Guards_21.24
+AGOT21	25	1	25	1	Arya Stark	Crowd_21.25.1
+AGOT21	25	2	25	5	Arya Stark	Crowd_21.25.2	Whore_21.25
+AGOT21	26	1	26	2	Arya Stark	Crowd_21.26.1
+AGOT21	26	3	26	4	Arya Stark	Crowd_21.26.2
+AGOT21	27	1	28	6	Arya Stark	Crowd_21.26.2	Eddard Stark	Gold cloaks_21.27	Joffrey Baratheon	High Septon_27.1	Cersei Lannister	Ilyn Payne	Petyr Baelish	Sansa Stark
+AGOT21	29	1	29	5	Arya Stark	Yoren
+AGOT21	29	2	29	6	Crowd_21.26.2	Eddard Stark	Gold cloaks_21.27	Joffrey Baratheon	High Septon_27.1	Cersei Lannister	Ilyn Payne	Petyr Baelish	Sansa Stark
+AGOT21	30	1	30	1	Crowd_21.26.2	Gold cloaks_21.27	Joffrey Baratheon	High Septon_27.1	Cersei Lannister	Ilyn Payne	Petyr Baelish	Sansa Stark
+AGOT22	3	1	3	2	Sansa Stark
+AGOT22	4	1	4	5	Sansa Stark
+AGOT22	4	2	4	4	Sansa Stark	Ilyn Payne
+AGOT22	5	1	8	2	Sansa Stark	Joffrey Baratheon	Sandor Clegane	Meryn Trant
+AGOT22	8	3	8	5	Sansa Stark	Sandor Clegane
+AGOT22	9	1	9	4	Sansa Stark	Bedmaids_22.9
+AGOT22	9	5	10	4	Sansa Stark	Meryn Trant
+AGOT22	11	1	11	1	Sansa Stark	Meryn Trant	Joffrey Baratheon	Cersei Lannister	Maester Pycelle	Lord Varys	Petyr Baelish	Janos Slynt
+AGOT22	12	1	17	4	Sansa Stark	Meryn Trant	Joffrey Baratheon	Sandor Clegane
+AGOT22	18	1	19	4	Daenerys Targaryen	Drogo	Haggo	Qotho
+AGOT22	20	1	20	1	Slaves_22.19	Dothrakis_22.19
+AGOT22	20	2	20	5	Daenerys Targaryen	Drogo	Doreah	Irri	Jhiqui	Haggo
+AGOT22	21	1	21	1	Daenerys Targaryen	Drogo	Doreah	Irri	Jhiqui	Haggo	Jorah Mormont
+AGOT22	21	2	21	5	Daenerys Targaryen	Drogo	Jorah Mormont
+AGOT22	22	1	22	4	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur	Haggo	Qotho	Drogo	Cohollo
+AGOT22	23	1	24	6	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur
+AGOT22	24	1	24	1	Mirri Maz Duur	Bloodmage_22.24
+AGOT22	25	1	25	6	Daenerys Targaryen	Drogo	Haggo	Qotho	Mirri Maz Duur	Cohollo
+AGOT22	26	1	30	2	Daenerys Targaryen	Jorah Mormont	Haggo	Qotho	Dothrakis_22.26	Cohollo
+AGOT22	26	1	31	3	Drogo	Mirri Maz Duur
+AGOT22	30	3	31	3	Daenerys Targaryen	Doreah	Irri	Jhiqui
+AGOT23	3	1	3	1	Brandon Stark	Summer	Maester Luwin	Stark men_23.3
+AGOT23	3	2	4	6	Brandon Stark	Summer	Maester Luwin
+AGOT23	5	1	6	4	Brandon Stark	Summer	Maester Luwin	Osha
+AGOT23	6	5	8	4	Brandon Stark	Summer	Maester Luwin	Osha	Rickon Stark	Shaggydog
+AGOT23	9	1	12	5	Brandon Stark	Summer	Maester Luwin	Osha	Rickon Stark	Shaggydog
+AGOT23	10	1	10	1	Children of the forest_23.10.1
+AGOT23	10	2	10	2	Children of the forest_23.10.2	First men_23.10.1
+AGOT23	10	3	10	3	Children of the forest_23.10.3	First men_23.10.2
+AGOT23	10	4	10	4	Child of the forest_23.10	First man_23.10
+AGOT23	13	1	17	2	Tywin Lannister	Tyrion Lannister	Kevan Lannister	Gregor Clegane	Lannister men_23.13	Harys Swyft
+AGOT23	15	1	15	1	Lannister men_23.15	Tully men_23.15	Tytos Brax
+AGOT23	17	3	19	3	Tywin Lannister	Tyrion Lannister	Kevan Lannister
+AGOT23	19	4	20	6	Tywin Lannister	Tyrion Lannister
+AGOT23	21	1	21	1	Tyrion Lannister	Lannister men_23.21
+AGOT23	21	2	21	2	Tyrion Lannister
+AGOT23	21	3	21	4	Tyrion Lannister	Shae
+AGOT23	22	1	22	1	Daenerys Targaryen
+AGOT23	22	2	22	2	Daenerys Targaryen
+AGOT23	22	3	22	3	Jorah Mormont
+AGOT23	22	4	22	4	Daenerys Targaryen
+AGOT23	22	5	22	5	Viserys Targaryen
+AGOT23	22	6	23	1	Rhaego Targaryen
+AGOT23	23	2	23	2	Daenerys Targaryen	Guards_23.23
+AGOT23	23	3	23	4	Daenerys Targaryen
+AGOT23	23	5	23	6	Daenerys Targaryen	Rhaegar Targaryen
+AGOT23	24	1	24	5	Daenerys Targaryen	Jhiqui	Doreah
+AGOT23	25	1	25	6	Daenerys Targaryen	Jhiqui	Doreah
+AGOT23	26	1	27	3	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur
+AGOT23	27	4	28	3	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur	Drogo	Dothrakis_23.27
+AGOT23	28	4	29	6	Daenerys Targaryen	Mirri Maz Duur	Drogo
+AGOT23	30	1	30	1	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur	Drogo	Dothrakis_23.27
+AGOT23	30	2	31	5	Daenerys Targaryen	Drogo
+AGOT24	3	1	3	5	Samwell Tarly	Jon Snow	Ghost
+AGOT24	4	1	5	3	Jon Snow	Ghost
+AGOT24	4	3	4	4	Bran Stark	Robb Stark	Jon Snow	Eddard Stark	Gared	Theon Greyjoy	Stark soldiers_1.10	Jory Cassel
+AGOT24	5	4	6	2	Jon Snow	Ghost	Grenn Aurochs	Pypar Pyp Monkey	Todder Toad	Halder Stone Head
+AGOT24	6	3	6	5	Jon Snow	Ghost	Grenn Aurochs	Pypar Pyp Monkey	Todder Toad	Halder Stone Head	Samwell Tarly
+AGOT24	7	1	12	6	Jon Snow	Jeor Mormont
+AGOT24	13	1	13	2	Catelyn Stark	Robb Stark	Grey Wind	Theon Greyjoy	Stark men_23.13
+AGOT24	13	3	14	2	Edmure Tully	Catelyn Stark	Robb Stark	Grey Wind	Theon Greyjoy
+AGOT24	14	3	14	6	Edmure Tully	Catelyn Stark
+AGOT24	15	1	16	5	Edmure Tully	Catelyn Stark	Hoster Tully
+AGOT24	17	1	17	1	Catelyn Stark	Robb Stark	Stark men_23.17	Jon Umber
+AGOT24	17	2	17	4	Catelyn Stark	Robb Stark	Jon Umber
+AGOT24	18	1	21	4	Catelyn Stark	Robb Stark	Jon Umber	Jonos Bracken	Northern lords_23.18	Brynden Tully
+AGOT24	22	1	23	6	Daenerys Targaryen	Rakharo	Jhogo	Mirri Maz Duur	Aggo	Irri	Jhiqui	Doreah	Jorah Mormont
+AGOT24	24	1	26	1	Daenerys Targaryen	Rakharo	Jhogo	Aggo	Jorah Mormont	Dothrakis_23.24
+AGOT24	26	2	26	2	Daenerys Targaryen	Irri	Jhiqui	Doreah
+AGOT24	26	3	26	4	Daenerys Targaryen
+AGOT24	27	1	27	1	Daenerys Targaryen	Irri	Jhiqui	Mirri Maz Duur	Dothrakis_23.24
+AGOT24	27	2	27	6	Daenerys Targaryen	Jorah Mormont	Mirri Maz Duur
+AGOT24	28	1	28	3	Daenerys Targaryen	Mirri Maz Duur
+AGOT24	28	4	28	6	Daenerys Targaryen	Mirri Maz Duur	Jorah Mormont	Irri	Jhiqui	Doreah
+AGOT24	29	1	30	3	Mirri Maz Duur	Daenerys Targaryen	Jorah Mormont	Dothrakis_23.24
+AGOT24	30	2	30	2	Drogo
+AGOT24	30	4	30	6	Daenerys Targaryen	Drogon	Viserion	Rhaegal
+AGOT24	31	1	31	4	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont	Rakharo	Jhogo	Aggo	Irri	Jhiqui	Doreah
+ACOK01	6	1	7	1	Maester Cressen	Maester Pylos
+ACOK01	7	2	7	3	Maester Cressen	Maester Pylos	Shireen Baratheon	Patchface
+ACOK01	7	4	9	4	Maester Cressen	Shireen Baratheon	Patchface
+ACOK01	9	5	10	6	Maester Cressen	Shireen Baratheon	Patchface	Maester Pylos
+ACOK01	11	1	11	1	Patchface
+ACOK01	11	2	11	5	Maester Cressen	Shireen Baratheon	Patchface	Maester Pylos
+ACOK01	12	1	12	3	Maester Cressen	Maester Pylos
+ACOK01	12	4	13	1	Maester Cressen
+ACOK01	13	2	14	6	Maester Cressen	Davos Seaworth
+ACOK01	14	1	14	1	Davos Seaworth
+ACOK01	14	2	14	2	Stannis Baratheon	Davos Seaworth
+ACOK01	15	1	18	4	Maester Cressen	Stannis Baratheon
+ACOK01	18	5	20	5	Maester Cressen	Stannis Baratheon	Selyse Florent
+ACOK01	21	1	22	5	Maester Cressen
+ACOK01	23	1	23	2	Baratheon men_25.23	Patchface	Maester Cressen	Stannis Baratheon	Melisandre of Asshai
+ACOK01	24	1	26	6	Maester Cressen	Stannis Baratheon	Melisandre of Asshai
+ACOK02	4	1	4	6	Arya Stark	Yoren
+ACOK02	5	1	8	2	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5
+ACOK02	8	3	9	4	Arya Stark	Yoren
+ACOK02	9	5	9	5	Arya Stark
+ACOK02	10	1	11	1	Bran Stark	Summer	Shaggydog
+ACOK02	11	2	14	3	Bran Stark	Maester Luwin
+ACOK02	11	3	11	3	Rickon Stark	Shaggydog
+ACOK02	11	4	11	4	Big Walder Frey	Little Walder Frey
+ACOK02	11	5	11	5	Rickon Stark	Big Walder Frey	Little Walder Frey
+ACOK02	12	1	12	6	Bran Stark	Rickon Stark	Big Walder Frey	Little Walder Frey	Castle children_26.13	Summer	Shaggydog	Hodor
+ACOK02	14	4	14	6	Bran Stark	Osha
+ACOK02	15	1	15	5	Bran Stark	Summer
+ACOK02	16	1	16	5	Sansa Stark	Arys Oakheart
+ACOK02	17	1	18	2	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17	Audience_26.17
+ACOK02	18	3	19	1	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17	Meryn Trant	Hobber Redwyne	Audience_26.17
+ACOK02	19	2	19	2	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17	Audience_26.17
+ACOK02	19	3	19	6	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17	Lothor Brune	Dontos Hollard	Audience_26.17
+ACOK02	20	1	21	4	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17	Audience_26.17
+ACOK02	21	5	23	5	Sansa Stark	Arys Oakheart	Joffrey Baratheon	Sandor Clegane	Kingsguards_26.17
+ACOK02	23	6	24	3	Sansa Stark	Sandor Clegane	Tyrion Lannister
+ACOK02	24	4	24	6	Sansa Stark	Tyrion Lannister
+ACOK03	4	1	5	6	Jon Snow	Samwell Tarly
+ACOK03	6	1	6	2	Jon Snow	Samwell Tarly	Endrew Tarth	Night's watch recruits_27.6
+ACOK03	6	3	7	4	Jon Snow	Samwell Tarly	Donal Noye
+ACOK03	7	3	7	3	Robert Baratheon	Renly Baratheon	Stannis Baratheon
+ACOK03	8	1	9	4	Jeor Mormont	Jon Snow	Samwell Tarly
+ACOK03	9	5	12	7	Jeor Mormont	Jon Snow
+ACOK03	13	1	13	5	Tyrion Lannister	Mandon Moore	Bronn	Clansmen_27.13
+ACOK03	14	1	16	2	Tyrion Lannister	Lord Varys	Petyr Baelish	Janos Slynt	Maester Pycelle	Cersei Lannister
+ACOK03	16	3	20	6	Tyrion Lannister	Cersei Lannister
+ACOK03	21	1	21	2	Tyrion Lannister	Lannister men_27.21
+ACOK03	21	3	21	3	Tyrion Lannister	Lannister men_27.3	Crowd_27.21
+ACOK03	22	1	23	5	Tyrion Lannister	Shae	Lord Varys	Varys's men_27.22
+ACOK03	23	6	23	6	Tyrion Lannister	Shae
+ACOK03	24	1	24	5	Tyrion Lannister	Shae
+ACOK04	4	1	4	3	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Travelers_28.4	Cutjack	Murch_2.5
+ACOK04	5	1	6	5	Yoren	Innkeeper_28.5	Clients_28.5	Arya Stark	Old woman_28.5	The Tickler
+ACOK04	6	2	6	2	Arya Stark	Nymeria
+ACOK04	7	1	7	1	Yoren	Arya Stark
+ACOK04	7	2	7	2	Arya Stark
+ACOK04	7	3	9	1	Arya Stark	Jaqen H'ghar	Rorge	Biter
+ACOK04	9	2	9	4	Arya Stark	Jaqen H'ghar	Rorge	Biter	Gendry
+ACOK04	10	1	10	1	Arya Stark	Gendry
+ACOK04	10	2	10	3	Arya Stark	Gendry	Gold cloaks_28.10
+ACOK04	10	4	13	4	Arya Stark	Gendry	Gold cloaks_28.10	Yoren	Lommy Greenhands	Hot Pie	Night's watch prospects_26.5	Cutjack	Murch_2.5
+ACOK04	13	5	14	5	Arya Stark	Gendry	Yoren	Lommy Greenhands	Hot Pie	Night's watch prospects_26.5	Cutjack	Murch_2.5
+ACOK04	15	1	16	6	Cleos Frey	Robb Stark	Grey Wind	Catelyn Stark	Theon Greyjoy	Stark men_28.15	Edmure Tully	Rickard Karstark
+ACOK04	17	1	18	3	Cleos Frey	Robb Stark	Grey Wind	Catelyn Stark	Theon Greyjoy	Stark men_28.15	Edmure Tully
+ACOK04	18	4	20	6	Robb Stark	Grey Wind	Catelyn Stark	Edmure Tully
+ACOK04	20	7	20	7	Catelyn Stark	Edmure Tully
+ACOK04	21	1	21	1	Catelyn Stark
+ACOK04	21	2	21	4	Catelyn Stark	Hoster Tully	Brynden Tully
+ACOK04	22	1	24	6	Catelyn Stark	Brynden Tully
+ACOK04	23	4	23	4	Rhaenys Targaryen I	Balerion	Vhagar	Meraxes	Aegon Targaryen	Visenya Targaryen
+ACOK05	4	1	7	2	Janos Slynt	Tyrion Lannister
+ACOK05	7	3	8	2	Janos Slynt	Tyrion Lannister	Jacelyn Bywater	Gold cloaks_29.6
+ACOK05	8	3	11	4	Tyrion Lannister	Lord Varys
+ACOK05	12	1	12	1	Passerbys_29.11
+ACOK05	12	2	12	5	Tyrion Lannister	Bronn
+ACOK05	13	1	16	5	Allard Seaworth	Davos Seaworth	Melisandre of Asshai	Stannis Baratheon	Crowd_29.13	Patchface
+ACOK05	13	6	13	6	Queen's men_29.12	Hubard Rambton	Rambton's 3 sons
+ACOK05	13	7	13	7	Guncer Sunglass
+ACOK05	13	8	13	8	Guncer Sunglass	Rambton's 3 sons	Septon Barre
+ACOK05	17	1	17	4	Salladhor Saan	Davos Seaworth
+ACOK05	18	1	18	2	Salladhor Saan	Davos Seaworth	Maid_29.18
+ACOK05	18	3	19	6	Salladhor Saan	Davos Seaworth
+ACOK05	20	1	22	2	Davos Seaworth	Stannis Baratheon	Maester Pylos
+ACOK05	22	3	24	5	Davos Seaworth	Stannis Baratheon
+ACOK06	4	1	4	2	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK06	4	3	4	3	Arya Stark
+ACOK06	4	4	4	4	Arya Stark	Jaqen H'ghar	Rorge	Biter
+ACOK06	5	1	5	1	Arya Stark
+ACOK06	5	2	5	5	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK06	6	1	6	1	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK06	6	2	7	4	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK06	7	5	7	5	Arya Stark	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter
+ACOK06	8	1	8	5	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Weasel	Woman_30.8	Woth
+ACOK06	9	1	9	3	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Weasel	Woth
+ACOK06	9	4	9	6	Yoren	Night's watch prospects_26.5
+ACOK06	10	1	10	1	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Weasel	Woth
+ACOK06	10	2	10	2	Arya Stark
+ACOK06	10	3	10	3	Arya Stark	Yoren
+ACOK06	10	4	10	5	Arya Stark
+ACOK06	10	6	11	7	Arya Stark	Wolf_30.11
+ACOK06	12	1	12	6	Arya Stark	Yoren
+ACOK06	12	7	12	7	Arya Stark
+ACOK06	13	1	14	2	Theon Greyjoy	Captain_30.13	Captain's daughter_30.13
+ACOK06	14	3	14	6	Theon Greyjoy	Captain's daughter_30.13
+ACOK06	15	1	15	3	Theon Greyjoy	Captain_30.13
+ACOK06	15	4	15	4	Theon Greyjoy	Sailors_30.15
+ACOK06	15	5	18	6	Theon Greyjoy	Aeron Greyjoy
+ACOK06	19	1	19	1	Theon Greyjoy	Aeron Greyjoy
+ACOK06	19	2	24	5	Theon Greyjoy	Balon Greyjoy
+ACOK07	4	1	6	2	Jon Snow	Jeor Mormont	Night's watch men_31.4	Bedwyck Giant	Dour Eddison Tollett	Ghost
+ACOK07	5	6	5	6	Wight / Othor
+ACOK07	6	3	6	5	Jon Snow	Dour Eddison Tollett
+ACOK07	6	6	7	5	Jon Snow	Jeor Mormont	Night's watch men_31.4	Bedwyck Giant	Dour Eddison Tollett
+ACOK07	8	1	8	1	Jon Snow
+ACOK07	8	2	8	2	Jon Snow	Night's watch men_31.8	Samwell Tarly
+ACOK07	8	3	9	5	Jon Snow	Samwell Tarly
+ACOK07	10	1	10	5	Jon Snow	Jeor Mormont	Ghost
+ACOK07	11	1	11	3	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Doreah
+ACOK07	12	1	12	3	Daenerys Targaryen	Daenerys's khalasar_31.12
+ACOK07	12	4	12	5	Daenerys Targaryen	Jhiqui
+ACOK07	13	1	13	1	Mother_31.13
+ACOK07	13	2	13	2	Daenerys's khalasar_31.12
+ACOK07	13	3	13	3	Old woman_31.13
+ACOK07	13	4	13	4	Outriders_31.13
+ACOK07	13	5	13	5
+ACOK07	13	6	13	6	Daenerys's khalasar_31.12
+ACOK07	13	7	13	7	Woman_31.13
+ACOK07	13	8	13	8	Daenerys Targaryen	Daenerys's khalasar_31.12
+ACOK07	13	9	13	9	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont
+ACOK07	14	1	14	6	Dothrakis_31.14	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont
+ACOK07	15	1	15	1	Daenerys's khalasar_31.12
+ACOK07	15	2	15	4	Daenerys Targaryen	Doreah
+ACOK07	15	5	15	7	Daenerys Targaryen	Jhogo
+ACOK07	16	1	16	6	Daenerys Targaryen	Jhogo	Jorah Mormont	Daenerys's khalasar_31.12
+ACOK07	17	1	17	1	Daenerys Targaryen	Irri	Drogon	Viserion	Rhaegal
+ACOK07	17	2	19	6	Daenerys Targaryen	Jorah Mormont	Drogon	Viserion	Rhaegal
+ACOK07	18	2	18	2	Jorah Mormont's first wife_31.18
+ACOK07	18	4	18	4	Lynesse Hightower
+ACOK07	18	5	18	5	Jorah Mormont	Boros Blount
+ACOK07	18	6	18	6	Lynesse Hightower
+ACOK07	20	1	20	5	Daenerys Targaryen
+ACOK07	21	1	22	6	Daenerys Targaryen	Aggo	Jhogo	Pyat Pree	Xaro Xhoan Daxos	Quaithe of the Shadow
+ACOK08	4	1	6	6	Cersei Lannister	Tyrion Lannister	Maester Pycelle	Petyr Baelish
+ACOK08	7	1	7	1	Tyrion Lannister	Podrick Payne
+ACOK08	7	2	8	6	Tyrion Lannister	Podrick Payne	Blacksmiths_32.7	Ironbelly	Salloreon
+ACOK08	9	1	9	4	Tyrion Lannister	Tyrion's men_32.9
+ACOK08	9	5	9	6	Tyrion Lannister	Chataya	Alayaya
+ACOK08	10	1	10	3	Tyrion Lannister	Alayaya
+ACOK08	10	4	10	6	Tyrion Lannister
+ACOK08	10	7	13	5	Tyrion Lannister	Lord Varys
+ACOK08	14	1	14	5	Arya Stark	Yoren	Hot Pie
+ACOK08	14	6	14	6	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK08	15	1	15	2	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK08	15	3	15	4	Arya Stark	Nymeria
+ACOK08	15	5	16	6	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK08	17	1	17	1	Arya Stark	Lorch men_32.16
+ACOK08	18	1	18	3	Yoren	Lorch men_32.16
+ACOK08	18	4	18	7	Yoren	Lorch men_32.16	Amory Lorch
+ACOK08	19	1	19	10	Lorch men_32.16	Amory Lorch	Arya Stark	Yoren	Lommy Greenhands	Hot Pie	Gendry	Night's watch prospects_26.5	Jaqen H'ghar	Rorge	Biter	Cutjack	Murch_2.5	Woth
+ACOK08	20	1	20	3	Arya Stark
+ACOK08	20	4	21	1	Yoren	Arya Stark
+ACOK08	21	2	21	3	Arya Stark	Gendry
+ACOK08	21	4	21	5	Arya Stark	Gendry	Weasel	Hot Pie
+ACOK08	21	6	21	7	Arya Stark	Gendry	Weasel	Hot Pie	Jaqen H'ghar	Rorge	Biter
+ACOK08	22	1	22	3	Arya Stark
+ACOK08	22	4	22	7	Biter
+ACOK08	23	1	23	7	Arya Stark
+ACOK09	4	1	4	3	Bran Stark
+ACOK09	4	4	4	4	Wyman Manderly	Manderly men_33.4	Crowd_33.4
+ACOK09	5	1	5	4	Bran Stark	Hodor	Little Walder Frey	Big Walder Frey
+ACOK09	5	5	5	7	Bran Stark	Hodor	Little Walder Frey	Big Walder Frey	Maester Luwin
+ACOK09	6	1	6	6	Donella Hornwood	Bran Stark	Rodrik Cassel	Maester Luwin
+ACOK09	7	1	7	5	Bran Stark	Hodor	Shaggydog
+ACOK09	8	1	9	6	Bran Stark	Hodor	Osha
+ACOK09	10	1	10	2	Bran Stark	Hodor
+ACOK09	10	3	10	3	Bran Stark
+ACOK09	10	4	10	4	Bran Stark
+ACOK09	10	5	10	5	Bran Stark	Brynden Rivers
+ACOK09	10	6	10	6	Bran Stark
+ACOK09	11	1	11	3	Bran Stark	Maester Luwin	Mors Umber	Hother Umber
+ACOK09	11	4	11	6	Bran Stark	Maester Luwin	Helman Tallhart	Brandon Tallhart
+ACOK09	12	1	12	1
+ACOK09	12	2	12	2	Villagers_33.12
+ACOK09	12	3	12	3
+ACOK09	12	4	13	6	Cley Cerwyn	Cerwyn men_33.12	Bran Stark
+ACOK09	14	1	14	1	Bran Stark
+ACOK09	14	2	14	6	Bran Stark	Brynden Rivers
+ACOK09	15	1	15	3	Bran Stark
+ACOK09	15	4	15	5	Bran Stark	Jaime Lannister
+ACOK09	16	1	17	3	Sansa Stark
+ACOK09	17	4	17	4	Sansa Stark	Crowd_33.17
+ACOK09	18	1	18	1	Sansa Stark
+ACOK09	18	2	18	3	Sansa Stark	Guards_33.18	Joffrey Baratheon
+ACOK09	18	4	18	5	Sansa Stark
+ACOK09	18	6	21	5	Sansa Stark	Dontos Hollard
+ACOK09	22	1	22	3	Sansa Stark
+ACOK09	22	4	23	1	Sansa Stark	Sandor Clegane
+ACOK09	23	2	23	5	Sansa Stark	Sandor Clegane	Boros Blount
+ACOK09	24	1	24	5	Sansa Stark	Sandor Clegane
+ACOK10	4	1	5	6	Tyrion Lannister	Maester Pycelle	Maid_34.4
+ACOK10	6	1	6	6	Tyrion Lannister	Bronn
+ACOK10	7	1	7	2	Tyrion Lannister
+ACOK10	7	3	8	4	Tyrion Lannister	Cersei Lannister
+ACOK10	8	5	8	5	Tyrion Lannister	Cersei Lannister	Kingsguards_34.8
+ACOK10	9	1	9	2	Tyrion Lannister	Podrick Payne
+ACOK10	9	3	9	5	Tyrion Lannister	Podrick Payne	Petyr Baelish
+ACOK10	10	1	10	7	Tyrion Lannister	Petyr Baelish
+ACOK10	11	1	11	1	Tyrion Lannister
+ACOK10	11	2	12	6	Tyrion Lannister	Lord Varys
+ACOK10	13	1	13	3	Arya Stark	Gendry	Hot Pie	Weasel	Lommy Greenhands
+ACOK10	14	1	14	4	Arya Stark	Gendry	Hot Pie	Weasel	Lommy Greenhands
+ACOK10	15	1	17	4	Arya Stark	Gendry
+ACOK10	17	5	18	2	Arya Stark	Gendry
+ACOK10	18	3	19	2	Arya Stark
+ACOK10	19	3	20	1	Arya Stark	Lannister men_34.19	Gendry
+ACOK10	20	2	20	2	Arya Stark
+ACOK10	20	3	20	6	Arya Stark	Hot Pie	Weasel	Lommy Greenhands
+ACOK10	21	1	21	3	Arya Stark	Hot Pie
+ACOK10	21	4	22	6	Arya Stark	Hot Pie	Lannister men_34.19	Polliver
+ACOK10	22	7	23	2	Arya Stark	Hot Pie	Lannister men_34.19	Gregor Clegane
+ACOK10	23	3	23	3	Arya Stark	Lannister men_34.19
+ACOK10	23	4	24	3	Arya Stark	Lannister men_34.19	Lommy Greenhands	Rafford
+ACOK10	24	4	24	6	Arya Stark	Lannister men_34.19
+ACOK11	4	1	4	3	Bran Stark	Crowd_35.4
+ACOK11	5	1	6	2	Bran Stark	Maester Luwin	Rodrik Cassel	Beth Cassel	Rickon Stark	Big Walder Frey	Little Walder Frey	Guests_35.5	Servants_35.5
+ACOK11	6	3	8	1	Bran Stark	Maester Luwin	Rodrik Cassel	Beth Cassel	Rickon Stark	Big Walder Frey	Little Walder Frey	Guests_35.5	Servants_35.5	Meera Reed	Jojen Reed
+ACOK11	8	2	8	2	Bran Stark	Maester Luwin	Rodrik Cassel	Beth Cassel	Rickon Stark	Big Walder Frey	Little Walder Frey	Guests_35.5	Servants_35.5	Meera Reed	Jojen Reed	Jugglers_35.8
+ACOK11	9	1	9	5	Bran Stark
+ACOK11	9	3	9	3	Bran Stark	Eddard Stark
+ACOK11	10	1	10	2	Bran Stark	Summer	Shaggydog
+ACOK11	10	3	10	6	Bran Stark	Summer	Shaggydog	Meera Reed	Jojen Reed
+ACOK11	11	1	11	4	Jon Snow	Jeor Mormont	Night's watch men_35.11
+ACOK11	12	1	12	2	Jon Snow	Samwell Tarly
+ACOK11	12	3	12	3	Jon Snow
+ACOK11	12	4	12	5	Jon Snow	Dywen	Grenn Aurochs
+ACOK11	12	6	12	6	Jon Snow	Dywen	Grenn Aurochs	Ghost
+ACOK11	13	1	15	6	Jon Snow	Jeor Mormont	Craster	Night's watch men_35.11	Craster's wife_35.13	Grenn Aurochs
+ACOK11	16	1	16	3	Jon Snow	Grenn Aurochs
+ACOK11	16	4	17	2	Jon Snow	Craster's wife_35.14	Ghost
+ACOK11	17	3	17	5	Jon Snow	Craster's wife_35.14	Ghost	Chett
+ACOK11	17	6	17	6	Jon Snow	Chett
+ACOK11	18	1	18	1	Night's watch men_35.11
+ACOK11	18	2	18	7	Jon Snow	Samwell Tarly	Ghost
+ACOK11	19	1	19	4	Jon Snow
+ACOK11	19	5	20	7	Jon Snow	Gilly
+ACOK11	21	1	21	2	Jon Snow	Night's watch men_35.11	Jarman Buckwell
+ACOK11	21	3	21	6	Jon Snow	Samwell Tarly
+ACOK11	22	1	23	4	Jon Snow	Jeor Mormont
+ACOK11	23	5	23	5	Night's watch men_35.11
+ACOK12	4	1	5	5	Tyrion Lannister	Hallyne
+ACOK12	6	1	6	4	Tyrion Lannister	Bronn	Tyrion's men_36.6
+ACOK12	6	5	6	5	Tyrion Lannister	Tyrion's men_36.6	Jacelyn Bywater
+ACOK12	6	6	7	1	Tyrion Lannister	Jacelyn Bywater
+ACOK12	7	2	7	6	Tyrion Lannister	Jacelyn Bywater	Cleos Frey	Tyrion's men_36.7
+ACOK12	8	1	8	1	Tyrion Lannister	Tyrion's men_36.6
+ACOK12	8	2	8	5	Tyrion Lannister	Tyrion's men_36.6	Crowd_36.8	High Sparrow
+ACOK12	9	1	9	1	Tyrion Lannister
+ACOK12	9	2	12	6	Tyrion Lannister	Cersei Lannister
+ACOK12	13	1	14	5	Catelyn Stark	Stark men_36.13	Wendel Manderly
+ACOK12	13	5	14	4	Catelyn Stark	Robb Stark
+ACOK12	15	1	15	5	Catelyn Stark	Stark men_36.14	Renly's men_36.15	Colen of Greenpools	Wendel Manderly	Hallis Mollen
+ACOK12	16	1	17	1	Catelyn Stark	Stark men_36.14	Renly's men_36.15	Colen of Greenpools	Wendel Manderly	Hallis Mollen	Renly's men_36.16
+ACOK12	17	2	17	8	Catelyn Stark	Stark men_36.14	Renly's men_36.15	Colen of Greenpools	Wendel Manderly	Hallis Mollen	Renly's men_36.16	Loras Tyrell	Brienne of Tarth	Knight_36.17	Renly Baratheon	Margaery Tyrell
+ACOK12	17	9	18	6	Catelyn Stark	Stark men_36.14	Renly's men_36.15	Colen of Greenpools	Wendel Manderly	Hallis Mollen	Renly's men_36.16	Brienne of Tarth	Knight_36.17	Renly Baratheon	Margaery Tyrell
+ACOK12	19	1	19	5	Catelyn Stark	Colen of Greenpools	Brienne of Tarth	Renly Baratheon	Margaery Tyrell
+ACOK12	19	6	19	6	Renly Baratheon	Margaery Tyrell
+ACOK12	20	1	21	3	Renly Baratheon	Margaery Tyrell	Loras Tyrell	Catelyn Stark	Hallis Mollen	Guests_36.20	Brienne of Tarth
+ACOK12	21	4	23	2	Catelyn Stark	Renly Baratheon
+ACOK12	23	3	23	6	Catelyn Stark	Renly Baratheon	Soldier_36.23
+ACOK13	4	1	7	6	Theon Greyjoy	Asha Greyjoy
+ACOK13	8	1	8	2	Theon Greyjoy	Asha Greyjoy	Servant_37.8
+ACOK13	8	3	8	6	Theon Greyjoy	Asha Greyjoy
+ACOK13	9	1	9	6	Theon Greyjoy
+ACOK13	10	1	11	6	Theon Greyjoy	Asha Greyjoy	Red Lorren	Balon Greyjoy	Guests_37.10	Victarion Greyjoy
+ACOK13	12	1	13	5	Theon Greyjoy	Asha Greyjoy	Balon Greyjoy	Victarion Greyjoy	Aeron Greyjoy
+ACOK13	14	1	14	3	Theon Greyjoy
+ACOK13	14	4	14	7	Theon Greyjoy	Asha Greyjoy
+ACOK13	15	1	15	4	Lancel Lannister	Tyrion Lannister	Cersei Lannister
+ACOK13	15	5	17	7	Tyrion Lannister	Cersei Lannister
+ACOK13	18	1	19	7	Tyrion Lannister	Cleos Frey	Maester Pycelle	Petyr Baelish	Bronn	Audience_37.18	Guards_37.18	Vylarr	Lord Varys	Jacelyn Bywater
+ACOK13	20	1	21	2	Tyrion Lannister	Maester Pycelle	Petyr Baelish	Bronn	Audience_37.18	Guards_37.18	Lord Varys	Jacelyn Bywater	Alliser Thorne
+ACOK13	21	3	21	5	Tyrion Lannister	Petyr Baelish	Lord Varys
+ACOK13	21	6	21	6	Tyrion Lannister	Lord Varys
+ACOK13	22	1	22	3	Tyrion Lannister	Maester Pycelle	Servant_37.22	Shagga
+ACOK13	22	4	24	1	Tyrion Lannister	Maester Pycelle	Shagga
+ACOK13	24	2	24	5	Tyrion Lannister
+ACOK14	4	1	4	1
+ACOK14	4	2	6	4	Arya Stark	Hot Pie	Prisonners_38.4	Gendry
+ACOK14	4	4	4	5	Lannister men_34.19	The Tickler	Prisonner_38.4
+ACOK14	5	1	5	1	The Tickler	Prisonner_38.5.1
+ACOK14	5	2	5	2	The Tickler	Prisonner_38.5.2
+ACOK14	5	3	5	3	The Tickler	Prisonner_38.5.3
+ACOK14	5	4	5	4	The Tickler	Prisonner_38.5.4
+ACOK14	7	1	7	1	Shitmouth	Chiswyck	Rafford	Polliver
+ACOK14	7	2	7	2	Lannister men_34.19	Prisonners_38.4
+ACOK14	7	3	7	3	Sandor Clegane
+ACOK14	7	4	7	4	Cersei Lannister
+ACOK14	7	5	7	5	Amory Lorch
+ACOK14	7	6	7	6	Meryn Trant
+ACOK14	7	7	7	7	Ilyn Payne
+ACOK14	7	8	7	8	Lannister men_34.19	Prisonners_38.4
+ACOK14	7	9	7	9	Arya Stark
+ACOK14	7	10	7	10	Lannister men_34.19	Prisonners_38.4
+ACOK14	8	1	8	4	Lannister men_34.19	Prisonners_38.4
+ACOK14	8	2	8	3	Hot Pie	Chiswyck
+ACOK14	9	1	9	3	Amabel	Harra	Arya Stark
+ACOK14	9	4	9	6	Weese	Slaves_38.9	Arya Stark
+ACOK14	10	1	11	5	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont	Daenerys's khalasar_31.12	Crowd_38.10	Pyat Pree	Xaro Xhoan Daxos	Quaithe of the Shadow
+ACOK14	12	1	13	4	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont	Daenerys's khalasar_31.12	Crowd_38.10	Xaro Xhoan Daxos	Quaithe of the Shadow
+ACOK14	14	1	14	1	Daenerys Targaryen
+ACOK14	14	2	14	5	Daenerys Targaryen	Aggo	Rakharo	Jorah Mormont	Jhogo
+ACOK14	15	1	15	1
+ACOK14	15	2	15	3	Daenerys Targaryen	Irri	Jhiqui
+ACOK14	16	1	16	4	Daenerys Targaryen	Drogon	Viserion	Rhaegal	Jorah Mormont	Quhuru Mo
+ACOK14	17	1	21	6	Bran Stark	Summer	Meera Reed	Jojen Reed	Hodor
+ACOK14	22	1	23	5	Bran Stark	Hodor	Maester Luwin
+ACOK14	24	1	24	6	Bran Stark	Meera Reed
+ACOK15	4	1	4	1	Catelyn Stark	Stark men_39.4
+ACOK15	5	1	5	3	Catelyn Stark	Stark men_39.4	Stannis Baratheon	Melisandre of Asshai	Stannis's men_39.5
+ACOK15	5	4	12	3	Catelyn Stark	Stark men_39.4	Stannis Baratheon	Melisandre of Asshai	Stannis's men_39.5	Renly Baratheon	Brienne of Tarth	Renly's men_39.5
+ACOK15	12	4	12	7	Catelyn Stark	Stark men_39.4	Renly Baratheon	Brienne of Tarth	Renly's men_39.5
+ACOK15	13	1	14	6	Catelyn Stark	Stark men_39.4	Renly Baratheon	Brienne of Tarth	Renly's men_39.5	Mathis Rowan	Bryce Caron	Loras Tyrell
+ACOK15	15	1	15	5	Catelyn Stark	Host_39.15	Lucas_39.15
+ACOK15	16	1	16	1
+ACOK15	16	2	16	3	Harrenhal staff_39.16
+ACOK15	16	4	16	4	Guards_39.16
+ACOK15	16	5	16	5	Arya Stark
+ACOK15	17	1	17	2	Arya Stark	Weese
+ACOK15	17	3	17	3	Arya Stark
+ACOK15	17	4	17	4
+ACOK15	17	5	17	5
+ACOK15	17	6	17	6	Brave Companions_39.17	Vargo Hoat
+ACOK15	18	1	18	5	Brave Companions_39.17	Vargo Hoat	Staff_39.18	Arya Stark
+ACOK15	19	1	19	1	Arya Stark	Staff_39.19
+ACOK15	19	2	19	4	Arya Stark	Staff_39.19	Amory Lorch	Rorge	Biter	Jaqen H'ghar	Lorch's men_39.19
+ACOK15	19	5	19	7	Arya Stark
+ACOK15	20	1	20	5	Arya Stark	Jaqen H'ghar
+ACOK15	20	6	21	7	Arya Stark
+ACOK15	21	1	21	1	Joffrey Baratheon	Cersei Lannister
+ACOK15	21	2	21	2	Ilyn Payne	Meryn Trant
+ACOK15	21	3	21	3	Sandor Clegane
+ACOK15	21	4	21	4	Gregor Clegane	Rafford	Chiswyck	The Tickler
+ACOK15	21	5	21	5	Amory Lorch
+ACOK15	21	6	21	6	Weese
+ACOK15	22	1	22	1	Arya Stark
+ACOK15	22	2	22	2	Arya Stark	Weese
+ACOK15	22	3	22	3	Arya Stark
+ACOK15	22	4	23	7	Arya Stark	Chiswyck	Jaqen H'ghar	Lannister men_39.22
+ACOK15	24	1	24	1
+ACOK15	24	2	24	6	Arya Stark	Weese	Cook_39.24
+ACOK16	4	1	7	6	Tyrion Lannister	Lancel Lannister
+ACOK16	8	1	8	2	Tyrion Lannister	Chataya	Prostitutes_40.8	Clients_40.8
+ACOK16	8	3	8	4	Tyrion Lannister	Dancy
+ACOK16	8	5	9	2	Tyrion Lannister	Dancy	Alayaya
+ACOK16	9	3	9	6	Tyrion Lannister	Alayaya
+ACOK16	9	7	9	7	Tyrion Lannister
+ACOK16	10	1	10	2	Tyrion Lannister
+ACOK16	10	3	10	6	Tyrion Lannister
+ACOK16	11	1	11	6	Tyrion Lannister	Shae
+ACOK16	12	1	12	1
+ACOK16	12	2	13	7	Catelyn Stark
+ACOK16	13	8	13	9	Catelyn Stark	Robar Royce
+ACOK16	14	1	14	1	Catelyn Stark	Stark men_40.14
+ACOK16	14	2	14	3	Renly Baratheon	Renly's men_40.14	Catelyn Stark	Brienne of Tarth	Mathis Rowan
+ACOK16	15	1	15	6	Renly Baratheon	Catelyn Stark	Brienne of Tarth	Mathis Rowan	Bryce Caron
+ACOK16	16	1	16	5	Renly Baratheon	Catelyn Stark	Brienne of Tarth
+ACOK16	16	6	18	3	Renly Baratheon	Catelyn Stark	Brienne of Tarth	Stannis's shadow_40.18
+ACOK16	18	4	19	3	Catelyn Stark	Brienne of Tarth	Stannis's shadow_40.18	Loras Tyrell	Robar Royce
+ACOK16	19	4	22	1	Catelyn Stark	Brienne of Tarth	Stannis's shadow_40.18	Loras Tyrell	Robar Royce	Guards_40.19
+ACOK16	22	2	22	2	Catelyn Stark	Brienne of Tarth	Soldiers_40.22
+ACOK16	22	3	22	5	Catelyn Stark	Brienne of Tarth
+ACOK16	23	1	23	5	Catelyn Stark	Brienne of Tarth	Stark men_40.23
+ACOK16	23	6	23	7
+ACOK17	5	1	8	2	Sansa Stark	Joffrey Baratheon	Sandor Clegane	Crowd_41.5	Boros Blount	Lancel Lannister	Dontos Hollard	Meryn Trant
+ACOK17	8	3	9	6	Sansa Stark	Joffrey Baratheon	Sandor Clegane	Crowd_41.5	Boros Blount	Lancel Lannister	Dontos Hollard	Meryn Trant	Tyrion Lannister	Bronn	Timett
+ACOK17	10	1	10	3
+ACOK17	10	4	11	7	Sansa Stark	Tyrion Lannister
+ACOK17	12	1	12	5	Bran Stark	Rickon Stark	Maester Luwin	Big Walder Frey	Little Walder Frey
+ACOK17	13	1	15	6	Bran Stark	Meera Reed	Jojen Reed
+ACOK17	16	1	16	1	Bran Stark
+ACOK17	16	2	16	2	Alebelly
+ACOK17	16	3	16	3	Reek / Ramsay Bolton
+ACOK17	16	4	16	4	Reek / Ramsay Bolton
+ACOK17	16	5	16	5
+ACOK17	17	1	17	6	Bran Stark	Maester Luwin	Rodrik Cassel
+ACOK17	18	1	18	6	Bran Stark	Meera Reed	Jojen Reed
+ACOK17	19	1	19	3	Thoren Smallwood	Jeor Mormont
+ACOK17	19	4	19	4	Jon Snow	Ghost
+ACOK17	20	1	20	1	Night's watch men_41.20
+ACOK17	20	2	20	5	Jon Snow
+ACOK17	21	1	21	5	Jon Snow	Jeor Mormont	Thoren Smallwood	Night's watch men_41.21	Jarman Buckwell
+ACOK17	21	6	22	6	Jon Snow	Jeor Mormont
+ACOK17	23	1	23	4	Jon Snow	Dywen	Night's watch men_41.23
+ACOK17	23	5	25	7	Jon Snow	Ghost
+ACOK18	4	1	9	6	Tyrion Lannister	Lord Varys	Cersei Lannister	Petyr Baelish
+ACOK18	10	1	10	2	Tyrion Lannister	Cersei Lannister
+ACOK18	10	3	11	1	Tyrion Lannister	Cersei Lannister	Kingsguards_41.10	Bronn
+ACOK18	11	2	11	5	Tyrion Lannister	Bronn
+ACOK18	12	1	13	2	Theon Greyjoy	Aeron Greyjoy	Stygg	Benfred Tallhart	Greyjoy men_42.12
+ACOK18	13	3	14	2	Theon Greyjoy
+ACOK18	14	3	16	3	Theon Greyjoy	Dagmer Cleftjaw
+ACOK18	14	4	14	4	Theon Greyjoy	Dagmer Cleftjaw
+ACOK18	14	5	14	5	Dagmer Cleftjaw
+ACOK18	14	6	14	6	Theon Greyjoy
+ACOK18	16	4	17	6	Theon Greyjoy	Dagmer Cleftjaw
+ACOK18	18	1	18	2
+ACOK18	18	3	18	5	Arya Stark
+ACOK18	19	1	19	3	Arya Stark	Weese
+ACOK18	19	4	20	1	Arya Stark	Gendry
+ACOK18	20	2	20	2	Arya Stark	Lucan
+ACOK18	20	3	20	3	Arya Stark
+ACOK18	20	4	20	4	Arya Stark	Staff_42.20
+ACOK18	20	5	21	1	Arya Stark	Weese
+ACOK18	21	2	21	3	Arya Stark	Guard_42.21
+ACOK18	21	4	21	7	Arya Stark	Jaqen H'ghar	Maid_42.21
+ACOK18	22	1	22	6	Arya Stark	Weese	Maid_42.22
+ACOK18	22	7	22	7	Arya Stark
+ACOK18	23	1	23	4	Arya Stark	Tywin Lannister	Lannister men_42.23	Gregor Clegane
+ACOK18	23	5	23	5	Arya Stark
+ACOK18	23	6	23	6	Arya Stark	Weese
+ACOK18	24	1	24	3	Arya Stark	Staff_42.24
+ACOK18	24	4	24	6	Arya Stark	Jaqen H'ghar
+ACOK19	4	1	4	4	Catelyn Stark	Tully men_43.4	Brienne of Tarth	Stark men_43.4
+ACOK19	4	5	4	5
+ACOK19	5	1	7	5	Catelyn Stark	Brienne of Tarth
+ACOK19	8	1	9	6	Catelyn Stark	Edmure Tully	Tully men_43.4	Brienne of Tarth	Stark men_43.4
+ACOK19	10	1	10	6	Catelyn Stark	Hoster Tully
+ACOK19	11	1	11	1	Catelyn Stark	Hoster Tully	Maester Vyman
+ACOK19	11	2	11	2	Catelyn Stark	Crowd_43.11
+ACOK19	11	3	11	3	Catelyn Stark
+ACOK19	11	4	12	6	Catelyn Stark	Utherydes Wayn	Silent sisters_43.11
+ACOK19	13	1	13	3	Tyrion Lannister	Myrcella Baratheon	Joffrey Baratheon	Tommen Baratheon	Cersei Lannister	Crowd_43.13	Sailors_43.13	Arys Oakheart	Lancel Lannister	Sansa Stark	Sandor Clegane	Mandon Moore	Boros Blount	Meryn Trant	Bronn	Tanda Stokeworth	Falyse Stokeworth	Lollys Stokeworth
+ACOK19	13	4	16	8	Tyrion Lannister	Joffrey Baratheon	Tommen Baratheon	Cersei Lannister	Lancel Lannister	Lannister men_43.13	Crowd_43.13	Sansa Stark	Sandor Clegane	Mandon Moore	Boros Blount	Meryn Trant	Bronn	Tanda Stokeworth	Falyse Stokeworth	Lollys Stokeworth
+ACOK19	17	1	19	3	Tyrion Lannister	Joffrey Baratheon	Tommen Baratheon	Cersei Lannister	Lancel Lannister	Lannister men_43.13	Mandon Moore	Boros Blount	Meryn Trant	Bronn	Tanda Stokeworth
+ACOK19	19	4	20	6	Tyrion Lannister	Joffrey Baratheon	Tommen Baratheon	Cersei Lannister	Lancel Lannister	Lannister men_43.13	Mandon Moore	Boros Blount	Meryn Trant	Bronn	Sansa Stark	Sandor Clegane	Tanda Stokeworth
+ACOK19	21	1	21	3	Tyrion Lannister	Joffrey Baratheon	Tommen Baratheon	Cersei Lannister	Lancel Lannister	Lannister men_43.13	Mandon Moore	Boros Blount	Meryn Trant	Sansa Stark	Tanda Stokeworth
+ACOK19	21	4	21	4
+ACOK19	22	1	22	1
+ACOK19	22	2	23	7	Tyrion Lannister	Jacelyn Bywater
+ACOK19	24	1	24	6	Tyrion Lannister	Lord Varys	Bronn
+ACOK19	24	7	24	7
+ACOK20	4	1	4	1	Daenerys Targaryen	Xaro Xhoan Daxos	Dothrakis_44.4	Crowd_44.4	Rhaegal	Jhogo
+ACOK20	4	2	4	5	Daenerys Targaryen	Xaro Xhoan Daxos	Rhaegal
+ACOK20	5	1	5	3	Daenerys Targaryen	Xaro Xhoan Daxos	Dothrakis_44.4	Rhaegal	Jhogo
+ACOK20	6	1	6	6	Daenerys Targaryen	Xaro Xhoan Daxos	Rhaegal
+ACOK20	7	1	7	5	Daenerys Targaryen	Xaro Xhoan Daxos	Dothrakis_44.4	Jhogo	Firemage_44.7	Crowd_44.7
+ACOK20	7	6	8	7	Daenerys Targaryen	Xaro Xhoan Daxos	Dothrakis_44.4	Jhogo	Quaithe of the Shadow
+ACOK20	9	1	10	6	Daenerys Targaryen	Jorah Mormont	Servant_44.9	Drogon	Viserion	Rhaegal
+ACOK20	11	1	13	6	Davos Seaworth	Cortnay Penrose	Stannis's host_44.11	Melisandre of Asshai	Stannis Baratheon	Devan Seaworth	Alester Florent	Guyard Morrigen	Parmen Crane	Bryce Caron
+ACOK20	14	1	16	7	Davos Seaworth	Stannis Baratheon	Melisandre of Asshai
+ACOK20	17	1	19	6	Davos Seaworth	Stannis Baratheon	Devan Seaworth
+ACOK20	20	1	23	2	Davos Seaworth	Melisandre of Asshai
+ACOK20	23	3	24	6	Davos Seaworth	Melisandre of Asshai	Stannis's shadow_44.23
+ACOK21	4	1	4	4	Tyrion Lannister	Lancel Lannister
+ACOK21	4	5	4	5	Tyrion Lannister
+ACOK21	5	1	5	6	Tyrion Lannister	Bronn
+ACOK21	6	1	6	1	Tyrion Lannister	Bronn
+ACOK21	6	2	6	5	Tyrion Lannister
+ACOK21	7	1	7	6	Tyrion Lannister	Symon Silver Tongue	Shae
+ACOK21	8	1	8	5	Tyrion Lannister	Shae
+ACOK21	8	6	8	6
+ACOK21	9	1	9	1
+ACOK21	9	2	9	2	Tyrion Lannister
+ACOK21	9	3	10	5	Tyrion Lannister	Shae	Lord Varys
+ACOK21	10	6	13	5	Tyrion Lannister	Shae
+ACOK21	13	3	13	3	Tysha
+ACOK21	14	1	17	9	Tyrion Lannister	Lord Varys
+ACOK21	18	1	18	4	Jon Snow	Jeor Mormont
+ACOK21	18	5	18	5	Jon Snow
+ACOK21	19	1	19	2	Qhorin Halfhand	Night's watch men_45.19	Jon Snow
+ACOK21	19	3	19	5	Qhorin Halfhand	Jon Snow
+ACOK21	20	1	20	5	Qhorin Halfhand	Jon Snow	Jeor Mormont
+ACOK21	21	1	22	3	Jon Snow	Hobb Three-Finger
+ACOK21	21	5	21	5	Chett	4 Night's watch men_45.21	Lark the Sisterman
+ACOK21	22	4	24	7	Qhorin Halfhand	Jon Snow	Jeor Mormont
+ACOK22	4	1	4	3	Edmure Tully	Catelyn Stark	Brienne of Tarth	Tully men_46.4
+ACOK22	4	4	4	5	Catelyn Stark	Brienne of Tarth
+ACOK22	5	1	5	1	Catelyn Stark	Brienne of Tarth	Children_46.5
+ACOK22	5	2	5	6	Catelyn Stark	Brienne of Tarth	Maester Vyman
+ACOK22	6	1	6	6	Catelyn Stark	Brienne of Tarth
+ACOK22	7	1	8	2	Catelyn Stark	Brienne of Tarth	Lannister men_46.7	Tully men_46.7.1	Tully men_46.7.2	Desmond Grell
+ACOK22	8	3	8	5	Catelyn Stark	Brienne of Tarth	Tully men_46.7.1	Tully men_46.7.2	Desmond Grell
+ACOK22	9	1	9	1	Catelyn Stark	Utherydes Wayn
+ACOK22	9	2	10	6	Catelyn Stark	Brienne of Tarth	Cleos Frey
+ACOK22	10	7	10	7	Catelyn Stark	Brienne of Tarth
+ACOK22	11	1	11	1	Catelyn Stark	Brienne of Tarth	Desmond Grell	Robin Ryger	Hoster Tully
+ACOK22	11	2	11	2	Crowd_46.11	Rymund the Rhymer
+ACOK22	11	3	11	5	Catelyn Stark
+ACOK22	12	1	12	6	Daenerys Targaryen	Drogon	Aggo	Rakharo	Jorah Mormont	Jhogo	Xaro Xhoan Daxos	Pyat Pree
+ACOK22	13	1	13	7	Daenerys Targaryen	Pyat Pree	Servant_46.13	Drogon
+ACOK22	14	1	15	7	Daenerys Targaryen	Drogon
+ACOK22	16	1	16	1	Daenerys Targaryen	Drogon
+ACOK22	16	2	16	2	Willem Darry	Daenerys Targaryen	Drogon
+ACOK22	16	3	16	3	Aerys Targaryen	Daenerys Targaryen	Drogon
+ACOK22	17	1	17	2	Daenerys Targaryen	Drogon
+ACOK22	17	3	17	5	Rhaegar Targaryen	Elia Martell	Daenerys Targaryen	Drogon
+ACOK22	17	6	19	1	Daenerys Targaryen	Drogon
+ACOK22	19	2	19	5	Daenerys Targaryen	Drogon	Wizards_46.19
+ACOK22	19	6	20	1	Daenerys Targaryen	Drogon
+ACOK22	20	2	20	2	Daenerys Targaryen	Drogon	Wizards_46.19
+ACOK22	20	3	21	3	Daenerys Targaryen	Drogon
+ACOK22	21	4	21	4	Viserys Targaryen
+ACOK22	21	5	21	5	Rhaego Targaryen
+ACOK22	21	6	21	6	Rhaegar Targaryen
+ACOK22	21	7	21	7	Stannis Baratheon
+ACOK22	21	8	21	8
+ACOK22	21	9	21	9
+ACOK22	21	10	21	10	Daenerys Targaryen
+ACOK22	21	11	21	11	Mirri Maz Duur
+ACOK22	21	12	21	12	Daenerys Targaryen
+ACOK22	21	13	21	13	Crowd_46.21
+ACOK22	21	14	22	6	Daenerys Targaryen	Drogon	Slaves_46.21
+ACOK22	23	1	23	3	Daenerys Targaryen	Drogon
+ACOK22	23	4	23	8	Daenerys Targaryen	Drogon	Pyat Pree	Jhogo
+ACOK23	4	1	4	1	Bran Stark	Summer
+ACOK23	4	2	4	2	Bran Stark	Summer	Shaggydog
+ACOK23	4	3	4	3	Bran Stark	Summer	Shaggydog
+ACOK23	4	4	4	4	Bran Stark	Summer
+ACOK23	4	5	4	5	Bran Stark	Summer
+ACOK23	4	6	4	6	Bran Stark	Summer
+ACOK23	5	1	5	3	Bran Stark
+ACOK23	5	4	6	2	Bran Stark	Werlag	Theon Greyjoy
+ACOK23	6	3	6	5	Bran Stark	Theon Greyjoy
+ACOK23	6	6	6	6	Bran Stark
+ACOK23	7	1	7	6	Bran Stark	Maester Luwin	Rickon Stark
+ACOK23	8	1	8	4	Theon Greyjoy	Big Walder Frey	Little Walder Frey	Bran Stark	Maester Luwin	Rickon Stark	Jojen Reed	Meera Reed	Werlag	Black Lorren	Greyjoy men_47.8	Stark staff_47.8	Mikken	Hodor	Osha	Stygg
+ACOK23	8	5	9	5	Theon Greyjoy	Big Walder Frey	Little Walder Frey	Bran Stark	Maester Luwin	Rickon Stark	Jojen Reed	Meera Reed	Werlag	Black Lorren	Reek / Ramsay Bolton	Greyjoy men_47.8	Stark staff_47.8	Mikken	Hodor	Osha	Stygg
+ACOK23	9	6	11	3	Theon Greyjoy	Big Walder Frey	Little Walder Frey	Bran Stark	Maester Luwin	Rickon Stark	Jojen Reed	Meera Reed	Werlag	Black Lorren	Reek / Ramsay Bolton	Greyjoy men_47.8	Stark staff_47.8	Hodor	Osha	Stygg
+ACOK23	11	4	11	4	Big Walder Frey	Little Walder Frey	Bran Stark	Maester Luwin	Rickon Stark	Jojen Reed	Meera Reed	Stark staff_47.8	Hodor
+ACOK23	11	5	11	6	Bran Stark	Hodor
+ACOK23	11	7	11	7
+ACOK23	12	1	12	6	Arya Stark	Hot Pie
+ACOK23	13	1	14	5	Brave Companions_46.13	Arya Stark	Crowd_47.13	Northern prisonners_47.13	Amory Lorch	Lannister men_47.23	Cadwyn	Vargo Hoat	Robett Glover
+ACOK23	14	6	14	6	Arya Stark
+ACOK23	15	1	15	5	Arya Stark	Gendry
+ACOK23	15	6	16	3	Arya Stark
+ACOK23	16	4	18	6	Arya Stark	Jaqen H'ghar
+ACOK23	19	1	19	6	Arya Stark	Jaqen H'ghar	Cooks_47.19	Soldiers_47.19
+ACOK23	20	1	20	8	Arya Stark	Jaqen H'ghar	Soldiers_47.19	Guards_47.20
+ACOK23	21	1	21	3	Arya Stark	Jaqen H'ghar	Soldiers_47.19	Robett Glover	Northern prisonners_47.13
+ACOK23	21	4	22	6	Arya Stark	Jaqen H'ghar
+ACOK23	22	7	22	7
+ACOK23	23	1	23	1	Arya Stark	Mebble Pinkeye	Maid_47.23
+ACOK23	23	2	23	2	Arya Stark
+ACOK23	23	3	23	4	Arya Stark	Shagwell the Fool
+ACOK23	23	5	24	3	Arya Stark	Shagwell the Fool	Roose Bolton	Vargo Hoat	Bolton men_47.23
+ACOK23	24	4	24	4	Bolton men_47.23
+ACOK23	24	5	24	6	Amory Lorch	Rorge	Shagwell the Fool	Bolton men_47.23	Brave Companions_47.24
+ACOK23	24	7	24	7
+ACOK24	4	1	4	5	Jon Snow	Stonesnake	Ebben	Squire Dalbridge	Qhorin Halfhand
+ACOK24	5	1	5	1
+ACOK24	5	2	5	4	Jon Snow	Stonesnake
+ACOK24	6	1	6	1	Jon Snow	Stonesnake
+ACOK24	6	2	7	5	Jon Snow	Stonesnake	Orell	Wildling_48.6	Ygritte
+ACOK24	7	6	13	5	Jon Snow	Stonesnake	Ygritte
+ACOK24	12	1	12	1	Bael the Bard
+ACOK24	12	2	12	2	Brandon's daughter_48.12
+ACOK24	12	3	12	3	Brandon's daughter_48.12	Brandon's grandson_48.12
+ACOK24	14	1	14	1
+ACOK24	14	2	14	6	Jon Snow	Ghost	Ygritte	Stonesnake	Ebben	Squire Dalbridge	Qhorin Halfhand
+ACOK24	15	1	15	6	Jon Snow	Ygritte
+ACOK24	15	7	15	7
+ACOK24	16	1	16	5	Theon Greyjoy	Kyra	Wex Pyke
+ACOK24	17	1	17	1	Theon Greyjoy	Werlag
+ACOK24	17	2	17	5	Theon Greyjoy	Kyra	Wex Pyke
+ACOK24	17	6	17	6	Theon Greyjoy	Black Lorren
+ACOK24	18	1	18	3	Theon Greyjoy	Black Lorren
+ACOK24	18	4	18	5	Theon Greyjoy	Black Lorren
+ACOK24	18	6	18	6
+ACOK24	19	1	19	2	Theon Greyjoy	Black Lorren
+ACOK24	19	3	21	7	Theon Greyjoy	Crowd_48.19	Greyjoy men_48.19	Joseth	Murch_48.19	Gariss	Poxy Tym	Aggar	Gynir Rednose	Gelmarr	Reek / Ramsay Bolton	Wex Pyke	Farlen	Maester Luwin	Big Walder Frey	Little Walder Frey	Black Lorren
+ACOK24	22	1	22	5	Theon Greyjoy	Joseth	Murch_48.19	Gariss	Poxy Tym	Aggar	Gynir Rednose	Gelmarr	Reek / Ramsay Bolton	Wex Pyke	Farlen	Maester Luwin	Big Walder Frey	Little Walder Frey
+ACOK24	23	1	24	6	Theon Greyjoy	Joseth	Murch_48.19	Gariss	Poxy Tym	Aggar	Gynir Rednose	Gelmarr	Reek / Ramsay Bolton	Wex Pyke	Farlen	Maester Luwin	Big Walder Frey	Little Walder Frey
+ACOK24	24	7	24	7
+ACOK25	4	1	4	3	Tyrion Lannister	Shagga	Clansmen_49.4
+ACOK25	4	4	4	6	Tyrion Lannister	Bronn	Gold cloaks_49.4
+ACOK25	5	1	5	1	Tyrion Lannister	Gold cloaks_49.4	Crowd_49.5
+ACOK25	6	1	6	6	Hallyne	Tyrion Lannister
+ACOK25	7	1	7	1	Hallyne	Jacelyn Bywater
+ACOK25	7	2	7	6	Tyrion Lannister	Jacelyn Bywater
+ACOK25	8	1	8	5	Tyrion Lannister	Lord Varys
+ACOK25	8	6	8	6
+ACOK25	9	1	10	6	Sansa Stark	Dontos Hollard
+ACOK25	10	4	10	4	Sansa Stark	Crowd_49.9
+ACOK25	11	1	11	4	Sansa Stark
+ACOK25	11	5	13	7	Sansa Stark	Sandor Clegane
+ACOK25	12	3	12	4	Sansa Stark	Sandor Clegane	Crowd_49.9
+ACOK25	14	1	14	3	Sansa Stark	Crowd_49.9
+ACOK25	15	1	15	1
+ACOK25	16	1	17	7	Cersei Lannister	Sansa Stark
+ACOK25	18	1	18	1	Jon Snow	Ghost	Stonesnake	Ebben	Squire Dalbridge	Qhorin Halfhand
+ACOK25	18	2	19	5	Jon Snow	Qhorin Halfhand
+ACOK25	19	6	19	6	Jon Snow	Ghost
+ACOK25	20	1	20	1	Jon Snow	Ghost	Grey Wind	Nymeria	Shaggydog	Summer
+ACOK25	20	2	20	2	Jon Snow	Bran Stark
+ACOK25	20	3	20	3	Jon Snow	Ghost
+ACOK25	20	4	20	4	Jon Snow	Ghost	Host_49.20
+ACOK25	21	1	21	1	Jon Snow	Ghost	Host_49.20	Eagle / Orell
+ACOK25	21	2	21	5	Jon Snow	Qhorin Halfhand
+ACOK25	21	6	21	6
+ACOK25	22	1	22	2	Jon Snow	Qhorin Halfhand	Squire Dalbridge
+ACOK25	22	3	22	7	Jon Snow	Stonesnake	Ebben	Squire Dalbridge	Qhorin Halfhand
+ACOK25	23	1	24	5	Jon Snow	Stonesnake	Ebben	Squire Dalbridge	Qhorin Halfhand	Ghost
+ACOK25	24	6	24	8	Jon Snow	Stonesnake	Ebben	Qhorin Halfhand	Ghost
+ACOK26	4	1	4	6	Tyrion Lannister	Cersei Lannister
+ACOK26	5	1	7	6	Tyrion Lannister	Cersei Lannister	Servants_50.5
+ACOK26	8	1	8	2	Tyrion Lannister	Cersei Lannister
+ACOK26	8	3	10	7	Tyrion Lannister	Cersei Lannister	Alayaya	Gold cloacks_50.8
+ACOK26	11	1	11	2	Tyrion Lannister
+ACOK26	11	3	12	7	Tyrion Lannister	Shae
+ACOK26	12	8	12	8
+ACOK26	13	1	15	5	Catelyn Stark	Brienne of Tarth
+ACOK26	14	5	14	5	Catelyn Stark
+ACOK26	14	6	14	6	Robb Stark
+ACOK26	14	7	14	7	Sansa Stark
+ACOK26	14	8	14	8	Arya Stark
+ACOK26	14	9	14	9	Rickon Stark
+ACOK26	14	10	14	10	Bran Stark
+ACOK26	16	1	16	2	Catelyn Stark	Maester Vyman	Hoster Tully
+ACOK26	16	3	16	5	Catelyn Stark	Hoster Tully
+ACOK26	16	6	16	7	Catelyn Stark	Hoster Tully	Brienne of Tarth
+ACOK26	17	1	17	2	Catelyn Stark	Brienne of Tarth	Guard_50.17
+ACOK26	17	3	24	7	Catelyn Stark	Jaime Lannister	Brienne of Tarth
+ACOK26	23	3	23	3	Aerys Targaryen	Rickard Stark	Jaime Lannister	Brandon Stark
+ACOK27	4	1	4	3	Theon Greyjoy	Bran Stark	Rickon Stark	Shaggydog	Summer
+ACOK27	5	1	5	6	Theon Greyjoy	Wex Pyke	Reek / Ramsay Bolton
+ACOK27	6	1	6	3	Theon Greyjoy	Wex Pyke	Reek / Ramsay Bolton	Black Lorren
+ACOK27	6	4	7	5	Theon Greyjoy	Wex Pyke	Reek / Ramsay Bolton	Black Lorren	Asha's men_51.6	Asha Greyjoy
+ACOK27	7	6	9	4	Theon Greyjoy	Asha Greyjoy
+ACOK27	9	5	9	5
+ACOK27	10	1	10	4	Theon Greyjoy	Reek / Ramsay Bolton
+ACOK27	10	5	10	5
+ACOK27	11	1	11	1	Theon Greyjoy	Guests_51.11	Robert Baratheon	Eddard Stark	Jory Cassel	Mikken	Septon Chayle	Farlen	Miller's wife_51.11	Wallen	Lyanna Stark	Brandon Stark	Rickard Stark
+ACOK27	11	2	11	2	Theon Greyjoy
+ACOK27	11	3	11	3	Theon Greyjoy
+ACOK27	11	4	11	4	Theon Greyjoy
+ACOK27	11	5	11	5	Theon Greyjoy	Robb Stark	Grey Wind
+ACOK27	11	6	11	6	Theon Greyjoy
+ACOK27	12	1	12	6	Theon Greyjoy
+ACOK27	13	1	13	1
+ACOK27	13	2	14	7	Daenerys Targaryen	Xaro Xhoan Daxos
+ACOK27	15	1	15	2	Daenerys Targaryen	Jhiqui
+ACOK27	15	3	16	1	Daenerys Targaryen	Jhiqui	Jorah Mormont	Dothrakis_51.15	Crowd_51.15	Aggo	Jhogo
+ACOK27	16	2	17	1	Daenerys Targaryen	Jorah Mormont
+ACOK27	17	2	17	2	Daenerys Targaryen	Jhiqui	Jorah Mormont	Dothrakis_51.15	Crowd_51.15	Aggo	Jhogo
+ACOK27	17	3	18	3	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Strong Belwas	Barristan Selmy
+ACOK27	18	4	19	4	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Merchant_51.17	Strong Belwas	Barristan Selmy
+ACOK27	19	5	20	3	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Merchant_51.17	Sorrowful Man_51.19	Strong Belwas	Barristan Selmy
+ACOK27	20	4	20	7	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Merchant_51.17	Strong Belwas	Barristan Selmy
+ACOK27	21	1	21	6	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Merchant_51.17	Strong Belwas	Barristan Selmy	Aggo	Jhogo
+ACOK27	22	1	24	5	Daenerys Targaryen	Jorah Mormont	Crowd_51.17	Strong Belwas	Barristan Selmy	Aggo	Jhogo
+ACOK28	4	1	4	6	Sansa Stark	Joffrey Baratheon	Kingsguards_52.4	Lannister men_51.4
+ACOK28	5	1	5	5	Sansa Stark	Tanda Stokeworth	Falyse Stokeworth	Lollys Stokeworth	Shae
+ACOK28	6	1	6	3	Sansa Stark	Ilyn Payne	Crowd_52.6	Guards_52.6
+ACOK28	6	4	7	6	Sansa Stark	Ilyn Payne	Crowd_52.6	Guards_52.6	Cersei Lannister
+ACOK28	8	1	8	5	Stannis's fleet_52.8
+ACOK28	9	1	10	2	Davos Seaworth	Stannis's fleet_52.8
+ACOK28	11	1	13	4	Davos Seaworth	Stannis's fleet_52.8	Lannister men_52.11	Sandor Clegane
+ACOK28	14	1	15	5	Davos Seaworth	Stannis's fleet_52.8
+ACOK28	16	1	16	5	Stannis's fleet_52.8
+ACOK28	17	1	17	2	Tyrion Lannister	Joffrey Baratheon	Kingsguards_52.4	Lannister men_51.4
+ACOK28	17	3	17	3	Tyrion Lannister	Joffrey Baratheon	Kingsguards_52.4	Lannister men_51.4	Stannis's men_52.17
+ACOK28	18	1	18	4	Tyrion Lannister	Joffrey Baratheon	Kingsguards_52.4	Lannister men_51.4
+ACOK28	18	5	19	1	Tyrion Lannister	Lannister men_51.4
+ACOK28	19	2	21	7	Tyrion Lannister	Lannister men_51.4	Sandor Clegane	Podrick Payne	Mandon Moore
+ACOK29	4	1	5	8	Sansa Stark	Ilyn Payne	Crowd_52.6	Guards_52.6	Cersei Lannister
+ACOK29	6	1	7	5	Sansa Stark	Cersei Lannister	Osney Kettleblack	Osmund Kettleblack
+ACOK29	8	1	8	3	Sansa Stark	Cersei Lannister	Osney Kettleblack
+ACOK29	8	4	8	6	Sansa Stark	Cersei Lannister
+ACOK29	9	1	9	6	Sansa Stark	Cersei Lannister	Ilyn Payne
+ACOK29	10	1	10	2	Tyrion Lannister	Mandon Moore	Podrick Payne	Lannister men_53.10
+ACOK29	11	1	11	9	Tyrion Lannister	Mandon Moore	Podrick Payne	Lannister men_53.10	Stannis's men_53.11
+ACOK29	12	1	12	8	Tyrion Lannister
+ACOK29	13	1	13	4	Tyrion Lannister
+ACOK29	14	1	14	4	Tyrion Lannister	Balon Swann
+ACOK29	14	2	14	2	Stannis's men_53.14
+ACOK29	15	1	16	1	Tyrion Lannister	Stannis's men_53.14	Lannister men_53.10
+ACOK29	16	2	18	1	Tyrion Lannister	Mandon Moore
+ACOK29	18	2	18	4	Tyrion Lannister	Mandon Moore	Podrick Payne
+ACOK29	18	5	18	8	Tyrion Lannister	Podrick Payne
+ACOK29	19	1	19	3	Sansa Stark	Cersei Lannister	Osney Kettleblack	Lancel Lannister
+ACOK29	19	4	20	4	Sansa Stark	Osney Kettleblack	Lancel Lannister
+ACOK29	20	5	20	5	Sansa Stark	Dontos Hollard
+ACOK29	20	6	20	6	Sansa Stark
+ACOK29	20	7	20	7
+ACOK29	21	1	21	1
+ACOK29	21	2	21	3	Sansa Stark
+ACOK29	21	4	23	4	Sansa Stark	Sandor Clegane
+ACOK29	23	5	24	2	Sansa Stark
+ACOK29	24	3	24	7	Sansa Stark	Dontos Hollard
+ACOK30	4	1	4	6	Arya Stark	Gendry
+ACOK30	5	1	6	6	Arya Stark	Roose Bolton	Aenys Frey	Freys_54.5
+ACOK30	7	1	8	6	Arya Stark	Maester Wolkan	Roose Bolton
+ACOK30	9	1	9	3	Arya Stark
+ACOK30	9	4	9	4	Arya Stark
+ACOK30	9	5	9	7	Arya Stark
+ACOK30	10	1	10	6	Arya Stark	Roose Bolton
+ACOK30	11	1	11	9	Arya Stark
+ACOK30	12	1	12	8	Arya Stark	Gendry
+ACOK30	13	1	13	2	Arya Stark
+ACOK30	13	3	13	6	Arya Stark	Stableboy_54.13
+ACOK30	13	7	14	1	Arya Stark
+ACOK30	14	2	14	3	Arya Stark	Gendry	Hot Pie
+ACOK30	14	4	15	6	Arya Stark	Guard_54.14
+ACOK30	15	7	15	7	Arya Stark
+ACOK30	16	1	16	5	Arya Stark	Gendry	Hot Pie
+ACOK30	17	1	21	2	Sansa Stark	Joffrey Baratheon	Tywin Lannister	Gold cloacks_54.17	Crowd_54.17	High Septon_27.1	Mace Tyrell	Loras Tyrell	Garlan Tyrell	Cersei Lannister	Jalabhar Xho	Petyr Baelish	Balon Swann	Meryn Trant	Osmund Kettleblack
+ACOK30	21	3	23	4	Sansa Stark	Joffrey Baratheon	Tywin Lannister	Gold cloacks_54.17	Crowd_54.17	High Septon_27.1	Mace Tyrell	Loras Tyrell	Garlan Tyrell	Cersei Lannister	Jalabhar Xho	Petyr Baelish	Balon Swann	Meryn Trant	Osmund Kettleblack	Ilyn Payne	Prisonners_54.21
+ACOK30	23	5	23	7	Sansa Stark	Tywin Lannister	Gold cloacks_54.17	Crowd_54.17
+ACOK30	24	1	24	7	Sansa Stark	Dontos Hollard
+ACOK31	4	1	4	4	Tyrion Lannister	Silent Sisters_55.4
+ACOK31	5	1	5	7	Tyrion Lannister
+ACOK31	6	1	6	1	Tyrion Lannister	Cersei Lannister	Tywin Lannister
+ACOK31	6	2	6	2	Tyrion Lannister
+ACOK31	6	3	6	3	Tyrion Lannister	Podrick Payne
+ACOK31	6	4	6	4	Tyrion Lannister
+ACOK31	6	5	6	8	Tyrion Lannister	Maester Ballabar
+ACOK31	7	1	7	2	Tyrion Lannister	Marillion	Guests_55.7	Jaime Lannister	Shae
+ACOK31	7	3	8	1	Tyrion Lannister
+ACOK31	8	2	8	2	Tyrion Lannister	Tysha
+ACOK31	8	3	8	3	Tyrion Lannister
+ACOK31	8	4	12	3	Tyrion Lannister	Maester Ballabar
+ACOK31	12	4	13	5	Tyrion Lannister	Podrick Payne
+ACOK31	13	6	13	7	Tyrion Lannister
+ACOK31	14	1	14	6	Theon Greyjoy	Maester Luwin
+ACOK31	14	6	14	6	Rodrik Cassel	Northmen_55.14
+ACOK31	15	1	16	6	Greyjoy men_55.15	Theon Greyjoy	Wex Pyke	Black Lorren	Red Rolfe	Kromm	Tymor	Ulf the Ill	Harrag Sharp	Kenned the Whale	Urzen	Stygg
+ACOK31	17	1	17	1	Cley Cerwyn
+ACOK31	17	2	17	7	Cley Cerwyn	Theon Greyjoy	Rodrik Cassel	Northmen_55.14
+ACOK31	18	1	19	5	Cley Cerwyn	Theon Greyjoy	Rodrik Cassel	Northmen_55.14	Wex Pyke	Black Lorren	Beth Cassel
+ACOK31	20	1	20	5	Theon Greyjoy
+ACOK31	20	6	21	4	Theon Greyjoy	Maester Luwin
+ACOK31	21	5	21	7	Theon Greyjoy	Maester Luwin	Wex Pyke
+ACOK31	22	1	22	2
+ACOK31	22	3	22	3	Ramsay Bolton	Bolton men_55.22
+ACOK31	22	4	24	2	Ramsay Bolton	Bolton men_55.22	Theon Greyjoy	Maester Luwin	Wex Pyke
+ACOK31	24	3	24	7	Ramsay Bolton	Bolton men_55.22	Theon Greyjoy	Greyjoy men_55.15	Maester Luwin	Wex Pyke	Black Lorren	Red Rolfe	Kromm	Tymor	Ulf the Ill	Harrag Sharp	Kenned the Whale
+ACOK31	24	8	24	8	Ramsay Bolton	Theon Greyjoy
+ACOK31	24	9	24	11
+ACOK32	4	1	4	3	Jon Snow	Stonesnake	Ebben	Qhorin Halfhand	Ghost
+ACOK32	4	4	4	4
+ACOK32	4	5	5	4	Jon Snow	Stonesnake	Qhorin Halfhand	Ghost
+ACOK32	5	5	7	7	Jon Snow	Qhorin Halfhand	Ghost
+ACOK32	8	1	8	6	Jon Snow	Qhorin Halfhand	Ghost
+ACOK32	9	1	9	2	Jon Snow	Qhorin Halfhand	Ghost
+ACOK32	9	3	9	5	Jon Snow	Qhorin Halfhand	Ghost
+ACOK32	10	1	10	5	Jon Snow	Qhorin Halfhand	Ghost	Eagle / Orell
+ACOK32	10	6	14	7	Jon Snow	Qhorin Halfhand	Ghost	Eagle / Orell	Wildlings_55.10	Lord of Bones	Ygritte	Ragwyle
+ACOK32	15	1	15	7	Jon Snow	Ghost	Eagle / Orell	Wildlings_55.10	Lord of Bones	Ygritte	Ragwyle
+ACOK32	16	1	16	5	Bran Stark	Summer
+ACOK32	17	1	19	7	Bran Stark	Meera Reed	Jojen Reed	Hodor	Rickon Stark	Osha
+ACOK32	20	1	20	8	Bran Stark	Meera Reed	Jojen Reed	Hodor	Rickon Stark	Osha	Shaggydog	Summer
+ACOK32	21	1	22	7	Bran Stark	Meera Reed	Jojen Reed	Hodor	Rickon Stark	Osha	Shaggydog	Summer	Maester Luwin
+ACOK32	23	1	23	3	Bran Stark	Meera Reed	Jojen Reed	Hodor	Rickon Stark	Osha	Shaggydog	Summer
+ACOK32	23	4	23	7
+ACOK32	24	1	24	5	Bran Stark	Meera Reed	Jojen Reed	Hodor	Summer

@@ -989,15 +989,34 @@ compute.corpus.stats <- function(data, char.det=NA)
 	series.stats.atts <- tmp$series.stats.atts
 	
 	# return all the stats
-	result <- list(
-		inter.df=inter.df,
-		panel.stats=panel.stats, panel.stats.atts=panel.stats.atts, panel.chars=panel.chars,
-		page.stats=page.stats, page.stats.atts=page.stats.atts, page.chars=page.chars,
-		scene.stats=scene.stats, scene.stats.atts=scene.stats.atts, scene.chars=scene.chars,
-		char.stats=char.stats, 
-		volume.stats=volume.stats, volume.stats.atts=volume.stats.atts, volume.stats.indiv=volume.stats.indiv, volume.chars=volume.chars,
-		arc.stats=arc.stats, arc.stats.atts=arc.stats.atts, arc.stats.indiv=arc.stats.indiv, arc.chars=arc.chars,
-		series.stats=series.stats, series.stats.atts=series.stats.atts
-	)
-	return(result)
+	data$inter.df <- inter.df
+	# panels
+	data$panel.stats <- panel.stats
+	data$panel.stats.atts <- panel.stats.atts
+	data$panel.chars <- panel.chars
+	# pages
+	data$page.stats <- page.stats
+	data$page.stats.atts <- page.stats.atts
+	data$page.chars <- page.chars
+	# scenes
+	data$scene.stats <- scene.stats
+	data$scene.stats.atts <- scene.stats.atts
+	data$scene.chars <- scene.chars
+	# characters
+	data$char.stats <- char.stats
+	# volumes
+	data$volume.stats <- volume.stats
+	data$volume.stats.atts <- volume.stats.atts
+	data$volume.stats.indiv <- volume.stats.indiv
+	data$volume.chars <- volume.chars
+	# arcs
+	data$arc.stats <- arc.stats
+	data$arc.stats.atts <- arc.stats.atts
+	data$arc.stats.indiv <- arc.stats.indiv
+	data$arc.chars <- arc.chars
+	# series
+	data$series.stats <- series.stats 
+	data$series.stats.atts <- series.stats.atts
+	
+	return(data)
 }

@@ -113,8 +113,8 @@ compute.static.nodecomp.statistics <- function(g, mode, char.det=char.det, windo
 	{	if(weights=="none")
 		{	if(!filtered)
 			{	ms <- rbind(
-					c(paste0(MEAS_TRUEPOS, SFX_DUR), paste0(MEAS_FALSENEG, SFX_DUR, paste0(MEAS_FALSEPOS, SFX_DUR))), 
-					c(paste0(MEAS_TRUEPOS, SFX_OCC), paste0(MEAS_FALSENEG, SFX_OCC, paste0(MEAS_FALSEPOS, SFX_OCC)))
+					c(paste0(MEAS_TRUEPOS, SFX_DUR), paste0(MEAS_FALSENEG, SFX_DUR), paste0(MEAS_FALSEPOS, SFX_DUR)), 
+					c(paste0(MEAS_TRUEPOS, SFX_OCC), paste0(MEAS_FALSENEG, SFX_OCC), paste0(MEAS_FALSEPOS, SFX_OCC))
 				)
 			}
 			else

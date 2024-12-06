@@ -619,12 +619,32 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 11	29	6	30	9	Tjall le Fougueux	Kriss de Valnor
 11	30	10	31	2	Aaricia Gandalfsdottir	Thorgal Aegirsson	Guerrier_11.24.2
 11	31	3	31	3	Aaricia Gandalfsdottir
-11	31	4	31	4	Haynée	Xargos	Varth	Jolan Thorgalsson
-11	31	5	32	8	Jolan Thorgalsson	Argun Pied d'Arbre
+11	31	4	31	4	Thorgal Aegirsson	Haynée
+11	31	5	31	5	Thorgal Aegirsson	Xargos
+11	31	6	31	6	Thorgal Aegirsson	Varth
+11	31	4	31	7	Thorgal Aegirsson	Jolan Thorgalsson
+11	31	8	32	8	Jolan Thorgalsson	Argun Pied d'Arbre
 11	32	9	34	4	Tjall le Fougueux	Kriss de Valnor
 11	34	5	34	6	Jolan Thorgalsson
 11	34	7	35	4	Jolan Thorgalsson	Tanatloc / Xargos
-11	35	5	36	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson
+11	35	5	35	5	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ivaldir
+11	35	6	35	6	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Akwila
+11	35	7	35	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ingrid	Skadia	Ragnhild
+11	35	8	35	8	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Shaniah
+11	35	9	35	9	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Gardien géant_1.11	Gardien nain_1.12
+11	35	10	35	10	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	3 bienveillants
+11	35	11	35	11	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Slive
+11	35	12	35	12	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Cléo
+11	35	13	35	13	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Galathorn	Wargan
+11	35	14	35	14	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Jadawin	3 bienveillants
+11	35	15	35	15	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Sigwald-le-Brûlé
+11	35	16	35	16	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Tjahzi
+11	35	17	35	17	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Gandalf-le-fou
+11	35	18	35	18	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	La faucheuse
+11	35	19	35	19	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Frigg
+11	35	20	35	20	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Véronar
+11	35	21	35	21	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Jorund-le-taureau
+11	36	1	36	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson
 11	37	1	37	6	Aaricia Gandalfsdottir	Thorgal Aegirsson
 11	37	7	38	3	Variay	Dignitaires_11.37	Servantes_11.37
 11	38	4	38	5	Variay
@@ -1669,7 +1689,35 @@ Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 26	19	5	19	5	Varth	Haynée	Cosmonautes_26.19
 26	19	6	19	6	Thorgal Aegirsson
 26	19	7	19	7	Thorgal Aegirsson	Leif Haraldson	Gandalf-le-fou	Vikings_7.4
-26	20	1	21	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Slive	Gandalf-le-fou	La faucheuse	Xargos	Haynée	Varth	Kriss de Valnor	Séréna	Frigg	Galathorn	Shaniah	Tjahzi	Hjalmgunnar	Alinoë	Tjall le Fougueux	Argun Pied d'Arbre	Volsung de Nichor	Véronar	Jorund-le-taureau	3 bienveillants	Jadawin	Darek le Svéar	Lehla	Taïmyr	Skadia	Ragnhild	Ingrid	Cléo	Nidhogg	Muff	Ivaldir	Shardar-le-puissant	Variay
+26	20	1	20	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Slive
+26	20	2	20	2	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Gandalf-le-fou
+26	20	3	20	3	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	La faucheuse
+26	20	4	20	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Xargos
+26	20	5	20	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Kriss de Valnor
+26	20	6	20	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Séréna
+26	20	7	20	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Frigg
+26	20	8	20	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Galathorn	Wargan
+26	20	9	20	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Shaniah
+26	20	10	20	10	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Tjahzi
+26	20	11	20	11	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Hjalmgunnar
+26	20	12	20	12	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Alinoë
+26	20	13	20	13	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Gardien géant_1.11	Gardien nain_1.12
+26	20	14	20	14	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Volsung de Nichor
+26	21	1	21	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Tjall le Fougueux	Argun Pied d'Arbre
+26	21	2	21	2	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Haynée	Varth
+26	21	3	21	3	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Véronar
+26	21	4	21	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Jorund-le-taureau
+26	21	5	21	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	3 bienveillants	Jadawin
+26	21	6	21	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Darek le Svéar	Lehla
+26	21	7	21	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Taïmyr
+26	21	8	21	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Skadia	Ragnhild	Ingrid
+26	21	9	21	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Cléo
+26	21	10	21	10	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Nidhogg
+26	21	11	21	11	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
+26	21	12	21	12	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Ivaldir
+26	21	13	21	13	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Shardar-le-puissant
+26	21	14	21	14	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Variay
+26	21	15	21	15	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Loup_16.34
 26	22	1	22	5	Thorgal Aegirsson	Jolan Thorgalsson	Louve Thorgalsdottir	Aaricia Gandalfsdottir	Sargon	Orchias	2 gardes_26.22
 26	23	1	23	4	Thorgal Aegirsson
 26	23	5	23	8	Thorgal Aegirsson	Orchias
@@ -4842,6 +4890,105 @@ J10	56	7	56	7	Équipage_J10.53
 40	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Slugs_40.16	Garn	Angakkuq
 40	47	1	47	5	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 40	47	6	48	2	Jolan Thorgalsson	Boréale
+J11	3	1	3	4	Équipage_J10.53	Seck	Thorgal Aegirsson
+J11	3	5	4	2	Équipage_J10.53
+J11	4	3	4	3	Équipage_J10.53	Seck
+J11	4	4	4	6	Seck	Thorgal Aegirsson
+J11	4	7	4	9	Équipage_J10.53	Seck
+J11	5	1	5	6	Équipage_J10.53	Seck	Thorgal Aegirsson
+J11	5	7	5	7	Équipage_J10.53	Seck
+J11	6	1	6	4	Aaricia Gandalfsdottir
+J11	6	5	6	5	Aaricia Gandalfsdottir	Troglodytes_J11.6
+J11	6	6	6	6	Aaricia Gandalfsdottir
+J11	6	7	7	1	Aaricia Gandalfsdottir	Vikings_J11.6	Isoline
+J11	7	2	7	6	Aaricia Gandalfsdottir	Isoline
+J11	7	7	7	9	Aaricia Gandalfsdottir	Vikings_J11.6	Isoline
+J11	8	1	8	5	Thorgal Aegirsson
+J11	8	6	8	6	Thorgal Aegirsson	Esprits_J11.8
+J11	8	7	8	8	Thorgal Aegirsson
+J11	9	1	9	7	Aaricia Gandalfsdottir	Maître Tyr	Adolescents_J11.9	Grym
+J11	10	1	11	8	Aaricia Gandalfsdottir	Maître Tyr	Servante_J11.10
+J11	10	8	10	8	Jarl Zadig
+J11	10	9	10	9	Jarl Zadig	Pêcheurs_J11.10	Vikings_J11.10
+J11	11	1	11	1	Pêcheurs_J11.10
+J11	11	3	11	3	Vikings_J11.10
+J11	11	4	11	4	Pêcheuse_J11.11
+J11	11	5	11	5	Troglodyte_J11.11	Villageois_J11.11
+J11	11	6	11	6	Vikings_J11.11
+J11	12	1	12	1	Thorgal Aegirsson	Esprits_J11.12
+J11	12	2	12	8	Thorgal Aegirsson	Esprits_J11.12	Himurdusens_J11.12
+J11	12	9	12	9	Thorgal Aegirsson	Esprits_J11.12
+J11	13	1	13	4	Aaricia Gandalfsdottir
+J11	13	5	13	11	Aaricia Gandalfsdottir	Grym
+J11	14	1	14	6	Thorgal Aegirsson	Esprits_J11.12	Himurdusens_J11.12
+J11	15	1	15	9	Aaricia Gandalfsdottir	Maître Tyr	Adolescents_J11.9	Grym
+J11	16	1	17	9	Thorgal Aegirsson	Trois Harpyvafas
+J11	18	1	18	9	Thorgal Aegirsson	Trois Harpyvafas	Tigurdemiwin
+J11	19	1	20	6	Aaricia Gandalfsdottir	Grym	Lydia_J11.19	Adolescents_J11.9
+J11	20	7	20	10	Aaricia Gandalfsdottir	Grym	Maître Tyr
+J11	21	1	21	8	Thorgal Aegirsson	Tigurdemiwin	Esprits_J11.21
+J11	22	1	22	1	Aaricia Gandalfsdottir
+J11	22	2	23	10	Aaricia Gandalfsdottir	Grym
+J11	23	1	23	1	Père de Grym	Mère de Grym
+J11	23	2	23	2	Père de Grym	Mère de Grym	Vikings_J11.23
+J11	23	3	23	3	Mère de Grym
+J11	23	4	23	4	Grym	Troglodytes_J11.23.1
+J11	23	5	23	5	Grym	Troglodyte_J11.23.2
+J11	23	6	23	6	Grym	Troglodytes_J11.23.3
+J11	23	7	23	7	Grym
+J11	23	8	23	8	Grym	Maître Tyr
+J11	24	1	24	10	Thorgal Aegirsson	Tigurdemiwin
+J11	25	1	25	6	Grym	Aaricia Gandalfsdottir
+J11	25	7	25	7	Grym	Aaricia Gandalfsdottir	Troglodytes_J11.25
+J11	25	8	26	1	Grym	Aaricia Gandalfsdottir
+J11	26	2	26	3	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym
+J11	26	4	27	5	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym	Lydia_J11.19	Troglodytes_J11.26
+J11	27	6	27	9	Grym	Aaricia Gandalfsdottir	Oonila	Fils de Grym	Lydia_J11.19	Troglodytes_J11.26	Chef troglodyte_J11.27
+J11	27	10	27	11	Aaricia Gandalfsdottir
+J11	28	1	28	3	Thorgal Aegirsson	Tigurdemiwin
+J11	28	4	28	4	Thorgal Aegirsson
+J11	28	5	28	5	Thorgal Aegirsson	Équipage_J10.53
+J11	28	6	29	2	Thorgal Aegirsson	Seck
+J11	29	3	29	3	Thorgal Aegirsson	Seck	Équipage_J10.53
+J11	29	4	29	5	Thorgal Aegirsson	Seck	Équipage_J10.53	Tigurdemiwin
+J11	29	6	29	8	Thorgal Aegirsson	Seck	Équipage_J10.53
+J11	29	9	29	10	Thorgal Aegirsson	Équipage_J10.53
+J11	30	1	30	1	Gardes_J11.30
+J11	30	2	31	4	Gardes_J11.30	Troglodytes_J11.30
+J11	31	5	31	5	Troglodytes_J11.30
+J11	31	6	31	7	Troglodytes_J11.30	Troglodytes_J11.31	Lydia_J11.19
+J11	32	1	32	6	Aaricia Gandalfsdottir
+J11	32	3	32	3	Aaricia Gandalfsdottir	2 nixes_14.4
+J11	32	3	32	3	Aaricia Gandalfsdottir	Vigrid
+J11	32	7	33	4	Troglodytes_J11.31	Villageois_J11.32
+J11	33	5	34	1	Troglodytes_J11.31	Maître Tyr	Villageois_J11.32
+J11	34	2	34	2	Adolescents_J11.9	Maître Tyr
+J11	34	3	34	3	Aaricia Gandalfsdottir
+J11	34	4	34	4	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	34	5	35	6	Troglodytes_J11.31	Lydia_J11.19
+J11	35	1	35	2	Villageois_J11.32	Troglodytes_J11.31
+J11	35	3	36	1	Villageois_J11.32	Troglodytes_J11.31	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	36	2	36	4	Villageois_J11.32	Maître Tyr	Aaricia Gandalfsdottir	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	36	5	36	6	Villageois_J11.32	Troglodytes_J11.31	Lydia_J11.19
+J11	36	7	37	6	Maître Tyr	Aaricia Gandalfsdottir	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	37	7	38	5	Aaricia Gandalfsdottir	Villageoises_J11.34	Dagmar_J11.37	Isoline
+J11	38	6	39	5	Aaricia Gandalfsdottir
+J11	39	6	39	7	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Lydia_J11.19
+J11	39	8	39	8	Aaricia Gandalfsdottir
+J11	40	1	40	9	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Villageois_J11.32	Villageoises_J11.34	Isoline	Maître Tyr	Dagmar_J11.37	Grym
+J11	41	1	42	2	Aaricia Gandalfsdottir	Troglodytes_J11.30	Troglodytes_J11.31	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37	Grym
+J11	42	3	42	7	Aaricia Gandalfsdottir	Villageois_J11.32	Villageoises_J11.34	Isoline	Dagmar_J11.37
+J11	42	8	42	10	Aaricia Gandalfsdottir	Isoline
+J11	43	1	43	3	Aaricia Gandalfsdottir
+J11	43	4	44	2	Aaricia Gandalfsdottir	Grym
+J11	44	3	44	3	Aaricia Gandalfsdottir
+J11	44	4	44	8	Grym
+J11	44	9	44	9	Aaricia Gandalfsdottir
+J11	45	1	45	9	Seck	Kahina
+J11	46	1	46	3	Aaricia Gandalfsdottir	Villageoises_J11.46	Klothilde_J11.46
+J11	46	4	46	9	Aaricia Gandalfsdottir	Thorgal Aegirsson
+J11	47	1	48	4	Aaricia Gandalfsdottir	Thorgal Aegirsson
+J11	48	5	48	9
 41	3	1	6	10	Thorgal Aegirsson
 41	6	11	7	11	Thorgal Aegirsson	Mýsla	Mjöllnir_Tétras
 41	8	1	8	6	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sven_41.8
@@ -4878,21 +5025,76 @@ J10	56	7	56	7	Équipage_J10.53
 41	33	1	33	7	Thorgal Aegirsson	Mýsla
 41	33	8	33	8	Thorgal Aegirsson
 41	34	1	34	7	Jolan Thorgalsson	Boréale
-41	34	8	36	1	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Munnin
-41	36	2	36	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Munnin
+41	34	8	36	1	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Muninn
+41	36	2	36	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Raie / Huginn	Raie / Muninn
 41	37	1	37	5	Enfants_41.37
 41	37	6	37	9	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Enfants_41.37
 41	38	1	38	6	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Enfants_41.37	Sydöbalak
 41	39	1	40	6	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Mjöllnir_Tétras
 41	40	7	40	8	Soldats_41.11	Oksekog	Villageois_41.25	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
-41	41	1	41	9	Soldats_41.11	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras
+41	41	1	41	9	Soldats_41.11	Mýsla	Thorgal Aegirsson	Mjöllnir_Tétras	Oksekog
 41	41	10	41	10	Soldats_41.11
 41	42	1	43	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak	Mýsla
 41	43	9	43	11	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak
 41	44	1	44	8	Thorgal Aegirsson	Jolan Thorgalsson
-41	45	1	45	4	Jolan Thorgalsson	Huginn	Munnin
-41	45	5	46	5	Jolan Thorgalsson	Munnin
-41	46	6	46	6	Jolan Thorgalsson	Huginn	Munnin
+41	45	1	45	4	Jolan Thorgalsson	Huginn	Muninn
+41	45	5	46	5	Jolan Thorgalsson	Muninn
+41	46	6	46	6	Jolan Thorgalsson	Huginn	Muninn
 41	46	7	46	10	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Sydöbalak
 41	47	1	47	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 41	48	1	48	7	Pallas	Aniel de Valnor	Soldats_41.48
+42	3	1	3	1
+42	3	2	4	7	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Tentakl
+42	4	8	5	9	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Tentakl	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Aaricia Gandalfsdottir
+42	6	1	6	8	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Aaricia Gandalfsdottir
+42	7	1	7	7	Boréale	Aaricia Gandalfsdottir
+42	7	8	8	8	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7
+42	9	1	9	4	Lidvór	Fjójar
+42	9	5	10	4	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7	Lidvór	Fjójar
+42	10	5	10	6	Boréale	Aaricia Gandalfsdottir	Kyrstell_42.7	Lidvór	Fjójar	Bébé_42.10
+42	10	7	10	8	Fjójar
+42	11	1	11	8	Thorgal Aegirsson	Jolan Thorgalsson
+42	12	1	15	5	Villageois_42.12	Thorgal Aegirsson	Jolan Thorgalsson	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan
+42	15	6	15	7	Villageois_42.12	Thorgal Aegirsson	Jolan Thorgalsson	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Yngvild	Enfants d'Yngvild_42.15
+42	15	8	15	9	Özurr le Varègue	Viggo	Olan
+42	16	1	16	5	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir
+42	16	6	16	6	Thorgal Aegirsson	Jolan Thorgalsson
+42	16	7	16	9	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	17	1	18	2	Gilli	Ava	Louve Thorgalsdottir	Boréale	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	18	3	18	4	Gilli	Ava	Louve Thorgalsdottir	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson
+42	18	5	18	9	Boréale	Jolan Thorgalsson
+42	19	1	21	5	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Aaricia Gandalfsdottir	Thorgal Aegirsson	Groj	Mundir	Skjor Jorundsson
+42	21	3	21	4	Jorund-le-taureau	Gandalf-le-fou	Vikings_42.21
+42	21	6	22	7	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Aaricia Gandalfsdottir	Thorgal Aegirsson	Fjójar	Groj	Mundir	Skjor Jorundsson
+42	22	2	22	2	Jorund-le-taureau	Gandalf-le-fou
+42	22	3	22	3	Gandalf-le-fou
+42	22	8	24	9	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Viggo	Olan	Thorgal Aegirsson	Fjójar	Groj	Mundir	Skjor Jorundsson
+42	25	1	25	5	Aaricia Gandalfsdottir
+42	26	1	26	4	Fjójar
+42	26	5	26	9	Fjójar	Lidvór	Bébé_42.10
+42	27	1	28	4	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Skjor Jorundsson	Guenon / Yasmina
+42	28	5	28	8	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Jolan Thorgalsson	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Lidvór	Guenon / Yasmina
+42	29	1	29	7	Louve Thorgalsdottir	Guenon / Yasmina
+42	29	8	29	9	Louve Thorgalsdottir	Guenon / Yasmina	Gilli
+42	30	1	30	9	Membre du Thing_42.19	Villageois_42.12	Ásmundr	Özurr le Varègue	Gürd Nez-Plat	Halli le Sarcastique	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Groj	Mundir	Guenon / Yasmina
+42	31	1	31	3	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	31	4	31	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12
+42	31	8	32	8	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Villageois_42.12	Thorgal Aegirsson	Skjor Jorundsson
+42	33	1	36	9	Thorgal Aegirsson	Özurr le Varègue
+42	37	1	37	7	Aaricia Gandalfsdottir	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Thorgal Aegirsson	Skjor Jorundsson
+42	38	1	38	1	Gürd Nez-Plat	Halli le Sarcastique
+42	38	2	38	2	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Kyrstell_42.7
+42	38	3	38	5	Gürd Nez-Plat	Halli le Sarcastique
+42	38	6	39	1	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Membre du Thing_42.19	Groj	Mundir
+42	39	2	39	7	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
+42	39	8	41	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Fjójar
+42	41	6	42	11	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir
+42	43	1	43	8	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Kyrstell_42.7
+42	44	1	44	5	Fjójar
+42	44	6	44	10	Fjójar	Lidvór
+42	45	1	45	5	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina
+42	45	6	45	7	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson
+42	45	8	46	6	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson	Fjójar
+42	46	7	46	9	Gürd Nez-Plat	Halli le Sarcastique	Villageois_42.12	Ásmundr	Aaricia Gandalfsdottir	Thorgal Aegirsson	Membre du Thing_42.19	Groj	Mundir	Viggo	Olan	Gilli	Ava	Louve Thorgalsdottir	Guenon / Yasmina	Jolan Thorgalsson
+42	47	1	47	9	Gilli	Kyrstell_42.7	Louve Thorgalsdottir	Guenon / Yasmina	Thorgal Aegirsson	Jolan Thorgalsson	Aaricia Gandalfsdottir
+42	48	1	48	7	Boréale
