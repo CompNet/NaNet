@@ -1,5 +1,4 @@
 Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
-01	3	1	3	1Volume	StartPage	StartPanel	EndPage	EndPanel	Characters
 01	3	1	3	1	Gandalf-le-fou	Thorgal Aegirsson
 01	3	2	3	2	Gandalf-le-fou
 01	3	3	3	3	Gandalf-le-fou	Thorgal Aegirsson
