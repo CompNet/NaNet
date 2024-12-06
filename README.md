@@ -1,4 +1,4 @@
-NaNet
+NaNet v1.1.0
 =======
 *Extraction and analysis of character networks from bandes dessinées, comics, mangas, and such*
 
