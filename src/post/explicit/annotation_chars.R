@@ -36,6 +36,7 @@ init.annotation.file <- function()
 	
 	# record new table
 	tab.file <- file.path(ANN_EXPLICIT_FOLDER, "chars_by_panel.csv")
+	tlog(0,"Writing file ",tab.file)
 	write.csv(x=data, file=tab.file, row.names=FALSE, fileEncoding="UTF-8")#, col.names=TRUE)
 }
 

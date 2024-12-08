@@ -11,6 +11,7 @@ Name,ShortName,Sex,Named
 2 dieux_30.44,,Male,FALSE
 2 garçons_L1.3,,Male,FALSE
 2 garçons_L1.42,,Male,FALSE
+2 gardes Baalds_S1.73,,Male,FALSE
 2 gardes_13.16,,Male,FALSE
 2 gardes_21.27,,Male,FALSE
 2 gardes_26.22,,Male,FALSE
@@ -166,6 +167,7 @@ Arvid,,Male,TRUE
 Asketill,,Male,TRUE
 Aslak,,Male,TRUE
 Ásmundr,,Male,TRUE
+Astrid,,Female,TRUE
 Astronautes_7.39.1,,Mixed,FALSE
 Astronautes_7.39.2,,Mixed,FALSE
 Atlante_40.41,,Female,FALSE
@@ -185,6 +187,9 @@ Avrenim,,Unknown,TRUE
 Azkel,,Male,TRUE
 Azzalepstön,,Male,TRUE
 Baalds_1.21,,Mixed,FALSE
+Baalds_S1.41,,Unknown,FALSE
+Baalds_S1.45,,Unknown,FALSE
+Baalds_S1.67,,Mixed,FALSE
 Badeaux_K1.18,,Mixed,FALSE
 Baigneur_L2.44,,Mixed,FALSE
 Balder,,Male,TRUE
@@ -521,6 +526,7 @@ Finnbjorn,,Male,TRUE
 Fjójar,,Female,TRUE
 Floriane,,Female,TRUE
 Fmur,,Male,TRUE
+Folke,,Male,TRUE
 Fossoyeur_J8.4,,Male,FALSE
 Fouad Wholaï,Fouad,Male,TRUE
 Foule_34.29,,Mixed,FALSE
@@ -539,6 +545,7 @@ Frère Karhamasönn_3,,Male,FALSE
 Freyja,,Female,TRUE
 Freyr,,Male,TRUE
 Frigg,,Female,TRUE
+Friör,,Unknown,TRUE
 Frypiäh,,Male,TRUE
 Fugitifs_27.6,,Male,FALSE
 Fural,,Male,TRUE
@@ -595,6 +602,8 @@ Garde_J7.46,,Male,FALSE
 Garde_J8.24,,Male,FALSE
 Garde_K1.47,,Male,FALSE
 Garde_K4.29,,Male,FALSE
+Garde_S1.32,,Male,FALSE
+Garde_S1.33,,Male,FALSE
 Gardes alfes noirs_L6.13,,Male,FALSE
 Gardes alfes noirs_L6.22,,Male,FALSE
 Gardes rouges_35.20,,Male,FALSE
@@ -689,6 +698,7 @@ Gareth_6.20,,Male,FALSE
 Garn,,Male,TRUE
 Gaut,,Male,TRUE
 Géant_L6.9,,Male,FALSE
+Géantes de feu_S1.60,,Female,FALSE
 Géants_22.22,,Mixed,FALSE
 Géants_22.29,,Mixed,FALSE
 Géants_22.40,,Mixed,FALSE
@@ -711,6 +721,7 @@ Groupe_6.20,,Male,FALSE
 Grym,,Male,TRUE
 Guerrier alfe noir_L6.8.1,,Male,FALSE
 Guerrier alfe noir_L6.8.2,,Male,FALSE
+Guerrier Baald_S1.17,,Male,FALSE
 Guerrier_11.24.1,,Male,FALSE
 Guerrier_11.24.2,,Male,FALSE
 Guerrier_11.24.3,,Male,FALSE
@@ -767,6 +778,7 @@ Haynée,,Female,TRUE
 Hazmat_40.22.1,,Male,FALSE
 Hazmat_40.22.2,,Male,FALSE
 Heidrun,,Female,TRUE
+Helga,,Female,TRUE
 Helgi,,Female,TRUE
 Helgith,,Male,TRUE
 Héraclius,,Male,TRUE
@@ -778,6 +790,7 @@ Hiérulf-le-penseur,Hiérulf,Male,TRUE
 Hildebrün,,Female,TRUE
 Hildegunn,,Female,TRUE
 Himurdusens_J11.12,,Female,FALSE
+Hjalmar,,Male,TRUE
 Hjalmgunnar,,Male,TRUE
 Hog,,Male,TRUE
 Hogrid,,Male,TRUE
@@ -959,6 +972,7 @@ Mehdi,,Male,TRUE
 Mélas,,Male,TRUE
 Membre du Thing_42.19,,Male,FALSE
 Mercenaires_4.44,,Male,FALSE
+Mère d'Aaricia,,Female,FALSE
 Mère d'Anina,,Female,FALSE
 Mère de Grym,,Female,FALSE
 Mère de Mýsla,,Female,FALSE
@@ -1118,6 +1132,7 @@ Poursuivants_24.3,,Male,FALSE
 Poursuivants19.21,,Male,FALSE
 Prétendants_39.12,,Male,FALSE
 Prétendants_J3.23,,Male,FALSE
+Prêtre Baald_S1.68,,Male,FALSE
 Prêtre_9.5,,Male,FALSE
 Prisionniers_37.14,,Mixed,FALSE
 Prisonnier_37.14,,Male,FALSE
@@ -1237,6 +1252,11 @@ Skadia,,Female,TRUE
 Skaedhi,,Female,TRUE
 Skald,,Male,TRUE
 Skjor Jorundsson,,Male,TRUE
+Skraëlingar_S1.20,,Male,FALSE
+Skraëlingar_S1.45,,Male,FALSE
+Skraëlingars_S1.41,,Mixed,FALSE
+Skraëlingars_S1.93,,Unknown,FALSE
+Skraeling-la-Noire,,Female,TRUE
 Skraëlings_39.31,,Male,FALSE
 Skraëlings_39.38,,Female,FALSE
 Skraëlings_39.44,,Male,FALSE
@@ -1354,6 +1374,7 @@ Störbondi_J10.15,,Male,FALSE
 Suivantes_34.11,,Female,FALSE
 Suivantes_J10.10,,Female,FALSE
 Suppliciés_12.4,,Male,FALSE
+Surtur-le-Noir,,Male,TRUE
 Sven_41.8,,Male,TRUE
 Sven_L4.17,,Male,TRUE
 Sveynn Tiuguskegg,Sveynn,Male,TRUE
@@ -1500,6 +1521,8 @@ Vikings_K6.56,,Male,FALSE
 Vikings_L2.42,,Male,FALSE
 Vikings_L4.43,,Male,FALSE
 Vikings_L5.3,,Male,FALSE
+Vikings_S1.45,,Male,FALSE
+Vikings_S1.97,,Mixed,FALSE
 Villageois_10.36,,Mixed,FALSE
 Villageois_11.13,,Mixed,FALSE
 Villageois_16.3,,Female,FALSE
@@ -1593,6 +1616,11 @@ Villageois_L4.17,,Mixed,FALSE
 Villageois_L4.26,,Mixed,FALSE
 Villageois_L4.5,,Mixed,FALSE
 Villageois_L7.26,,Mixed,FALSE
+Villageois_S1.20,,Mixed,FALSE
+Villageois_S1.24,,Mixed,FALSE
+Villageois_S1.29,,Mixed,FALSE
+Villageois_S1.32,,Mixed,FALSE
+Villageois_S1.53,,Mixed,FALSE
 Villageoise_14.16,,Female,FALSE
 Villageoise_14.17,,Female,FALSE
 Villageoise_39.12,,Female,FALSE

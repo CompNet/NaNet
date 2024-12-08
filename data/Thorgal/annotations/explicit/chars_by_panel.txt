@@ -22128,6 +22128,643 @@ J10	56	7	56	7	Équipage_J10.53
 40	47	9	47	9	Boréale	Jolan Thorgalsson
 40	48	1	48	1
 40	48	2	48	2	Boréale
+S1	3	1	3	1
+S1	3	2	3	2	Thorgal Aegirsson
+S1	3	3	3	3
+S1	3	4	3	4	Thorgal Aegirsson
+S1	4	1	4	1	Aaricia Gandalfsdottir
+S1	4	2	4	2
+S1	4	3	4	3	Thorgal Aegirsson	Aaricia Gandalfsdottir
+S1	4	4	4	4
+S1	5	1	5	1
+S1	5	2	5	2
+S1	5	3	5	3	Thorgal Aegirsson
+S1	5	4	5	4
+S1	5	5	5	5	Thorgal Aegirsson
+S1	5	6	5	6
+S1	5	7	5	7	Thorgal Aegirsson
+S1	6	1	6	1	Thorgal Aegirsson
+S1	6	2	6	2
+S1	6	3	6	3	Thorgal Aegirsson
+S1	6	4	6	4	Nidhogg	Thorgal Aegirsson
+S1	6	5	6	5	Nidhogg
+S1	6	6	6	6	Nidhogg	Thorgal Aegirsson
+S1	6	7	6	7	Thorgal Aegirsson
+S1	7	1	7	1	Thorgal Aegirsson
+S1	7	2	7	2	Nidhogg	Thorgal Aegirsson
+S1	7	3	7	3	Nidhogg	Thorgal Aegirsson	Aaricia Gandalfsdottir	Tjahzi	Mère d'Aaricia
+S1	7	4	7	4	Thorgal Aegirsson
+S1	7	5	7	5	Nidhogg	Thorgal Aegirsson
+S1	7	6	7	6	Nidhogg
+S1	8	1	8	1	Nidhogg	Thorgal Aegirsson
+S1	8	2	8	2	Thorgal Aegirsson
+S1	8	3	8	3	Nidhogg	Thorgal Aegirsson
+S1	8	4	8	4	Nidhogg
+S1	8	5	8	5
+S1	8	6	8	6	Thorgal Aegirsson
+S1	9	1	9	1
+S1	9	2	9	2	Nidhogg	Thorgal Aegirsson
+S1	9	3	9	3	Nidhogg
+S1	9	4	9	4	Nidhogg	Thorgal Aegirsson
+S1	9	5	9	5	Thorgal Aegirsson
+S1	9	6	9	6
+S1	9	7	9	7	Nidhogg	Thorgal Aegirsson
+S1	9	8	9	8	Nidhogg
+S1	9	9	9	9	Nidhogg	Thorgal Aegirsson
+S1	10	1	10	1	Nidhogg
+S1	10	2	10	2	Thorgal Aegirsson
+S1	10	3	10	3	Nidhogg	Thorgal Aegirsson
+S1	10	4	10	4	Thorgal Aegirsson
+S1	10	5	10	5	Nidhogg	Thorgal Aegirsson
+S1	10	6	10	6	Thorgal Aegirsson
+S1	10	7	10	7	Nidhogg
+S1	10	8	10	8	Nidhogg	Thorgal Aegirsson
+S1	10	9	10	9	Nidhogg
+S1	10	10	10	10
+S1	11	1	11	1	Thorgal Aegirsson
+S1	11	2	11	2
+S1	11	3	11	3	Thorgal Aegirsson
+S1	12	1	12	1
+S1	14	1	14	1	Aaricia Gandalfsdottir	Solveig
+S1	14	2	14	2	Aaricia Gandalfsdottir	Solveig
+S1	14	3	14	3	Aaricia Gandalfsdottir	Solveig
+S1	14	4	14	4	Aaricia Gandalfsdottir	Solveig
+S1	14	5	14	5
+S1	14	6	14	6	Aaricia Gandalfsdottir	Solveig
+S1	15	1	15	1	Aaricia Gandalfsdottir	Solveig
+S1	15	2	15	2	Solveig
+S1	15	3	15	3	Aaricia Gandalfsdottir	Solveig
+S1	15	4	15	4	Aaricia Gandalfsdottir
+S1	15	5	15	5	Friör
+S1	15	6	15	6
+S1	15	7	15	7	Aaricia Gandalfsdottir	Friör
+S1	16	1	16	1	Aaricia Gandalfsdottir	Friör
+S1	16	2	16	2	Aaricia Gandalfsdottir
+S1	16	3	16	3	Friör
+S1	16	4	16	4	Guerrier Baald_S1.17
+S1	16	5	16	5	Aaricia Gandalfsdottir	Friör
+S1	16	6	16	6	Aaricia Gandalfsdottir	Friör
+S1	17	1	17	1	Guerrier Baald_S1.17
+S1	17	2	17	2	Aaricia Gandalfsdottir	Friör
+S1	17	3	17	3	Aaricia Gandalfsdottir	Friör	Guerrier Baald_S1.17
+S1	17	4	17	4	Aaricia Gandalfsdottir	Friör	Guerrier Baald_S1.17
+S1	17	5	17	5
+S1	17	6	17	6	Aaricia Gandalfsdottir
+S1	17	7	17	7	Guerrier Baald_S1.17
+S1	17	8	17	8	Aaricia Gandalfsdottir
+S1	17	9	17	9	Solveig
+S1	18	1	18	1
+S1	18	2	18	2	Thorgal Aegirsson
+S1	18	3	18	3	Thorgal Aegirsson
+S1	18	4	18	4	Thorgal Aegirsson
+S1	18	5	18	5	Solveig	Thorgal Aegirsson
+S1	18	6	18	6	Solveig
+S1	19	1	19	1	Solveig	Thorgal Aegirsson
+S1	19	2	19	2	Thorgal Aegirsson
+S1	19	3	19	3	Solveig	Thorgal Aegirsson
+S1	19	4	19	4	Thorgal Aegirsson
+S1	19	5	19	5	Solveig
+S1	19	6	19	6	Thorgal Aegirsson
+S1	19	7	19	7	Solveig	Thorgal Aegirsson
+S1	19	8	19	8	Solveig	Thorgal Aegirsson
+S1	20	1	20	1	Skraëlingar_S1.20	Thorgal Aegirsson
+S1	20	2	20	2	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	20	3	20	3	Villageois_S1.20
+S1	20	4	20	4	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	20	5	20	5	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	20	6	20	6	Skraëlingar_S1.20
+S1	21	1	21	1	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	21	2	21	2	Thorgal Aegirsson
+S1	21	3	21	3	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	21	4	21	4	Skraëlingar_S1.20
+S1	21	5	21	5	Skraëlingar_S1.20	Thorgal Aegirsson
+S1	22	1	22	1	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	22	2	22	2	Thorgal Aegirsson
+S1	22	3	22	3	Skraëlingar_S1.20
+S1	22	4	22	4	Thorgal Aegirsson	Skraëlingar_S1.20
+S1	22	5	22	5	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	23	1	23	1	Skraëlingar_S1.20	Thorgal Aegirsson
+S1	23	2	23	2	Skraëlingar_S1.20	Thorgal Aegirsson
+S1	23	3	23	3	Skraëlingar_S1.20
+S1	23	4	23	4	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Villageois_S1.20
+S1	23	5	23	5	Skraeling-la-Noire
+S1	23	6	23	6	Thorgal Aegirsson
+S1	24	1	24	1
+S1	24	2	24	2	Helga	Villageois_S1.24
+S1	24	3	24	3	Helga
+S1	25	1	25	1	Solveig	Thorgal Aegirsson	Villageois_S1.24
+S1	25	2	25	2	Helga
+S1	25	3	25	3	Solveig	Helga	Thorgal Aegirsson	Villageois_S1.24
+S1	25	4	25	4	Gandalf-le-fou	Helga	Villageois_S1.24
+S1	25	5	25	5	Gandalf-le-fou	Helga	Hiérulf-le-penseur	Thorgal Aegirsson	Villageois_S1.24
+S1	25	6	25	6	Hiérulf-le-penseur	Villageois_S1.24
+S1	26	1	26	1	Gandalf-le-fou	Helga	Hiérulf-le-penseur	Thorgal Aegirsson	Villageois_S1.24	Solveig
+S1	26	2	26	2	Hiérulf-le-penseur	Helga
+S1	26	3	26	3	Thorgal Aegirsson	Helga	Hiérulf-le-penseur	Thorgal Aegirsson	Villageois_S1.24
+S1	26	4	26	4	Thorgal Aegirsson
+S1	26	5	26	5	Thorgal Aegirsson
+S1	26	6	26	6	Gandalf-le-fou	Helga	Hiérulf-le-penseur	Thorgal Aegirsson	Villageois_S1.24	Solveig
+S1	27	1	27	1	Gandalf-le-fou
+S1	27	2	27	2	Thorgal Aegirsson
+S1	27	3	27	3	Gandalf-le-fou	Thorgal Aegirsson	Villageois_S1.24
+S1	27	4	27	4	Thorgal Aegirsson
+S1	27	5	27	5	Gandalf-le-fou	Thorgal Aegirsson	Villageois_S1.24
+S1	27	6	27	6	Thorgal Aegirsson
+S1	28	1	28	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.24
+S1	28	2	28	2	Skraeling-la-Noire
+S1	28	3	28	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.24
+S1	28	4	28	4	Skraeling-la-Noire	Thorgal Aegirsson
+S1	28	5	28	5	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.24
+S1	28	6	28	6	Gandalf-le-fou
+S1	29	1	29	1	Thorgal Aegirsson	Villageois_S1.24
+S1	29	2	29	2	Gandalf-le-fou	Thorgal Aegirsson
+S1	29	3	29	3	Gandalf-le-fou	Villageois_S1.24
+S1	29	4	29	4	Gandalf-le-fou	Thorgal Aegirsson	Villageois_S1.24
+S1	29	5	29	5	Gandalf-le-fou
+S1	29	6	29	6	Villageois_S1.29	Gandalf-le-fou
+S1	30	1	30	1	Björn Gandalfson	Gandalf-le-fou	Hiérulf-le-penseur	Villageois_S1.29
+S1	30	2	30	2	Thorgal Aegirsson	Villageois_S1.29
+S1	30	3	30	3	Björn Gandalfson	Gandalf-le-fou	Hiérulf-le-penseur	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.29
+S1	30	4	30	4	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.29
+S1	30	5	30	5	Björn Gandalfson	Gandalf-le-fou
+S1	30	6	30	6	Thorgal Aegirsson
+S1	30	7	30	7	Gandalf-le-fou
+S1	30	8	30	8	Skraeling-la-Noire	Thorgal Aegirsson
+S1	30	9	30	9	Gandalf-le-fou	Hiérulf-le-penseur	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.29
+S1	31	1	31	1	Gandalf-le-fou	Hiérulf-le-penseur	Villageois_S1.29
+S1	31	2	31	2	Hiérulf-le-penseur	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.29
+S1	31	3	31	3	Skraeling-la-Noire	Thorgal Aegirsson
+S1	31	4	31	4	Skraeling-la-Noire
+S1	31	5	31	5	Thorgal Aegirsson
+S1	31	6	31	6	Gandalf-le-fou	Skraeling-la-Noire	Villageois_S1.29
+S1	31	7	31	7	Gandalf-le-fou	Skraeling-la-Noire	Villageois_S1.29
+S1	32	1	32	1	Villageois_S1.32
+S1	32	2	32	2
+S1	32	3	32	3	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	32	4	32	4	Folke	Thorgal Aegirsson
+S1	32	5	32	5	Hiérulf-le-penseur	Solveig
+S1	32	6	32	6	Thorgal Aegirsson
+S1	32	7	32	7	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	32	8	32	8	Hiérulf-le-penseur
+S1	33	1	33	1	Hiérulf-le-penseur
+S1	33	2	33	2	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	33	3	33	3	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	33	4	33	4	Hiérulf-le-penseur
+S1	33	5	33	5	Gandalf-le-fou	Hiérulf-le-penseur
+S1	33	6	33	6	Thorgal Aegirsson
+S1	33	7	33	7
+S1	34	1	34	1	Thorgal Aegirsson
+S1	34	2	34	2	Hiérulf-le-penseur
+S1	34	3	34	3
+S1	34	4	34	4	Thorgal Aegirsson
+S1	34	5	34	5	Hiérulf-le-penseur
+S1	34	6	34	6	Thorgal Aegirsson
+S1	34	7	34	7	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	34	8	34	8	Thorgal Aegirsson
+S1	34	9	34	9	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	34	10	34	10
+S1	35	1	35	1	Thorgal Aegirsson
+S1	35	2	35	2	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	35	3	35	3	Thorgal Aegirsson
+S1	35	4	35	4	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	35	5	35	5	Thorgal Aegirsson
+S1	35	6	35	6	Thorgal Aegirsson
+S1	35	7	35	7	Thorgal Aegirsson
+S1	35	8	35	8	Hiérulf-le-penseur	Thorgal Aegirsson
+S1	35	9	35	9
+S1	36	1	36	1	Thorgal Aegirsson
+S1	36	2	36	2	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	36	3	36	3	Thorgal Aegirsson
+S1	36	4	36	4	Thorgal Aegirsson
+S1	36	5	36	5	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	36	6	36	6	Thorgal Aegirsson
+S1	36	7	36	7	Hiérulf-le-penseur
+S1	36	8	36	8	Hiérulf-le-penseur
+S1	36	9	36	9	Thorgal Aegirsson
+S1	36	10	36	10	Villageois_S1.32
+S1	37	1	37	1	Hiérulf-le-penseur
+S1	37	2	37	2	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	37	3	37	3	Hiérulf-le-penseur	Solveig	Thorgal Aegirsson
+S1	37	4	37	4	Folke	Hiérulf-le-penseur
+S1	37	5	37	5	Hiérulf-le-penseur
+S1	37	6	37	6
+S1	37	7	37	7	Thorgal Aegirsson
+S1	38	1	38	1	Thorgal Aegirsson
+S1	38	2	38	2	Thorgal Aegirsson
+S1	38	3	38	3	Hjalmar
+S1	38	4	38	4
+S1	38	5	38	5	Thorgal Aegirsson
+S1	38	6	38	6	Thorgal Aegirsson
+S1	38	7	38	7	Thorgal Aegirsson
+S1	38	8	38	8	Thorgal Aegirsson
+S1	39	1	39	1	Thorgal Aegirsson
+S1	39	2	39	2	Thorgal Aegirsson
+S1	39	3	39	3	Thorgal Aegirsson
+S1	39	4	39	4
+S1	40	1	40	1
+S1	40	2	40	2	Thorgal Aegirsson
+S1	40	3	40	3	Thorgal Aegirsson
+S1	40	4	40	4	Thorgal Aegirsson
+S1	40	5	40	5	Thorgal Aegirsson
+S1	40	6	40	6	Thorgal Aegirsson
+S1	40	7	40	7	Thorgal Aegirsson
+S1	41	1	41	1	Thorgal Aegirsson
+S1	41	2	41	2	Thorgal Aegirsson
+S1	41	3	41	3	Thorgal Aegirsson
+S1	41	4	41	4	Baalds_S1.41	Skraeling-la-Noire	Skraëlingars_S1.41
+S1	41	5	41	5	Thorgal Aegirsson
+S1	41	6	41	6	Thorgal Aegirsson
+S1	42	1	42	1	Thorgal Aegirsson
+S1	42	2	42	2	Thorgal Aegirsson
+S1	42	3	42	3	Thorgal Aegirsson
+S1	42	4	42	4	Thorgal Aegirsson
+S1	42	5	42	5
+S1	42	6	42	6
+S1	42	7	42	7	Thorgal Aegirsson
+S1	43	1	43	1	Thorgal Aegirsson
+S1	43	2	43	2	Thorgal Aegirsson
+S1	43	3	43	3	Thorgal Aegirsson
+S1	43	4	43	4	Thorgal Aegirsson
+S1	43	5	43	5	Thorgal Aegirsson
+S1	43	6	43	6	Thorgal Aegirsson
+S1	43	7	43	7	Thorgal Aegirsson
+S1	43	8	43	8
+S1	44	1	44	1
+S1	44	2	44	2	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Skraëlingar_S1.45	Vikings_S1.45
+S1	44	3	44	3	Gandalf-le-fou
+S1	44	4	44	4	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Vikings_S1.45
+S1	45	1	45	1	Skraeling-la-Noire
+S1	45	2	45	2	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20
+S1	45	3	45	3	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Skraëlingar_S1.45	Vikings_S1.45
+S1	45	4	45	4	Gandalf-le-fou
+S1	45	5	45	5	Skraeling-la-Noire
+S1	45	6	45	6	Gandalf-le-fou
+S1	45	7	45	7	Gandalf-le-fou	Skraëlingar_S1.45
+S1	45	8	45	8	Skraeling-la-Noire
+S1	46	1	46	1	Baalds_S1.45
+S1	46	2	46	2	Baalds_S1.45
+S1	46	3	46	3	Gandalf-le-fou
+S1	46	4	46	4	Baalds_S1.45
+S1	47	1	47	1	Gandalf-le-fou
+S1	47	2	47	2	Skraeling-la-Noire
+S1	47	3	47	3
+S1	47	4	47	4	Gandalf-le-fou
+S1	47	5	47	5	Baalds_S1.45	Gandalf-le-fou
+S1	47	6	47	6	Baalds_S1.45	Gandalf-le-fou
+S1	47	7	47	7	Skraeling-la-Noire
+S1	48	1	48	1	Baalds_S1.45	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Vikings_S1.45
+S1	48	2	48	2	Gandalf-le-fou	Gandalf-le-fou
+S1	48	3	48	3	Baalds_S1.45	Skraeling-la-Noire
+S1	49	1	49	1	Gandalf-le-fou
+S1	49	2	49	2	Baalds_S1.45	Gandalf-le-fou	Skraeling-la-Noire
+S1	49	3	49	3	Baalds_S1.45	Vikings_S1.45
+S1	49	4	49	4	Skraeling-la-Noire
+S1	49	5	49	5	Baalds_S1.45
+S1	49	6	49	6	Baalds_S1.45	Skraeling-la-Noire
+S1	49	7	49	7	Baalds_S1.45
+S1	49	8	49	8
+S1	49	9	49	9	Baalds_S1.45	Gandalf-le-fou
+S1	50	1	50	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Vikings_S1.45
+S1	50	2	50	2	Thorgal Aegirsson
+S1	50	3	50	3	Gandalf-le-fou
+S1	50	4	50	4	Skraeling-la-Noire
+S1	50	5	50	5	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	50	6	50	6	Skraeling-la-Noire
+S1	51	1	51	1	Thorgal Aegirsson
+S1	51	2	51	2	Gandalf-le-fou
+S1	51	3	51	3	Thorgal Aegirsson
+S1	51	4	51	4	Gandalf-le-fou
+S1	51	5	51	5	Gandalf-le-fou	Vikings_S1.45
+S1	51	6	51	6	Thorgal Aegirsson
+S1	51	7	51	7	Skraeling-la-Noire	Skraëlingar_S1.20	Vikings_S1.45
+S1	51	8	51	8	Thorgal Aegirsson
+S1	51	9	51	9	Gandalf-le-fou
+S1	52	1	52	1	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Vikings_S1.45	Thorgal Aegirsson
+S1	52	2	52	2
+S1	52	3	52	3
+S1	52	4	52	4
+S1	52	5	52	5
+S1	53	1	53	1
+S1	53	2	53	2
+S1	53	3	53	3	Gandalf-le-fou
+S1	53	4	53	4	Astrid	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	53	5	53	5	Astrid	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.53
+S1	54	1	54	1	Astrid
+S1	54	2	54	2	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.53
+S1	54	3	54	3	Astrid	Gandalf-le-fou
+S1	54	4	54	4	Thorgal Aegirsson
+S1	54	5	54	5	Gandalf-le-fou
+S1	54	6	54	6	Thorgal Aegirsson
+S1	54	7	54	7	Gandalf-le-fou
+S1	54	8	54	8	Thorgal Aegirsson
+S1	55	1	55	1
+S1	55	2	55	2	Thorgal Aegirsson
+S1	55	3	55	3	Thorgal Aegirsson
+S1	55	4	55	4	Astrid	Gandalf-le-fou	Thorgal Aegirsson	Villageois_S1.53
+S1	55	5	55	5	Skraeling-la-Noire	Villageois_S1.53
+S1	55	6	55	6	Gandalf-le-fou
+S1	55	7	55	7	Gandalf-le-fou
+S1	55	8	55	8	Astrid	Gandalf-le-fou	Villageois_S1.53
+S1	56	1	56	1	Thorgal Aegirsson	Villageois_S1.53
+S1	56	2	56	2	Gandalf-le-fou	Thorgal Aegirsson	Villageois_S1.53
+S1	56	3	56	3	Astrid	Gandalf-le-fou	Villageois_S1.53
+S1	56	4	56	4	Skraeling-la-Noire	Villageois_S1.53
+S1	56	5	56	5	Gandalf-le-fou
+S1	56	6	56	6	Gandalf-le-fou
+S1	56	7	56	7	Gandalf-le-fou	Skraeling-la-Noire	Villageois_S1.53
+S1	56	8	56	8	Gandalf-le-fou
+S1	57	1	57	1	Astrid	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Villageois_S1.53
+S1	57	2	57	2	Villageois_S1.53
+S1	57	3	57	3
+S1	57	4	57	4
+S1	57	5	57	5	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	58	1	58	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	58	2	58	2	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	58	3	58	3	Thorgal Aegirsson
+S1	58	4	58	4	Skraeling-la-Noire
+S1	58	5	58	5	Skraeling-la-Noire	Thorgal Aegirsson
+S1	58	6	58	6	Skraeling-la-Noire
+S1	58	7	58	7	Thorgal Aegirsson
+S1	58	8	58	8	Skraeling-la-Noire	Thorgal Aegirsson
+S1	58	9	58	9	Skraeling-la-Noire	Thorgal Aegirsson
+S1	59	1	59	1	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	59	2	59	2	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	59	3	59	3	Skraeling-la-Noire
+S1	60	1	60	1	Thorgal Aegirsson
+S1	60	2	60	2
+S1	60	3	60	3	Skraeling-la-Noire
+S1	60	4	60	4	Géantes de feu_S1.60	Surtur-le-Noir
+S1	60	5	60	5	Thorgal Aegirsson
+S1	60	6	60	6
+S1	61	1	61	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	61	2	61	2
+S1	61	3	61	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	61	4	61	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	61	5	61	5	Gandalf-le-fou
+S1	62	1	62	1	Gandalf-le-fou	Skraeling-la-Noire
+S1	62	2	62	2	Thorgal Aegirsson	Skraeling-la-Noire
+S1	62	3	62	3	Thorgal Aegirsson
+S1	62	4	62	4	Skraeling-la-Noire
+S1	62	5	62	5	Gandalf-le-fou	Skraeling-la-Noire
+S1	62	6	62	6	Thorgal Aegirsson	Skraeling-la-Noire
+S1	62	7	62	7
+S1	62	8	62	8	Thorgal Aegirsson	Skraeling-la-Noire
+S1	62	9	62	9	Thorgal Aegirsson	Skraeling-la-Noire
+S1	62	10	62	10	Thorgal Aegirsson
+S1	62	11	62	11	Gandalf-le-fou	Skraeling-la-Noire
+S1	63	1	63	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	63	2	63	2	Thorgal Aegirsson
+S1	63	3	63	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	63	4	63	4	Skraeling-la-Noire	Thorgal Aegirsson
+S1	63	5	63	5	Thorgal Aegirsson
+S1	63	6	63	6	Skraeling-la-Noire
+S1	63	7	63	7	Thorgal Aegirsson
+S1	63	8	63	8	Skraeling-la-Noire
+S1	64	1	64	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	64	2	64	2
+S1	64	3	64	3	Skraeling-la-Noire
+S1	64	4	64	4
+S1	64	5	64	5	Thorgal Aegirsson
+S1	64	6	64	6	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	64	7	64	7	Skraeling-la-Noire	Thorgal Aegirsson
+S1	64	8	64	8	Thorgal Aegirsson
+S1	65	1	65	1	Thorgal Aegirsson
+S1	65	2	65	2	Thorgal Aegirsson
+S1	65	3	65	3	Thorgal Aegirsson
+S1	65	4	65	4	Nidhogg	Thorgal Aegirsson
+S1	65	5	65	5	Thorgal Aegirsson
+S1	65	6	65	6	Nidhogg
+S1	65	7	65	7	Nidhogg	Thorgal Aegirsson
+S1	65	8	65	8	Nidhogg
+S1	65	9	65	9	Nidhogg	Thorgal Aegirsson
+S1	66	1	66	1	Nidhogg	Thorgal Aegirsson
+S1	66	2	66	2	Nidhogg
+S1	66	3	66	3	Nidhogg	Thorgal Aegirsson
+S1	66	4	66	4	Nidhogg	Thorgal Aegirsson
+S1	66	5	66	5	Nidhogg	Thorgal Aegirsson
+S1	66	6	66	6	Thorgal Aegirsson
+S1	66	7	66	7	Nidhogg	Thorgal Aegirsson
+S1	67	1	67	1
+S1	67	2	67	2	Gandalf-le-fou	Skraeling-la-Noire
+S1	67	3	67	3	Thorgal Aegirsson
+S1	67	4	67	4	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	68	1	68	1	Aaricia Gandalfsdottir	Baalds_S1.67	Prêtre Baald_S1.68
+S1	68	2	68	2	Aaricia Gandalfsdottir
+S1	68	3	68	3	Thorgal Aegirsson
+S1	68	4	68	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	68	5	68	5	Gandalf-le-fou	Skraeling-la-Noire
+S1	68	6	68	6	Gandalf-le-fou
+S1	68	7	68	7	Thorgal Aegirsson
+S1	69	1	69	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	69	2	69	2	Aaricia Gandalfsdottir
+S1	69	3	69	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	69	4	69	4
+S1	70	1	70	1
+S1	70	2	70	2	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	70	3	70	3	Gandalf-le-fou
+S1	70	4	70	4
+S1	70	5	70	5	Gandalf-le-fou
+S1	71	1	71	1	Gandalf-le-fou	Thorgal Aegirsson
+S1	71	2	71	2	Gandalf-le-fou
+S1	71	3	71	3	Thorgal Aegirsson
+S1	71	4	71	4	Gandalf-le-fou
+S1	71	5	71	5	Gandalf-le-fou	Skraeling-la-Noire
+S1	71	6	71	6	Gandalf-le-fou
+S1	71	7	71	7	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	72	1	72	1	Baalds_S1.67
+S1	72	2	72	2	Aaricia Gandalfsdottir	Baalds_S1.67	Prêtre Baald_S1.68
+S1	72	3	72	3	Thorgal Aegirsson	Gandalf-le-fou
+S1	72	4	72	4	Gandalf-le-fou
+S1	73	1	73	1	2 gardes Baalds_S1.73	Baalds_S1.67
+S1	73	2	73	2	2 gardes Baalds_S1.73
+S1	73	3	73	3
+S1	73	4	73	4
+S1	73	5	73	5
+S1	74	1	74	1
+S1	74	2	74	2
+S1	74	3	74	3	Baalds_S1.67	Prêtre Baald_S1.68
+S1	75	1	75	1
+S1	75	2	75	2
+S1	75	3	75	3	Aaricia Gandalfsdottir	Baalds_S1.67
+S1	75	4	75	4	Baalds_S1.67
+S1	75	5	75	5	Prêtre Baald_S1.68
+S1	75	6	75	6	Prêtre Baald_S1.68
+S1	76	1	76	1	Aaricia Gandalfsdottir	Baalds_S1.67	Prêtre Baald_S1.68	Skraeling-la-Noire	Thorgal Aegirsson
+S1	76	2	76	2	Baalds_S1.67	Skraeling-la-Noire
+S1	76	3	76	3
+S1	76	4	76	4	Gandalf-le-fou
+S1	76	5	76	5	Thorgal Aegirsson
+S1	76	6	76	6	Baalds_S1.67
+S1	76	7	76	7	Aaricia Gandalfsdottir
+S1	77	1	77	1	Aaricia Gandalfsdottir	Baalds_S1.67	Prêtre Baald_S1.68
+S1	77	2	77	2	Thorgal Aegirsson
+S1	77	3	77	3	Thorgal Aegirsson
+S1	77	4	77	4	Prêtre Baald_S1.68
+S1	77	5	77	5	Baalds_S1.67
+S1	77	6	77	6	Prêtre Baald_S1.68
+S1	77	7	77	7	Skraeling-la-Noire	Gandalf-le-fou
+S1	78	1	78	1	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	78	2	78	2	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Prêtre Baald_S1.68	Skraeling-la-Noire	Thorgal Aegirsson
+S1	78	3	78	3	Aaricia Gandalfsdottir
+S1	79	1	79	1	Gandalf-le-fou
+S1	79	2	79	2	Prêtre Baald_S1.68
+S1	79	3	79	3	Thorgal Aegirsson
+S1	79	4	79	4	Prêtre Baald_S1.68
+S1	79	5	79	5	Skraeling-la-Noire	Baalds_S1.67	Gandalf-le-fou
+S1	79	6	79	6	Skraeling-la-Noire
+S1	79	7	79	7	Skraeling-la-Noire	Baalds_S1.67	Gandalf-le-fou
+S1	80	1	80	1	Aaricia Gandalfsdottir	Prêtre Baald_S1.68
+S1	80	2	80	2	Prêtre Baald_S1.68
+S1	80	3	80	3	Prêtre Baald_S1.68	Thorgal Aegirsson
+S1	80	4	80	4	Aaricia Gandalfsdottir
+S1	80	5	80	5	Aaricia Gandalfsdottir	Prêtre Baald_S1.68
+S1	80	6	80	6	Thorgal Aegirsson
+S1	80	7	80	7	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	80	8	80	8	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	81	1	81	1	Thorgal Aegirsson	Baalds_S1.67
+S1	81	2	81	2	Thorgal Aegirsson
+S1	81	3	81	3	Thorgal Aegirsson	Baalds_S1.67
+S1	81	4	81	4
+S1	81	5	81	5	Baalds_S1.67
+S1	81	6	81	6	Aaricia Gandalfsdottir	Skraeling-la-Noire	Baalds_S1.67	Gandalf-le-fou	Thorgal Aegirsson
+S1	81	7	81	7	Aaricia Gandalfsdottir	Gandalf-le-fou	Thorgal Aegirsson
+S1	81	8	81	8	Skraeling-la-Noire	Thorgal Aegirsson
+S1	82	1	82	1	Skraeling-la-Noire	Baalds_S1.67	Thorgal Aegirsson
+S1	82	2	82	2
+S1	82	3	82	3	Skraeling-la-Noire	Baalds_S1.67	Thorgal Aegirsson
+S1	82	4	82	4	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	82	5	82	5	Aaricia Gandalfsdottir	Gandalf-le-fou
+S1	82	6	82	6	Skraeling-la-Noire	Thorgal Aegirsson
+S1	82	7	82	7	Skraeling-la-Noire	Thorgal Aegirsson	Baalds_S1.67
+S1	83	1	83	1	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	83	2	83	2	Baalds_S1.67	Skraeling-la-Noire	Thorgal Aegirsson
+S1	83	3	83	3	Baalds_S1.67	Skraeling-la-Noire
+S1	83	4	83	4	Baalds_S1.67	Skraeling-la-Noire
+S1	84	1	84	1	Baalds_S1.67	Skraeling-la-Noire	Thorgal Aegirsson
+S1	84	2	84	2	Thorgal Aegirsson
+S1	84	3	84	3	Thorgal Aegirsson	Baalds_S1.67
+S1	84	4	84	4	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	84	5	84	5	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Thorgal Aegirsson
+S1	84	6	84	6
+S1	85	1	85	1	Baalds_S1.67	Skraeling-la-Noire	Thorgal Aegirsson
+S1	85	2	85	2	Aaricia Gandalfsdottir	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	85	3	85	3	Aaricia Gandalfsdottir	Gandalf-le-fou
+S1	86	1	86	1	Aaricia Gandalfsdottir	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	86	2	86	2	Skraeling-la-Noire	Baalds_S1.67
+S1	86	3	86	3	Skraeling-la-Noire	Baalds_S1.67
+S1	86	4	86	4	Thorgal Aegirsson
+S1	86	5	86	5	Baalds_S1.67	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson
+S1	86	6	86	6	Thorgal Aegirsson
+S1	87	1	87	1	Skraeling-la-Noire	Baalds_S1.67
+S1	87	2	87	2	Thorgal Aegirsson
+S1	87	3	87	3	Skraeling-la-Noire	Baalds_S1.67
+S1	87	4	87	4	Gandalf-le-fou	Thorgal Aegirsson
+S1	87	5	87	5	Skraeling-la-Noire
+S1	87	6	87	6	Thorgal Aegirsson
+S1	88	1	88	1	Skraeling-la-Noire	Baalds_S1.67
+S1	88	2	88	2	Skraeling-la-Noire	Baalds_S1.67
+S1	88	3	88	3
+S1	88	4	88	4	Aaricia Gandalfsdottir	Gandalf-le-fou
+S1	88	5	88	5	Skraeling-la-Noire	Baalds_S1.67
+S1	88	6	88	6	Skraeling-la-Noire	Baalds_S1.67
+S1	89	1	89	1	Aaricia Gandalfsdottir	Gandalf-le-fou	Thorgal Aegirsson
+S1	89	2	89	2	Skraeling-la-Noire	Baalds_S1.67
+S1	89	3	89	3	Skraeling-la-Noire	Baalds_S1.67
+S1	89	4	89	4	Aaricia Gandalfsdottir	Gandalf-le-fou	Thorgal Aegirsson
+S1	89	5	89	5	Thorgal Aegirsson
+S1	89	6	89	6	Gandalf-le-fou
+S1	90	1	90	1	Thorgal Aegirsson
+S1	90	2	90	2	Gandalf-le-fou
+S1	90	3	90	3	Thorgal Aegirsson
+S1	90	4	90	4	Aaricia Gandalfsdottir
+S1	90	5	90	5	Aaricia Gandalfsdottir	Gandalf-le-fou	Thorgal Aegirsson
+S1	90	6	90	6	Thorgal Aegirsson
+S1	90	7	90	7	Thorgal Aegirsson
+S1	90	8	90	8	Thorgal Aegirsson
+S1	91	1	91	1	Gandalf-le-fou
+S1	91	2	91	2	Aaricia Gandalfsdottir
+S1	91	3	91	3	Thorgal Aegirsson
+S1	91	4	91	4	Aaricia Gandalfsdottir	Gandalf-le-fou	Nidhogg
+S1	91	5	91	5	Thorgal Aegirsson
+S1	91	6	91	6	Gandalf-le-fou
+S1	91	7	91	7	Aaricia Gandalfsdottir
+S1	91	8	91	8	Thorgal Aegirsson
+S1	91	9	91	9	Aaricia Gandalfsdottir	Gandalf-le-fou
+S1	92	1	92	1	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	92	2	92	2	Thorgal Aegirsson
+S1	92	3	92	3
+S1	92	4	92	4	Thorgal Aegirsson
+S1	92	5	92	5	Baalds_S1.67
+S1	92	6	92	6	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	92	7	92	7	Aaricia Gandalfsdottir	Baalds_S1.67	Thorgal Aegirsson	Gandalf-le-fou
+S1	93	1	93	1	Aaricia Gandalfsdottir	Baalds_S1.67	Thorgal Aegirsson
+S1	93	2	93	2	Thorgal Aegirsson	Baalds_S1.67
+S1	93	3	93	3	Aaricia Gandalfsdottir	Baalds_S1.67	Thorgal Aegirsson
+S1	93	4	93	4	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	93	5	93	5	Baalds_S1.67
+S1	94	1	94	1	Skraëlingars_S1.93
+S1	94	2	94	2	Skraëlingars_S1.93	Baalds_S1.67
+S1	94	3	94	3	Aaricia Gandalfsdottir	Baalds_S1.67	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	95	1	95	1	Baalds_S1.67	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	95	2	95	2	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	95	3	95	3
+S1	95	4	95	4	Baalds_S1.67	Skraeling-la-Noire
+S1	96	1	96	1	Vikings_S1.97
+S1	96	2	96	2	Gandalf-le-fou
+S1	97	1	97	1	Vikings_S1.97
+S1	97	2	97	2	Aaricia Gandalfsdottir	Björn Gandalfson
+S1	97	3	97	3	Aaricia Gandalfsdottir	Björn Gandalfson	Hiérulf-le-penseur	Thorgal Aegirsson	Vikings_S1.97
+S1	97	4	97	4	Thorgal Aegirsson
+S1	97	5	97	5
+S1	98	1	98	1	Thorgal Aegirsson
+S1	98	2	98	2	Thorgal Aegirsson
+S1	98	3	98	3	Thorgal Aegirsson
+S1	98	4	98	4	Thorgal Aegirsson
+S1	98	5	98	5	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	98	6	98	6	Thorgal Aegirsson
+S1	99	1	99	1	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	99	2	99	2	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	99	3	99	3
+S1	99	4	99	4	Thorgal Aegirsson
+S1	99	5	99	5	Thorgal Aegirsson
+S1	99	6	99	6	Thorgal Aegirsson
+S1	99	7	99	7	Thorgal Aegirsson
+S1	100	1	100	1	Aaricia Gandalfsdottir
+S1	100	2	100	2	Thorgal Aegirsson
+S1	100	3	100	3
+S1	100	4	100	4	Thorgal Aegirsson
+S1	100	5	100	5
+S1	102	1	102	1
+S1	102	2	102	2
+S1	103	1	103	1	Thorgal Aegirsson
+S1	103	2	103	2	Thorgal Aegirsson
+S1	103	3	103	3
+S1	103	4	103	4	Nidhogg	Thorgal Aegirsson
+S1	103	5	103	5	Nidhogg	Thorgal Aegirsson
+S1	103	6	103	6	Nidhogg
+S1	104	1	104	1	Nidhogg	Thorgal Aegirsson
+S1	104	2	104	2	Nidhogg	Thorgal Aegirsson
+S1	104	3	104	3	Nidhogg	Thorgal Aegirsson
+S1	104	4	104	4	Nidhogg	Thorgal Aegirsson
+S1	104	5	104	5	Nidhogg	Thorgal Aegirsson
+S1	104	6	104	6	Thorgal Aegirsson
+S1	105	1	105	1
+S1	105	2	105	2	Nidhogg	Thorgal Aegirsson
+S1	105	3	105	3	Nidhogg	Thorgal Aegirsson
+S1	105	4	105	4	Thorgal Aegirsson
+S1	106	1	106	1	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Thorgal Aegirsson
+S1	106	2	106	2	Nidhogg
+S1	106	3	106	3	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S1	106	4	106	4	Thorgal Aegirsson
+S1	107	1	107	1	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	107	2	107	2	Skraëlingars_S1.93
+S1	107	3	107	3	Nidhogg	Thorgal Aegirsson
+S1	107	4	107	4	Thorgal Aegirsson
+S1	107	5	107	5
+S1	107	6	107	6
+S1	108	1	108	1	Skraëlingars_S1.93	Thorgal Aegirsson
+S1	108	2	108	2	Thorgal Aegirsson
+S1	108	3	108	3	Aaricia Gandalfsdottir
 J11	3	1	3	1
 J11	3	2	3	2	Seck	Thorgal Aegirsson
 J11	3	3	3	3	Thorgal Aegirsson

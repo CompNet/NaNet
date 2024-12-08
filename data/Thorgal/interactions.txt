@@ -4890,6 +4890,94 @@ J10	56	7	56	7	Équipage_J10.53
 40	46	1	46	7	Thorgal Aegirsson	Jolan Thorgalsson	Boréale	Slugs_40.16	Garn	Angakkuq
 40	47	1	47	5	Thorgal Aegirsson	Jolan Thorgalsson	Boréale
 40	47	6	48	2	Jolan Thorgalsson	Boréale
+S1	3	1	6	1	Thorgal Aegirsson
+S1	6	2	10	9	Thorgal Aegirsson	Nidhogg
+S1	7	3	7	3	Thorgal Aegirsson	Tjahzi
+S1	7	3	7	3	Aaricia Gandalfsdottir	Mère d'Aaricia
+S1	10	10	12	1	Thorgal Aegirsson
+S1	14	1	14	6	Aaricia Gandalfsdottir	Solveig
+S1	15	1	17	8	Aaricia Gandalfsdottir	Solveig	Friör	Guerrier Baald_S1.17
+S1	17	9	18	1	Solveig
+S1	18	2	19	8	Solveig	Thorgal Aegirsson
+S1	20	1	23	6	Thorgal jeune / Thorgal Aegirsson	Skraëlingar_S1.20	Villageois_S1.20	Skraeling-la-Noire
+S1	24	1	25	2	Villageois_S1.24	Thorgal Aegirsson	Helga
+S1	25	3	26	3	Villageois_S1.24	Thorgal Aegirsson	Helga	Gandalf-le-fou	Hiérulf-le-penseur	Solveig
+S1	26	4	27	4	Villageois_S1.24	Thorgal Aegirsson	Helga	Gandalf-le-fou	Hiérulf-le-penseur	Solveig	Thorgal jeune / Thorgal Aegirsson
+S1	27	5	29	4	Villageois_S1.24	Thorgal Aegirsson	Helga	Gandalf-le-fou	Hiérulf-le-penseur	Thorgal jeune / Thorgal Aegirsson	Skraeling-la-Noire
+S1	29	5	30	9	Villageois_S1.29	Gandalf-le-fou	Björn Gandalfson	Hiérulf-le-penseur	Thorgal jeune / Thorgal Aegirsson	Skraeling-la-Noire
+S1	31	1	31	1	Villageois_S1.29	Gandalf-le-fou	Hiérulf-le-penseur
+S1	31	2	31	5	Villageois_S1.29	Hiérulf-le-penseur	Thorgal jeune / Thorgal Aegirsson	Skraeling-la-Noire
+S1	31	6	31	7	Villageois_S1.29	Gandalf-le-fou	Thorgal jeune / Thorgal Aegirsson	Skraeling-la-Noire
+S1	32	1	32	1	Villageois_S1.32
+S1	32	2	32	2	Thorgal Aegirsson	Garde_S1.32	Folke
+S1	32	3	32	4	Thorgal Aegirsson	Hiérulf-le-penseur	Solveig	Folke
+S1	32	5	37	3	Thorgal Aegirsson	Hiérulf-le-penseur	Solveig	Thorgal jeune / Thorgal Aegirsson
+S1	33	5	33	5	Thorgal Aegirsson	Hiérulf-le-penseur	Gandalf-le-fou	Björn Gandalfson	Aaricia Gandalfsdottir	Garde_S1.33
+S1	37	4	37	4	Thorgal Aegirsson	Hiérulf-le-penseur	Solveig	Thorgal jeune / Thorgal Aegirsson	Folke
+S1	37	5	37	6	Thorgal Aegirsson	Hiérulf-le-penseur	Solveig	Thorgal jeune / Thorgal Aegirsson
+S1	37	7	38	2	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	38	3	38	4	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Hjalmar
+S1	38	5	39	3	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	39	4	39	4	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	40	1	42	4	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	41	4	41	4	Skraëlingars_S1.41	Skraeling-la-Noire	Baalds_S1.41
+S1	42	5	43	8	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	44	1	45	4	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.45	Vikings_S1.45	Skraëlingar_S1.20
+S1	45	5	45	7	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.45	Vikings_S1.45	Skraëlingar_S1.20	Baalds_S1.45
+S1	45	8	49	4	Gandalf-le-fou	Skraeling-la-Noire	Vikings_S1.45	Skraëlingar_S1.20	Baalds_S1.45
+S1	49	5	50	1	Gandalf-le-fou	Skraeling-la-Noire	Vikings_S1.45	Skraëlingar_S1.20	Baalds_S1.45	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	50	2	52	1	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Vikings_S1.45
+S1	52	2	52	2
+S1	52	3	52	5	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	53	1	53	4	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Astrid
+S1	53	5	56	8	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Astrid	Villageois_S1.53
+S1	57	1	57	2	Gandalf-le-fou	Skraeling-la-Noire	Skraëlingar_S1.20	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Astrid	Villageois_S1.53
+S1	57	3	57	3
+S1	57	4	58	2	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	58	3	58	9	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	59	1	59	1	Thorgal Aegirsson	Aaricia Gandalfsdottir
+S1	59	2	61	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	60	4	60	4	Surtur-le-Noir	Géantes de feu_S1.60
+S1	61	2	64	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	64	4	65	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	65	2	65	3	Thorgal Aegirsson
+S1	65	4	66	5	Thorgal Aegirsson	Nidhogg
+S1	66	6	66	7	Thorgal Aegirsson	Nidhogg	Thorgal jeune / Thorgal Aegirsson
+S1	67	1	67	1
+S1	67	2	67	3	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	67	4	67	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67
+S1	68	1	69	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Prêtre Baald_S1.68
+S1	70	1	70	1
+S1	70	2	71	6	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	71	7	72	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Prêtre Baald_S1.68
+S1	73	1	73	1	2 gardes Baalds_S1.73	Baalds_S1.67
+S1	73	2	73	2	2 gardes Baalds_S1.73	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	73	3	74	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	74	2	80	7	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Prêtre Baald_S1.68
+S1	80	8	81	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Nidhogg
+S1	81	5	83	4	Gandalf-le-fou	Skraeling-la-Noire	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Nidhogg
+S1	84	1	87	1	Gandalf-le-fou	Skraeling-la-Noire	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Baalds_S1.67	Aaricia Gandalfsdottir	Nidhogg
+S1	87	2	89	3	Skraeling-la-Noire	Baalds_S1.67
+S1	87	2	89	3	Gandalf-le-fou	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Aaricia Gandalfsdottir
+S1	89	4	92	2	Gandalf-le-fou	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Aaricia Gandalfsdottir	Nidhogg
+S1	92	3	93	5	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Aaricia Gandalfsdottir	Nidhogg	Baalds_S1.67
+S1	94	1	95	4	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Aaricia Gandalfsdottir	Nidhogg	Baalds_S1.67	Skraëlingars_S1.93
+S1	96	1	97	1	Vikings_S1.97	Aaricia Gandalfsdottir	Björn Gandalfson
+S1	97	2	97	2	Aaricia Gandalfsdottir	Björn Gandalfson
+S1	97	3	97	3	Aaricia Gandalfsdottir	Björn Gandalfson	Vikings_S1.97	Hiérulf-le-penseur	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	97	4	98	2	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	98	3	99	3	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson	Skraëlingars_S1.93
+S1	99	4	99	7	Thorgal Aegirsson	Thorgal jeune / Thorgal Aegirsson
+S1	100	1	100	5	Thorgal Aegirsson
+S1	100	1	100	5	Thorgal jeune / Thorgal Aegirsson
+S1	100	1	100	5	Vikings_S1.97	Aaricia Gandalfsdottir	Björn Gandalfson
+S1	102	1	102	1
+S1	102	2	103	3	Thorgal Aegirsson
+S1	103	4	107	4	Thorgal Aegirsson	Nidhogg
+S1	106	1	106	1	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir
+S1	106	3	106	3	Thorgal Aegirsson	Aaricia Gandalfsdottir
+S1	107	1	108	1	Thorgal jeune / Thorgal Aegirsson	Skraëlingars_S1.93
+S1	108	2	108	3	Thorgal jeune / Thorgal Aegirsson	Skraëlingars_S1.93	Aaricia Gandalfsdottir
 J11	3	1	3	4	Équipage_J10.53	Seck	Thorgal Aegirsson
 J11	3	5	4	2	Équipage_J10.53
 J11	4	3	4	3	Équipage_J10.53	Seck

@@ -237,6 +237,14 @@ read.page.table <- function(
 		stop(msg)
 	}
 	
+	# remove pages with no panel
+	idx <- which(page.stats[COL_PANELS]==0)
+	if(length(idx)>0)
+	{	page.stats <- page.stats[-idx,]
+		pg.nbr <- nrow(page.stats)
+		vol.ids <- vol.ids[-idx]
+	}
+	
 	# add the page id (unique for the whole series)
 	page.stats <- cbind(1:nrow(page.stats), page.stats)
 	colnames(page.stats)[1] <- COL_PAGE_ID
@@ -761,26 +769,26 @@ read.inter.table.explicit <- function(
 		# get volume
 		volume <- line[1]
 		volume.id <- which(volume.stats[,COL_VOLUME]==volume)
-		if(volume.id!=scene.stats[scene.id,COL_VOLUME_ID]) stop(paste0("Inconsistant volume id: ",scene.stats[scene.id,COL_VOLUME_ID]," vs. ",volume.id," \"",line,"\"\n"))
+		if(volume.id!=scene.stats[scene.id,COL_VOLUME_ID]) stop(paste0("Inconsistant volume id: ",scene.stats[scene.id,COL_VOLUME_ID]," vs. ",volume.id," \"",paste(line,collapse=","),"\"\n"))
 		# get arc
 		arc.id <- volume.stats[volume.id,COL_ARC_ID]
-		if(arc.id!=scene.stats[scene.id,COL_ARC_ID]) stop(paste0("Inconsistant arc id: ",scene.stats[scene.id,COL_ARC_ID]," vs. ",arc.id," \"",line,"\"\n"))
+		if(arc.id!=scene.stats[scene.id,COL_ARC_ID]) stop(paste0("Inconsistant arc id: ",scene.stats[scene.id,COL_ARC_ID]," vs. ",arc.id," \"",paste(line,collapse=","),"\"\n"))
 		
 		# get start page and panel
 		start.page <- line[2]
 		start.page.id <- which(page.stats[,COL_PAGE]==start.page & page.stats[,COL_VOLUME_ID]==volume.id)
-		if(start.page.id<scene.stats[scene.id,COL_PAGE_START_ID]) stop(paste0("Inconsistant start page id: ",scene.stats[scene.id,COL_PAGE_START_ID]," vs. ",start.page.id," \"",line,"\"\n"))
+		if(start.page.id<scene.stats[scene.id,COL_PAGE_START_ID]) stop(paste0("Inconsistant start page id: ",scene.stats[scene.id,COL_PAGE_START_ID]," vs. ",start.page.id," \"",paste(line,collapse=","),"\"\n"))
 		start.panel <-  as.integer(line[3])
 		start.panel.id <- page.stats[start.page.id,COL_PANEL_START_ID] + start.panel - 1
-		if(start.panel.id<scene.stats[scene.id,COL_PANEL_START_ID]) stop(paste0("Inconsistant start panel id: ",scene.stats[scene.id,COL_PANEL_START_ID]," vs. ",start.panel.id," \"",line,"\"\n"))
+		if(start.panel.id<scene.stats[scene.id,COL_PANEL_START_ID]) stop(paste0("Inconsistant start panel id: ",scene.stats[scene.id,COL_PANEL_START_ID]," vs. ",start.panel.id," \"",paste(line,collapse=","),"\"\n"))
 		
 		# get end page and panel
 		end.page <- line[4]
 		end.page.id <- which(page.stats[,COL_PAGE]==end.page & page.stats[,COL_VOLUME_ID]==volume.id)
-		if(end.page.id>scene.stats[scene.id,COL_PAGE_END_ID]) stop(paste0("Inconsistant end page id: ",scene.stats[scene.id,COL_PAGE_END_ID]," vs. ",end.page.id," \"",line,"\"\n"))
+		if(end.page.id>scene.stats[scene.id,COL_PAGE_END_ID]) stop(paste0("Inconsistant end page id: ",scene.stats[scene.id,COL_PAGE_END_ID]," vs. ",end.page.id," \"",paste(line,collapse=","),"\"\n"))
 		end.panel <- as.integer(line[5])
 		end.panel.id <- page.stats[end.page.id,COL_PANEL_START_ID] + end.panel - 1
-		if(end.panel.id>scene.stats[scene.id,COL_PANEL_END_ID]) stop(paste0("Inconsistant end panel id: ",scene.stats[scene.id,COL_PANEL_END_ID]," vs. ",end.panel.id," \"",line,"\"\n"))
+		if(end.panel.id>scene.stats[scene.id,COL_PANEL_END_ID]) stop(paste0("Inconsistant end panel id: ",scene.stats[scene.id,COL_PANEL_END_ID]," vs. ",end.panel.id," \"",paste(line,collapse=","),"\"\n"))
 		
 		# get all combinations of characters
 		if(length(line)<6)

@@ -57,11 +57,11 @@ SERIES <- "Thorgal"
 # more complete parameters
 panel.params <- list(
 	window.sizes=1:30,
-	overlaps=lapply(1:30, function(size) 0:(size-1))	# 465 networks
+	overlaps=lapply(1:30, function(size) 0:(size-1))
 )
 page.params <- list(
 	window.sizes=1:20,
-	overlaps=lapply(1:20, function(size) 0:(size-1))	# 210 networks
+	overlaps=lapply(1:20, function(size) 0:(size-1))
 )
 
 
@@ -136,42 +136,42 @@ generate.static.plots.comparison(char.det="implicit", panel.params, page.params)
 
 
 
-################################################################################
-################################################################################
-## read raw explicit annotations
-#data.expl <- read.raw.data(char.det="explicit", sc.stats=data.impl$scene.stats)
-#data.expl <- include.filtered.chars(data.impl=data.impl, data.expl=data.expl)
-## OR, if already computed, read from file
-##data.expl <- read.corpus.data(char.det="explicit")
-#
-## compute explicit annotation stats
-#data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")
-#
-## plot these stats
-#plot.corpus.stats(data=data.expl, char.det="explicit")
-#
-#
-#
-#
-################################################################################
-## extract static panel- and page-based networks
-#extract.static.graphs.window(data=data.expl, char.det="explicit", panel.params, page.params)
-#
-## compute their stats
-#compute.static.statistics.window(char.det="explicit", panel.params, page.params)
-#
-## plot these stats
-#generate.static.plots.window(char.det="explicit", panel.params, page.params)
-#
-#
-#
-#
-################################################################################
-## compute comparison stats
-#compute.static.statistics.comparison(data=data.expl, char.det="explicit", panel.params, page.params)
-#
-## plot these stats
-#generate.static.plots.comparison(char.det="explicit", panel.params, page.params)
+###############################################################################
+###############################################################################
+# read raw explicit annotations
+data.expl <- read.raw.data(char.det="explicit", sc.stats=data.impl$scene.stats)
+data.expl <- include.filtered.chars(data.impl=data.impl, data.expl=data.expl)
+# OR, if already computed, read from file
+#data.expl <- read.corpus.data(char.det="explicit")
+
+# compute explicit annotation stats
+data.expl <- compute.corpus.stats(data=data.expl, char.det="explicit")
+
+# plot these stats
+plot.corpus.stats(data=data.expl, char.det="explicit")
+
+
+
+
+###############################################################################
+# extract static panel- and page-based networks
+extract.static.graphs.window(data=data.expl, char.det="explicit", panel.params, page.params)
+
+# compute their stats
+compute.static.statistics.window(char.det="explicit", panel.params, page.params)
+
+# plot these stats
+generate.static.plots.window(char.det="explicit", panel.params, page.params)
+
+
+
+
+###############################################################################
+# compute comparison stats
+compute.static.statistics.comparison(data=data.expl, char.det="explicit", panel.params, page.params)
+
+# plot these stats
+generate.static.plots.comparison(char.det="explicit", panel.params, page.params)
 
 
 
