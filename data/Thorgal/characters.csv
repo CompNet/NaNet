@@ -94,6 +94,7 @@ Agrippa,,Female,TRUE
 Ahmed Al Waloud,Ahmed,Male,TRUE
 Akwila,,Female,TRUE
 Alad,,Male,TRUE
+Alapi,,Female,TRUE
 Alfes de lumière_L7.9,,Mixed,FALSE
 Alfes loyalistes_L7.10,,Male,FALSE
 Alfes lumière_L7.19,,Mixed,FALSE
@@ -218,6 +219,8 @@ Binôme_27.11.2,,Male,FALSE
 Binôme_27.11.3,,Male,FALSE
 Binôme_27.9,,Male,FALSE
 Birbu,,Male,TRUE
+Birkäa,,Female,TRUE
+Bjön,,Male,TRUE
 Björg,,Male,TRUE
 Björn Gandalfson,Björn,Male,TRUE
 Bjorn_J10.54,,Male,TRUE
@@ -289,6 +292,7 @@ Chef du village_19.15,,Male,FALSE
 Chef du village_L4.26,,Male,FALSE
 Chef enfant_K6.19,,Male,FALSE
 Chef troglodyte_J11.27,,Male,FALSE
+Chef vert_S2.26,,Male,FALSE
 Chevalier_5.28,,Male,FALSE
 Chèvre_8.38,,Female,FALSE
 Chiens_L4.24,,Unknown,FALSE
@@ -322,6 +326,7 @@ Conducteur d'Héraclius_27.7,,Male,FALSE
 Conducteurs_27.35,,Male,FALSE
 Conseil Atlante_40.13,,Mixed,FALSE
 Contarque_J6.3,,Male,FALSE
+Continga,,Male,TRUE
 Convives_9.39,,Mixed,FALSE
 Cosmonautes_26.19,,Mixed,FALSE
 Couple_K2.15,,Mixed,FALSE
@@ -427,6 +432,7 @@ Equipage_40.5,,Mixed,FALSE
 Equipage_40.7,,Mixed,FALSE
 Équipage_J10.53,,Male,FALSE
 Équipage_J3.17,,Male,FALSE
+Équipage_S2.10,,Male,FALSE
 Erik_20.3,,Male,TRUE
 Erik_J10.5,,Male,TRUE
 Erika Einarson,,Female,TRUE
@@ -708,6 +714,7 @@ Gilli,,Male,TRUE
 Gladiateurs_27.35,,Male,FALSE
 Gorgane,,Female,TRUE
 Gouverneur du Ponant,,Male,FALSE
+Grand gardien_S2.74,,Male,FALSE
 Grand prêtre_12.4,,Male,FALSE
 Grand veilleur_21.43,,Male,FALSE
 Greim,,Male,TRUE
@@ -742,6 +749,11 @@ Guerrier_9.21.7,,Male,FALSE
 Guerrier_K7.35,,Male,FALSE
 Guerriers alfes_L6.34,,Male,FALSE
 Guerriers de Oddmar_39.31,,Male,FALSE
+Guerriers verts_S2.26,,Mixed,FALSE
+Guerriers verts_S2.68,,Male,FALSE
+Guerriers verts_S2.75,,Male,FALSE
+Guerriers verts_S2.82,,Mixed,FALSE
+Guerriers verts_S2.91,,Mixed,FALSE
 Guerriers_10.25,,Mixed,FALSE
 Guerriers_12.18,,Male,FALSE
 Guerriers_13.32,,Male,FALSE
@@ -795,6 +807,7 @@ Hjalmgunnar,,Male,TRUE
 Hog,,Male,TRUE
 Hogrid,,Male,TRUE
 Holger,,Male,TRUE
+Homme-médecine_S2.19,,Male,FALSE
 Hommes d'Aniel_39.15,,Male,FALSE
 Hommes d'Aniel_39.28,,Male,FALSE
 Hommes de Gandalf_J4.4,,Male,FALSE
@@ -834,6 +847,7 @@ Jómsvikings_J10.42.3,,Male,FALSE
 Jómsvikings_J10.42.4,,Male,FALSE
 Jómsvikings_J10.45,,Male,FALSE
 Joril-le-Sacré,Joril,Male,TRUE
+Jörmungand,,Male,TRUE
 Jorund-le-taureau,Jorund,Male,TRUE
 Judith Minkelsönn,,Female,TRUE
 Kadir,,Male,TRUE
@@ -992,6 +1006,7 @@ Monstre_29.13,,Unknown,FALSE
 Monstre_29.14,,Unknown,FALSE
 Monstre_30.20,,Unknown,FALSE
 Monstre_5.29,,Male,FALSE
+Monstre-poisson_S2.11,,Unknown,FALSE
 Monstres_K3.7,,Unknown,FALSE
 Möntrok,,Male,TRUE
 Mörlok,,Male,TRUE
@@ -1072,10 +1087,18 @@ Ottar,,Male,TRUE
 Ottar_J8.4,,Male,TRUE
 Ours_18.3,,Unknown,FALSE
 Ours_L5.29,,Unknown,FALSE
+Owascos_S2.106,,Male,FALSE
+Owascos_S2.11,,Mixed,FALSE
+Owascos_S2.118,,Mixed,FALSE
+Owascos_S2.15,,Male,FALSE
+Owascos_S2.56,,Male,FALSE
+Owascos_S2.97,,Male,FALSE
+Owascos_S2.98,,Mixed,FALSE
 Özurr le Varègue,,Male,TRUE
 Palefrenier_1.15,,Male,FALSE
 Pallas,,Female,TRUE
 Palnatoki,,Male,TRUE
+Panthère_S2.78,,Unknown,FALSE
 Panthères_27.22,,Unknown,FALSE
 Participants_27.34,,Male,FALSE
 Participants_27.36,,Male,FALSE
@@ -1084,6 +1107,7 @@ Participants_27.39,,Male,FALSE
 Parties sauvages_L3.44,,Female,FALSE
 Partisans de Björn_J7.12,,Male,FALSE
 Passagers_33.12,,Mixed,FALSE
+Passagers_S2.10,,Mixed,FALSE
 Passant_28.36,,Male,FALSE
 Passant_J7.26,,Male,FALSE
 Passants_24.25,,Male,FALSE
@@ -1134,6 +1158,7 @@ Prétendants_39.12,,Male,FALSE
 Prétendants_J3.23,,Male,FALSE
 Prêtre Baald_S1.68,,Male,FALSE
 Prêtre_9.5,,Male,FALSE
+Prétresse_S2.82,,Female,FALSE
 Prisionniers_37.14,,Mixed,FALSE
 Prisonnier_37.14,,Male,FALSE
 Prisonnier_K5.8,,Male,FALSE
@@ -1173,6 +1198,7 @@ Rorik,,Male,TRUE
 Runa,,Female,TRUE
 Rylynn,,Male,TRUE
 Sacrifiés_10.25,,Mixed,FALSE
+Sages Owascos_S2.21,,Male,FALSE
 Sages-femmes_J9.5,,Female,FALSE
 Salouma,,Female,TRUE
 Samios,,Male,TRUE
@@ -1359,6 +1385,7 @@ Soldats_K8.25,,Male,FALSE
 Soldats_K8.26,,Male,FALSE
 Solveig,,Female,TRUE
 Sonja,,Female,TRUE
+Sorcier_S2.4,,Male,FALSE
 Sorgut,,Male,TRUE
 Sourkov,,Male,TRUE
 Spectateurs_1.15,,Mixed,FALSE
@@ -1406,6 +1433,7 @@ Tjall le Fougueux,Tjall,Male,TRUE
 Tjodrik,,Male,TRUE
 Tlalac,,Male,TRUE
 Tómr_41.16,,Male,TRUE
+Tonnerre,,Male,TRUE
 Torric,,Male,TRUE
 Triesse,,Male,TRUE
 Troglodyte_J11.11,,Female,FALSE
@@ -1445,6 +1473,8 @@ Veilleur_21.42,,Male,FALSE
 Vendeur_K2.18,,Male,FALSE
 Verdandi,,Female,TRUE
 Véronar,,Male,TRUE
+Verts_S2.26,,Mixed,FALSE
+Verts_S2.53,,Male,FALSE
 Vialane,,Female,TRUE
 Victimes_K8.45,,Mixed,FALSE
 Vidkunn,,Male,TRUE
@@ -1656,6 +1686,7 @@ Walkyries_K1.3,,Female,FALSE
 Walkyries_K2.5,,Female,FALSE
 Walkyries_K3.7,,Female,FALSE
 Wargan,,Male,TRUE
+Wendigo,,Male,TRUE
 Woniaz d'Ourbek,Woniaz,Male,TRUE
 Wor-le-magnifique,Wor,Male,TRUE
 Wulf,,Male,TRUE
