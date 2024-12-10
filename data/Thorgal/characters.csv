@@ -110,6 +110,7 @@ Alkant,,Male,TRUE
 Althar,,Male,TRUE
 Althing_38.28,,Male,FALSE
 Amalrik,,Male,TRUE
+Amant de Ragnhild_S3.25,,Male,FALSE
 Amants_J10.16,,Male,FALSE
 Ami d'Argun_K1.20.1,,Male,FALSE
 Ami d'Argun_K1.20.2,,Male,FALSE
@@ -165,6 +166,7 @@ Arn Sakknüssen,,Male,TRUE
 Arneg,,Male,TRUE
 Artisans_K5.17,,Male,FALSE
 Arvid,,Male,TRUE
+Ashley,,Female,TRUE
 Asketill,,Male,TRUE
 Aslak,,Male,TRUE
 Ásmundr,,Male,TRUE
@@ -245,7 +247,6 @@ Calédoniens_9.42,,Male,FALSE
 Calife_34.7,,Male,FALSE
 Capitaine arbalette_21.4.4,,Male,FALSE
 Capitaine bleu_21.4.3,,Male,FALSE
-Capitaine bonnet_21.4.2,,Male,FALSE
 Capitaine chauve_21.4.1,,Male,FALSE
 Capitaine du duc_K4.10,,Male,FALSE
 Capitaine fourrure_21.4.5,,Male,FALSE
@@ -283,6 +284,7 @@ Chasseurs_34.11,,Male,FALSE
 Chat ailé de Frigg_7.23.1,,Unknown,FALSE
 Chat ailé de Frigg_7.23.2,,Unknown,FALSE
 Chats ailés de Frigg_37.30,,Unknown,FALSE
+Chats ailés de Frigg_S3.79,,Unknown,FALSE
 Chats ailés_J1.47,,Unknown,FALSE
 Chats ailés_J2.43,,Unknown,FALSE
 Chats ailés_L5.44,,Unknown,FALSE
@@ -384,9 +386,11 @@ Dragon_L3.29,,Unknown,FALSE
 Dragon_L3.31,,Unknown,FALSE
 Dragon_L3.39,,Unknown,FALSE
 Dragov,,Male,TRUE
+Draugar_S3.57,,Male,FALSE
 Draye,,Male,TRUE
 Driss Ibn Fadlân,Driss,Male,TRUE
 Driss_L1,,Male,TRUE
+Drogan,,Male,TRUE
 Duhedos,,Male,TRUE
 Dzjaïn_40.3,,Mixed,FALSE
 Ecuyer_K4.30,,Male,FALSE
@@ -412,10 +416,13 @@ Enfants_K6.19,,Male,FALSE
 Enfants_K6.49,,Male,FALSE
 Enfants_L2.6,,Mixed,FALSE
 Enfants_L4.7,,Male,FALSE
+Enfants_S3.10,,Mixed,FALSE
 Enyd,,Female,TRUE
 Éphèbes_L1.33,,Mixed,FALSE
 Éphèbes_L2.6,,Mixed,FALSE
 Éphèbes_L3.40,,Mixed,FALSE
+Équipage de Dragov_S3.26,,Male,FALSE
+Équipage de Sven_S3.26,,Male,FALSE
 Équipage_1.4,,Mixed,FALSE
 Équipage_10.17,,Mixed,FALSE
 Équipage_10.18,,Mixed,FALSE
@@ -433,6 +440,7 @@ Equipage_40.7,,Mixed,FALSE
 Équipage_J10.53,,Male,FALSE
 Équipage_J3.17,,Male,FALSE
 Équipage_S2.10,,Male,FALSE
+Équipage_S3.9,,Male,FALSE
 Erik_20.3,,Male,TRUE
 Erik_J10.5,,Male,TRUE
 Erika Einarson,,Female,TRUE
@@ -783,6 +791,7 @@ Gürt,,Male,TRUE
 Guustavson,,Male,TRUE
 Gwenda d'Auxaterra,Gwenda,Female,TRUE
 Halli le Sarcastique,,Male,TRUE
+Halvdan-le-noir,,Male,TRUE
 Hanouar,,Male,TRUE
 Harald Görmsson,Harald,Male,TRUE
 Harâm_34.16,,Female,TRUE
@@ -790,6 +799,7 @@ Haynée,,Female,TRUE
 Hazmat_40.22.1,,Male,FALSE
 Hazmat_40.22.2,,Male,FALSE
 Heidrun,,Female,TRUE
+Hel,,Female,TRUE
 Helga,,Female,TRUE
 Helgi,,Female,TRUE
 Helgith,,Male,TRUE
@@ -807,7 +817,6 @@ Hjalmgunnar,,Male,TRUE
 Hog,,Male,TRUE
 Hogrid,,Male,TRUE
 Holger,,Male,TRUE
-Homme-médecine_S2.19,,Male,FALSE
 Hommes d'Aniel_39.15,,Male,FALSE
 Hommes d'Aniel_39.28,,Male,FALSE
 Hommes de Gandalf_J4.4,,Male,FALSE
@@ -818,6 +827,7 @@ Huginn,,Unknown,TRUE
 Hugön,,Male,TRUE
 Hungfold,,Male,TRUE
 Hydalgor,,Male,TRUE
+Hysis,,Female,TRUE
 Ibissan,,Male,TRUE
 Ibnaïcha,,Male,TRUE
 Idriss Bin Hofaar,Idriss,Male,TRUE
@@ -841,6 +851,7 @@ Japonais_3.19,,Male,FALSE
 Jarl Zadig,,Male,TRUE
 Jeunes nobles_27.7,,Male,FALSE
 Jolan Thorgalsson,Jolan,Male,TRUE
+Jömsviking_S3.70,,Mixed,FALSE
 Jómsvikings_J10.42.1,,Male,FALSE
 Jómsvikings_J10.42.2,,Male,FALSE
 Jómsvikings_J10.42.3,,Male,FALSE
@@ -854,6 +865,7 @@ Kadir,,Male,TRUE
 Kahaniel de Valnor,Kahaniel,Male,TRUE
 Kahina,,Male,TRUE
 Kaléos,,Male,TRUE
+Kálu Wáertz,,Male,TRUE
 Karsh,,Male,TRUE
 Karshan d'Urizen,Karshan,Male,TRUE
 Kayla,,Female,TRUE
@@ -986,6 +998,8 @@ Mehdi,,Male,TRUE
 Mélas,,Male,TRUE
 Membre du Thing_42.19,,Male,FALSE
 Mercenaires_4.44,,Male,FALSE
+Merchants_S3.12,,Male,FALSE
+Mère Allysson,,Female,TRUE
 Mère d'Aaricia,,Female,FALSE
 Mère d'Anina,,Female,FALSE
 Mère de Grym,,Female,FALSE
@@ -1019,6 +1033,7 @@ Mygg,,Female,TRUE
 Myrms_36.16,,Female,FALSE
 Myrms_36.19,,Mixed,FALSE
 Mýsla,,Female,TRUE
+Naëva,,Female,TRUE
 Nain_32.16,,Male,FALSE
 Nains_17.39,,Mixed,FALSE
 Nains_25.48,,Mixed,FALSE
@@ -1053,6 +1068,8 @@ Nobles_27.34,,Mixed,FALSE
 Nobles_27.7,,Mixed,FALSE
 Nobles_K5.13,,Male,FALSE
 Nobles_K5.18,,Male,FALSE
+Nonne blonde_S3.4,,Female,FALSE
+Nonnes_S3.4,,Female,FALSE
 Nouvelle gardienne des clés,,Female,FALSE
 Oddmar,,Male,TRUE
 Oddmar_J8.4,,Male,TRUE
@@ -1171,6 +1188,7 @@ Prisonniers_J7.33,,Male,FALSE
 Prisonniers_J8.36,,Male,FALSE
 Prisonniers_J8.42,,Male,FALSE
 Prisonniers_K8.25,,Mixed,FALSE
+Prisonniers_S3.17,,Male,FALSE
 Prostituées_23.16,,Female,FALSE
 Quarl,,Male,TRUE
 Rabatteurs_29.3,,Male,FALSE
@@ -1179,9 +1197,11 @@ Rafat,,Male,TRUE
 Ragna,,Female,TRUE
 Ragnar_J10.39,,Male,TRUE
 Ragnhild,,Female,TRUE
+Ragnhild_S3.25,,Female,TRUE
 Rahmi,,Male,TRUE
 Raïssa,,Female,TRUE
 Ramaha la Völva,Ramaha,Female,TRUE
+Rán,,Female,TRUE
 Ran le homard,,Female,TRUE
 Rebelles_18.21,,Male,FALSE
 Rebelles_18.25,,Mixed,FALSE
@@ -1194,6 +1214,7 @@ Remik,,Male,TRUE
 Reynöld,,Male,TRUE
 Roi d'Umbria,,Male,FALSE
 Roi Geirroed,,Male,TRUE
+Rollo-le-Torte,,Male,TRUE
 Rorik,,Male,TRUE
 Runa,,Female,TRUE
 Rylynn,,Male,TRUE
@@ -1277,6 +1298,8 @@ Siloé,,Female,TRUE
 Skadia,,Female,TRUE
 Skaedhi,,Female,TRUE
 Skald,,Male,TRUE
+Skjaldmö_S3.4,,Female,FALSE
+Skjaldmös_S3.26,,Female,FALSE
 Skjor Jorundsson,,Male,TRUE
 Skraëlingar_S1.20,,Male,FALSE
 Skraëlingar_S1.45,,Male,FALSE
@@ -1388,6 +1411,7 @@ Sonja,,Female,TRUE
 Sorcier_S2.4,,Male,FALSE
 Sorgut,,Male,TRUE
 Sourkov,,Male,TRUE
+Spakona_S3.18,,Female,FALSE
 Spectateurs_1.15,,Mixed,FALSE
 Spectateurs_27.22,,Mixed,FALSE
 Spectateurs_6.4,,Mixed,FALSE
@@ -1402,8 +1426,10 @@ Suivantes_34.11,,Female,FALSE
 Suivantes_J10.10,,Female,FALSE
 Suppliciés_12.4,,Male,FALSE
 Surtur-le-Noir,,Male,TRUE
+Sven Tómrøgha,,Male,TRUE
 Sven_41.8,,Male,TRUE
 Sven_L4.17,,Male,TRUE
+Sveyndir,,Male,TRUE
 Sveynn Tiuguskegg,Sveynn,Male,TRUE
 Swanée,,Female,TRUE
 Sy-Aesa,,Female,TRUE
@@ -1422,11 +1448,13 @@ Thorbiorg,,Female,TRUE
 Thorfil,,Male,TRUE
 Thorfill,,Male,TRUE
 Thorgal Aegirsson,Thorgal,Male,TRUE
+Thorkell-le-grand,,Male,TRUE
 Thörn,,Male,TRUE
 Thraces_27.47,,Male,FALSE
 Thyra,,Female,TRUE
 Tiago,,Male,TRUE
 Tibrus,,Male,TRUE
+Tiffany,,Female,TRUE
 Tigurdemiwin,,Unknown,TRUE
 Tjahzi,,Male,TRUE
 Tjall le Fougueux,Tjall,Male,TRUE
@@ -1553,6 +1581,11 @@ Vikings_L4.43,,Male,FALSE
 Vikings_L5.3,,Male,FALSE
 Vikings_S1.45,,Male,FALSE
 Vikings_S1.97,,Mixed,FALSE
+Vikings_S3.18,,Mixed,FALSE
+Vikings_S3.24.1,,Male,FALSE
+Vikings_S3.24.2,,Male,FALSE
+Vikings_S3.4,,Mixed,FALSE
+Vikings_S3.77,,Mixed,FALSE
 Villageois_10.36,,Mixed,FALSE
 Villageois_11.13,,Mixed,FALSE
 Villageois_16.3,,Female,FALSE
