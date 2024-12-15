@@ -49,7 +49,7 @@ plot.corpus.stats(data, char.det="implicit")
 
 
 ###############################################################################
-# extract static networks
+# extract scene-based networks
 data <- extract.static.graphs.base(data)
 
 # plot these graphs
@@ -78,3 +78,5 @@ end.rec.log()
 ###############################################################################
 # additional plots
 source("src/post/description/_all_post.R")
+
+# 12/12/2024 21:32
