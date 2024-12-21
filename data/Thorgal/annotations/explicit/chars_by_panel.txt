@@ -6289,22 +6289,22 @@ T21	3	2	3	2	Kriss de Valnor	Thorgal Aegirsson
 T21	3	3	3	3	Kriss de Valnor	Thorgal Aegirsson
 T21	3	4	3	4	Kriss de Valnor	Thorgal Aegirsson
 T21	3	5	3	5	Serviteur_21.3
-T21	4	1	4	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
+T21	4	1	4	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Drogan	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
 T21	4	2	4	2	Capitaine fourrure_21.4.5
-T21	4	3	4	3	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine bonnet_21.4.2	Capitaine fourrure_21.4.5	Thorgal Aegirsson	Varrak
-T21	4	4	4	4	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Varrak
+T21	4	3	4	3	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Drogan	Capitaine fourrure_21.4.5	Thorgal Aegirsson	Varrak
+T21	4	4	4	4	Drogan	Capitaine chauve_21.4.1	Varrak
 T21	4	5	4	5	Kriss de Valnor	Thorgal Aegirsson
 T21	4	6	4	6	Kriss de Valnor	Thorgal Aegirsson
 T21	4	7	4	7	Kriss de Valnor	Thorgal Aegirsson
-T21	5	1	5	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
+T21	5	1	5	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Drogan	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
 T21	5	2	5	2	Thorgal Aegirsson	Varrak
 T21	5	3	5	3	Thorgal Aegirsson	Varrak
 T21	5	4	5	4	Thorgal Aegirsson	Varrak
 T21	5	5	5	5	Thorgal Aegirsson	Varrak
 T21	5	6	5	6	Kriss de Valnor
-T21	5	7	5	7	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Kriss de Valnor	Thorgal Aegirsson	Varrak
-T21	5	8	5	8	Capitaine bonnet_21.4.2	Thorgal Aegirsson
-T21	6	1	6	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Varrak	Thorgal Aegirsson
+T21	5	7	5	7	Drogan	Capitaine chauve_21.4.1	Kriss de Valnor	Thorgal Aegirsson	Varrak
+T21	5	8	5	8	Drogan	Thorgal Aegirsson
+T21	6	1	6	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Drogan	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Varrak	Thorgal Aegirsson
 T21	6	2	6	2	Kriss de Valnor
 T21	6	3	6	3	Kriss de Valnor	Serviteur_21.3
 T21	6	4	6	4	Capitaine arbalette_21.4.4	Capitaine fourrure_21.4.5	Kriss de Valnor	Serviteur_21.3	Varrak
@@ -6480,9 +6480,9 @@ T21	29	7	29	7	Jolan Thorgalsson
 T21	30	1	30	1
 T21	30	2	30	2	Jolan Thorgalsson
 T21	30	3	30	3	Jolan Thorgalsson
-T21	30	4	30	4	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine bonnet_21.4.2	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
-T21	30	5	30	5	Capitaine arbalette_21.4.4	Capitaine bonnet_21.4.2	Kriss de Valnor	Thorgal Aegirsson	Varrak
-T21	30	6	30	6	Thorgal Aegirsson	Capitaine bonnet_21.4.2
+T21	30	4	30	4	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Drogan	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
+T21	30	5	30	5	Capitaine arbalette_21.4.4	Drogan	Kriss de Valnor	Thorgal Aegirsson	Varrak
+T21	30	6	30	6	Thorgal Aegirsson	Drogan
 T21	31	1	31	1	Capitaine arbalette_21.4.4	Capitaine bleu_21.4.3	Capitaine chauve_21.4.1	Capitaine fourrure_21.4.5	Kriss de Valnor	Thorgal Aegirsson	Varrak
 T21	31	2	31	2	Jolan Thorgalsson
 T21	31	3	31	3	Jolan Thorgalsson	Thorgal Aegirsson	Varrak
@@ -24219,7 +24219,7 @@ S03	11	1	11	1	Thorgal Aegirsson
 S03	11	2	11	2	Enfants_S3.10	Vikings_S3.4	Kriss de Valnor	Thorgal Aegirsson
 S03	11	3	11	3	Enfants_S3.10	Kriss de Valnor
 S03	11	4	11	4	Enfants_S3.10	Kriss de Valnor
-S03	11	5	11	5	Enfants_S3.10	Kriss de Valnor	Kriss de Valnor	Thorgal Aegirsson
+S03	11	5	11	5	Enfants_S3.10	Kriss de Valnor	Thorgal Aegirsson
 S03	11	6	11	6	Kriss de Valnor
 S03	11	7	11	7	Kriss de Valnor	Rollo-le-Torte	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
 S03	11	8	11	8	Rollo-le-Torte
