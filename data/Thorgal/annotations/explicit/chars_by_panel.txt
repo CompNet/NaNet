@@ -24153,6 +24153,605 @@ T41	48	4	48	4
 T41	48	5	48	5
 T41	48	6	48	6
 T41	48	7	48	7	Aniel de Valnor
+S03	3	1	3	1
+S03	3	2	3	2	Ashley	Tiffany
+S03	3	3	3	3	Ashley	Tiffany
+S03	3	4	3	4	Ashley	Tiffany
+S03	3	5	3	5	Ashley	Tiffany
+S03	3	6	3	6	Ashley	Tiffany
+S03	3	7	3	7	Ashley	Mère Allysson	Tiffany
+S03	3	8	3	8	Ashley	Mère Allysson
+S03	4	1	4	1	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	4	2	4	2	Nonne blonde_S3.4	Nonnes_S3.4
+S03	4	3	4	3	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson
+S03	4	4	4	4	Nonne blonde_S3.4	Nonnes_S3.4
+S03	4	5	4	5	Nonne blonde_S3.4	Nonnes_S3.4
+S03	4	6	4	6	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	1	5	1	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	2	5	2	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	3	5	3	Kriss de Valnor	Thorgal Aegirsson	Vikings_S3.4
+S03	5	4	5	4	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	5	5	5	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	6	5	6	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	5	7	5	7	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	5	8	5	8	Thorgal Aegirsson
+S03	5	9	5	9	Nonne blonde_S3.4
+S03	6	1	6	1	Nonne blonde_S3.4
+S03	6	2	6	2	Kriss de Valnor	Skjaldmö_S3.4	Thorgal Aegirsson
+S03	6	3	6	3	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	6	4	6	4	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	6	5	6	5	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	6	6	6	6	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	6	7	6	7	Nonne blonde_S3.4
+S03	6	8	6	8	Kriss de Valnor	Thorgal Aegirsson	Nonne blonde_S3.4
+S03	6	9	6	9	Nonnes_S3.4	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	7	1	7	1	Thorgal Aegirsson
+S03	7	2	7	2	Kriss de Valnor	Thorgal Aegirsson	Skjaldmö_S3.4
+S03	7	3	7	3	Thorgal Aegirsson
+S03	7	4	7	4	Thorgal Aegirsson
+S03	7	5	7	5
+S03	7	6	7	6	Sveyndir	Nonnes_S3.4	Vikings_S3.4
+S03	7	7	7	7	Kriss de Valnor	Thorgal Aegirsson
+S03	7	8	7	8	Kriss de Valnor	Thorgal Aegirsson
+S03	7	9	7	9	Vikings_S3.4
+S03	8	1	8	1
+S03	8	2	8	2	Kriss de Valnor	Thorgal Aegirsson
+S03	8	3	8	3
+S03	8	4	8	4	Kriss de Valnor	Nonnes_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	8	5	8	5	Nonnes_S3.4	Vikings_S3.4
+S03	8	6	8	6	Nonnes_S3.4
+S03	8	7	8	7	Kriss de Valnor	Thorgal Aegirsson
+S03	8	8	8	8	Kriss de Valnor	Thorgal Aegirsson
+S03	9	1	9	1	Nonnes_S3.4	Vikings_S3.4
+S03	9	2	9	2	Thorgal Aegirsson
+S03	9	3	9	3	Thorgal Aegirsson	Vikings_S3.4
+S03	9	4	9	4	Kriss de Valnor	Vikings_S3.4
+S03	9	5	9	5	Vikings_S3.4
+S03	9	6	9	6	Vikings_S3.4	Équipage_S3.9
+S03	9	7	9	7	Thorgal Aegirsson	Kriss de Valnor
+S03	9	8	9	8	Kriss de Valnor	Vikings_S3.4
+S03	10	1	10	1	Équipage_S3.9	Vikings_S3.4	Thorgal Aegirsson
+S03	10	2	10	2	Équipage_S3.9	Vikings_S3.4
+S03	10	3	10	3	Équipage_S3.9	Vikings_S3.4	Thorgal Aegirsson
+S03	10	4	10	4	Thorgal Aegirsson
+S03	10	5	10	5	Enfants_S3.10
+S03	11	1	11	1	Thorgal Aegirsson
+S03	11	2	11	2	Enfants_S3.10	Vikings_S3.4	Kriss de Valnor	Thorgal Aegirsson
+S03	11	3	11	3	Enfants_S3.10	Kriss de Valnor
+S03	11	4	11	4	Enfants_S3.10	Kriss de Valnor
+S03	11	5	11	5	Enfants_S3.10	Kriss de Valnor	Kriss de Valnor	Thorgal Aegirsson
+S03	11	6	11	6	Kriss de Valnor
+S03	11	7	11	7	Kriss de Valnor	Rollo-le-Torte	Skjaldmö_S3.4	Thorgal Aegirsson	Vikings_S3.4
+S03	11	8	11	8	Rollo-le-Torte
+S03	11	9	11	9	Rollo-le-Torte	Skjaldmö_S3.4
+S03	12	1	12	1
+S03	12	2	12	2
+S03	12	3	12	3	Merchants_S3.12	Thorkell-le-grand
+S03	12	4	12	4	Thorkell-le-grand
+S03	12	5	12	5	Merchants_S3.12
+S03	12	6	12	6	Thorkell-le-grand
+S03	13	1	13	1
+S03	13	2	13	2	Kriss de Valnor	Naëva
+S03	13	3	13	3	Kriss de Valnor	Naëva
+S03	13	4	13	4	Kriss de Valnor	Naëva
+S03	13	5	13	5	Kriss de Valnor	Naëva
+S03	13	6	13	6	Kriss de Valnor	Naëva
+S03	13	7	13	7	Kriss de Valnor
+S03	13	8	13	8	Kriss de Valnor
+S03	13	9	13	9	Kriss de Valnor
+S03	14	1	14	1
+S03	14	2	14	2	Kriss de Valnor	Thorgal Aegirsson
+S03	14	3	14	3	Kriss de Valnor	Thorgal Aegirsson
+S03	14	4	14	4	Kriss de Valnor
+S03	14	5	14	5	Kriss de Valnor	Thorgal Aegirsson
+S03	14	6	14	6	Kriss de Valnor	Thorgal Aegirsson
+S03	14	7	14	7	Kriss de Valnor
+S03	15	1	15	1	Thorgal Aegirsson
+S03	15	2	15	2	Thorgal Aegirsson
+S03	15	3	15	3	Thorgal Aegirsson
+S03	15	4	15	4
+S03	15	5	15	5	Thorgal Aegirsson
+S03	15	6	15	6	Thorgal Aegirsson
+S03	15	7	15	7	Thorgal Aegirsson
+S03	15	8	15	8
+S03	15	9	15	9
+S03	15	10	15	10	Thorgal Aegirsson
+S03	16	1	16	1
+S03	16	2	16	2
+S03	16	3	16	3
+S03	16	4	16	4	Thorgal Aegirsson
+S03	16	5	16	5	Thorgal Aegirsson
+S03	16	6	16	6	Thorgal Aegirsson
+S03	16	7	16	7
+S03	16	8	16	8	Thorgal Aegirsson
+S03	17	1	17	1	Dragov	Kriss de Valnor	Prisonniers_S3.17
+S03	17	2	17	2	Dragov	Kriss de Valnor
+S03	17	3	17	3	Dragov	Kriss de Valnor	Prisonniers_S3.17
+S03	17	4	17	4	Dragov	Kriss de Valnor	Prisonniers_S3.17
+S03	17	5	17	5	Dragov	Kriss de Valnor	Prisonniers_S3.17
+S03	17	6	17	6	Kriss de Valnor	Prisonniers_S3.17
+S03	17	7	17	7	Kriss de Valnor
+S03	17	8	17	8	Dragov	Kriss de Valnor	Prisonniers_S3.17
+S03	18	1	18	1	Vikings_S3.18
+S03	18	2	18	2	Spakona_S3.18
+S03	18	3	18	3	Spakona_S3.18
+S03	18	4	18	4	Spakona_S3.18	Thorgal Aegirsson
+S03	18	5	18	5	Spakona_S3.18	Thorgal Aegirsson
+S03	18	6	18	6
+S03	19	1	19	1
+S03	19	2	19	2	Dragov	Erik_20.3	Kriss de Valnor
+S03	19	3	19	3	Erik_20.3	Kriss de Valnor
+S03	19	4	19	4	Dragov	Erik_20.3	Kriss de Valnor
+S03	19	5	19	5	Erik_20.3	Kriss de Valnor
+S03	19	6	19	6	Dragov	Erik_20.3	Kriss de Valnor
+S03	19	7	19	7	Dragov	Kriss de Valnor
+S03	19	8	19	8	Dragov	Kriss de Valnor
+S03	19	9	19	9	Dragov	Kriss de Valnor
+S03	20	1	20	1	Thorgal Aegirsson
+S03	20	2	20	2	Thorgal Aegirsson
+S03	20	3	20	3	Thorgal Aegirsson
+S03	20	4	20	4	Thorgal Aegirsson
+S03	20	5	20	5	Thorgal Aegirsson
+S03	20	6	20	6	Thorgal Aegirsson
+S03	20	7	20	7	Thorgal Aegirsson
+S03	20	8	20	8	Thorgal Aegirsson
+S03	21	1	21	1	Kálu Wáertz	Thorgal Aegirsson
+S03	21	2	21	2	Thorgal Aegirsson
+S03	21	3	21	3	Kálu Wáertz	Thorgal Aegirsson
+S03	21	4	21	4	Kálu Wáertz	Thorgal Aegirsson
+S03	21	5	21	5	Kálu Wáertz	Thorgal Aegirsson
+S03	21	6	21	6	Kálu Wáertz	Thorgal Aegirsson
+S03	21	7	21	7	Kálu Wáertz
+S03	22	1	22	1
+S03	22	2	22	2	Kálu Wáertz
+S03	22	3	22	3	Thorgal Aegirsson
+S03	22	4	22	4	Kálu Wáertz
+S03	22	5	22	5	Thorgal Aegirsson
+S03	22	6	22	6
+S03	22	7	22	7	Kálu Wáertz
+S03	22	8	22	8	Thorgal Aegirsson
+S03	22	9	22	9
+S03	23	1	23	1
+S03	23	2	23	2	Kriss de Valnor	Thorgal Aegirsson
+S03	23	3	23	3	Kriss de Valnor
+S03	23	4	23	4	Kriss de Valnor	Thorgal Aegirsson
+S03	23	5	23	5	Thorgal Aegirsson
+S03	23	6	23	6	Kriss de Valnor	Thorgal Aegirsson
+S03	23	7	23	7	Kriss de Valnor	Thorgal Aegirsson
+S03	24	1	24	1	Kriss de Valnor	Thorgal Aegirsson
+S03	24	2	24	2	Halvdan-le-noir	Vikings_S3.24.2
+S03	24	3	24	3	Halvdan-le-noir	Vikings_S3.24.2
+S03	24	4	24	4	Halvdan-le-noir	Vikings_S3.24.2
+S03	24	5	24	5	Halvdan-le-noir	Vikings_S3.24.2
+S03	24	6	24	6
+S03	25	1	25	1	Kriss de Valnor
+S03	25	2	25	2	Ragnhild_S3.25
+S03	25	3	25	3	Amant de Ragnhild_S3.25	Ragnhild_S3.25
+S03	25	4	25	4	Amant de Ragnhild_S3.25	Ragnhild_S3.25
+S03	25	5	25	5	Kriss de Valnor	Thorgal Aegirsson
+S03	25	6	25	6	Kriss de Valnor	Thorgal Aegirsson
+S03	25	7	25	7	Thorgal Aegirsson
+S03	25	8	25	8	Kriss de Valnor
+S03	26	1	26	1
+S03	26	2	26	2	Équipage de Sven_S3.26
+S03	26	3	26	3	Sven Tómrøgha
+S03	26	4	26	4
+S03	26	5	26	5	Hysis	Kriss de Valnor	Naëva
+S03	26	6	26	6
+S03	26	7	26	7	Dragov	Rollo-le-Torte	Thorgal Aegirsson
+S03	27	1	27	1	Hysis	Kriss de Valnor	Naëva
+S03	27	2	27	2	Hysis	Kriss de Valnor	Naëva
+S03	27	3	27	3	Naëva
+S03	27	4	27	4	Kriss de Valnor
+S03	27	5	27	5
+S03	27	6	27	6	Hysis	Kriss de Valnor	Naëva
+S03	27	7	27	7	Hysis	Naëva
+S03	27	8	27	8	Hysis	Naëva
+S03	28	1	28	1
+S03	28	2	28	2	Équipage de Dragov_S3.26
+S03	28	3	28	3	Capitaine bleu_21.4.3	Dragov	Drogan	Rollo-le-Torte	Varrak
+S03	28	4	28	4	Drogan
+S03	28	5	28	5	Capitaine bleu_21.4.3	Dragov	Drogan
+S03	28	6	28	6	Drogan	Rollo-le-Torte
+S03	28	7	28	7	Drogan	Thorgal Aegirsson
+S03	28	8	28	8	Capitaine bleu_21.4.3	Dragov	Drogan	Varrak	Rollo-le-Torte
+S03	29	1	29	1
+S03	29	2	29	2	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	29	3	29	3
+S03	29	4	29	4
+S03	29	5	29	5	Équipage de Dragov_S3.26
+S03	29	6	29	6	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	29	7	29	7	Thorgal Aegirsson
+S03	30	1	30	1
+S03	30	2	30	2	Équipage de Dragov_S3.26
+S03	30	3	30	3	Thorgal Aegirsson	Dragov
+S03	30	4	30	4	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	30	5	30	5	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	30	6	30	6	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	30	7	30	7	Équipage de Dragov_S3.26
+S03	30	8	30	8	Thorgal Aegirsson
+S03	30	9	30	9	Thorgal Aegirsson
+S03	30	10	30	10
+S03	31	1	31	1	Skjaldmös_S3.26
+S03	31	2	31	2	Hysis	Kriss de Valnor	Naëva	Skjaldmös_S3.26
+S03	31	3	31	3	Hysis	Naëva
+S03	31	4	31	4	Hysis
+S03	31	5	31	5
+S03	31	6	31	6	Skjaldmös_S3.26
+S03	31	7	31	7	Kriss de Valnor	Skjaldmös_S3.26
+S03	31	8	31	8	Drogan	Thorgal Aegirsson	Rollo-le-Torte
+S03	32	1	32	1	Skjaldmös_S3.26
+S03	32	2	32	2	Kriss de Valnor
+S03	32	3	32	3	Hysis	Kriss de Valnor	Naëva	Skjaldmös_S3.26
+S03	32	4	32	4	Hysis	Kriss de Valnor	Naëva
+S03	32	5	32	5	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	32	6	32	6	Équipage de Dragov_S3.26	Dragov
+S03	32	7	32	7	Équipage de Dragov_S3.26	Skjaldmös_S3.26
+S03	33	1	33	1	Hysis	Kriss de Valnor	Naëva
+S03	33	2	33	2	Hysis	Kriss de Valnor	Naëva
+S03	33	3	33	3	Hysis	Kriss de Valnor	Naëva
+S03	33	4	33	4	Hysis	Kriss de Valnor	Naëva	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	33	5	33	5	Hysis	Naëva
+S03	33	6	33	6	Équipage de Dragov_S3.26	Thorgal Aegirsson	Skjaldmös_S3.26
+S03	33	7	33	7	Équipage de Dragov_S3.26	Thorgal Aegirsson	Skjaldmös_S3.26
+S03	34	1	34	1	Varrak
+S03	34	2	34	2	Capitaine bleu_21.4.3	Dragov	Drogan	Rollo-le-Torte	Varrak
+S03	34	3	34	3	Équipage de Dragov_S3.26	Skjaldmös_S3.26
+S03	34	4	34	4	Équipage de Dragov_S3.26
+S03	34	5	34	5
+S03	34	6	34	6	Dragov	Rollo-le-Torte
+S03	34	7	34	7	Hysis	Naëva	Thorgal Aegirsson
+S03	35	1	35	1	Thorgal Aegirsson	Kriss de Valnor
+S03	35	2	35	2	Thorgal Aegirsson	Kriss de Valnor
+S03	35	3	35	3	Thorgal Aegirsson	Kriss de Valnor
+S03	35	4	35	4	Équipage de Dragov_S3.26	Thorgal Aegirsson	Kriss de Valnor	Skjaldmös_S3.26
+S03	35	5	35	5	Équipage de Dragov_S3.26	Thorgal Aegirsson	Kriss de Valnor
+S03	35	6	35	6
+S03	35	7	35	7	Thorgal Aegirsson	Kriss de Valnor
+S03	35	8	35	8	Thorgal Aegirsson	Kriss de Valnor
+S03	36	1	36	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Hysis	Kriss de Valnor	Naëva	Rollo-le-Torte	Skjaldmös_S3.26	Thorgal Aegirsson
+S03	36	2	36	2	Skjaldmös_S3.26	Kriss de Valnor
+S03	36	3	36	3	Kriss de Valnor	Thorgal Aegirsson
+S03	36	4	36	4	Thorgal Aegirsson
+S03	36	5	36	5	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte
+S03	36	6	36	6	Kriss de Valnor	Skjaldmös_S3.26
+S03	36	7	36	7	Kriss de Valnor	Skjaldmös_S3.26
+S03	36	8	36	8	Kriss de Valnor	Skjaldmös_S3.26	Rollo-le-Torte
+S03	37	1	37	1	Rollo-le-Torte
+S03	37	2	37	2	Kriss de Valnor
+S03	37	3	37	3	Kriss de Valnor	Skjaldmös_S3.26	Thorgal Aegirsson	Rollo-le-Torte
+S03	37	4	37	4	Kriss de Valnor	Skjaldmös_S3.26
+S03	37	5	37	5	Kriss de Valnor	Skjaldmös_S3.26	Thorgal Aegirsson	Rollo-le-Torte
+S03	37	6	37	6	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Hysis	Kriss de Valnor	Naëva	Rollo-le-Torte	Skjaldmös_S3.26	Thorgal Aegirsson
+S03	37	7	37	7	Thorgal Aegirsson
+S03	38	1	38	1	Kriss de Valnor
+S03	38	2	38	2	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	38	3	38	3	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	38	4	38	4
+S03	38	5	38	5	Naëva
+S03	38	6	38	6	Équipage de Dragov_S3.26	Rollo-le-Torte
+S03	38	7	38	7	Équipage de Dragov_S3.26	Rollo-le-Torte
+S03	38	8	38	8	Équipage de Dragov_S3.26	Rollo-le-Torte
+S03	38	9	38	9	Capitaine bleu_21.4.3	Dragov	Drogan	Varrak
+S03	38	10	38	10	Rollo-le-Torte
+S03	39	1	39	1
+S03	39	2	39	2	Équipage de Dragov_S3.26
+S03	39	3	39	3
+S03	39	4	39	4	Kriss de Valnor	Thorgal Aegirsson
+S03	39	5	39	5	Kriss de Valnor	Thorgal Aegirsson
+S03	40	1	40	1
+S03	40	2	40	2
+S03	40	3	40	3	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	40	4	40	4	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	40	5	40	5	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	40	6	40	6	Capitaine bleu_21.4.3	Dragov	Drogan	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	40	7	40	7	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	40	8	40	8	Varrak	Rollo-le-Torte	Drogan	Capitaine bleu_21.4.3
+S03	41	1	41	1	Thorgal Aegirsson	Kriss de Valnor
+S03	41	2	41	2	Kriss de Valnor
+S03	41	3	41	3	Capitaine bleu_21.4.3	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	41	4	41	4	Dragov	Varrak	Drogan
+S03	41	5	41	5	Kriss de Valnor
+S03	41	6	41	6	Thorgal Aegirsson
+S03	41	7	41	7	Thorgal Aegirsson	Dragov	Kriss de Valnor
+S03	41	8	41	8	Thorgal Aegirsson	Kriss de Valnor	Équipage de Dragov_S3.26
+S03	42	1	42	1	Équipage de Dragov_S3.26
+S03	42	2	42	2	Sven Tómrøgha	Thorgal Aegirsson	Équipage de Sven_S3.26
+S03	42	3	42	3	Équipage de Dragov_S3.26
+S03	42	4	42	4	Équipage de Dragov_S3.26	Kriss de Valnor
+S03	42	5	42	5	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	42	6	42	6	Capitaine bleu_21.4.3	Kriss de Valnor	Thorgal Aegirsson
+S03	42	7	42	7	Équipage de Dragov_S3.26
+S03	43	1	43	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	43	2	43	2	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	43	3	43	3	Drogan	Rollo-le-Torte
+S03	43	4	43	4	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	43	5	43	5	Kriss de Valnor	Thorgal Aegirsson
+S03	43	6	43	6	Kriss de Valnor	Thorgal Aegirsson
+S03	43	7	43	7
+S03	43	8	43	8	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	44	1	44	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	44	2	44	2	Équipage de Dragov_S3.26
+S03	44	3	44	3	Capitaine bleu_21.4.3	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	44	4	44	4	Thorgal Aegirsson
+S03	44	5	44	5	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	45	1	45	1	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson	Sven Tómrøgha	Équipage de Sven_S3.26
+S03	45	2	45	2	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	45	3	45	3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	45	4	45	4
+S03	45	5	45	5	Thorgal Aegirsson
+S03	45	6	45	6	Capitaine bleu_21.4.3	Dragov	Kriss de Valnor	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	45	7	45	7	Thorgal Aegirsson
+S03	45	8	45	8	Équipage de Dragov_S3.26
+S03	46	1	46	1	Thorgal Aegirsson	Kriss de Valnor
+S03	46	2	46	2	Thorgal Aegirsson	Kriss de Valnor
+S03	46	3	46	3	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	46	4	46	4	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	46	5	46	5	Thorgal Aegirsson	Dragov	Kriss de Valnor
+S03	46	6	46	6	Thorgal Aegirsson	Dragov	Kriss de Valnor	Équipage de Dragov_S3.26
+S03	46	7	46	7	Thorgal Aegirsson	Dragov
+S03	47	1	47	1	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	47	2	47	2	Kriss de Valnor	Thorgal Aegirsson
+S03	47	3	47	3	Kriss de Valnor
+S03	47	4	47	4	Capitaine bleu_21.4.3	Dragov	Drogan	Rollo-le-Torte	Sven Tómrøgha	Varrak
+S03	47	5	47	5	Rollo-le-Torte
+S03	47	6	47	6	Drogan	Varrak
+S03	47	7	47	7	Kriss de Valnor	Thorgal Aegirsson
+S03	47	8	47	8	Kriss de Valnor	Thorgal Aegirsson
+S03	48	1	48	1	Kriss de Valnor	Thorgal Aegirsson
+S03	48	2	48	2	Kriss de Valnor	Thorgal Aegirsson
+S03	48	3	48	3	Kriss de Valnor	Thorgal Aegirsson
+S03	48	4	48	4	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Équipage de Sven_S3.26	Kriss de Valnor	Rollo-le-Torte	Sven Tómrøgha	Thorgal Aegirsson
+S03	49	1	49	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	49	2	49	2	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	49	3	49	3	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	49	4	49	4	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	49	5	49	5	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	49	6	49	6	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	50	1	50	1	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	50	2	50	2	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	50	3	50	3	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	50	4	50	4	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	50	5	50	5	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	50	6	50	6	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	50	7	50	7	Thorgal Aegirsson	Équipage de Dragov_S3.26	Dragov	Drogan	Kriss de Valnor
+S03	50	8	50	8	Thorgal Aegirsson	Kriss de Valnor
+S03	51	1	51	1	Capitaine bleu_21.4.3	Dragov	Drogan	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	51	2	51	2	Capitaine bleu_21.4.3	Dragov	Drogan	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	51	3	51	3	Kriss de Valnor	Thorgal Aegirsson
+S03	52	1	52	1
+S03	52	2	52	2	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	52	3	52	3	Kriss de Valnor	Thorgal Aegirsson
+S03	52	4	52	4	Kriss de Valnor	Thorgal Aegirsson
+S03	52	5	52	5	Kriss de Valnor	Thorgal Aegirsson
+S03	52	6	52	6	Kriss de Valnor
+S03	52	7	52	7	Dragov	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	53	1	53	1	Capitaine bleu_21.4.3	Dragov	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson
+S03	53	2	53	2	Drogan	Rollo-le-Torte	Varrak
+S03	53	3	53	3	Dragov	Kriss de Valnor	Varrak
+S03	53	4	53	4	Dragov	Kriss de Valnor	Varrak	Thorgal Aegirsson
+S03	53	5	53	5	Thorgal Aegirsson
+S03	53	6	53	6
+S03	53	7	53	7	Kriss de Valnor	Thorgal Aegirsson
+S03	53	8	53	8	Kriss de Valnor	Thorgal Aegirsson
+S03	53	9	53	9	Kriss de Valnor	Thorgal Aegirsson
+S03	54	1	54	1	Kriss de Valnor	Thorgal Aegirsson
+S03	54	2	54	2	Kriss de Valnor	Thorgal Aegirsson
+S03	54	3	54	3	Kriss de Valnor
+S03	54	4	54	4
+S03	54	5	54	5	Kriss de Valnor	Thorgal Aegirsson
+S03	54	6	54	6	Kriss de Valnor	Thorgal Aegirsson
+S03	54	7	54	7	Kriss de Valnor	Thorgal Aegirsson
+S03	54	8	54	8	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	55	1	55	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	55	2	55	2	Kriss de Valnor	Thorgal Aegirsson
+S03	55	3	55	3	Kriss de Valnor	Thorgal Aegirsson
+S03	55	4	55	4	Kriss de Valnor	Thorgal Aegirsson
+S03	55	5	55	5	Dragov	Kriss de Valnor	Thorgal Aegirsson
+S03	55	6	55	6	Dragov	Kriss de Valnor	Thorgal Aegirsson	Rollo-le-Torte
+S03	55	7	55	7	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	56	1	56	1	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	56	2	56	2	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	56	3	56	3	Kriss de Valnor	Thorgal Aegirsson	Rollo-le-Torte	Équipage de Dragov_S3.26	Drogan
+S03	56	4	56	4	Thorgal Aegirsson
+S03	56	5	56	5	Capitaine bleu_21.4.3	Dragov	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	56	6	56	6	Capitaine bleu_21.4.3	Dragov	Équipage de Dragov_S3.26
+S03	57	1	57	1	Draugar_S3.57	Kriss de Valnor	Thorgal Aegirsson
+S03	57	2	57	2	Capitaine bleu_21.4.3	Dragov	Drogan	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	57	3	57	3	Capitaine bleu_21.4.3	Drogan	Kriss de Valnor	Thorgal Aegirsson
+S03	57	4	57	4	Draugar_S3.57	Kriss de Valnor	Varrak	Thorgal Aegirsson
+S03	57	5	57	5	Draugar_S3.57	Équipage de Dragov_S3.26
+S03	57	6	57	6	Draugar_S3.57	Équipage de Dragov_S3.26
+S03	57	7	57	7	Draugar_S3.57	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	58	1	58	1	Draugar_S3.57	Kriss de Valnor	Thorgal Aegirsson
+S03	58	2	58	2	Draugar_S3.57	Kriss de Valnor	Thorgal Aegirsson
+S03	58	3	58	3	Thorgal Aegirsson
+S03	58	4	58	4	Capitaine bleu_21.4.3	Drogan	Draugar_S3.57	Kriss de Valnor	Thorgal Aegirsson
+S03	58	5	58	5	Capitaine bleu_21.4.3	Drogan	Draugar_S3.57	Kriss de Valnor	Thorgal Aegirsson	Varrak	Dragov	Équipage de Dragov_S3.26
+S03	58	6	58	6	Draugar_S3.57
+S03	58	7	58	7	Draugar_S3.57
+S03	59	1	59	1	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	59	2	59	2	Kriss de Valnor	Thorgal Aegirsson
+S03	59	3	59	3
+S03	59	4	59	4	Kriss de Valnor	Thorgal Aegirsson
+S03	59	5	59	5	Thorgal Aegirsson
+S03	59	6	59	6	Thorgal Aegirsson
+S03	59	7	59	7	Kriss de Valnor	Thorgal Aegirsson
+S03	59	8	59	8	Thorgal Aegirsson
+S03	59	9	59	9	Thorgal Aegirsson
+S03	60	1	60	1	Capitaine bleu_21.4.3	Dragov	Draugar_S3.57	Drogan	Équipage de Dragov_S3.26	Kriss de Valnor	Rollo-le-Torte	Thorgal Aegirsson	Varrak
+S03	60	2	60	2	Kriss de Valnor	Thorgal Aegirsson
+S03	60	3	60	3	Kriss de Valnor	Thorgal Aegirsson
+S03	60	4	60	4	Kriss de Valnor
+S03	60	5	60	5	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	60	6	60	6	Thorgal Aegirsson
+S03	60	7	60	7	Thorgal Aegirsson
+S03	60	8	60	8	Thorgal Aegirsson
+S03	61	1	61	1	Thorgal Aegirsson
+S03	61	2	61	2	Thorgal Aegirsson
+S03	61	3	61	3	Thorgal Aegirsson
+S03	61	4	61	4	Thorgal Aegirsson
+S03	61	5	61	5	Thorgal Aegirsson
+S03	61	6	61	6	Halvdan-le-noir	Thorgal Aegirsson
+S03	61	7	61	7	Halvdan-le-noir
+S03	62	1	62	1	Thorgal Aegirsson
+S03	62	2	62	2	Thorgal Aegirsson
+S03	62	3	62	3	Halvdan-le-noir
+S03	62	4	62	4	Thorgal Aegirsson
+S03	62	5	62	5	Thorgal Aegirsson
+S03	62	6	62	6	Thorgal Aegirsson
+S03	62	7	62	7	Thorgal Aegirsson
+S03	62	8	62	8	Thorgal Aegirsson
+S03	62	9	62	9	Halvdan-le-noir
+S03	63	1	63	1	Thorgal Aegirsson
+S03	63	2	63	2	Halvdan-le-noir
+S03	63	3	63	3	Thorgal Aegirsson
+S03	63	4	63	4	Halvdan-le-noir	Thorgal Aegirsson
+S03	63	5	63	5	Halvdan-le-noir
+S03	63	6	63	6	Thorgal Aegirsson
+S03	63	7	63	7	Halvdan-le-noir
+S03	63	8	63	8	Thorgal Aegirsson
+S03	63	9	63	9	Halvdan-le-noir
+S03	63	10	63	10	Thorgal Aegirsson
+S03	64	1	64	1	Thorgal Aegirsson
+S03	64	2	64	2	Halvdan-le-noir	Thorgal Aegirsson
+S03	64	3	64	3	Thorgal Aegirsson
+S03	64	4	64	4	Halvdan-le-noir	Thorgal Aegirsson
+S03	64	5	64	5	Thorgal Aegirsson
+S03	64	6	64	6	Halvdan-le-noir	Thorgal Aegirsson
+S03	64	7	64	7	Halvdan-le-noir	Thorgal Aegirsson
+S03	64	8	64	8	Halvdan-le-noir	Thorgal Aegirsson
+S03	64	9	64	9	Thorgal Aegirsson
+S03	65	1	65	1
+S03	65	2	65	2	Thorgal Aegirsson
+S03	65	3	65	3	Halvdan-le-noir	Thorgal Aegirsson
+S03	65	4	65	4	Halvdan-le-noir	Thorgal Aegirsson
+S03	65	5	65	5	Halvdan-le-noir
+S03	65	6	65	6	Halvdan-le-noir	Thorgal Aegirsson
+S03	65	7	65	7	Halvdan-le-noir	Thorgal Aegirsson
+S03	65	8	65	8	Halvdan-le-noir	Thorgal Aegirsson
+S03	65	9	65	9	Thorgal Aegirsson
+S03	66	1	66	1
+S03	66	2	66	2	Kriss de Valnor
+S03	66	3	66	3	Kriss de Valnor
+S03	66	4	66	4	Kriss de Valnor
+S03	66	5	66	5	Kriss de Valnor
+S03	66	6	66	6	Kriss de Valnor
+S03	66	7	66	7	Kriss de Valnor
+S03	66	8	66	8	Kriss de Valnor
+S03	67	1	67	1
+S03	67	2	67	2	Équipage de Dragov_S3.26
+S03	67	3	67	3	Rollo-le-Torte
+S03	67	4	67	4	Capitaine bleu_21.4.3	Drogan	Équipage de Dragov_S3.26	Rollo-le-Torte
+S03	67	5	67	5	Kriss de Valnor
+S03	67	6	67	6	Équipage de Dragov_S3.26
+S03	67	7	67	7	Rollo-le-Torte
+S03	67	8	67	8	Rollo-le-Torte
+S03	67	9	67	9	Rollo-le-Torte
+S03	68	1	68	1	Kriss de Valnor	Thorgal Aegirsson
+S03	68	2	68	2	Dragov	Drogan	Équipage de Dragov_S3.26	Rollo-le-Torte
+S03	68	3	68	3	Rollo-le-Torte
+S03	68	4	68	4	Rollo-le-Torte
+S03	68	5	68	5	Kriss de Valnor
+S03	68	6	68	6	Équipage de Dragov_S3.26	Thorgal Aegirsson
+S03	68	7	68	7	Capitaine bleu_21.4.3	Dragov	Drogan	Rollo-le-Torte	Varrak
+S03	68	8	68	8	Dragov	Rollo-le-Torte
+S03	68	9	68	9	Thorgal Aegirsson
+S03	69	1	69	1	Kriss de Valnor	Thorgal Aegirsson
+S03	69	2	69	2	Thorgal Aegirsson
+S03	69	3	69	3	Kriss de Valnor	Thorgal Aegirsson
+S03	69	4	69	4	Kriss de Valnor	Thorgal Aegirsson
+S03	69	5	69	5	Kriss de Valnor	Thorgal Aegirsson
+S03	69	6	69	6	Dragov	Drogan	Équipage de Dragov_S3.26
+S03	69	7	69	7	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	69	8	69	8	Thorgal Aegirsson
+S03	69	9	69	9	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	70	1	70	1
+S03	70	2	70	2	Équipage de Dragov_S3.26
+S03	70	3	70	3	Jömsviking_S3.70
+S03	70	4	70	4	Kriss de Valnor	Thorgal Aegirsson
+S03	70	5	70	5	Kriss de Valnor	Thorgal Aegirsson	Équipage de Dragov_S3.26
+S03	70	6	70	6	Kriss de Valnor	Thorgal Aegirsson
+S03	70	7	70	7	Thorkell-le-grand	Jömsviking_S3.70
+S03	70	8	70	8	Kriss de Valnor	Thorgal Aegirsson
+S03	70	9	70	9	Kriss de Valnor	Thorgal Aegirsson
+S03	71	1	71	1	Équipage de Dragov_S3.26	Jömsviking_S3.70
+S03	71	2	71	2	Équipage de Dragov_S3.26	Jömsviking_S3.70
+S03	71	3	71	3	Équipage de Dragov_S3.26	Jömsviking_S3.70
+S03	71	4	71	4	Kriss de Valnor	Thorgal Aegirsson	Jömsviking_S3.70
+S03	71	5	71	5	Kriss de Valnor	Thorgal Aegirsson
+S03	71	6	71	6	Thorgal Aegirsson
+S03	72	1	72	1	Équipage de Dragov_S3.26	Jömsviking_S3.70
+S03	72	2	72	2	Thorgal Aegirsson
+S03	72	3	72	3	Kriss de Valnor
+S03	72	4	72	4	Équipage de Dragov_S3.26	Jömsviking_S3.70
+S03	72	5	72	5	Kriss de Valnor	Thorgal Aegirsson	Jömsviking_S3.70	Équipage de Dragov_S3.26	Dragov	Drogan
+S03	72	6	72	6	Thorgal Aegirsson	Jömsviking_S3.70
+S03	73	1	73	1	Kriss de Valnor	Thorgal Aegirsson	Jömsviking_S3.70	Équipage de Dragov_S3.26
+S03	73	2	73	2	Jömsviking_S3.70
+S03	73	3	73	3	Thorkell-le-grand
+S03	73	4	73	4	Dragov	Drogan	Varrak	Équipage de Dragov_S3.26	Kriss de Valnor	Thorgal Aegirsson
+S03	73	5	73	5	Kriss de Valnor	Thorgal Aegirsson
+S03	73	6	73	6	Kriss de Valnor	Thorgal Aegirsson
+S03	73	7	73	7	Thorgal Aegirsson
+S03	73	8	73	8	Kriss de Valnor	Thorgal Aegirsson
+S03	74	1	74	1
+S03	74	2	74	2	Kriss de Valnor	Thorgal Aegirsson
+S03	74	3	74	3	Kriss de Valnor	Thorgal Aegirsson
+S03	74	4	74	4	Thorgal Aegirsson
+S03	74	5	74	5	Kriss de Valnor	Thorgal Aegirsson
+S03	74	6	74	6	Kriss de Valnor	Thorgal Aegirsson
+S03	74	7	74	7	Thorgal Aegirsson
+S03	74	8	74	8	Thorgal Aegirsson
+S03	75	1	75	1
+S03	75	2	75	2	Thorgal Aegirsson
+S03	75	3	75	3
+S03	75	4	75	4	Thorgal Aegirsson
+S03	75	5	75	5	Huginn	Muninn	Thorgal Aegirsson
+S03	75	6	75	6	Huginn	Muninn	Thorgal Aegirsson
+S03	75	7	75	7	Huginn	Muninn	Thorgal Aegirsson
+S03	75	8	75	8
+S03	76	1	76	1	Thorgal Aegirsson
+S03	76	2	76	2	Thorgal Aegirsson
+S03	76	3	76	3
+S03	76	4	76	4	Kálu Wáertz
+S03	76	5	76	5	Thorgal Aegirsson	Kálu Wáertz
+S03	76	6	76	6
+S03	76	7	76	7	Thorgal Aegirsson
+S03	76	8	76	8	Thorgal Aegirsson
+S03	76	9	76	9
+S03	76	10	76	10	Thorgal Aegirsson
+S03	77	1	77	1	Aaricia Gandalfsdottir	Kriss de Valnor	Louve Thorgalsdottir	Vikings_S3.77
+S03	77	2	77	2	Aaricia Gandalfsdottir	Kriss de Valnor	Louve Thorgalsdottir	Vikings_S3.77
+S03	77	3	77	3	Aaricia Gandalfsdottir	Kriss de Valnor	Louve Thorgalsdottir	Thorgal Aegirsson
+S03	77	4	77	4	Aaricia Gandalfsdottir	Kriss de Valnor	Thorgal Aegirsson
+S03	77	5	77	5	Aaricia Gandalfsdottir	Kriss de Valnor	Thorgal Aegirsson
+S03	77	6	77	6	Aaricia Gandalfsdottir	Kriss de Valnor	Louve Thorgalsdottir	Thorgal Aegirsson
+S03	77	7	77	7	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Vikings_S3.77
+S03	77	8	77	8	Kriss de Valnor	Louve Thorgalsdottir	Vikings_S3.77
+S03	77	9	77	9	Aaricia Gandalfsdottir	Louve Thorgalsdottir	Vikings_S3.77
+S03	78	1	78	1	Aaricia Gandalfsdottir	Esclaves_21.32	Kriss de Valnor	Thorgal Aegirsson
+S03	78	2	78	2	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S03	78	3	78	3	Aaricia Gandalfsdottir	Thorgal Aegirsson	Kriss de Valnor
+S03	78	4	78	4	Aaricia Gandalfsdottir	Thorgal Aegirsson	Kriss de Valnor
+S03	78	5	78	5	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S03	78	6	78	6	Aaricia Gandalfsdottir	Thorgal Aegirsson	Kriss de Valnor
+S03	78	7	78	7
+S03	78	8	78	8	Aaricia Gandalfsdottir
+S03	78	9	78	9	Aaricia Gandalfsdottir
+S03	78	10	78	10
+S03	79	1	79	1	Chats ailés de Frigg_S3.79	Frigg
+S03	79	2	79	2	Chats ailés de Frigg_S3.79	Frigg
+S03	79	3	79	3
+S03	79	4	79	4	Rán	Chats ailés de Frigg_S3.79	Frigg
+S03	79	5	79	5	Chats ailés de Frigg_S3.79	Frigg
+S03	79	6	79	6	Chats ailés de Frigg_S3.79	Frigg
+S03	80	1	80	1	Fillette_22.3
+S03	80	2	80	2
+S03	80	3	80	3	Kriss de Valnor	Thorgal Aegirsson
+S03	80	4	80	4	Dragov	Équipage_22.4
+S03	80	5	80	5	Dragov	Équipage_22.4	Galathorn
+S03	80	6	80	6	Galathorn
 T42	3	1	3	1
 T42	3	2	3	2
 T42	3	3	3	3	Gilli	Louve Thorgalsdottir	Yasmina
