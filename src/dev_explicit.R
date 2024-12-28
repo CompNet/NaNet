@@ -87,7 +87,7 @@ data.impl <- read.raw.data(char.det="implicit")
 # compute corpus stats
 data.impl <- compute.corpus.stats(data=data.impl, char.det="implicit")
 
-# plot these stats
+# plot corpus stats
 plot.corpus.stats(data=data.impl, char.det="implicit")
 
 
