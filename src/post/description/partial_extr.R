@@ -32,8 +32,7 @@ filt.names <- V(g)$name[V(g)$Filter=="Discard"]
 if(length(filt.names)==0) stop("Empty list of filtered characters")
 
 # compute split scene
-split.vol <- "23"	# The Cage
-idx <- min(which(data$inter.df[,COL_VOLUME]==split.vol))
+idx <- which(data$volume.stats[,COL_TITLE] == "La cage")
 
 # init graph list
 gs <- list()

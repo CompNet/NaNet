@@ -76,8 +76,8 @@ load.as.bipartite <- function()
 	data <- read.corpus.data(char.det="implicit")
 	char.stats <- data$char.stats
 	f.n <- nrow(char.stats)
-	char.scenes <- data$char.scenes
-	g.n <- length(char.scenes)
+	scene.chars <- data$scene.chars
+	g.n <- length(scene.chars)
 	
 	# init bipartite graph
 	bg <- make_empty_graph(n=f.n+g.n, directed=FALSE)
@@ -95,9 +95,9 @@ load.as.bipartite <- function()
 	el <- matrix(nrow=0, ncol=2)
 	for(s in 1:g.n)
 	{	tlog(2,"Processing scene ",s,"/",g.n)
-		idx1 <- match(char.scenes[[s]],V(bg)$Name)
+		idx1 <- match(scene.chars[[s]],V(bg)$Name)
 		if(any(is.na(idx1)))
-			stop("ERROR: could not find character ",char.scenes[[s]][which(is.na(idx1))])
+			stop("ERROR: could not find character ",scene.chars[[s]][which(is.na(idx1))])
 		idx2 <- rep(which(V(bg)$Name==paste0("Scene_",s)), length(idx1))
 		new.el <- cbind(idx1, idx2)
 		#print(new.el)
@@ -280,7 +280,7 @@ rand.igraphmodel.graph.measures <- function(filtered=FALSE, iters=iters, model="
 	
 	# load the original network 
 	graph.file <- get.path.data.graph(mode="scenes", char.det="implicit", net.type="static", filtered=FALSE, pref="graph", ext=".graphml")
-	g <- read.graphml.file(file=graph)
+	g <- read.graphml.file(file=graph.file)
 	if(filtered)
 		g <- delete_vertices(graph=g, v=which(V(g)$Filter=="Discard"))
 	

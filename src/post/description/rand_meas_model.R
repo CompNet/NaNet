@@ -35,8 +35,8 @@ start.rec.log(text="RandMeasModel")
 data <- read.corpus.data(char.det="implicit")
 char.stats <- data$char.stats
 f.n <- nrow(char.stats)
-char.scenes <- data$char.scenes
-g.n <- length(char.scenes)
+scene.chars <- data$scene.chars
+g.n <- length(scene.chars)
 
 # init result table
 rn <- c("AvgDegree","AvgDistance","AvgLocalTrans")
@@ -61,9 +61,9 @@ g <- set_vertex_attr(graph=g, name="Name", index=f.n+(1:g.n), value=paste0("Scen
 el <- matrix(nrow=0, ncol=2)
 for(s in 1:g.n)
 {	tlog(2,"Processing scene ",s,"/",g.n)
-	idx1 <- match(char.scenes[[s]],V(g)$Name)
+	idx1 <- match(scene.chars[[s]],V(g)$Name)
 	if(any(is.na(idx1)))
-		stop("ERROR: could not find character ",char.scenes[[s]][which(is.na(idx1))])
+		stop("ERROR: could not find character ",scene.chars[[s]][which(is.na(idx1))])
 	idx2 <- rep(which(V(g)$Name==paste0("Scene_",s)), length(idx1))
 	new.el <- cbind(idx1, idx2)
 	#print(new.el)
