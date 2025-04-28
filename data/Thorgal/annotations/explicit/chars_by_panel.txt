@@ -2316,7 +2316,7 @@ T09	8	2	8	2	Thorgal Aegirsson
 T09	8	3	8	3	Thorgal Aegirsson
 T09	8	4	8	4
 T09	8	5	8	5	Thorgal Aegirsson	Tjall le Fougueux
-T09	8	6	8	6	Tjall le Fougueux
+T09	8	6	8	6		Tjall le Fougueux
 T09	8	7	8	7	Thorgal Aegirsson	Tjall le Fougueux
 T09	8	8	8	8	Thorgal Aegirsson	Tjall le Fougueux
 T09	8	9	8	9	Thorgal Aegirsson	Tjall le Fougueux
@@ -5388,7 +5388,7 @@ T18	21	4	21	4	Migaïl	Thorgal Aegirsson
 T18	21	5	21	5	Migaïl	Thorgal Aegirsson
 T18	21	6	21	6	Migaïl	Thorgal Aegirsson
 T18	21	7	21	7	Migaïl	Thorgal Aegirsson
-T18	21	8	21	8	Thorgal Aegirsson	Yarilo
+T18	21	8	21	8	Thorgal Aegirsson		Yarilo
 T18	22	1	22	1	Rebelles_18.21	Thorgal Aegirsson	Yarilo	Migaïl
 T18	22	2	22	2	Yarilo	Thorgal Aegirsson
 T18	22	3	22	3	Rebelles_18.21	Thorgal Aegirsson	Migaïl
@@ -5939,7 +5939,7 @@ T20	3	2	3	2	Villageoises_20.3
 T20	3	3	3	3	Erik_20.3
 T20	3	4	3	4	Aaricia Gandalfsdottir	Ernhild	Solveig	Vigrid_20.3	Villageois_20.3	Villageoises_20.3	Jolan Thorgalsson	Muff
 T20	4	1	4	1	Ernhild	Vigrid_20.3
-T20	4	2	4	2	Ernhild	Villageoises_20.3
+T20	4	2	4	2	Ernhild		Villageoises_20.3
 T20	4	3	4	3	Aaricia Gandalfsdottir	Solveig	Louve Thorgalsdottir
 T20	4	4	4	4	Aaricia Gandalfsdottir	Ernhild	Vigrid_20.3
 T20	4	5	4	5	Ernhild	Vigrid_20.3	Villageois_20.3	Villageoises_20.3
@@ -5967,7 +5967,7 @@ T20	7	1	7	1	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 T20	7	2	7	2	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 T20	7	3	7	3
 T20	7	4	7	4
-T20	7	5	7	5	Jolan Thorgalsson	Muff
+T20	7	5	7	5	Jolan Thorgalsson		Muff
 T20	7	6	7	6	Jolan Thorgalsson
 T20	7	7	7	7	Jolan Thorgalsson	Muff
 T20	7	8	7	8	Jolan Thorgalsson	Muff
@@ -6981,7 +6981,7 @@ T23	6	5	6	5	Galathorn	Thorgal Aegirsson
 T23	6	6	6	6	Galathorn	Thorgal Aegirsson
 T23	6	7	6	7	Galathorn	Thorgal Aegirsson
 T23	6	8	6	8	Galathorn	Thorgal Aegirsson
-T23	7	1	7	1	Thorgal Aegirsson
+T23	7	1	7	1		Thorgal Aegirsson
 T23	7	2	7	2	Syrane	Thorgal Aegirsson
 T23	7	3	7	3	Syrane	Thorgal Aegirsson
 T23	7	4	7	4	Thorgal Aegirsson
@@ -7015,7 +7015,7 @@ T23	11	1	11	1
 T23	11	2	11	2	Thorgal Aegirsson
 T23	11	3	11	3
 T23	11	4	11	4	Thorgal Aegirsson
-T23	11	5	11	5	Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
+T23	11	5	11	5		Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
 T23	11	6	11	6	Soldat_23.11.1
 T23	11	7	11	7	Soldat_23.11.1	Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
 T23	11	8	11	8	Soldat_23.11.1	Thorgal Aegirsson
@@ -9235,7 +9235,7 @@ T29	25	7	25	7	Jolan Thorgalsson	Thorgal Aegirsson
 T29	26	1	26	1	Biarn_29.26	Helgi
 T29	26	2	26	2	Biarn_29.26	Helgi
 T29	26	3	26	3	Biarn_29.26	Helgi
-T29	26	4	26	4	Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
+T29	26	4	26	4			Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
 T29	26	5	26	5	Aaricia Gandalfsdottir	Aniel de Valnor	Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
 T29	26	6	26	6	Aaricia Gandalfsdottir	Vigrid
 T29	26	7	26	7	Biarn_29.26	Helgi
@@ -15446,7 +15446,7 @@ J03	37	7	37	7	Thorgal Aegirsson
 J03	38	1	38	1
 J03	38	2	38	2	Thorgal Aegirsson
 J03	38	3	38	3	Aaricia Gandalfsdottir	Björn Gandalfson	Thorgal Aegirsson
-J03	38	4	38	4	Thorgal Aegirsson	Guerriers_J3.9	Holger	Nigürd Holgersön Ratatösk	Sigurd Danysön
+J03	38	4	38	4	Thorgal Aegirsson	Guerriers_J3.9	Holger	Nigürd Holgersön Ratatösk		Sigurd Danysön
 J03	38	5	38	5	Thorgal Aegirsson	Guerriers_J3.9
 J03	38	6	38	6	Holger	Prétendants_J3.23	Sigurd Danysön	Spectateurs_J3.23	Guerriers_J3.9
 J03	38	7	38	7	Holger	Prétendants_J3.23	Sigurd Danysön	Spectateurs_J3.23	Guerriers_J3.9
@@ -16415,7 +16415,7 @@ L06	17	4	17	4	Vigrid
 L06	17	5	17	5	Tjahzi	Nains_L6.17
 L06	17	6	17	6	Vigrid
 L06	17	7	17	7	Nains_L6.17	Tjahzi
-L06	18	1	18	1	Tjahzi
+L06	18	1	18	1		Tjahzi
 L06	18	2	18	2	Nains_L6.17	Vigrid
 L06	18	3	18	3	Alfes noirs_L6.16	Louve Thorgalsdottir	Vigrid	Yasmina
 L06	18	4	18	4	Nains_L6.17	Tjahzi
@@ -16718,7 +16718,7 @@ T35	15	3	15	3	Aniel de Valnor
 T35	15	4	15	4	Bohr
 T35	15	5	15	5	2 gardes_35.15	Bohr	Magon
 T35	15	6	15	6	2 gardes_35.15	Bohr	Magon
-T35	15	7	15	7	Magon
+T35	15	7	15	7			Magon
 T35	16	1	16	1	Aniel de Valnor
 T35	16	2	16	2	Thorgal Aegirsson
 T35	16	3	16	3	Aniel de Valnor	Thorgal Aegirsson
@@ -19065,7 +19065,7 @@ T36	43	3	43	3
 T36	43	4	43	4
 T36	43	5	43	5	Aaricia Gandalfsdottir	Kriss de Valnor	Thorgal Aegirsson
 T36	43	6	43	6	Louve Thorgalsdottir
-T36	43	7	43	7	Aniel de Valnor	Thorgal Aegirsson	Louve Thorgalsdottir
+T36	43	7	43	7	Aniel de Valnor	Thorgal Aegirsson		Louve Thorgalsdottir
 T36	43	8	43	8	Aniel de Valnor
 T36	43	9	43	9
 T36	43	10	43	10
@@ -23451,7 +23451,7 @@ S02	53	4	53	4	Thorgal Aegirsson
 S02	53	5	53	5	Thorgal Aegirsson
 S02	53	6	53	6	Jörmungand	Tonnerre	Verts_S2.53
 S02	53	7	53	7	Jörmungand	Thorgal Aegirsson
-S02	53	8	53	8	Thorgal Aegirsson	Verts_S2.53
+S02	53	8	53	8	Thorgal Aegirsson			Verts_S2.53
 S02	54	1	54	1
 S02	54	2	54	2	Thorgal Aegirsson	Tonnerre
 S02	54	3	54	3
@@ -23726,7 +23726,7 @@ S02	112	1	112	1
 S02	112	2	112	2
 S02	112	3	112	3	Thorgal Aegirsson
 S02	112	4	112	4	Sorcier_S2.4
-S02	112	5	112	5	Jolan Thorgalsson	Muff	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
+S02	112	5	112	5		Jolan Thorgalsson	Muff	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
 S02	112	6	112	6	Jolan Thorgalsson	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
 S02	112	7	112	7	Muff
 S02	113	1	113	1	Jörmungand
@@ -25138,3 +25138,550 @@ T42	48	4	48	4
 T42	48	5	48	5	Boréale
 T42	48	6	48	6
 T42	48	7	48	7	Boréale
+S04	3	1	3	1
+S04	3	2	3	2	Thorgal Aegirsson
+S04	4	1	4	1	Ottar le Scalde
+S04	4	2	4	2	Thorgal Aegirsson
+S04	4	3	4	3
+S04	4	4	4	4	Thorgal Aegirsson
+S04	4	5	4	5
+S04	5	1	5	1	Thorgal Aegirsson
+S04	5	2	5	2	Thorgal Aegirsson
+S04	5	3	5	3	Ottar le Scalde
+S04	5	4	5	4	Ottar le Scalde	Thorgal Aegirsson
+S04	5	5	5	5	Thorgal Aegirsson
+S04	5	6	5	6	Ottar le Scalde
+S04	6	1	6	1
+S04	6	2	6	2	Ottar le Scalde	Thorgal Aegirsson
+S04	6	3	6	3
+S04	6	4	6	4
+S04	6	5	6	5
+S04	6	6	6	6	Ottar le Scalde
+S04	7	1	7	1
+S04	7	2	7	2	Ottar le Scalde
+S04	7	3	7	3	Ottar le Scalde	Thorgal Aegirsson
+S04	7	4	7	4
+S04	7	5	7	5	Ottar le Scalde	Thorgal Aegirsson
+S04	8	1	8	1	Thorgal Aegirsson
+S04	8	2	8	2
+S04	8	3	8	3	Thorgal Aegirsson
+S04	8	4	8	4	Ottar le Scalde
+S04	8	5	8	5	Reine de givre
+S04	9	1	9	1	Ottar le Scalde	Thorgal Aegirsson
+S04	9	2	9	2	Ottar le Scalde
+S04	9	3	9	3	Thorgal Aegirsson
+S04	9	4	9	4
+S04	9	5	9	5
+S04	9	6	9	6
+S04	10	1	10	1
+S04	10	2	10	2
+S04	10	3	10	3	Ottar le Scalde	Thorgal Aegirsson
+S04	10	4	10	4	Ottar le Scalde
+S04	10	5	10	5	Ottar le Scalde	Thorgal Aegirsson
+S04	11	1	11	1
+S04	11	2	11	2	Ottar le Scalde	Thorgal Aegirsson
+S04	11	3	11	3	Ottar le Scalde	Thorgal Aegirsson
+S04	11	4	11	4	Ottar le Scalde
+S04	11	5	11	5
+S04	12	1	12	1	Ottar le Scalde
+S04	12	2	12	2
+S04	12	3	12	3	Ottar le Scalde	Thorgal Aegirsson
+S04	12	4	12	4	Ottar le Scalde	Thorgal Aegirsson
+S04	12	5	12	5	Ottar le Scalde	Thorgal Aegirsson
+S04	12	6	12	6	Thorgal Aegirsson
+S04	12	7	12	7
+S04	13	1	13	1	Thorgal Aegirsson	Ulfars_S4.13
+S04	13	2	13	2	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13
+S04	13	3	13	3	Thorgal Aegirsson	Ulfars_S4.13
+S04	13	4	13	4
+S04	13	5	13	5
+S04	13	6	13	6	Thorgal Aegirsson
+S04	14	1	14	1	Thorgal Aegirsson	Ulfars_S4.13
+S04	14	2	14	2	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13
+S04	14	3	14	3	Thorgal Aegirsson	Ulfars_S4.13
+S04	14	4	14	4	Thorgal Aegirsson
+S04	14	5	14	5	Ulfars_S4.13
+S04	14	6	14	6	Thorgal Aegirsson	Ulfars_S4.13
+S04	14	7	14	7	Thorgal Aegirsson
+S04	15	1	15	1	Thorgal Aegirsson	Ulfars_S4.13
+S04	15	2	15	2	Thorgal Aegirsson
+S04	15	3	15	3	Vakva
+S04	15	4	15	4	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	15	5	15	5	Vakva
+S04	15	6	15	6	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	16	1	16	1	Thorgal Aegirsson
+S04	16	2	16	2	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	16	3	16	3	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	16	4	16	4	Thorgal Aegirsson	Vakva
+S04	16	5	16	5	Ottar le Scalde	Thorgal Aegirsson
+S04	17	1	17	1	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	17	2	17	2	Ottar le Scalde
+S04	17	3	17	3	Ottar le Scalde	Thorgal Aegirsson
+S04	17	4	17	4	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	17	5	17	5	Ottar le Scalde	Vakva
+S04	17	6	17	6	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	18	1	18	1	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	18	2	18	2	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	18	3	18	3	Thorgal Aegirsson	Vakva
+S04	18	4	18	4	Ottar le Scalde	Thorgal Aegirsson
+S04	18	5	18	5	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13
+S04	18	6	18	6	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	19	1	19	1	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	19	2	19	2	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	19	3	19	3	Gardes_S4.19	Ottar le Scalde	Ulfars_S4.13	Vakva
+S04	19	4	19	4	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	19	5	19	5	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	20	1	20	1	Ulfars_S4.13
+S04	20	2	20	2
+S04	20	3	20	3	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	20	4	20	4	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	20	5	20	5	Thorgal Aegirsson
+S04	20	6	20	6	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	21	1	21	1	Gardes_S4.19	Ottar le Scalde	Réfugiés_S4.20	Thorgal Aegirsson	Vakva
+S04	21	2	21	2	Vakva
+S04	21	3	21	3	Ottar le Scalde
+S04	21	4	21	4	Gardes_S4.19	Ottar le Scalde	Thorgal Aegirsson	Ulfars_S4.13	Vakva
+S04	21	5	21	5	Réfugiés_S4.20
+S04	22	1	22	1	Ottar le Scalde	Thorgal Aegirsson
+S04	22	2	22	2	Thorgal Aegirsson
+S04	22	3	22	3	Thorgal Aegirsson	Vakva
+S04	22	4	22	4
+S04	23	1	23	1	Réfugiés_S4.20
+S04	23	2	23	2	Réfugiés_S4.20
+S04	23	3	23	3	Réfugiés_S4.20	Rune
+S04	23	4	23	4	Rune
+S04	23	5	23	5	Rune
+S04	23	6	23	6	Rune
+S04	24	1	24	1	Rune
+S04	24	2	24	2	Rune
+S04	24	3	24	3	Rune
+S04	24	4	24	4	Réfugiés_S4.20	Rune
+S04	24	5	24	5	Réfugiés_S4.20	Rune
+S04	24	6	24	6	Réfugiés_S4.20	Rune
+S04	24	7	24	7	Réfugiés_S4.20	Rune
+S04	24	8	24	8	Réfugiés_S4.20	Rune	Thorgal
+S04	25	1	25	1	Ulfars_S4.13
+S04	25	2	25	2	Gardes_S4.25
+S04	25	3	25	3	Gardes_S4.19	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	25	4	25	4	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	25	5	25	5	Thorgal Aegirsson	Vakva
+S04	25	6	25	6	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	26	1	26	1	Reine de givre	Thorgal Aegirsson 	Vakva
+S04	26	2	26	2	Reine de givre
+S04	26	3	26	3	Reine de givre	Thorgal Aegirsson	Vakva
+S04	26	4	26	4	Thorgal Aegirsson
+S04	26	5	26	5	Thorgal Aegirsson
+S04	26	6	26	6	Reine de givre
+S04	26	7	26	7	Thorgal Aegirsson
+S04	27	1	27	1	Surtur-le-Noir
+S04	27	2	27	2	Surtur-le-Noir
+S04	27	3	27	3	Reine de givre	Thorgal Aegirsson	Vakva
+S04	27	4	27	4	Reine de givre	Thorgal Aegirsson
+S04	27	5	27	5	Thorgal Aegirsson
+S04	27	6	27	6	Reine de givre
+S04	28	1	28	1	Thorgal Aegirsson
+S04	28	2	28	2	Thorgal Aegirsson
+S04	28	3	28	3	Cléo
+S04	28	4	28	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir
+S04	28	5	28	5	Reine de givre	Thorgal Aegirsson	Vakva
+S04	28	6	28	6	Thorgal Aegirsson
+S04	29	1	29	1	Akko	Voix du Niflheim
+S04	29	2	29	2	Akko	Voix du Niflheim
+S04	29	3	29	3	Akko	Voix du Niflheim
+S04	29	4	29	4	Géants de glace_S4.29	Voix du Niflheim
+S04	29	5	29	5	Akko
+S04	29	6	29	6	Akko	Géants de glace_S4.29	Voix du Niflheim
+S04	30	1	30	1	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson
+S04	30	2	30	2
+S04	30	3	30	3	Surtur-le-Noir
+S04	30	4	30	4	Thorgal Aegirsson
+S04	30	5	30	5	Ottar le Scalde
+S04	30	6	30	6	Gardes_S4.25	Thorgal Aegirsson	Vakva
+S04	30	7	30	7	Thorgal Aegirsson
+S04	31	1	31	1	Rune	Thorgal
+S04	31	2	31	2	Rune	Thorgal
+S04	31	3	31	3
+S04	31	4	31	4	Rune
+S04	31	5	31	5	Rune
+S04	31	6	31	6
+S04	32	1	32	1	Gardes_S4.25	Ottar le Scalde	Reine de givre
+S04	32	2	32	2	Ottar le Scalde	Reine de givre
+S04	32	3	32	3	Gardes_S4.25	Ottar le Scalde	Reine de givre
+S04	32	4	32	4	Ottar le Scalde
+S04	32	5	32	5	Reine de givre
+S04	32	6	32	6	Ottar le Scalde
+S04	33	1	33	1	Thorgal Aegirsson	Vakva
+S04	33	2	33	2	Thorgal Aegirsson	Vakva
+S04	33	3	33	3	Thorgal Aegirsson	Vakva
+S04	33	4	33	4	Thorgal Aegirsson	Vakva
+S04	33	5	33	5	Thorgal Aegirsson
+S04	33	6	33	6	Thorgal Aegirsson	Vakva
+S04	33	7	33	7	Thorgal Aegirsson	Vakva
+S04	34	1	34	1	Thorgal Aegirsson	Vakva
+S04	34	2	34	2	Vakva
+S04	34	3	34	3	Vakva
+S04	34	4	34	4
+S04	34	5	34	5	Thorgal Aegirsson	Vakva
+S04	34	6	34	6	Thorgal Aegirsson	Vakva
+S04	35	1	35	1	Thorgal Aegirsson	Vakva
+S04	35	2	35	2	Thorgal Aegirsson	Vakva
+S04	35	3	35	3	Thorgal Aegirsson	Vakva
+S04	35	4	35	4	Thorgal Aegirsson	Vakva
+S04	35	5	35	5	Thorgal Aegirsson
+S04	36	1	36	1	Thorgal Aegirsson	Vieille gardienne des clés_S4.35
+S04	36	2	36	2	Thorgal Aegirsson	Vieille gardienne des clés_S4.35
+S04	36	3	36	3	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	36	4	36	4	Vieille gardienne des clés_S4.35
+S04	36	5	36	5	Vakva
+S04	36	6	36	6	Thorgal Aegirsson	Vakva
+S04	36	7	36	7	Thorgal Aegirsson	Vakva
+S04	37	1	37	1	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	37	2	37	2	Huginn	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	37	3	37	3	Huginn	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	37	4	37	4	Huginn	Thorgal Aegirsson
+S04	37	5	37	5	Vakva
+S04	37	6	37	6	Huginn
+S04	37	7	37	7	Huginn	Thorgal Aegirsson
+S04	38	1	38	1
+S04	38	2	38	2	Ottar le Scalde	Reine de givre
+S04	38	3	38	3	Reine de givre
+S04	38	4	38	4	Ottar le Scalde
+S04	38	5	38	5	Ottar le Scalde	Reine de givre
+S04	38	6	38	6	Ottar le Scalde
+S04	38	7	38	7	Reine de givre
+S04	38	8	38	8	Reine de givre
+S04	39	1	39	1	Huginn
+S04	39	2	39	2	Huginn	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	39	3	39	3	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	39	4	39	4	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	39	5	39	5	Vieille gardienne des clés_S4.35
+S04	39	6	39	6	Thorgal Aegirsson	Vakva
+S04	40	1	40	1
+S04	40	2	40	2	Rune	Thorgal
+S04	40	3	40	3	Rune	Thorgal
+S04	40	4	40	4	Rune	Thorgal
+S04	40	5	40	5	Thorgal
+S04	40	6	40	6	Rune	Thorgal
+S04	41	1	41	1	Rune	Thorgal	Ulfar_S4.41
+S04	41	2	41	2	Rune	Ulfar_S4.41
+S04	41	3	41	3	Rune
+S04	41	4	41	4	Ulfar_S4.41
+S04	41	5	41	5	Rune
+S04	41	6	41	6	Rune	Thorgal	Ulfar_S4.41
+S04	42	1	42	1	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	42	2	42	2	Thorgal Aegirsson	Vakva
+S04	42	3	42	3	Thorgal Aegirsson	Vakva
+S04	42	4	42	4
+S04	42	5	42	5	Thorgal Aegirsson	Vakva
+S04	42	6	42	6	Thorgal Aegirsson	Vakva
+S04	43	1	43	1	Thorgal Aegirsson	Vakva
+S04	43	2	43	2	Thorgal Aegirsson	Vakva
+S04	43	3	43	3	Thorgal Aegirsson	Vakva
+S04	43	4	43	4	Thorgal Aegirsson	Vakva
+S04	43	5	43	5	Thorgal Aegirsson	Vakva
+S04	44	1	44	1	Ottar le Scalde	Reine de givre
+S04	44	2	44	2	Ottar le Scalde	Reine de givre
+S04	44	3	44	3	Ottar le Scalde	Reine de givre
+S04	44	4	44	4	Ottar le Scalde	Reine de givre
+S04	44	5	44	5	Ottar le Scalde
+S04	44	6	44	6	Reine de givre
+S04	45	1	45	1	Thorgal Aegirsson	Vakva
+S04	45	2	45	2	Thorgal Aegirsson	Vakva
+S04	45	3	45	3	Thorgal Aegirsson	Vakva
+S04	45	4	45	4	Thorgal Aegirsson	Vakva
+S04	46	1	46	1	Reine de givre
+S04	46	2	46	2	Thorgal Aegirsson	Vakva
+S04	46	3	46	3	Reine de givre
+S04	46	4	46	4	Thorgal Aegirsson	Vakva
+S04	46	5	46	5	Reine de givre
+S04	46	6	46	6	Thorgal Aegirsson	Vakva
+S04	47	1	47	1	Thorgal Aegirsson	Vakva
+S04	47	2	47	2	Thorgal Aegirsson
+S04	47	3	47	3	Vakva
+S04	47	4	47	4	Thorgal Aegirsson
+S04	47	5	47	5	Thorgal Aegirsson	Vakva
+S04	47	6	47	6	Thorgal Aegirsson	Vakva
+S04	47	7	47	7	Thorgal Aegirsson	Vakva
+S04	48	1	48	1	Ottar le Scalde
+S04	48	2	48	2	Ottar le Scalde
+S04	48	3	48	3	Ottar le Scalde
+S04	48	4	48	4	Ottar le Scalde	Reine de givre
+S04	48	5	48	5	Reine de givre
+S04	48	6	48	6	Ottar le Scalde	Reine de givre
+S04	49	1	49	1	Akko	Géants de glace_S4.29
+S04	49	2	49	2	Akko	Géants de glace_S4.29
+S04	49	3	49	3	Akko	Géants de glace_S4.29
+S04	49	4	49	4	Akko	Géants de glace_S4.29
+S04	49	5	49	5	Akko
+S04	49	6	49	6	Géants de glace_S4.29
+S04	50	1	50	1	Géantes de feu_S4.50	Thorgal Aegirsson	Vakva
+S04	50	2	50	2	Géantes de feu_S4.50	Thorgal Aegirsson	Vakva
+S04	50	3	50	3	Géantes de feu_S4.50
+S04	50	4	50	4	Géantes de feu_S4.50
+S04	50	5	50	5	Géantes de feu_S4.50
+S04	50	6	50	6	Géantes de feu_S4.50	Thorgal Aegirsson	Vakva
+S04	51	1	51	1	Thorgal Aegirsson	Vakva
+S04	51	2	51	2	Vakva
+S04	51	3	51	3
+S04	51	4	51	4	Thorgal Aegirsson	Vakva
+S04	51	5	51	5	Thorgal Aegirsson	Vakva
+S04	51	6	51	6	Thorgal Aegirsson	Vakva
+S04	52	1	52	1	Thorgal Aegirsson	Vakva
+S04	52	2	52	2
+S04	52	3	52	3	Géants de feu_S4.52
+S04	52	4	52	4	Thorgal Aegirsson	Vakva
+S04	52	5	52	5	Géants de feu_S4.52	Vakva
+S04	52	6	52	6	Géants de feu_S4.52	Thorgal Aegirsson	Vakva
+S04	52	7	52	7	Géants de feu_S4.52	Thorgal Aegirsson	Vakva
+S04	53	1	53	1	Muninn	Rune	Thorgal	Ulfar_S4.41
+S04	53	2	53	2	Muninn	Rune	Thorgal	Ulfar_S4.41
+S04	53	3	53	3	Muninn	Rune	Thorgal	Ulfar_S4.41
+S04	53	4	53	4	Rune	Thorgal
+S04	53	5	53	5	Muninn	Rune	Ulfar_S4.41
+S04	53	6	53	6	Muninn	Rune	Ulfar_S4.41
+S04	54	1	54	1	Géants de feu_S4.52	Thorgal Aegirsson	Vakva
+S04	54	2	54	2	Géants de feu_S4.52
+S04	54	3	54	3	Géants de feu_S4.52	Thorgal Aegirsson	Vakva
+S04	54	4	54	4	Géants de feu_S4.52
+S04	54	5	54	5	Thorgal Aegirsson	Vakva
+S04	54	6	54	6	Thorgal Aegirsson	Vakva
+S04	55	1	55	1	Géantes de feu_S4.55	Surtur-le-Noir	Vakva
+S04	55	2	55	2	Thorgal Aegirsson	Vakva
+S04	55	3	55	3	Géantes de feu_S4.55	Surtur-le-Noir
+S04	55	4	55	4	Géantes de feu_S4.55	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	55	5	55	5	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	55	6	55	6	Thorgal Aegirsson	Vakva
+S04	56	1	56	1	Ottar le Scalde
+S04	56	2	56	2	Ottar le Scalde	Reine de givre
+S04	56	3	56	3	Reine de givre
+S04	56	4	56	4	Ottar le Scalde
+S04	56	5	56	5	Ottar le Scalde
+S04	56	6	56	6	Ottar le Scalde	Reine de givre
+S04	57	1	57	1	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	57	2	57	2	Thorgal Aegirsson
+S04	57	3	57	3	Géantes de feu_S4.55	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	57	4	57	4	Thorgal Aegirsson	Vakva
+S04	57	5	57	5	Surtur-le-Noir
+S04	57	6	57	6	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	58	1	58	1	Surtur-le-Noir	Thorgal Aegirsson
+S04	58	2	58	2	Thorgal Aegirsson	Vakva
+S04	58	3	58	3	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	58	4	58	4	Surtur-le-Noir	Thorgal Aegirsson
+S04	58	5	58	5	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	59	1	59	1	Surtur-le-Noir	Thorgal Aegirsson	Vakva
+S04	59	2	59	2	Thorgal Aegirsson	Vakva
+S04	59	3	59	3	Thorgal Aegirsson
+S04	59	4	59	4	Vakva
+S04	59	5	59	5	Surtur-le-Noir	Thorgal Aegirsson
+S04	60	1	60	1	Vakva
+S04	60	2	60	2	Vakva
+S04	60	3	60	3	Vakva
+S04	60	4	60	4	Vakva
+S04	60	5	60	5	Vakva
+S04	60	6	60	6	Vakva
+S04	61	1	61	1	Surtur-le-Noir	Thorgal Aegirsson
+S04	61	2	61	2	Thorgal Aegirsson
+S04	61	3	61	3	Géants de feu_S4.52
+S04	61	4	61	4	Géants de feu_S4.52
+S04	61	5	61	5	Géants de feu_S4.52	Thorgal Aegirsson
+S04	61	6	61	6	Géants de feu_S4.52	Thorgal Aegirsson
+S04	61	7	61	7
+S04	62	1	62	1	Thorgal Aegirsson
+S04	62	2	62	2	Thorgal Aegirsson
+S04	62	3	62	3	Géants de feu_S4.52	Thorgal Aegirsson
+S04	62	4	62	4	Thorgal Aegirsson
+S04	62	5	62	5	Thorgal Aegirsson
+S04	62	6	62	6	Thorgal Aegirsson	Surtur-le-Noir
+S04	62	7	62	7	Thorgal Aegirsson
+S04	63	1	63	1	Thorgal Aegirsson	Surtur-le-Noir
+S04	63	2	63	2	Thorgal Aegirsson	Surtur-le-Noir
+S04	63	3	63	3	Thorgal Aegirsson
+S04	63	4	63	4	Thorgal Aegirsson
+S04	63	5	63	5	Surtur-le-Noir
+S04	63	6	63	6	Surtur-le-Noir	Thorgal Aegirsson
+S04	63	7	63	7	Géants de feu_S4.52	Thorgal Aegirsson
+S04	64	1	64	1	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	64	2	64	2	Vieille gardienne des clés_S4.35
+S04	64	3	64	3	Vieille gardienne des clés_S4.35
+S04	64	4	64	4	Thorgal Aegirsson	Vakva
+S04	64	5	64	5	Vakva
+S04	64	6	64	6	Thorgal Aegirsson
+S04	64	7	64	7	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	65	1	65	1	Muninn	Rune	Ulfar_S4.41
+S04	65	2	65	2	Rune	Thorgal	Ulfar_S4.41
+S04	65	3	65	3	Muninn	Rune	Thorgal	Ulfar_S4.41
+S04	65	4	65	4	Akko	Géants de glace_S4.29
+S04	65	5	65	5	Géants de glace_S4.29	Muninn	Rune	Ulfar_S4.41
+S04	65	6	65	6	Muninn	Rune	Thorgal	Ulfar_S4.41
+S04	66	1	66	1	Ottar le Scalde	Reine de givre
+S04	66	2	66	2	Reine de givre
+S04	66	3	66	3	Ottar le Scalde	Reine de givre
+S04	66	4	66	4	Reine de givre
+S04	66	5	66	5	Reine de givre
+S04	66	6	66	6	Reine de givre
+S04	66	7	66	7	Ottar le Scalde
+S04	67	1	67	1	Thorgal Aegirsson	Vakva	Vieille gardienne des clés_S4.35
+S04	67	2	67	2	Vieille gardienne des clés_S4.35
+S04	67	3	67	3	Vieille gardienne des clés_S4.35
+S04	67	4	67	4	Thorgal Aegirsson	Vakva
+S04	67	5	67	5	Thorgal Aegirsson	Vakva
+S04	67	6	67	6	Thorgal Aegirsson	Vakva
+S04	67	7	67	7	Thorgal Aegirsson	Vakva
+S04	68	1	68	1	Gardes_S4.25	Ottar le Scalde
+S04	68	2	68	2	Ottar le Scalde
+S04	68	3	68	3	Gardes_S4.25	Ottar le Scalde
+S04	68	4	68	4	Gardes_S4.25	Ottar le Scalde
+S04	68	5	68	5	Gardes_S4.25	Ottar le Scalde
+S04	68	6	68	6	Gardes_S4.25	Ottar le Scalde
+S04	68	7	68	7	Gardes_S4.25	Ottar le Scalde
+S04	69	1	69	1	Akko	Géants de glace_S4.29
+S04	69	2	69	2	Akko	Géants de glace_S4.29
+S04	69	3	69	3	Akko	Géants de glace_S4.29
+S04	69	4	69	4	Akko	Géants de glace_S4.29	Thorgal Aegirsson	Vakva
+S04	69	5	69	5	Thorgal Aegirsson	Vakva
+S04	69	6	69	6	Thorgal Aegirsson	Vakva
+S04	70	1	70	1	Akko	Géants de glace_S4.29
+S04	70	2	70	2	Akko	Géants de glace_S4.29
+S04	70	3	70	3	Thorgal Aegirsson	Vakva
+S04	70	4	70	4	Akko
+S04	70	5	70	5	Akko	Géants de glace_S4.29
+S04	70	6	70	6	Thorgal Aegirsson	Vakva
+S04	71	1	71	1	Akko	Géants de glace_S4.29
+S04	71	2	71	2	Thorgal Aegirsson	Vakva
+S04	71	3	71	3	Géants de glace_S4.29
+S04	71	4	71	4	Akko	Géants de glace_S4.29
+S04	71	5	71	5	Akko	Géants de glace_S4.29
+S04	71	6	71	6	Akko	Géants de glace_S4.29
+S04	72	1	72	1
+S04	72	2	72	2	Thorgal Aegirsson	Vakva
+S04	72	3	72	3	Akko	Thorgal Aegirsson	Vakva
+S04	72	4	72	4	Akko
+S04	72	5	72	5	Thorgal Aegirsson	Vakva
+S04	72	6	72	6	Vakva
+S04	72	7	72	7	Akko	Thorgal Aegirsson	Vakva
+S04	73	1	73	1	Thorgal Aegirsson	Vakva
+S04	73	2	73	2	Vakva
+S04	73	3	73	3	Akko	Thorgal Aegirsson
+S04	73	4	73	4	Vakva
+S04	73	5	73	5	Akko	Vakva
+S04	73	6	73	6	Vakva	Gardes_S4.25
+S04	74	1	74	1	Akko
+S04	74	2	74	2	Thorgal Aegirsson
+S04	74	3	74	3	Akko
+S04	74	4	74	4	Akko	Thorgal Aegirsson
+S04	74	5	74	5	Akko	Thorgal Aegirsson
+S04	75	1	75	1	Reine de givre	Vakva
+S04	75	2	75	2	Reine de givre	Vakva
+S04	75	3	75	3	Ottar le Scalde	Vakva	Reine de givre
+S04	75	4	75	4	Ottar le Scalde
+S04	75	5	75	5	Vakva
+S04	75	6	75	6	Vakva
+S04	75	7	75	7	Vakva
+S04	76	1	76	1	Akko	Thorgal Aegirsson
+S04	76	2	76	2	Akko	Thorgal Aegirsson
+S04	76	3	76	3	Akko
+S04	76	4	76	4	Akko	Thorgal Aegirsson
+S04	76	5	76	5	Akko	Thorgal Aegirsson
+S04	76	6	76	6	Akko	Thorgal Aegirsson
+S04	77	1	77	1	Akko	Thorgal Aegirsson
+S04	77	2	77	2
+S04	77	3	77	3
+S04	77	4	77	4	Akko	Thorgal Aegirsson
+S04	77	5	77	5	Thorgal Aegirsson
+S04	77	6	77	6	Akko	Thorgal Aegirsson
+S04	77	7	77	7	Akko	Thorgal Aegirsson
+S04	78	1	78	1	Akko	Thorgal Aegirsson
+S04	78	2	78	2	Akko	Thorgal Aegirsson
+S04	78	3	78	3	Akko	Thorgal Aegirsson
+S04	78	4	78	4	Thorgal Aegirsson
+S04	78	5	78	5	Akko	Thorgal Aegirsson
+S04	78	6	78	6	Akko
+S04	78	7	78	7	Akko	Thorgal Aegirsson
+S04	79	1	79	1	Thorgal Aegirsson
+S04	79	2	79	2	Thorgal Aegirsson
+S04	79	3	79	3	Muninn	Thorgal Aegirsson
+S04	79	4	79	4	Thorgal Aegirsson
+S04	79	5	79	5	Rune	Ulfar_S4.41
+S04	79	6	79	6	Thorgal Aegirsson
+S04	79	7	79	7	Muninn	Rune	Thorgal	Thorgal Aegirsson	Ulfar_S4.41
+S04	80	1	80	1	Thorgal Aegirsson
+S04	80	2	80	2	Gardien géant_1.11	Thorgal Aegirsson
+S04	80	3	80	3	Aaricia Gandalfsdottir	Slive	Thorgal Aegirsson
+S04	80	4	80	4	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S04	81	1	81	1	Équipage_S4.81
+S04	81	2	81	2	Thorgal Aegirsson
+S04	81	3	81	3	3 bienveillants
+S04	81	4	81	4	Cléo
+S04	81	5	81	5	Thorgal Aegirsson
+S04	82	1	82	1	Ottar le Scalde
+S04	82	2	82	2	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	82	3	82	3	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	82	4	82	4	Thorgal Aegirsson
+S04	82	5	82	5	Thorgal Aegirsson
+S04	82	6	82	6	Rune
+S04	82	7	82	7	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	83	1	83	1	Rune	Thorgal Aegirsson
+S04	83	2	83	2	Rune
+S04	83	3	83	3	Thorgal Aegirsson
+S04	83	4	83	4	Rune	Thorgal Aegirsson
+S04	83	5	83	5	Rune	Thorgal Aegirsson
+S04	83	6	83	6	Rune
+S04	84	1	84	1	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	84	2	84	2	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	84	3	84	3	Vakva
+S04	84	4	84	4	Thorgal Aegirsson
+S04	84	5	84	5	Thorgal Aegirsson	Vakva
+S04	85	1	85	1	Thorgal Aegirsson	Vakva
+S04	85	2	85	2	Vakva
+S04	85	3	85	3	Thorgal Aegirsson	Vakva
+S04	85	4	85	4	Thorgal Aegirsson
+S04	85	5	85	5	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	85	6	85	6	Ottar le Scalde	Thorgal Aegirsson	Vakva
+S04	86	1	86	1	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	86	2	86	2	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	86	3	86	3	Thorgal Aegirsson
+S04	86	4	86	4	Ottar le Scalde
+S04	86	5	86	5	Ottar le Scalde	Rune	Thorgal Aegirsson
+S04	86	6	86	6	Thorgal Aegirsson
+S04	86	7	86	7	Ottar le Scalde	Servante_S4.86	Thorgal Aegirsson
+S04	87	1	87	1	Gardes_S4.25	Ottar le Scalde	Rune	Servante_S4.86	Thorgal Aegirsson
+S04	87	2	87	2	Thorgal Aegirsson	Rune
+S04	87	3	87	3	Gardes_S4.25	Ottar le Scalde	Rune	Servante_S4.86	Thorgal Aegirsson
+S04	87	4	87	4	Ottar le Scalde	Thorgal Aegirsson
+S04	87	5	87	5	Rune	Thorgal Aegirsson
+S04	87	6	87	6	Gardes_S4.25
+S04	88	1	88	1	Gardes_S4.19	Thorgal Aegirsson
+S04	88	2	88	2	Réfugiés_S4.20
+S04	88	3	88	3
+S04	88	4	88	4	Thorgal Aegirsson
+S04	88	5	88	5	Thorgal Aegirsson
+S04	88	6	88	6	Thorgal Aegirsson
+S04	89	1	89	1	Thorgal Aegirsson	Ulfars_S4.13
+S04	89	2	89	2	Thorgal Aegirsson	Ulfars_S4.13
+S04	89	3	89	3	Thorgal Aegirsson	Ulfars_S4.13
+S04	89	4	89	4	Thorgal Aegirsson	Ulfars_S4.13
+S04	89	5	89	5	Thorgal Aegirsson
+S04	89	6	89	6	Thorgal Aegirsson
+S04	90	1	90	1	Huginn	Thorgal Aegirsson
+S04	90	2	90	2	Huginn
+S04	90	3	90	3	Thorgal Aegirsson
+S04	90	4	90	4	Huginn	Thorgal Aegirsson
+S04	90	5	90	5	Huginn
+S04	90	6	90	6	Thorgal Aegirsson
+S04	91	1	91	1	Huginn	Thorgal Aegirsson
+S04	91	2	91	2	Huginn	Thorgal Aegirsson
+S04	91	3	91	3	Thorgal Aegirsson
+S04	91	4	91	4
+S04	92	1	92	1	Géantes de feu_S4.50	Surtur-le-Noir
+S04	92	2	92	2	Géantes de feu_S4.50	Surtur-le-Noir
+S04	92	3	92	3	Géantes de feu_S4.50	Surtur-le-Noir
+S04	92	4	92	4	Géantes de feu_S4.50	Surtur-le-Noir
+S04	92	5	92	5	Vakva
+S04	92	6	92	6	Vakva
+S04	93	1	93	1	Ottar le Scalde	Serviteurs_S4.93
+S04	93	2	93	2	Ottar le Scalde
+S04	93	3	93	3	Ottar le Scalde	Rune	Serviteurs_S4.93	Thorgal
+S04	93	4	93	4
+S04	93	5	93	5	Rune	Thorgal	Vakva
+S04	93	6	93	6	Rune	Thorgal	Vakva
+S04	94	1	94	1	Aaricia Gandalfsdottir	Thorgal Aegirsson

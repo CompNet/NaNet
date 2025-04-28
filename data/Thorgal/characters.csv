@@ -92,6 +92,7 @@ Adultes_K6.50,,Mixed,FALSE
 Africain_3.19,,Male,FALSE
 Agrippa,,Female,TRUE
 Ahmed Al Waloud,Ahmed,Male,TRUE
+Akko,,Male,TRUE
 Akwila,,Female,TRUE
 Alad,,Male,TRUE
 Alapi,,Female,TRUE
@@ -441,6 +442,7 @@ Equipage_40.7,,Mixed,FALSE
 Équipage_J3.17,,Male,FALSE
 Équipage_S2.10,,Male,FALSE
 Équipage_S3.9,,Male,FALSE
+Équipage_S4.81,,Unknown,FALSE
 Erik_20.3,,Male,TRUE
 Erik_J10.5,,Male,TRUE
 Erika Einarson,,Female,TRUE
@@ -703,6 +705,8 @@ Gardes_L5.47,,Male,FALSE
 Gardes_L5.48,,Male,FALSE
 Gardes_L7.19,,Male,FALSE
 Gardes_L7.24,,Male,FALSE
+Gardes_S4.19,,Male,FALSE
+Gardes_S4.25,,Male,FALSE
 Gardien géant_1.11,,Male,FALSE
 Gardien nain_1.12,,Male,FALSE
 Gardien_22.25,,Unknown,FALSE
@@ -713,6 +717,10 @@ Garn,,Male,TRUE
 Gaut,,Male,TRUE
 Géant_L6.9,,Male,FALSE
 Géantes de feu_S1.60,,Female,FALSE
+Géantes de feu_S4.50,,Female,FALSE
+Géantes de feu_S4.55,,Female,FALSE
+Géants de feu_S4.52,,Male,FALSE
+Géants de glace_S4.29,,Unknown,FALSE
 Géants_22.22,,Mixed,FALSE
 Géants_22.29,,Mixed,FALSE
 Géants_22.40,,Mixed,FALSE
@@ -1101,6 +1109,7 @@ Orques_33.44,,Unknown,FALSE
 Orwald,,Male,TRUE
 Osian,,Male,TRUE
 Ottar,,Male,TRUE
+Ottar le Scalde,,Male,TRUE
 Ottar_J8.4,,Male,TRUE
 Ours_18.3,,Unknown,FALSE
 Ours_L5.29,,Unknown,FALSE
@@ -1207,6 +1216,8 @@ Rebelles_18.21,,Male,FALSE
 Rebelles_18.25,,Mixed,FALSE
 Rebelles_18.42,,Male,FALSE
 Rebelles_40.24,,Mixed,FALSE
+Réfugiés_S4.20,,Mixed,FALSE
+Reine de givre,,Female,FALSE
 Reine d'Umbria,,Female,TRUE
 Reine Guustavson_K3.19,,Female,FALSE
 Religieux_K4.32,,Male,FALSE
@@ -1217,6 +1228,7 @@ Roi Geirroed,,Male,TRUE
 Rollo-le-Torte,,Male,TRUE
 Rorik,,Male,TRUE
 Runa,,Female,TRUE
+Rune,,Female,TRUE
 Rylynn,,Male,TRUE
 Sacrifiés_10.25,,Mixed,FALSE
 Sages Owascos_S2.21,,Male,FALSE
@@ -1254,6 +1266,7 @@ Servante_J7.46,,Female,FALSE
 Servante_J8.16,,Female,FALSE
 Servante_K4.27,,Female,FALSE
 Servante_K5.13,,Female,FALSE
+Servante_S4.86,,Female,FALSE
 Servantes_10.29,,Female,FALSE
 Servantes_11.37,,Female,FALSE
 Servantes_19.19,,Female,FALSE
@@ -1280,6 +1293,7 @@ Serviteurs_J8.28,,Mixed,FALSE
 Serviteurs_J8.29,,Mixed,FALSE
 Serviteurs_J8.7,,Mixed,FALSE
 Serviteurs_K4.37,,Mixed,FALSE
+Serviteurs_S4.93,,Mixed,FALSE
 Shaniah,,Female,TRUE
 Shardar-le-puissant,Shardar,Male,TRUE
 Sharn,,Male,TRUE
@@ -1447,6 +1461,7 @@ Thor,,Male,TRUE
 Thorbiorg,,Female,TRUE
 Thorfil,,Male,TRUE
 Thorfill,,Male,TRUE
+Thorgal,,Male,TRUE
 Thorgal Aegirsson,Thorgal,Male,TRUE
 Thorkell-le-grand,,Male,TRUE
 Thörn,,Male,TRUE
@@ -1483,6 +1498,8 @@ Turban_3.19,,Male,FALSE
 Tyr,,Male,TRUE
 Uébac,,Male,TRUE
 Uhn,,Male,TRUE
+Ulfar_S4.41,,Unknown,FALSE
+Ulfars_S4.13,,Unknown,FALSE
 Urd,,Female,TRUE
 Urgh,,Male,TRUE
 Vaisseau ennemi_10.34.1,,Mixed,FALSE
@@ -1490,6 +1507,7 @@ Vaisseau ennemi_10.34.2,,Mixed,FALSE
 Vaisseau ennemi_10.42.1,,Mixed,FALSE
 Vaisseau ennemi_10.42.2,,Mixed,FALSE
 Vaisseau ennemi_10.42.3,,Mixed,FALSE
+Vakva,,Female,TRUE
 Variay,,Male,TRUE
 Varrak,,Male,TRUE
 Varth,,Male,TRUE
@@ -1510,6 +1528,7 @@ Vieillard_2.28,,Male,FALSE
 Vieillard_31.36,,Male,FALSE
 Vieillard_K3.30,,Male,FALSE
 Vieillarde_28.36,,Female,FALSE
+Vieille gardienne des clés_S4.35,,Female,FALSE
 Viggo,,Male,TRUE
 Vigrid,,Male,TRUE
 Vigrid_20.3,,Female,TRUE
@@ -1699,6 +1718,7 @@ Villageoises_K1.22,,Female,FALSE
 Vilnya,,Female,TRUE
 Viskön,,Male,TRUE
 Vlana,,Female,TRUE
+Voix du Niflheim,,Unknown,FALSE
 Voleur_19.5.1,,Male,FALSE
 Voleur_20.24.1,,Male,FALSE
 Voleur_20.24.2,,Male,FALSE
