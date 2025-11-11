@@ -78,5 +78,3 @@ end.rec.log()
 ###############################################################################
 # additional plots
 source("src/post/description/_all_post.R")
-
-# 12/12/2024 21:32
