@@ -5499,3 +5499,136 @@ S04	92	5	92	6	Vakva
 S04	93	1	93	3	Ottar le Scalde	Serviteurs_S4.93	Rune	Thorgal
 S04	93	4	93	6	Vakva	Rune	Thorgal
 S04	94	1	94	1	Thorgal Aegirsson	Aaricia Gandalfsdottir
+S05	3	1	3	7	Vigrid
+S05	4	1	4	3	Vigrid
+S05	4	4	5	10	Vigrid	Cléo
+S05	6	1	6	1	Thorgal Aegirsson
+S05	6	2	7	3	Thorgal Aegirsson	Aaricia Gandalfsdottir
+S05	7	4	7	4	Thorgal Aegirsson
+S05	7	5	7	8	Thorgal Aegirsson	Jolan Thorgalsson
+S05	8	1	8	1	Thorgal Aegirsson
+S05	8	2	8	2	Thorgal Aegirsson
+S05	8	3	8	3	Thorgal Aegirsson
+S05	8	4	8	4	Thorgal Aegirsson
+S05	8	5	8	5	Thorgal Aegirsson
+S05	8	6	8	6	Thorgal Aegirsson
+S05	9	1	9	6	La faucheuse	Vigrid
+S05	9	7	10	8	La faucheuse	Vigrid	Prisonnière_S05.9	Shaniah	Prisonniers_S05.10
+S05	11	1	11	7	Thorgal Aegirsson	Shaniah
+S05	12	1	12	6	Thorgal Aegirsson
+S05	12	7	12	7	Thorgal Aegirsson	Shaniah
+S05	12	8	14	2	Thorgal Aegirsson	Shaniah	Agresseur brun_S05.12	Agresseur chauve_S05.12	Agresseur roux_S05.12	Agresseur blond_S05.12
+S05	14	3	14	5	Thorgal Aegirsson	Shaniah	Agresseur brun_S05.12	Agresseur roux_S05.12	Agresseur blond_S05.12
+S05	14	6	14	8	Thorgal Aegirsson	Shaniah	Agresseur roux_S05.12	Agresseur blond_S05.12
+S05	14	9	14	10	Thorgal Aegirsson	Shaniah	Agresseur blond_S05.12
+S05	15	1	15	4	Thorgal Aegirsson	Agresseur blond_S05.12
+S05	15	5	16	2	Thorgal Aegirsson
+S05	16	3	16	6	Thorgal Aegirsson	Gardes_S05.16
+S05	16	7	16	7	Thorgal Aegirsson
+S05	17	1	17	1	Thorgal Aegirsson	Habitants_S05.17
+S05	17	2	17	6	Thorgal Aegirsson	Aubergiste_S05.17
+S05	17	7	17	7	Thorgal Aegirsson	Aubergiste_S05.17	Serveuses_S05.17	Clients_S05.17
+S05	18	1	18	4	Aigle / Vigrid
+S05	18	5	19	2	Vigrid
+S05	19	3	19	7	Vigrid	Serpent géant_S05.19
+S05	20	1	20	6	Vigrid
+S05	20	7	20	8	Aigle / Vigrid
+S05	21	1	22	4	Thorgal Aegirsson	Aubergiste_S05.17	Serveuses_S05.17	Clients_S05.17	Wojciech
+S05	22	5	22	5	Aubergiste_S05.17	Serveuses_S05.17	Clients_S05.17	Wojciech
+S05	22	6	24	8	Thorgal Aegirsson
+S05	25	1	25	6	Thorgal Aegirsson	Wojciech
+S05	26	1	26	6	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	26	7	27	1	Aaricia Gandalfsdottir	Voisine_S05.26
+S05	27	2	27	6	Aaricia Gandalfsdottir
+S05	27	7	27	7	Aaricia Gandalfsdottir	Aigle / Vigrid
+S05	27	8	27	10	Aaricia Gandalfsdottir
+S05	28	1	28	1	Thorgal Aegirsson
+S05	28	2	28	2	Thorgal Aegirsson
+S05	28	3	28	3	Thorgal Aegirsson
+S05	28	4	28	4	Thorgal Aegirsson
+S05	29	1	29	3	Thorgal Aegirsson
+S05	29	4	30	6	Thorgal Aegirsson	Wojciech
+S05	31	1	31	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S05	31	5	31	8	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff	Aigle / Vigrid
+S05	32	1	32	1	Wojciech
+S05	32	2	32	2	Wojciech	Roi de Proklet_S05.32	Servant_S05.32
+S05	32	3	32	10	Wojciech	Roi de Proklet_S05.32
+S05	33	1	33	1
+S05	33	2	33	8	Aaricia Gandalfsdottir	Vigrid
+S05	34	1	34	9	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	35	1	35	9	Aaricia Gandalfsdottir	Vigrid
+S05	36	1	36	8	Thorgal Aegirsson	Wojciech
+S05	36	9	37	3	Thorgal Aegirsson	Wojciech	Shaniah
+S05	37	4	37	7	Thorgal Aegirsson	Shaniah
+S05	37	8	38	7	Thorgal Aegirsson	3 mercenaires_S05.27
+S05	38	8	38	9	Thorgal Aegirsson	Roi de Proklet_S05.32	Wojciech
+S05	39	1	39	5	Roi de Proklet_S05.32	Wojciech
+S05	39	6	39	6	Wojciech
+S05	39	7	40	5	Wojciech	Thorgal Aegirsson	Villageois_S05.39
+S05	40	6	40	7	Wojciech	Thorgal Aegirsson	Clients_S05.40
+S05	41	1	41	1	Wojciech	Soldats_S05.41
+S05	41	2	41	2	Wojciech	Compagnons_S05.41	Prostituées_S05.41
+S05	41	3	41	3	Wojciech	Compagnons_S05.41
+S05	41	4	41	4	Wojciech
+S05	41	5	41	5	Wojciech	Gardes_S05.41
+S05	42	1	42	2	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+S05	42	3	42	4	Aaricia Gandalfsdottir	Vigrid
+S05	42	5	42	6	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	42	7	42	9	Aaricia Gandalfsdottir	Vigrid
+S05	43	1	43	8	Vigrid	Dieux_S05.43	Dieu brun_S05.43	Dieu moustachu_S05.43	Sæming	Odin
+S05	44	1	46	5	Vigrid	Dieux_S05.43	Dieu brun_S05.43	Dieu moustachu_S05.43	Sæming	Odin
+S05	46	6	46	11	Vigrid	Aaricia Gandalfsdottir
+S05	47	1	47	9	Thorgal Aegirsson
+S05	48	1	48	8	Thorgal Aegirsson	Wojciech
+S05	49	1	51	7	Thorgal Aegirsson	Wojciech	Roi de Proklet_S05.32	Foule_S05.49	Yven
+S05	51	8	52	11	Thorgal Aegirsson	Wojciech	Roi de Proklet_S05.32	Foule_S05.49
+S05	53	1	53	8	Vigrid	Aaricia Gandalfsdottir
+S05	53	9	53	9	Dragon / Vigrid	Aaricia Gandalfsdottir
+S05	54	1	55	2	Dragon / Vigrid	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	55	3	55	9	Dragon / Vigrid	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	56	1	57	7	Thorgal Aegirsson	Wojciech	Roi de Proklet_S05.32	Lieutenant du roi_S05.56	Cour du roi_S05.56
+S05	58	1	58	1	Vigrid
+S05	58	2	59	3	Vigrid	Jolan Thorgalsson	3 brutes_S05.58
+S05	59	4	59	9	Vigrid	Jolan Thorgalsson
+S05	60	1	61	5	Vigrid	Jolan Thorgalsson
+S05	61	6	61	7	Vigrid	Jolan Thorgalsson	Aaricia Gandalfsdottir
+S05	61	8	61	10	Vigrid	Aaricia Gandalfsdottir
+S05	62	1	62	3	Thorgal Aegirsson	Wojciech
+S05	62	4	62	4	Thorgal Aegirsson	Wojciech
+S05	62	5	62	5	Thorgal Aegirsson	Wojciech
+S05	62	6	62	6	Thorgal Aegirsson	Wojciech
+S05	62	7	62	7	Thorgal Aegirsson	Wojciech
+S05	63	1	65	1	Thorgal Aegirsson	Wojciech	Shaniah
+S05	65	2	66	6	Thorgal Aegirsson	Wojciech	Shaniah	Gardes_S05.65
+S05	66	7	66	7	Thorgal Aegirsson	Wojciech	Shaniah
+S05	66	8	66	8	Thorgal Aegirsson	Wojciech	Shaniah	Gardes_S05.66.1
+S05	66	9	66	9	Thorgal Aegirsson	Wojciech	Shaniah	Gardes_S05.66.2
+S05	66	10	67	2	Thorgal Aegirsson	Wojciech	Shaniah
+S05	67	3	67	4	Thorgal Aegirsson	Wojciech	Shaniah	Cour du roi_S05.67
+S05	67	5	67	7	Thorgal Aegirsson	Wojciech	Shaniah
+S05	68	1	68	4	Vigrid	Jolan Thorgalsson
+S05	68	5	68	6	Vigrid	Jolan Thorgalsson	Aaricia Gandalfsdottir
+S05	68	7	69	3	Vigrid	Aaricia Gandalfsdottir
+S05	69	4	69	8	Vigrid	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	69	9	69	10	Aigle / Vigrid	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	70	1	70	8	Thorgal Aegirsson	Wojciech	Shaniah	Roi de Proklet_S05.32
+S05	71	1	71	4	Gardes_S05.71
+S05	71	5	74	7	Thorgal Aegirsson	Wojciech	Shaniah	Roi de Proklet_S05.32
+S05	74	8	75	5	Thorgal Aegirsson	Wojciech	Shaniah
+S05	75	6	75	8	Villageois_S05.75
+S05	76	1	76	6	Thorgal Aegirsson	Wojciech	Shaniah	Villageois_S05.75
+S05	76	7	77	2	Thorgal Aegirsson	Wojciech	Shaniah	Villageois_S05.75	Aigle / Vigrid
+S05	77	3	78	1	Thorgal Aegirsson	Wojciech	Shaniah	Méduse / Vigrid
+S05	78	2	78	5	Thorgal Aegirsson	Wojciech	Shaniah	Méduse / Vigrid
+S05	79	1	80	11	Thorgal Aegirsson	Wojciech	Shaniah	Vigrid
+S05	81	1	81	2	Thorgal Aegirsson	Vigrid
+S05	81	3	81	4	Thorgal Aegirsson	Aigle / Vigrid
+S05	81	5	81	5	Aigle / Vigrid
+S05	81	6	81	10	Vigrid
+S05	82	1	82	1	Thorgal Aegirsson
+S05	82	2	82	2	Thorgal Aegirsson
+S05	82	3	82	3	Thorgal Aegirsson
+S05	82	4	82	4	Thorgal Aegirsson
+S05	82	5	82	5	Thorgal Aegirsson	Fermiers_S05.82
+S05	82	6	82	6	Thorgal Aegirsson	Fermiers_S05.82
+S05	82	7	82	7	Thorgal Aegirsson

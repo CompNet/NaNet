@@ -59,6 +59,7 @@ Name,ShortName,Sex,Named
 2 walkyries_K2.5,,Female,FALSE
 3 bandits_10.3,,Male,FALSE
 3 bienveillants,,Male,FALSE
+3 brutes_S05.58,,Male,FALSE
 3 cavaliers_15.19,,Male,FALSE
 3 cavaliers_18.29,,Male,FALSE
 3 esclaves_27.12,,Male,FALSE
@@ -69,6 +70,7 @@ Name,ShortName,Sex,Named
 3 guerriers_J4.34,,Male,FALSE
 3 malfrats_34.18,,Male,FALSE
 3 mégères_L2.46,,Female,FALSE
+3 mercenaires_S05.27,,Male,FALSE
 3 soldats_18.8,,Male,FALSE
 3 vikings_J3.29.1,,Male,FALSE
 3 vikings_J3.29.2,,Male,FALSE
@@ -90,6 +92,10 @@ Abdel Razek,,Male,TRUE
 Adolescents_J11.9,,Male,FALSE
 Adultes_K6.50,,Mixed,FALSE
 Africain_3.19,,Male,FALSE
+Agresseur blond_S05.12,,Male,FALSE
+Agresseur brun_S05.12,,Male,FALSE
+Agresseur chauve_S05.12,,Male,FALSE
+Agresseur roux_S05.12,,Male,FALSE
 Agrippa,,Female,TRUE
 Ahmed Al Waloud,Ahmed,Male,TRUE
 Akko,,Male,TRUE
@@ -186,6 +192,7 @@ Aubergiste_5.4,,Male,FALSE
 Aubergiste_J4.21,,Male,FALSE
 Aubergiste_K1.33,,Male,FALSE
 Aubergiste_K3.35,,Male,FALSE
+Aubergiste_S05.17,,Male,FALSE
 Ava,,Female,TRUE
 Avrenim,,Unknown,TRUE
 Azkel,,Male,TRUE
@@ -322,8 +329,11 @@ Clients_5.4,,Male,FALSE
 Clients_J4.21,,Male,FALSE
 Clients_K1.33,,Mixed,FALSE
 Clients_K1.37,,Male,FALSE
+Clients_S05.17,,Male,FALSE
+Clients_S05.40,,Mixed,FALSE
 Commandant_K5.43,,Male,FALSE
 Commandant_K8.38,,Male,FALSE
+Compagnons_S05.41,,Male,FALSE
 Concubines_34.9,,Female,FALSE
 Conducteur d'Héraclius_27.7,,Male,FALSE
 Conducteurs_27.35,,Male,FALSE
@@ -334,6 +344,8 @@ Convives_9.39,,Mixed,FALSE
 Cosmonautes_26.19,,Mixed,FALSE
 Couple_K2.15,,Mixed,FALSE
 Cour de Magnus_K7.37,,Mixed,FALSE
+Cour du roi_S05.56,,Mixed,FALSE
+Cour du roi_S05.67,,Male,FALSE
 Cour_6.6,,Mixed,FALSE
 Cour_K4.28,,Mixed,FALSE
 Cour_L5.48,,Mixed,FALSE
@@ -364,6 +376,8 @@ Démon de lave_L6.9,,Unknown,FALSE
 Deux femmes_J9.8,,Female,FALSE
 Devin_24.25,,Male,FALSE
 Dhrys,,Male,TRUE
+Dieu brun_S05.43,,Male,FALSE
+Dieu moustachu_S05.43,,Male,FALSE
 Dieux_19.14,,Mixed,FALSE
 Dieux_22.22,,Mixed,FALSE
 Dieux_32.43,,Mixed,FALSE
@@ -372,6 +386,7 @@ Dieux_41.14,,Mixed,FALSE
 Dieux_41.15,,Mixed,FALSE
 Dieux_L2.25,,Mixed,FALSE
 Dieux_L2.26,,Mixed,FALSE
+Dieux_S05.43,,Mixed,FALSE
 Dignitaires_11.37,,Mixed,FALSE
 Disciples_34.7,,Unknown,FALSE
 Dji Hins,,Male,TRUE
@@ -527,6 +542,7 @@ Fenrir,,Male,TRUE
 Ferkel,,Male,TRUE
 Fermier_18.6,,Male,FALSE
 Fermiers_18.7,,Mixed,FALSE
+Fermiers_S05.82,,Mixed,FALSE
 Fêtards_L1.38,,Mixed,FALSE
 Fhropor,,Male,TRUE
 Fille de la Ramaha,,Female,FALSE
@@ -550,6 +566,7 @@ Foule_34.4,,Mixed,FALSE
 Foule_34.8,,Mixed,FALSE
 Foule_5.3,,Mixed,FALSE
 Foule_K4.28,,Mixed,FALSE
+Foule_S05.49,,Mixed,FALSE
 Franc_3.19,,Male,FALSE
 Francs_J7.33,,Male,FALSE
 Francus d'Auxaterra,Francus,Male,TRUE
@@ -705,6 +722,12 @@ Gardes_L5.47,,Male,FALSE
 Gardes_L5.48,,Male,FALSE
 Gardes_L7.19,,Male,FALSE
 Gardes_L7.24,,Male,FALSE
+Gardes_S05.16,,Male,FALSE
+Gardes_S05.41,,Male,FALSE
+Gardes_S05.65,,Male,FALSE
+Gardes_S05.66.1,,Male,FALSE
+Gardes_S05.66.2,,Male,FALSE
+Gardes_S05.71,Male,FAUX	
 Gardes_S4.19,,Male,FALSE
 Gardes_S4.25,,Male,FALSE
 Gardien géant_1.11,,Male,FALSE
@@ -798,6 +821,7 @@ Gürd Nez-Plat,,Male,TRUE
 Gürt,,Male,TRUE
 Guustavson,,Male,TRUE
 Gwenda d'Auxaterra,Gwenda,Female,TRUE
+Habitants_S05.17,,Mixed,FALSE
 Halli le Sarcastique,,Male,TRUE
 Halvdan-le-noir,,Male,TRUE
 Hanouar,,Male,TRUE
@@ -905,6 +929,7 @@ Leif_J1,,Male,TRUE
 Leif_J8.29,,Male,TRUE
 Lidvór,,Female,TRUE
 Lieks,,Male,TRUE
+Lieutenant du roi_S05.56,,Male,FALSE
 Loki,,Male,TRUE
 Loup_16.31,,Male,FALSE
 Loup_16.34,,Female,FALSE
@@ -1189,6 +1214,7 @@ Prisionniers_37.14,,Mixed,FALSE
 Prisonnier_37.14,,Male,FALSE
 Prisonnier_K5.8,,Male,FALSE
 Prisonnière_5.28,,Female,FALSE
+Prisonnière_S05.9,,Female,FALSE
 Prisonniers_33.21,,Male,FALSE
 Prisonniers_36.14,,Male,FALSE
 Prisonniers_36.19,,Mixed,FALSE
@@ -1197,8 +1223,10 @@ Prisonniers_J7.33,,Male,FALSE
 Prisonniers_J8.36,,Male,FALSE
 Prisonniers_J8.42,,Male,FALSE
 Prisonniers_K8.25,,Mixed,FALSE
+Prisonniers_S05.10,,Mixed,FALSE
 Prisonniers_S3.17,,Male,FALSE
 Prostituées_23.16,,Female,FALSE
+Prostituées_S05.41,,Female,FALSE
 Quarl,,Male,TRUE
 Rabatteurs_29.3,,Male,FALSE
 Radon l'aigle,,Unknown,TRUE
@@ -1223,6 +1251,7 @@ Reine Guustavson_K3.19,,Female,FALSE
 Religieux_K4.32,,Male,FALSE
 Remik,,Male,TRUE
 Reynöld,,Male,TRUE
+Roi de Proklet_S05.32,,Male,FALSE
 Roi d'Umbria,,Male,FALSE
 Roi Geirroed,,Male,TRUE
 Rollo-le-Torte,,Male,TRUE
@@ -1231,6 +1260,7 @@ Runa,,Female,TRUE
 Rune,,Female,TRUE
 Rylynn,,Male,TRUE
 Sacrifiés_10.25,,Mixed,FALSE
+Sæming,,Male,TRUE
 Sages Owascos_S2.21,,Male,FALSE
 Sages-femmes_J9.5,,Female,FALSE
 Salouma,,Female,TRUE
@@ -1254,9 +1284,11 @@ Seigneur_29.3,,Male,FALSE
 Selkie_38.4,,Female,FALSE
 Selkies_38.25,,Female,FALSE
 Séréna,,Female,TRUE
+Serpent géant_S05.19,,Unknown,FALSE
 Serpent_5.19,,Unknown,FALSE
 Serväan,,Female,TRUE
 Servane Minkelsönn,,Female,TRUE
+Servant_S05.32,,Male,FALSE
 Servante_10.45,,Female,FALSE
 Servante_34.39,,Female,FALSE
 Servante_37.15,,Female,FALSE
@@ -1277,6 +1309,7 @@ Servantes_K4.34,,Female,FALSE
 Servants_J10.13,,Male,FALSE
 Servants_J10.38,,Mixed,FALSE
 Serveuse_K1.33,,Female,FALSE
+Serveuses_S05.17,,Female,FALSE
 Serviteur_21.3,,Male,FALSE
 Serviteur_34.27,,Male,FALSE
 Serviteur_34.32,,Male,FALSE
@@ -1420,6 +1453,7 @@ Soldats_K7.28,,Male,FALSE
 Soldats_K8.24,,Male,FALSE
 Soldats_K8.25,,Male,FALSE
 Soldats_K8.26,,Male,FALSE
+Soldats_S05.41,,Male,FALSE
 Solveig,,Female,TRUE
 Sonja,,Female,TRUE
 Sorcier_S2.4,,Male,FALSE
@@ -1698,6 +1732,8 @@ Villageois_L4.17,,Mixed,FALSE
 Villageois_L4.26,,Mixed,FALSE
 Villageois_L4.5,,Mixed,FALSE
 Villageois_L7.26,,Mixed,FALSE
+Villageois_S05.39,,Mixed,FALSE
+Villageois_S05.75,,Mixed,FALSE
 Villageois_S1.20,,Mixed,FALSE
 Villageois_S1.24,,Mixed,FALSE
 Villageois_S1.29,,Mixed,FALSE
@@ -1718,6 +1754,7 @@ Villageoises_K1.22,,Female,FALSE
 Vilnya,,Female,TRUE
 Viskön,,Male,TRUE
 Vlana,,Female,TRUE
+Voisine_S05.26,,Female,FALSE
 Voix du Niflheim,,Unknown,FALSE
 Voleur_19.5.1,,Male,FALSE
 Voleur_20.24.1,,Male,FALSE
@@ -1740,6 +1777,7 @@ Walkyries_K2.5,,Female,FALSE
 Walkyries_K3.7,,Female,FALSE
 Wargan,,Male,TRUE
 Wendigo,,Male,TRUE
+Wojciech,,Male,TRUE
 Woniaz d'Ourbek,Woniaz,Male,TRUE
 Wor-le-magnifique,Wor,Male,TRUE
 Wulf,,Male,TRUE
@@ -1762,6 +1800,7 @@ Yénhäas_36.31,,Female,FALSE
 Yngvi l'anachorète,Yngvi,Male,TRUE
 Yngvild,,Female,TRUE
 Yrettarg,,Female,TRUE
+Yven,,Male,TRUE
 Yvön,,Male,TRUE
 Zajkar,,Male,TRUE
 Zarkaj,,Male,TRUE
