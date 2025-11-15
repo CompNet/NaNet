@@ -72,6 +72,7 @@ Name,ShortName,Sex,Named
 3 mégères_L2.46,,Female,FALSE
 3 mercenaires_S05.27,,Male,FALSE
 3 soldats_18.8,,Male,FALSE
+3 soldats_T43.19,,Male,FALSE
 3 vikings_J3.29.1,,Male,FALSE
 3 vikings_J3.29.2,,Male,FALSE
 3 vikings_J8.6,,Male,FALSE
@@ -113,6 +114,7 @@ Alfes rebelles_L7.10,,Male,FALSE
 Alf'Lolth,,Female,TRUE
 Alföng,,Male,TRUE
 Alinoë,,Male,TRUE
+Alix Bouheddi,,Male,TRUE
 Alkant,,Male,TRUE
 Althar,,Male,TRUE
 Althing_38.28,,Male,FALSE
@@ -177,6 +179,7 @@ Ashley,,Female,TRUE
 Asketill,,Male,TRUE
 Aslak,,Male,TRUE
 Ásmundr,,Male,TRUE
+Assistants de Zumézil_T43.29,,Male,FALSE
 Astrid,,Female,TRUE
 Astronautes_7.39.1,,Mixed,FALSE
 Astronautes_7.39.2,,Mixed,FALSE
@@ -235,11 +238,16 @@ Björg,,Male,TRUE
 Björn Gandalfson,Björn,Male,TRUE
 Bjorn_J10.54,,Male,TRUE
 Björn_J9,,Male,TRUE
+Bjorn_T43.11,,Male,FALSE
 Björnulf,,Male,TRUE
 Bohr,,Male,TRUE
 Boréale,,Female,TRUE
 Bourreau_35.6,,Male,FALSE
 Bourreau_K5.8,,Male,FALSE
+Braconnier foulard_T43.3,,Male,FALSE
+Braconnier roux_T43.3,,Male,FALSE
+Braconnier-chef_T43.4,,Male,FALSE
+Braconniers_T43.4,,Male,FALSE
 Brigand_K3.38.1,,Male,FALSE
 Brigand_K3.38.2,,Male,FALSE
 Brigand_K3.38.3,,Male,FALSE
@@ -247,6 +255,7 @@ Brigand_K3.42.1,,Male,FALSE
 Brigand_K3.42.2,,Male,FALSE
 Brigand_K3.42.3,,Male,FALSE
 Brigand_K3.42.4,,Male,FALSE
+Brigands_T43.29,,Male,FALSE
 Brilö,,Male,TRUE
 Brünhild,,Female,TRUE
 Burbi,,Male,TRUE
@@ -530,6 +539,7 @@ Falster,,Male,TRUE
 Falstöf,,Male,TRUE
 Famille Karhamasönn,,Mixed,FALSE
 Famille_K3.4,,Mixed,FALSE
+Fées rêvées_T43.14,,Female,FALSE
 Fées_J1.18,,Female,FALSE
 Femme de Dracon,,Female,FALSE
 Femme d'Herzog_34.39,,Female,FALSE
@@ -553,6 +563,8 @@ Fillette_22.3,,Female,FALSE
 Fillette_J10.36,,Female,FALSE
 Fillettes_J2.39,,Female,FALSE
 Fils Bossu,,Male,FALSE
+Fils Bouheddi bleu,,Male,FALSE
+Fils Bouheddi vert,,Male,FALSE
 Fils de Grym,,Male,FALSE
 Finnbjorn,,Male,TRUE
 Fjójar,,Female,TRUE
@@ -637,6 +649,9 @@ Garde_K1.47,,Male,FALSE
 Garde_K4.29,,Male,FALSE
 Garde_S1.32,,Male,FALSE
 Garde_S1.33,,Male,FALSE
+Garde_T43.13,,Male,FALSE
+Garde_T43.38,,Male,FALSE
+Garde_T43.47,,Male,FALSE
 Gardes alfes noirs_L6.13,,Male,FALSE
 Gardes alfes noirs_L6.22,,Male,FALSE
 Gardes rouges_35.20,,Male,FALSE
@@ -727,9 +742,13 @@ Gardes_S05.41,,Male,FALSE
 Gardes_S05.65,,Male,FALSE
 Gardes_S05.66.1,,Male,FALSE
 Gardes_S05.66.2,,Male,FALSE
-Gardes_S05.71,Male,FAUX	
+Gardes_S05.71,,Male,FALSE
 Gardes_S4.19,,Male,FALSE
 Gardes_S4.25,,Male,FALSE
+Gardes_T43.28,,Male,FALSE
+Gardes_T43.31,,Male,FALSE
+Gardes_T43.47,,Male,FALSE
+Gardes_T43.8,,Male,FALSE
 Gardien géant_1.11,,Male,FALSE
 Gardien nain_1.12,,Male,FALSE
 Gardien_22.25,,Unknown,FALSE
@@ -1251,9 +1270,11 @@ Reine Guustavson_K3.19,,Female,FALSE
 Religieux_K4.32,,Male,FALSE
 Remik,,Male,TRUE
 Reynöld,,Male,TRUE
+Röhtsen,,Male,FALSE
 Roi de Proklet_S05.32,,Male,FALSE
 Roi d'Umbria,,Male,FALSE
 Roi Geirroed,,Male,TRUE
+Rolf,,Male,TRUE
 Rollo-le-Torte,,Male,TRUE
 Rorik,,Male,TRUE
 Runa,,Female,TRUE
@@ -1317,6 +1338,7 @@ Serviteur_34.40,,Male,FALSE
 Serviteur_J10.36,,Male,FALSE
 Serviteur_J5.48,,Male,FALSE
 Serviteur_K4.29,,Male,FALSE
+Serviteur_T43.17,,Male,FALSE
 Serviteurs_25.44,,Male,FALSE
 Serviteurs_30.47,,Unknown,FALSE
 Serviteurs_31.5,,Male,FALSE
@@ -1454,6 +1476,8 @@ Soldats_K8.24,,Male,FALSE
 Soldats_K8.25,,Male,FALSE
 Soldats_K8.26,,Male,FALSE
 Soldats_S05.41,,Male,FALSE
+Soldats_T43.17,,Male,FALSE
+Soldats_T43.21,,Male,FALSE
 Solveig,,Female,TRUE
 Sonja,,Female,TRUE
 Sorcier_S2.4,,Male,FALSE
@@ -1495,6 +1519,7 @@ Thor,,Male,TRUE
 Thorbiorg,,Female,TRUE
 Thorfil,,Male,TRUE
 Thorfill,,Male,TRUE
+Thorfinn,,Male,TRUE
 Thorgal,,Male,TRUE
 Thorgal Aegirsson,Thorgal,Male,TRUE
 Thorkell-le-grand,,Male,TRUE
@@ -1739,6 +1764,7 @@ Villageois_S1.24,,Mixed,FALSE
 Villageois_S1.29,,Mixed,FALSE
 Villageois_S1.32,,Mixed,FALSE
 Villageois_S1.53,,Mixed,FALSE
+Villageois_T43.12,,Mixed,FALSE
 Villageoise_14.16,,Female,FALSE
 Villageoise_14.17,,Female,FALSE
 Villageoise_39.12,,Female,FALSE
@@ -1807,3 +1833,4 @@ Zarkaj,,Male,TRUE
 Zaya,,Female,TRUE
 Zim,,Female,TRUE
 Zorn,,Male,TRUE
+Zumézil,,Male,TRUE

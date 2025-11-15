@@ -5632,3 +5632,63 @@ S05	82	4	82	4	Thorgal Aegirsson
 S05	82	5	82	5	Thorgal Aegirsson	Fermiers_S05.82
 S05	82	6	82	6	Thorgal Aegirsson	Fermiers_S05.82
 S05	82	7	82	7	Thorgal Aegirsson
+T43	3	1	3	4	Boréale
+T43	3	5	4	5	Boréale	Braconnier roux_T43.3	Braconnier foulard_T43.3
+T43	4	6	5	2	Boréale	Braconnier roux_T43.3	Braconnier foulard_T43.3	Braconniers_T43.4	Braconnier-chef_T43.4
+T43	5	3	5	7	Boréale	Braconnier-chef_T43.4
+T43	5	8	6	5	Boréale / Akwila	Braconnier-chef_T43.4
+T43	6	6	6	8	Boréale / Akwila	Braconniers_T43.4
+T43	6	9	7	8	Boréale / Akwila	Braconniers_T43.4	Thorgal Aegirsson
+T43	8	1	8	8	Boréale / Akwila	Braconniers_T43.4	Thorgal Aegirsson	Gardes_T43.8
+T43	9	1	10	10	Aniel de Valnor	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	11	1	11	6	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11
+T43	12	1	12	1	Aniel de Valnor	Villageois_T43.12
+T43	12	2	12	9	Aniel de Valnor	Pallas
+T43	13	1	13	5	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11
+T43	13	6	13	6	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11	Garde_T43.13
+T43	13	7	13	9	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11
+T43	14	1	14	7	Aniel de Valnor	Fées rêvées_T43.14
+T43	15	1	15	8	Aniel de Valnor	Pallas
+T43	16	1	16	3	Jolan Thorgalsson
+T43	16	4	16	7	Jolan Thorgalsson	Kriss de Valnor
+T43	17	1	17	5	Rolf	Soldats_T43.17	Thorfinn	Serviteur_T43.17
+T43	17	6	17	7	Rolf	Soldats_T43.17	Thorfinn
+T43	18	1	18	8	Jolan Thorgalsson	Kriss de Valnor	Aaricia Gandalfsdottir	Arisön
+T43	19	1	19	9	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11	3 soldats_T43.19
+T43	20	1	20	10	Thorgal Aegirsson	Boréale / Akwila	Bjorn_T43.11
+T43	21	1	21	1	3 soldats_T43.19
+T43	21	2	21	2	Soldats_T43.21
+T43	21	3	21	5	Thorgal Aegirsson	Bjorn_T43.11	Soldats_T43.21
+T43	21	6	21	6	Thorgal Aegirsson	Soldats_T43.21
+T43	21	7	21	9	Rolf	Thorfinn	Soldats_T43.21
+T43	22	1	22	7	Aniel de Valnor	Fées / Pallas
+T43	23	1	23	8	Aniel de Valnor	Pallas
+T43	24	1	24	4	Thorgal Aegirsson	Soldats_T43.21
+T43	24	5	24	7	Thorgal Aegirsson
+T43	25	1	25	2	Pallas
+T43	25	3	26	10	Pallas	Rolf
+T43	27	1	27	7	Aniel de Valnor	Pallas	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	27	8	27	9	Aniel de Valnor	Pallas	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Röhtsen
+T43	28	1	28	8	Aniel de Valnor	Kriss de Valnor	Arisön	Gardes_T43.28	Pallas	Röhtsen
+T43	29	1	29	8	Zumézil	Brigands_T43.29	Assistants de Zumézil_T43.29
+T43	30	1	30	4	Zumézil	Brigands_T43.29	Assistants de Zumézil_T43.29	Thorgal Aegirsson
+T43	30	5	30	9	Zumézil	Thorgal Aegirsson	Assistants de Zumézil_T43.29
+T43	31	1	32	8	Aniel de Valnor	Kriss de Valnor	Arisön	Pallas	Gardes_T43.31	Boréale / Akwila
+T43	32	9	32	9	Aniel de Valnor	Kriss de Valnor	Arisön	Pallas	Gardes_T43.31	Boréale / Akwila	Röhtsen
+T43	32	10	32	10	Rolf	Soldats_T43.21	Zumézil	Assistants de Zumézil_T43.29	Thorgal Aegirsson
+T43	33	1	33	3	Aniel de Valnor	Kriss de Valnor	Arisön	Pallas	Gardes_T43.31	Boréale / Akwila	Röhtsen
+T43	33	4	35	4	Aniel de Valnor	Kriss de Valnor	Arisön	Pallas	Gardes_T43.31	Boréale / Akwila	Röhtsen	Rolf	Zumézil	Thorgal Aegirsson	Assistants de Zumézil_T43.29
+T43	35	5	35	9	Aniel de Valnor	Kriss de Valnor	Arisön	Pallas	Gardes_T43.31	Boréale / Akwila	Röhtsen	Zumézil	Thorgal Aegirsson	Assistants de Zumézil_T43.29
+T43	36	1	37	10	Pallas	Rolf
+T43	38	1	39	10	Pallas	Garde_T43.38	Boréale / Akwila
+T43	40	1	40	3	Aniel de Valnor	Kriss de Valnor	Arisön	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Pallas	Boréale / Akwila
+T43	40	4	41	3	Aniel de Valnor	Kriss de Valnor	Arisön	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Rolf	Thorfinn	Thorgal Aegirsson	Pallas	Boréale / Akwila
+T43	41	4	43	3	Aniel de Valnor	Kriss de Valnor	Arisön	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Thorfinn	Thorgal Aegirsson	Pallas	Boréale / Akwila
+T43	43	4	44	2	Aniel de Valnor	Kriss de Valnor	Arisön	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Thorgal Aegirsson	Pallas	Boréale / Akwila
+T43	44	3	44	5	Pallas	Boréale / Akwila
+T43	44	6	44	6	Pallas / Akwila	Boréale
+T43	44	7	45	7	Aniel de Valnor	Kriss de Valnor	Arisön	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Thorgal Aegirsson	Pallas / Akwila	Boréale
+T43	45	8	46	9	Aniel de Valnor	Kriss de Valnor	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert	Zumézil	Assistants de Zumézil_T43.29	Thorgal Aegirsson	Boréale
+T43	47	1	47	3	Thorgal Aegirsson	Garde_T43.47
+T43	47	4	47	9	Thorgal Aegirsson	Gardes_T43.47	Pallas / Akwila
+T43	48	1	48	4	Pallas / Akwila	Pallas
