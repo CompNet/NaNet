@@ -2316,7 +2316,7 @@ T09	8	2	8	2	Thorgal Aegirsson
 T09	8	3	8	3	Thorgal Aegirsson
 T09	8	4	8	4
 T09	8	5	8	5	Thorgal Aegirsson	Tjall le Fougueux
-T09	8	6	8	6		Tjall le Fougueux
+T09	8	6	8	6	Tjall le Fougueux
 T09	8	7	8	7	Thorgal Aegirsson	Tjall le Fougueux
 T09	8	8	8	8	Thorgal Aegirsson	Tjall le Fougueux
 T09	8	9	8	9	Thorgal Aegirsson	Tjall le Fougueux
@@ -5388,7 +5388,7 @@ T18	21	4	21	4	Migaïl	Thorgal Aegirsson
 T18	21	5	21	5	Migaïl	Thorgal Aegirsson
 T18	21	6	21	6	Migaïl	Thorgal Aegirsson
 T18	21	7	21	7	Migaïl	Thorgal Aegirsson
-T18	21	8	21	8	Thorgal Aegirsson		Yarilo
+T18	21	8	21	8	Thorgal Aegirsson	Yarilo
 T18	22	1	22	1	Rebelles_18.21	Thorgal Aegirsson	Yarilo	Migaïl
 T18	22	2	22	2	Yarilo	Thorgal Aegirsson
 T18	22	3	22	3	Rebelles_18.21	Thorgal Aegirsson	Migaïl
@@ -5939,7 +5939,7 @@ T20	3	2	3	2	Villageoises_20.3
 T20	3	3	3	3	Erik_20.3
 T20	3	4	3	4	Aaricia Gandalfsdottir	Ernhild	Solveig	Vigrid_20.3	Villageois_20.3	Villageoises_20.3	Jolan Thorgalsson	Muff
 T20	4	1	4	1	Ernhild	Vigrid_20.3
-T20	4	2	4	2	Ernhild		Villageoises_20.3
+T20	4	2	4	2	Ernhild	Villageoises_20.3
 T20	4	3	4	3	Aaricia Gandalfsdottir	Solveig	Louve Thorgalsdottir
 T20	4	4	4	4	Aaricia Gandalfsdottir	Ernhild	Vigrid_20.3
 T20	4	5	4	5	Ernhild	Vigrid_20.3	Villageois_20.3	Villageoises_20.3
@@ -5967,7 +5967,7 @@ T20	7	1	7	1	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 T20	7	2	7	2	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
 T20	7	3	7	3
 T20	7	4	7	4
-T20	7	5	7	5	Jolan Thorgalsson		Muff
+T20	7	5	7	5	Jolan Thorgalsson	Muff
 T20	7	6	7	6	Jolan Thorgalsson
 T20	7	7	7	7	Jolan Thorgalsson	Muff
 T20	7	8	7	8	Jolan Thorgalsson	Muff
@@ -6981,7 +6981,7 @@ T23	6	5	6	5	Galathorn	Thorgal Aegirsson
 T23	6	6	6	6	Galathorn	Thorgal Aegirsson
 T23	6	7	6	7	Galathorn	Thorgal Aegirsson
 T23	6	8	6	8	Galathorn	Thorgal Aegirsson
-T23	7	1	7	1		Thorgal Aegirsson
+T23	7	1	7	1	Thorgal Aegirsson
 T23	7	2	7	2	Syrane	Thorgal Aegirsson
 T23	7	3	7	3	Syrane	Thorgal Aegirsson
 T23	7	4	7	4	Thorgal Aegirsson
@@ -7015,7 +7015,7 @@ T23	11	1	11	1
 T23	11	2	11	2	Thorgal Aegirsson
 T23	11	3	11	3
 T23	11	4	11	4	Thorgal Aegirsson
-T23	11	5	11	5		Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
+T23	11	5	11	5	Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
 T23	11	6	11	6	Soldat_23.11.1
 T23	11	7	11	7	Soldat_23.11.1	Soldat_23.11.2	Soldat_23.11.3	Thorgal Aegirsson
 T23	11	8	11	8	Soldat_23.11.1	Thorgal Aegirsson
@@ -9235,7 +9235,7 @@ T29	25	7	25	7	Jolan Thorgalsson	Thorgal Aegirsson
 T29	26	1	26	1	Biarn_29.26	Helgi
 T29	26	2	26	2	Biarn_29.26	Helgi
 T29	26	3	26	3	Biarn_29.26	Helgi
-T29	26	4	26	4			Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
+T29	26	4	26	4	Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
 T29	26	5	26	5	Aaricia Gandalfsdottir	Aniel de Valnor	Biarn_29.26	Helgi	Louve Thorgalsdottir	Vigrid
 T29	26	6	26	6	Aaricia Gandalfsdottir	Vigrid
 T29	26	7	26	7	Biarn_29.26	Helgi
@@ -15446,7 +15446,7 @@ J03	37	7	37	7	Thorgal Aegirsson
 J03	38	1	38	1
 J03	38	2	38	2	Thorgal Aegirsson
 J03	38	3	38	3	Aaricia Gandalfsdottir	Björn Gandalfson	Thorgal Aegirsson
-J03	38	4	38	4	Thorgal Aegirsson	Guerriers_J3.9	Holger	Nigürd Holgersön Ratatösk		Sigurd Danysön
+J03	38	4	38	4	Thorgal Aegirsson	Guerriers_J3.9	Holger	Nigürd Holgersön Ratatösk	Sigurd Danysön
 J03	38	5	38	5	Thorgal Aegirsson	Guerriers_J3.9
 J03	38	6	38	6	Holger	Prétendants_J3.23	Sigurd Danysön	Spectateurs_J3.23	Guerriers_J3.9
 J03	38	7	38	7	Holger	Prétendants_J3.23	Sigurd Danysön	Spectateurs_J3.23	Guerriers_J3.9
@@ -16415,7 +16415,7 @@ L06	17	4	17	4	Vigrid
 L06	17	5	17	5	Tjahzi	Nains_L6.17
 L06	17	6	17	6	Vigrid
 L06	17	7	17	7	Nains_L6.17	Tjahzi
-L06	18	1	18	1		Tjahzi
+L06	18	1	18	1	Tjahzi
 L06	18	2	18	2	Nains_L6.17	Vigrid
 L06	18	3	18	3	Alfes noirs_L6.16	Louve Thorgalsdottir	Vigrid	Yasmina
 L06	18	4	18	4	Nains_L6.17	Tjahzi
@@ -16718,7 +16718,7 @@ T35	15	3	15	3	Aniel de Valnor
 T35	15	4	15	4	Bohr
 T35	15	5	15	5	2 gardes_35.15	Bohr	Magon
 T35	15	6	15	6	2 gardes_35.15	Bohr	Magon
-T35	15	7	15	7			Magon
+T35	15	7	15	7	Magon
 T35	16	1	16	1	Aniel de Valnor
 T35	16	2	16	2	Thorgal Aegirsson
 T35	16	3	16	3	Aniel de Valnor	Thorgal Aegirsson
@@ -19065,7 +19065,7 @@ T36	43	3	43	3
 T36	43	4	43	4
 T36	43	5	43	5	Aaricia Gandalfsdottir	Kriss de Valnor	Thorgal Aegirsson
 T36	43	6	43	6	Louve Thorgalsdottir
-T36	43	7	43	7	Aniel de Valnor	Thorgal Aegirsson		Louve Thorgalsdottir
+T36	43	7	43	7	Aniel de Valnor	Thorgal Aegirsson	Louve Thorgalsdottir
 T36	43	8	43	8	Aniel de Valnor
 T36	43	9	43	9
 T36	43	10	43	10
@@ -23451,7 +23451,7 @@ S02	53	4	53	4	Thorgal Aegirsson
 S02	53	5	53	5	Thorgal Aegirsson
 S02	53	6	53	6	Jörmungand	Tonnerre	Verts_S2.53
 S02	53	7	53	7	Jörmungand	Thorgal Aegirsson
-S02	53	8	53	8	Thorgal Aegirsson			Verts_S2.53
+S02	53	8	53	8	Thorgal Aegirsson	Verts_S2.53
 S02	54	1	54	1
 S02	54	2	54	2	Thorgal Aegirsson	Tonnerre
 S02	54	3	54	3
@@ -23726,7 +23726,7 @@ S02	112	1	112	1
 S02	112	2	112	2
 S02	112	3	112	3	Thorgal Aegirsson
 S02	112	4	112	4	Sorcier_S2.4
-S02	112	5	112	5		Jolan Thorgalsson	Muff	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
+S02	112	5	112	5	Jolan Thorgalsson	Muff	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
 S02	112	6	112	6	Jolan Thorgalsson	Owascos_S2.106	Sorcier_S2.4	Thorgal Aegirsson
 S02	112	7	112	7	Muff
 S02	113	1	113	1	Jörmungand
@@ -25266,7 +25266,7 @@ S04	25	3	25	3	Gardes_S4.19	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
 S04	25	4	25	4	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
 S04	25	5	25	5	Thorgal Aegirsson	Vakva
 S04	25	6	25	6	Gardes_S4.25	Ottar le Scalde	Thorgal Aegirsson	Vakva
-S04	26	1	26	1	Reine de givre	Thorgal Aegirsson 	Vakva
+S04	26	1	26	1	Reine de givre	Thorgal Aegirsson	Vakva
 S04	26	2	26	2	Reine de givre
 S04	26	3	26	3	Reine de givre	Thorgal Aegirsson	Vakva
 S04	26	4	26	4	Thorgal Aegirsson
@@ -25685,3 +25685,1020 @@ S04	93	4	93	4
 S04	93	5	93	5	Rune	Thorgal	Vakva
 S04	93	6	93	6	Rune	Thorgal	Vakva
 S04	94	1	94	1	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	3	1	3	1
+S05	3	2	3	2
+S05	3	3	3	3
+S05	3	4	3	4
+S05	3	5	3	5
+S05	3	6	3	6
+S05	3	7	3	7
+S05	4	1	4	1
+S05	4	2	4	2
+S05	4	3	4	3
+S05	4	4	4	4	Cléo
+S05	4	5	4	5
+S05	4	6	4	6	Cléo
+S05	4	7	4	7	Cléo
+S05	4	8	4	8	Cléo
+S05	4	9	4	9	Vigrid
+S05	5	1	5	1	Cléo
+S05	5	2	5	2	Cléo
+S05	5	3	5	3
+S05	5	4	5	4	Cléo
+S05	5	5	5	5	Cléo
+S05	5	6	5	6	Vigrid
+S05	5	7	5	7	Cléo
+S05	5	8	5	8	Cléo
+S05	5	9	5	9
+S05	5	10	5	10	Cléo
+S05	6	1	6	1
+S05	6	2	6	2	Thorgal Aegirsson
+S05	6	3	6	3	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	6	4	6	4
+S05	6	5	6	5	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	6	6	6	6
+S05	6	7	6	7	Aaricia Gandalfsdottir
+S05	6	8	6	8	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	7	1	7	1	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	7	2	7	2	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S05	7	3	7	3
+S05	7	4	7	4	Thorgal Aegirsson
+S05	7	5	7	5	Thorgal Aegirsson
+S05	7	6	7	6	Jolan Thorgalsson	Thorgal Aegirsson
+S05	7	7	7	7	Jolan Thorgalsson	Thorgal Aegirsson
+S05	7	8	7	8	Jolan Thorgalsson	Thorgal Aegirsson
+S05	8	1	8	1	Thorgal Aegirsson
+S05	8	2	8	2	Thorgal Aegirsson
+S05	8	3	8	3	Thorgal Aegirsson
+S05	8	4	8	4	Thorgal Aegirsson
+S05	8	5	8	5	Thorgal Aegirsson
+S05	8	6	8	6	Thorgal Aegirsson
+S05	9	1	9	1
+S05	9	2	9	2
+S05	9	3	9	3
+S05	9	4	9	4	La faucheuse	Vigrid
+S05	9	5	9	5
+S05	9	6	9	6
+S05	9	7	9	7	Prisonnière_S05.9
+S05	10	1	10	1	La faucheuse	Prisonnière_S05.9	Prisonniers_S05.10	Shaniah	Vigrid
+S05	10	2	10	2	Shaniah
+S05	10	3	10	3	Shaniah
+S05	10	4	10	4	Shaniah
+S05	10	5	10	5	La faucheuse
+S05	10	6	10	6	La faucheuse	Shaniah	Vigrid
+S05	10	7	10	7	Vigrid
+S05	10	8	10	8	La faucheuse
+S05	11	1	11	1
+S05	11	2	11	2	Thorgal Aegirsson
+S05	11	3	11	3	Thorgal Aegirsson
+S05	11	4	11	4	Thorgal Aegirsson
+S05	11	5	11	5	Thorgal Aegirsson
+S05	11	6	11	6	Thorgal Aegirsson
+S05	11	7	11	7	Thorgal Aegirsson
+S05	12	1	12	1
+S05	12	2	12	2	Thorgal Aegirsson
+S05	12	3	12	3	Thorgal Aegirsson
+S05	12	4	12	4	Thorgal Aegirsson
+S05	12	5	12	5	Thorgal Aegirsson
+S05	12	6	12	6	Thorgal Aegirsson
+S05	12	7	12	7	Thorgal Aegirsson
+S05	12	8	12	8	Agresseur blond_S05.12	Agresseur brun_S05.12	Agresseur chauve_S05.12	Agresseur roux_S05.12	Shaniah	Thorgal Aegirsson
+S05	13	1	13	1	Thorgal Aegirsson
+S05	13	2	13	2	Agresseur blond_S05.12	Agresseur brun_S05.12	Agresseur roux_S05.12	Shaniah	Thorgal Aegirsson
+S05	13	3	13	3	Agresseur blond_S05.12
+S05	13	4	13	4	Agresseur blond_S05.12	Thorgal Aegirsson
+S05	13	5	13	5	Thorgal Aegirsson
+S05	13	6	13	6
+S05	13	7	13	7
+S05	13	8	13	8	Agresseur blond_S05.12	Agresseur chauve_S05.12	Thorgal Aegirsson
+S05	14	1	14	1	Thorgal Aegirsson
+S05	14	2	14	2	Agresseur chauve_S05.12	Thorgal Aegirsson
+S05	14	3	14	3	Agresseur blond_S05.12	Agresseur brun_S05.12	Agresseur chauve_S05.12	Shaniah
+S05	14	4	14	4	Agresseur brun_S05.12	Agresseur roux_S05.12	Shaniah	Thorgal Aegirsson
+S05	14	5	14	5	Agresseur brun_S05.12	Agresseur roux_S05.12	Thorgal Aegirsson
+S05	14	6	14	6	Thorgal Aegirsson
+S05	14	7	14	7	Agresseur roux_S05.12
+S05	14	8	14	8	Agresseur roux_S05.12
+S05	14	9	14	9	Shaniah	Thorgal Aegirsson
+S05	14	10	14	10	Thorgal Aegirsson
+S05	15	1	15	1	Agresseur blond_S05.12
+S05	15	2	15	2	Thorgal Aegirsson
+S05	15	3	15	3	Agresseur blond_S05.12
+S05	15	4	15	4	Agresseur blond_S05.12	Thorgal Aegirsson
+S05	15	5	15	5	Thorgal Aegirsson
+S05	15	6	15	6	Thorgal Aegirsson
+S05	15	7	15	7	Thorgal Aegirsson
+S05	16	1	16	1	Thorgal Aegirsson
+S05	16	2	16	2
+S05	16	3	16	3	Gardes_S05.16	Thorgal Aegirsson
+S05	16	4	16	4	Gardes_S05.16	Thorgal Aegirsson
+S05	16	5	16	5	Gardes_S05.16
+S05	16	6	16	6
+S05	16	7	16	7	Thorgal Aegirsson
+S05	17	1	17	1	Habitants_S05.17	Thorgal Aegirsson
+S05	17	2	17	2	Aubergiste_S05.17	Thorgal Aegirsson
+S05	17	3	17	3	Aubergiste_S05.17	Thorgal Aegirsson
+S05	17	4	17	4	Thorgal Aegirsson
+S05	17	5	17	5	Aubergiste_S05.17
+S05	17	6	17	6	Aubergiste_S05.17	Thorgal Aegirsson
+S05	17	7	17	7	Aubergiste_S05.17	Clients_S05.17	Serveuses_S05.17	Thorgal Aegirsson
+S05	18	1	18	1
+S05	18	2	18	2
+S05	18	3	18	3
+S05	18	4	18	4
+S05	18	5	18	5
+S05	18	6	18	6	Vigrid
+S05	18	7	18	7	Vigrid
+S05	18	8	18	8
+S05	18	9	18	9
+S05	19	1	19	1
+S05	19	2	19	2
+S05	19	3	19	3	Serpent géant_S05.19
+S05	19	4	19	4	Serpent géant_S05.19
+S05	19	5	19	5	Vigrid
+S05	19	6	19	6	Serpent géant_S05.19	Vigrid
+S05	19	7	19	7	Serpent géant_S05.19	Vigrid
+S05	20	1	20	1	Vigrid
+S05	20	2	20	2	Vigrid
+S05	20	3	20	3	Vigrid
+S05	20	4	20	4	Vigrid
+S05	20	5	20	5	Vigrid
+S05	20	6	20	6
+S05	20	7	20	7
+S05	20	8	20	8
+S05	21	1	21	1
+S05	21	2	21	2	Aubergiste_S05.17	Clients_S05.17	Serveuses_S05.17	Wojciech
+S05	21	3	21	3	Wojciech	Clients_S05.17
+S05	21	4	21	4	Thorgal Aegirsson
+S05	21	5	21	5	Clients_S05.17
+S05	21	6	21	6	Wojciech	Clients_S05.17
+S05	21	7	21	7	Clients_S05.17	Thorgal Aegirsson	Wojciech
+S05	21	8	21	8	Thorgal Aegirsson	Wojciech
+S05	22	1	22	1	Wojciech
+S05	22	2	22	2	Thorgal Aegirsson
+S05	22	3	22	3
+S05	22	4	22	4	Wojciech
+S05	22	5	22	5	Aubergiste_S05.17	Wojciech
+S05	22	6	22	6
+S05	22	7	22	7
+S05	23	1	23	1
+S05	23	2	23	2
+S05	23	3	23	3	Thorgal Aegirsson
+S05	23	4	23	4	Thorgal Aegirsson
+S05	23	5	23	5
+S05	23	6	23	6	Thorgal Aegirsson
+S05	23	7	23	7
+S05	24	1	24	1
+S05	24	2	24	2	Thorgal Aegirsson
+S05	24	3	24	3	Thorgal Aegirsson
+S05	24	4	24	4
+S05	24	5	24	5	Thorgal Aegirsson
+S05	24	6	24	6	Thorgal Aegirsson
+S05	24	7	24	7	Thorgal Aegirsson
+S05	24	8	24	8	Thorgal Aegirsson
+S05	25	1	25	1
+S05	25	2	25	2
+S05	25	3	25	3	Thorgal Aegirsson	Wojciech
+S05	25	4	25	4	Thorgal Aegirsson	Wojciech
+S05	25	5	25	5
+S05	25	6	25	6
+S05	26	1	26	1	Aaricia Gandalfsdottir
+S05	26	2	26	2	Aaricia Gandalfsdottir
+S05	26	3	26	3	Aaricia Gandalfsdottir
+S05	26	4	26	4	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	26	5	26	5	Aaricia Gandalfsdottir
+S05	26	6	26	6	Aaricia Gandalfsdottir
+S05	26	7	26	7	Aaricia Gandalfsdottir	Voisine_S05.26
+S05	27	1	27	1	Aaricia Gandalfsdottir	Voisine_S05.26
+S05	27	2	27	2
+S05	27	3	27	3
+S05	27	4	27	4	Aaricia Gandalfsdottir
+S05	27	5	27	5	Aaricia Gandalfsdottir
+S05	27	6	27	6
+S05	27	7	27	7	Vigrid
+S05	27	8	27	8	Aaricia Gandalfsdottir
+S05	27	9	27	9	Aaricia Gandalfsdottir
+S05	27	10	27	10	Aaricia Gandalfsdottir
+S05	28	1	28	1	Thorgal Aegirsson
+S05	28	2	28	2
+S05	28	3	28	3
+S05	28	4	28	4
+S05	29	1	29	1
+S05	29	2	29	2	Thorgal Aegirsson
+S05	29	3	29	3	Thorgal Aegirsson	Wojciech
+S05	29	4	29	4	Thorgal Aegirsson	Wojciech
+S05	29	5	29	5	Thorgal Aegirsson	Wojciech
+S05	29	6	29	6
+S05	29	7	29	7	Thorgal Aegirsson	Wojciech
+S05	29	8	29	8
+S05	30	1	30	1	Thorgal Aegirsson	Wojciech
+S05	30	2	30	2	Thorgal Aegirsson	Wojciech
+S05	30	3	30	3	Thorgal Aegirsson	Wojciech
+S05	30	4	30	4
+S05	30	5	30	5	Thorgal Aegirsson	Wojciech
+S05	30	6	30	6
+S05	31	1	31	1
+S05	31	2	31	2	Jolan Thorgalsson	Muff
+S05	31	3	31	3	Muff
+S05	31	4	31	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S05	31	5	31	5	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S05	31	6	31	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S05	31	7	31	7	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S05	31	8	31	8	Aaricia Gandalfsdottir
+S05	32	1	32	1
+S05	32	2	32	2	Wojciech	Servant_S05.32
+S05	32	3	32	3	Roi de Proklet_S05.32	Wojciech
+S05	32	4	32	4	Roi de Proklet_S05.32	Wojciech
+S05	32	5	32	5	Wojciech
+S05	32	6	32	6	Roi de Proklet_S05.32
+S05	32	7	32	7	Roi de Proklet_S05.32
+S05	32	8	32	8	Roi de Proklet_S05.32
+S05	32	9	32	9	Roi de Proklet_S05.32
+S05	32	10	32	10	Roi de Proklet_S05.32	Wojciech
+S05	33	1	33	1
+S05	33	2	33	2	Aaricia Gandalfsdottir
+S05	33	3	33	3	Vigrid
+S05	33	4	33	4	Aaricia Gandalfsdottir
+S05	33	5	33	5	Aaricia Gandalfsdottir
+S05	33	6	33	6	Vigrid
+S05	33	7	33	7	Aaricia Gandalfsdottir
+S05	33	8	33	8	Aaricia Gandalfsdottir
+S05	34	1	34	1	Voisine_S05.26
+S05	34	2	34	2	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	34	3	34	3	Aaricia Gandalfsdottir
+S05	34	4	34	4	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	34	5	34	5	Vigrid	Voisine_S05.26
+S05	34	6	34	6	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	34	7	34	7	Voisine_S05.26
+S05	34	8	34	8	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	34	9	34	9
+S05	35	1	35	1	Aaricia Gandalfsdottir	Vigrid
+S05	35	2	35	2	Aaricia Gandalfsdottir	Vigrid
+S05	35	3	35	3
+S05	35	4	35	4	Vigrid
+S05	35	5	35	5	Vigrid
+S05	35	6	35	6	Vigrid
+S05	35	7	35	7	Vigrid
+S05	35	8	35	8	Aaricia Gandalfsdottir	Vigrid
+S05	35	9	35	9	Aaricia Gandalfsdottir	Vigrid
+S05	36	1	36	1
+S05	36	2	36	2	Thorgal Aegirsson
+S05	36	3	36	3	Thorgal Aegirsson
+S05	36	4	36	4	Thorgal Aegirsson
+S05	36	5	36	5	Wojciech
+S05	36	6	36	6	Wojciech
+S05	36	7	36	7	Wojciech
+S05	36	8	36	8	Thorgal Aegirsson	Wojciech
+S05	36	9	36	9	Thorgal Aegirsson
+S05	37	1	37	1	Shaniah	Thorgal Aegirsson
+S05	37	2	37	2	Shaniah
+S05	37	3	37	3	Thorgal Aegirsson
+S05	37	4	37	4	Thorgal Aegirsson
+S05	37	5	37	5	Shaniah
+S05	37	6	37	6
+S05	37	7	37	7	Thorgal Aegirsson
+S05	37	8	37	8	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	37	9	37	9	3 mercenaires_S05.27
+S05	38	1	38	1	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	2	38	2	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	3	38	3	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	4	38	4	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	5	38	5	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	6	38	6	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	7	38	7	3 mercenaires_S05.27	Thorgal Aegirsson
+S05	38	8	38	8	Roi de Proklet_S05.32
+S05	38	9	38	9	Roi de Proklet_S05.32
+S05	39	1	39	1	Roi de Proklet_S05.32	Wojciech
+S05	39	2	39	2	Roi de Proklet_S05.32	Wojciech
+S05	39	3	39	3
+S05	39	4	39	4	Roi de Proklet_S05.32	Wojciech
+S05	39	5	39	5	Roi de Proklet_S05.32
+S05	39	6	39	6	Wojciech
+S05	39	7	39	7	Wojciech
+S05	39	8	39	8	Wojciech
+S05	39	9	39	9	Thorgal Aegirsson	Villageois_S05.39	Wojciech
+S05	40	1	40	1	Thorgal Aegirsson	Wojciech
+S05	40	2	40	2	Thorgal Aegirsson	Wojciech
+S05	40	3	40	3	Thorgal Aegirsson	Wojciech
+S05	40	4	40	4
+S05	40	5	40	5	Thorgal Aegirsson	Wojciech
+S05	40	6	40	6	Thorgal Aegirsson	Wojciech
+S05	40	7	40	7	Thorgal Aegirsson	Wojciech
+S05	41	1	41	1	Soldats_S05.41	Wojciech	Compagnons_S05.41
+S05	41	2	41	2	Compagnons_S05.41	Prostituées_S05.41	Wojciech
+S05	41	3	41	3	Compagnons_S05.41	Wojciech
+S05	41	4	41	4
+S05	41	5	41	5	Gardes_S05.41
+S05	42	1	42	1	Aaricia Gandalfsdottir	Louve Thorgalsdottir
+S05	42	2	42	2	Aaricia Gandalfsdottir
+S05	42	3	42	3	Aaricia Gandalfsdottir	Vigrid
+S05	42	4	42	4	Vigrid
+S05	42	5	42	5	Aaricia Gandalfsdottir	Voisine_S05.26
+S05	42	6	42	6	Aaricia Gandalfsdottir	Vigrid	Voisine_S05.26
+S05	42	7	42	7
+S05	42	8	42	8	Aaricia Gandalfsdottir	Vigrid
+S05	42	9	42	9	Vigrid
+S05	43	1	43	1	Dieux_S05.43
+S05	43	2	43	2	Dieux_S05.43
+S05	43	3	43	3	Dieux_S05.43	Vigrid
+S05	43	4	43	4	Dieu brun_S05.43	Dieux_S05.43	Vigrid
+S05	43	5	43	5	Dieu brun_S05.43	Dieux_S05.43	Vigrid
+S05	43	6	43	6	Vigrid
+S05	43	7	43	7	Dieu brun_S05.43	Dieu moustachu_S05.43	Dieux_S05.43	Odin	Vigrid
+S05	43	8	43	8	Vigrid	Dieu moustachu_S05.43
+S05	44	1	44	1	Dieux_S05.43
+S05	44	2	44	2	Dieu brun_S05.43
+S05	44	3	44	3
+S05	44	4	44	4	Vigrid
+S05	44	5	44	5	Vigrid
+S05	44	6	44	6
+S05	44	7	44	7	Dieu brun_S05.43
+S05	44	8	44	8
+S05	44	9	44	9	Dieu brun_S05.43
+S05	45	1	45	1	Dieux_S05.43
+S05	45	2	45	2	Sæming	Vigrid	Dieux_S05.43
+S05	45	3	45	3	Dieu moustachu_S05.43	Dieux_S05.43	Sæming	Vigrid
+S05	45	4	45	4
+S05	45	5	45	5
+S05	45	6	45	6	Dieux_S05.43
+S05	45	7	45	7	Dieu moustachu_S05.43	Sæming	Vigrid
+S05	45	8	45	8	Sæming	Vigrid
+S05	45	9	45	9	Sæming
+S05	46	1	46	1	Dieux_S05.43	Odin	Sæming	Vigrid
+S05	46	2	46	2	Vigrid
+S05	46	3	46	3	Vigrid
+S05	46	4	46	4	Dieux_S05.43
+S05	46	5	46	5	Vigrid
+S05	46	6	46	6	Aaricia Gandalfsdottir	Vigrid
+S05	46	7	46	7	Aaricia Gandalfsdottir	Vigrid
+S05	46	8	46	8	Aaricia Gandalfsdottir	Vigrid
+S05	46	9	46	9	Aaricia Gandalfsdottir	Vigrid
+S05	46	10	46	10
+S05	46	11	46	11	Aaricia Gandalfsdottir
+S05	47	1	47	1	Thorgal Aegirsson
+S05	47	2	47	2	Thorgal Aegirsson
+S05	47	3	47	3	Thorgal Aegirsson
+S05	47	4	47	4
+S05	47	5	47	5
+S05	47	6	47	6	Thorgal Aegirsson
+S05	47	7	47	7
+S05	47	8	47	8
+S05	47	9	47	9
+S05	48	1	48	1	Thorgal Aegirsson	Wojciech
+S05	48	2	48	2	Thorgal Aegirsson	Wojciech
+S05	48	3	48	3	Thorgal Aegirsson	Wojciech
+S05	48	4	48	4	Thorgal Aegirsson	Wojciech
+S05	48	5	48	5
+S05	48	6	48	6	Thorgal Aegirsson	Wojciech
+S05	48	7	48	7
+S05	48	8	48	8	Thorgal Aegirsson	Wojciech
+S05	49	1	49	1	Foule_S05.49	Thorgal Aegirsson	Wojciech
+S05	49	2	49	2	Foule_S05.49	Roi de Proklet_S05.32	Yven
+S05	49	3	49	3	Foule_S05.49	Roi de Proklet_S05.32	Yven
+S05	49	4	49	4	Yven
+S05	49	5	49	5	Yven	Roi de Proklet_S05.32
+S05	49	6	49	6	Yven
+S05	50	1	50	1
+S05	50	2	50	2	Foule_S05.49	Roi de Proklet_S05.32
+S05	50	3	50	3	Foule_S05.49	Yven
+S05	50	4	50	4
+S05	50	5	50	5	Yven
+S05	51	1	51	1	Foule_S05.49	Yven
+S05	51	2	51	2	Roi de Proklet_S05.32
+S05	51	3	51	3
+S05	51	4	51	4	Thorgal Aegirsson	Wojciech
+S05	51	5	51	5	Yven
+S05	51	6	51	6
+S05	51	7	51	7
+S05	51	8	51	8
+S05	51	9	51	9	Foule_S05.49
+S05	51	10	51	10	Roi de Proklet_S05.32
+S05	52	1	52	1	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	52	2	52	2	Thorgal Aegirsson
+S05	52	3	52	3	Foule_S05.49	Thorgal Aegirsson
+S05	52	4	52	4	Foule_S05.49	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	52	5	52	5	Roi de Proklet_S05.32
+S05	52	6	52	6	Thorgal Aegirsson
+S05	52	7	52	7
+S05	52	8	52	8	Foule_S05.49	Thorgal Aegirsson
+S05	52	9	52	9	Foule_S05.49	Thorgal Aegirsson
+S05	52	10	52	10	Foule_S05.49	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	52	11	52	11	Foule_S05.49	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	53	1	53	1
+S05	53	2	53	2	Aaricia Gandalfsdottir	Vigrid
+S05	53	3	53	3	Aaricia Gandalfsdottir	Vigrid
+S05	53	4	53	4	Aaricia Gandalfsdottir	Vigrid
+S05	53	5	53	5	Vigrid
+S05	53	6	53	6	Aaricia Gandalfsdottir	Vigrid
+S05	53	7	53	7	Aaricia Gandalfsdottir	Vigrid
+S05	53	8	53	8	Aaricia Gandalfsdottir
+S05	53	9	53	9	Aaricia Gandalfsdottir
+S05	54	1	54	1	Aaricia Gandalfsdottir	Vigrid
+S05	54	2	54	2	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	54	3	54	3	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	54	4	54	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	54	5	54	5	Aaricia Gandalfsdottir
+S05	54	6	54	6	Jolan Thorgalsson
+S05	54	7	54	7	Vigrid	Jolan Thorgalsson
+S05	54	8	54	8	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	55	1	55	1	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	55	2	55	2	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	55	3	55	3
+S05	55	4	55	4	Aaricia Gandalfsdottir	Vigrid
+S05	55	5	55	5	Aaricia Gandalfsdottir	Vigrid
+S05	55	6	55	6	Jolan Thorgalsson
+S05	55	7	55	7	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	55	8	55	8	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	55	9	55	9	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	56	1	56	1	Cour du roi_S05.56	Lieutenant du roi_S05.56	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	56	2	56	2	Cour du roi_S05.56	Thorgal Aegirsson	Wojciech
+S05	56	3	56	3	Cour du roi_S05.56
+S05	56	4	56	4	Lieutenant du roi_S05.56
+S05	56	5	56	5	Lieutenant du roi_S05.56	Roi de Proklet_S05.32
+S05	56	6	56	6	Thorgal Aegirsson	Wojciech
+S05	56	7	56	7	Roi de Proklet_S05.32
+S05	56	8	56	8	Thorgal Aegirsson	Wojciech
+S05	57	1	57	1	Thorgal Aegirsson
+S05	57	2	57	2
+S05	57	3	57	3	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	57	4	57	4	Thorgal Aegirsson	Wojciech
+S05	57	5	57	5	Thorgal Aegirsson	Wojciech
+S05	57	6	57	6	Cour du roi_S05.56	Lieutenant du roi_S05.56	Roi de Proklet_S05.32
+S05	57	7	57	7	Cour du roi_S05.56	Lieutenant du roi_S05.56	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	58	1	58	1	Vigrid
+S05	58	2	58	2	Vigrid
+S05	58	3	58	3	Vigrid
+S05	58	4	58	4	3 brutes_S05.58	Vigrid
+S05	58	5	58	5	3 brutes_S05.58	Jolan Thorgalsson
+S05	58	6	58	6
+S05	58	7	58	7	3 brutes_S05.58	Jolan Thorgalsson
+S05	58	8	58	8	Vigrid
+S05	59	1	59	1	3 brutes_S05.58	Jolan Thorgalsson
+S05	59	2	59	2	3 brutes_S05.58	Jolan Thorgalsson	Vigrid
+S05	59	3	59	3	3 brutes_S05.58	Vigrid
+S05	59	4	59	4	Vigrid
+S05	59	5	59	5	Vigrid
+S05	59	6	59	6	Jolan Thorgalsson
+S05	59	7	59	7	Jolan Thorgalsson	Vigrid
+S05	59	8	59	8	Jolan Thorgalsson	Vigrid
+S05	59	9	59	9
+S05	60	1	60	1
+S05	60	2	60	2	Jolan Thorgalsson
+S05	60	3	60	3	Jolan Thorgalsson
+S05	60	4	60	4	Jolan Thorgalsson	Vigrid
+S05	60	5	60	5	Vigrid
+S05	61	1	61	1	Jolan Thorgalsson	Vigrid
+S05	61	2	61	2	Jolan Thorgalsson	Vigrid
+S05	61	3	61	3	Jolan Thorgalsson
+S05	61	4	61	4	Jolan Thorgalsson	Vigrid
+S05	61	5	61	5
+S05	61	6	61	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	61	7	61	7	Aaricia Gandalfsdottir	Vigrid
+S05	61	8	61	8	Aaricia Gandalfsdottir
+S05	61	9	61	9	Aaricia Gandalfsdottir
+S05	61	10	61	10	Vigrid
+S05	62	1	62	1	Wojciech
+S05	62	2	62	2
+S05	62	3	62	3	Thorgal Aegirsson	Wojciech
+S05	62	4	62	4	Thorgal Aegirsson	Wojciech
+S05	62	5	62	5	Thorgal Aegirsson
+S05	62	6	62	6	Thorgal Aegirsson	Wojciech
+S05	62	7	62	7	Thorgal Aegirsson
+S05	63	1	63	1	Thorgal Aegirsson
+S05	63	2	63	2	Thorgal Aegirsson
+S05	63	3	63	3	Shaniah
+S05	63	4	63	4	Shaniah
+S05	63	5	63	5	Shaniah
+S05	63	6	63	6	Thorgal Aegirsson
+S05	63	7	63	7	Shaniah
+S05	63	8	63	8
+S05	64	1	64	1
+S05	64	2	64	2	Shaniah
+S05	64	3	64	3	Shaniah
+S05	64	4	64	4	Shaniah
+S05	64	5	64	5
+S05	64	6	64	6	Shaniah	Thorgal Aegirsson	Wojciech
+S05	64	7	64	7	Shaniah	Thorgal Aegirsson	Wojciech
+S05	64	8	64	8	Thorgal Aegirsson
+S05	64	9	64	9	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	1	65	1	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	2	65	2	Gardes_S05.65	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	3	65	3	Gardes_S05.65	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	4	65	4	Gardes_S05.65	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	5	65	5	Gardes_S05.65	Shaniah	Thorgal Aegirsson
+S05	65	6	65	6	Gardes_S05.65	Shaniah	Thorgal Aegirsson	Wojciech
+S05	65	7	65	7	Gardes_S05.65	Thorgal Aegirsson
+S05	65	8	65	8	Shaniah	Wojciech	Gardes_S05.65
+S05	65	9	65	9	Thorgal Aegirsson
+S05	65	10	65	10	Gardes_S05.65	Shaniah
+S05	66	1	66	1	Gardes_S05.65	Thorgal Aegirsson
+S05	66	2	66	2	Gardes_S05.65
+S05	66	3	66	3	Thorgal Aegirsson
+S05	66	4	66	4	Thorgal Aegirsson	Shaniah
+S05	66	5	66	5	Shaniah
+S05	66	6	66	6	Shaniah	Thorgal Aegirsson	Wojciech
+S05	66	7	66	7
+S05	66	8	66	8	Gardes_S05.66.1	Shaniah	Thorgal Aegirsson	Wojciech
+S05	66	9	66	9	Gardes_S05.66.2
+S05	66	10	66	10	Shaniah	Thorgal Aegirsson	Wojciech
+S05	67	1	67	1	Shaniah	Thorgal Aegirsson	Wojciech
+S05	67	2	67	2	Shaniah	Wojciech
+S05	67	3	67	3	Cour du roi_S05.67	Shaniah	Thorgal Aegirsson	Wojciech
+S05	67	4	67	4	Thorgal Aegirsson	Wojciech
+S05	67	5	67	5	Thorgal Aegirsson
+S05	67	6	67	6
+S05	67	7	67	7	Thorgal Aegirsson
+S05	68	1	68	1
+S05	68	2	68	2	Jolan Thorgalsson	Vigrid
+S05	68	3	68	3	Jolan Thorgalsson	Vigrid
+S05	68	4	68	4	Jolan Thorgalsson
+S05	68	5	68	5	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	68	6	68	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	68	7	68	7	Aaricia Gandalfsdottir	Vigrid
+S05	68	8	68	8	Aaricia Gandalfsdottir	Vigrid
+S05	69	1	69	1	Vigrid
+S05	69	2	69	2	Aaricia Gandalfsdottir	Vigrid
+S05	69	3	69	3	Aaricia Gandalfsdottir
+S05	69	4	69	4	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	69	5	69	5	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	69	6	69	6	Aaricia Gandalfsdottir	Jolan Thorgalsson	Vigrid
+S05	69	7	69	7	Vigrid	Jolan Thorgalsson
+S05	69	8	69	8
+S05	69	9	69	9	Aaricia Gandalfsdottir	Jolan Thorgalsson
+S05	69	10	69	10
+S05	70	1	70	1	Shaniah	Thorgal Aegirsson	Wojciech
+S05	70	2	70	2
+S05	70	3	70	3	Wojciech
+S05	70	4	70	4	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	70	5	70	5	Roi de Proklet_S05.32
+S05	70	6	70	6	Roi de Proklet_S05.32	Thorgal Aegirsson	Wojciech
+S05	70	7	70	7	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	70	8	70	8	Roi de Proklet_S05.32	Shaniah	Thorgal Aegirsson
+S05	71	1	71	1	Gardes_S05.71	Thorgal Aegirsson	Wojciech	Shaniah	Roi de Proklet_S05.32
+S05	71	2	71	2	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	71	3	71	3	Gardes_S05.71	Thorgal Aegirsson	Wojciech	Roi de Proklet_S05.32
+S05	71	4	71	4	Thorgal Aegirsson	Shaniah	Roi de Proklet_S05.32
+S05	71	5	71	5	Roi de Proklet_S05.32	Shaniah	Thorgal Aegirsson	Wojciech
+S05	71	6	71	6	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	72	1	72	1	Wojciech
+S05	72	2	72	2	Wojciech
+S05	72	3	72	3	Wojciech
+S05	72	4	72	4
+S05	72	5	72	5
+S05	73	1	73	1	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	73	2	73	2
+S05	74	1	74	1	Roi de Proklet_S05.32	Thorgal Aegirsson
+S05	74	2	74	2	Roi de Proklet_S05.32
+S05	74	3	74	3	Roi de Proklet_S05.32
+S05	74	4	74	4
+S05	74	5	74	5	Roi de Proklet_S05.32
+S05	74	6	74	6
+S05	74	7	74	7	Roi de Proklet_S05.32
+S05	74	8	74	8	Thorgal Aegirsson	Wojciech
+S05	74	9	74	9	Thorgal Aegirsson
+S05	74	10	74	10	Shaniah
+S05	75	1	75	1	Wojciech
+S05	75	2	75	2	Shaniah	Thorgal Aegirsson	Wojciech
+S05	75	3	75	3	Shaniah
+S05	75	4	75	4	Shaniah	Thorgal Aegirsson	Wojciech
+S05	75	5	75	5	Shaniah	Thorgal Aegirsson	Wojciech
+S05	75	6	75	6	Villageois_S05.75
+S05	75	7	75	7	Villageois_S05.75
+S05	75	8	75	8	Villageois_S05.75
+S05	76	1	76	1
+S05	76	2	76	2	Shaniah	Thorgal Aegirsson	Wojciech
+S05	76	3	76	3	Shaniah	Thorgal Aegirsson	Villageois_S05.75	Wojciech
+S05	76	4	76	4	Thorgal Aegirsson	Villageois_S05.75
+S05	76	5	76	5
+S05	76	6	76	6	Villageois_S05.75
+S05	76	7	76	7	Vigrid
+S05	77	1	77	1	Shaniah	Thorgal Aegirsson	Vigrid	Villageois_S05.75	Wojciech
+S05	77	2	77	2	Thorgal Aegirsson
+S05	77	3	77	3
+S05	77	4	77	4	Shaniah	Thorgal Aegirsson	Vigrid
+S05	77	5	77	5	Shaniah	Thorgal Aegirsson	Wojciech
+S05	77	6	77	6	Vigrid
+S05	77	7	77	7	Vigrid
+S05	78	1	78	1	Vigrid
+S05	78	2	78	2	Vigrid
+S05	78	3	78	3	Vigrid
+S05	78	4	78	4	Shaniah	Thorgal Aegirsson	Vigrid	Wojciech
+S05	78	5	78	5	Shaniah	Vigrid
+S05	79	1	79	1	Shaniah	Thorgal Aegirsson	Vigrid
+S05	79	2	79	2	Shaniah	Thorgal Aegirsson	Vigrid
+S05	79	3	79	3	Vigrid
+S05	79	4	79	4	Shaniah	Thorgal Aegirsson	Vigrid	Wojciech
+S05	79	5	79	5	Shaniah	Thorgal Aegirsson	Vigrid	Wojciech
+S05	79	6	79	6	Shaniah	Wojciech
+S05	79	7	79	7	Shaniah	Thorgal Aegirsson	Wojciech
+S05	79	8	79	8	Thorgal Aegirsson	Vigrid	Wojciech
+S05	80	1	80	1	Shaniah	Thorgal Aegirsson	Wojciech
+S05	80	2	80	2	Thorgal Aegirsson
+S05	80	3	80	3	Wojciech
+S05	80	4	80	4	Wojciech
+S05	80	5	80	5	Shaniah
+S05	80	6	80	6
+S05	80	7	80	7	Shaniah	Thorgal Aegirsson	Vigrid	Wojciech
+S05	80	8	80	8	Shaniah	Thorgal Aegirsson	Wojciech
+S05	80	9	80	9	Thorgal Aegirsson
+S05	80	10	80	10	Vigrid	Thorgal Aegirsson
+S05	80	11	80	11
+S05	81	1	81	1	Thorgal Aegirsson	Vigrid
+S05	81	2	81	2	Thorgal Aegirsson	Vigrid
+S05	81	3	81	3	Thorgal Aegirsson	Vigrid
+S05	81	4	81	4	Vigrid
+S05	81	5	81	5	Vigrid
+S05	81	6	81	6	Vigrid
+S05	81	7	81	7
+S05	81	8	81	8
+S05	81	9	81	9
+S05	81	10	81	10	Vigrid
+S05	82	1	82	1	Thorgal Aegirsson
+S05	82	2	82	2	Thorgal Aegirsson
+S05	82	3	82	3	Thorgal Aegirsson
+S05	82	4	82	4	Thorgal Aegirsson
+S05	82	5	82	5	Fermiers_S05.82	Thorgal Aegirsson
+S05	82	6	82	6	Fermiers_S05.82	Thorgal Aegirsson
+S05	82	7	82	7	Thorgal Aegirsson
+T43	3	1	3	1
+T43	3	2	3	2
+T43	3	3	3	3
+T43	3	4	3	4
+T43	3	5	3	5	Boréale
+T43	3	6	3	6	Boréale
+T43	3	7	3	7	Braconnier foulard_T43.3	Braconnier roux_T43.3
+T43	4	1	4	1	Braconnier foulard_T43.3	Braconnier roux_T43.3
+T43	4	2	4	2	Boréale
+T43	4	3	4	3	Braconnier foulard_T43.3	Braconnier roux_T43.3
+T43	4	4	4	4	Boréale
+T43	4	5	4	5	Braconnier foulard_T43.3	Braconnier roux_T43.3
+T43	4	6	4	6	Braconnier-chef_T43.4
+T43	4	7	4	7	Braconniers_T43.4	Braconnier-chef_T43.4
+T43	5	1	5	1	Boréale	Braconnier-chef_T43.4
+T43	5	2	5	2	Boréale	Braconnier-chef_T43.4	Braconnier foulard_T43.3	Braconnier roux_T43.3
+T43	5	3	5	3	Boréale	Braconnier-chef_T43.4
+T43	5	4	5	4	Boréale	Braconnier-chef_T43.4
+T43	5	5	5	5	Boréale	Braconnier-chef_T43.4
+T43	5	6	5	6	Boréale
+T43	5	7	5	7
+T43	5	8	5	8	Boréale
+T43	6	1	6	1	Braconniers_T43.4
+T43	6	2	6	2	Braconnier-chef_T43.4
+T43	6	3	6	3	Boréale	Braconnier-chef_T43.4
+T43	6	4	6	4	Boréale	Braconnier-chef_T43.4
+T43	6	5	6	5	Akwila	Braconnier-chef_T43.4
+T43	6	6	6	6	Boréale
+T43	6	7	6	7	Boréale	Braconniers_T43.4
+T43	6	8	6	8	Braconniers_T43.4
+T43	6	9	6	9	Braconniers_T43.4
+T43	7	1	7	1	Thorgal Aegirsson
+T43	7	2	7	2	Boréale	Braconniers_T43.4	Thorgal Aegirsson
+T43	7	3	7	3	Braconniers_T43.4	Thorgal Aegirsson
+T43	7	4	7	4	Braconniers_T43.4	Thorgal Aegirsson
+T43	7	5	7	5	Boréale	Braconniers_T43.4	Thorgal Aegirsson
+T43	7	6	7	6
+T43	7	7	7	7	Boréale	Braconniers_T43.4	Thorgal Aegirsson
+T43	7	8	7	8	Boréale	Braconniers_T43.4	Thorgal Aegirsson
+T43	8	1	8	1	Boréale	Braconniers_T43.4	Gardes_T43.8	Thorgal Aegirsson
+T43	8	2	8	2	Gardes_T43.8
+T43	8	3	8	3	Boréale	Braconniers_T43.4	Thorgal Aegirsson
+T43	8	4	8	4	Boréale	Braconniers_T43.4	Gardes_T43.8	Thorgal Aegirsson
+T43	8	5	8	5	Gardes_T43.8
+T43	8	6	8	6	Boréale	Braconniers_T43.4	Gardes_T43.8	Thorgal Aegirsson
+T43	8	7	8	7	Thorgal Aegirsson
+T43	8	8	8	8	Thorgal Aegirsson
+T43	9	1	9	1
+T43	9	2	9	2	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	9	3	9	3	Aniel de Valnor
+T43	9	4	9	4	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	9	5	9	5	Aniel de Valnor
+T43	9	6	9	6	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	10	1	10	1	Aniel de Valnor	Fils Bouheddi bleu
+T43	10	2	10	2
+T43	10	3	10	3	Aniel de Valnor
+T43	10	4	10	4	Aniel de Valnor
+T43	10	5	10	5	Aniel de Valnor
+T43	10	6	10	6
+T43	10	7	10	7	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	10	8	10	8	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	10	9	10	9	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	10	10	10	10	Aniel de Valnor
+T43	11	1	11	1
+T43	11	2	11	2	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	11	3	11	3	Bjorn_T43.11
+T43	11	4	11	4	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	11	5	11	5	Bjorn_T43.11
+T43	11	6	11	6	Boréale	Thorgal Aegirsson
+T43	12	1	12	1	Villageois_T43.12
+T43	12	2	12	2	Aniel de Valnor
+T43	12	3	12	3	Aniel de Valnor	Pallas
+T43	12	4	12	4	Aniel de Valnor
+T43	12	5	12	5	Aniel de Valnor	Pallas
+T43	12	6	12	6	Aniel de Valnor	Pallas
+T43	12	7	12	7	Aniel de Valnor
+T43	12	8	12	8	Aniel de Valnor	Pallas
+T43	12	9	12	9	Aniel de Valnor
+T43	13	1	13	1	Thorgal Aegirsson
+T43	13	2	13	2	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	13	3	13	3	Boréale	Thorgal Aegirsson
+T43	13	4	13	4	Boréale	Thorgal Aegirsson
+T43	13	5	13	5	Boréale
+T43	13	6	13	6
+T43	13	7	13	7	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	13	8	13	8
+T43	13	9	13	9	Thorgal Aegirsson
+T43	14	1	14	1	Aniel de Valnor	Fées rêvées_T43.14
+T43	14	2	14	2	Aniel de Valnor	Fées rêvées_T43.14
+T43	14	3	14	3
+T43	14	4	14	4	Aniel de Valnor	Fées rêvées_T43.14
+T43	14	5	14	5	Aniel de Valnor
+T43	14	6	14	6	Aniel de Valnor
+T43	14	7	14	7	Aniel de Valnor
+T43	15	1	15	1
+T43	15	2	15	2	Aniel de Valnor	Pallas
+T43	15	3	15	3	Pallas
+T43	15	4	15	4	Aniel de Valnor	Pallas
+T43	15	5	15	5	Pallas
+T43	15	6	15	6
+T43	15	7	15	7	Aniel de Valnor	Pallas
+T43	15	8	15	8	Aniel de Valnor	Pallas
+T43	16	1	16	1
+T43	16	2	16	2	Jolan Thorgalsson
+T43	16	3	16	3	Jolan Thorgalsson
+T43	16	4	16	4	Jolan Thorgalsson	Kriss de Valnor
+T43	16	5	16	5	Jolan Thorgalsson
+T43	16	6	16	6	Jolan Thorgalsson
+T43	16	7	16	7	Kriss de Valnor
+T43	17	1	17	1	Rolf	Serviteur_T43.17	Soldats_T43.17	Thorfinn
+T43	17	2	17	2	Serviteur_T43.17
+T43	17	3	17	3	Rolf
+T43	17	4	17	4	Rolf	Serviteur_T43.17	Thorfinn
+T43	17	5	17	5	Rolf	Serviteur_T43.17	Thorfinn
+T43	17	6	17	6	Rolf	Soldats_T43.17	Thorfinn
+T43	17	7	17	7	Rolf
+T43	18	1	18	1	Aaricia Gandalfsdottir	Arisön	Jolan Thorgalsson	Kriss de Valnor
+T43	18	2	18	2	Arisön	Jolan Thorgalsson	Kriss de Valnor
+T43	18	3	18	3	Kriss de Valnor
+T43	18	4	18	4	Aaricia Gandalfsdottir	Arisön	Jolan Thorgalsson	Kriss de Valnor
+T43	18	5	18	5	Kriss de Valnor
+T43	18	6	18	6	Aaricia Gandalfsdottir	Arisön
+T43	18	7	18	7	Arisön
+T43	18	8	18	8	Aaricia Gandalfsdottir
+T43	19	1	19	1	3 soldats_T43.19
+T43	19	2	19	2	3 soldats_T43.19	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	19	3	19	3	3 soldats_T43.19
+T43	19	4	19	4	3 soldats_T43.19	Boréale
+T43	19	5	19	5	3 soldats_T43.19
+T43	19	6	19	6	3 soldats_T43.19
+T43	19	7	19	7	3 soldats_T43.19	Boréale	Thorgal Aegirsson
+T43	19	8	19	8	3 soldats_T43.19
+T43	19	9	19	9	3 soldats_T43.19	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	20	1	20	1	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	20	2	20	2	Boréale	Thorgal Aegirsson
+T43	20	3	20	3	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	20	4	20	4
+T43	20	5	20	5	Boréale	Bjorn_T43.11	Thorgal Aegirsson
+T43	20	6	20	6	Bjorn_T43.11
+T43	20	7	20	7	Boréale	Thorgal Aegirsson
+T43	20	8	20	8	Bjorn_T43.11	Thorgal Aegirsson
+T43	20	9	20	9	Boréale	Thorgal Aegirsson
+T43	20	10	20	10	Boréale
+T43	21	1	21	1	3 soldats_T43.19
+T43	21	2	21	2
+T43	21	3	21	3	Bjorn_T43.11	Soldats_T43.21	Thorgal Aegirsson
+T43	21	4	21	4	Soldats_T43.21
+T43	21	5	21	5	Bjorn_T43.11	Thorgal Aegirsson
+T43	21	6	21	6	Thorgal Aegirsson
+T43	21	7	21	7	Rolf	Soldats_T43.21	Thorfinn
+T43	21	8	21	8	Rolf
+T43	21	9	21	9	Rolf	Soldats_T43.21	Thorfinn
+T43	22	1	22	1	Aniel de Valnor	Fées rêvées_T43.14
+T43	22	2	22	2	Aniel de Valnor	Fées rêvées_T43.14
+T43	22	3	22	3	Aniel de Valnor	Fées rêvées_T43.14
+T43	22	4	22	4	Aniel de Valnor	Pallas
+T43	22	5	22	5	Aniel de Valnor	Pallas
+T43	22	6	22	6	Aniel de Valnor	Fées rêvées_T43.14
+T43	22	7	22	7	Aniel de Valnor
+T43	23	1	23	1	Aniel de Valnor
+T43	23	2	23	2	Aniel de Valnor	Pallas
+T43	23	3	23	3	Pallas
+T43	23	4	23	4	Aniel de Valnor	Pallas
+T43	23	5	23	5	Aniel de Valnor	Pallas
+T43	23	6	23	6	Pallas
+T43	23	7	23	7	Aniel de Valnor	Pallas
+T43	23	8	23	8	Aniel de Valnor	Pallas
+T43	24	1	24	1	Soldats_T43.21
+T43	24	2	24	2	Soldats_T43.21
+T43	24	3	24	3	Soldats_T43.21	Thorgal Aegirsson
+T43	24	4	24	4	Soldats_T43.21	Thorgal Aegirsson
+T43	24	5	24	5	Thorgal Aegirsson
+T43	24	6	24	6	Thorgal Aegirsson
+T43	24	7	24	7	Thorgal Aegirsson
+T43	25	1	25	1	Pallas
+T43	25	2	25	2	Pallas
+T43	25	3	25	3	Pallas	Rolf
+T43	25	4	25	4
+T43	25	5	25	5
+T43	25	6	25	6	Pallas	Rolf
+T43	25	7	25	7	Pallas
+T43	25	8	25	8	Pallas	Rolf
+T43	25	9	25	9	Rolf
+T43	26	1	26	1	Rolf
+T43	26	2	26	2	Pallas
+T43	26	3	26	3	Pallas	Rolf
+T43	26	4	26	4
+T43	26	5	26	5	Pallas	Rolf
+T43	26	6	26	6	Pallas	Rolf
+T43	26	7	26	7	Rolf
+T43	26	8	26	8	Pallas	Rolf
+T43	26	9	26	9	Rolf
+T43	26	10	26	10	Pallas
+T43	27	1	27	1	Aniel de Valnor	Pallas
+T43	27	2	27	2	Alix Bouheddi	Fils Bouheddi bleu	Fils Bouheddi vert
+T43	27	3	27	3	Alix Bouheddi
+T43	27	4	27	4	Aniel de Valnor	Pallas
+T43	27	5	27	5	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert	Pallas
+T43	27	6	27	6	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu
+T43	27	7	27	7	Alix Bouheddi	Aniel de Valnor	Fils Bouheddi bleu	Fils Bouheddi vert	Pallas
+T43	27	8	27	8	Röhtsen
+T43	27	9	27	9	Aniel de Valnor
+T43	28	1	28	1	Aniel de Valnor
+T43	28	2	28	2	Aniel de Valnor	Arisön	Gardes_T43.28	Kriss de Valnor	Pallas
+T43	28	3	28	3	Aniel de Valnor	Arisön	Gardes_T43.28	Kriss de Valnor	Pallas	Röhtsen
+T43	28	4	28	4	Kriss de Valnor
+T43	28	5	28	5	Pallas
+T43	28	6	28	6	Aniel de Valnor	Kriss de Valnor
+T43	28	7	28	7
+T43	28	8	28	8	Aniel de Valnor
+T43	29	1	29	1
+T43	29	2	29	2	Assistants de Zumézil_T43.29	Brigands_T43.29	Zumézil
+T43	29	3	29	3	Assistants de Zumézil_T43.29	Brigands_T43.29	Zumézil
+T43	29	4	29	4	Brigands_T43.29
+T43	29	5	29	5	Assistants de Zumézil_T43.29	Brigands_T43.29	Zumézil
+T43	29	6	29	6	Assistants de Zumézil_T43.29	Brigands_T43.29	Zumézil
+T43	29	7	29	7	Brigands_T43.29	Zumézil
+T43	29	8	29	8	Brigands_T43.29	Zumézil
+T43	30	1	30	1	Assistants de Zumézil_T43.29	Brigands_T43.29	Thorgal Aegirsson	Zumézil
+T43	30	2	30	2	Brigands_T43.29
+T43	30	3	30	3	Brigands_T43.29
+T43	30	4	30	4	Thorgal Aegirsson	Brigands_T43.29
+T43	30	5	30	5	Thorgal Aegirsson
+T43	30	6	30	6	Thorgal Aegirsson
+T43	30	7	30	7	Thorgal Aegirsson
+T43	30	8	30	8	Assistants de Zumézil_T43.29	Thorgal Aegirsson	Zumézil
+T43	30	9	30	9	Thorgal Aegirsson
+T43	31	1	31	1	Aniel de Valnor	Arisön	Gardes_T43.31	Kriss de Valnor	Pallas
+T43	31	2	31	2	Aniel de Valnor	Kriss de Valnor
+T43	31	3	31	3	Boréale	Aniel de Valnor	Gardes_T43.31	Kriss de Valnor
+T43	31	4	31	4	Boréale
+T43	31	5	31	5	Boréale	Arisön
+T43	31	6	31	6	Boréale	Aniel de Valnor	Arisön	Kriss de Valnor
+T43	31	7	31	7	Kriss de Valnor
+T43	31	8	31	8	Boréale
+T43	31	9	31	9	Aniel de Valnor
+T43	32	1	32	1	Boréale
+T43	32	2	32	2	Boréale	Aniel de Valnor	Arisön	Kriss de Valnor	Pallas
+T43	32	3	32	3	Boréale	Aniel de Valnor	Arisön
+T43	32	4	32	4	Pallas
+T43	32	5	32	5	Kriss de Valnor
+T43	32	6	32	6	Aniel de Valnor
+T43	32	7	32	7	Boréale	Kriss de Valnor
+T43	32	8	32	8	Boréale	Kriss de Valnor
+T43	32	9	32	9	Boréale	Aniel de Valnor	Arisön	Gardes_T43.31	Kriss de Valnor	Pallas	Röhtsen
+T43	32	10	32	10	Rolf	Soldats_T43.21
+T43	33	1	33	1	Boréale	Aniel de Valnor	Arisön	Gardes_T43.31	Kriss de Valnor	Pallas
+T43	33	2	33	2
+T43	33	3	33	3	Boréale	Pallas
+T43	33	4	33	4	Aniel de Valnor	Gardes_T43.31	Rolf	Zumézil
+T43	33	5	33	5	Boréale	Aniel de Valnor	Arisön	Assistants de Zumézil_T43.29	Gardes_T43.31	Kriss de Valnor	Pallas	Rolf	Zumézil
+T43	33	6	33	6	Aniel de Valnor	Rolf	Zumézil
+T43	33	7	33	7	Thorgal Aegirsson	Zumézil	Assistants de Zumézil_T43.29
+T43	33	8	33	8	Aniel de Valnor
+T43	33	9	33	9	Gardes_T43.31	Rolf
+T43	34	1	34	1	Gardes_T43.31	Aniel de Valnor	Rolf	Thorgal Aegirsson
+T43	34	2	34	2	Rolf
+T43	34	3	34	3	Aniel de Valnor	Rolf	Thorgal Aegirsson
+T43	34	4	34	4	Gardes_T43.31	Aniel de Valnor	Rolf	Thorgal Aegirsson
+T43	34	5	34	5	Thorgal Aegirsson
+T43	34	6	34	6	Gardes_T43.31	Aniel de Valnor	Rolf	Thorgal Aegirsson
+T43	34	7	34	7	Aniel de Valnor	Rolf
+T43	34	8	34	8	Aniel de Valnor	Gardes_T43.31	Röhtsen	Thorgal Aegirsson
+T43	34	9	34	9	Aniel de Valnor
+T43	35	1	35	1	Aniel de Valnor
+T43	35	2	35	2	Aniel de Valnor	Gardes_T43.31	Kriss de Valnor	Rolf	Thorgal Aegirsson	Zumézil
+T43	35	3	35	3	Aniel de Valnor	Gardes_T43.31	Kriss de Valnor	Rolf
+T43	35	4	35	4	Boréale	Aniel de Valnor	Arisön	Gardes_T43.31	Kriss de Valnor	Pallas	Rolf	Thorgal Aegirsson	Zumézil
+T43	35	5	35	5	Aniel de Valnor	Arisön	Kriss de Valnor	Pallas
+T43	35	6	35	6	Boréale	Aniel de Valnor	Assistants de Zumézil_T43.29	Kriss de Valnor	Thorgal Aegirsson	Zumézil
+T43	35	7	35	7	Boréale	Aniel de Valnor	Kriss de Valnor	Thorgal Aegirsson
+T43	35	8	35	8	Boréale	Aniel de Valnor	Arisön	Gardes_T43.31	Kriss de Valnor	Thorgal Aegirsson
+T43	35	9	35	9	Boréale	Thorgal Aegirsson
+T43	36	1	36	1	Pallas	Rolf
+T43	36	2	36	2	Pallas	Rolf
+T43	36	3	36	3	Pallas
+T43	36	4	36	4	Pallas
+T43	36	5	36	5	Pallas
+T43	36	6	36	6	Pallas
+T43	36	7	36	7	Pallas	Rolf
+T43	36	8	36	8	Pallas	Rolf
+T43	36	9	36	9	Pallas	Rolf
+T43	37	1	37	1	Rolf
+T43	37	2	37	2	Pallas	Rolf
+T43	37	3	37	3	Pallas	Rolf
+T43	37	4	37	4
+T43	37	5	37	5	Pallas	Rolf
+T43	37	6	37	6	Pallas	Rolf
+T43	37	7	37	7
+T43	37	8	37	8	Pallas	Rolf
+T43	37	9	37	9
+T43	37	10	37	10	Pallas	Rolf
+T43	38	1	38	1
+T43	38	2	38	2	Boréale	Garde_T43.38
+T43	38	3	38	3	Boréale	Garde_T43.38
+T43	38	4	38	4	Boréale	Garde_T43.38
+T43	38	5	38	5	Boréale
+T43	38	6	38	6
+T43	38	7	38	7	Boréale	Pallas
+T43	38	8	38	8	Boréale	Pallas
+T43	38	9	38	9	Boréale	Pallas
+T43	39	1	39	1	Boréale	Pallas
+T43	39	2	39	2	Boréale
+T43	39	3	39	3	Boréale	Pallas
+T43	39	4	39	4	Boréale
+T43	39	5	39	5	Boréale
+T43	39	6	39	6	Pallas
+T43	39	7	39	7	Boréale	Pallas
+T43	39	8	39	8	Boréale
+T43	39	9	39	9	Pallas
+T43	39	10	39	10	Boréale	Pallas
+T43	40	1	40	1
+T43	40	2	40	2	Boréale	Alix Bouheddi	Aniel de Valnor	Assistants de Zumézil_T43.29	Kriss de Valnor	Pallas	Zumézil
+T43	40	3	40	3	Assistants de Zumézil_T43.29	Alix Bouheddi	Aniel de Valnor	Zumézil
+T43	40	4	40	4	Assistants de Zumézil_T43.29	Rolf	Thorfinn
+T43	40	5	40	5	Assistants de Zumézil_T43.29	Rolf	Thorfinn	Aniel de Valnor
+T43	40	6	40	6	Rolf	Thorgal Aegirsson
+T43	40	7	40	7	Thorgal Aegirsson	Kriss de Valnor
+T43	40	8	40	8	Rolf	Thorgal Aegirsson
+T43	40	9	40	9	Rolf	Thorgal Aegirsson	Kriss de Valnor	Zumézil
+T43	41	1	41	1	Boréale	Assistants de Zumézil_T43.29	Kriss de Valnor	Pallas	Rolf	Thorfinn	Thorgal Aegirsson	Zumézil
+T43	41	2	41	2	Kriss de Valnor	Rolf	Thorfinn	Thorgal Aegirsson
+T43	41	3	41	3	Rolf	Thorgal Aegirsson
+T43	41	4	41	4	Rolf	Thorfinn
+T43	41	5	41	5	Thorfinn	Thorgal Aegirsson
+T43	41	6	41	6
+T43	41	7	41	7	Kriss de Valnor
+T43	41	8	41	8	Aniel de Valnor	Thorfinn
+T43	41	9	41	9	Aniel de Valnor	Kriss de Valnor	Thorfinn
+T43	42	1	42	1	Boréale	Alix Bouheddi	Assistants de Zumézil_T43.29	Pallas	Thorfinn	Thorgal Aegirsson	Zumézil
+T43	42	2	42	2
+T43	42	3	42	3
+T43	42	4	42	4
+T43	42	5	42	5
+T43	42	6	42	6
+T43	43	1	43	1	Boréale	Aniel de Valnor	Arisön	Assistants de Zumézil_T43.29	Kriss de Valnor	Pallas	Thorgal Aegirsson	Zumézil
+T43	43	2	43	2	Boréale	Alix Bouheddi	Aniel de Valnor	Arisön	Assistants de Zumézil_T43.29	Fils Bouheddi bleu	Fils Bouheddi vert	Kriss de Valnor	Pallas	Thorfinn	Thorgal Aegirsson	Zumézil
+T43	43	3	43	3	Thorfinn
+T43	43	4	43	4	Aniel de Valnor	Thorgal Aegirsson
+T43	43	5	43	5	Alix Bouheddi	Zumézil
+T43	43	6	43	6	Arisön	Kriss de Valnor
+T43	44	1	44	1	Aniel de Valnor	Thorgal Aegirsson
+T43	44	2	44	2	Boréale	Pallas
+T43	44	3	44	3	Boréale
+T43	44	4	44	4	Boréale	Pallas
+T43	44	5	44	5	Boréale	Pallas
+T43	44	6	44	6	Boréale	Pallas
+T43	44	7	44	7	Thorgal Aegirsson
+T43	44	8	44	8
+T43	44	9	44	9	Thorgal Aegirsson	Aniel de Valnor
+T43	45	1	45	1	Thorgal Aegirsson	Aniel de Valnor	Zumézil
+T43	45	2	45	2	Aniel de Valnor
+T43	45	3	45	3	Thorgal Aegirsson	Aniel de Valnor
+T43	45	4	45	4	Thorfinn	Pallas
+T43	45	5	45	5
+T43	45	6	45	6
+T43	45	7	45	7	Pallas	Alix Bouheddi	Aniel de Valnor	Assistants de Zumézil_T43.29	Thorgal Aegirsson	Zumézil
+T43	45	8	45	8	Arisön	Kriss de Valnor
+T43	45	9	45	9	Arisön
+T43	45	10	45	10	Kriss de Valnor
+T43	46	1	46	1	Boréale	Aniel de Valnor	Thorgal Aegirsson
+T43	46	2	46	2	Boréale	Aniel de Valnor	Thorgal Aegirsson
+T43	46	3	46	3	Boréale
+T43	46	4	46	4	Boréale
+T43	46	5	46	5	Boréale	Thorgal Aegirsson
+T43	46	6	46	6	Alix Bouheddi	Aniel de Valnor	Assistants de Zumézil_T43.29	Boréale	Thorgal Aegirsson	Zumézil
+T43	46	7	46	7	Thorgal Aegirsson	Aniel de Valnor	Boréale
+T43	46	8	46	8	Thorgal Aegirsson
+T43	46	9	46	9	Aniel de Valnor
+T43	47	1	47	1	Thorgal Aegirsson
+T43	47	2	47	2	Garde_T43.47	Thorgal Aegirsson
+T43	47	3	47	3	Garde_T43.47	Thorgal Aegirsson
+T43	47	4	47	4	Thorgal Aegirsson
+T43	47	5	47	5	Pallas	Thorgal Aegirsson
+T43	47	6	47	6	Pallas	Gardes_T43.47	Thorgal Aegirsson
+T43	47	7	47	7	Pallas	Gardes_T43.47	Thorgal Aegirsson
+T43	47	8	47	8	Thorgal Aegirsson
+T43	47	9	47	9	Pallas
+T43	48	1	48	1	Pallas
+T43	48	2	48	2	Pallas
+T43	48	3	48	3	Pallas
+T43	48	4	48	4	Pallas

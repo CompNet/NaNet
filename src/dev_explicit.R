@@ -5,7 +5,7 @@
 # 10/2022
 #
 # setwd("~/vlabatut/Eclipse/workspaces/Networks/NaNet")
-# setwd("D:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
+# setwd("C:/Users/Vincent/Eclipse/workspaces/Networks/NaNet")
 # source("src/dev_explicit.R")
 ###############################################################################
 
@@ -179,3 +179,5 @@ generate.static.plots.comparison(char.det="explicit", panel.params, page.params)
 ###############################################################################
 # stop logging
 end.rec.log()
+
+# 23/11/2025 14:24
