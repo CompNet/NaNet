@@ -34,9 +34,9 @@ T01	33	2	33	2	Thorgal Aegirsson
 T01	33	3	35	4	Thorgal Aegirsson	Loups_1.33	Fural
 T01	36	1	36	2	Thorgal Aegirsson	Fural
 T01	36	3	36	3	Thorgal Aegirsson	Ragnhild
-T01	36	4	39	9	Thorgal Aegirsson	Ragnhild	Ingrid
+T01	36	4	39	9	Thorgal Aegirsson	Ragnhild	Ingrid_T01.36
 T01	40	1	41	5	Thorgal Aegirsson	Skadia
-T01	41	6	42	5	Thorgal Aegirsson	Skadia	Ragnhild	Ingrid
+T01	41	6	42	5	Thorgal Aegirsson	Skadia	Ragnhild	Ingrid_T01.36
 T01	42	6	44	6	Thorgal Aegirsson	Skadia
 T01	45	1	46	8	Thorgal Aegirsson	Skadia
 T01	47	1	47	6	Thorgal Aegirsson	Skadia
@@ -629,7 +629,7 @@ T11	34	5	34	6	Jolan Thorgalsson
 T11	34	7	35	4	Jolan Thorgalsson	Tanatloc / Xargos
 T11	35	5	35	5	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ivaldir
 T11	35	6	35	6	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Akwila
-T11	35	7	35	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ingrid	Skadia	Ragnhild
+T11	35	7	35	7	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Ingrid_T01.36	Skadia	Ragnhild
 T11	35	8	35	8	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Shaniah
 T11	35	9	35	9	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	Gardien géant_1.11	Gardien nain_1.12
 T11	35	10	35	10	Jolan Thorgalsson	Tanatloc / Xargos	Thorgal Aegirsson	3 bienveillants
@@ -1151,8 +1151,8 @@ T19	37	7	37	7	La faucheuse
 T19	37	8	37	8	Thorgal Aegirsson	Kriss de Valnor
 T19	38	1	38	5	Thorgal Aegirsson	Kriss de Valnor	Vlana
 T19	38	6	38	6	Thorgal Aegirsson	Vlana
-T19	38	7	39	2	Thorgal Aegirsson	Vlana	Ingrid	Ragnhild	Skadia
-T19	39	3	40	3	Thorgal Aegirsson	Vlana	Ingrid	Ragnhild	Skadia	Cléo
+T19	38	7	39	2	Thorgal Aegirsson	Vlana	Ingrid_T01.36	Ragnhild	Skadia
+T19	39	3	40	3	Thorgal Aegirsson	Vlana	Ingrid_T01.36	Ragnhild	Skadia	Cléo
 T19	40	4	41	2	Thorgal Aegirsson	Tjall le Fougueux
 T19	41	3	41	5	Thorgal Aegirsson	Tjall le Fougueux	Solveig	Sigwald-le-Brûlé	Véronar	Yarilo	Björn Gandalfson	3 bienveillants	Xargos	Akwila	Wargan	Galathorn	Shenko	Floriane	Hiérulf-le-penseur	Variay	Maloc	Jorund-le-taureau
 T19	42	1	42	7	Thorgal Aegirsson	Tjall le Fougueux
@@ -1710,7 +1710,7 @@ T26	21	4	21	4	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve T
 T26	21	5	21	5	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	3 bienveillants	Jadawin
 T26	21	6	21	6	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Darek le Svéar	Lehla
 T26	21	7	21	7	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Taïmyr
-T26	21	8	21	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Skadia	Ragnhild	Ingrid
+T26	21	8	21	8	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Skadia	Ragnhild	Ingrid_T01.36
 T26	21	9	21	9	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Cléo
 T26	21	10	21	10	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Nidhogg
 T26	21	11	21	11	Thorgal Aegirsson	Aaricia Gandalfsdottir	Jolan Thorgalsson	Louve Thorgalsdottir	Muff
@@ -5692,3 +5692,122 @@ T43	45	8	46	9	Aniel de Valnor	Kriss de Valnor	Alix Bouheddi	Fils Bouheddi bleu	F
 T43	47	1	47	3	Thorgal Aegirsson	Garde_T43.47
 T43	47	4	47	9	Thorgal Aegirsson	Gardes_T43.47	Pallas / Akwila
 T43	48	1	48	4	Pallas / Akwila	Pallas
+S06	3	1	3	1
+S06	4	1	4	2	Villageois_S06.4	Truands_S06.4
+S06	5	1	5	4	Thorgal Aegirsson	Marchand_S06.5	Villageois_S06.5
+S06	5	5	5	6	Thorgal Aegirsson	Marchand_S06.5	Villageois_S06.5	Truands_S06.4
+S06	6	1	6	1	Thorgal Aegirsson	Villageois_S06.6	Truands_S06.4
+S06	6	2	6	4	Thorgal Aegirsson	Villageois_S06.7
+S06	6	5	9	3	Thorgal Aegirsson	Truands_S06.4	Ingrid_S06.6
+S06	9	4	9	8	Thorgal Aegirsson	Ingrid_S06.6
+S06	10	1	10	1	Thorgal Aegirsson
+S06	10	2	10	2	Jolan Thorgalsson	Muff
+S06	11	1	11	2	Thorgal Aegirsson	Jolan Thorgalsson	Muff
+S06	11	3	11	3	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	11	4	11	5	Thorgal Aegirsson	Jolan Thorgalsson	Muff
+S06	11	6	12	4	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	12	5	12	9	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	13	1	13	6	Jolan Thorgalsson	Muff
+S06	13	7	13	10	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S06	13	11	14	9	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	15	1	15	3	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	15	4	16	2	Thorgal Aegirsson	Jolan Thorgalsson
+S06	16	3	16	6	Thorgal Aegirsson	Jolan Thorgalsson	Muff	Aaricia Gandalfsdottir
+S06	17	1	17	4	Thorgal Aegirsson	Muff	Aaricia Gandalfsdottir
+S06	17	5	17	5	Thorgal Aegirsson	Muff	Aaricia Gandalfsdottir
+S06	18	1	20	3	Thorgal Aegirsson
+S06	20	4	21	4	Thorgal Aegirsson	Pirates_S06.20
+S06	21	5	22	4	Pirates_S06.20	Vikings_S06.21
+S06	22	5	23	3	Thorgal Aegirsson
+S06	23	4	23	4	Thorgal Aegirsson
+S06	23	5	23	6	Thorgal Aegirsson	Jolan Thorgalsson
+S06	24	1	30	4	Thorgal Aegirsson
+S06	30	5	33	1	Thorgal Aegirsson	Villageois_S06.30
+S06	33	2	33	7	Thorgal Aegirsson	Villageois_S06.30	Villageoises_S06.33
+S06	34	1	34	8	Huldra	Thorgal Aegirsson	Jolan Thorgalsson
+S06	35	1	35	3	Thorgal Aegirsson
+S06	35	4	35	5	Villageoises_S06.33	Ingrid_S06.6
+S06	36	1	36	2	Thorgal Aegirsson	Enfants_S06.36
+S06	36	3	36	6	Villageoises_S06.33	Ingrid_S06.6
+S06	36	7	37	2	Enfants_S06.36
+S06	37	3	37	7	Villageoises_S06.33	Ingrid_S06.6	Aslaug
+S06	38	1	38	3	Enfants_S06.36	Villageoises_S06.33	Ingrid_S06.6	Aslaug
+S06	38	4	38	4	Thorgal Aegirsson
+S06	38	5	38	5	Thorgal Aegirsson
+S06	38	6	38	8	Thorgal Aegirsson	Villageoises_S06.33
+S06	39	1	39	3	Thorgal Aegirsson
+S06	39	4	40	4	Thorgal Aegirsson	Villageoise_S06.39
+S06	40	5	40	7	Thorgal Aegirsson	Villageoise_S06.40
+S06	41	1	44	7
+S06	45	1	46	1	Thorgal Aegirsson	Ingrid_S06.6
+S06	46	2	46	2	Thorgal Aegirsson	Ingrid_S06.6	Villageoises_S06.33
+S06	46	3	46	4	Thorgal Aegirsson	Ingrid_S06.6
+S06	46	5	47	1
+S06	47	2	47	2	Jolan Thorgalsson
+S06	48	1	49	4	Aaricia Gandalfsdottir	Muff
+S06	49	5	49	7	Aaricia Gandalfsdottir	Muff	Jolan Thorgalsson
+S06	50	1	56	6	Thorgal Aegirsson	Ingrid_S06.6
+S06	50	5	50	5	Thorgal Aegirsson	Leif Haraldson	Gandalf-le-fou	Vikings_7.4
+S06	50	6	50	6	Thorgal Aegirsson	Cléo
+S06	51	2	51	2	Vikings_S06.51
+S06	51	3	51	3	Villageois_S06.51
+S06	51	4	51	4	Clientes_S06.51
+S06	51	5	51	5	Vikings_S06.51
+S06	51	6	51	6
+S06	51	7	51	7	Vikings_S06.51
+S06	52	1	52	4	Aslaug	Huldra
+S06	52	5	52	6	Ingrid_S06.6	Aren
+S06	53	1	53	1	Villageois_S06.51
+S06	53	2	53	2	Ingrid_S06.6	Aren
+S06	53	4	53	4	Thorgal Aegirsson	La faucheuse
+S06	53	6	53	6	Thorgal Aegirsson
+S06	54	1	54	1	Villageoises_S06.33
+S06	54	2	54	2	Pillards_S06.54
+S06	54	3	54	3	Villageoises_S06.33	Pillards_S06.54
+S06	54	4	54	4	Villageoises_S06.33	Pillards_S06.54
+S06	54	5	54	5	Villageoises_S06.33	Villageois_S06.30
+S06	55	1	55	1	Pillards_S06.54
+S06	55	2	55	2	Pillards_S06.54
+S06	55	3	55	3	Thorgal Aegirsson
+S06	55	4	55	4	Villageoises_S06.33	Thorgal Aegirsson
+S06	57	1	57	7	Thorgal Aegirsson	Jolan Thorgalsson
+S06	58	1	59	8	Thorgal Aegirsson	Ingrid_S06.6	Aslaug
+S06	60	1	60	8	Thorgal Aegirsson	Ingrid_S06.6
+S06	61	1	61	7	Aaricia Gandalfsdottir	Jolan Thorgalsson	Muff
+S06	62	1	63	1	Thorgal Aegirsson	Ingrid_S06.6
+S06	63	2	63	4	Thorgal Aegirsson	Ingrid_S06.6	Villageoises_S06.33
+S06	63	5	63	6	Thorgal Aegirsson	Ingrid_S06.6
+S06	63	7	65	5	Aslaug	Huldra
+S06	65	3	65	3	Thorgal Aegirsson	Ingrid_S06.6
+S06	66	1	68	6	Thorgal Aegirsson	Ingrid_S06.6	Aslaug	Villageoises_S06.33
+S06	69	1	70	1	Thorgal Aegirsson	Ingrid_S06.6
+S06	70	2	70	2	Aslaug	Villageoises_S06.33
+S06	70	3	70	4	Thorgal Aegirsson	Ingrid_S06.6
+S06	70	5	71	7	Thorgal Aegirsson	Ingrid_S06.6	Villageoises_S06.33	Aslaug
+S06	71	8	75	4	Thorgal Aegirsson
+S06	76	1	76	2	Villageoises_S06.33	Aslaug
+S06	76	3	76	7	Thorgal Aegirsson
+S06	77	1	77	1	Thorgal Aegirsson
+S06	78	1	79	5	Aaricia Gandalfsdottir
+S06	80	1	80	3	Thorgal Aegirsson
+S06	80	4	80	5	Thorgal Aegirsson	Villageois_S06.30	Aren	Pillards_S06.54
+S06	81	1	92	7	Thorgal Aegirsson	Villageois_S06.30	Huldra	Jolan Thorgalsson	Aren	Pillards_S06.54
+S06	90	4	90	4	Pillards_S06.54
+S06	90	5	90	5	Pirates_S06.20	Vikings_S06.21
+S06	91	1	91	1	Villageoises_S06.33	Pillards_S06.54
+S06	91	2	91	2	Villageoises_S06.33	Villageois_S06.91
+S06	91	3	91	3	Pillards_S06.54
+S06	91	4	91	4	Villageoises_S06.33	Villageois_S06.30	Aren	Ingrid_S06.6
+S06	92	4	92	5	Aaricia Gandalfsdottir
+S06	93	1	93	2	Ingrid_S06.6	Villageoises_S06.33
+S06	93	3	94	5	Ingrid_S06.6	Villageoises_S06.33	Aren	Villageois_S06.30
+S06	94	6	95	2	Jolan Thorgalsson	Aaricia Gandalfsdottir
+S06	95	3	95	7	Ingrid_S06.6	Villageoises_S06.33	Aren	Villageois_S06.30	Pillards_S06.54
+S06	95	8	96	7	Ingrid_S06.6	Villageoises_S06.33	Aren	Villageois_S06.30	Pillards_S06.54	Thorgal Aegirsson	Aslaug
+S06	97	1	97	5	Thorgal Aegirsson	Ingrid_S06.6	Aren
+S06	97	6	97	7	Thorgal Aegirsson
+S06	98	1	99	1	Thorgal Aegirsson
+S06	100	1	100	6	Muff	Jolan Thorgalsson
+S06	101	1	101	5	Aaricia Gandalfsdottir	Thorgal Aegirsson
+S06	102	1	102	5	Aaricia Gandalfsdottir	Thorgal Aegirsson	Jolan Thorgalsson	Muff
+S06	102	6	102	6
